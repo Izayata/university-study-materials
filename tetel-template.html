@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO: give every topic a unique, specific title + description -->
+  <title>N. Tétel — [Tétel címe] | Egyetemi segédanyagok</title>
+  <meta name="description" content="[Egy-két mondatos összefoglaló arról, mit fed le ez a kidolgozott tétel.]">
+  <link rel="canonical" href="https://YOUR-DOMAIN.hu/tetelek/tetelN/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (identical on every page, see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-nav-key="tetelek">
+  <!--
+    FILE-BASED ROUTING NOTE (read me, then delete):
+    Copy this file to /tetelek/tetelN/index.html for a clean URL,
+    or to /tetelN.html for a flat URL — both are plain static files.
+    See /tetelek/tetel1/index.html for a filled-in example.
+  -->
+
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / N. tétel</p>
+
+      <h1>N. Tétel — [Tétel címe]</h1>
+      <p class="item-meta">Frissítve: 2026-09-05</p>
+
+      <p>
+        [Rövid bevezető: melyik témakörhöz tartozik ez a tétel, és nagy
+        vonalakban mit fed le a kidolgozás.]
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel szövege</h2>
+      <blockquote>
+        [Ide illeszd be a hivatalos tételszöveget/kérdést szó szerint.]
+      </blockquote>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Kidolgozás</h2>
+
+      <h3>[Első alkérdés / fogalom]</h3>
+      <p>[Részletes kifejtés.]</p>
+
+      <h3>[Második alkérdés / fogalom]</h3>
+      <p>[Részletes kifejtés, példákkal.]</p>
+
+      <pre><code>// Példakód, ha a tétel programozási fogalmat mutat be
+function pelda() {
+  return "a kidolgozást illusztráló kód";
+}</code></pre>
+
+      <!--
+        Ha képletekre van szükség, a MathJax egy sorral bekapcsolható —
+        lásd a megjegyzést a jegyzet-template.html-ben ugyanerről.
+      -->
+
+      <h2>Kapcsolódó fogalmak</h2>
+      <ul>
+        <li>[Első kapcsolódó fogalom]</li>
+        <li>[Második kapcsolódó fogalom]</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <!-- ==================== SUPPORT / TIP WIDGET ==================== -->
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://www.buymeacoffee.com/YOUR-USERNAME" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"><!-- populated by script.js from h2/h3 --></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

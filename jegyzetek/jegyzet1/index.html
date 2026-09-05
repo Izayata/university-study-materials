@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Java fordítási folyamat, alapok (1. labor gyakorlat) | Egyetemi segédanyagok</title>
+  <meta name="description" content="A Java fordítási folyamata (javac, bytecode, JVM), első Java program írása szövegszerkesztőben és IDE-ben, alapvezérlési szerkezetek és parancssori argumentumok — Magas szintű programozási nyelvek 2.">
+  <link rel="canonical" href="https://YOUR-DOMAIN.hu/jegyzetek/jegyzet1/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-nav-key="jegyzetek">
+  <!--
+    This page demonstrates the CLEAN-URL routing style:
+    physical path /jegyzetek/jegyzet1/index.html => served at /jegyzetek/jegyzet1/
+    A flat alternative (/jegyzet1.html) works identically.
+  -->
+
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / 1. jegyzet</p>
+
+      <h1>Java fordítási folyamat, alapok</h1>
+      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 1. labor gyakorlat · Frissítve: 2026-09-05</p>
+
+      <h2>Tematika</h2>
+      <ul>
+        <li>A Java fordítási folyamata (fordító, bytecode, JVM)</li>
+        <li>Egyszerű Java program írása szövegszerkesztővel — Windows és Linux</li>
+        <li>Fordítás és futtatás parancssorból/terminálból</li>
+        <li>Áttérés IDE használatára</li>
+        <li>Alaputasítások: ciklus (<code>for</code>, <code>while</code>, <code>do-while</code>), elágazás</li>
+        <li>Kiírás képernyőre</li>
+        <li>Parancssori argumentumok</li>
+      </ul>
+
+      <h2>Kontextus</h2>
+      <p>
+        A mai óra célja, hogy <em>lássátok</em>, mi történik egy Java
+        program mögött, mielőtt egy IDE ezt kényelmesen elrejtené
+        előletek. Ezért ma előbb szövegszerkesztőben és parancssorból
+        dolgozunk, és csak ezután térünk át IDE-re — hogy tudjátok, mit
+        automatizál majd helyettetek az IDE.
+      </p>
+      <p>
+        A vezérlési szerkezeteket (ciklus, elágazás), a változókat és a
+        kiírást már ismeritek az előző félévből (Magas szintű
+        programozási nyelvek 1) — ma ezeket Java szintaxisban gyakoroljuk
+        be, nem nulláról tanuljuk.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A Java fordítási folyamata</h2>
+      <p>
+        <strong>Java:</strong> A Java egy statikusan típusos,
+        objektumorientált programozási nyelv. A Java forráskód nem
+        közvetlenül gépi kódra fordul, hanem egy platformfüggetlen köztes
+        formátumra.
+      </p>
+      <p>
+        <strong>Fordító (compiler):</strong> A <code>javac</code> parancs
+        a Java forráskódot (<code>.java</code> fájl) <strong>bytecode</strong>-dá
+        fordítja (<code>.class</code> fájl). Ez a fogalom (fordító vs.
+        interpreter) már ismerős az előző félévből — a <code>javac</code>
+        a fordító szerepét tölti be.
+      </p>
+      <p>
+        <strong>Bytecode:</strong> Platformfüggetlen köztes formátum —
+        nem a konkrét gép gépi kódja, hanem egy szabványosított köztes
+        reprezentáció.
+      </p>
+      <p>
+        <strong>JVM (Java Virtual Machine):</strong> A <code>java</code>
+        parancs elindítja a JVM-et, amely a bytecode-ot futtatja, és
+        közben az adott gépre/operációs rendszerre szabja a végrehajtást.
+        Emiatt mondjuk, hogy a Java "write once, run anywhere" elvű:
+        ugyanaz a lefordított <code>.class</code> fájl bármely gépen
+        lefut, amin van JVM.
+      </p>
+
+      <p>A folyamat összefoglalva:</p>
+      <pre><code>Hello.java  --(javac)--&gt;  Hello.class (bytecode)  --(java, JVM)--&gt;  futó program</code></pre>
+
+      <h2>Egyszerű Java program írása szövegszerkesztővel</h2>
+      <p>
+        Most megírjuk az első programot <strong>szövegszerkesztőben</strong>
+        (nem IDE-ben), hogy lássátok a nyers folyamatot.
+      </p>
+
+      <h3>A program</h3>
+      <pre><code>public class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello, Java!");
+    }
+}</code></pre>
+
+      <p>Amit tisztázni kell:</p>
+      <ul>
+        <li>Minden Java kódnak egy <strong>osztályon</strong> belül kell lennie. Az osztály fogalmát részletesen egy későbbi órán tárgyaljuk — most elég annyit tudni, hogy ez egy kötelező "burok" minden Java kód köré.</li>
+        <li>A <strong>fájl neve kötelezően meg kell egyezzen</strong> a benne lévő <code>public</code> osztály nevével — tehát <code>Hello.java</code>.</li>
+        <li>A <code>main</code> metódus a program <strong>belépési pontja</strong> — innen indul a végrehajtás.</li>
+      </ul>
+
+      <h3>Windows</h3>
+      <ol>
+        <li>Nyissatok egy szövegszerkesztőt (pl. Jegyzettömb/Notepad), és mentsétek el a fenti kódot <code>Hello.java</code> néven.</li>
+        <li>Nyissatok parancssort (cmd/PowerShell) a fájl könyvtárában.</li>
+        <li>Fordítás: <code>javac Hello.java</code> → létrejön a <code>Hello.class</code>.</li>
+        <li>Futtatás: <code>java Hello</code>.</li>
+      </ol>
+
+      <h3>Linux</h3>
+      <ol>
+        <li>Nyissatok egy szövegszerkesztőt (pl. <code>nano</code>, <code>gedit</code>, vagy bármi kényelmes), és mentsétek el <code>Hello.java</code> néven.</li>
+        <li>Nyissatok terminált a fájl könyvtárában.</li>
+        <li>Fordítás: <code>javac Hello.java</code>.</li>
+        <li>Futtatás: <code>java Hello</code>.</li>
+      </ol>
+
+      <p>
+        <strong>Fontos megfigyelés:</strong> a folyamat mindkét operációs
+        rendszeren <strong>ugyanaz</strong> — csak a szövegszerkesztő és a
+        parancssor/terminál neve más. A <code>javac</code>/<code>java</code>
+        parancsok és a fordítási modell platformfüggetlen.
+      </p>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Áttérés IDE használatára</h2>
+      <p>
+        <strong>IDE (Integrated Development Environment):</strong> Egy
+        alkalmazás, amely egy helyen biztosítja a kódszerkesztést, a
+        fordítást, a futtatást és a hibakeresést — a fenti lépéseket
+        (szerkesztés → <code>javac</code> → <code>java</code>) egyetlen
+        gombnyomásra végzi el helyettünk.
+      </p>
+      <p>A gyakorlatokon <strong>IntelliJ IDEA</strong>-t használunk. Lépések:</p>
+      <ol>
+        <li><code>File → New → Project...</code>, majd <code>New Project</code> ablakban: nyelv = <em>Java</em>, build system = <em>IntelliJ</em> (egyelőre nincs szükség Maven/Gradle-re), és válasszunk egy telepített JDK-t.</li>
+        <li>Az új projektben <code>src</code> mappán jobb klikk → <code>New → Java Class</code>, név: <code>Hello</code>.</li>
+        <li>Ugyanaz a <code>Hello</code> osztály megírása, amit az előbb szövegszerkesztőben is megírtunk.</li>
+        <li>Futtatás: a <code>main</code> metódus melletti zöld ▶ ikonra kattintva, vagy jobb klikk a fájlon → <code>Run 'Hello.main()'</code>.</li>
+        <li>Figyeljétek meg: az IntelliJ alsó <em>Run</em> paneljén megjelenik a program kimenete — a háttérben ugyanaz a <code>javac</code>/<code>java</code> folyamat fut, amit az előbb kézzel csináltunk.</li>
+      </ol>
+      <p>
+        Érdemes tudatosítani: az IDE nem varázslat, hanem kényelmi réteg a
+        már megismert fordítási folyamat fölött (automatikus fordítás,
+        hibajelzés, kódkiegészítés, debugger).
+      </p>
+
+      <h2>Alaputasítások: ciklus, elágazás</h2>
+      <p>Ez a rész nem új fogalom, csak a már ismert vezérlési szerkezetek Java szintaxisa.</p>
+
+      <pre><code>int grade = 75;
+
+if (grade &gt;= 60) {
+    System.out.println("Sikeres vizsga");
+} else {
+    System.out.println("Sikertelen vizsga");
+}
+
+for (int i = 0; i &lt; 5; i++) {
+    System.out.println(i);
+}
+
+int i = 0;
+while (i &lt; 5) {
+    System.out.println(i);
+    i++;
+}
+
+int j = 0;
+do {
+    System.out.println(j);
+    j++;
+} while (j &lt; 5);</code></pre>
+
+      <p>A szerkezet ugyanaz, amit az előző félévben megszoktatok — a Java C-szerű szintaxist használ ehhez.</p>
+
+      <p>
+        <strong>do-while:</strong> A <code>while</code>-tól eltérően a
+        <code>do-while</code> ciklus <strong>magját előbb végrehajtja, és
+        csak utána vizsgálja a feltételt</strong> — ezért a törzse mindig
+        lefut legalább egyszer, még akkor is, ha a feltétel már az elején
+        hamis. Példa, ahol ez látszik:
+      </p>
+
+      <pre><code>int k = 10;
+do {
+    System.out.println("Ez lefut, pedig k már nem kisebb 5-nél: " + k);
+} while (k &lt; 5);</code></pre>
+
+      <h2>Kiírás képernyőre</h2>
+      <pre><code>System.out.println("Ez egy sor, sortöréssel a végén.");
+System.out.print("Ez nem tör sort a végén.");
+System.out.printf("Formázott kiírás: %d db, %.2f átlag%n", 5, 4.25);</code></pre>
+      <ul>
+        <li><code>println</code> — sortöréssel zár</li>
+        <li><code>print</code> — nem tör sort</li>
+        <li><code>printf</code> — formázott kiírás (később, más nyelvekből már ismert <code>%d</code>, <code>%s</code>, <code>%f</code> mintázatokkal)</li>
+      </ul>
+
+      <h2>Parancssori argumentumok</h2>
+      <p>
+        A <code>main</code> metódus <code>String[] args</code> paramétere
+        a parancssorból/IDE-ből átadott argumentumokat tartalmazza — ezt a
+        fogalmat már ismeritek az előző félévből.
+      </p>
+
+      <pre><code>public class Greet {
+    public static void main(String[] args) {
+        if (args.length &gt; 0) {
+            System.out.println("Szia, " + args[0] + "!");
+        } else {
+            System.out.println("Szia, ismeretlen!");
+        }
+    }
+}</code></pre>
+
+      <ul>
+        <li>Parancssorból: <code>java Greet Anna</code></li>
+        <li>
+          <strong>IntelliJ IDEA-ban:</strong>
+          <ol>
+            <li>Futtassátok egyszer a programot (▶ ikon), hogy létrejöjjön hozzá egy <em>Run Configuration</em>.</li>
+            <li><code>Run → Edit Configurations...</code> (vagy a futtatás gomb melletti legördülő menü → <code>Edit Configurations...</code>).</li>
+            <li>Válasszátok ki a <code>Greet</code> konfigurációt a bal oldali listából.</li>
+            <li>A <code>Program arguments</code> mezőbe írjátok be: <code>Anna</code>.</li>
+            <li><code>OK</code>, majd futtassátok újra — a program most már megkapja az argumentumot.</li>
+          </ol>
+        </li>
+      </ul>
+
+      <h2>Gyakorlat</h2>
+      <ol>
+        <li>Írjatok egy <code>Greet.java</code> programot <strong>szövegszerkesztőben</strong>, fordítsátok és futtassátok parancssorból/terminálból, parancssori argumentummal.</li>
+        <li>Ugyanezt a programot hozzátok létre <strong>IDE-ben</strong> is, és futtassátok onnan is (argumentummal együtt).</li>
+        <li>Bővítsétek egy ciklussal: írja ki a nevet 3-szor, egy <code>for</code> ciklussal.</li>
+        <li>Bővítsétek egy elágazással: ha nincs megadva argumentum, írjon ki egy alapértelmezett üzenetet.</li>
+      </ol>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://www.buymeacoffee.com/YOUR-USERNAME" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

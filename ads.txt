@@ -1,0 +1,4 @@
+# Replace pub-XXXXXXXXXXXXXXXX with your actual AdSense publisher ID
+# (find it in AdSense under Account > Account information).
+# This file MUST live at the domain root: https://YOUR-DOMAIN.hu/ads.txt
+google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0

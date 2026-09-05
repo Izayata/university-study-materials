@@ -1,0 +1,21 @@
+<!--
+  Central navigation fragment.
+  Edit ONLY this file to change the menu on every page — script.js
+  fetch()-loads it into the #site-header container on each page.
+  Add data-nav-key attributes matching each page's <body data-nav-key="...">
+  so script.js can highlight the active link.
+-->
+<header class="site-header">
+  <a class="site-brand" href="/">Egyetemi segédanyagok</a>
+
+  <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+    ☰ Menü
+  </button>
+
+  <nav class="site-nav" id="site-nav">
+    <a href="/" data-nav-key="home">Kezdőlap</a>
+    <a href="/jegyzetek/" data-nav-key="jegyzetek">Órai jegyzetek</a>
+    <a href="/gyakorlas/" data-nav-key="gyakorlas">Gyakorló feladatok</a>
+    <a href="/tetelek/" data-nav-key="tetelek">Kidolgozott tételek</a>
+  </nav>
+</header>

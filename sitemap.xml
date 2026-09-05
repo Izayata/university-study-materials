@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Add one <url> entry per published page. Keep <lastmod> updated when you
+  edit a page so Google recrawls it sooner.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://YOUR-DOMAIN.hu/</loc>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.hu/jegyzetek/</loc>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.hu/jegyzetek/jegyzet1/</loc>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.hu/gyakorlas/</loc>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.hu/gyakorlas/gyakorlat1/</loc>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.hu/tetelek/</loc>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.hu/tetelek/tetel1/</loc>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.hu/about.html</loc>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.hu/privacy-policy.html</loc>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+</urlset>

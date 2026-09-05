@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO: give every note a unique, specific title + description -->
+  <title>N. Jegyzet — [Jegyzet címe] | Egyetemi segédanyagok</title>
+  <meta name="description" content="[Egy-két mondatos összefoglaló arról, mit fed le ez az órai jegyzet.]">
+  <link rel="canonical" href="https://YOUR-DOMAIN.hu/jegyzetek/jegyzetN/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (identical on every page, see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-nav-key="jegyzetek">
+  <!--
+    FILE-BASED ROUTING NOTE (read me, then delete):
+    Copy this file to /jegyzetek/jegyzetN/index.html for a clean URL
+    (https://yoursite.hu/jegyzetek/jegyzet3/), or to /jegyzetN.html for
+    a flat URL — both are plain static files, no server-side routing.
+    See /jegyzetek/jegyzet1/index.html for a filled-in example.
+  -->
+
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / N. jegyzet</p>
+
+      <h1>N. Jegyzet — [Jegyzet címe]</h1>
+      <p class="item-meta">Frissítve: 2026-09-05</p>
+
+      <p>
+        [Bevezető bekezdés: melyik óra anyagát foglalja össze ez a jegyzet,
+        és mit kell már tudnia a hallgatónak előzetesen. Illeszd be a
+        meglévő PDF jegyzeted szövegét egyszerű &lt;p&gt; elemként.]
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Tanulási célok</h2>
+      <ul>
+        <li>[Első cél]</li>
+        <li>[Második cél]</li>
+      </ul>
+
+      <h2>1. rész — [Első téma címe]</h2>
+      <p>[Magyarázat, lépések, egyszerű bekezdésekként/listaként beillesztve.]</p>
+
+      <pre><code>// Példa kódblokk — szemantikus &lt;pre&gt;&lt;code&gt;
+function pelda() {
+  return "az AdSense robot számára teljesen indexelhető";
+}</code></pre>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>2. rész — [Második téma címe]</h2>
+      <p>[További magyarázat.]</p>
+
+      <h3>Opcionális: [Al-téma vagy képlet]</h3>
+      <p>
+        [Ha matematikai jelölésre van szükséged, egyelőre illeszd be sima
+        szövegként/Unicode karakterekként, vagy kapcsold be a MathJax-ot —
+        lásd a megjegyzést a gyakorlat-template.html-ben.]
+      </p>
+
+      <h2>Kapcsolódó feladat</h2>
+      <p>
+        [Linkeld ide a témához kapcsolódó gyakorló feladatot, pl.:
+        <a href="/gyakorlas/gyakorlatN/">N. Gyakorlat</a>.]
+      </p>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <!-- ==================== SUPPORT / TIP WIDGET ==================== -->
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://www.buymeacoffee.com/YOUR-USERNAME" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"><!-- populated by script.js from h2/h3 --></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
