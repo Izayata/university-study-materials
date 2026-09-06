@@ -5,39 +5,39 @@
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://YOUR-DOMAIN.hu/</loc>
+    <loc>https://fulesjegyzetek.hu/</loc>
     <lastmod>2026-09-05</lastmod>
   </url>
   <url>
-    <loc>https://YOUR-DOMAIN.hu/jegyzetek/</loc>
+    <loc>https://fulesjegyzetek.hu/jegyzetek/</loc>
     <lastmod>2026-09-05</lastmod>
   </url>
   <url>
-    <loc>https://YOUR-DOMAIN.hu/jegyzetek/jegyzet1/</loc>
+    <loc>https://fulesjegyzetek.hu/jegyzetek/jegyzet1/</loc>
     <lastmod>2026-09-05</lastmod>
   </url>
   <url>
-    <loc>https://YOUR-DOMAIN.hu/gyakorlas/</loc>
+    <loc>https://fulesjegyzetek.hu/gyakorlas/</loc>
     <lastmod>2026-09-05</lastmod>
   </url>
   <url>
-    <loc>https://YOUR-DOMAIN.hu/gyakorlas/gyakorlat1/</loc>
+    <loc>https://fulesjegyzetek.hu/gyakorlas/gyakorlat1/</loc>
     <lastmod>2026-09-05</lastmod>
   </url>
   <url>
-    <loc>https://YOUR-DOMAIN.hu/tetelek/</loc>
+    <loc>https://fulesjegyzetek.hu/tetelek/</loc>
     <lastmod>2026-09-05</lastmod>
   </url>
   <url>
-    <loc>https://YOUR-DOMAIN.hu/tetelek/tetel1/</loc>
+    <loc>https://fulesjegyzetek.hu/tetelek/tetel1/</loc>
     <lastmod>2026-09-05</lastmod>
   </url>
   <url>
-    <loc>https://YOUR-DOMAIN.hu/about.html</loc>
+    <loc>https://fulesjegyzetek.hu/about.html</loc>
     <lastmod>2026-09-05</lastmod>
   </url>
   <url>
-    <loc>https://YOUR-DOMAIN.hu/privacy-policy.html</loc>
+    <loc>https://fulesjegyzetek.hu/privacy-policy.html</loc>
     <lastmod>2026-09-05</lastmod>
   </url>
 </urlset>
