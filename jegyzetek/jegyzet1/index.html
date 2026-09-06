@@ -52,7 +52,7 @@
         A vezérlési szerkezeteket (ciklus, elágazás), a változókat és a
         kiírást már ismeritek az előző félévből (Magas szintű
         programozási nyelvek 1) — ma ezeket Java szintaxisban gyakoroljuk
-        be, nem nulláról tanuljuk.
+        be.
       </p>
 
       <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
@@ -80,12 +80,17 @@
         reprezentáció.
       </p>
       <p>
-        <strong>JVM (Java Virtual Machine):</strong> A <code>java</code>
+        <strong>JVM (Java Virtual Machine):</strong> A JVM (Java Virtuális Gép) egy olyan
+        <strong>szoftveres virtuális gép</strong>, amely végrehajtja a fordított Java
+        bájt-kódot, és futtatókörnyezetet biztosít a Java-alkalmazások
+        számára.
+        <br/>
+        A <code>java</code>
         parancs elindítja a JVM-et, amely a bytecode-ot futtatja, és
         közben az adott gépre/operációs rendszerre szabja a végrehajtást.
         Emiatt mondjuk, hogy a Java "write once, run anywhere" elvű:
         ugyanaz a lefordított <code>.class</code> fájl bármely gépen
-        lefut, amin van JVM.
+        lefut, amin van JVM. 
       </p>
 
       <p>A folyamat összefoglalva:</p>
@@ -94,7 +99,7 @@
       <h2>Egyszerű Java program írása szövegszerkesztővel</h2>
       <p>
         Most megírjuk az első programot <strong>szövegszerkesztőben</strong>
-        (nem IDE-ben), hogy lássátok a nyers folyamatot.
+        , hogy lássátok a nyers folyamatot.
       </p>
 
       <h3>A program</h3>
@@ -156,7 +161,7 @@
         <li>Figyeljétek meg: az IntelliJ alsó <em>Run</em> paneljén megjelenik a program kimenete — a háttérben ugyanaz a <code>javac</code>/<code>java</code> folyamat fut, amit az előbb kézzel csináltunk.</li>
       </ol>
       <p>
-        Érdemes tudatosítani: az IDE nem varázslat, hanem kényelmi réteg a
+        Érdemes tudatosítani: az IDE egy kényelmi réteg a
         már megismert fordítási folyamat fölött (automatikus fordítás,
         hibajelzés, kódkiegészítés, debugger).
       </p>
