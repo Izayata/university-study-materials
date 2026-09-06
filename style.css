@@ -159,6 +159,7 @@ img, video { max-width: 100%; }
 main.content {
   max-width: var(--measure);
   width: 100%;
+  min-width: 0;
   margin: 0 auto;
 }
 
