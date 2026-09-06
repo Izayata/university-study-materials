@@ -5,12 +5,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this is
 
 A static HTML/CSS/vanilla-JS site (no build tool, no framework, no
-`package.json`) hosting a Hungarian university instructor's class notes,
-practice exercises, and worked exam topics. Deployed via GitHub Pages
-(`Deploy from a branch`, `main` / root), monetized with Google AdSense +
-a Buy Me a Coffee tip widget. Site content is Hungarian (`lang="hu"`);
-file/folder names and code comments are intentionally English — this was
-an explicit decision, don't translate identifiers.
+`package.json`) hosting the site owner's own class notes, practice
+exercises, and worked exam topics (Hungarian CS coursework, e.g.
+"Magas szintű programozási nyelvek 2"-style content) — independently
+produced, not affiliated with or endorsed by any specific university
+(see `about.html`). Deployed via GitHub Pages (`Deploy from a branch`,
+`main` / root) at the custom domain `fulesjegyzetek.hu`, monetized with
+Google AdSense + a Buy Me a Coffee tip widget. Site content is Hungarian
+(`lang="hu"`); file/folder names and code comments are intentionally
+English — this was an explicit decision, don't translate identifiers.
 
 ## Development commands
 
@@ -32,15 +35,17 @@ load the nav.
 
 Every internal link and asset reference (`/style.css`, `/script.js`,
 `/nav.html`, `/jegyzetek/`, etc.) is root-relative by design, because the
-intended production home is a custom domain root (a `.hu` domain, not
-yet configured — see `README.md` step 5). This breaks navigation/styling
-when tested on a GitHub Pages *project* subpath
-(`https://izayata.github.io/university-study-materials/`), since the
-browser resolves `/nav.html` against the domain root, not the repo
-subpath — confirmed 404 in testing. This is expected and known; it
-self-resolves once a `CNAME` file + DNS are added. Don't "fix" it by
-converting to relative paths unless explicitly asked — that's a
-deliberate, previously-discussed tradeoff, not a bug.
+production home is the custom domain root `fulesjegyzetek.hu` (`CNAME`
+file at the repo root + Cloudflare DNS + GitHub Pages custom-domain
+setting, configured 2026-09-06 — see the Deployment state note below).
+This still breaks navigation/styling when tested on the GitHub Pages
+*project* subpath (`https://izayata.github.io/university-study-materials/`),
+since the browser resolves `/nav.html` against the domain root, not the
+repo subpath — confirmed 404 in testing there. On the real custom
+domain this isn't an issue, since the domain root and the site root are
+the same thing. Don't "fix" it by converting to relative paths unless
+explicitly asked — that's a deliberate, previously-discussed tradeoff,
+not a bug.
 
 ### Shared nav/footer, no framework
 
@@ -117,13 +122,31 @@ config variable for it.
 
 - `origin` → `github.com/Izayata/university-study-materials.git`, `main`
   branch, GitHub Pages set to "Deploy from a branch" / root.
-- Currently live at `https://izayata.github.io/university-study-materials/`
-  with no custom domain configured yet (see the root-relative-paths note
-  above for why that URL renders unstyled/without nav).
+- Live at the custom domain `https://fulesjegyzetek.hu` (configured
+  2026-09-06, HTTPS enforced). DNS is managed on Cloudflare (nameservers
+  moved off Rackhost/dns24.hu): 4 `A` records on the apex pointing at
+  GitHub Pages' IPs (`185.199.108.153`–`185.199.111.153`) plus a `www`
+  `CNAME` to `izayata.github.io`, all kept **"DNS only" (unproxied)** —
+  proxying (orange-cloud) would route traffic through Cloudflare's edge
+  and conflict with GitHub Pages' own SSL cert unless the SSL/TLS mode
+  is separately reconfigured, so don't turn proxying on without also
+  addressing that. The old GitHub Pages subpath URL
+  (`https://izayata.github.io/university-study-materials/`) still
+  exists but is superseded — see the root-relative-paths note above for
+  why it renders unstyled/without nav.
 - `ads.txt`, `robots.txt`, `sitemap.xml`, and every page's
-  `<link rel="canonical">` still contain the `YOUR-DOMAIN.hu` placeholder,
-  and `ads.txt` still has the `pub-XXXXXXXXXXXXXXXX` placeholder — both
-  need real values before AdSense application. See `README.md`
-  "Before you deploy" for the full pre-launch checklist, including the
-  GDPR/Funding Choices consent-banner requirement for EEA/UK/Swiss
-  traffic.
+  `<link rel="canonical">` now point at `fulesjegyzetek.hu` (the
+  `YOUR-DOMAIN.hu` placeholder is gone). `ads.txt` still has the
+  `pub-XXXXXXXXXXXXXXXX` placeholder — needs the real AdSense publisher
+  ID once an AdSense account exists.
+- `about.html` and `privacy-policy.html` now have real content (bio,
+  course scope/non-affiliation note, contact email, GDPR data-transfer
+  and user-rights sections with a NAIH complaint link) instead of
+  placeholder text. The privacy policy's consent-banner paragraph
+  describes the EEA/UK/Swiss Funding Choices banner as already active —
+  it isn't wired up yet, so that claim will be ahead of reality until
+  it's implemented. See `README.md` "Before you deploy" for what's
+  still open: AdSense publisher ID, Buy Me a Coffee username (currently
+  `YOUR-USERNAME` in `script.js`'s `renderFooter()`), the Funding
+  Choices banner itself, and applying for AdSense only once content
+  exists across all three sections.
