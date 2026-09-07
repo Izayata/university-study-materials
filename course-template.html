@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO: give every course landing page a specific title + description -->
+  <title>[Kurzus neve] | [Órai jegyzetek / Gyakorló feladatok / Kidolgozott tételek] | Füles Jegyzetek</title>
+  <meta name="description" content="[Egy-két mondatos összefoglaló arról, mit tartalmaz ez a kurzus ebben a szekcióban.]">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/[jegyzetek|gyakorlas|tetelek]/[kurzus-slug]/">
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<!--
+  Use the matching data-nav-key for the section this course page lives
+  under: "jegyzetek", "gyakorlas", or "tetelek".
+-->
+<body data-nav-key="[jegyzetek|gyakorlas|tetelek]">
+  <!--
+    FILE-BASED ROUTING NOTE (read me, then delete):
+    Copy this file to /<szekció>/<kurzus-slug>/index.html — e.g.
+    /jegyzetek/prog-nyelvek-2/index.html — one course-landing page per
+    course, per section. See /jegyzetek/prog-nyelvek-2/index.html for a
+    filled-in example. The slug should be a short, descriptive,
+    URL-safe name for the course (lowercase, hyphens) — it's reused
+    as-is across all three sections for the same course, so pick one
+    slug per course and keep it consistent.
+
+    This is a course-landing page, not an item page: it lists the
+    items (jegyzetek/gyakorlatok/tételek) that belong to one course,
+    the same way the section landing pages (jegyzetek/index.html etc.)
+    list courses. Its own card-grid links to item pages copied from
+    jegyzet-template.html / gyakorlat-template.html / tetel-template.html,
+    placed one level deeper: /<szekció>/<kurzus-slug>/<itemN>/.
+  -->
+
+  <div id="site-header"></div>
+
+  <div class="page-shell">
+    <main class="content">
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/[jegyzetek|gyakorlas|tetelek]/">[Szekció neve]</a> / [Kurzus neve]</p>
+
+      <h1>[Kurzus neve]</h1>
+      <p class="item-meta">[Kurzuskód, pl. INBPM0315-21]</p>
+      <p>
+        [Rövid bevezető: mit tartalmaz ez a kurzus ebben a szekcióban.]
+      </p>
+
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="card-grid">
+        <a class="item-card" href="/[jegyzetek|gyakorlas|tetelek]/[kurzus-slug]/[item1]/">
+          <h3>[Item címe]</h3>
+          <p>[Rövid összefoglaló.]</p>
+        </a>
+        <!--
+          Add one <a class="item-card"> per item in this course as you
+          publish it.
+        -->
+      </div>
+    </main>
+  </div>
+
+  <div id="site-footer"></div>
+  <script src="/script.js" defer></script>
+</body>
+</html>
