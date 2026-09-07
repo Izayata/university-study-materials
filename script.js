@@ -62,7 +62,7 @@
       '<a href="/">Kezdőlap</a>' +
       '<a href="/about.html">Rólam</a>' +
       '<a href="/privacy-policy.html">Adatvédelem</a>' +
-      '<a href="https://www.buymeacoffee.com/YOUR-USERNAME" target="_blank" rel="noopener">Támogasd a kurzust ☕</a>' +
+      '<a href="https://ko-fi.com/izayata" target="_blank" rel="noopener">Támogasd a kurzust ☕</a>' +
       "</nav>" +
       "<p>&copy; " + year + " Füles Jegyzetek. Minden anyag a fejlesztők saját munkája.</p>" +
       "</footer>";

@@ -11,7 +11,7 @@ exercises, and worked exam topics (Hungarian CS coursework, e.g.
 produced, not affiliated with or endorsed by any specific university
 (see `about.html`). Deployed via GitHub Pages (`Deploy from a branch`,
 `main` / root) at the custom domain `fulesjegyzetek.hu`, monetized with
-Google AdSense + a Buy Me a Coffee tip widget. Site content is Hungarian
+Google AdSense + a Ko-fi tip widget. Site content is Hungarian
 (`lang="hu"`); file/folder names and code comments are intentionally
 English — this was an explicit decision, don't translate identifiers.
 
@@ -95,7 +95,7 @@ item".
 
 ### Ad slots and tip widget are static, not injected
 
-`.ad-slot` blocks and the `.support-callout` (Buy Me a Coffee) are plain
+`.ad-slot` blocks and the `.support-callout` (Ko-fi) are plain
 HTML in every content page, not JS-generated — this is deliberate so the
 AdSense crawler sees them on first paint. Their positions (post-intro,
 mid-content, end-of-content-before-tip-widget) reflect a specific
@@ -145,11 +145,14 @@ for it.
   placeholder text. The privacy policy's consent-banner paragraph
   describes the EEA/UK/Swiss Funding Choices banner as already active —
   it isn't wired up yet, so that claim will be ahead of reality until
-  it's implemented. See `README.md` "Before you deploy" for what's
-  still open: AdSense publisher ID, Buy Me a Coffee username (currently
-  `YOUR-USERNAME` in `script.js`'s `renderFooter()`), the Funding
-  Choices banner itself, and applying for AdSense only once content
-  exists across all three sections.
+  it's implemented. The tip widget was switched from the Buy Me a
+  Coffee placeholder to Ko-fi (`https://ko-fi.com/izayata`, updated in
+  `script.js`'s `renderFooter()` and every content template/item page)
+  — chosen because Ko-fi charges 0% on one-time tips (vs. Buy Me a
+  Coffee's flat 5%) and both Stripe and PayPal payouts are supported in
+  Hungary. See `README.md` "Before you deploy" for what's still open:
+  AdSense publisher ID, the Funding Choices banner itself, and applying
+  for AdSense only once content exists across all three sections.
 
 ## Task execution workflow
 
