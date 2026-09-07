@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>1. Gyakorlat — Egyszerű szkript írása | Füles Jegyzetek</title>
-  <meta name="description" content="Írj egy egyszerű szkriptet a telepített fejlesztői környezetben — az 1. jegyzetre épülő gyakorló feladat.">
+  <title>1. hét — Gyakorló feladatok | Füles Jegyzetek</title>
+  <meta name="description" content="Négy gyakorló feladat (ismétlés ciklussal, do-while, FizzBuzz, háromszög minta) az 1. órán tanult Java alapokhoz — önálló, otthoni gyakorláshoz.">
   <link rel="canonical" href="https://fulesjegyzetek.hu/gyakorlas/gyakorlat1/">
 
   <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
@@ -20,52 +20,86 @@
 
       <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/gyakorlas/">Gyakorló feladatok</a> / 1. gyakorlat</p>
 
-      <h1>1. Gyakorlat — Egyszerű szkript írása</h1>
-      <p class="item-meta">Becsült idő: 30 perc · Nehézség: Könnyű · Frissítve: 2026-09-05</p>
+      <h1>1. hét — Gyakorló feladatok</h1>
+      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · Frissítve: 2026-09-07</p>
 
       <p>
-        Ez a gyakorlat az
-        <a href="/jegyzetek/jegyzet1/">1. jegyzetben</a>
-        telepített környezetre épül. Ha még nem futtattad le a "hello
-        world" példát, előbb tedd meg azt.
+        Ezek a feladatok az <a href="/jegyzetek/jegyzet1/">1. órán</a> tanultak
+        (fordítás, IDE, alapvezérlés, kiírás, parancssori argumentumok)
+        önálló, otthoni elmélyítésére szolgálnak. Mindegyik megoldható
+        kizárólag az eddig tanult eszközökkel — nincs szükség bemenetre a
+        billentyűzetről (az a következő órán jön).
       </p>
 
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
       <div class="ad-slot ad-slot--banner">
         <span class="ad-slot__label">Hirdetés</span>
       </div>
 
-      <h2>Feladat leírása</h2>
+      <h2>1. feladat (Könnyű) — Ismétlő köszöntő</h2>
       <p>
-        Írj egy szkriptet, amely bekér két egész számot, és kiírja az
-        összegüket egy jól olvasható üzenet részeként.
+        Írjatok egy <code>RepeatGreeting</code> nevű programot, amely
+        <strong>egy</strong> parancssori argumentumként megkapja, hányszor
+        ismételje meg a <code>"Sziasztok!"</code> szöveg kiírását, és ezt
+        egy <code>while</code> ciklussal valósítsa meg.
+      </p>
+      <p>
+        Példa: <code>java RepeatGreeting 3</code> → háromszor írja ki,
+        hogy <code>Sziasztok!</code>.
       </p>
 
-      <pre><code>function osszead(a, b) {
-  return a + b;
-}
+      <h2>2. feladat (Közepes) — Legalább egyszer</h2>
+      <p>
+        Írjatok egy <code>SafeRepeat</code> nevű programot, amely
+        <strong>két</strong> parancssori argumentumot vár: egy szót, és
+        egy számot (hányszor írja ki). Használjatok <code>do-while</code>
+        ciklust, és ügyeljetek arra, hogy <strong>akkor is írja ki
+        legalább egyszer</strong> a szót, ha a megadott szám 0 vagy
+        negatív.
+      </p>
+      <p>
+        Gondolkodjatok el rajta: miért pont a <code>do-while</code> a jó
+        választás ehhez a feladathoz, és nem egy sima <code>while</code>?
+      </p>
 
-console.log("Az összeg: " + osszead(3, 5));</code></pre>
-
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
       <div class="ad-slot ad-slot--rectangle">
         <span class="ad-slot__label">Hirdetés</span>
       </div>
 
-      <h2>Elvárt kimenet</h2>
-      <p>A fenti példa bemenetre a helyes kimenet:</p>
-      <pre><code>Az összeg: 8</code></pre>
-
-      <h2>Tippek</h2>
+      <h2>3. feladat (Közepes/Haladó) — FizzBuzz</h2>
+      <p>
+        Írjatok egy <code>FizzBuzz</code> nevű programot, amely egyetlen
+        parancssori argumentumként megkap egy <code>N</code> egész számot,
+        majd 1-től <code>N</code>-ig kiírja a következő szabály szerint az
+        egyes számokat:
+      </p>
       <ul>
-        <li>Ha hibaüzenetet kapsz, ellenőrizd az 1. jegyzetben leírt telepítési lépéseket.</li>
-        <li>Használd a <code>tool --version</code> parancsot annak ellenőrzésére, hogy a környezet valóban működik.</li>
+        <li>ha a szám osztható 3-mal <strong>és</strong> 5-tel is, írja ki: <code>FizzBuzz</code></li>
+        <li>ha csak 3-mal osztható, írja ki: <code>Fizz</code></li>
+        <li>ha csak 5-tel osztható, írja ki: <code>Buzz</code></li>
+        <li>egyébként írja ki magát a számot</li>
       </ul>
 
-      <h2>Beadás módja</h2>
+      <h2>4. feladat (Haladó) — Háromszög minta</h2>
       <p>
-        Küldj be egy képernyőképet a terminálodról, amely mutatja a
-        szkript sikeres futását.
+        Írjatok egy <code>Triangle</code> nevű programot, amely egyetlen
+        parancssori argumentumként megkap egy <code>N</code> számot, és
+        kiír egy <code>N</code> sorból álló, csillagokból (<code>*</code>)
+        épített háromszöget, ahol az első sorban 1, a másodikban 2, ...,
+        az <code>N</code>. sorban <code>N</code> csillag szerepel.
+      </p>
+      <p>Példa <code>N=4</code> esetén:</p>
+      <pre><code>*
+**
+***
+****</code></pre>
+      <p>
+        Segítség: két egymásba ágyazott ciklusra lesz szükségetek — a
+        külső a sorokon, a belső az adott sor csillagjain megy végig.
       </p>
 
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
       <div class="ad-slot ad-slot--multiplex">
         <span class="ad-slot__label">Hirdetés</span>
       </div>
