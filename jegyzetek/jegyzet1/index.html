@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Java fordítási folyamat, alapok (1. labor gyakorlat) | Füles Jegyzetek</title>
-  <meta name="description" content="A Java fordítási folyamata (javac, bytecode, JVM), első Java program írása szövegszerkesztőben és IDE-ben, alapvezérlési szerkezetek és parancssori argumentumok — Magas szintű programozási nyelvek 2.">
+  <meta name="description" content="A Java fordítási folyamata (javac, bytecode, JVM), első Java program írása szövegszerkesztőben és IDE-ben, alapvezérlési szerkezetek, parancssori argumentumok és típuskonverzió — Magas szintű programozási nyelvek 2.">
   <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/jegyzet1/">
 
   <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
@@ -27,7 +27,7 @@
       <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / 1. jegyzet</p>
 
       <h1>Java fordítási folyamat, alapok</h1>
-      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 1. labor gyakorlat · Frissítve: 2026-09-05</p>
+      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 1. labor gyakorlat · Frissítve: 2026-09-07</p>
 
       <h2>Tematika</h2>
       <ul>
@@ -38,6 +38,7 @@
         <li>Alaputasítások: ciklus (<code>for</code>, <code>while</code>, <code>do-while</code>), elágazás</li>
         <li>Kiírás képernyőre</li>
         <li>Parancssori argumentumok</li>
+        <li>Típuskonverzió</li>
       </ul>
 
       <h2>Kontextus</h2>
@@ -52,7 +53,7 @@
         A vezérlési szerkezeteket (ciklus, elágazás), a változókat és a
         kiírást már ismeritek az előző félévből (Magas szintű
         programozási nyelvek 1) — ma ezeket Java szintaxisban gyakoroljuk
-        be.
+        be, nem nulláról tanuljuk.
       </p>
 
       <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
@@ -99,7 +100,7 @@
       <h2>Egyszerű Java program írása szövegszerkesztővel</h2>
       <p>
         Most megírjuk az első programot <strong>szövegszerkesztőben</strong>
-        , hogy lássátok a nyers folyamatot.
+        (nem IDE-ben), hogy lássátok a nyers folyamatot.
       </p>
 
       <h3>A program</h3>
@@ -185,13 +186,7 @@ int i = 0;
 while (i &lt; 5) {
     System.out.println(i);
     i++;
-}
-
-int j = 0;
-do {
-    System.out.println(j);
-    j++;
-} while (j &lt; 5);</code></pre>
+}</code></pre>
 
       <p>A szerkezet ugyanaz, amit az előző félévben megszoktatok — a Java C-szerű szintaxist használ ehhez.</p>
 
@@ -211,7 +206,7 @@ do {
       <h2>Kiírás képernyőre</h2>
       <pre><code>System.out.println("Ez egy sor, sortöréssel a végén.");
 System.out.print("Ez nem tör sort a végén.");
-System.out.printf("Formázott kiírás: %d db, %.2f átlag%n", 5, 4.25);</code></pre>
+System.out.printf("Formázott kiírás: %d db, %.2f átlag\n", 5, 4.25);</code></pre>
       <ul>
         <li><code>println</code> — sortöréssel zár</li>
         <li><code>print</code> — nem tör sort</li>
@@ -249,6 +244,29 @@ System.out.printf("Formázott kiírás: %d db, %.2f átlag%n", 5, 4.25);</code><
         </li>
       </ul>
 
+      <h2>Típuskonverzió</h2>
+      <p>
+        A <code>args</code> mindig <code>String[]</code> — tehát ha egy
+        parancssori argumentumot <strong>számként</strong> szeretnénk
+        használni (pl. hányszor ismételjünk meg valamit), előbb át kell
+        alakítanunk.
+      </p>
+      <p>
+        <strong>String → szám:</strong> <code>Integer.parseInt(text)</code>
+        szöveget egész számmá, <code>Double.parseDouble(text)</code>
+        szöveget lebegőpontos számmá alakít.
+      </p>
+      <pre><code>int count = Integer.parseInt(args[0]);   // "3" -> 3</code></pre>
+      <p>
+        Emellett a számok között is van átalakítás: egy <code>int</code>
+        automatikusan "kibővül" <code>double</code>-lé
+        (<code>double d = count;</code>), de fordítva, egy
+        <code>double</code>-t <code>int</code>-té csak explicit
+        <strong>castolással</strong> lehet, ami a tizedesjegyeket
+        egyszerűen levágja (<code>int truncated = (int) 4.9;</code> →
+        <code>4</code>).
+      </p>
+
       <h2>Gyakorlat</h2>
       <ol>
         <li>Írjatok egy <code>Greet.java</code> programot <strong>szövegszerkesztőben</strong>, fordítsátok és futtassátok parancssorból/terminálból, parancssori argumentummal.</li>
@@ -256,6 +274,13 @@ System.out.printf("Formázott kiírás: %d db, %.2f átlag%n", 5, 4.25);</code><
         <li>Bővítsétek egy ciklussal: írja ki a nevet 3-szor, egy <code>for</code> ciklussal.</li>
         <li>Bővítsétek egy elágazással: ha nincs megadva argumentum, írjon ki egy alapértelmezett üzenetet.</li>
       </ol>
+
+      <h2>Puffer (~30 perc)</h2>
+      <p>
+        Kérdések, esetleges környezet-/telepítési problémák (JDK, PATH,
+        IDE-projekt létrehozása) megoldása, illetve további gyakorlási
+        idő azoknak, akik lassabban haladnak.
+      </p>
 
       <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
       <div class="ad-slot ad-slot--multiplex">
