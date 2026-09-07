@@ -58,9 +58,9 @@ python -m http.server 8000
 7. Apply for AdSense only after a handful of items are published with real
    content in every section — a near-empty site is the other common
    rejection reason.
-8. "Egyetemi segédanyagok" (site brand, in `nav.html`, `script.js`
-   footer, and every `<title>`) is a placeholder — consider renaming it to
-   your actual course name.
+8. The site brand is currently "Füles Jegyzetek" (set in `nav.html`,
+   `script.js`'s footer, and every `<title>`) — rename it in all three
+   places if you want something different.
 
 ## Adding a new item
 

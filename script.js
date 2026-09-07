@@ -48,7 +48,7 @@
         // (e.g. testing over file:// instead of a local HTTP server).
         console.error("Navigation failed to load:", err);
         mount.innerHTML =
-          '<header class="site-header"><a class="site-brand" href="/">Egyetemi segédanyagok</a></header>';
+          '<header class="site-header"><a class="site-brand" href="/">Füles Jegyzetek</a></header>';
       });
   }
 
@@ -64,7 +64,7 @@
       '<a href="/privacy-policy.html">Adatvédelem</a>' +
       '<a href="https://www.buymeacoffee.com/YOUR-USERNAME" target="_blank" rel="noopener">Támogasd a kurzust ☕</a>' +
       "</nav>" +
-      "<p>&copy; " + year + " Egyetemi segédanyagok. Minden anyag az oktató saját munkája.</p>" +
+      "<p>&copy; " + year + " Füles Jegyzetek. Minden anyag az oktató saját munkája.</p>" +
       "</footer>";
   }
 

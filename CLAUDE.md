@@ -112,11 +112,11 @@ lab-specific names during a refactor when the site grew beyond just
 
 ### Site brand has no single source of truth
 
-"Egyetemi segédanyagok" (placeholder brand name) is duplicated in three
-places by construction: `nav.html`, the `renderFooter()` string in
-`script.js`, and the `<title>`/`og:title` of every page. If asked to
-rename the brand, all three must be updated together — there's no
-config variable for it.
+"Füles Jegyzetek" (site brand) is duplicated in three places by
+construction: `nav.html`, the `renderFooter()` string in `script.js`,
+and the `<title>`/`og:title` of every page. If asked to rename the
+brand, all three must be updated together — there's no config variable
+for it.
 
 ### Deployment state
 
