@@ -1,45 +1,28 @@
 /* =========================================================
    University Lab Notes — global stylesheet
    Reading-first layout: narrow measure, generous line-height,
-   code/formula friendly, mobile-first, light+dark aware.
+   code/formula friendly, mobile-first, dark-themed.
    ========================================================= */
 
 :root {
-  --color-bg: #ffffff;
-  --color-bg-alt: #f4f6f8;
-  --color-text: #1c2128;
-  --color-text-muted: #57606a;
-  --color-border: #d0d7de;
-  --color-accent: #0b5fff;
-  --color-accent-contrast: #ffffff;
-  --color-code-bg: #f6f8fa;
-  --color-ad-bg: #fafafa;
-  --color-ad-border: #c9ccd1;
-  --color-coffee-bg: #fff6e5;
-  --color-coffee-border: #f0c869;
+  --color-bg: #0d1117;
+  --color-bg-alt: #161b22;
+  --color-text: #e6edf3;
+  --color-text-muted: #9aa4b2;
+  --color-border: #30363d;
+  --color-accent: #58a6ff;
+  --color-accent-contrast: #0d1117;
+  --color-code-bg: #161b22;
+  --color-ad-bg: #12161c;
+  --color-ad-border: #30363d;
+  --color-coffee-bg: #241d0e;
+  --color-coffee-border: #5c4a1a;
 
   --font-body: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
 
   --measure: 42rem; /* ~720px, optimal reading line length */
   --header-height: 64px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #0d1117;
-    --color-bg-alt: #161b22;
-    --color-text: #e6edf3;
-    --color-text-muted: #9aa4b2;
-    --color-border: #30363d;
-    --color-accent: #58a6ff;
-    --color-accent-contrast: #0d1117;
-    --color-code-bg: #161b22;
-    --color-ad-bg: #12161c;
-    --color-ad-border: #30363d;
-    --color-coffee-bg: #241d0e;
-    --color-coffee-border: #5c4a1a;
-  }
 }
 
 * { box-sizing: border-box; }
