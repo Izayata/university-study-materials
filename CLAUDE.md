@@ -70,28 +70,43 @@ not a bug.
   `<pre><code>` block. Both run unconditionally on every page load; they
   no-op if the target elements aren't present.
 
-### Content model: three parallel sections
+### Content model: three parallel sections, nested by course
 
-| Section (Hungarian) | Landing page | Template to copy | Filled example |
+| Section (Hungarian) | Landing page | Item template | Filled example |
 |---|---|---|---|
-| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/jegyzet1/` |
-| Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | `/gyakorlas/gyakorlat1/` |
-| Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/tetel1/` |
+| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/prog-nyelvek-2/jegyzet1/` |
+| Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | `/gyakorlas/prog-nyelvek-2/gyakorlat1/` |
+| Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/prog-nyelvek-2/tetel1/` |
 
 There used to be a fourth section ("Labor") — it was merged into "Órai
 jegyzetek" and no longer exists as a separate concept; don't reintroduce
 a `labs/` path.
 
-Each item page is a real, physical file (no server-side/client-side
-router) using one of two equivalent patterns:
-- Clean URL: `jegyzetek/jegyzetN/index.html` → served at `/jegyzetek/jegyzetN/`
-- Flat file: `jegyzetN.html` → served at `/jegyzetN.html`
+Each section nests items one level under a **course landing page**
+(added 2026-09-07, since the site now covers — or will cover — more
+than one university course): `/<szekció>/<kurzus-slug>/<itemN>/`.
+`prog-nyelvek-2` (short for "Magas szintű programozási nyelvek 2") is
+currently the only course; its slug is a hand-picked, descriptive,
+URL-safe name — not a course code or a generic "kurzus1" counter —
+chosen once per course and reused identically across all three
+sections. The section landing pages (`jegyzetek/index.html` etc.) list
+courses via `.card-grid`/`.item-card`; each course landing page (copied
+from the new `course-template.html`) then lists that course's items
+the same way.
 
-To add a new item: copy the matching `*-template.html`, fill in the
-placeholder title/meta description/canonical URL/breadcrumb, link it
-from that section's landing page card grid, and add it to
-`sitemap.xml`. Full checklist is in `README.md` under "Adding a new
-item".
+Each page (course landing or item) is a real, physical file (no
+server-side/client-side router) using one of two equivalent patterns:
+- Clean URL: `jegyzetek/prog-nyelvek-2/jegyzet1/index.html` → served at `/jegyzetek/prog-nyelvek-2/jegyzet1/`
+- Flat file: `jegyzet2.html` → served at `/jegyzet2.html` (loses the course-nesting; only use this for a course-less one-off, if that ever comes up)
+
+To add a new course: copy `course-template.html` into each relevant
+section, fill in the placeholders, link it from that section's landing
+page, and add it to `sitemap.xml`. To add a new item: copy the matching
+`*-template.html` into its course's folder, fill in the placeholder
+title/meta description/canonical URL/breadcrumb, link it from that
+course's landing page card grid, and add it to `sitemap.xml`. Full
+checklists are in `README.md` under "Adding a new course" and "Adding
+a new item".
 
 ### Ad slots and tip widget are static, not injected
 

@@ -65,18 +65,41 @@ python -m http.server 8000
    `script.js`'s footer, and every `<title>`) — rename it in all three
    places if you want something different.
 
+## Content nesting: section → course → item
+
+Each of the three sections (`jegyzetek`, `gyakorlas`, `tetelek`) nests
+items one level under a course landing page:
+`/<szekció>/<kurzus-slug>/<itemN>/`, e.g.
+`/jegyzetek/prog-nyelvek-2/jegyzet1/`. The section landing pages
+(`jegyzetek/index.html` etc.) list courses, and each course landing
+page lists that course's items. A course's slug is a short,
+URL-safe, descriptive name (lowercase, hyphens — e.g. `prog-nyelvek-2`
+for "Magas szintű programozási nyelvek 2") picked once and reused
+identically across all three sections for the same course.
+
+## Adding a new course
+
+1. Copy `course-template.html` into each section it applies to, e.g.
+   `jegyzetek/<kurzus-slug>/index.html`,
+   `gyakorlas/<kurzus-slug>/index.html`,
+   `tetelek/<kurzus-slug>/index.html`.
+2. Fill in the course name, code, and a short description in each.
+3. Link each one from that section's landing page card grid (e.g.
+   `jegyzetek/index.html`).
+4. Add an entry to `sitemap.xml` for each new course landing page.
+
 ## Adding a new item
 
 1. Copy the matching template (`jegyzet-template.html`,
-   `gyakorlat-template.html`, or `tetel-template.html`) into its section
-   folder, e.g. `jegyzetek/jegyzet2/index.html`.
+   `gyakorlat-template.html`, or `tetel-template.html`) into its
+   course's folder, e.g. `jegyzetek/prog-nyelvek-2/jegyzet2/index.html`.
 2. Replace the placeholder title, meta description, canonical URL, and
-   breadcrumb number.
+   breadcrumb (item number and course link).
 3. Paste your content as plain `<p>`, `<h2>/<h3>`, `<ul>`, and
    `<pre><code>` — the three ad slots and the tip widget are already
    positioned.
-4. Add a link to it from that section's landing page card grid (e.g.
-   `jegyzetek/index.html`).
+4. Add a link to it from that course's landing page card grid (e.g.
+   `jegyzetek/prog-nyelvek-2/index.html`).
 5. Add an entry to `sitemap.xml`.
 6. If it's a new note/exercise/topic that references others, cross-link
-   them (see how `jegyzet1` links to `gyakorlat1` and back).
+   them (see how `gyakorlat1` links back to `jegyzet1`).

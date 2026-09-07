@@ -7,7 +7,7 @@
   <!-- SEO: give every topic a unique, specific title + description -->
   <title>N. Tétel — [Tétel címe] | Füles Jegyzetek</title>
   <meta name="description" content="[Egy-két mondatos összefoglaló arról, mit fed le ez a kidolgozott tétel.]">
-  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/tetelN/">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/[kurzus-slug]/tetelN/">
 
   <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (identical on every page, see index.html) -->
 
@@ -16,9 +16,10 @@
 <body data-nav-key="tetelek">
   <!--
     FILE-BASED ROUTING NOTE (read me, then delete):
-    Copy this file to /tetelek/tetelN/index.html for a clean URL,
-    or to /tetelN.html for a flat URL — both are plain static files.
-    See /tetelek/tetel1/index.html for a filled-in example.
+    Copy this file to /tetelek/[kurzus-slug]/tetelN/index.html — every
+    tétel lives one level under its course's landing page (see
+    course-template.html). See
+    /tetelek/prog-nyelvek-2/tetel1/index.html for a filled-in example.
   -->
 
   <div id="site-header"></div>
@@ -26,7 +27,7 @@
   <div class="page-shell with-toc">
     <main class="content">
 
-      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / N. tétel</p>
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/[kurzus-slug]/">[Kurzus neve]</a> / N. tétel</p>
 
       <h1>N. Tétel — [Tétel címe]</h1>
       <p class="item-meta">Frissítve: 2026-09-05</p>
