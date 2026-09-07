@@ -46,7 +46,10 @@ python -m http.server 8000
 3. Fill in `about.html` and `privacy-policy.html` with real content —
    AdSense reviewers check for both, and a missing/thin privacy policy is
    one of the most common rejection reasons.
-4. Replace the Buy Me a Coffee link/username across all content pages.
+4. The tip-jar link now points to Ko-fi (`https://ko-fi.com/<username>`,
+   set in `script.js`'s `renderFooter()` and every content
+   template/item page) — replace it if you want a different
+   platform/username.
 5. Add a `CNAME` file at the repo root containing just your domain
    (e.g. `notes.YOUR-DOMAIN.hu`) once you've configured the DNS record —
    this is what GitHub Pages needs to map the custom domain. Do this last,
