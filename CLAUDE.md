@@ -98,9 +98,19 @@ The course was originally named after its official university title,
 both were removed site-wide on 2026-09-08 per a university request not
 to identify the site's content by the official course name/code (the
 slug was renamed too, from `prog-nyelvek-2`, since it was itself
-derived from the forbidden name). Don't reintroduce either string, and
-don't add a course-code field back to `course-template.html`'s
-item-meta — it was deliberately removed along with this rename.
+derived from the forbidden name). The same request also covers
+course-specific pedagogical-format terms, not just the name/code
+itself: `jegyzet1`'s "1. labor gyakorlat" became "1 óra" the same day
+for this reason. Don't reintroduce the old name, the course code, or
+"labor gyakorlat"-style session labels, and don't add a course-code
+field back to `course-template.html`'s item-meta — it was deliberately
+removed along with this rename.
+
+Both course-related URL migrations so far (adding the course layer,
+then renaming its slug) left the old URLs 404ing rather than adding
+redirect stubs — GitHub Pages has no native redirect support, and the
+site's traffic/indexing has been negligible so far. Revisit this
+default if that changes.
 
 Each page (course landing or item) is a real, physical file (no
 server-side/client-side router) using one of two equivalent patterns:
@@ -132,6 +142,26 @@ names used across all three sections (they were renamed from
 lab-specific names during a refactor when the site grew beyond just
 "Labor" content). Don't reintroduce section-specific class names
 (e.g. `.lab-card`) — extend the generic ones instead.
+
+### Dark-only theme
+
+The site has exactly one theme — dark — defined entirely through CSS
+custom properties in `style.css`'s `:root` (`--color-bg`, `--color-text`,
+`--color-border`, etc.); every themed rule in the file reads from these,
+with one deliberate exception (`.support-btn`, the Ko-fi button, is
+hardcoded black/white and needs no variable). There used to be a
+`@media (prefers-color-scheme: dark)` override for a second, light
+palette; it was removed on 2026-09-07 after the site was found to
+inconsistently appear light or dark depending on each visitor's own
+OS/browser setting — dark was made the only theme rather than just the
+fallback. Every page's `<head>` also carries
+`<meta name="color-scheme" content="dark">` and
+`<meta name="theme-color" content="#0d1117">` so browser-native chrome
+(scrollbars, form controls, mobile address-bar/status-bar tint)
+matches too — both tags are already in every `*-template.html`, so new
+pages inherit them. Don't reintroduce a light palette, a
+`prefers-color-scheme` query, or a manual light/dark toggle without an
+explicit ask — this was a deliberate simplification, not an oversight.
 
 ### Site brand has no single source of truth
 
