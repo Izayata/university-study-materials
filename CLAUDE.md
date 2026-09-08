@@ -7,8 +7,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 A static HTML/CSS/vanilla-JS site (no build tool, no framework, no
 `package.json`) hosting the site owner's own class notes, practice
 exercises, and worked exam topics (Hungarian CS coursework, e.g.
-"Magas szintű programozási nyelvek 2"-style content) — independently
-produced, not affiliated with or endorsed by any specific university
+"Java alapok"-style content) — independently produced, not affiliated
+with or endorsed by any specific university
 (see `about.html`). Deployed via GitHub Pages (`Deploy from a branch`,
 `main` / root) at the custom domain `fulesjegyzetek.hu`, monetized with
 Google AdSense + a Ko-fi tip widget. Site content is Hungarian
@@ -74,9 +74,9 @@ not a bug.
 
 | Section (Hungarian) | Landing page | Item template | Filled example |
 |---|---|---|---|
-| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/prog-nyelvek-2/jegyzet1/` |
-| Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | `/gyakorlas/prog-nyelvek-2/gyakorlat1/` |
-| Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/prog-nyelvek-2/tetel1/` |
+| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/java-alapok/jegyzet1/` |
+| Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | `/gyakorlas/java-alapok/gyakorlat1/` |
+| Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/java-alapok/tetel1/` |
 
 There used to be a fourth section ("Labor") — it was merged into "Órai
 jegyzetek" and no longer exists as a separate concept; don't reintroduce
@@ -85,18 +85,26 @@ a `labs/` path.
 Each section nests items one level under a **course landing page**
 (added 2026-09-07, since the site now covers — or will cover — more
 than one university course): `/<szekció>/<kurzus-slug>/<itemN>/`.
-`prog-nyelvek-2` (short for "Magas szintű programozási nyelvek 2") is
-currently the only course; its slug is a hand-picked, descriptive,
-URL-safe name — not a course code or a generic "kurzus1" counter —
-chosen once per course and reused identically across all three
-sections. The section landing pages (`jegyzetek/index.html` etc.) list
-courses via `.card-grid`/`.item-card`; each course landing page (copied
-from the new `course-template.html`) then lists that course's items
-the same way.
+`java-alapok` is currently the only course; its slug is a hand-picked,
+descriptive, URL-safe name — not a course code or a generic "kurzus1"
+counter — chosen once per course and reused identically across all
+three sections. The section landing pages (`jegyzetek/index.html`
+etc.) list courses via `.card-grid`/`.item-card`; each course landing
+page (copied from the new `course-template.html`) then lists that
+course's items the same way.
+
+The course was originally named after its official university title,
+"Magas szintű programozási nyelvek 2" (course code `INBPM0315-21`) —
+both were removed site-wide on 2026-09-08 per a university request not
+to identify the site's content by the official course name/code (the
+slug was renamed too, from `prog-nyelvek-2`, since it was itself
+derived from the forbidden name). Don't reintroduce either string, and
+don't add a course-code field back to `course-template.html`'s
+item-meta — it was deliberately removed along with this rename.
 
 Each page (course landing or item) is a real, physical file (no
 server-side/client-side router) using one of two equivalent patterns:
-- Clean URL: `jegyzetek/prog-nyelvek-2/jegyzet1/index.html` → served at `/jegyzetek/prog-nyelvek-2/jegyzet1/`
+- Clean URL: `jegyzetek/java-alapok/jegyzet1/index.html` → served at `/jegyzetek/java-alapok/jegyzet1/`
 - Flat file: `jegyzet2.html` → served at `/jegyzet2.html` (loses the course-nesting; only use this for a course-less one-off, if that ever comes up)
 
 To add a new course: copy `course-template.html` into each relevant
