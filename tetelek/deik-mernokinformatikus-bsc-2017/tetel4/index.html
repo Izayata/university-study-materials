@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>4. Tétel — Az SSH protokoll és az irányítástechnika alapjai | Füles Jegyzetek</title>
+  <meta name="description" content="Az SSH protokoll architektúrája, kriptográfiája és konfigurációja, valamint az irányítástechnika és szabályozási rendszerek alapfogalmai — DEIK Mérnökinformatikus BSc záróvizsga tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/deik-mernokinformatikus-bsc-2017/tetel4/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-nav-key="tetelek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/deik-mernokinformatikus-bsc-2017/">DEIK Mérnökinformatikus BSC 2017</a> / 4. tétel</p>
+
+      <h1>4. Tétel — Az SSH protokoll és az irányítástechnika alapjai</h1>
+      <p class="item-meta">Frissítve: 2026-09-09</p>
+
+      <p>
+        Ez a tétel két nagyobb témakört fed le: az SSH protokoll
+        architektúráját, kriptográfiáját és konfigurációs
+        mechanizmusait, valamint az irányítástechnika és szabályozási
+        rendszerek alapjait.
+      </p>
+
+      <h2>Témák</h2>
+      <p><strong>I. Témakör: Az SSH (Secure Shell) protokoll architektúrája, kriptográfiája és konfigurációs mechanizmusai</strong></p>
+      <ul>
+        <li>Az SSH protokoll, kulcsgenerálás, felhasználói beállítások konfigurálása</li>
+      </ul>
+      <p><strong>II. Témakör: Irányítástechnika és szabályozási rendszerek alapjai</strong></p>
+      <ul>
+        <li>Az irányítás fogalma, irányítási struktúrák, nyílt és zárt szabályozó körök főbb jellemzői.</li>
+        <li>Értéktartó, követő szabályozások.</li>
+        <li>A negatív visszacsatolás szerepe.</li>
+        <li>A szabályozásokkal szemben támasztott követelmények.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>I. Témakör: Az SSH (Secure Shell) protokoll architektúrája, kriptográfiája és konfigurációs mechanizmusai</h2>
+
+      <h3>1. Az SSH architektúrája</h3>
+      <p>
+        Az SSH (Secure Shell) egy hálózati protokoll-család, amely
+        biztonságos, titkosított csatorna létesítését teszi lehetővé
+        nem biztonságos hálózati közegeken (például az interneten)
+        keresztül.
+      </p>
+      <p>
+        A korábbi protokollok hiányossága abban rejlett, hogy minden
+        hálózati adatcsomag – beleértve a hitelesítési adatokat, a
+        jelszavakat és a parancsok kimenetét is – nyílt szöveges
+        formában utazott, ami kitette a rendszereket a passzív
+        hálózati lehallgatásnak és a sütialapú, illetve jelszóalapú
+        támadásoknak.
+      </p>
+      <p>
+        Az SSH ezzel szemben a hálózati réteg felett, a TCP
+        protokollra támaszkodva (alapértelmezés szerint a 22-es
+        porton) egy nagy, rétegzett biztonsági modellt valósít meg.
+      </p>
+      <p>
+        A rendszer nem csupán interaktív terminál-munkamenetek
+        futtatására alkalmas, hanem kiterjedt funkcionalitást
+        biztosít biztonságos fájlátvitelre (SFTP, SCP), hálózati
+        portok továbbítására (port forwarding / tunneling), valamint
+        virtuális magánhálózati (VPN) alagutak kiépítésére is.
+      </p>
+
+      <h3>2. Az SSH alprotokollok rétegződése</h3>
+      <p>
+        Az SSH három egymásra épülő, moduláris alprotokollból álló
+        rendszer. Ez a szétválasztás biztosítja a rugalmas
+        bővíthetőséget és a szigorú biztonsági ellenőrzést:
+      </p>
+      <ul>
+        <li><strong>SSH Transport Layer Protocol (Szállítási réteg alprotokoll):</strong> Ez a legalsó réteg, amely közvetlenül a TCP kapcsolatra épül. Feladata a kezdeti kézfogás (handshake), a kiszolgáló azonosítása, a titkosítási és integritásvédelmi algoritmusok megállapítása, valamint a Diffie-Hellman (vagy elliptikus görbés megfelelőinek) alapon nyugvó közös titkos kulcs létrehozása. Ez a réteg felelős a titkosított adatfolyam bizalmasságáért (confidentiality) és sértetlenségéért (integrity) is.</li>
+        <li><strong>SSH User Authentication Protocol (Felhasználó-hitelesítési alprotokoll):</strong> A szállítási réteg felépülése után ez a réteg végzi el a kliens oldali felhasználó azonosságának igazolását a szerver felé. A protokoll nyitott architektúrájú, így többféle hitelesítési metódust támogat.</li>
+        <li><strong>SSH Connection Protocol (Kapcsolati alprotokoll):</strong> A sikeres hitelesítést követően ez a réteg felügyeli a kommunikációs csatornát. Feladata a fizikai, titkosított kapcsolat multiplexelése több logikai csatornára. Egyetlen SSH-kapcsolaton belül így párhuzamosan futhat interaktív shell folyamat, háttérben történő fájlátvitel, vagy éppen TCP portok továbbítása anélkül, hogy újabb hitelesítési procedúrákra lenne szükség.</li>
+      </ul>
+
+      <h3>3. Host kulcsok és a megbízhatóság biztosítása</h3>
+      <p>
+        A szerver azonosítása a <strong>Host Key (Gazdagép
+        kulcs)</strong> révén történik. A szerver rendelkezik egy
+        saját aszimmetrikus kulcspárral. Amikor egy kliens
+        csatlakozik, a szerver elküldi a nyilvános host kulcsát. A
+        kliens ezt összeveti a helyi <code>known_hosts</code> fájlban
+        tárolt adatokkal.
+      </p>
+      <ul>
+        <li>Ha a kulcs még nem szerepel a fájlban, a rendszer figyelmeztetést ad, és felkínálja a kulcs ujjlenyomatának (fingerprint) elfogadását és mentését.</li>
+        <li>Ha a kulcs szerepel a fájlban, de nem egyezik a kapott kulccsal, az SSH kliens leállítja a kapcsolatot, és kritikus biztonsági hibaüzenetet küld. Ez a mechanizmus védi meg a felhasználót a Man-in-the-Middle (MitM) támadásoktól, amelyek során egy rosszindulatú harmadik fél a forgalom közepébe ékelődve próbálja meg hamisítani a szervert.</li>
+      </ul>
+
+      <h3>4. Kulcsgenerálás, aszimmetrikus hitelesítés és a kulcspárok életciklusa</h3>
+      <p>
+        A folyamat során a kliens a saját gépén generál egy
+        kulcspárt, amely egy titokban tartott magánkulcsból (private
+        key) és egy nyilvános kulcsból (public key) áll. A magánkulcs
+        lokális védelmére egy jelszó (passphrase) adható meg, amely
+        titkosítja a lemezen tárolt kulcsállományt, megakadályozva
+        annak illetéktelen felhasználását fizikai hozzáférés esetén
+        is.
+      </p>
+      <p>
+        A nyilvános kulcs átkerül a távoli szerverre, ahol a
+        célfelhasználó fiókjának hitelesítési adatbázisába
+        (<code>authorized_keys</code>) regisztrálják. Bejelentkezéskor
+        a szerver egy véletlenszerű kihívást (challenge) generál,
+        amelyet alá kell írni a magánkulccsal. A kliens a magánkulcs
+        birtokában aláírja a kihívást, majd visszaküldi. A szerver a
+        nálunk lévő nyilvános kulccsal ellenőrzi az aláírást; ha az
+        érvényes, a hitelesítés sikeres, és a rendszer engedélyezi a
+        belépést.
+      </p>
+      <p>
+        A kulcsok kezelésének hatékonyságát az <strong>SSH
+        Agent</strong> (<code>ssh-agent</code>) biztosítja. Ez a
+        háttérfolyamat a memóriában tárolja a feloldott
+        magánkulcsokat, így a felhasználónak a munkamenetek során
+        elegendő egyszer megadnia a magánkulcs jelszavát, a további
+        kapcsolatoknál az ügynök automatikusan elvégzi az aláírási
+        feladatokat.
+      </p>
+
+      <h3>5. Kliens oldali konfiguráció és fejlett irányítási opciók</h3>
+      <p>
+        A kliens oldali viselkedést és a kapcsolatok paramétereit a
+        felhasználói konfigurációs fájl határozza meg. Ezzel a
+        fájllal elkerülhető a bonyolult parancssori paraméterek
+        ismétlődő gépelése.
+      </p>
+      <p>A konfigurációban hoszt-alapú blokkok hozhatók létre, amelyekhez megadhatók az alábbi direktívák:</p>
+      <ul>
+        <li><code>HostName</code>: A célszerver valós IP-címe vagy domain neve.</li>
+        <li><code>User</code>: A távoli gépen használt fiók neve.</li>
+        <li><code>Port</code>: Az SSH port száma, amennyiben az eltér a szabványos 22-es értéktől.</li>
+        <li><code>IdentityFile</code>: A kapcsolathoz használandó specifikus magánkulcs elérési útja.</li>
+        <li><code>ForwardAgent</code>: Engedélyezi vagy tiltja az SSH agent továbbítását a távoli szerver felé.</li>
+        <li><code>ServerAliveInterval</code>: Időzítési paraméter, amely megakadályozza, hogy a hálózati tűzfalak vagy routerek lekapcsolják az üresjáratban lévő (idle) kapcsolatokat.</li>
+        <li><code>ControlMaster</code>: Lehetővé teszi a kapcsolatok multiplexelését, azaz egyetlen fizikai TCP-kapcsolaton belül több logikai SSH munkamenet megnyitását a gyorsabb kapcsolódás érdekében.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>II. Témakör: Irányítástechnika és szabályozási rendszerek alapjai</h2>
+
+      <h3>1. Az irányítás és szabályozás alapfogalmai</h3>
+      <p>Az irányítástechnika fizikai folyamatok, technológiai rendszerek állapotának szándékos befolyásolásával foglalkozik.</p>
+      <p>A rendszerszemléletű leírásban az alábbi alapvető fogalmakat különböztetjük meg:</p>
+      <ul>
+        <li><strong>Irányított folyamat (növény):</strong> A fizikai rendszer, amelyen a változtatásokat végrehajtjuk.</li>
+        <li><strong>Beavatkozó jel:</strong> Az a fizikai mennyiség (pl. szelepállás, feszültség, áram), amellyel a folyamatra hatást gyakorolunk.</li>
+        <li><strong>Kimenő jel (szabályozott jellemző):</strong> Az a fizikai paraméter, amelyet mérünk, és az elvárt értéken kívánunk tartani.</li>
+        <li><strong>Alapjel:</strong> A referenciaérték, amelyet a rendszernek követnie kell.</li>
+      </ul>
+
+      <h3>2. Nyílt szabályozási körök (Vezérlések)</h3>
+      <p>
+        A nyílt szabályozási körökben a jel áramlása egyirányú. A
+        bemeneti jel alapján a vezérlőegység előállítja a beavatkozó
+        jelet, amely meghajtja a folyamatot. A kimenetet azonban
+        semmilyen szenzor nem méri vissza, így a vezérlőegység nem
+        kap visszajelzést a beavatkozás sikerességéről.
+      </p>
+      <ul>
+        <li><strong>Előnyök:</strong> Szerkezeti felépítésük rendkívül egyszerű, alacsony költségűek, könnyen tervezhetők, és a nyílt jelút miatt soha nem lép fel bennük az instabilitás veszélye.</li>
+        <li><strong>Hátrányok:</strong> Teljesen képtelenek kompenzálni a váratlan külső zavaró hatásokat vagy a belső alkatrészek öregedéséből fakadó paraméter-változásokat.</li>
+      </ul>
+
+      <h3>3. Zárt szabályozási körök és a negatív visszacsatolás</h3>
+      <p>
+        A zárt szabályozási körök alapvető ismérve a visszacsatolás.
+        A folyamat kimenő jelét egy érzékelő folyamatosan méri, és az
+        értéket visszavezeti a rendszer elejére. Egy összehasonlító
+        egység az alapjelet és a mért kimenő jelet összehasonlítja,
+        és előállítja a hibajelt. A szabályozó ezt a hibajelt
+        dolgozza fel, és olyan beavatkozó jelet hoz létre, amely a
+        hibát a nullához közelíti.
+      </p>
+      <p>
+        A visszacsatolás akkor tölti be stabilizációs szerepét, ha
+        negatív visszacsatolásról beszélünk. Ekkor a kimenő jel
+        növekedése csökkentő hatással van a hibajelre, így a
+        szabályozó ellenlépéseket tesz a kimenet csökkentésére.
+      </p>
+
+      <h3>4. Értéktartó és követő szabályozások</h3>
+      <ul>
+        <li><strong>Értéktartó szabályozás:</strong> Az alapjel időben állandó értékű. A feladat a kimenet rögzített értéken tartása a fellépő külső zavarások ellenére (pl. termosztát).</li>
+        <li><strong>Követő szabályozás:</strong> Az alapjel időben folyamatosan és tetszőlegesen változik. A feladat a kimenet pontos, minimális késésű illesztése a változó referenciához (pl. CNC szerszámgép pályakövetése).</li>
+      </ul>
+
+      <h3>5. A negatív visszacsatolás szerepe</h3>
+      <ul>
+        <li><strong>Zavarások elnyomása:</strong> A rendszerbe bejutó külső zavaró jelek hatását a visszacsatolás érzékeli a hibajelen keresztül, és a szabályozó semlegesíti azokat.</li>
+        <li><strong>Érzékenység csökkentése:</strong> A fizikai folyamatok paramétereinek változásaival szembeni robusztusság növelése.</li>
+        <li><strong>Dinamikus viselkedés formálása:</strong> Instabil nyílthurkú folyamatok stabilizálása és az átmeneti viselkedés optimalizálása.</li>
+      </ul>
+
+      <h3>6. A szabályozásokkal szemben támasztott követelmények</h3>
+      <ul>
+        <li><strong>Stabilitás:</strong> Kötelező követelmény. Zavarás vagy alapjel-változás hatására a kimenetnek vissza kell térnie az egyensúlyi állapotba (pólusok a komplex sík bal felén).</li>
+        <li><strong>Pontosság (Stacionárius hiba):</strong> Állandósult állapotban a kimenet és alapjel eltérése feleljen meg a specifikációnak (integráló tag alkalmazásával a stacionárius hiba nullára csökkenthető).</li>
+        <li><strong>Dinamikus minőség:</strong> Gyors beállási idő, elfogadható túllövési mérték túlzott oszcilláció nélkül.</li>
+        <li><strong>Robusztusság:</strong> A rendszer tartsa fenn stabilitását és minőségét a folyamat paramétereinek tűrései és változásai közepette is.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
