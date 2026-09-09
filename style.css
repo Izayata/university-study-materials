@@ -243,6 +243,34 @@ blockquote {
   color: var(--color-text-muted);
 }
 
+/* ---------- Tables (e.g. comparison tables in kidolgozott tételek) ----------
+   Wrap every <table> in a <div class="table-scroll"> — keeps wide
+   tables from overflowing the page on narrow viewports instead of
+   shrinking the table itself unreadably. */
+
+.table-scroll {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.content th,
+.content td {
+  border: 1px solid var(--color-border);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+}
+
+.content th {
+  background: var(--color-bg-alt);
+  font-weight: 700;
+}
+
 /* ---------- Ad slots ----------
    Kept in static HTML (not JS-injected) so crawlers see them
    on first paint. Swap the placeholder <div> contents for the

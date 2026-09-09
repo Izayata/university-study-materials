@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>2. Tétel — Szabályozástechnika és TCP/UDP protokollok | Füles Jegyzetek</title>
+  <meta name="description" content="Irányítástechnika és szabályozási rendszerek alapjai, valamint a TCP és UDP szállítási rétegprotokollok működése és összehasonlítása — DEIK Mérnökinformatikus BSc záróvizsga tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/deik-mernokinformatikus-bsc-2017/tetel2/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-nav-key="tetelek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/deik-mernokinformatikus-bsc-2017/">DEIK Mérnökinformatikus BSC 2017</a> / 2. tétel</p>
+
+      <h1>2. Tétel — Szabályozástechnika és TCP/UDP protokollok</h1>
+      <p class="item-meta">Frissítve: 2026-09-09</p>
+
+      <p>
+        Ez a tétel két nagyobb témakört fed le: az irányítástechnika és
+        szabályozási rendszerek alapjait, valamint a TCP és UDP
+        szállítási rétegprotokollok működését és különbségeit.
+      </p>
+
+      <h2>Témák</h2>
+      <p><strong>I. Témakör: Irányítástechnika és szabályozási rendszerek alapjai</strong></p>
+      <ul>
+        <li>Folytonos idejű és mintavételes szabályozási rendszerek alapjai.</li>
+        <li>Erősítés és fázistartalék.</li>
+        <li>Lineáris rendszerek fogalma, lineáris rendszerek leírási módszerei az idő- és a frekvenciatartományban.</li>
+        <li>Jelátvitel az irányítási rendszerben.</li>
+      </ul>
+      <p><strong>II. Témakör: Számítógépes hálózatok – TCP és UDP protokollok</strong></p>
+      <ul>
+        <li>Ismertesse a TCP és az UDP szállítási rétegprotokollok adatelemeit és a mechanizmusok különbségeit!</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>I. Témakör: Irányítástechnika és szabályozási rendszerek alapjai</h2>
+
+      <h3>1. Folytonos idejű és mintavételes (diszkrét idejű) szabályozási rendszerek alapjai</h3>
+      <p>
+        Az irányítástechnikai rendszerekben a jelek időbeli lefolyása
+        alapján két alapvető kategóriát különböztetünk meg:
+      </p>
+      <ul>
+        <li><strong>Folytonos idejű (analóg) rendszerek:</strong> A jelek az idő minden pillanatában értelmezve vannak. Matematikai leírásukra differenciálegyenletek szolgálnak, és az eszközök (műveleti erősítők, analóg áramkörök) folyamatosan reagálnak a változásokra.</li>
+        <li><strong>Mintavételes (diszkrét idejű) rendszerek:</strong> A jeleket diszkrét időközönként (mintavételi idő, T<sub>s</sub>) mintavételezik, majd digitális jelfeldolgozó egységekkel (mikrokontrollerek, PLC-k, DSP-k) dolgozzák fel.</li>
+      </ul>
+
+      <h3>2. Erősítés- és fázistartalék</h3>
+      <p>
+        A zárt szabályozási körök stabilitásának és dinamikai
+        minőségének megítélésére a nyitotthurkú frekvenciafüggvény
+        (Bode-diagram) alapján két fontos stabilitási tartalékot
+        definiálunk:
+      </p>
+      <ul>
+        <li><strong>Erősítés-tartalék:</strong> Azt mutatja meg, hogy mekkora erősítés-növelést bírna ki még a nyitott kör anélkül, hogy instabillá válna a zárt rendszer. Abban a frekvenciapontban (fáziskeresztezési frekvencia) mérjük, ahol a fázisszög eléri a 180°-ot.</li>
+        <li><strong>Fázis-tartalék:</strong> Azt mutatja meg, hogy mekkora fáziskésést bírna el még a rendszer a kritikus 180°-os fázishatárhoz képest abban a frekvenciapontban (vágási frekvencia), ahol a nyitott hurkú erősítés pontosan egységnyi.</li>
+      </ul>
+
+      <h3>3. Lineáris rendszerek fogalma és leírási módszerei</h3>
+      <p>
+        Egy rendszer akkor tekinthető <strong>lineárisnak</strong>, ha
+        teljesül rá a <strong>szuperpozíció elve</strong>, azaz az
+        additivitás (ha az u<sub>1</sub> jelre válasz y<sub>1</sub>, és
+        u<sub>2</sub>-re y<sub>2</sub>, akkor u<sub>1</sub>+u<sub>2</sub>-re
+        a válasz y<sub>1</sub>+y<sub>2</sub>) és a homogenitás
+        (skálázhatóság).
+      </p>
+
+      <p><strong>Leírási módszerek:</strong></p>
+      <ul>
+        <li><strong>Időtartományban:</strong>
+          <ul>
+            <li>Lineáris, állandó együtthatójú differenciálegyenletek.</li>
+            <li><strong>Állapottér-reprezentáció (State-space):</strong> Mátrixos formában adja meg a rendszert</li>
+            <li><strong>Impulzusválasz:</strong> A rendszer válasza egy Dirac-delta bemeneti jelre.</li>
+          </ul>
+        </li>
+        <li><strong>Frekvenciatartományban (Operátortartományban):</strong>
+          <ul>
+            <li><strong>Laplace-transzformáció (<em>s</em>-tartomány):</strong> Az átviteli függvény (G(s)) a kimenő jel Laplace-transzformáltjának és a bemenő jel Laplace-transzformáltjának hányadosa nulla kezdeti feltételek mellett:<br/>
+              G(s) = Y(s)/U(s)</li>
+            <li><strong>Frekvenciafüggvény (G(jω)):</strong> Harmonikus (szinuszos) gerjesztésre adott válasz amplitúdó- és fázisváltozása.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>4. Jelátvitel az irányítási rendszerben és visszacsatolás</h3>
+      <p>
+        Az irányítási rendszerben a jelátvitel láncolatát a nyitott és
+        zárt körök határozzák meg. A <strong>visszacsatolás</strong>
+        (Closed-loop control) alapvető célja, hogy a zavarások és a
+        paraméter-bizonytalanságok ellenére a szabályozott jellemző
+        pontosan kövesse az alapjelet.
+      </p>
+      <ul>
+        <li><strong>Irányítási rendszer (def.):</strong> Olyan műszaki rendszerek összessége, amely egy fizikai folyamatot a kívánt módon működtet és felügyel.</li>
+      </ul>
+
+      <p><strong>Jelátviteli összetevők (Típusok):</strong></p>
+      <ul>
+        <li><strong>Alapjel:</strong> A rendszernek megadott kívánt érték, amit el kell érni.</li>
+        <li><strong>Beavatkozó jel:</strong> Az irányító egység által előállított jel, amellyel a folyamatra hatunk.</li>
+        <li><strong>Kimenő jel:</strong> Az irányított szakasz aktuális, mért fizikai állapota.</li>
+        <li><strong>Zavaró jel:</strong> Külső, nem kívánt hatás, amely torzítja a működést.</li>
+      </ul>
+
+      <p><strong>Működési struktúrák (Típusok):</strong></p>
+      <ul>
+        <li><strong>Nyitott láncú irányítás (Vezérlés):</strong> Nincs visszacsatolás; egyirányú hatáslánc, amely nem tudja kompenzálni a váratlan külső zavarásokat.</li>
+        <li><strong>Zárt láncú irányítás (Szabályozás):</strong> Visszacsatolást alkalmaz; a kimenetet méri, összehasonlítja az alapjellel, és a hiba alapján korrigál.</li>
+      </ul>
+
+      <p><strong>Visszacsatolás fajtái:</strong></p>
+      <ul>
+        <li><strong>Negatív visszacsatolás:</strong> A kimenetet úgy vonja ki az alapjelből, hogy csökkentse a hibát (stabilizál, növeli a pontosságot és elnyomja a zavarásokat).</li>
+        <li><strong>Pozitív visszacsatolás:</strong> Erősíti a bemenetet (oszcillátoroknál hasznosítják, de általában instabilitást/gerjedést okoz).</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>II. Témakör: Számítógépes hálózatok – TCP és UDP protokollok</h2>
+
+      <h3>1. A TCP (Transmission Control Protocol) szállítási réteg protokoll</h3>
+      <p>
+        A TCP egy kapcsolat-alapú, megbízható, kétirányú (full-duplex)
+        bájtfolyam-alapú szállítási protokoll az OSI/ISO modell 4.
+        rétegében.
+      </p>
+      <p><strong>Főbb mechanizmusok:</strong></p>
+      <ul>
+        <li><strong>Kapcsolatfelvétel és -bontás:</strong> Az adatátvitel előtt egy ún. <strong>háromutas kézfogással</strong> (<em>three-way handshake</em>: SYN, SYN-ACK, ACK) felépítik a kapcsolatot, és a végén szabályosan le is bontják azt.</li>
+        <li><strong>Megbízhatóság és nyugtázás:</strong> Garantálja az adatok célba juttatását. Ha egy csomag elveszik, a protokoll automatikusan újraküldi.</li>
+        <li><strong>Sorrendhelyesség:</strong> Sorszámok (<em>Sequence Numbers</em>) alapján a fogadó oldalon a csomagok helyes sorrendbe állnak össze, kiszűrve az esetleges duplikációkat.</li>
+        <li><strong>Áramlás- és torlódásszabályozás:</strong> Csúszóablakos (<em>sliding window</em>) mechanizmussal és torlódáskezelési algoritmusokkal (pl. Slow Start, Congestion Avoidance) védi a hálózatot a túlterheléstől. A fogadó ablakméret segítségével jelzi, hogy mennyi adatot képes befogadni, így megakadályozza a gyors küldő általi túlterhelést.</li>
+      </ul>
+      <p><strong>Adatelem:</strong> Szegmens.</p>
+      <p><strong>Fontosabb TCP fejrész mezők:</strong> Forrásport, Célport, Sorszám (Sequence Number), Nyugtázási szám (Acknowledgment Number), Ablakméret (Window Size), Ellenőrző összeg (Checksum), Jelzőbitek (SYN, ACK, FIN, RST, PSH, URG).</p>
+
+      <h3>2. Az UDP (User Datagram Protocol) szállítási réteg protokoll</h3>
+      <p>
+        Az UDP egy kapcsolatnélküli, nem megbízható, minimális
+        overhead-del dolgozó szállítási protokoll.
+      </p>
+      <ul>
+        <li><strong>Nincs kapcsolatépítés:</strong> Az adatok küldése közvetlenül megtörténik kézfogás vagy előzetes állapotfenntartás nélkül.</li>
+        <li><strong>Best-effort kézbesítés:</strong> Nincsenek nyugtázások, nincs újraküldés, és a csomagok elveszhetnek, megérkezhetnek hibásan vagy sorrendet tévesztve.
+          <ul>
+            <li><strong>Üzenetalapú:</strong> Az alkalmazás által átadott adatokat határok megőrzésével továbbítja.</li>
+          </ul>
+        </li>
+        <li><strong>Adatelem:</strong> Adatgram</li>
+        <li><strong>Fontosabb UDP fejrész mezők (egyszerű, fix 8 bájtos):</strong> Forrásport, Célport, Hosszúság (Length), Ellenőrző összeg (Checksum).</li>
+        <li><strong>Nincs torlódás- vagy folyamatszabályozás:</strong> A küldő annyi adatot küld, amennyit akar, függetlenül a hálózat állapotától vagy a fogadó kapacitásától.</li>
+        <li><strong>Nagy sebesség és alacsony késleltetés:</strong> Mivel minimális a protokoll overhead (fejléc), rendkívül gyors és kis erőforrás-igényű.</li>
+      </ul>
+
+      <h3>3. Összefoglaló összehasonlítás</h3>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Tulajdonság</th>
+              <th>TCP (Transmission Control Protocol)</th>
+              <th>UDP (User Datagram Protocol)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Kapcsolat állapota</td>
+              <td>Kapcsolat-alapú (<em>Connection-oriented</em>)</td>
+              <td>Kapcsolatnélküli (<em>Connectionless</em>)</td>
+            </tr>
+            <tr>
+              <td>Megbízhatóság</td>
+              <td>Garantált kézbesítés, újraküldés hiba esetén</td>
+              <td>Nem garantált (<em>Best-effort</em>), nincs újraküldés</td>
+            </tr>
+            <tr>
+              <td>Sorrendhelyesség</td>
+              <td>Biztosított a sorszámok alapján</td>
+              <td>Nincs garantálva (csomagok érkezhetnek összevissza)</td>
+            </tr>
+            <tr>
+              <td>Sebesség / Késleltetés</td>
+              <td>Lassabb a folyamatos nyugtázások és overhead miatt</td>
+              <td>Gyorsabb, alacsony késleltetés</td>
+            </tr>
+            <tr>
+              <td>Adatkezelés formája</td>
+              <td>Folyam-alapú (<em>Stream-oriented</em>)</td>
+              <td>Üzenet-alapú (<em>Datagram-oriented</em>)</td>
+            </tr>
+            <tr>
+              <td>Fejrész mérete</td>
+              <td>Változó (min. 20 bájt – max. 60 bájt)</td>
+              <td>Fix 8 bájt</td>
+            </tr>
+            <tr>
+              <td>Felhasználási terület</td>
+              <td>Web (HTTP/HTTPS), Email (SMTP), Fájlátvitel (FTP)</td>
+              <td>Streaming, DNS, VoIP, Online játékok, DHCP</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

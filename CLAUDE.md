@@ -149,6 +149,17 @@ lab-specific names during a refactor when the site grew beyond just
 "Labor" content). Don't reintroduce section-specific class names
 (e.g. `.lab-card`) — extend the generic ones instead.
 
+### Tables
+
+Added 2026-09-09 (the second `tétel` under `deik-mernokinformatikus-bsc-2017`
+was the first content to need one — a TCP/UDP comparison). Wrap every
+`<table>` in `<div class="table-scroll">` so wide tables scroll
+horizontally on narrow viewports instead of squeezing the table itself
+illegible — see `style.css`'s "Tables" section (styles read from the
+same `--color-border`/`--color-bg-alt` variables as everything else,
+no new colors introduced). Reuse this pattern rather than inventing a
+new one for future tabular content.
+
 ### Dark-only theme
 
 The site has exactly one theme — dark — defined entirely through CSS
