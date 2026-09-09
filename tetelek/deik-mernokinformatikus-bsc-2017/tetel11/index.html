@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>11. Tétel — Folyamatközi kommunikáció és keresési-rendezési algoritmusok | Füles Jegyzetek</title>
+  <meta name="description" content="A folyamatok közti kommunikáció eszközei (file, szignál, csővezeték, socket), valamint keresési és rendezési algoritmusok — beszúrásos, összefésüléses, gyors-, radix- és vödörrendezés — komplexitáselméleti alsó korláttal. DEIK Mérnökinformatikus BSc záróvizsga tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/deik-mernokinformatikus-bsc-2017/tetel11/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-nav-key="tetelek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/deik-mernokinformatikus-bsc-2017/">DEIK Mérnökinformatikus BSC 2017</a> / 11. tétel</p>
+
+      <h1>11. Tétel — Folyamatközi kommunikáció eszközei és keresési-rendezési algoritmusok</h1>
+      <p class="item-meta">Frissítve: 2026-09-09</p>
+
+      <p>
+        Ez a tétel két nagyobb témakört fed le: a folyamatok közti
+        kommunikáció (IPC) eszközeit, valamint a keresési és rendezési
+        algoritmusokat a hozzájuk tartozó komplexitáselméleti alsó
+        korlátokkal együtt.
+      </p>
+
+      <h2>Témák</h2>
+      <p><strong>I. Témakör: A folyamatok közti kommunikáció eszközei (IPC)</strong></p>
+      <ul>
+        <li>A folyamatok közti kommunikáció eszközei (file, szignál, csővezeték, socket).</li>
+      </ul>
+      <p><strong>II. Témakör: Keresési és rendezési algoritmusok, komplexitáselméleti alsó korlátok</strong></p>
+      <ul>
+        <li>Algoritmusok lépésszáma: beszúrásos rendezés, összefésüléses rendezés, keresések lineáris és logaritmikus lépésszámmal.</li>
+        <li>Gyorsrendezés, az összehasonlítások minimális száma.</li>
+        <li>Rendezés lineáris lépésszámmal: radix rendezés, vödör rendezés.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>I. Témakör: A folyamatok közti kommunikáció eszközei (IPC)</h2>
+
+      <h3>1. Bevezetés: Miért van szükség folyamatközi kommunikációra?</h3>
+      <p>
+        A <strong>folyamatok közti kommunikáció</strong> (angolul
+        <em>Inter-Process Communication</em>, röviden <strong>IPC</strong>)
+        azon módszerek és mechanizmusok összessége, amelyek lehetővé
+        teszik a számítógépen futó különböző folyamatok számára, hogy
+        adatokat cseréljenek egymással, és szinkronizálják a
+        tevékenységüket.
+      </p>
+      <p>
+        A modern operációs rendszerekben minden futó folyamat
+        <strong>izolált memóriaterülettel</strong> rendelkezik. Ez a
+        szigorú elválasztás a biztonságot és a stabilitást szolgálja:
+        ha az egyik program meghibásodik vagy összeomlik, az nem
+        rántja magával a többi futó alkalmazást.
+      </p>
+      <p>
+        Mivel azonban a folyamatok nem láthatják közvetlenül egymás
+        memóriáját, szükség van az operációs rendszer (OS) által
+        biztosított hivatalos csatornákra az információcseréhez.
+      </p>
+
+      <h3>2. File</h3>
+      <p>
+        A fájl alapú kommunikáció a legegyszerűbb IPC mechanizmus,
+        ahol a folyamatok egy közösen elérhető fájlon keresztül
+        cserélnek adatot. A kommunikáció lényege, hogy az egyik
+        folyamat adatokat ír egy fájlba, míg a másik folyamat (vagy
+        folyamatok) ugyanebből a fájlból olvassa ki azokat. A cél itt
+        egy olyan közös, perzisztens adattároló létrehozása, amelyet a
+        folyamatok megoszthatnak.
+      </p>
+      <p>
+        A kommunikációban részt vevő folyamatoknak ismerniük kell a
+        közös fájl nevét és elérési útját. Az adatcseréhez mindkét
+        folyamatnak rendelkeznie kell a megfelelő jogosultságokkal. Az
+        egyik folyamat megnyitja a fájlt írásra, beleírja a küldendő
+        adatokat, majd lezárja azt. A fogadó folyamat megnyitja a
+        fájlt olvasásra, kiolvassa az adatokat, majd szintén lezárja.
+        Az operációs rendszer garantálja, hogy a fájlba írt adatok a
+        háttértárolóra kerüljenek.
+      </p>
+
+      <h3>3. Szignál</h3>
+      <p>
+        A szignál egy aszinkron szoftvermegszakítás, amelyet az
+        operációs rendszer kernelje vagy egy másik folyamat küld egy
+        adott folyamatnak egy esemény jelzésére. A kommunikáció
+        csupán egyetlen, előre definiált egész szám elküldésére
+        korlátozódik, amely egy adott eseménytípusnak felel meg.
+      </p>
+      <p><strong>Működése:</strong> Amikor egy folyamat szignált kap, a normál végrehajtása megszakad, és a kernel átadja neki a vezérlést a szignál kezelésére. A fogadó folyamat háromféleképpen reagálhat a beérkező szignálra:</p>
+      <ul>
+        <li><strong>Alapértelmezett művelet végrehajtása:</strong> Minden szignálnak van egy előre definiált alapértelmezett viselkedése. Ez lehet a folyamat terminálása, a folyamat futásának felfüggesztése, vagy a szignál egyszerűen figyelmen kívül hagyása.</li>
+        <li><strong>Szignál figyelmen kívül hagyása:</strong> A folyamat explicit módon kérheti a kernelt, hogy bizonyos szignálokat hagyjon figyelmen kívül.</li>
+        <li><strong>Szignálkezelő rutin futtatása:</strong> A folyamat regisztrálhat egy saját, ún. szignálkezelő függvényt, amely a szignál beérkezésekor lefut. Ez a függvény végrehajthat tetszőleges műveletet, majd a vezérlést visszaadhatja a megszakított programpontra.</li>
+      </ul>
+
+      <h3>4. Csővezeték (Pipes)</h3>
+      <p>
+        A csővezeték egy egyirányú adatcsatorna, amelyet az operációs
+        rendszer kernelje hoz létre és kezel a memóriában. Célja, hogy
+        egy folyamat kimenetét egy másik folyamat bemenetére
+        irányítsa át, lehetővé téve a folyamatos adatfolyamot
+        közöttük. A csővezeték egy klasszikus "producer-consumer"
+        modellt valósít meg: az egyik folyamat (producer) írja az
+        adatfolyamot, a másik (consumer) pedig olvassa azt.
+      </p>
+      <p>
+        A csővezeték a kernelben egy fix méretű körkörös pufferként
+        valósul meg. Amikor egy folyamat adatot ír a csővezetékbe, az
+        adatok a pufferbe kerülnek. Amikor egy másik folyamat olvas a
+        csővezetékből, az adatok a pufferből kerülnek kiolvasásra.
+      </p>
+      <ul>
+        <li><strong>Névtelen csővezeték (Anonymous Pipe / pipe):</strong>
+          <ul>
+            <li>Kifejezetten rokon folyamatok (pl. szülő és gyermek folyamat) közötti kommunikációra szolgál. A szülő létrehoz egy csövet a <code>pipe()</code> rendszerhívással, amely két fájl leírót (file descriptor) ad vissza: egyet az olvasáshoz, egyet az íráshoz. A <code>fork()</code> hívás után a gyermek örökli ezeket, így az egyik folyamat ír a csőbe, a másik pedig kiolvassa onnan.</li>
+            <li><em>Tulajdonság:</em> Szigorúan egyirányú (half-duplex) adatfolyam.</li>
+          </ul>
+        </li>
+        <li><strong>Nevesített csővezeték (Named Pipe / FIFO):</strong>
+          <ul>
+            <li>A fájlrendszerben egy speciális névvel rendelkezik, így teljesen független (nem rokon) folyamatok is képesek rajta keresztül kommunikálni úgy, mintha egy hagyományos fájlt olvasnának/írnának, de a háttérben a kernel memóriapuffere továbbítja az adatokat FIFO (First-In, First-Out) elven.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>5. Socketek (Sockets)</h3>
+      <p>
+        A socket egy szoftveres végpont a folyamatok közötti
+        kétirányú kommunikációs csatornában. A socket API (Application
+        Programming Interface) egy absztrakciós réteget biztosít,
+        amely elrejti a hálózati kommunikáció alacsony szintű
+        részleteit, és egy, a fájlkezeléshez hasonló interfészt nyújt
+        a programozók számára. A socketek elsődleges célja, hogy
+        lehetővé tegyék a különböző számítógépeken futó folyamatok
+        közötti kommunikációt a hálózaton keresztül, de hatékonyan
+        használhatók egyazon gépen belüli kommunikációra is.
+      </p>
+      <ul>
+        <li><strong>Unix Domain Sockets (<code>AF_UNIX</code>):</strong> Helyi, egy gépen belüli kommunikációra szolgál. A socket a fájlrendszerben egy speciális fájlként jelenik meg, hasonlóan a nevesített csővezetékhez, de kétirányú és jóval rugalmasabb.</li>
+        <li><strong>Internet Sockets (<code>AF_INET</code> / <code>AF_INET6</code>):</strong> Hálózati kommunikációra szolgál IPv4, illetve IPv6 protokollok használatával. Ez teszi lehetővé a gépek közötti adatcserét.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>II. Témakör: Keresési és rendezési algoritmusok, komplexitáselméleti alsó korlátok</h2>
+
+      <h3>1. Keresési algoritmusok és lépésszámuk</h3>
+      <p>A keresés feladata annak eldöntése, hogy egy adott kulcsérték szerepel-e egy adatszerkezetben (pl. tömbben), és ha igen, hol található.</p>
+      <ul>
+        <li><strong>Lineáris keresés (Linear Search):</strong>
+          <ul>
+            <li><em>Működése:</em> A tömb elemeit szigorúan egymás után, sorban vizsgáljuk meg az elejétől a végéig, amíg meg nem találjuk a keresett elemet, vagy a tömb végére nem érünk.</li>
+            <li><em>Lépésszám (Időkomplexitás):</em> Legrosszabb és átlagos esetben <em>O(n)</em>, mivel a bemeneti elemek számával lineárisan arányos a műveletek száma. Előnye, hogy rendezetlen adatszerkezeten is alkalmazható.</li>
+          </ul>
+        </li>
+        <li><strong>Bináris keresés (Binary Search):</strong>
+          <ul>
+            <li><em>Működése:</em> Feltételezi, hogy az adatszerkezet <strong>szigorúan rendezett</strong>. A keresést a tartomány felezésével végzi: összehasonlítja a keresett értéket a középső elemmel. Ha a keresett érték kisebb, a bal oldali részhalmazon folytatja, ha nagyobb, a jobb oldali részhalmazon.</li>
+            <li><em>Lépésszám (Időkomplexitás):</em> O(log n), mivel minden egyes lépésben felezedik a vizsgált tartomány mérete.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>2. Egyszerű rendezések: Beszúrásos rendezés (Insertion Sort)</h3>
+      <p>A rendezési algoritmusok célja egy adathalmaz elemeinek átrendezése egy adott reláció (pl. növekvő) szerint.</p>
+      <ul>
+        <li><strong>Beszúrásos rendezés:</strong>
+          <ul>
+            <li><em>Működése:</em> A kártyajátékok során alkalmazott módszerhez hasonlít. A tömböt két részre osztjuk: egy már rendezett és egy még rendezetlen részre. A rendezetlen részből folyamatosan veszi az elemeket, és a rendezett rész megfelelő pozíciójába illeszti be azokat, közben eltolva a nagyobb elemeket.</li>
+            <li><em>Lépésszám:</em>
+              <ul>
+                <li><em>Legrosszabb és átlagos eset:</em> O(n²), amikor a tömb fordított sorrendben van.</li>
+                <li><em>Legjobb eset:</em> O(n), ha a tömb már eleve rendezett volt (mivel a belső ciklus le sem fut).</li>
+              </ul>
+            </li>
+            <li><em>Tulajdonság:</em> In-place (helyben rendező) és <strong>stabil</strong> (az azonos kulcsú elemek eredeti sorrendje megmarad).</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>3. "Oszt és uralkodj" alapú rendezések: Összefésüléses rendezés és Gyorsrendezés</h3>
+      <p><strong>Összefésüléses rendezés (Merge Sort)</strong></p>
+      <ul>
+        <li><em>Működése:</em> Klasszikus "oszt és uralkodj" algoritmus. A rekurzív folyamat során a feladatot kettéosztjuk:
+          <ul>
+            <li>Rekurzívan felekre bontjuk a tömböt egészen az egyelemű alaptömbökig.</li>
+            <li>Az alaptömböket rendezett módon <strong>összefésüljük</strong> egy nagyobb rendezett tömbbe.</li>
+          </ul>
+        </li>
+        <li><em>Lépésszám:</em> Garantáltan O(n log n) időkomplexitás minden esetben (legrosszabb, átlagos és legjobb esetben is).</li>
+        <li><em>Hátránya:</em> Nem in-place algoritmus, a másolásokhoz és az összefésüléshez O(n) <strong>extra memóriaterületet</strong> igényel.</li>
+      </ul>
+      <p><strong>Gyorsrendezés (Quicksort)</strong></p>
+      <ul>
+        <li><em>Működése:</em> Szintén oszd meg és uralkodj elvű algoritmus.
+          <ul>
+            <li>Választunk egy elemet a tömbből, amelyet <strong>pivotnak (vezérlőelemnek)</strong> nevezünk.</li>
+            <li><strong>Particionálás:</strong> A tömb elemeit úgy rendezzük át, hogy a pivotnál kisebb elemek balra, a nagyobbak pedig jobbra kerüljenek.</li>
+            <li>Rekurzívan meghívjuk a particionálást a bal és jobb oldali részre.</li>
+          </ul>
+        </li>
+        <li><em>Lépésszám:</em>
+          <ul>
+            <li><em>Átlagos és legjobb eset:</em> O(n log n).</li>
+            <li><em>Legrosszabb eset:</em> O(n²) (például ha mindig a legnagyobb vagy legkisebb elemet választjuk pivotnak, és a részfák kiegyensúlyozatlanok lesznek).</li>
+          </ul>
+        </li>
+        <li><em>Tulajdonság:</em> In-place rendezés, a gyakorlatban a leggyorsabb általános célú rendezés, de nem stabil.</li>
+      </ul>
+
+      <h3>4. Az összehasonlító rendezések alsó korlátja</h3>
+      <ul>
+        <li><em>Kérdés:</em> Lehetséges-e O(n log n)-nél gyorsabb rendezést készíteni kizárólag elemek közötti összehasonlítások alapján?</li>
+        <li>Egy n elemű tömbnek n! (n faktoriális) lehetséges permutációja van. A rendezőalgoritmusnak mind a n! esetet meg kell tudnia különböztetni. Tehát a döntési fának legalább n! levele kell, hogy legyen.</li>
+        <li>Egy h magasságú bináris fának legfeljebb 2ʰ levele lehet.</li>
+        <li>Ebből következik: 2ʰ ≥ n!.</li>
+        <li>Vegyük mindkét oldal 2-es alapú logaritmusát: h ≥ log₂(n!).</li>
+        <li>A Stirling-formula alapján log(n!) aszimptotikusan Ω(n log n).</li>
+      </ul>
+
+      <h3>5. Rendezés lineáris lépésszámmal: Radix és Vödör rendezés</h3>
+      <p>Ha az adatok speciális tulajdonságait kihasználjuk, megkerülhető az Ω(n log n) korlát, és lineáris O(n) idejű rendezések valósíthatók meg.</p>
+      <p><strong>Radix rendezés (Radix Sort)</strong></p>
+      <ul>
+        <li><em>Működése:</em> A Radix rendezés nem elemeket, hanem az elemeket alkotó "számjegyeket" (vagy bájtokat, karaktereket) hasonlít össze. A leggyakoribb, ún. LSD (Least Significant Digit) Radix rendezés a legkisebb helyiértékű számjegytől halad a legnagyobbig:
+          <ul>
+            <li>Vegyük az n elemű, d számjegyű számokból álló sorozatot.</li>
+            <li>Rendezzük a sorozatot stabilan a legkisebb helyiértékű (LSD) számjegy szerint.</li>
+            <li>Ezután rendezzük stabilan a következő helyiértékű számjegy szerint.</li>
+            <li>Ezt ismételjük d alkalommal, amíg el nem érjük a legjelentősebb (MSD) számjegyet.</li>
+          </ul>
+        </li>
+      </ul>
+      <p>
+        A "stabilan" szó itt kulcsfontosságú. Azt jelenti, hogy ha két
+        elemnek az aktuális helyiértéken megegyezik a számjegye, az
+        eredeti sorrendjük nem változhat meg. A Radix rendezés belső
+        rendezőalgoritmusaként leggyakrabban a Leszámláló rendezést
+        (Counting Sort) használják, amely stabil és lineáris idejű.
+      </p>
+      <p><strong>Vödör rendezés (Bucket Sort)</strong></p>
+      <ul>
+        <li><em>Működése:</em> Feltételezi, hogy a bemeneti adatok egy adott intervallumon egyenletesen oszlanak meg. Az adatok értéke alapján az elemeket előre meghatározott számú részre, úgynevezett <strong>vödrökbe (buckets)</strong> osztja szét. Ezt követően minden egyes vödröt külön-külön rendez egy másik algoritmussal (vagy rekurzívan vödör rendezéssel), majd a vödrök tartalmát sorban összefűzi.</li>
+        <li><em>Lépésszám:</em> Ha az elemek egyenletesen oszlanak meg a vödrök között, a vödör rendezés átlagos időkomplexitása <strong>O(n)</strong>.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
