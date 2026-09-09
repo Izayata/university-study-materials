@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>1. Tétel — Beágyazott rendszerek és programozási nyelvek elmélete | Füles Jegyzetek</title>
+  <meta name="description" content="Beágyazott rendszerek tervezése és kommunikációs protokolljai, valamint programozási nyelvek elmélete és paradigmái — DEIK Mérnökinformatikus BSc záróvizsga tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-nav-key="tetelek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/deik-mernokinformatikus-bsc-2017/">DEIK Mérnökinformatikus BSC 2017</a> / 1. tétel</p>
+
+      <h1>1. Tétel — Beágyazott rendszerek és programozási nyelvek elmélete</h1>
+      <p class="item-meta">Frissítve: 2026-09-09</p>
+
+      <p>
+        Ez a tétel két nagyobb témakört fed le: a beágyazott rendszerek
+        tervezési lehetőségeit és kommunikációs protokolljait, valamint
+        a programozási nyelvek elméletének és paradigmáinak
+        alapfogalmait.
+      </p>
+
+      <h2>Témák</h2>
+      <p><strong>I. Témakör: Beágyazott rendszerek tervezése és kommunikációs protokolljai</strong></p>
+      <ul>
+        <li>A beágyazott rendszerek feldolgozó egység megvalósításának lehetőségei: Processzor technológiák, implementációs technikák és tervezési technológiák.</li>
+        <li>Beágyazott rendszerek tipikus perifériái.</li>
+        <li>Kommunikációs protokollok.</li>
+      </ul>
+      <p><strong>II. Témakör: Programozási nyelvek elmélete és paradigmái</strong></p>
+      <ul>
+        <li>Programegységek.</li>
+        <li>Alprogramok.</li>
+        <li>Paraméterkiértékelés, paraméterátadás.</li>
+        <li>Blokk.</li>
+        <li>Hatáskörkezelés, láthatóság.</li>
+        <li>Absztrakt adattípus.</li>
+        <li>Generikus programozás.</li>
+        <li>A programnyelvek I/O eszközei, állománykezelés.</li>
+        <li>Kivételkezelés.</li>
+        <li>Párhuzamos programozás.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>I. Témakör: Beágyazott rendszerek tervezése és kommunikációs protokolljai</h2>
+
+      <h3>1. A beágyazott rendszerek feldolgozó egység megvalósításának lehetőségei</h3>
+      <p>
+        <strong>Beágyazott rendszer (def.):</strong> egy nagyobb
+        rendszer része, amely előre meghatározott feladat elvégzésére
+        készült.
+      </p>
+      <p>
+        A feldolgozó egység megvalósítására több technológiai opció
+        létezik, amelyeket a teljesítmény, a fogyasztás, a költség és a
+        rugalmasság szempontjai alapján választanak ki.
+      </p>
+
+      <p><strong>Processzor technológiák:</strong></p>
+      <ul>
+        <li><strong>Általános célú processzorok (GPP – General Purpose Processors):</strong>
+          <ul>
+            <li><em>Előnyük:</em> Magas fokú rugalmasságot biztosítanak a szoftveres programozhatóság révén.</li>
+            <li><em>Hátrányuk:</em> Nagyobb energiafogyasztás és alacsonyabb végrehajtási sebesség specializált feladatok esetén. (Pl. mikrokontrollerek magjai, ARM Cortex-M sorozat).</li>
+          </ul>
+        </li>
+        <li><strong>Alkalmazás-specifikus utasításkészletű processzorok (ASIP – Application-Specific Instruction-set Processors):</strong> Olyan processzorok, amelyek utasításkészletét egy adott alkalmazási területre (pl. digitális jelfeldolgozás – DSP) optimalizálták. Jó kompromisszumot jelentenek a rugalmasság és a teljesítmény között.</li>
+        <li><strong>Alkalmazás-specifikus integrált áramkörök (ASIC – Application-Specific Integrated Circuits):</strong> Maximális feldolgozási sebességet és minimális energiafogyasztást nyújtanak, de a fejlesztési költségük rendkívül magas (NRE – Non-Recurring Engineering), és a funkciók utólag nem módosíthatók.</li>
+        <li><strong>Mezőben programozható kaputömbök (FPGA – Field Programmable Gate Array):</strong> Konfigurálható logikai blokkokból állnak, amelyekben hardveres szintű párhuzamosság valósítható meg, miközben a logikai hálózat szoftveresen újrakonfigurálható.</li>
+      </ul>
+
+      <p><strong>Implementációs technikák:</strong></p>
+      <ul>
+        <li><strong>Standard áramkörök:</strong> Készen kapható mikrovezérlők vagy egylapkás rendszerek (SoC – System on Chip), amelyek gyors piacra jutást biztosítanak.</li>
+        <li><strong>Egyedi ASIC tervezés:</strong> Nagy sorozatú gyártás esetén gazdaságos.</li>
+        <li><strong>Fél-egyedi (Semi-custom / FPGA alapú) megoldások:</strong> Soft-core processzorok (pl. RISC-V vagy MicroBlaze implementálása FPGA-ban) vagy SoC-FPGA eszközök (pl. Xilinx Zynq), amelyek kombinálják a processzoros és a hardveres gyorsítást.</li>
+      </ul>
+
+      <p><strong>Tervezési technológiák:</strong></p>
+      <ul>
+        <li><strong>HW/SW Co-design (Hardver-szoftver együttes tervezés):</strong> A rendszer funkcióinak szétosztása a szoftveres (mikrokontrolleren futó kód) és a hardveres (FPGA/ASIC) megvalósítás között a hatékonyság maximalizálása érdekében.</li>
+        <li><strong>Magas szintű szintézis (HLS – High-Level Synthesis):</strong> Olyan tervezési módszertan, amely C/C++ nyelvű algoritmusokból automatikusan hoz létre optimalizált hardverleíró nyelvi (VHDL/Verilog) kódot.</li>
+      </ul>
+
+      <h3>2. Beágyazott rendszerek tipikus perifériái és kommunikációs protokolljai</h3>
+
+      <p><strong>Tipikus perifériák:</strong></p>
+      <ul>
+        <li><strong>GPIO (General-Purpose Input/Output):</strong> Digitális bemenetek és kimenetek (pl. gombok olvasása, LED-ek vezérlése).</li>
+        <li><strong>Időzítők és Számlálók (Timers/Counters):</strong> Időzítések, megszakítások generálása, impulzusszámlálás.</li>
+        <li><strong>PWM (Pulse Width Modulation):</strong> Impulzusszélesség-moduláció motorok sebességszabályozásához vagy LED-ek fényerejének állításához.</li>
+        <li><strong>ADC / DAC (Analóg-Digitális / Digitális-Analóg konverterek):</strong> Analóg szenzorjelek digitalizálása és analóg kimenetek előállítása.</li>
+      </ul>
+
+      <p><strong>Kommunikációs protokollok:</strong></p>
+      <ul>
+        <li><strong>UART (Universal Asynchronous Receiver-Transmitter):</strong> Aszinkron, pont-pont közötti soros kommunikáció (2 szál: TX, RX). Egyszerű, de alacsonyabb sebességű.</li>
+        <li><strong>SPI (Serial Peripheral Interface):</strong> Szinkron, master-slave alapú soros busz (4 szál: SCLK, MOSI, MISO, SS). Nagyon gyors, rövid távú chip-közi kommunikációra optimális.</li>
+        <li><strong>I2C (Inter-Integrated Circuit):</strong> Kétvezetékes szinkron busz (SDA, SCL), amely címzésen alapul, így több eszköz is ráköthető ugyanarra a buszra.</li>
+        <li><strong>CAN bus (Controller Area Network):</strong> Kétvezetékes, robusztus, differenciális buszrendszer, amelyet elosztott ipari és járműipari rendszerekben használnak zajos környezetben.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>II. Témakör: Programozási nyelvek elmélete és paradigmái</h2>
+
+      <h3>1. Programegységek, alprogramok és paraméterkezelés</h3>
+      <ul>
+        <li><strong>Programegységek és Alprogramok:</strong> A moduláris programozás alapelemei (függvények, eljárások), amelyek logikai egységbe zárják az utasításokat, elősegítve a kód újrafelhasználását és áttekinthetőségét.</li>
+        <li><strong>Paraméterkiértékelés:</strong> Azt határozza meg, hogy egy alprogram meghívásakor a tényleges paraméterek kifejezései <strong>mikor és hogyan értékelődnek ki</strong>, illetve az értékük vagy hivatkozásuk <strong>hogyan adódik át</strong> a hívott alprogram formális paramétereinek.</li>
+        <li><strong>Paraméterátadás:</strong> Azt határozza meg, hogy a tényleges paraméter adatai milyen mechanizmussal (értékkel, címmel vagy referenciával) adódnak át a hívó környezetből a hívott alprogram formális paraméterének, és ez milyen hatással van a hívó oldali változókra.</li>
+      </ul>
+
+      <p><strong>Paraméterátadási mechanizmusok:</strong></p>
+      <ul>
+        <li><strong>Érték szerinti átadás (Call by Value):</strong> A hívó átmásolja az argumentum értékét az alprogram lokális változójába. Az alprogramban végzett módosítás nem hat vissza a hívó oldali változóra.</li>
+        <li><strong>Cím/Referencia szerinti átadás (Call by Reference):</strong> A hívó a változó memóriacímét (referenciáját) adja át. Az alprogram közvetlenül a memóriacímen lévő értéket módosítja.</li>
+        <li><strong>Név szerinti átadás (Call by Name):</strong> A paraméter kifejezésként adódik át, és minden hivatkozáskor újraértékelődik (ritkán használt, pl. Algol 60).</li>
+        <li><strong>Érték-eredmény szerinti átadás (Call by Value-Result):</strong> Híváskor átmásolódik az érték, visszatéréskor pedig a megváltozott érték visszamásolódik a hívó változójába.</li>
+        <li><strong>Szükség szerinti átadás (Call by Need):</strong> A név szerinti átadás optimalizált változata. A paraméter kifejezése csak akkor értékelődik ki, amikor először szükség van rá az alprogramban, és az eredményét a rendszer eltárolja.</li>
+      </ul>
+
+      <h3>2. Blokk, hatáskörkezelés és láthatóság</h3>
+      <ul>
+        <li><strong>Blokk:</strong> Utasítások csoportja, amely saját lokális névtérrel (hatáskörrel) rendelkezhet.</li>
+        <li><strong>Hatáskörkezelés (Scoping):</strong>
+          <ul>
+            <li><em>Statikus (lexikális) hatáskör:</em> A nevek láthatóságát a forráskód strukturális elhelyezkedése határozza meg.</li>
+            <li><em>Dinamikus hatáskör:</em> A név feloldása a futási idejű hívási lánc alapján történik.</li>
+          </ul>
+        </li>
+        <li><strong>Láthatóság:</strong> Meghatározza, hogy egy adott programrészletből mely változók vagy függvények érhetők el közvetlenül.</li>
+      </ul>
+
+      <h3>3. Absztrakt adattípus (ADT) és generikus programozás</h3>
+      <ul>
+        <li><strong>Absztrakt Adattípus (ADT):</strong> Olyan matematikai modell, amely definiál egy adatszerkezetet és az azon végezhető műveletek halmazát, miközben elrejti a belső ábrázolás részleteit.</li>
+        <li><strong>Generikus programozás:</strong> Olyan programozási paradigma, amelyben az algoritmusok és adatszerkezetek típustól függetlenül (paraméterezett típusokkal) írhatók meg, növelve a kód újrafelhasználhatóságát.</li>
+      </ul>
+
+      <h3>4. I/O eszközök, állománykezelés és kivételkezelés</h3>
+      <p>
+        A programozási nyelvek <strong>I/O (Input/Output)</strong>
+        alrendszere biztosítja a kapcsolatot a futó program és a külső
+        környezet (felhasználó, perifériák, fájlrendszer) között, míg
+        az <strong>állománykezelés</strong> a másodlagos tárolókon
+        végzett tartós adatkezelésért felelős.
+      </p>
+
+      <p><strong>Standard adatfolyamok:</strong></p>
+      <ul>
+        <li><strong>Standard bemenet:</strong> Alapértelmezett bemeneti adatfolyam (általában a billentyűzet).</li>
+        <li><strong>Standard kimenet:</strong> Alapértelmezett kimeneti adatfolyam (általában a konzol/képernyő).</li>
+        <li><strong>Standard hiba kimenet:</strong> Hibaüzenetek megjelenítésére szolgáló külön adatfolyam, amely független a kimenettől.</li>
+      </ul>
+
+      <ul>
+        <li><strong>I/O adatfolyam (Stream):</strong> Logikai absztrakció, amely bájtok vagy karakterek sorozataként kezeli az adatmozgatást a program és a külső környezet (perifériák, fájlok) között.</li>
+        <li><strong>Állománykezelés:</strong> A nem-illékony háttértárakon (SSD, HDD) lévő adatok tartós tárolását, elérését, módosítását és adminisztrációját biztosító rendszerszintű mechanizmus.
+          <ul>
+            <li><strong>Szekvenciális (soros) állomány:</strong> Az adatok lineáris sorrendben érhetők el; az olvasáshoz/íráshoz végig kell haladni az előző elemeken.</li>
+            <li><strong>Direkt állomány:</strong> Az adategységek (rekordok) közvetlenül elérhetők a fájlon belüli pozíció vagy kulcs alapján.</li>
+          </ul>
+        </li>
+        <li><strong>Kivételkezelés (Exception Handling):</strong> Futási idejű rendellenességek strukturált kezelésére szolgáló mechanizmus (például: <code>try</code>, <code>catch</code>, <code>finally</code>, <code>throw</code>), amely megakadályozza a program váratlan leállását, és biztosítja az erőforrások szabályos felszabadítását.</li>
+      </ul>
+
+      <h3>5. Párhuzamos programozás</h3>
+      <p>
+        A párhuzamos programozás célja a számítási teljesítmény
+        növelése feladatok egyidejű végrehajtásával.
+      </p>
+      <ul>
+        <li><strong>Folyamat (Process):</strong> Az operációs rendszer által kezelt, önálló végrehajtási egység, amely teljesen független, izolált memóriaterülettel és erőforrásokkal rendelkezik.</li>
+        <li><strong>Szál (Thread):</strong> Egy folyamaton belüli végrehajtási szál. Ugyanazon folyamat szálai osztoznak a közös memóriaterületen, de saját hívási veremmel és regiszterkészlettel bírnak.</li>
+        <li><strong>Szinkronizáció:</strong> Mivel a szálak közös memóriát érhetnek el, a koordinációjukhoz szinkronizációs eszközök szükségesek a kritikus szekciók (közös erőforrásokat író/olvasó kódblokkok) védelmére
+          <ul>
+            <li><strong>Mutex (kölcsönös kizárás):</strong> egyszerre csak egy szálat enged be a szekcióba</li>
+            <li><strong>Szemafor:</strong> körlátozott számú szál egyidejű hozzáférését engedélyezi</li>
+            <li><strong>Monitor:</strong> Magasabb szintű nyelvi szerkezet, amely magába foglalja az adatokhoz való kizárólagos hozzáférést és a feltételes változókon keresztüli várakozási mechanizmusokat.</li>
+          </ul>
+        </li>
+        <li><strong>Veszélyek:</strong>
+          <ul>
+            <li><strong>Versenyhelyzetek:</strong> több szál egyidejűleg próbálja írni/olvasni az adott adatot.</li>
+            <li><strong>Holtpontok:</strong> olyan blokkolási helyzet, ahol két vagy több szál kölcsönösen egymás által lefoglalt erőforrásokra vár, így mindegyik végtelen ideig blokkolva marad.</li>
+            <li><strong>Kiéhezés:</strong> Olyan állapot, amikor egy szál a hibás ütemezési vagy priorizálási stratégia miatt sosem kapja meg a futásához vagy az erőforrás eléréséhez szükséges időt.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

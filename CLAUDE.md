@@ -76,7 +76,7 @@ not a bug.
 |---|---|---|---|
 | Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/java-alapok/jegyzet1/` |
 | Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | `/gyakorlas/java-alapok/gyakorlat1/` |
-| Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/java-alapok/tetel1/` |
+| Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` |
 
 There used to be a fourth section ("Labor") — it was merged into "Órai
 jegyzetek" and no longer exists as a separate concept; don't reintroduce
@@ -85,13 +85,19 @@ a `labs/` path.
 Each section nests items one level under a **course landing page**
 (added 2026-09-07, since the site now covers — or will cover — more
 than one university course): `/<szekció>/<kurzus-slug>/<itemN>/`.
-`java-alapok` is currently the only course; its slug is a hand-picked,
-descriptive, URL-safe name — not a course code or a generic "kurzus1"
-counter — chosen once per course and reused identically across all
-three sections. The section landing pages (`jegyzetek/index.html`
-etc.) list courses via `.card-grid`/`.item-card`; each course landing
-page (copied from the new `course-template.html`) then lists that
-course's items the same way.
+Course slugs are hand-picked, descriptive, URL-safe names — not a
+course code or a generic "kurzus1" counter — chosen once per course
+and reused identically across every section that course appears in.
+The section landing pages (`jegyzetek/index.html` etc.) list courses
+via `.card-grid`/`.item-card`; each course landing page (copied from
+`course-template.html`) then lists that course's items the same way.
+
+A course does not need to appear under all three sections — `tetelek/`
+currently has a different course (`deik-mernokinformatikus-bsc-2017`,
+added 2026-09-09) than `jegyzetek/`/`gyakorlas/` (`java-alapok`),
+since `java-alapok`'s only `tétel` was retired (see below) and never
+replaced with real `java-alapok`-specific exam content. Don't assume
+every course-landing page has counterparts in the other two sections.
 
 The course was originally named after its official university title,
 "Magas szintű programozási nyelvek 2" (course code `INBPM0315-21`) —
@@ -318,6 +324,19 @@ as a formal imperative — `"Mutassa be..."`) → "Kidolgozás" (`<h2>`,
 the actual answer, broken into `<h3>` subsections) → "Kapcsolódó
 fogalmak" (`<h2>`, closing bullet list of related terms, no
 elaboration — just the terms). No Gyakorlat/Puffer sections.
+
+Deliberate exception: `tetelek/deik-mernokinformatikus-bsc-2017/tetel1/`
+(added 2026-09-09) omits "A tétel szövege" entirely — its source notes
+had no literal one-line exam question, only a topic outline — and uses
+a "Témák" `<h2>` outline instead (adapting jegyzet's Tematika
+pattern), confirmed with the site owner rather than invented. It also
+goes one level deeper than any other tétel (numbered subtopics with
+their own labeled sub-groups): rather than a 4th heading level —
+`script.js`'s ToC only scans `h2, h3`, and `style.css` has no `h4`
+styling — those sub-group labels are bold lead-in text before their
+own `<ul>` (e.g. `<p><strong>Processzor technológiák:</strong></p>`).
+Don't "fix" either of these into the standard pattern; they reflect
+what the source material actually is, not a mistake.
 
 ### `item-meta` line: intentionally different per type, not drift
 
