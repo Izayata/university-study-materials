@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>3. Tétel — Kombinációs logikai hálózatok és MI keresési módszerei | Füles Jegyzetek</title>
+  <meta name="description" content="Kombinációs logikai hálózatok (multiplexerek, dekódolók, ALU), valamint mesterséges intelligencia keresési módszerek és kényszerkielégítési problémák — DEIK Mérnökinformatikus BSc záróvizsga tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/deik-mernokinformatikus-bsc-2017/tetel3/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-nav-key="tetelek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/deik-mernokinformatikus-bsc-2017/">DEIK Mérnökinformatikus BSC 2017</a> / 3. tétel</p>
+
+      <h1>3. Tétel — Kombinációs logikai hálózatok és a mesterséges intelligencia keresési módszerei</h1>
+      <p class="item-meta">Frissítve: 2026-09-09</p>
+
+      <p>
+        Ez a tétel két nagyobb témakört fed le: a kombinációs logikai
+        hálózatok felépítését és típusait, valamint a mesterséges
+        intelligencia általános keresési módszereit és a
+        kényszerkielégítési problémák megoldási technikáit.
+      </p>
+
+      <h2>Témák</h2>
+      <p><strong>I. Témakör: Digitális rendszerek és kombinációs hálózatok</strong></p>
+      <ul>
+        <li>Kombinációs logikai hálózatok.</li>
+        <li>Multiplexerek/Demultiplexerek.</li>
+        <li>Kódolók/Dekódolók.</li>
+        <li>Komparátorok.</li>
+        <li>Paritásvizsgáló áramkörök.</li>
+        <li>Aritmetikai-logikai egységek.</li>
+      </ul>
+      <p><strong>II. Témakör: Mesterséges intelligencia – Keresési módszerek és kényszerkielégítési problémák</strong></p>
+      <ul>
+        <li>Mutassa be az általános problémamegoldó keresési módszereket, majd ezeket hasonlítsa össze a kényszerkielégítési problémákat megoldó módszerekkel!</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>I. Témakör: Digitális rendszerek és kombinációs hálózatok</h2>
+
+      <h3>1. A kombinációs logikai hálózatok definíciója és alapvető tulajdonságai</h3>
+      <p>
+        A <strong>kombinációs logikai hálózatok</strong> olyan
+        memóriamentes digitális áramkörök, amelyek kimeneti jeleinek
+        értéke kizárólag a tetszőleges pillanatban érvényes bemeneti
+        jelek kombinációjától függ. Nincsenek bennük tárolóelemek
+        (regiszterek, flip-flopok) vagy visszacsatolások, így
+        múltbeli információt nem őriznek meg.
+      </p>
+      <ul>
+        <li><strong>Matematikai leírásuk:</strong> Boole-algebrai függvényekkel adhatók meg, ahol a bemenetek X = {x<sub>1</sub>, x<sub>2</sub>, …, x<sub>n</sub>} és a kimenetek Y = {y<sub>1</sub>, y<sub>2</sub>, …, y<sub>m</sub>} között meghatározott hozzárendeléssel kapcsolat áll fenn.</li>
+        <li><strong>Fizikai megvalósítás:</strong> Alapelemeik az elektronikus logikai kapuk (AND, OR, NOT, NAND, NOR, XOR), amelyek tranzisztoros szinten (pl. CMOS technológiával) valósulnak meg.</li>
+      </ul>
+
+      <h3>2. Multiplexerek és Demultiplexerek</h3>
+      <p>Ezek az áramkörök a digitális adatfolyamok irányításáért felelősek összetett rendszerekben:</p>
+      <ul>
+        <li><strong>Multiplexer (MUX):</strong> Adatválasztó áramkör. 2<sup>n</sup> darab adatbemenet közül egyet kapcsol át a kimenetre az n darab <strong>címbemenet</strong> által meghatározott bináris címnek megfelelően.</li>
+        <li><strong>Demultiplexer (DEMUX):</strong> Adatelosztó áramkör. Egyetlen bemeneti jelet irányít át a 2<sup>n</sup> darab kimeneti vonal valamelyikére a címbemenetek értéke alapján.</li>
+      </ul>
+
+      <p><strong>A Multiplexelés Főbb Típusai</strong></p>
+      <ul>
+        <li><strong>FDM (Frequency Division Multiplexing – Frekvenciaosztásos multiplexelés):</strong>
+          <ul>
+            <li><strong>Működés:</strong> Analóg jelekhez használják. A teljes elérhető frekvenciasávot kisebb, egymástól elkülönített frekvenciasávokra (csatornákra) osztják, amelyeken a jelek egyidejűleg haladnak.</li>
+          </ul>
+        </li>
+        <li><strong>TDM (Time Division Multiplexing – Időosztásos multiplexelés):</strong>
+          <ul>
+            <li><strong>Működés:</strong> Digitális jelekhez használják. A közös csatorna teljes sávszélességét időbeli részekre osztják, és a források sorra, váltakozva kapnak időszeletet az adatátvitelre.</li>
+            <li><strong>Altípusok:</strong>
+              <ul>
+                <li><strong>Szinkron TDM:</strong> minden forrás fix időszeletet kap</li>
+                <li><strong>Statisztikai/Aszinkron TDM:</strong> csak az aktuálisan adatot küldő források kapnak időt</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><strong>WDM (Wavelength Division Multiplexing – Hullámhossz-osztásos multiplexelés):</strong>
+          <ul>
+            <li><strong>Működés:</strong> Optikai szálas hálózatokban alkalmazott technika, ahol a különböző adatfolyamokat eltérő hullámhosszúságú (színű) fénysugarakként küldik át egyetlen optikai kábelen.</li>
+          </ul>
+        </li>
+        <li><strong>CDM / CDMA (Code Division Multiplexing – Kódosztásos multiplexelés):</strong>
+          <ul>
+            <li><strong>Működés:</strong> Minden egyes jelhez egyedi, matematikai kódot rendelnek. A jelek ugyanazon a frekvencián és egyszerre utaznak, de a vevő a saját kulcsa (kódja) segítségével ki tudja szűrni a számára szóló adatot a zajból.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>3. Kódolók és Dekódolók szerepe és típusai</h3>
+      <ul>
+        <li><strong>Dekódoló (Decoder):</strong> n bites bemeneti kódot (2<sup>n</sup> lehetséges kombináció) alakít át legfeljebb 2<sup>n</sup> különálló kimeneti vonal egyikévé, aktiválva azt. Használhatók címdekódolókként memóriákhoz vagy BCD-hétpontos kijelzők meghajtásához.
+          <ul>
+            <li><strong>Bináris dekódoló (n-ről 2<sup>n</sup>-re):</strong> Az n bites bemeneti kód alapján a lehetséges 2<sup>n</sup> kimenet közül pontosan azt az egyet kapcsolja aktív szintre, amelynek sorszáma megegyezik a bemeneti bináris értékkel.</li>
+            <li><strong>Címdekódoló (Address Decoder):</strong> Digitális rendszerekben (pl. memóriáknál, mikrokontrollereknél) a megfelelő memóriacella vagy periféria kiválasztására szolgáló áramkör a címbusz alapján.</li>
+            <li><strong>BCD-hétsegmenses dekódoló (BCD-to-7-Segment Decoder):</strong> BCD kódolt decimális számokat konvertál olyan kimenetekké, amelyek közvetlenül képesek vezérelni egy 7-szegmenses kijelző (LED) szegmenseit.</li>
+          </ul>
+        </li>
+        <li><strong>Kódoló (Encoder):</strong> A dekódoló fordítottja: 2<sup>n</sup> bemenet közül a bekapcsolt vonal sorszámának n bites bináris kódját állítja elő. Prioritásos kódolók kezelik azt az esetet is, amikor egyszerre több bemenet aktív.
+          <ul>
+            <li><strong>Egyszerű (bináris) kódoló:</strong> Az n bites kimeneten azt a bináris számot adja meg, amelyik bemenet éppen aktív (feltételezi, hogy egyszerre csak egy bemenet aktív).</li>
+            <li><strong>Prioritásos kódoló (Priority Encoder):</strong> Olyan kódoló, amely kezeli azt a helyzetet, ha egyszerre több bemenet is aktív; ilyenkor az előre meghatározott prioritás alapján (pl. a magasabb sorszámú bemenetet preferálva) végzi el a kódolást.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>4. Komparátorok feladata és megvalósítása</h3>
+      <p>
+        A <strong>komparátorok</strong> két bináris szám (<em>A</em>
+        és <em>B</em>) nagyságát hasonlítják össze. Logikai
+        kimeneteik jelzik, hogy:
+      </p>
+      <ul>
+        <li>A = B (egyenlőség)</li>
+        <li>A &gt; B (nagyobb)</li>
+        <li>A &lt; B (kisebb)</li>
+      </ul>
+      <p>
+        Felépítésükben logikai kapuk (XNOR, AND) kombinációiból
+        állnak, és skálázhatók (több chip összekapcsolásával nagyobb
+        bitmázszámú összehasonlítás is végezhető).
+      </p>
+
+      <h3>5. Paritásvizsgáló áramkörök a hibadetektálásban</h3>
+      <p>Adatátvitel vagy tárolás közben fellépő 1-es bit hibák feltérképezésére használják.</p>
+      <ul>
+        <li><strong>Működése:</strong> A paritásgenerátor/vizsgáló XOR (kizáró vagy) kapuk láncolatából épül fel.</li>
+        <li><strong>Páros paritás</strong> esetén a kiegészítő bit úgy alakul, hogy az 1-es bitek száma (beleértve a paritásbitet is) páros legyen; <strong>páratlan paritás</strong> esetén pedig páratlan. Ha az átvitel során egy bit megváltozik, a paritás hibát jelez.</li>
+      </ul>
+
+      <h3>6. Aritmetikai-logikai egységek (ALU) felépítése</h3>
+      <p>
+        Az <strong>ALU</strong> a CPU számítási magja, amely a
+        vezérlőegység utasításai alapján végzi el a műveleteket.
+      </p>
+      <ul>
+        <li><strong>Alapkövek:</strong> A kombinációs hálózatok építkezése a <strong>félösszeadón</strong> (half adder) és a <strong>teljes összeadón</strong> (full adder) alapul, amelyek a bitenkénti összeadás összeg (S) és átvitel jeleit állítják elő.</li>
+        <li><strong>Komplex egység:</strong> Ezen összeadó/kivonó blokkok, valamint logikai kapusorok (AND, OR, XOR, biteltolók) multiplexeres vezérléssel történő integrálásával jön létre a többfunkciós, több bites ALU, amely egyetlen egységként kezeli a bináris aritmetikai és logikai feladatokat.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>II. Témakör: Mesterséges intelligencia – Keresési módszerek és kényszerkielégítési problémák</h2>
+
+      <h3>1. Általános problémamegoldó keresési módszerek</h3>
+      <p>
+        Az MI-ben a problémákat állapottér-reprezentációval írjuk le:
+        kezdőállapot, operátorok (akciók), célteszt és útköltség.
+      </p>
+      <ul>
+        <li><strong>Vak (uninformed) keresések:</strong> Nem használnak heurisztikát, csak a fa struktúráját járják be.
+          <ul>
+            <li><strong>Szélességi keresés (BFS – Breadth-First Search):</strong> Mindig a legsekélyebb csomópontot fejti ki először. Garantáltan megtalálja a legrövidebb utat, de nagy memóriát és időt igényel.</li>
+            <li><strong>Mélységi keresés (DFS – Depth-First Search):</strong> A fa legmélyebb csomópontját fejti ki először. Kisebb memóriát igényel, de nem garantálja az optimális utat, és végtelen ágakban elakadhat.</li>
+            <li><strong>Költségoptimalizáló keresés (UCS – Uniform Cost Search):</strong> A legkisebb halmozott útköltségű csomópontot bővíti ki.</li>
+          </ul>
+        </li>
+        <li><strong>Tájékozott (informed / heurisztikus) keresések:</strong> Heurisztikus függvénnyel (h(n)) (a célig hátralévő távolság becslése) gyorsítják a keresést.
+          <ul>
+            <li><strong>Mohó legjobb-első keresés:</strong> Mindig a h(n) = min csomópontot választja.</li>
+            <li><strong>A* keresés:</strong> Kombinálja az eddigi út költségét (g(n)) és a heurisztikát: f(n) = g(n) + h(n). Megengedett heurisztika mellett teljes és optimális.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>2. Kényszerkielégítési problémák (CSP – Constraint Satisfaction Problems)</h3>
+      <p>
+        A CSP-k során a feladatot nem egy eljutási útvonalként, hanem
+        egy <strong>korlátozásrendszerként</strong> definiáljuk.
+      </p>
+      <ul>
+        <li><strong>Komponensei:</strong> Változók halmaza (X<sub>1</sub>, X<sub>2</sub>, …, X<sub>n</sub>).
+          <ul>
+            <li>Minden változóhoz tartozik egy lehetséges értékek halmaza, a <strong>domén</strong>.</li>
+            <li><strong>Kényszerek (Constraints):</strong> Szabályok, amelyek megadják, hogy a változók milyen kombinációvektorokat vehetnek fel.</li>
+          </ul>
+        </li>
+      </ul>
+      <p><strong>Főbb megoldási technikák:</strong></p>
+      <ul>
+        <li><strong>Visszalépéses keresés (Backtracking Search):</strong> Egy rekurzív DFS alapú algoritmus, amely egyszerre egy változónak ad értéket, és ha kényszerütközést észlel, visszalép (backtrack).</li>
+        <li><strong>Kényszerterjesztés (Constraint Propagation):</strong> Az élek konzisztenciájának biztosításával folyamatosan szűkíti a változók doménjeit, kizárva a zsákutcákat még a keresés előtt.</li>
+      </ul>
+      <p><strong>Megoldási módszerek és heurisztikák:</strong></p>
+      <ul>
+        <li><strong>Visszalépéses keresés (Backtracking search):</strong> Rekurzív DFS, amely egyszerre egy változónak ad értéket, és amint kényszerütközést (inkonzisztenciát) érzékel, visszalép.</li>
+        <li><strong>Változó- és értékválasztási heurisztikák:</strong> MRV (<em>Minimum Remaining Values</em> – legkevesebb fennmaradó érték), fokszám-heurisztika, LCV (<em>Least Constraining Value</em>).</li>
+        <li><strong>Előretekintő ellenőrzés (Forward Checking) és kényszerterjesztés:</strong> Az AC-3 (Arc Consistency) algoritmus révén a meg nem adott változók domainjéből kigyomlálják az érvénytelen értékeket, drasztikusan szűkítve a keresési teret.</li>
+      </ul>
+
+      <h3>3. Összehasonlítás: Általános keresés vs. Kényszerkielégítési problémák (CSP)</h3>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Szempont</th>
+              <th>Általános problémamegoldó keresések</th>
+              <th>Kényszerkielégítési problémák (CSP)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Állapot-reprezentáció</td>
+              <td><strong>Feketedoboz (black box):</strong> Az állapot egy tetszőleges adatszerkezet; a keresőalgoritmus csak azt vizsgálja, hogy célelem-e, és ki tudja számítani a rákövetkezőket.</td>
+              <td><strong>Részben strukturált (factored):</strong> A probléma explicit módon változókra, domainekre és kényszerekre van bontva.</td>
+            </tr>
+            <tr>
+              <td>A keresés célja / Eredmény</td>
+              <td>A megoldás a kezdőállapottól a célig vezető <strong>akciók sorozata (út)</strong>.</td>
+              <td>A megoldás egyetlen <strong>teljes és konzisztens értékadás</strong>, az út önmagában nem lényeges.</td>
+            </tr>
+            <tr>
+              <td>Heurisztikák szerepe</td>
+              <td>Célfüggő tartományfüggetlen heurisztikák (h(n)) becsülik a távolságot.</td>
+              <td><strong>Szerkezeti heurisztikák</strong> (pl. MRV, LCV) és kényszer-propagáció (AC-3) segítik a hatékony ágvágást.</td>
+            </tr>
+            <tr>
+              <td>Keresési tér hatékonysága</td>
+              <td>Nagyobb elágazási tényező esetén könnyen elakadhat anélkül, hogy kihasználná a belső változókapcsolatokat.</td>
+              <td>A kényszerek korai propagálásával exponenciálisan csökkenthető a hatékony keresési tér.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
