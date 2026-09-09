@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>9. Tétel — FPGA alapú digitális rendszertervezés és szoftverfejlesztési módszertanok | Füles Jegyzetek</title>
+  <meta name="description" content="Programozható logikai eszközök és FPGA alapú digitális rendszertervezés, valamint szoftverfejlesztési módszertanok, rendszerszervezés és tervezési minták (SOLID, MVC) — DEIK Mérnökinformatikus BSc záróvizsga tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/deik-mernokinformatikus-bsc-2017/tetel9/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-nav-key="tetelek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/deik-mernokinformatikus-bsc-2017/">DEIK Mérnökinformatikus BSC 2017</a> / 9. tétel</p>
+
+      <h1>9. Tétel — FPGA alapú digitális rendszertervezés és szoftverfejlesztési módszertanok</h1>
+      <p class="item-meta">Frissítve: 2026-09-09</p>
+
+      <p>
+        Ez a tétel két nagyobb témakört fed le: a programozható
+        logikai eszközöket és az FPGA alapú digitális
+        rendszertervezés folyamatát, valamint a szoftverfejlesztési
+        módszertanokat, rendszerszervezést és tervezési mintákat.
+      </p>
+
+      <h2>Témák</h2>
+      <p><strong>I. Témakör: Programozható logikai eszközök és FPGA alapú tervezés</strong></p>
+      <ul>
+        <li>Programozható logikai eszközök.</li>
+        <li>Digitális rendszer tervezése hardver leíró nyelven és megvalósítása FPGA eszközökbe.</li>
+      </ul>
+      <p><strong>II. Témakör: Szoftverfejlesztési módszertanok, rendszerszervezés és tervezési minták</strong></p>
+      <ul>
+        <li>Rendszerszervezési alapfogalmak, különböző paradigmák.</li>
+        <li>Klasszikus módszertanok jellemzői, vízesés (strukturált) modell.</li>
+        <li>Iteratív (evolúciós, inkrementális) modellek.</li>
+        <li>Agilis szoftverfejlesztési módszertanok, eszközök.</li>
+        <li>OO tervezési alapelvek és fontosabb tervezési minták, MVC.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>I. Témakör: Programozható logikai eszközök és FPGA alapú tervezés</h2>
+
+      <h3>1. Bevezetés: A programozható logikai eszközök evolúciója</h3>
+      <p>
+        A <strong>programozható logikai eszközök</strong> (angolul
+        <em>Programmable Logic Devices</em>, rövidítve
+        <strong>PLD</strong>) olyan elektronikus integrált áramkörök,
+        amelyek logikai funkciói a gyártás után, a felhasználó által
+        programozhatók. Ezzel szemben a hagyományos logikai áramkörök
+        (például a standard TTL vagy CMOS IC-k) funkciója a gyártás
+        során véglegesen rögzítésre kerül.
+      </p>
+      <p>
+        A PLD-k alapvető építőkövei programozható <strong>ÉS
+        (AND)</strong> és <strong>VAGY (OR)</strong> kapukból álló
+        mátrixok. A felhasználó ezen mátrixok összeköttetéseinek
+        megváltoztatásával alakítja ki a kívánt digitális logikai
+        áramkört.
+      </p>
+      <p><strong>A PLD-k főbb típusai:</strong></p>
+      <ul>
+        <li><strong>Egyszerű PLD-k (SPLD):</strong>
+          <ul>
+            <li><em>PAL (Programmable Array Logic):</em> Programozható ÉS mátrixszal és rögzített VAGY mátrixszal rendelkezik.</li>
+            <li><em>GAL (Generic Array Logic):</em> A PAL továbbfejlesztett, elektromosan törölhető és újraprogramozható változata (EEPROM technológia alapján).</li>
+          </ul>
+        </li>
+        <li><strong>Komplex PLD-k (CPLD):</strong> Több SPLD-szerű makrócellát tartalmaz egyetlen lapkán, amelyeket egy központi programozható összekötőhálózat köt össze. Viszonylag gyors és determinisztikus jelkésleltetés jellemzi.</li>
+        <li><strong>Mezőben programozható kapumátrixok (FPGA):</strong> Modern, rendkívül nagy teljesítményű eszközök. Nem a klasszikus ÉS-VAGY mátrixot használják, hanem apró, konfigurálható logikai blokkok (CLB-k) tömegét és rugalmas útválasztó (<em>routing</em>) csatornákat alkalmaznak. Összetett digitális rendszerek, jelfeldolgozó algoritmusok, sőt teljes processzorok is megvalósíthatók bennük.</li>
+      </ul>
+      <p><strong>Az evolúció főbb lépcsőfokai:</strong></p>
+      <ul>
+        <li><strong>PLA (Programmable Logic Array):</strong> Programozható AND és programozható OR síkokból áll. Rugalmas, de bonyolult szerkezete miatt lassú és drága volt.</li>
+        <li><strong>PAL (Programmable Array Logic):</strong> Fix OR síkot és programozható AND síkot alkalmazott, amellyel jelentősen felgyorsították a működést.</li>
+        <li><strong>CPLD (Complex Programmable Logic Device):</strong> Több PAL-szerű makrócellát tartalmaz, amelyeket egy programozható összekötő mátrix (PIA) köt össze. Determinisztikus időzítéssel rendelkezik, de mérete és kapacitása korlátozott.</li>
+        <li><strong>FPGA (Field Programmable Gate Array):</strong> Teljesen eltérő, mátrixszerű architektúra, amely nagyszámú apró, konfigurálható logikai blokkból és rugalmas hálózati útvonalakból épül fel.</li>
+      </ul>
+
+      <h3>2. Az FPGA (Field Programmable Gate Array) belső felépítése</h3>
+      <p>
+        Az FPGA egy olyan félvezető eszköz, amelynek logikai
+        funkcióit és belső összeköttetéseit a gyártás után, a
+        felhasználó által ("a mezőn") lehet programozni. Főbb
+        összetevői:
+      </p>
+      <ul>
+        <li><strong>CLB-k (Configurable Logic Blocks - Konfigurálható logikai blokkok):</strong> Az FPGA számítási magjai. Általában Lookup Table-ökből (LUT – igazságtáblákat megvalósító SRAM alapú memóriák), regiszterekből (flip-flopok) és multiplexerekből állnak. Egy LUT képes tetszőleges n-bites Boole-függvény megvalósítására.</li>
+        <li><strong>I/O Blokkok (IOB):</strong> A chip külső lábaihoz kapcsolódó interfészek, amelyek támogatják a különböző feszültségszinteket és szabványokat (pl. LVCMOS, LVDS).</li>
+        <li><strong>Programozható útvonalhálózat (Routing Interconnect):</strong> Mátrixszerűen elhelyezett vezetékek és programozható kapcsolópontok (passzív tranzisztorok vagy multiplexerek), amelyek összekötik a CLB-ket. Ez határozza meg a jelterjedési késleltetést.</li>
+        <li><strong>Beágyazott blokkok (Hard IP-k):</strong> A modern FPGA-k nemcsak tisztán logikai elemeket tartalmaznak, hanem dedikált hardveres blokkokat is: blokk-memóriákat (Block RAM – BRAM), DSP-szeleteket (gyors szorzó-akkumulátorok a digitális jelfeldolgozáshoz), valamint gyakran integrált mikrokontrollereket (pl. ARM Cortex-isztek) vagy nagy sebességű adó-vevőket (SerDes).</li>
+      </ul>
+
+      <h3>3. Hardver leíró nyelvek (HDL) szerepe és működési elve</h3>
+      <p>
+        A <strong>hardver leíró nyelvek (HDL – Hardware Description
+        Languages, mint a VHDL és a Verilog)</strong>
+        <strong>párhuzamos hardware-struktúrákat és folyamatokat</strong>
+        írnak le.
+      </p>
+      <ul>
+        <li><strong>Párhuzamosság:</strong> A HDL-ben minden utasítás, jelhozzárendelés és blokk alapértelmezés szerint egyidejűleg (párhuzamosan) fut, modellezve a fizikai logikai kapuk folyamatos működését.</li>
+        <li><strong>Absztrakciós szintek:</strong>
+          <ul>
+            <li><em>Viselkedési (Behavioral) szint:</em> Algoritmikus leírás, amely azt határozza meg, hogy mit csináljon a rendszer (pl. if-else ágak, órajel-vezérelt folyamatok).</li>
+            <li><em>Adatfolyam (Dataflow) szint:</em> Regiszter-átviteli szint (RTL), ahol a regiszterek közötti adatmozgást és logikai egyenleteket adják meg.</li>
+            <li><em>Strukturális (Structural) szint:</em> Komponensek és logikai kapuk fizikai összekapcsolásának szintje.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>4. Digitális rendszer tervezési folyamata FPGA-ban</h3>
+      <p>A HDL kód megírásától a fizikai chipen futó működő rendszerig egy többlépcsős, automatizált fordítási és optimalizálási folyamat (toolchain) vezet:</p>
+      <ul>
+        <li><strong>Specifikáció és Tervezés (Design Entry):</strong> A rendszer funkcionális leírása HDL nyelven, vázlatok vagy blokkdiagramok alapján.</li>
+        <li><strong>Szimuláció (Simulation):</strong> A kód helyességének ellenőrzése tesztpadok (Testbench) segítségével, még a hardverre való letöltés előtt (funkcionális szimuláció).</li>
+        <li><strong>Szintézis (Synthesis):</strong> A HDL kód elemzése és lefordítása kapuszintű hálózati listává (Netlist), amely az FPGA elemeire (LUT-ok, regiszterek) képezi le a logikát.</li>
+        <li><strong>Helyezés és Útvonalválasztás (Place &amp; Route - P&amp;R):</strong>
+          <ul>
+            <li><em>Helyezés (Placement):</em> A logikai blokkok fizikai elhelyezése az FPGA mátrixában úgy, hogy minimalizálják a késleltetéseket és optimalizálják a hőterhelést.</li>
+            <li><em>Útvonalválasztás (Routing):</em> A belső kapcsolópontok és vezetékek konfigurálása a blokkok összekötésére.</li>
+          </ul>
+        </li>
+        <li><strong>Időzítés-elemzés (Timing Analysis):</strong> Ellenőrzés, hogy a jelek elérik-e a céljukat az előírt órajelperióduson belül (setup és hold idők betartása).</li>
+        <li><strong>Bitstream generálás és Programozás:</strong> Egy bináris konfigurációs fájl (<strong>bitstream</strong>) előállítása, amelyet a programozó szoftver letölt az FPGA konfigurációs memóriájába (SRAM vagy Flash), beállítva a belső multiplexereket és kapcsolatokat.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>II. Témakör: Szoftverfejlesztési módszertanok, rendszerszervezés és tervezési minták</h2>
+
+      <h3>1. Rendszerszervezési alapfogalmak és szoftverfejlesztési életciklus (SDLC)</h3>
+      <p>
+        A <strong>rendszer</strong> olyan egymással kapcsolatban lévő
+        elemek (komponensek) egységes egésze, amely egy közös cél
+        elérésére törekszik. A <strong>rendszerszervezés</strong>
+        (vagy rendszerelemzés és -tervezés) pedig az a folyamat,
+        amely során meglévő szervezeti, gazdasági vagy informatikai
+        folyamatokat elemeznek, új rendszereket terveznek, vagy a
+        meglévőket optimalizálják a hatékonyság növelése érdekében.
+      </p>
+      <p>
+        <strong>Követelményelemzés (Requirements Engineering):</strong>
+        A felhasználói igények összegyűjtése és specifikációvá
+        alakítása.
+      </p>
+      <p><strong>Rendszer felépítéséhez szükséges alapfogalmak:</strong></p>
+      <ul>
+        <li><strong>Elemek (Komponensek):</strong> A rendszer legkisebb önálló egységei (pl. egy vállalatnál az egyes munkatársak, egy informatikai rendszerben a szoftvermodulok vagy adatbázisok).</li>
+        <li><strong>Struktúra (Szerkezet):</strong> Az elemek közötti kapcsolatok és kölcsönhatások rendje. Ez határozza meg, hogy a részek hogyan kapcsolódnak egymáshoz.</li>
+        <li><strong>Határ (Boundary):</strong> Az a virtuális vagy fizikai vonal, amely elválasztja a rendszert a külvilágától (a környezetétől).</li>
+        <li><strong>Környezet (Environment):</strong> Mindazok a tényezők és entitások, amelyek kívül esnek a rendszer határán, de befolyásolják annak működését, vagy amikre a rendszer maga is hatással van (pl. piaci feltételek, jogszabályok, ügyfelek).</li>
+        <li><strong>Bemenet (Input):</strong> Az a materális, energiai vagy információs mennyiség, amelyet a rendszer a környezetéből vesz fel további feldolgozás céljából (pl. alapanyag, adatok, megrendelések).</li>
+        <li><strong>Kimenet (Output):</strong> Az a termék, szolgáltatás vagy információ, amelyet a rendszer a feldolgozás után visszajuttat a környezetnek (pl. késztermék, jelentés, számla).</li>
+        <li><strong>Visszacsatolás (Feedback):</strong> Az a folyamat, amikor a kimenet egy része vagy annak hatása visszajut a bemenethez vagy a vezérléshez, lehetővé téve a rendszer működésének korrigálását és a célokhoz igazítását.</li>
+      </ul>
+      <p>
+        A fejlesztési <strong>paradigmák</strong> meghatározzák, hogy
+        a problémákat hogyan közelítjük meg (pl. procedurális
+        programozás, objektumorientált programozás – OOP,
+        funkcionális programozás).
+      </p>
+      <p><strong>Programozási paradigmák:</strong></p>
+      <ul>
+        <li><strong>Imperatív (utasító) paradigma:</strong> A programot utasítások sorozataként írják le, amelyek lépésről lépésre megváltoztatják a számítógép belső állapotát (memóriáját).</li>
+        <li><strong>Deklaratív paradigma:</strong> A fejlesztő nem azt mondja meg lépésről lépésre, hogy <em>hogyan</em> kell elvégezni a számítást, hanem azt, hogy <em>mit</em> szeretne eredményül kapni.</li>
+      </ul>
+      <p><strong>Rendszertervezési paradigmák:</strong></p>
+      <ul>
+        <li><strong>Kliens-szerver paradigma:</strong> A funkciók megoszlanak a kérést indító kliens és a kérést kiszolgáló, adatokat feldolgozó szerver között.</li>
+        <li><strong>Mikroszolgáltatás paradigma:</strong> A rendszert apró, önállóan futó, lazán csatolt szolgáltatásokra bontják, amelyek hálózaton keresztül kommunikálnak egymással.</li>
+        <li><strong>Event-driven (Eseményvezérelt) paradigma:</strong> A komponensek nem közvetlenül hívják meg egymást, hanem eseményeket generálnak és figyelnek, amire aszinkron módon reagálnak.</li>
+      </ul>
+      <p><strong>Számítási és hardveres paradigmák:</strong></p>
+      <ul>
+        <li><strong>Párhuzamos és elosztott számítás:</strong> A feladatokat nem egyetlen processzor hajtja végre sorban, hanem több mag, illetve több különálló számítógép dolgozik rajtuk egyszerre.</li>
+        <li><strong>Felhőalapú (Cloud Computing) paradigma:</strong> A saját fizikai szerverek helyett a számítási kapacitást, a tárhelyet és a szoftvereket távoli adatközpontokból, szolgáltatásként veszik igénybe.</li>
+      </ul>
+
+      <h3>2. Klasszikus módszertanok: A vízesés (Waterfall) modell</h3>
+      <ul>
+        <li><strong>A vízesés modell jellemzői:</strong> A fázisok szigorúan egymás után következnek; az egyik fázis befejezése (és dokumentálása) nélkül nem lehet továbblépni a következőre.</li>
+        <li><strong>Előnyök:</strong> Nagyon jól strukturált, könnyen menedzselhető, egyértelmű mérföldkövek és részletes dokumentáció jellemzi.</li>
+        <li><strong>Hátrányok:</strong> Rendkívül merev. Ha a követelmények megváltoznak a fejlesztés közben, vagy a tesztelés során (a folyamat végén) derül ki egy alapvető tervezési hiba, annak javítása rendkívül költséges vagy lehetetlen.</li>
+      </ul>
+
+      <h3>3. Iteratív, inkrementális és evolúciós modellek</h3>
+      <p>A vízesés modell hiányosságainak kiküszöbölésére jöttek létre a rugalmasabb megközelítések:</p>
+      <ul>
+        <li><strong>Inkrementális fejlesztés:</strong> A rendszert részenként (inkrementumokként) építik fel és adják át, így a funkcionalitás fokozatosan bővül.</li>
+        <li><strong>Iteratív fejlesztés:</strong> A szoftvert többszörös ciklusban (iterációkban) fejlesztik, ahol minden ciklusban finomítják, bővítik és tesztelik az előző változatot.</li>
+        <li><strong>Spirál modell:</strong> Kockázatvezérelt megközelítés, amely egyesíti a vízesés modell szigorúságát az iteratív modellek rugalmasságával, miközben minden körben kiemelten elemzi a projektre leselkedő kockázatokat.</li>
+      </ul>
+
+      <h3>4. Agilis szoftverfejlesztési módszertanok és eszközök</h3>
+      <p>
+        A 2001-ben kiadott <strong>Agilis Kiáltvány (Agile
+        Manifesto)</strong> értékei (egyének és interakciók a
+        folyamatok helyett, működő szoftver az átfogó dokumentáció
+        helyett, együttműködés az ügyféllel, változások lekövetése)
+        alapjaiban változtatták meg az iparágat.
+      </p>
+      <ul>
+        <li><strong>Scrum keretrendszer:</strong> A legelterjedtebb agilis keretrendszer, amely a fejlesztést rövid, fix hosszúságú iterációkra, ún. <strong>sprintekre</strong> bontja. Minden sprint végén egy potenciálisan szállítható termék-inkrementum születik. A Scrum definiál szerepköröket, eseményeket és artefaktumokat.</li>
+        <li><strong>Kanban:</strong> A folyamatos szállításra és a munkafolyamat vizualizációjára fókuszál. Egy Kanban táblán követik a feladatok állapotát. A legfontosabb elve a "folyamatban lévő munka" limitálása, ami segít elkerülni a torlódásokat és felgyorsítani az átfutási időt.</li>
+      </ul>
+
+      <h3>5. Objektumorientált (OO) tervezési alapelvek, tervezési minták és az MVC</h3>
+      <p><strong>SOLID alapelvek</strong></p>
+      <ul>
+        <li><strong>S (Single Responsibility):</strong> Egy osztálynak csak egyetlen felelőssége (módosítási oka) legyen.</li>
+        <li><strong>O (Open/Closed):</strong> A szoftver entitások legyenek nyitottak a bővítésre, de zártak a módosításra.</li>
+        <li><strong>L (Liskov Substitution):</strong> A szülőosztály példányai biztonságosan helyettesíthetők a gyermekosztály példányaival anélkül, hogy a program helyessége sérülne.</li>
+        <li><strong>I (Interface Segregation):</strong> A kliensek ne kényszerüljenek rá, hogy olyan interfészeket implementáljanak, amelyeket nem használnak (több speciális interfész jobb, mint egy általános).</li>
+        <li><strong>D (Dependency Inversion):</strong> A magas szintű modulok ne függjenek az alacsony szintű moduloktól; mindketten absztrakcióktól függjenek.</li>
+      </ul>
+      <p><strong>Tervezési minták (Design Patterns)</strong></p>
+      <p>
+        A <strong>tervezési minták (Design Patterns)</strong> bevált,
+        újrafelhasználható megoldásokat kínálnak gyakran előforduló
+        szoftvertervezési problémákra. Nem konkrét kódrészletek,
+        hanem általános koncepciók, amelyeket a fejlesztő az adott
+        kontextusra adaptál.
+      </p>
+      <p><strong>MVC (Model-View-Controller) Architektúra</strong></p>
+      <p>Az MVC az egyik legfontosabb architekturális minta, amely a felhasználói felülettel rendelkező alkalmazások logikáját három, egymással lazán csatolt komponensre bontja:</p>
+      <ul>
+        <li><strong>Model:</strong> Az alkalmazás adataiért és üzleti logikájáért felelős. Nem tud a felhasználói felületről. Ha az állapota megváltozik, értesíti a megfigyelőit.</li>
+        <li><strong>View (Nézet):</strong> A Modell adatainak megjelenítéséért felelős. Ez a felhasználói felület. Passzív, csak megjelenít, és a felhasználói interakciókat továbbítja a Controllernek.</li>
+        <li><strong>Controller (Vezérlő):</strong> Fogadja a felhasználói inputot (pl. kattintás, űrlap elküldése), feldolgozza azt, és ennek hatására manipulálja a Modellt. A Controller dönti el, hogy a felhasználói művelet hatására melyik üzleti logikának kell lefutnia, és melyik Nézetet kell utána megjeleníteni.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
