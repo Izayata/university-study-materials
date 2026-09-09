@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>6. Tétel — Szekvenciális logikai hálózatok és webes technológiák | Füles Jegyzetek</title>
+  <meta name="description" content="Szekvenciális logikai hálózatok (tárolók, számlálók, léptető regiszterek, memóriák), valamint webes technológiák (HTML5, CSS3, JavaScript, szenzorleolvasás) — DEIK Mérnökinformatikus BSc záróvizsga tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/deik-mernokinformatikus-bsc-2017/tetel6/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-nav-key="tetelek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/deik-mernokinformatikus-bsc-2017/">DEIK Mérnökinformatikus BSC 2017</a> / 6. tétel</p>
+
+      <h1>6. Tétel — Szekvenciális logikai hálózatok és webes technológiák</h1>
+      <p class="item-meta">Frissítve: 2026-09-09</p>
+
+      <p>
+        Ez a tétel két nagyobb témakört fed le: a szekvenciális
+        logikai hálózatokat (tárolók, számlálók, léptető regiszterek,
+        memóriák), valamint a webes technológiákat (HTML5, CSS3,
+        JavaScript vezérlési szerkezetek, szenzorleolvasás és távoli
+        felügyeleti rendszerek).
+      </p>
+
+      <h2>Témák</h2>
+      <p><strong>I. Témakör: Digitális rendszerek és szekvenciális hálózatok</strong></p>
+      <ul>
+        <li>Szekvenciális logikai hálózatok: Tárolók</li>
+        <li>Számlálók</li>
+        <li>Léptető regiszterek</li>
+        <li>Memóriák</li>
+      </ul>
+      <p><strong>II. Témakör: Webes technológiák (HTML5, CSS3), Scriptvezérlés, Szenzorleolvasás és Távoli Felügyeleti Rendszerek</strong></p>
+      <ul>
+        <li>A HTML5 új elemei</li>
+        <li>A CSS3 új lehetőségei</li>
+        <li>Vezérlési szerkezetek web scriptben</li>
+        <li>Szenzorleolvasás webfelületen keresztül</li>
+        <li>Távoli felügyeleti rendszerek megvalósítása webfelületen</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>I. Témakör: Digitális rendszerek és szekvenciális hálózatok</h2>
+
+      <h3>1. Bevezetés: Szekvenciális logikai hálózatok fogalma és elhatárolása a kombinációs hálózatoktól</h3>
+      <p>
+        A digitális rendszerek logikai hálózatait alapvetően két
+        nagy csoportra oszthatjuk: kombinációs és szekvenciális
+        hálózatokra. A kettő közötti legélesebb különbség a
+        <strong>memória</strong>, vagyis a belső állapot tárolásának
+        képességében rejlik.
+      </p>
+      <ul>
+        <li><strong>Kombinációs hálózatok:</strong> Ezek memóriamentes áramkörök. Kimenetük <em>kizárólag</em> a bemenetek pillanatnyi, aktuális értékétől függ. Ha a bemenet megváltozik, a kimenet szintén megváltozik, de a rendszernek nincs "emlékezete" a korábbi bemeneti értékekről. Tipikus példák a logikai kapuk, összeadók, multiplexerek.</li>
+        <li><strong>Szekvenciális hálózatok:</strong> Ezzel szemben a szekvenciális hálózatok kimenete nemcsak a bemenetek aktuális állapotától, hanem a hálózat belső, tárolt állapotától is függ. Ez a belső állapot a múltbeli bemeneti sorozatok eredményeként alakult ki. A működés kulcsa a <strong>visszacsatolás</strong>, amelynek során a hálózat kimeneti jeleit vagy belső állapotait visszavezetjük a bemeneti logikába, lehetővé téve az információ tárolását. Ezen tárolóelemek alkotják a rendszer memóriáját.</li>
+      </ul>
+
+      <h3>2. Tárolók</h3>
+      <ul>
+        <li><strong>Aszinkron tárolók:</strong> Ezek szintvezérelt elemek, ami azt jelenti, hogy amíg a vezérlőjel (engedélyező bemenet) aktív, a kimenetük folyamatosan követi a bemeneti változásokat. A legegyszerűbb az <strong>SR-latch</strong>, amely két keresztbe kötött NOR vagy NAND kapuból épül fel. Két bemenete a Set (S) és a Reset (R). Az S=1 beállítására a tároló 1-be, R=1-re 0-ba billen. Az S=1, R=1 kombináció tiltott állapot, mivel a kimenet viselkedése nem definiált.</li>
+        <li><strong>Szinkron tárolók:</strong> Ezek élvezérelt elemek, ami a gyakorlatban sokkal stabilabb működést garantál. A bemeneti értékeket csak egy központi órajel felfutó vagy lefutó élének pillanatában veszik át, és ezt az állapotot a következő órajel-élig stabilan tartják.
+          <ul>
+            <li><strong>D (Data) flip-flop:</strong> A legegyszerűbb szinkron tároló. Az órajel aktív élénél a D bemeneten lévő logikai érték megjelenik a Q kimeneten.</li>
+            <li><strong>T (Toggle) flip-flop:</strong> A T bemenet vezérli, hogy a tároló váltson-e állapotot. Ha T=1, az órajel élére a kimenet az ellenkezőjére vált. Ha T=0, az állapot változatlan marad.</li>
+            <li><strong>JK flip-flop:</strong> A legsokoldalúbb tároló. Két bemenete, J és K, az SR-latch Set és Reset funkcióihoz hasonlóan működik, de kiküszöböli a tiltott állapotot.
+              <ul>
+                <li>J=0, K=0: Az órajelre az állapot nem változik (tartás).</li>
+                <li>J=0, K=1: Az órajelre a kimenet 0 lesz (Reset).</li>
+                <li>J=1, K=0: Az órajelre a kimenet 1 lesz (Set).</li>
+                <li>J=1, K=1: Az órajelre a kimenet az előző állapot ellenkezőjére vált (váltó üzemmód).</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>3. Számlálók (Counters)</h3>
+      <p>
+        A számlálók flip-flopok összekapcsolásával létrehozott
+        szekvenciális áramkörök, amelyek előre meghatározott
+        sorrendben lépkednek a különböző állapotok között, jellemzően
+        órajel-impulzusok hatására.
+      </p>
+      <ul>
+        <li><strong>Aszinkron (Ripple) számlálók:</strong> Itt csak az első flip-flop kapja a külső órajelet. Minden további flip-flop órajelét az előző flip-flop kimenete vezérli. Előnye az egyszerű felépítés, hátránya viszont a jelentős terjedési késleltetés, mivel az állapotváltás végig "gyűrűzik" a láncon, ami korlátozza a maximális működési frekvenciát.</li>
+        <li><strong>Szinkron számlálók:</strong> Itt minden flip-flop ugyanazt a központi órajelet kapja. Azt, hogy egy adott flip-flopnak váltania kell-e, egy kombinációs logikai hálózat dönti el a J, K vagy T bemenetek vezérlésével. Bonyolultabb a felépítésük, de sokkal gyorsabbak és megbízhatóbbak, mivel minden állapotváltás egyszerre, az órajel élére történik.</li>
+        <li><strong>Modulo-N számlálók:</strong> Olyan számlálók, amelyek N állapotot tudnak megkülönböztetni (0-tól N-1-ig számolnak), majd a ciklus újraindul. Például egy modulo-10 számláló 0-tól 9-ig számol.</li>
+        <li><strong>Fel/Le (Up/Down) számlálók:</strong> Egy irányvezérlő bemenet segítségével eldönthető, hogy a számláló növelje vagy csökkentse a belső értékét az órajel hatására.</li>
+      </ul>
+
+      <h3>4. Léptető regiszterek</h3>
+      <p>
+        A léptető regiszterek olyan több bites tároló egységek,
+        amelyek flip-flopok láncolatából állnak, és képesek a
+        bennük tárolt bináris adatokat az órajel ütemére bitenként
+        eltolni (léptetni) a szomszédos cellák felé.
+      </p>
+      <p>Főbb típusok:</p>
+      <ul>
+        <li><strong>SISO (Serial-In, Serial-Out):</strong> Soros bemenetű, soros kimenetű regiszter. Az adatok bitenként érkeznek be, és bitenként távoznak. Késleltetési vonalakként és soros adatátviteli pufferként használatos.</li>
+        <li><strong>SIPO (Serial-In, Parallel-Out):</strong> Soros bemenetű, párhuzamos kimenetű regiszter. Soros adatfolyamot alakít át párhuzamos byte-tá.</li>
+        <li><strong>PISO (Parallel-In, Serial-Out):</strong> Párhuzamos bemenetű, soros kimenetű regiszter. Párhuzamos adatokat olvas be egyszerre, majd soros bitfolyamként továbbít.</li>
+        <li><strong>PIPO (Parallel-In, Parallel-Out):</strong> Párhuzamos bemenetű, párhuzamos kimenetű regiszter. Ideiglenes adattárolásra, ALU regiszterekként alkalmazzák.</li>
+      </ul>
+
+      <h3>5. Memóriák (Memory Arrays)</h3>
+      <p>
+        A digitális rendszerekben a memóriák nagyméretű, strukturált
+        tárolóhálózatok, amelyek tömeges adatok megőrzésére
+        szolgálnak. Címzés alapján teszik lehetővé az olvasási és
+        írási műveleteket.
+      </p>
+      <p>Főbb memóriatípusok:</p>
+      <ul>
+        <li><strong>RAM (Random Access Memory):</strong> Írható és olvasható, illékony memória; a tárolt adatok a tápfeszültség megszűnésekor elvesznek.
+          <ul>
+            <li><em>SRAM (Static RAM):</em> Flip-flop alapú cellákból épül fel. Gyors, de drága és nagy helyigényű.</li>
+            <li><em>DRAM (Dynamic RAM):</em> Tranzisztor és kondenzátor kombinációjából álló cella. Olcsó, nagy sűrűségű, de folyamatos frissítést igényel.</li>
+          </ul>
+        </li>
+        <li><strong>ROM (Read-Only Memory):</strong> Csak olvasható, nem illékony memória. Tartalmát a gyártás során vagy speciális programozóval rögzítik. Változatai: PROM, EPROM, EEPROM, Flash memória.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>II. Témakör: Webes technológiák (HTML5, CSS3), Scriptvezérlés, Szenzorleolvasás és Távoli Felügyeleti Rendszerek</h2>
+
+      <h3>1. A HTML5 új elemei</h3>
+      <p>
+        A HTML5 (HyperText Markup Language 5) a világháló standard
+        jelölőnyelvének modern verziója, amely radikálisan
+        kiterjesztette a webes alkalmazások képességeit,
+        feleslegessé téve a korábbi külső beépülő modulokat.
+      </p>
+      <p><strong>Strukturális elemek:</strong> A korábbi, <code>&lt;div&gt;</code> alapú "korszak" helyett a HTML5 egyértelmű, beszédes címkéket vezetett be a főbb oldalszerkezeti egységekre:</p>
+      <ul>
+        <li><code>&lt;header&gt;</code>: A bevezető tartalmak (pl. logó, főcím, navigáció) gyűjtőhelye.</li>
+        <li><code>&lt;footer&gt;</code>: Az oldal vagy egy szekció lábléce, amely jellemzően szerzői jogi információkat, kapcsolati adatokat tartalmaz.</li>
+        <li><code>&lt;main&gt;</code>: Az oldal központi, egyedi tartalma. Egy dokumentumban csak egy main elem lehet.</li>
+        <li><code>&lt;nav&gt;</code>: A fő navigációs linkek csoportosítására szolgál.</li>
+        <li><code>&lt;section&gt;</code>: A dokumentum egy tematikus csoportját jelöli, amelynek általában saját címsora van.</li>
+        <li><code>&lt;article&gt;</code>: Önálló, önmagában is értelmezhető tartalmi egységet definiál, mint egy blogbejegyzés, fórumposzt vagy újságcikk.</li>
+        <li><code>&lt;aside&gt;</code>: Olyan tartalmat jelöl, amely lazábban kapcsolódik a körülötte lévő tartalomhoz.</li>
+      </ul>
+
+      <h3>2. A CSS3 új lehetőségei</h3>
+      <p>
+        A CSS3 (Cascading Style Sheets 3) a stíluslapok modularizált
+        fejlesztési formája, amely függetlenné tette a vizuális
+        megjelenítést a tartalomtól, és modern tervezési eszközöket
+        adott a fejlesztők kezébe.
+      </p>
+      <p>Főbb új lehetőségek:</p>
+      <ul>
+        <li><strong>Modern elrendezési modellek (Layouts):</strong>
+          <ul>
+            <li><strong>Flexbox (Flexible Box Module):</strong> Egyirányú elrendezési rendszer, amely rendkívül hatékonyan kezeli az elemek elosztását, igazítását és sorrendjét egy adott tengelyen.</li>
+            <li><strong>CSS Grid Layout:</strong> Kétirányú rács alapú elrendezési rendszer, amely komplex webes keretrendszerek nélkül teszi lehetővé precíz weboldalstruktúrák kialakítását.</li>
+          </ul>
+        </li>
+        <li><strong>Vizuális effektek és díszítések:</strong> Lekerekített sarkok, árnyékok elemeken (és szövegeken is), valamint átlátszóság.</li>
+        <li><strong>Transzformációk, Átmenetek és Animációk:</strong>
+          <ul>
+            <li><em>Transitions:</em> Sima vizuális átmenetet biztosít két CSS-állapot között (pl. gombszín változás hover hatásra).</li>
+            <li><em>Transforms:</em> Elemek elforgatása, skálázása, eltolása 2D-ben vagy 3D-ben.</li>
+            <li><em>Animations &amp; Keyframes:</em> Komplex, időzített, több lépéses animációk definiálása tiszta CSS-ben.</li>
+          </ul>
+        </li>
+        <li><strong>Reszponzív Webdesign (RWD) és Media Queries:</strong> A media szabályok segítségével a stíluslapok képesek alkalmazkodni a képernyő felbontásához, méretéhez vagy orientációjához.</li>
+      </ul>
+
+      <h3>3. Vezérlési szerkezetek web scriptben (JavaScript)</h3>
+      <p>
+        A webes scriptnyelv, a <strong>JavaScript</strong> teljes
+        körű programozási logikát biztosít a böngészőben futó
+        alkalmazások számára. A vezérlési szerkezetek szabályozzák a
+        kód futásának irányát:
+      </p>
+      <ul>
+        <li><strong>Feltételes elágazások:</strong>
+          <ul>
+            <li><code>if...else</code> és a többszörös elágaztatásra szolgáló <code>switch...case</code> szerkezetek.</li>
+            <li><code>feltétel ? igaz_ág : hamis_ág</code>: rövidített feltételekhez.</li>
+          </ul>
+        </li>
+        <li><strong>Ciklusok:</strong>
+          <ul>
+            <li>Hagyományos számlálós ciklus: <code>for (let i = 0; i &lt; 10; i++) { ... }</code>.</li>
+            <li>Feltételes ciklusok: <code>while</code> és <code>do...while</code>.</li>
+            <li>Kollekciók iterálására: <code>for...of</code> (tömbök elemeihez) és <code>for...in</code> (objektumok kulcsaihoz).</li>
+          </ul>
+        </li>
+        <li><strong>Aszinkron vezérlés:</strong> A modern webalkalmazások alapja az aszinkron kommunikáció, amely lehetővé teszi adatok háttérben történő lekérdezését a szerverről az oldal újratöltése nélkül.
+          <ul>
+            <li><strong>AJAX (Asynchronous JavaScript and XML):</strong> A <code>XMLHttpRequest</code> objektummal megvalósított technológia, amely a háttérben képes HTTP kéréseket küldeni és fogadni.</li>
+            <li><strong>Fetch API:</strong> Az AJAX modernebb, ígéret (Promise) alapú alternatívája, amely egyszerűbb és rugalmasabb szintaxist biztosít a hálózati kérések kezelésére.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>4. Szenzorleolvasás webfelületen keresztül</h3>
+      <p>
+        A modern IoT (Internet of Things) rendszerekben elterjedt
+        igény, hogy a fizikai környezet adatait közvetlenül egy
+        webes felületen jelenítsék meg és dolgozzák fel.
+      </p>
+      <p><strong>Fizikai réteg (Szenzor és Mikrokontroller)</strong></p>
+      <ul>
+        <li><strong>Adatgyűjtés:</strong> A folyamat egy fizikai szenzorral indul, amely az érzékelt környezeti fizikai mennyiséget mérhető jellé alakítja.</li>
+        <li><strong>Jelfeldolgozás:</strong> A szenzor analóg vagy digitális jelét egy mikrokontroller olvassa be különféle hardveres interfészeken keresztül.</li>
+        <li><strong>Előkészítés:</strong> A mikrokontroller feladata a nyers szenzoradatok helyi szintű feldolgozása, valamint azok hálózati továbbításra való előkészítése.</li>
+      </ul>
+      <p><strong>Logikai réteg (Szerver és API)</strong></p>
+      <ul>
+        <li><strong>Adattovábbítás:</strong> A mikrokontroller egy hálózati protokollon keresztül továbbítja a feldolgozott adatokat egy központi szervernek. Ez történhet hagyományos protokollon alapuló kérésekkel egy alkalmazásprogramozási interfész végpontján keresztül, vagy egy dedikált, kis sávszélességű, IoT-specifikus üzenetkezelési protokoll alkalmazásával.</li>
+        <li><strong>Szerveroldali kezelés:</strong> A szerveroldali szoftveres környezet fogadja, ellenőrzi és validálja az adatokat, majd egy relációs vagy nem-relációs adatbázisban tárolja azokat.</li>
+        <li><strong>Interfész biztosítás:</strong> A szerver egy szabványos programozási interfészt (API) biztosít, amelyen keresztül a kliensek lekérdezhetik a tárolt adatokat. A kommunikáció kiterjedhet kétirányú, valós idejű kapcsolatot biztosító protokollokra is a szerver és a kliens között.</li>
+      </ul>
+      <p><strong>Prezentációs réteg (Webes Kliens)</strong></p>
+      <ul>
+        <li><strong>Kliensoldali kérés:</strong> A felhasználó a böngészőjében megnyitja a grafikus felületet biztosító dokumentumot, amelynek kliensoldali programkódja aszinkron hálózati kéréseket intéz a szerver API-jához a legfrissebb szenzoradatok beszerzése érdekében.</li>
+        <li><strong>Megjelenítés:</strong> A szerver által visszaküldött adatokat (jellemzően strukturált formátumban) a kliens feldolgozza, majd a dokumentumobjektum-modell programozói felületén keresztül dinamikusan frissíti a felhasználói felület elemeit.</li>
+        <li><strong>Időzítés:</strong> Ez a lekérdezési és frissítési ciklus periodikusan, ütemezetten ismétlődik, ezáltal biztosítva a szenzorok állapotának közel valós idejű megjelenítését a felhasználó számára.</li>
+      </ul>
+
+      <h3>5. Távoli felügyeleti rendszerek megvalósítása webfelületen</h3>
+      <p>
+        A távoli felügyeleti rendszerek (<em>SCADA / IoT
+        Dashboards</em>) lehetővé teszik ipari vagy otthoni
+        berendezések távoli monitorozását és vezérlését egy
+        böngészőn keresztül.
+      </p>
+      <ul>
+        <li>A rendszer kétirányúvá tehető. A webes felületen elhelyezett gombokkal a felhasználó eseményeket indíthat.</li>
+        <li>Egy gombnyomásra a JavaScript egy <strong>POST kérést</strong> küld egy másik API végpontra.</li>
+        <li>A szerver fogadja a parancsot, és egy megfelelő mechanizmuson keresztül továbbítja azt a cél mikrokontrollernek, amely végrehajtja a kért műveletet.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
