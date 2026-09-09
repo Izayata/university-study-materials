@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>7. Tétel — Szoftvertermék fejlesztése webes platformon és vezérlési szerkezetek implementálása assembly nyelven | Füles Jegyzetek</title>
+  <meta name="description" content="Szoftvertermék fejlesztése webes platformon (lépések, technológiák, előnyök, nehézségek), valamint vezérlési szerkezetek (elágazás, ciklus, vezérlésátadás) implementálása assembly nyelven — DEIK Mérnökinformatikus BSc záróvizsga tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/deik-mernokinformatikus-bsc-2017/tetel7/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-nav-key="tetelek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/deik-mernokinformatikus-bsc-2017/">DEIK Mérnökinformatikus BSC 2017</a> / 7. tétel</p>
+
+      <h1>7. Tétel — Szoftvertermék fejlesztése webes platformon és vezérlési szerkezetek implementálása assembly nyelven</h1>
+      <p class="item-meta">Frissítve: 2026-09-09</p>
+
+      <p>
+        Ez a tétel két nagyobb témakört fed le: egy szoftvertermék
+        webes platformon történő fejlesztésének lépéseit,
+        technológiáit, előnyeit és nehézségeit, valamint a vezérlési
+        szerkezetek (elágazás, ciklus, vezérlésátadás)
+        implementálását assembly nyelven.
+      </p>
+
+      <h2>Témák</h2>
+      <p><strong>I. Témakör: Szoftvertermék fejlesztése webes platformon (Lépések, technológiák, előnyök és nehézségek)</strong></p>
+      <ul>
+        <li>Mutassa be egy példa szoftvertermék elkészültéhez szükséges lépéseket és technológiákat egy választott platformon.</li>
+        <li>Ismertesse a platform előnyeit és nehézségeit, a megvalósítás lépéseit, a legszélesebb körben alkalmazott aktuális technológiákat.</li>
+      </ul>
+      <p><strong>II. Témakör: Vezérlési szerkezetek implementálása Assembly nyelven</strong></p>
+      <ul>
+        <li>Vezérlési szerkezetek implementálása assembly nyelven (elágaztatás, ciklus szervezés, vezérlésátadó utasítások)</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>I. Témakör: Szoftvertermék fejlesztése webes platformon (Lépések, technológiák, előnyök és nehézségek)</h2>
+
+      <h3>1. Platformválasztás és Architektúra: A Webes Platform</h3>
+      <p>
+        A modern szoftverfejlesztési projektek keretében kiemelt
+        jelentőségű a megfelelő futtató környezet kiválasztása. A
+        következő szempontokat érdemes figyelembe venni:
+      </p>
+      <ul>
+        <li><strong>Elterjedtség és sokoldalúság:</strong> A webes platform kiválasztásának alapvető indoka, hogy napjaink egyik legelterjedtebb és legsokoldalúbb alkalmazási környezete.</li>
+        <li><strong>Architekturális felépítés:</strong> Támogatja a többrétegű (<strong>n-tier</strong>) kliens-szerver architektúrát, amelyben a felhasználói felület a böngészőben fut, míg az üzleti logika, az adatfeldolgozás és az adatbázis-kezelés a szerver oldalon helyezkedik el.
+          <ul>
+            <li><strong>Kliens réteg (Frontend):</strong> A felhasználói felületet és a vizuális megjelenítést biztosító komponens, amely a felhasználó helyi eszközén futó webböngésző kontextusában hajtódik végre.</li>
+            <li><strong>Szerver réteg (Backend):</strong> A központi üzleti logika, a tranzakciókezelés, az adatintegráció és a biztonsági ellenőrzések végrehajtásáért felelős komponens, amely a távoli kiszolgálói infrastruktúrán telepítve működik.</li>
+            <li><strong>Adatkezelési réteg (Persistence Tier):</strong> A relációs vagy nem-relációs adattároló rendszerek összessége, amely biztosítja az alkalmazás állapotának tartós megőrzését.</li>
+          </ul>
+        </li>
+        <li><strong>Platformfüggetlenség:</strong> Nem szükséges az alkalmazást külön telepíteni; bármilyen eszközön (például asztali gépen, okostelefonon vagy tableten) standard webböngészőn keresztül azonnal futtatható.</li>
+        <li><strong>Könnyű frissíthetőség és karbantartás:</strong> A frissítéseket elegendő a szerveren elvégezni, így biztosítható, hogy a felhasználók mindig a legfrissebb verziót érjék el.</li>
+        <li><strong>Skálázhatóság:</strong> A felhőalapú infrastruktúrák integrálhatósága révén a rendszer dinamikusan képes igazodni a növekvő terhelési igényekhez.</li>
+        <li><strong>Biztonsági kockázatok:</strong> A nyílt hálózati kommunikációból és a kliens oldali végrehajtásból adódóan a rendszerek ki vannak téve a speciális webes sebezhetőségeknek.</li>
+        <li><strong>Hálózati függőség:</strong> Mivel a disztribuált architektúra megköveteli a folyamatos hálózati kapcsolatot, az instabil fizikai vagy logikai kapcsolat jelentősen degradálja a rendszer használhatóságát.</li>
+        <li><strong>Böngészőkompatibilitás:</strong> A különböző gyártók által fejlesztett renderelőmotorok és JavaScript-értelmezők eltérő szabványkövetése megköveteli a cross-browser kompatibilitás folyamatos biztosítását.</li>
+      </ul>
+
+      <h3>2. A Szoftverfejlesztés Projektfolyamatának Lépései</h3>
+      <ul>
+        <li><strong>Követelményelemzés és Specifikáció:</strong> A funkcionális elvárások és nem-funkcionális paraméterek (teljesítmény, rendelkezésre állás, biztonság) formális rögzítése, valamint a vizuális elrendezési tervek elkészítése.</li>
+        <li><strong>Rendszertervezés:</strong> Az adatbázis-séma relációs vagy NoSQL alapú tervezése, a kommunikációs interfészek és API végpontok specifikációja, valamint az architekturális minták kiválasztása.</li>
+        <li><strong>Frontend Fejlesztés:</strong> A kliens oldali komponensek implementálása reszponzív dizájnelvek és modern komponensalapú keretrendszerek alkalmazásával.</li>
+        <li><strong>Backend Fejlesztés:</strong> Az üzleti logika, az adatbázis-kezelő interfészek, valamint a hitelesítési és autorizációs modulok lekódolása.</li>
+        <li><strong>Tesztelés:</strong> Az egységtesztek, az integrációs tesztek, valamint a végpontok közötti tesztelési eljárások automatizált futtatása a hibák detektálására.</li>
+        <li><strong>Deploy és DevOps:</strong> A konténerizációs technológiák alkalmazása, a folyamatos integrációs és kiszállítási pipeline-ok beállítása, valamint a rendszer élesítése a felhőalapú infrastruktúrába.</li>
+      </ul>
+
+      <h3>3. Legszélesebb Körben Alkalmazott Aktuális Technológiák</h3>
+      <ul>
+        <li><strong>HTML5 (HyperText Markup Language 5):</strong> Biztosítja a prezentációs réteg szemantikus szerkezetét, amely elengedhetetlen az akadálymentesség és a keresőoptimalizálás szempontjából.</li>
+        <li><strong>CSS3 (Cascading Style Sheets 3):</strong> Felelős a reszponzív, modern vizuális megjelenítésért. Olyan modern elrendezési modelleket használunk, mint a <em>Flexbox</em> és a <em>CSS Grid Layout</em>, amelyek biztosítják, hogy a dashboard asztali monitoron és mobileszközön is optimálisan jelenjen meg.</li>
+        <li><strong>TypeScript:</strong> A JavaScript felett álló, típusbiztos programozási nyelv. A TypeScript statikus típusellenőrzést, interfészeket és osztályokat hoz a projektbe, amely drasztikusan csökkenti a futásidejű hibák számát, és támogatja a nagy méretű kód bázisok karbantarthatóságát.</li>
+        <li><strong>Aszinkron Kommunikációs Technológiák:</strong>
+          <ul>
+            <li><em>Fetch API (Promise-alapú AJAX):</em> A nem valós idejű adatok lekérésére a modern, Promise-okra épülő Fetch API-t használjuk. Ez tiszta, aszinkron kódszerkezetet biztosít a régi XMLHttpRequest-hez.</li>
+            <li><em>WebSockets protokoll:</em> A telemetriai adatok valós idejű továbbítására a WebSockets technológiát alkalmazzuk. Ez egy állandó, kétirányú TCP kapcsolatot létesít a böngésző és a szerver között. Így a szerver azonnal ki tudja tolni az új szenzoradatokat a kliensnek, anélkül, hogy a kliensnek folyamatosan lekérdezéseket kellene indítania.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>II. Témakör: Vezérlési szerkezetek implementálása Assembly nyelven</h2>
+
+      <h3>1. Alacsony szintű vezérlés elméleti alapjai</h3>
+      <p>
+        Az alacsony szintű programozásban (Assembly) a magas szintű
+        programozási nyelvekből ismert absztrakt, blokk-alapú
+        strukturált vezérlési szerkezetek (feltételes elágazások,
+        iterációs ciklusok) nem léteznek natív szinten. Ezeket az
+        architekturális elemeket a hardverszintű <strong>feltételes
+        és feltétlen ugró utasítások</strong>, valamint a processzor
+        aritmetikai műveletei által módosított <strong>állapotjelző
+        regiszterek</strong> explicit manipulálásával kell felépíteni.
+      </p>
+
+      <h3>2. Elágaztatások (If-Else szerkezetek) implementálása</h3>
+      <p>
+        Az elágazó programvezérlés a két operandus közötti reláció
+        megállapításán alapul. A folyamat a hardveres összehasonlító
+        utasítással kezdődik, amely módosítja a processzor
+        állapotregiszterének bitjeit.
+      </p>
+      <ul>
+        <li><strong>Feltétel nélküli ugrás (<code>JMP</code>):</strong> Közvetlenül felülírja a <strong>RIP/EIP</strong> regiszter tartalmát a célcímre (címkére), megszakítás nélkül oda irányítva a végrehajtást.</li>
+        <li><strong>Feltételes ugrás (<code>Jcc</code>):</strong> Ha a kért flag-kondíció teljesül, a processzor végrehajtja az ugrást (beírja a RIP-be a célcímet), különben ignorálja, és a végrehajtás szekvenciálisan halad a közvetlenül alatta lévő következő utasításra.</li>
+      </ul>
+      <p><strong>Elágaztatási utasítások és elemek (Típusok és jellemzésük):</strong></p>
+      <ul>
+        <li><code>CMP</code> <strong>(Compare) utasítás:</strong> Két operandus kivonásos műveletét végzi el anélkül, hogy az eredményt eltárolná, kizárólag a processzor állapotjelző bitjeit állítva be a reláció alapján.</li>
+        <li><code>JE</code> / <code>NE</code> <strong>(Jump if Equal / Not Equal) utasítások:</strong> Feltételes ugrást megvalósító gépi utasítások, amelyek a Zero Flag állapota alapján vezérlik a programfutás irányát az egyenlőség fennállása vagy hiánya esetén.</li>
+        <li><code>JG</code> / <code>JL</code> <strong>(Jump if Greater / Less) utasítások:</strong> Előjeles numerikus összehasonlítások eredményére reagáló feltételes ugró utasítások, amelyek az előjel- és túlcsordulási bitek kombinációját értékelik ki.</li>
+      </ul>
+      <p>
+        A logikai elágazás felépítése során az összehasonlítást
+        követő feltételes ugrás irányítja át a vezérlést a megfelelő
+        kódcímkére, míg az alternatív ág végrehajtása után egy
+        feltétlen ugrás biztosítja a közös futási szálba való
+        visszatérést.
+      </p>
+
+      <h3>3. Ciklusok szervezése</h3>
+      <p>
+        Az iterációs vezérlési szerkezetek alacsony szintű
+        megvalósítása explicit számlálóregiszterek alkalmazását és
+        iterációnkénti inkrementálását vagy dekrementálását igényli.
+        A ciklus logikai felépítése egy iterációs magból, egy
+        állapotmódosító utasításból, valamint egy feltételes
+        visszaugrásból áll.
+      </p>
+      <p><strong>Cikluskezelési elemek:</strong></p>
+      <ul>
+        <li><strong>Számlálóregiszter (Counter Register):</strong> Dedikált regiszter, amely a ciklus hátralévő iterációinak számát tárolja és adminisztrálja.</li>
+        <li><code>DEC</code> <strong>(Decrement) utasítás:</strong> A megadott regiszter tartalmának egy egységgel történő csökkentése, egyidejűleg frissítve a Zero Flag állapotát.</li>
+        <li><code>JNZ</code> <strong>(Jump if Not Zero) utasítás:</strong> Feltételes ugró utasítás, amely a ciklusmag végén ellenőrzi a számlálóregiszter kinullázódását, és amíg az nem teljesül, visszaugrás történik a ciklus kezdeti címkéjére.</li>
+        <li><code>LOOP</code> <strong>utasítás:</strong> Komplex hardveres iterációs utasítás, amely egyetlen lépésben csökkenti a számlálóregiszter értékét és feltételes ugrást hajt végre a nulla állapot eléréséig.</li>
+      </ul>
+
+      <h3>4. Vezérlésátadó utasítások</h3>
+      <p>
+        A vezérlésátadó utasítások határozzák meg a processzor által
+        végrehajtott gépi utasítások lineáris sorrendjének
+        megszakítását és a programvezérlés áthelyezését.
+      </p>
+      <p><strong>Vezérlésátadó utasítástípusok és jellemzésük:</strong></p>
+      <ul>
+        <li><code>JMP</code> <strong>(Feltétlen ugrás):</strong> Olyan vezérlésátadó utasítás, amely a program futási irányát feltétel nélkül a megadott memóriacímre vagy címkére kényszeríti.</li>
+        <li><code>CALL</code> <strong>(Szubrutin hívás):</strong> Eljáráshívást megvalósító utasítás, amely automatikusan elmenti a hívás utáni utasítás memóriacímét a hardveres verembe, majd a vezérlést átadja az alprogram kezdőcímének.</li>
+        <li><code>RET</code> <strong>(Visszatérés szubrutinból):</strong> Eljárásbefejező utasítás, amely kiolvassa a veremből a korábban mentett visszatérési címet, és visszaállítja a programfutást a hívó kontextusba.</li>
+        <li><code>INT</code> <strong>(Szoftveres megszakítás):</strong> Szoftveresen generált kivételi utasítás, amely megszakítja az aktuális futási szálat, és a megszakítási vektor alapján átadja a vezérlést az operációs rendszer vagy a BIOS kezelőrutinjának.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
