@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>5. Tétel — Keresések ellenséges környezetben és elektronikai alapáramkörök | Füles Jegyzetek</title>
+  <meta name="description" content="Mesterséges intelligencia keresések ellenséges környezetben (Minimax, alfa-béta vágás), valamint elektronika alapáramkörök (MOS tranzisztor, CMOS logika, műveleti erősítő) — DEIK Mérnökinformatikus BSc záróvizsga tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/deik-mernokinformatikus-bsc-2017/tetel5/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-nav-key="tetelek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/deik-mernokinformatikus-bsc-2017/">DEIK Mérnökinformatikus BSC 2017</a> / 5. tétel</p>
+
+      <h1>5. Tétel — Keresések ellenséges környezetben és elektronikai alapáramkörök</h1>
+      <p class="item-meta">Frissítve: 2026-09-09</p>
+
+      <p>
+        Ez a tétel két nagyobb témakört fed le: a mesterséges
+        intelligencia ellenséges környezetben zajló kereséseit
+        (Minimax, alfa-béta vágás), valamint az elektronika analóg és
+        digitális alapáramköreit (MOS tranzisztor, CMOS logika,
+        műveleti erősítő).
+      </p>
+
+      <h2>Témák</h2>
+      <p><strong>I. Témakör: Mesterséges intelligencia – Keresések ellenséges környezetben</strong></p>
+      <ul>
+        <li>Ismertesse az ellenséges környezetben zajló kereséseket, és nyerő stratégia létezésének feltételeit!</li>
+      </ul>
+      <p><strong>II. Témakör: Elektronika és analóg/digitális áramkörök</strong></p>
+      <ul>
+        <li>MOS tranzisztor felépítése és működése.</li>
+        <li>Kapcsoló üzemmód.</li>
+        <li>CMOS inverter, alapkapuk.</li>
+        <li>Az erősítés fogalma.</li>
+        <li>A műveleti erősítő.</li>
+        <li>Negatív visszacsatolás.</li>
+        <li>Alapkapcsolások.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>I. Témakör: Mesterséges intelligencia – Keresések ellenséges környezetben</h2>
+
+      <h3>1. Az ellenséges környezet és a kétszemélyes játékok modellje</h3>
+      <p>
+        A mesterséges intelligencia egyik klasszikus és rendkívül
+        fontos területe a döntéshozatal olyan környezetekben, ahol
+        több, egymással versengő ágens (játékos) cselekszik. Ezeket
+        nevezzük ellenséges (adversarial) környezeteknek. A célunk
+        egy olyan optimális stratégia kidolgozása, amely
+        maximalizálja a saját nyereségünket, miközben figyelembe
+        vesszük, hogy az ellenfelünk is a saját nyereségének
+        maximalizálására, és ezzel a miénk minimalizálására törekszik.
+      </p>
+      <ul>
+        <li><strong>Kétszemélyes:</strong> Két játékos (ágens) vesz részt a játékban.</li>
+        <li><strong>Zéró összegű:</strong> A rendszerben nincs külső nyereség vagy veszteség; az egyik játékos nyeresége pontosan megegyezik a másik veszteségével (szigorúan kompetitív környezet).</li>
+        <li><strong>Tökéletes információs:</strong> Mindkét játékos teljes és pontos rálátással bír a játéktábla aktuális állására; nincsenek rejtett változók vagy lapok (ellentétes a kártyajátékokkal).</li>
+      </ul>
+      <p><strong>A modell főbb jellemzői</strong></p>
+      <ul>
+        <li><strong>Többügynökös (Multi-agent) környezet:</strong> A szereplők (hagyományosan <strong>MAX</strong> és <strong>MIN</strong> néven emlegetve) egymás ellen dolgoznak.</li>
+        <li><strong>Konfliktus:</strong> A célok kölcsönösen kizárják egymást; az egyik optimalizálási iránya ellentétes a másikkal.</li>
+        <li><strong>Játékfa (Game tree):</strong> A lehetséges lépések és állapotok fahatású ábrázolása, ahol a csomópontok a játékállapotokat, az élek pedig a megtehető lépéseket jelölik.</li>
+      </ul>
+
+      <h3>2. Nyerő stratégia létezésének feltételei</h3>
+      <p>
+        Ahhoz, hogy egy ellenséges környezetben (játékban) elméletben
+        garantáltan létezzen <strong>nyerő stratégia</strong> (vagy
+        döntetlen kényszerítés), a rendszernek meg kell felelnie
+        bizonyos alapvető feltételeknek. Ezeket a játékelmélet és a
+        mesterséges intelligencia klasszikus elvei határozzák meg:
+      </p>
+      <ul>
+        <li><strong>Tökéletes információ:</strong> A játék minden pillanatában mindkét játékos pontosan és teljes körűen ismeri a teljes játékállapotot, a szabályokat és a lehetséges jövőbeli lépéseket. Nincsenek rejtett információk vagy rejtett lapok (mint például a kártyajátékokban).</li>
+        <li><strong>Determinista környezet:</strong> A játékmenetben nincsenek véletlen elemek (például kockadobás, kártyakeverés vagy szerencsefaktor). Minden egyes megvalósított lépés szigorúan és egyértelműen határozza meg a következő állapotot.</li>
+        <li><strong>Zéró összegű játék:</strong> A résztvevők nyeresége és vesztesége szigorúan kiegyenlíti egymást. Amit az egyik játékos nyer, azt a másik pontosan annyival elveszíti; a rendszerben a hasznosságok összege fix.</li>
+        <li><strong>Véges állapot- vagy lépéstér:</strong> A lehetséges játékállapotok száma véges, vagy a játék definíció szerint egy véges lépésszám után garantáltan véget ér (győzelemmel, vereséggel vagy döntetlennel).</li>
+      </ul>
+
+      <h3>3. A Minimax algoritmus</h3>
+      <p>
+        A Minimax algoritmus egy rekurzív, mélységi bejáráson
+        alapuló keresőeljárás, amely az optimális lépést határozza
+        meg a fent leírt játéktípusokban. Az algoritmus alapelve,
+        hogy a legrosszabb esetet optimalizálja: azt a lépést
+        választja, amely a lehető legjobb kimenetelt garantálja
+        számunkra egy tökéletesen racionális, hibátlanul játszó
+        ellenféllel szemben.
+      </p>
+      <p>
+        Az algoritmus a játékfa leveleiből indul ki, és rekurzívan
+        halad visszafelé a gyökér felé. A két játékost MAX-nak (aki
+        maximalizálni akarja a hasznosságot) és MIN-nek (aki
+        minimalizálni akarja azt) nevezzük.
+      </p>
+      <ul>
+        <li>A <strong>MAX</strong> szinten lévő csomópontok értékét a gyermekeik értékének maximuma adja.</li>
+        <li>A <strong>MIN</strong> szinten lévő csomópontok értékét a gyermekeik értékének minimuma adja.</li>
+      </ul>
+      <p>
+        A gyökércsomópont számított értéke lesz a játék
+        <strong>Minimax-értéke</strong>. Ha ez az érték győzelmet
+        jelent, akkor a MAX játékosnak létezik nyerő stratégiája, és
+        az algoritmus által javasolt első lépés ennek a stratégiának
+        a kezdete.
+      </p>
+      <p><strong>Jellemzői:</strong></p>
+      <ul>
+        <li><strong>Teljesség:</strong> Véges játékfa esetén garantáltan megtalálja a megoldást.</li>
+        <li><strong>Optimalitás:</strong> Optimális lépést ad egy optimálisan játszó ellenfél ellen.</li>
+        <li><strong>Időkomplexitás:</strong> O(b<sup>m</sup>), ahol 'b' az elágazási tényező (egy csomópontból elérhető átlagos lépésszám), 'm' pedig a maximális keresési mélység. Ez a legfőbb hátránya, mivel a komplexitás exponenciális.</li>
+        <li><strong>Tárkomplexitás:</strong> O(b*m), mivel mélységi bejárást végez, és egyszerre csak egy utat tart a memóriában.</li>
+      </ul>
+
+      <h3>4. Az alfa-béta vágás (Alpha-Beta Pruning)</h3>
+      <p>
+        A tiszta Minimax algoritmus fő hátránya, hogy a keresési fa
+        méretének növekedésével a számítási komplexitás is
+        növekszik, ami a gyakorlatban gyorsan kezelhetetlenné válik.
+      </p>
+      <p>
+        Az <strong>alfa-béta vágás</strong> egy olyan optimalizációs
+        eljárás, amely a keresés során semmilyen információt nem
+        vesz el a Minimax algoritmus optimalitásából vagy
+        teljességéből, mégis drasztikusan csökkenti a megvizsgált
+        csomópontok számát. Az eljárás két értéket tart nyilván a
+        keresés során:
+      </p>
+      <ul>
+        <li><strong>alfa:</strong> A MAX játékos által eddig garantáltan elérhető legmagasabb érték az aktuális útvonalon.</li>
+        <li><strong>béta:</strong> A MIN játékos által eddig garantáltan elérhető legalacsonyabb érték az aktuális útvonalon.</li>
+      </ul>
+      <p>
+        Ha egy részfa vizsgálata során kiderül, hogy az adott ág
+        értéke rosszabb, mint az eddig bejárt alternatívák, akkor a
+        részfa további bejárása felesleges, így azt <strong>levágjuk
+        (pruning)</strong>.
+      </p>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>II. Témakör: Elektronika és analóg/digitális áramkörök</h2>
+
+      <h3>1. MOS tranzisztor felépítése és működése</h3>
+      <p>
+        A <strong>MOSFET</strong> (Metal-Oxide-Semiconductor
+        Field-Effect Transistor, azaz fém-oxid-félvezető
+        térvezérlésű tranzisztor) a digitális és analóg áramkörök
+        legelterjedtebb aktív eszköze. Két fő típusa van: az
+        <strong>nMOS</strong> (n-csatornás) és a <strong>pMOS</strong>
+        (p-csatornás).
+      </p>
+      <p><strong>Fő szerkezeti elemei:</strong></p>
+      <ul>
+        <li><strong>Gate (G – Kapu):</strong> Fém vagy poliszilícium vezérlőelektróda, amelyet egy vékony szigetelőréteg (oxidréteg) választ el a félvezető aljzattól.</li>
+        <li><strong>Source (S – Forrás) és Drain (D – Nyelő):</strong> Erősen dópolt félvezető tartományok az aljzatban.</li>
+        <li><strong>Substrate / Bulk (B – Aljzat):</strong> A hordozó kristálytest.</li>
+      </ul>
+      <p><strong>Működési elv:</strong></p>
+      <ul>
+        <li><strong>Feszültségvezérelt működés:</strong> A tranzisztor állapotát nem vezérlő áram, hanem a kapu és a forrás közé kapcsolt feszültség által létrehozott elektromos mező szabályozza.</li>
+        <li><strong>Lezárt állapot:</strong> Amíg a kapufeszültség alacsonyabb egy meghatározott küszöbfeszültségnél, a csatorna nem alakul ki, így a forrás és a nyelő között megszakad az áramút.</li>
+        <li><strong>Csatorna kialakulása:</strong> Ha a kapufeszültség meghaladja a küszöbfeszültséget, az elektromos mező a felületre vonzza a töltéshordozókat, és létrehoz egy ideiglenes, vezető csatornát a szigetelőréteg alatt.</li>
+        <li><strong>Áramfolyás:</strong> A létrejött vezető csatornán keresztül – a nyelőre kapcsolt feszültség hatására – megindul az áram a forrás és a nyelő között.</li>
+        <li><strong>Galvanikus elszigeteltség:</strong> Mivel a kapu elektróda egy vékony szigetelőréteggel teljesen el van választva a félvezető testtől, a vezérlő oldalra nem folyik vezérlő áram, ami rendkívül alacsony energiafogyasztást eredményez.</li>
+      </ul>
+
+      <h3>2. Kapcsoló üzemmód és a CMOS inverter</h3>
+      <p><strong>A CMOS inverter kapcsolási sémája és működése:</strong></p>
+      <p>
+        A <strong>CMOS inverter</strong> és a logikai alapkapuk a
+        modern digitális áramkörök (processzorok, memóriák)
+        legkisebb építőkövei. A <strong>CMOS</strong>
+        (Complementary Metal-Oxide-Semiconductor) technológia
+        lényege, hogy a kapcsolásokat NMOS és PMOS tranzisztorok
+        párosításával valósítják meg.
+      </p>
+      <p><strong>Felépítése:</strong></p>
+      <ul>
+        <li><strong>PMOS tranzisztor:</strong> A felső ágon helyezkedik el (a tápfeszültség felé).</li>
+        <li><strong>NMOS tranzisztor:</strong> Az alsó ágon helyezkedik el (a földelés, GND felé).</li>
+        <li>A két tranzisztor kapuját összevezetik, ez a <strong>bemenet</strong>. A nyelőiket szintén összekötik, ez adja a <strong>kimenetet</strong>.</li>
+      </ul>
+      <p><strong>Működése:</strong></p>
+      <ul>
+        <li><strong>Ha a bemenet magas:</strong> Az NMOS tranzisztor kinyit (vezet), míg a PMOS tranzisztor lezár. A kimenet közvetlenül a földre kapcsolódik, így a kimeneti feszültség alacsony lesz.</li>
+        <li><strong>Ha a bemenet alacsony:</strong> A PMOS tranzisztor kinyit, az NMOS pedig lezár. A kimenet a tápfeszültségre kapcsolódik, így a kimeneti feszültség magas lesz.</li>
+      </ul>
+      <p>
+        <strong>Fő előny:</strong> Mivel a két tranzisztor közül
+        stabil állapotban mindig az egyik le van zárva, a CMOS
+        inverter statikus állapotban <strong>gyakorlatilag semmi
+        energiát nem fogyaszt</strong> (csak az átkapcsolás
+        pillanatában folyik áram).
+      </p>
+
+      <h3>3. CMOS alapkapuk (NAND, NOR)</h3>
+      <p>Az inverter logikáját kiterjesztve komplexebb logikai kapuk is felépíthetők tranzisztor szinten:</p>
+      <ul>
+        <li><strong>NAND kapu:</strong> Az nMOS tranzisztorok sorba, míg a pMOS tranzisztorok párhuzamosan kapcsolódnak. A kimenet csak akkor lesz alacsony, ha <em>minden</em> bemenet magas.</li>
+        <li><strong>NOR kapu:</strong> A pMOS tranzisztorok kapcsolódnak sorba, az nMOS tranzisztorok pedig párhuzamosan. A kimenet csak akkor lesz magas (1), ha <em>minden</em> bemenet alacsony (0).</li>
+        <li><strong>Összetettebb kapuk (AND, OR):</strong> Az <strong>AND</strong> és <strong>OR</strong> kapukat úgy kapják meg a gyakorlatban, hogy a fent említett NAND, illetve NOR kapuk kimenetére rákötnek egy hagyományos <strong>CMOS invertert</strong>, amely ismét megfordítja a jelet a helyes logikai eredmény eléréséhez.</li>
+      </ul>
+
+      <h3>4. Az erősítés fogalma és a műveleti erősítő</h3>
+      <p>
+        Az <strong>erősítés</strong> egy áramkör azon képessége, hogy
+        a bemeneti jel (feszültség vagy áram) amplitúdóját
+        megnövelve adja át a kimenetnek.
+      </p>
+      <p>
+        A <strong>műveleti erősítő (Operational Amplifier -
+        OpAmp)</strong> egy nagyon nagy erősítésű, direkt csatolású
+        differenciális erősítő, amely analóg számítások,
+        jelformálások és erősítési feladatok alapköve.
+      </p>
+      <p><strong>Az ideális műveleti erősítő elméleti jellemzői:</strong></p>
+      <ul>
+        <li><strong>Végtelen nyílthurkú feszültségerősítés:</strong> A kimeneti feszültség visszacsatolás nélkül végtelenül nagy mértékben reagál a két bemenet közötti legkisebb feszültségkülönbségre is.</li>
+        <li><strong>Végtelen bemeneti impedancia:</strong> A bemenetek egyáltalán nem vesznek fel áramot a külső áramkörtől, így teljesen tehermentesítik a jelforrást.</li>
+        <li><strong>Nulla kimeneti impedancia:</strong> A kimenet tökéletes feszültségforrásként viselkedik, amelynek feszültségesését a rákapcsolt terhelés nem befolyásolja.</li>
+        <li><strong>Végtelen sávszélesség és nulla eltolási feszültség:</strong> Az erősítő minden frekvenciájú jelet késleltetés nélkül, bemeneti jel hiányában pedig pontosan nulla kimeneti feszültséggel kezel.</li>
+      </ul>
+
+      <h3>5. Negatív visszacsatolás és alapkapcsolások</h3>
+      <p>
+        <strong>Negatív visszacsatolás:</strong> Negatív
+        visszacsatolásról akkor beszélünk, amikor a kimeneti jel egy
+        részét ellentétes fázisban (vagyis a <strong>negatív /
+        invertáló bemenetre</strong> visszavezetve) visszacsatoljuk a
+        bemenetre.
+      </p>
+      <p><strong>Főbb előnyei:</strong></p>
+      <ul>
+        <li><strong>Stabilitás:</strong> Függetlenítést biztosít az erősítő elemek gyártási szórásától és a hőmérséklet-változásoktól.</li>
+        <li><strong>Torzítás csökkentése:</strong> Jelentősen javítja a kimeneti jel linearitását.</li>
+        <li><strong>Sávszélesség növelése:</strong> A visszacsatolás révén az áramkör átviteli sávszélessége megnő.</li>
+        <li><strong>Impedanciaviszonyok javítása:</strong> Növelheti a bemeneti impedanciát és csökkentheti a kimeneti impedanciát (közelítve az ideális állapothoz).</li>
+      </ul>
+      <p><strong>Főbb alapkapcsolások:</strong></p>
+      <ul>
+        <li><strong>Invertáló erősítő:</strong> A bemeneti jel ellenálláson keresztül csatlakozik az invertáló negatív bemenetre, a nem-invertáló pozitív bemenet pedig le van földelve. A kimenetről egy visszacsatoló ellenállás kapcsolódik vissza az invertáló bemenetre.</li>
+        <li><strong>Nem-invertáló erősítő:</strong> A bemeneti jel közvetlenül a nem-invertáló pozitív bemenetre kapcsolódik. Az invertáló negatív bemenet egy ellenálláson keresztül a földre, valamint egy visszacsatoló ellenálláson keresztül a kimenetre kötődik.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
