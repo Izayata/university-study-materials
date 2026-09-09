@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>13. Tétel — Modern processzor megoldások és lekérdezés-optimalizálás | Füles Jegyzetek</title>
+  <meta name="description" content="Modern processzor megoldások: futószalag, hazardok, sorrenden kívüli és spekulatív végrehajtás, szuperskalár, VLIW és vektorprocesszorok. Relációs lekérdezések optimalizálása és kiértékelése: relációalgebrai fa alapú és költségalapú optimalizálás. DEIK Mérnökinformatikus BSc záróvizsga tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/deik-mernokinformatikus-bsc-2017/tetel13/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-nav-key="tetelek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/deik-mernokinformatikus-bsc-2017/">DEIK Mérnökinformatikus BSC 2017</a> / 13. tétel</p>
+
+      <h1>13. Tétel — Modern processzor megoldások és relációs lekérdezések optimalizálása</h1>
+      <p class="item-meta">Frissítve: 2026-09-09</p>
+
+      <p>
+        Ez a tétel két nagyobb témakört fed le: a modern processzorok
+        teljesítménynövelő megoldásait (futószalag, sorrenden kívüli
+        és spekulatív végrehajtás, szuperskalár, VLIW és
+        vektorprocesszorok), valamint a relációs lekérdezések
+        optimalizálását és kiértékelését.
+      </p>
+
+      <h2>Témák</h2>
+      <p><strong>I. Témakör: Modern processzor megoldások</strong></p>
+      <ul>
+        <li>Modern processzor megoldások (futószalag elv, hazard, sorrenden kívüli végrehajtás, spekulatív végrehajtás, szuperskalár processzorok, VLIW processzorok, vektor processzorok).</li>
+      </ul>
+      <p><strong>II. Témakör: Relációs lekérdezések optimalizálása és kiértékelése</strong></p>
+      <ul>
+        <li>Relációs lekérdezések optimalizálása és kiértékelése.</li>
+        <li>Relációalgebrai fa alapú optimalizálás.</li>
+        <li>Költségalapú optimalizálás.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>I. Témakör: Modern processzor megoldások</h2>
+
+      <h3>1. A futószalag elv (Pipelining)</h3>
+      <p><strong>A futószalagos feldolgozás alapjai</strong></p>
+      <p>A végrehajtási folyamatot több, rövidebb, önálló, egymással párhuzamosítható fázisra bontjuk. Egy klasszikus, ötfázisú futószalag lépései a következők:</p>
+      <ul>
+        <li><strong>Utasításlehívás (Instruction Fetch - IF):</strong> A processzor beolvassa a következő végrehajtandó utasítást a memóriából a programszámláló (Program Counter, PC) által mutatott címről.</li>
+        <li><strong>Utasításdekódolás és regiszterolvasás (Instruction Decode - ID):</strong> A lehívott utasítást a vezérlőegység dekódolja, meghatározza annak típusát és a szükséges operandusokat, amelyeket kiolvas a regisztertárból.</li>
+        <li><strong>Végrehajtás (Execute - EX):</strong> Az aritmetikai és logikai egység (ALU) elvégzi a dekódolt utasítás által előírt műveletet (pl. összeadás, logikai ÉS).</li>
+        <li><strong>Memóriaelérés (Memory Access - MEM):</strong> Amennyiben az utasítás memóriaírást (store) vagy -olvasást (load) igényel, ez a fázis felelős az adatmemória eléréséért.</li>
+        <li><strong>Visszaírás (Write-Back - WB):</strong> A végrehajtás vagy a memóriaolvasás eredménye visszaíródik a célregiszterbe.</li>
+      </ul>
+
+      <p><strong>A futószalag akadályai: Veszélyforrások (Hazards)</strong></p>
+      <ul>
+        <li><strong>Adatveszélyek (Data Hazards):</strong> Akkor lépnek fel, amikor egy utasítás eredményétől függ egy későbbi utasítás, de az eredmény még nem áll rendelkezésre. Három altípusa van:
+          <ul>
+            <li><em>RAW (Read After Write - True Dependency):</em> A második utasítás olvasná egy olyan regiszter tartalmát, ahová az első még nem írt be.</li>
+            <li><em>WAR (Write After Read):</em> A második utasítás írna egy regiszterbe, mielőtt az első kiolvasta volna azt.</li>
+            <li><em>WAW (Write After Write):</em> Két utasítás ugyanabba a regiszterbe írna, és a sorrend felborulna.</li>
+          </ul>
+        </li>
+        <li><strong>Vezérlési veszélyek (Control Hazards):</strong> Feltételes elágazások esetén fordulnak elő. Mivel a processzor futószalaga előre dolgozik, nem tudja előre, hogy melyik ág fog lefutni, így bizonytalanná válik a következő utasítás címe.</li>
+        <li><strong>Strukturális veszélyek (Structural Hazards):</strong> Akkor jönnek létre, amikor a hardver erőforrásai nem elegendőek ahhoz, hogy a futószalagban lévő különböző utasítások egyszerre, egyidejűleg igénybe vegyék ugyanazt az egységet.</li>
+      </ul>
+
+      <h3>2. Sorrenden kívüli (Out-of-Order, OoO) végrehajtás</h3>
+      <p>
+        A hagyományos futószalagok teljesítménybeli korlátainak
+        túllépésére fejlesztették ki a <strong>szuperskalár</strong>
+        processzorokat. Egy szuperskalár architektúra nemcsak
+        átlapolja az utasításokat, hanem <strong>több párhuzamos
+        futószalaggal</strong> is rendelkezik, így órajelciklusonként
+        egynél több utasítást képes lehívni, dekódolni és kibocsátani.
+      </p>
+      <p>
+        A szuperskalár rendszerek hatékonyságának kulcsa a sorrenden
+        kívüli végrehajtás. A merev, programozói sorrendet követő
+        (<em>In-Order</em>) feldolgozás során, ha egy utasítás
+        blokkolódik, a mögötte lévő összes utasítás megáll.
+      </p>
+      <p>Az OoO motor ezzel szemben a következő mechanizmust használja:</p>
+      <ul>
+        <li>Az utasítások a program szerinti sorrendben érkeznek, de a dekódolás után egy <strong>utasítás-ablakba</strong> kerülnek.</li>
+        <li>A processzor dinamikusan elemzi az utasítások közötti adatfüggőségeket. Ha egy utasítás adatai nem állnak rendelkezésre, de egy későbbi utasítás független és a végrehajtó egység szabad, a processzor <strong>előreveszi és végrehajtja a későbbi utasítást (sorrenden kívül)</strong>.</li>
+        <li><strong>Visszarendezés (Retirement / Reorder Buffer – ROB):</strong> Annak érdekében, hogy a program helyes szemantikája sérülhetetlen maradjon, a sorrenden kívül végrehajtott utasítások eredményei egy <strong>visszarendezési pufferbe</strong> kerülnek, és szigorúan az eredeti programozási sorrendben íródnak vissza a regiszterekbe.</li>
+      </ul>
+
+      <h3>3. Szuperskalár processzorok</h3>
+      <p>
+        A <strong>szuperskalár processzor</strong> olyan
+        mikroarchitektúra-kialakítás, amelyben a processzor képes
+        <strong>egyetlen órajel alatt egynél több utasítást
+        végrehajtani</strong> azáltal, hogy több párhuzamos
+        végrehajtó egységet alkalmaz.
+      </p>
+      <p>
+        Azonban a szuperskalár végrehajtásnak is korlátot szabnak a
+        már ismert hazardok, különösen az adatfüggőségek. Egy
+        egyszerű, <strong>soron belüli (in-order)</strong> szuperskalár
+        processzorban, ha az i. utasítás eredményére van szüksége az
+        i+1. utasításnak, és az i. utasítás egy lassú művelet, akkor
+        az i+1. utasításnak és az összes utána következőnek is
+        várakoznia kell. A párhuzamos futószalagok kihasználatlanul
+        állnak, hiába lennének a programban később olyan, teljesen
+        független utasítások, amelyeket végre lehetne hajtani. Ezt a
+        problémát oldja meg a <strong>soron kívüli végrehajtás
+        (Out-of-Order Execution, OoO)</strong>.
+      </p>
+
+      <h3>4. Spekulatív végrehajtás (Speculative Execution)</h3>
+      <p>
+        A szuperskalár és OoO processzorok teljesítményét
+        nagymértékben növeli a <strong>spekulatív végrehajtás</strong>,
+        amely közvetlenül a vezérlési veszélyek (elágazások) negatív
+        hatásait küszöböli ki.
+      </p>
+      <ul>
+        <li><strong>Működése:</strong> Amikor a processzor egy feltételes elágazáshoz (if-else) ér, ahelyett, hogy megvárná a feltétel kiértékelődését és a memóriából/regiszterből érkező adatok megérkezését, egy <strong>elágazás-előrejelző (branch predictor)</strong> segítségével statisztikai és historikus minták alapján <em>megjósolja</em> az elágazás kimenetelét.</li>
+        <li>A processzor a jósolt ágon lévő utasításokat <em>spekulatívan</em>, a háttérben végrehajtja, az eredményeket ideiglenes tárolókban tartva.</li>
+        <li><strong>Helyes jóslat esetén:</strong> Az eredmények érvényesülnek, így semmilyen órajelciklus nem veszendő kárba.</li>
+        <li><strong>Rossz jóslat esetén:</strong> A processzor érvényteleníti a spekulatívan végrehajtott utasítások eredményeit (visszaállítja a pipeline-t), és elkezdi a helyes ág feldolgozását. A modern processzorokban a jóslási pontosság gyakran 95-99% körüli, így a spekulatív végrehajtás óriási sebességnövekedést eredményez.</li>
+      </ul>
+
+      <h3>5. VLIW (Very Long Instruction Word) és Vektorprocesszorok</h3>
+      <p>
+        A VLIW architektúra alapgondolata, hogy a párhuzamosan
+        végrehajtható utasítások felkutatásának és ütemezésének
+        terhét vegyük le a processzor hardverének válláról, és adjuk
+        át a fordítóprogramnak. A fordítóprogram, amely a teljes
+        programkódot ismeri, statikusan, fordítási időben elemzi a
+        függőségeket, és több, egymástól független, egyszerű
+        műveletet egyetlen, nagyon hosszú utasításszóba csomagol.
+      </p>
+      <ul>
+        <li><strong>VLIW (Very Long Instruction Word) architektúrák:</strong> Míg a szuperskalár processzorok bonyolult, dinamikus (hardveres) logikával döntik el órajelciklusonként, hogy mely utasítások futtathatók párhuzamosan, addig a VLIW architektúrában ezt a terhet a <strong>fordítóprogram (compiler)</strong> veszi át. A fordító egyetlen hatalmas, több műveletet tartalmazó (hosszú) utasításszóba csomagolja a független műveleteket, amelyeket a hardver mindenféle extra ütemezési logika nélkül, közvetlenül a párhuzamos végrehajtó egységekre küld. Előnye a hardver egyszerűsége és alacsony energiaigénye, hátránya a merev kódkompatibilitás és a fordítóprogram komplexitása.</li>
+        <li><strong>Vektorprocesszorok (SIMD – Single Instruction, Multiple Data):</strong> Olyan speciális architektúrák, amelyek egyetlen utasítással képesek adatok egész tömbjein végrehajtani ugyanazt a műveletet. A processzor széles regiszterekkel és párhuzamos ALU-s sorokkal rendelkezik, ami drasztikusan csökkenti a ciklusok számát az adatintenzív feladatokban.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>II. Témakör: Relációs lekérdezések optimalizálása és kiértékelése</h2>
+
+      <h3>1. Relációs lekérdezések optimalizálása és kiértékelése</h3>
+      <p>
+        A relációs adatbázis-kezelő rendszerekben a lekérdezések
+        megfogalmazására szolgáló nyelvek (mint például az SQL)
+        <strong>deklaratív</strong> jellegűek. Ez azt jelenti, hogy a
+        felhasználó vagy a fejlesztő <em>megmondja, hogy mit</em>
+        szeretne kapni az adatbázistól, de nem határozza meg, hogy
+        <em>hogyan</em>, azaz milyen fizikai lépésekkel, milyen
+        sorrendben és milyen algoritmusok alkalmazásával olvassa ki
+        az adatokat a háttértárból a rendszer.
+      </p>
+      <p>
+        A lekérdezés-optimalizáló (query optimizer) az egyik
+        legfontosabb és legösszetettebb komponense. Feladata, hogy az
+        SQL-utasításból előállítson egy <strong>végrehajtási tervet
+        (execution plan)</strong>, amely minimálisra csökkenti az
+        erőforrás-felhasználást (elsősorban a háttértárból történő
+        lemezműveletek/I/O számát, valamint a CPU-időt).
+      </p>
+      <p><strong>A lekérdezés feldolgozásának fő fázisai a következők:</strong></p>
+      <ul>
+        <li><strong>Lexikális és szintaktikai elemzés (Parser):</strong> Ellenőrzi az SQL-szabályok helyességét, és szintaxisfát készít.</li>
+        <li><strong>Szemantikus elemzés és jogosultság-ellenőrzés:</strong> Ellenőrzi, hogy a táblák és oszlopok léteznek-e, és a felhasználónak van-e joga a lekérdezéshez.</li>
+        <li><strong>Logikai optimalizálás:</strong> A lekérdezést relációalgebrai kifejezéssé (fává) alakítja, és heurisztikus szabályok alapján átstrukturálja.</li>
+        <li><strong>Fizikai optimalizálás (Költségalapú):</strong> A logikai fához hozzárendeli a konkrétan megvalósító fizikai operátorokat, megbecsüli a költségeket a statisztikák alapján, és kiválasztja a legolcsóbb tervet.</li>
+        <li><strong>Kódgenerálás és Végrehajtás:</strong> A kiválasztott tervet futtatja a motor.</li>
+      </ul>
+
+      <h3>2. Relációalgebrai fa alapú (Logikai) optimalizálás</h3>
+      <p><strong>A relációalgebra alapjai</strong></p>
+      <p>A relációalgebra olyan formális matematikai nyelv, amely relációkon végez műveleteket. A legfontosabb relációalgebrai operátorok:</p>
+      <ul>
+        <li><strong>Szelekció:</strong> Sorok szűrése adott feltétel alapján.</li>
+        <li><strong>Projekció:</strong> Oszlopok kiválasztása.</li>
+        <li><strong>Descartes-szorzat:</strong> Két reláció kombinációja.</li>
+        <li><strong>Összekapcsolás:</strong> Feltételes összekapcsolás.</li>
+        <li><strong>Unió, Metszet, Különbség.</strong></li>
+      </ul>
+
+      <p><strong>Heurisztikus átalakítási szabályok (Ekvivalencia-szabályok)</strong></p>
+      <p>A logikai optimalizálás során a kiinduló relációalgebrai fát úgy alakítjuk át ekvivalens (pontosan ugyanazt az eredményt adó, de kedvezőbb szerkezetű) fává, hogy közben betartunk bizonyos heurisztikus szabályokat:</p>
+      <ul>
+        <li><strong>Szelekciók feltolása a fában (Push-down selections):</strong> A szelekciókat a lehető legkorábban (a fa leveleihez, azaz az alaprelációkhoz legközelebb) kell végrehajtani. Ezzel drasztikusan lecsökkentjük a köztes eredmények, a relációk méretét, amelyeken a későbbi költséges összekapcsolásoknak kell futniuk.</li>
+        <li><strong>Szelekciók szétbontása:</strong> Ha a szelekció feltétele logikai ÉS kapcsolatból áll, azt különálló egymás alatti szelekciókra bonthatjuk, ami segít a feltolásban. (értsd: disztributivitás)</li>
+        <li><strong>Projekciók behúzása és feltolása:</strong> A felesleges oszlopokat a lehető leghamarabb el kell dobni, hogy csökkenjen a sorok bájtmérete a memóriában.</li>
+        <li><strong>Descartes-szorzatok átalakítása összekapcsolássá:</strong> A párosokat mindig át kell alakítani közvetlen összekapcsolási operátorokká, elkerülve a hatalmas méretű Descartes-szorzatok előállítását.</li>
+        <li><strong>Részfák átrendezése:</strong> Az összekapcsolások kommutativitásának és asszociativitásának kihasználásával a legkisebb méretű relációkat kapcsoljuk össze először.</li>
+      </ul>
+
+      <h3>3. Költségalapú (Fizikai) optimalizálás</h3>
+      <p><strong>Fizikai operátorok és algoritmusok</strong></p>
+      <ul>
+        <li><strong>Szelekció megvalósításai:</strong>
+          <ul>
+            <li><em>Sequential Scan (Táblakeresés):</em> Az egész tábla beolvasása blokkonként.</li>
+            <li><em>Index Scan (Indexelt keresés):</em> B-fa index használata, ha van megfelelő index a feltételben szereplő oszlopon.</li>
+          </ul>
+        </li>
+        <li><strong>Összekapcsolások (Joins) algoritmusai:</strong>
+          <ul>
+            <li><em>Nested Loop Join (Beágyazott ciklusos összekapcsolás):</em> Külső és belső ciklus.</li>
+            <li><em>Sort-Merge Join (Rendezve összefésülő):</em> Először rendezi mindkét táblát a join kulcs szerint, majd egy menetben összefésüli őket.</li>
+            <li><em>Hash Join (Hash-alapú összekapcsolás):</em> A kisebbik relációból hash-táblát épít a memóriában, majd a nagyobbik reláció elemeit átvizsgálva hash-függvénnyel keres egyezést.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <p><strong>A költségmodell elemei és a statisztika</strong></p>
+      <p>Az optimalizáló matematikai költségfüggvényt használ az alternatív tervek összehasonlítására. A költséget leggyakrabban az alábbi tényezők határozzák meg:</p>
+      <ul>
+        <li><strong>I/O költség:</strong> A háttértárról beolvasott és kiírt adatlapok száma. Ez a domináns tényező, mivel a lemezműveletek nagyságrenddel lassabbak, mint a CPU műveletek.</li>
+        <li><strong>CPU költség:</strong> A rekordok összehasonlításához, sorba rendezéséhez és hash-eléréséhez szükséges CPU-ciklusok száma.</li>
+        <li><strong>Memóriaköltség:</strong> A rendelkezésre álló pufferterület mérete.</li>
+      </ul>
+      <p>A költségbecsléshez az RDBMS a <strong>katalógusban (System Catalog)</strong> tárolt <strong>statisztikákat</strong> használja:</p>
+      <ul>
+        <li>Táblák sorszáma.</li>
+        <li>Az egyes oszlopok egyedi értékeinek száma.</li>
+        <li>Oszlopértékek eloszlási hisztogramjai (amelyek megmutatják, hogy az értékek hogyan oszlanak meg a tartományban).</li>
+        <li>Az adatok fizikai elhelyezkedése.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
