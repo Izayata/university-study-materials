@@ -76,7 +76,7 @@ not a bug.
 |---|---|---|---|
 | Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/java-alapok/jegyzet1/` |
 | Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | `/gyakorlas/java-alapok/gyakorlat1/` |
-| Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` |
+| Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) |
 
 There used to be a fourth section ("Labor") — it was merged into "Órai
 jegyzetek" and no longer exists as a separate concept; don't reintroduce
@@ -93,11 +93,21 @@ via `.card-grid`/`.item-card`; each course landing page (copied from
 `course-template.html`) then lists that course's items the same way.
 
 A course does not need to appear under all three sections — `tetelek/`
-currently has a different course (`deik-mernokinformatikus-bsc-2017`,
-added 2026-09-09) than `jegyzetek/`/`gyakorlas/` (`java-alapok`),
-since `java-alapok`'s only `tétel` was retired (see below) and never
-replaced with real `java-alapok`-specific exam content. Don't assume
-every course-landing page has counterparts in the other two sections.
+currently has a different course (`deik-mernokinformatikus-bsc-2017`)
+than `jegyzetek/`/`gyakorlas/` (`java-alapok`), since `java-alapok`'s
+only `tétel` was retired (see below) and never replaced with real
+`java-alapok`-specific exam content. Don't assume every course-landing
+page has counterparts in the other two sections.
+
+`deik-mernokinformatikus-bsc-2017` reached its full planned scope on
+2026-09-09: all 15 tételek (`tetel1`–`tetel15`) from the site owner's
+own záróvizsga notes are published under it. There is no `tetel16`
+planned — don't assume more are coming, and don't renumber or leave
+gaps if a tétel is ever revised. Each was added one at a time via the
+same branch → PR → explicit-merge cycle documented in "Task execution
+workflow" below; see the merged PRs (#11–#25) for the individual
+per-tétel decisions (source-content fixes, judgment calls) if that
+history is ever needed.
 
 The course was originally named after its official university title,
 "Magas szintű programozási nyelvek 2" (course code `INBPM0315-21`) —
@@ -334,20 +344,64 @@ Puffer section — this is take-home work, not a scheduled class.
 as a formal imperative — `"Mutassa be..."`) → "Kidolgozás" (`<h2>`,
 the actual answer, broken into `<h3>` subsections) → "Kapcsolódó
 fogalmak" (`<h2>`, closing bullet list of related terms, no
-elaboration — just the terms). No Gyakorlat/Puffer sections.
+elaboration — just the terms). No Gyakorlat/Puffer sections. This is
+`tetel-template.html`'s documented pattern, but see below — every
+actual tétel published so far uses a different, deliberately
+consistent pattern instead.
 
-Deliberate exception: `tetelek/deik-mernokinformatikus-bsc-2017/tetel1/`
-(added 2026-09-09) omits "A tétel szövege" entirely — its source notes
-had no literal one-line exam question, only a topic outline — and uses
-a "Témák" `<h2>` outline instead (adapting jegyzet's Tematika
-pattern), confirmed with the site owner rather than invented. It also
-goes one level deeper than any other tétel (numbered subtopics with
-their own labeled sub-groups): rather than a 4th heading level —
-`script.js`'s ToC only scans `h2, h3`, and `style.css` has no `h4`
-styling — those sub-group labels are bold lead-in text before their
-own `<ul>` (e.g. `<p><strong>Processzor technológiák:</strong></p>`).
-Don't "fix" either of these into the standard pattern; they reflect
-what the source material actually is, not a mistake.
+**The whole `deik-mernokinformatikus-bsc-2017` series (`tetel1`–
+`tetel15`, all 15 published) deviates from the above uniformly, by
+design, not per-item drift:**
+
+- No "A tétel szövege" blockquote on any of them. Instead, every one
+  opens with a "Témák" `<h2>` outline (adapting jegyzet's Tematika
+  pattern) listing each Témakör's covered sub-topics as a plain
+  bullet list, followed directly by `<h2>I. Témakör: ...</h2>` /
+  `<h2>II. Témakör: ...</h2>` sections (no separate "Kidolgozás"
+  wrapper heading — the Témakör headings themselves carry that role).
+  This started as a one-off for `tetel1` (whose source notes had no
+  literal one-line exam question, only a topic outline) but was kept
+  for every subsequent tétel even when a later one's Témakör *did*
+  read as a literal formal exam question in the source (`tetel14`'s
+  I. Témakör: "Magyarázza a NAT/PAT címcsere mechanizmusokat!";
+  `tetel15`'s II. Témakör: "Hasonlítsa össze az SNMP és az RMON
+  hálózatfelügyeleti rendszereket!") — series-wide consistency was
+  chosen deliberately over matching the general template per-item.
+  Don't "fix" any of them into the blockquote pattern.
+- No "Kapcsolódó fogalmak" closing section on any of them — never
+  present in the source material, never invented.
+- Source content routinely nests one level deeper than `<h2>`/`<h3>`
+  allow (numbered subtopics with their own labeled sub-groups, or
+  markdown `####` sub-headings). Since `script.js`'s ToC only scans
+  `h2, h3` and `style.css` has no `h4` styling, every such case is
+  flattened the same way: the deeper heading/label becomes a bold
+  lead-in paragraph directly before its own `<ul>` or `<ol>`
+  (e.g. `<p><strong>Processzor technológiák:</strong></p>`), not a
+  new heading level. This is now the standing convention for this
+  series, not a one-off — apply it again rather than reintroducing a
+  4th heading level.
+- A numbered list in the source becomes an HTML `<ol>` only when the
+  source explicitly numbers genuinely sequential steps to *perform*
+  (e.g. `tetel10`'s 7-step SSL config, `tetel14`'s 7-step NAT
+  translation flow). A numbered-but-categorical list (a list of
+  distinct named things, not ordered actions) becomes `<ul>` even if
+  the source numbered it — established from `tetel6` onward. When in
+  doubt (an unnumbered dash-bulleted list that's arguably a
+  procedure), the series has consistently kept it as `<ul>` rather
+  than inferring `<ol>` intent the source didn't state.
+- `<code>` is used for literal syntax a reader would actually type:
+  assembly mnemonics and register names (`tetel10`), syscalls and
+  socket-family constants (`tetel11`), and language keywords/protocol
+  message types (`tetel15`'s `public`/`private`/`protected`,
+  `GetResponse`) — not for protocol/product proper nouns (SSH, Nginx,
+  OpenSSL, MIB stay plain bold).
+- Source-material glitches (a gap in numbered subsections, a stray
+  citation marker, a leaked LaTeX artifact, Hungarian typographic
+  quotes, a duplicated/redundant heading, an internally-contradicting
+  definition) are fixed silently and confidently once a clear prior
+  tétel already established the same category of fix, and are only
+  ever *dropped* (never guessed-and-replaced) when the source is
+  factually wrong with no recoverable correct term nearby.
 
 ### `item-meta` line: intentionally different per type, not drift
 
