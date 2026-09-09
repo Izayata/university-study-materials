@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>12. Tétel — Az ER modell és félvezető eszközök, egyenirányítás | Füles Jegyzetek</title>
+  <meta name="description" content="Az egyed-kapcsolat (ER) modell és a relációs adatmodell, relációs séma előállítása ER diagramból, valamint félvezető eszközök: diódák, egyenirányítás, DC-DC átalakítók, feszültség- és áramstabilizálás. DEIK Mérnökinformatikus BSc záróvizsga tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/deik-mernokinformatikus-bsc-2017/tetel12/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-nav-key="tetelek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/deik-mernokinformatikus-bsc-2017/">DEIK Mérnökinformatikus BSC 2017</a> / 12. tétel</p>
+
+      <h1>12. Tétel — Az egyed-kapcsolat (ER) modell és félvezető eszközök, egyenirányítás</h1>
+      <p class="item-meta">Frissítve: 2026-09-09</p>
+
+      <p>
+        Ez a tétel két nagyobb témakört fed le: az egyed-kapcsolat
+        (ER) modellt és a relációs adatmodellt, valamint a félvezető
+        eszközöket, az egyenirányítást, a DC-DC átalakítókat és a
+        feszültség-/áramstabilizálást.
+      </p>
+
+      <h2>Témák</h2>
+      <p><strong>I. Témakör: Az egyed-kapcsolat (ER) modell és a relációs adatmodell</strong></p>
+      <ul>
+        <li>Az egyed-kapcsolat (ER) modell, tervezés ER diagramok segítségével.</li>
+        <li>Relációs adatmodell, reláció, séma, attribútum.</li>
+        <li>Relációs séma előállítása ER diagramból.</li>
+      </ul>
+      <p><strong>II. Témakör: Félvezető eszközök, egyenirányítás, DC-DC átalakítók és stabilizálás</strong></p>
+      <ul>
+        <li>Diódák.</li>
+        <li>Egyenirányítás.</li>
+        <li>Egyenáramú (DC-DC) átalakítók.</li>
+        <li>Feszültségstabilizálás.</li>
+        <li>Áramstabilizálás.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>I. Témakör: Az egyed-kapcsolat (ER) modell és a relációs adatmodell</h2>
+
+      <h3>1. Az Egyed-Kapcsolat (ER) modell</h3>
+      <p>
+        Az ER modell egy magas szintű, konceptuális adatmodell, amely
+        lehetővé teszi, hogy a valóság releváns objektumait és a
+        közöttük fennálló viszonyokat egy formális, grafikus diagram
+        formájában ábrázoljuk. A célja, hogy egyértelmű és közérthető
+        módon dokumentálja az adatbázisban tárolandó információk
+        szerkezetét, még mielőtt a konkrét adatbázis-kezelő rendszer
+        technikai részleteivel foglalkoznánk.
+      </p>
+      <p>Az ER modell fő komponensei:</p>
+      <ul>
+        <li><strong>Egyed (Entity):</strong> A valós világ egy jól megkülönböztethető objektuma vagy fogalma, amelyről adatokat kívánunk tárolni. Például egy könyvtári rendszerben egyed lehet a Könyv, a Tag vagy a Kölcsönzés.</li>
+        <li><strong>Attribútum (Attribute):</strong> Az egyed egy tulajdonsága, amely leírja azt. Például a Könyv egyed attribútumai lehetnek az ISBN-szám, a Cím, a Szerző és a Kiadás éve. Az attribútumokat oválisokkal jelöljük, és vonallal kötjük a hozzájuk tartozó egyedhez. Különbséget teszünk több típus között:
+          <ul>
+            <li><strong>Egyszerű vs. Összetett:</strong> Az egyszerű attribútum tovább nem bontható (pl. Kiadás éve), míg az összetett több részből áll (pl. a Szerző attribútum felbontható Vezetéknévre és Keresztnévre).</li>
+            <li><strong>Egyértékű vs. Többértékű:</strong> Az egyértékű attribútumnak egyetlen értéke lehet (pl. egy könyvnek egy ISBN-száma van), míg a többértékű több értéket is felvehet (pl. egy könyvnek több Szerzője is lehet). A többértékű attribútumot dupla oválissal jelöljük.</li>
+            <li><strong>Kulcs attribútum:</strong> Az az attribútum(készlet), amely egyértelműen azonosítja az egyed egy példányát. Ezt aláhúzással jelöljük (pl. ISBN-szám).</li>
+          </ul>
+        </li>
+        <li><strong>Kapcsolat (Relationship):</strong> Két vagy több egyed között fennálló logikai viszony. Például a Tag és a Könyv egyedek között a kikölcsönöz kapcsolat áll fenn. A kapcsolatokat rombusszal jelöljük, és vonalakkal kötjük össze a résztvevő egyedekkel. A kapcsolatok legfontosabb tulajdonságai:
+          <ul>
+            <li><strong>Fokszám:</strong> A kapcsolatban részt vevő egyedhalmazok száma. Leggyakoribb a bináris (kétfokú) kapcsolat.</li>
+            <li><strong>Kardinalitás:</strong> Azt adja meg, hogy az egyik egyedhalmaz egy példánya a másik egyedhalmaz hány példányával lehet kapcsolatban. A leggyakoribb kardinalitások:
+              <ul>
+                <li><strong>1:1 (egy-az-egyhez):</strong> Mindkét oldalon legfeljebb egy példány vehet részt a kapcsolatban. (Pl. Igazgató - vezeti - Iskola).</li>
+                <li><strong>1:N (egy-a-többhöz):</strong> Az egyik oldalon egy, a másikon több példány is részt vehet. (Pl. Szerző - ír - Könyv, feltéve, hogy egy könyvnek csak egy szerzője van).</li>
+                <li><strong>N:M (több-a-többhöz):</strong> Mindkét oldalon tetszőleges számú példány lehet kapcsolatban. (Pl. Tag - kikölcsönöz - Könyv, hiszen egy tag több könyvet is kikölcsönözhet, és egy könyvet (több példányban) több tag is kikölcsönözhet).</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>2. A Relációs Adatmodell Alapfogalmai</h3>
+      <p>
+        Az E.F. Codd által 1970-ben megalkotott relációs modell
+        matematikai halmazelméleten és elsőrendű predikátumkalkuluson
+        alapul.
+      </p>
+      <ul>
+        <li><strong>Reláció:</strong> Egy kétdimenziós tábla, amely sorokból (rekordok, tupleök) és oszlopokból (attribútumok) áll. A könyvtári példában a Tag és a Könyv egyedekből Tag és Könyv nevű táblák lesznek.</li>
+        <li><strong>Relációs séma (Relation Schema):</strong> A teljes adatbázis szerkezetének leírása, amely magában foglalja a táblák (relációk) nevét, az oszlopaikat (attribútumokat) és az oszlopok közötti kapcsolatokat, kényszereket (pl. elsődleges és idegen kulcsok).</li>
+        <li><strong>Tuple (Sor / Rekord):</strong> A reláció egy sora, amely egyedi értékek rendezett halmaza.</li>
+        <li><strong>Attribútum (Oszlop):</strong> A tábla egy oszlopa, amely egy adott tulajdonságot ír le. Minden oszlopnak van egy neve és egy adattípusa (pl. szöveg, szám, dátum).</li>
+      </ul>
+
+      <h3>3. Relációs séma előállítása ER diagramból</h3>
+      <p>Az ER diagramok alapján a logikai relációs séma automatikus vagy szisztematikus szabályok szerint állítható elő az alábbiak szerint:</p>
+
+      <p><strong>1. Szabály: Erős egyedhalmazok leképezése</strong></p>
+      <p>Minden erős egyedhalmazból egy önálló reláció (tábla) keletkezik.</p>
+      <ul>
+        <li>Az egyed attribútumai a reláció oszlopai lesznek.</li>
+        <li>Az egyed kulcsattribútuma lesz a reláció <strong>elsődleges kulcsa (PK)</strong>.</li>
+      </ul>
+
+      <p><strong>2. Szabály: 1:N kapcsolatok leképezése</strong></p>
+      <p>Ha két egyedhalmaz között 1:N kapcsolat áll fenn:</p>
+      <ul>
+        <li>Megkeressük a kapcsolat N (több) oldalán lévő egyedből képzett táblát.</li>
+        <li>Az 1 (egy) oldali egyed elsődleges kulcsát beillesztjük az N oldali táblába <strong>idegen kulcsként (FK)</strong>.</li>
+      </ul>
+
+      <p><strong>3. Szabály: M:N kapcsolatok leképezése</strong></p>
+      <p>Ha két egyedhalmaz között M:N kapcsolat van:</p>
+      <ul>
+        <li>A kapcsolatot önálló <strong>kapcsolótáblává (kapcsoló relációvá)</strong> alakítjuk.</li>
+        <li>Ennek a táblának az elsődleges kulcsa a két kapcsolódó egyed elsődleges kulcsának összetétele (kompozit kulcs).</li>
+        <li>Ha a kapcsolatnak magának is vannak attribútumai, azok is a kapcsolótábla oszlopai lesznek.</li>
+      </ul>
+
+      <p><strong>4. Szabály: 1:1 kapcsolatok leképezése</strong></p>
+      <ul>
+        <li>Ha mindkét oldalon teljes részvétel van, a két egyedhalmaz összevonható egyetlen relációba.</li>
+        <li>Ha részleges részvétel van, az egyik tábla kulcsát átvihetjük a másikba idegen kulcsként, vagy külön kapcsolótáblát hozhatunk létre.</li>
+      </ul>
+
+      <p><strong>5. Szabály: Gyenge egyedhalmazok leképezése</strong></p>
+      <p>A gyenge egyedhalmaz (amelynek nincsen saját önálló kulcsa, csak a tulajdonos erős egyedhez kapcsolódva azonosítható) relációjának kulcsa a saját parciális kulcsa és a tulajdonos egyed elsődleges kulcsának kombinációja lesz.</p>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>II. Témakör: Félvezető eszközök, egyenirányítás, DC-DC átalakítók és stabilizálás</h2>
+
+      <h3>1. Diódák és Működési Elveik</h3>
+      <p>
+        A modern elektronika alapköve a dióda, amely egy kétpólusú
+        félvezető eszköz. A leggyakoribb típusa a PN-átmeneten alapuló
+        dióda. Működésének lényege, hogy az áramot ideális esetben
+        csak az egyik irányban engedi át.
+      </p>
+      <p><strong>A p-n átmenet és az ideális vs. valós dióda:</strong></p>
+      <ul>
+        <li><strong>Idealizált modell:</strong> Az elméleti tárgyalás során gyakran egy tökéletes kapcsolóként modellezzük: nyitóirányban (amikor az anódra pozitívabb feszültség kerül a katódhoz képest) a belső ellenállása nulla, záróirányban pedig végtelen. Nincs feszültségesés, nincs szivárgási áram.</li>
+        <li><strong>Valós modell:</strong>
+          <ul>
+            <li><strong>Nyitóirányú feszültségesés (Uf):</strong> A dióda csak egy bizonyos küszöbfeszültség (szilícium esetén kb. 0,6-0,7 V) elérése után kezd el vezetni. Ezen a feszültségen "nyit ki", és ez a feszültség esik rajta működés közben, ami teljesítménydisszipációt (hőfejlődést) okoz.</li>
+            <li><strong>Záróirányú szivárgási áram (Ir):</strong> Záróirányú előfeszítés esetén sem végtelen az ellenállása; egy nagyon kicsi, de mérhető szivárgási áram folyik rajta keresztül.</li>
+            <li><strong>Letörési feszültség:</strong> Ha a záróirányú feszültség meghalad egy kritikus értéket, a dióda átmenete "letörik", és megindul a vezetés, ami az eszköz tönkremeneteléhez vezethet.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>2. Egyenirányítás (Rectification)</h3>
+      <p>Az egyenirányítás célja a váltakozó feszültségű (AC) villamos energia átalakítása egyenáramúvá (DC).</p>
+
+      <p><strong>Félhullámú (egyutas) egyenirányítás</strong></p>
+      <ul>
+        <li><em>Működés:</em> A legegyszerűbb kapcsolás, amely egyetlen diódát használ sorba kapcsolva.</li>
+        <li><em>Jellemzők:</em> Csak a váltakozó feszültség egyik félperiódusát (a dióda bekötésétől függően a pozitív vagy a negatív félhullámot) engedi át, a másikat teljesen "levágja".</li>
+        <li><em>Hátrány:</em> Hatásfoka alacsony, a kimeneti jel erősen lüktető (pulzáló) egyenfeszültség, amelyet nehéz sima egyenárammá szűrni.</li>
+      </ul>
+
+      <p><strong>Kétutas középleágazásos egyenirányítás</strong></p>
+      <ul>
+        <li><em>Működés:</em> Két diódát és egy középleágazásos transzformátort használ.</li>
+        <li><em>Jellemzők:</em> A váltakozó feszültség mindkét félhullámát hasznosítja.</li>
+        <li><em>Hátrány:</em> A transzformátor tekercselése lényegesen bonyolultabb és költségesebb.</li>
+      </ul>
+
+      <p><strong>Kétutas hídkapcsolás (Graetz-híd)</strong></p>
+      <ul>
+        <li><em>Működés:</em> Négy diódából álló hídkapcsolás.</li>
+        <li><em>Jellemzők:</em> A váltakozó feszültség mindkét félhullámát azonos irányú árammá alakítja (a negatív félhullámot "felhajtja" a pozitív tartományba).</li>
+        <li><em>Előny:</em> Ez a legelterjedtebb ipari és háztartási megoldás, mivel jobb hatásfokot biztosít, mint az egyutas egyenirányítás.</li>
+      </ul>
+
+      <p><strong>Pufferelés és szűrés (Pufferkondenzátor)</strong></p>
+      <ul>
+        <li><em>Működés:</em> Az egyenirányító kimenetére párhuzamosan kapcsolt nagy kapacitású kondenzátor (puffer- vagy szűrőkondenzátor).</li>
+        <li><em>Jellemzők:</em> Célja a lüktetés (hullámosság) csökkentése. A feszültségcsúcsok alatt feltöltődik a maximális értékre, a feszültségvölgyek idején pedig kisül a terhelés felé, így "kitölti" a hullámvölgyeket, és simább kimeneti DC feszültséget eredményez.</li>
+      </ul>
+
+      <h3>3. Egyenáramú (DC-DC) átalakítók</h3>
+      <p>
+        A modern energiagazdálkodásban a fix vagy változó DC
+        feszültséget más szintű DC feszültséggé kell átalakítani
+        veszteségmentesen. Ezt <strong>kapcsolóüzemű átalakítókkal
+        (SMPS - Switch-Mode Power Supplies)</strong> valósítják meg
+        félvezető kapcsolóelemek és energiatároló elemek segítségével.
+      </p>
+      <p><strong>Típusai:</strong></p>
+      <ul>
+        <li><strong>Csökkentő (Buck / Step-Down) átalakító:</strong> A kimeneti feszültség alacsonyabb, mint a bemeneti feszültség. A kapcsoló gyors ki-be kapcsolásával és a fojtótekercs áramának simításával érik el a kívánt feszültségszintet a kitöltési tényező szabályozásával.</li>
+        <li><strong>Növelő (Boost / Step-Up) átalakító:</strong> A kimeneti feszültség magasabb, mint a bemeneti feszültség. A tekercsben feltöltött mágneses energiát kapcsoláskor sorba kapcsolják a bemeneti feszültséggel, így magasabb feszültséget generálva.</li>
+        <li><strong>Megfordító / Növelő-csökkentő (Buck-Boost) átalakító:</strong> Képes a bemeneti feszültségnél alacsonyabb vagy magasabb kimeneti feszültséget is előállítani, miközben a kimeneti polaritást megfordíthatja.</li>
+      </ul>
+
+      <h3>4. Feszültségstabilizálás</h3>
+      <p>A feszültségstabilizátorok feladata, hogy a bemeneti feszültség ingadozásait, valamint a terhelőáram változásait ellensúlyozva stabil, állandó kimeneti feszültséget biztosítsanak.</p>
+      <ul>
+        <li><strong>Paraméteres feszültségstabilizálás (Zener-stabilizátor):</strong> Egyszerű, nyílt láncú megoldás egy Zener-diódából és egy előtétellenállásból áll. Ha a bemeneti feszültség nő, a Zener-diódán folyó áram úgy változik, hogy a kimeneti feszültség közel állandó marad. Hátránya a rossz hatásfok és a kis terhelhetőség.</li>
+        <li><strong>Kompenzációs (Visszacsatolt / Aktív) feszültségstabilizátorok:</strong> Zárt szabályozási körön alapulnak. Egy referenciafeszültséget hasonlítanak össze a kimeneti feszültség leosztott értékével, és a hiba alapján egy soros tranzisztor (vagy integrált szabályzó IC, pl. LM7805) vezérlésével kompenzálják a változásokat.</li>
+      </ul>
+
+      <h3>5. Áramstabilizálás</h3>
+      <p>Az áramstabilizátorok (vagy konstans áramforrások) célja, hogy a terhelési ellenállás változásától függetlenül szigorúan állandó áramot biztosítsanak a kimeneten (pl. nagy teljesítményű LED-ek meghajtásánál, akkumulátortöltőknél).</p>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
