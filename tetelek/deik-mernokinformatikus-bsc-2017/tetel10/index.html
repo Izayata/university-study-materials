@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>10. Tétel — Webkiszolgáló konfiguráció SSL-lel és az Intel x86 architektúra | Füles Jegyzetek</title>
+  <meta name="description" content="Webkiszolgáló konfiguráció SSL/TLS használatával, OpenSSL alapfunkciók (hitelesítés, titkosítás), valamint az Intel x86 utasításkészlet-architektúra — regiszterek, utasítások, memória és megszakítási rendszer. DEIK Mérnökinformatikus BSc záróvizsga tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/deik-mernokinformatikus-bsc-2017/tetel10/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-nav-key="tetelek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/deik-mernokinformatikus-bsc-2017/">DEIK Mérnökinformatikus BSC 2017</a> / 10. tétel</p>
+
+      <h1>10. Tétel — Webkiszolgáló konfiguráció SSL használatával és az Intel x86 utasításkészlet-architektúrája</h1>
+      <p class="item-meta">Frissítve: 2026-09-09</p>
+
+      <p>
+        Ez a tétel két nagyobb témakört fed le: a webkiszolgálók
+        SSL/TLS alapú konfigurálását és az OpenSSL függvénykönyvtár
+        alapfunkcióit, valamint az Intel x86 utasításkészlet-architektúra
+        felépítését.
+      </p>
+
+      <h2>Témák</h2>
+      <p><strong>I. Témakör: Webkiszolgáló konfiguráció SSL használatával, OpenSSL függvénykönyvtár alapfunkciói: hitelesítés, titkosítás</strong></p>
+      <ul>
+        <li>Webkiszolgáló konfiguráció SSL használatával, OpenSSL függvénykönyvtár alapfunkciói: hitelesítés, titkosítás.</li>
+      </ul>
+      <p><strong>II. Témakör: Az Intel X86 utasításkészlet-architektúrája (regiszterek, címzési módok, utasítások, memória architektúra, megszakítási rendszer)</strong></p>
+      <ul>
+        <li>Az Intel X86 utasításkészlet-architektúrája (regiszterek, címzési módok, utasítások, memória architektúra, megszakítási rendszer).</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>I. Témakör: Webkiszolgáló konfiguráció SSL használatával, OpenSSL függvénykönyvtár alapfunkciói: hitelesítés, titkosítás</h2>
+
+      <h3>1. A biztonságos webes kommunikáció elméleti alapjai és protokolláris háttere</h3>
+      <p>
+        A hagyományos, nyílt hálózati kommunikációt megvalósító
+        <strong>HTTP (Hypertext Transfer Protocol)</strong> egy
+        állapottalan, kérelmező-kiszolgáló alapú protokoll, amely az
+        OSI modell alkalmazási rétegében működik. Alapértelmezett
+        működése során az adatokat strukturálatlan, titkosítatlan
+        formában továbbítja a TCP szállítási rétegbeli kapcsolat
+        felett. Ebből adódóan a HTTP önmagában nem biztosít védelmet a
+        passzív lehallgatás, az aktív adatmódosítás és a hamisítás
+        ellen, ami teret enged a <strong>Man-in-the-Middle
+        (MitM)</strong> jellegű közbeékelődéses támadásoknak.
+      </p>
+      <p>
+        Ezen strukturális hiányosságok kiküszöbölésére fejlesztették
+        ki az <strong>SSL (Secure Sockets Layer)</strong> protokollt,
+        amelynek szabványosított, továbbfejlesztett utódja a
+        <strong>TLS (Transport Layer Security)</strong> protokoll. Az
+        SSL/TLS egy rejtjelezési alrendszer, amely logikai rétegként
+        illeszkedik az alkalmazási réteg (pl. HTTP) és a megbízható
+        szállítási réteg (TCP) közé.
+      </p>
+      <p>A biztonságos kommunikációs csatorna az alábbi alapvető informatikai biztonsági szolgáltatásokat garantálja:</p>
+      <ul>
+        <li><strong>Bizalmasság:</strong> A kommunikáló felek közötti adatfolyam titkosítása, amely megakadályozza, hogy illetéktelen harmadik fél a hálózati csomagok elemzésével hozzáférjen az adatok tartalmához.</li>
+        <li><strong>Integritás:</strong> Az adatok sértetlenségének biztosítása kriptográfiai ellenőrzőösszegek és üzenet-hitelesítő kódok alkalmazásával, amelyek révén detektálható az adatok bármilyen nem engedélyezett módosítása.</li>
+        <li><strong>Hitelesítés:</strong> A kommunikációs partnerek (elsődlegesen a kiszolgáló, opcionálisan a kliens) kilétének egyértelmű igazolása X.509 szabványú digitális tanúsítványok és nyilvános kulcsú infrastruktúra (PKI) révén.</li>
+      </ul>
+
+      <h3>2. Webkiszolgáló konfiguráció SSL/TLS használatával (Nginx környezetben)</h3>
+      <ol>
+        <li><strong>Kriptográfiai kulcspár és tanúsítvány-aláírási kérelem (CSR) előállítása:</strong> A nyilvános kulcsú infrastruktúra szabályai szerint létre kell hozni a szerver egyedi aszimmetrikus kulcspárját, valamint össze kell állítani a tanúsítvány-aláírási kérelmet a kiszolgáló azonosító attribútumaival a hitelesítésszolgáltató felé.</li>
+        <li><strong>Hitelesített tanúsítványok integrálása a fájlrendszerbe:</strong> A hitelesítésszolgáltató által aláírt digitális tanúsítvány, valamint a teljes bizalmi lánc elemeinek elhelyezése a webszerver által dedikáltan elérhető, védett tárolóhelyen.</li>
+        <li><strong>Biztonságos virtuális hoszt kontextus definiálása:</strong> A webszerver konfigurációs struktúrájában létre kell hozni egy logikai szerverblokkot, amelyben kifejezetten aktiválásra kerül az SSL/TLS titkosítási réteg a bejövő kapcsolatok fogadására.</li>
+        <li><strong>A tanúsítvány és a privát kulcs logikai összerendelése:</strong> A webszerver konfigurációs direktíváival hozzá kell rendelni a virtuális hoszt kontextusához a nyilvános tanúsítványfájlt, valamint a titkosítás visszafejtéséhez elengedhetetlen, szigorú hozzáférés-szabályozású privát kulcsot.</li>
+        <li><strong>Protokollverziók és biztonsági házirend korlátozása:</strong> Konfigurálni kell a támogatott protokollverziók halmazát, kizárva a kriptográfiailag elavult és sérülékeny verziókat, és kizárólag a modern, integritást és tökéletes előre titkosítást garantáló algoritmusokat engedélyezve.</li>
+        <li><strong>Átirányítási szabályzat életbe léptetése:</strong> Definiálni kell egy olyan logikai szabályt, amely a nem biztonságos kommunikációs csatornáról érkező kéréseket automatikusan, protokoll-szintű státuszkóddal a titkosított csatornára kényszeríti.</li>
+        <li><strong>Konfiguráció szintaktikai validálása és élesítése:</strong> A módosított konfigurációs állományok formális ellenőrzése a webszerver beépített diagnosztikai eszközeivel, majd a futtató környezet frissítése az új biztonsági paraméterek betöltése érdekében.</li>
+      </ol>
+
+      <h3>3. Az OpenSSL függvénykönyvtár architektúrája és alapfunkciói</h3>
+      <p>
+        Az <strong>OpenSSL</strong> egy nyílt forráskódú
+        szoftverkönyvtár-csomag, amely implementálja az SSL és TLS
+        protokollokat, valamint egy átfogó kriptográfiai eszköztárat
+        biztosít. Architekturális szempontból két fő programkönyvtárra
+        oszlik:
+      </p>
+      <ul>
+        <li><strong>libcrypto:</strong> Az általános célú kriptográfiai primitívek (szimmetrikus rejtjelek, aszimmetrikus algoritmusok, hash függvények, digitális aláírások) gyűjteménye.</li>
+        <li><strong>libssl:</strong> Az SSL és TLS hálózati protokollok rétegmegvalósítását biztosító könyvtár, amely a libcrypto funkcióira támaszkodik.</li>
+      </ul>
+      <p><strong>Hitelesítés és Tanúsítványkezelés:</strong></p>
+      <ul>
+        <li><strong>Tanúsítvány-aláírási kérelem (CSR) generálása:</strong> Új aszimmetrikus kulcspár előállítása és a szerver azonosító adatait tartalmazó kérelem összeállítása.</li>
+        <li><strong>Digitális tanúsítványok kezelése és struktúra-ellenőrzése:</strong> A szabványosított tanúsítványformátumok elemzése, formátumkonverziók végrehajtása, az érvényességi időtartamok vizsgálata, valamint szükség esetén önaláírt tanúsítványok generálása a titkosítási mechanizmusok tesztelési fázisához.</li>
+        <li><strong>Bizalmi lánc validálása:</strong> A szerver tanúsítványának ellenőrzése a helyi gyökér-tanúsítványtároló alapján.</li>
+      </ul>
+      <p><strong>Titkosítás (Szimmetrikus és Aszimmetrikus):</strong></p>
+      <ul>
+        <li><strong>Szimmetrikus titkosítás:</strong> Nagy adatmennyiségek gyors rejtjelezésére szolgáló algoritmusok, ahol a titkosításhoz és visszafejtéshez ugyanazt a kulcsot használják.</li>
+        <li><strong>Aszimmetrikus titkosítás:</strong> Kétkulcsos (nyilvános és privát kulcspár alapú) rendszerek alkalmazása biztonságos kulcscseréhez és digitális aláírásképzéshez.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>II. Témakör: Az Intel X86 utasításkészlet-architektúrája (regiszterek, címzési módok, utasítások, memória architektúra, megszakítási rendszer)</h2>
+
+      <h3>1. Architekturális tervezési filozófia és evolúció</h3>
+      <p>
+        Az Intel x86 architektúra egy komplex utasításkészletű
+        számítógépes (<strong>CISC – Complex Instruction Set
+        Computer</strong>) felépítésen alapuló processzorcsalád. Főbb
+        jellemzői közé tartozik a változó hosszúságú utasításkészlet,
+        a memóriát közvetlenül elérő operandusok bősége, valamint az
+        iparágban egyedülálló <strong>visszafelé kompatibilitás</strong>
+        elve. Ez utóbbi biztosítja, hogy a modern, többlépcsős
+        pipelinnal és superskalár architektúrával rendelkező 64 bites
+        processzorok hardveres szinten képesek legyenek futtatni a
+        korai évtizedekben írt 16 bites szoftvereket is.
+      </p>
+
+      <h3>2. Regiszter-architektúra és regisztertípusok</h3>
+      <p>A processzor belső tárolóelemei a regiszterek, amelyek a leggyorsabb elérési idejű memóriaterületeket képezik.</p>
+      <p><strong>Regisztertípusok és kategóriák:</strong></p>
+      <p>
+        <strong>Általános célú regiszterek (General Purpose Registers
+        - GPR):</strong> Az aritmetikai, logikai és adatmozgatási
+        műveletek alapvető operandusait tároló egységek, amelyek az
+        architekturális evolúció során történelmi alapokról kiindulva
+        fokozatos kiterjesztéseken mentek keresztül:
+      </p>
+      <ul>
+        <li><em>Alapvető generáció:</em> Az eredeti regiszterkészlet (<code>AX</code>, <code>BX</code>, <code>CX</code>, <code>DX</code>, <code>SI</code>, <code>DI</code>, <code>BP</code>, <code>SP</code>).</li>
+        <li><em>Első kiterjesztési szint (E prefixum):</em> Az E-prefixummal jelölt, megnövelt kapacitású regiszterek (<code>EAX</code>, <code>EBX</code>, <code>ECX</code>, <code>EDX</code>, <code>ESI</code>, <code>EDI</code>, <code>EBP</code>, <code>ESP</code>), amelyek kibővítették a közvetlenül kezelhető adattömeg méretét.</li>
+        <li><em>Modern kiterjesztési szint (R prefixum):</em> Az R-prefixummal ellátott, továbbfejlesztett regiszterek (<code>RAX</code>, <code>RBX</code>, <code>RCX</code>, <code>RDX</code>, <code>RSI</code>, <code>RDI</code>, <code>RBP</code>, <code>RSP</code>), valamint a további dedikált kiterjesztett regiszterek, amelyek jelentősen bővítették a tárolókapacitást és csökkentették a külső memóriaműveletek szükségességét.</li>
+      </ul>
+      <p><strong>Utasításszámláló regiszter (Instruction Pointer - <code>IP</code> / <code>EIP</code> / <code>RIP</code>):</strong> A vezérlőegység kitüntetett regisztere, amely a soron következőként végrehajtandó gépi utasítás memóriabeli lineáris címét tárolja.</p>
+      <p><strong>Állapotregiszter (Flags Register - <code>FLAGS</code> / <code>EFLAGS</code> / <code>RFLAGS</code>):</strong> A processzor aktuális aritmetikai műveleteinek eredményjelzőit (például túlcsordulás, nulla, előjel) és belső vezérlőállapotait tartalmazó regiszter.</p>
+      <p><strong>Szegmensregiszterek (Segment Registers):</strong> A szegmentált memóriakezelési modellben alkalmazott regiszterek (<code>CS</code>, <code>DS</code>, <code>SS</code>, <code>ES</code>, <code>FS</code>, <code>GS</code>), amelyek a különböző logikai memóriaszegmensek (kód, adat, verem) báziscímét vagy memóriaszelektoraikat tárolják.</p>
+
+      <h3>3. Utasításkészlet és utasítástípusok</h3>
+      <p>A CISC jellegből adódóan az utasításkészlet széleskörű és változatos műveleti skálával rendelkezik. Az utasítások logikai kategóriái a következők:</p>
+      <ul>
+        <li><strong>Adatmozgatási utasítások:</strong> Az adatok átvitele a regiszterek, a memória és az I/O portok között (pl. <code>MOV</code>, <code>PUSH</code>, <code>POP</code>, <code>LEA</code>).</li>
+        <li><strong>Aritmetikai és logikai utasítások:</strong> Alapvető matematikai és bitműveletek végrehajtása (pl. <code>ADD</code>, <code>SUB</code>, <code>MUL</code>, <code>DIV</code>, <code>AND</code>, <code>OR</code>, <code>XOR</code>, <code>SHL</code>, <code>SHR</code>).</li>
+        <li><strong>Vezérlésátadási utasítások:</strong> A programfutás lineáris menetének módosítása feltételes vagy feltétel nélküli ugrásokkal, illetve alprogram-hívásokkal (pl. <code>JMP</code>, <code>JZ</code>, <code>JNZ</code>, <code>CALL</code>, <code>RET</code>).</li>
+        <li><strong>Sztringkezelő utasítások:</strong> Blokkszintű memóriaműveletek végrehajtása bájttömbökön vagy szavakon (pl. <code>MOVS</code>, <code>SCAS</code>, <code>STOS</code>).</li>
+        <li><strong>Processzorvezérlő és megszakítási utasítások:</strong> Hardveres állapotot befolyásoló vagy megszakítást generáló utasítások (pl. <code>CLI</code>, <code>STI</code>, <code>INT</code>, <code>HLT</code>).</li>
+      </ul>
+      <p><strong>Utasításkészlet-kiterjesztések (SIMD):</strong></p>
+      <ul>
+        <li><strong>MMX (MultiMedia eXtensions):</strong> Egyszerre több adatpár párhuzamos feldolgozását (SIMD – Single Instruction, Multiple Data) lehetővé tevő integer kiterjesztés.</li>
+        <li><strong>SSE (Streaming SIMD Extensions):</strong> Lebegőpontos vektoros műveleteket és regisztrációkat bevezető kiterjesztés-család.</li>
+        <li><strong>AVX (Advanced Vector Extensions):</strong> Szélesebb (256/512 bites) vektorregisztereket alkalmazó, nagy teljesítményű párhuzamos feldolgozási architektúra.</li>
+      </ul>
+
+      <h3>4. Memóriaarchitektúra és végrehajtási módok</h3>
+      <p>Az x86 processzorok az evolúciójuk során három eltérő alapvető memóriakezelési és végrehajtási módban tudnak operálni:</p>
+      <ul>
+        <li><strong>Real Mode (Valós mód):</strong> A legkorábbi 8086-os kompatibilitást biztosító üzemmód, amely 1 MB címezhető memóriát, közvetlen fizikai hardverhozzáférést, valamint szegmens-eltolás alapú lineáris címzést alkalmaz memóriavédelem nélkül.</li>
+        <li><strong>Protected Mode (Védett mód):</strong> Az IA-32 architektúrával bevezetett fejlett üzemmód, amely támogatja a virtuális memóriát, a szegmentálást, a többszintes lapozást, valamint a szigorú privilégiumszinteket a biztonságos multitasking és folyamatizoláció érdekében.</li>
+        <li><strong>Long Mode (64 bites mód):</strong> A modern x86_64 architektúra natív üzemmódja, amely 64 bites lineáris címteret, kiterjesztett regiszterkészletet és többszintes lapozási struktúrát biztosít.</li>
+      </ul>
+      <p><strong>Memóriakezelési mechanizmusok:</strong></p>
+      <ul>
+        <li><strong>Szegmentálás:</strong> A memóriát logikai egységekre (szegmensekre) osztó mechanizmus, amely a logikai címet a szegmensregiszter és az eltolás összevonásával képezi le.</li>
+        <li><strong>Lapozás:</strong> A virtuális memóriát rögzített méretű lapokra bontó, a lapozást vezérlő vezérlőregiszterekre épülő hierarchikus címfordítási rendszer, amely megvalósítja a virtuális és fizikai memóriacímek szétválasztását és a laphibák kezelését.</li>
+      </ul>
+
+      <h3>5. Megszakítási rendszer (Interrupt System)</h3>
+      <p>A megszakítási rendszer biztosítja, hogy a processzor reagálni tudjon a külső aszinkron eseményekre, I/O kérelmekre vagy a belső szoftveres kivételekre anélkül, hogy folyamatosan ciklikusan kérdezné az eszközök állapotát.</p>
+      <ul>
+        <li><strong>Hardveres megszakítások:</strong> A külső perifériák (pl. vezérlők, időzítők) által a megszakítási vonalakon generált jelek.
+          <ul>
+            <li><em>Maszkolható megszakítások (<code>INTR</code>):</em> Szoftveresen letiltható vagy engedélyezhető hardveres megszakítások.</li>
+            <li><em>Nem maszkolható megszakítások (<code>NMI</code>):</em> Kritikus hardveres hibák esetén fellépő, a processzor által meg nem tagadható megszakítások.</li>
+          </ul>
+        </li>
+        <li><strong>Szoftveres megszakítások és kivételek:</strong> A program futása közben fellépő rendellenességek (pl. nullával való osztás) vagy programozott megszakítóparancsok (<code>INT</code> utasítás) által kiváltott események.</li>
+        <li><strong>Megszakítási leíró tábla (Interrupt Descriptor Table - IDT):</strong> A védett és hosszú módban alkalmazott adatszerkezet, amely rendeli hozzá az egyes megszakítási vektorokhoz tartozó futtatható kezelőrutinok memóriacímit.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
