@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>14. Tétel — NAT/PAT címcsere és adatszerkezetek | Füles Jegyzetek</title>
+  <meta name="description" content="NAT/PAT címcsere mechanizmusok (statikus NAT, dinamikus NAT, PAT/NAT Overload), valamint adatszerkezetekkel kapcsolatos alapfogalmak: lista, verem, sor, halmaz, mátrix és fák ábrázolása, bejárása. DEIK Mérnökinformatikus BSc záróvizsga tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/deik-mernokinformatikus-bsc-2017/tetel14/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-nav-key="tetelek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/deik-mernokinformatikus-bsc-2017/">DEIK Mérnökinformatikus BSC 2017</a> / 14. tétel</p>
+
+      <h1>14. Tétel — NAT/PAT címcsere és adatszerkezetek</h1>
+      <p class="item-meta">Frissítve: 2026-09-09</p>
+
+      <p>
+        Ez a tétel két nagyobb témakört fed le: a NAT/PAT
+        címcsere-mechanizmusokat, valamint az adatszerkezetekkel
+        kapcsolatos alapfogalmakat, az elemi és összetett
+        adatszerkezeteket, illetve a fákat.
+      </p>
+
+      <h2>Témák</h2>
+      <p><strong>I. Témakör: NAT/PAT címcsere mechanizmusok</strong></p>
+      <ul>
+        <li>Magyarázza a NAT/PAT címcsere mechanizmusokat!</li>
+      </ul>
+      <p><strong>II. Témakör: Adatszerkezetekkel kapcsolatos alapfogalmak, elemi és összetett adatszerkezetek, valamint fák</strong></p>
+      <ul>
+        <li>Adatszerkezetekkel kapcsolatos alapfogalmak: modellezés, absztrakció, absztrakt adatszerkezetek.</li>
+        <li>Elemi adatszerkezetek: lista, verem, sor.</li>
+        <li>Halmaz, multihalmaz, mátrix.</li>
+        <li>Fák ábrázolása, keresések, bejárások, törlés, beszúrás.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>I. Témakör: NAT/PAT címcsere mechanizmusok</h2>
+
+      <h3>1. Bevezetés és a NAT alapkoncepciója</h3>
+      <p>
+        A hálózati címfordítás, angolul Network Address Translation
+        (NAT), egy olyan, a hálózati útválasztókban (routerekben)
+        implementált mechanizmus, amely lehetővé teszi a belső,
+        privát IP-címmel rendelkező hálózati eszközök számára, hogy
+        egy vagy több külső, publikus IP-címen keresztül
+        kommunikáljanak a globális internettel. A technológia
+        elsődleges célja az volt, hogy enyhítse az IPv4-címek
+        kimerüléséből fakadó problémát. A NAT lényegében egyfajta
+        "fordítóként" működik a privát és a publikus hálózat határán,
+        módosítva az IP-csomagok fejlécében található forrás- vagy
+        cél-IP-címeket.
+      </p>
+      <ol>
+        <li><strong>Kérés indítása a belső hálózaton:</strong> Egy helyi eszköz elküld egy adatcsomagot egy internetes szerver felé.</li>
+        <li><strong>A csomag megérkezése a routerhez:</strong> A helyi hálózat routere elfogja a csomagot, mielőtt az elhagyná a helyi hálózatot.</li>
+        <li><strong>Címcsere és port-hozzárendelés:</strong> A router a csomagban lévő belső forrás IP-címet lecseréli a saját <strong>nyilvános IP-címére</strong>, és hozzárendel egy egyedi portszámot.</li>
+        <li><strong>Rögzítés a NAT-táblázatban:</strong> A router eltárolja a kapcsolat adatait a NAT-táblájában (melyik belső IP-cím melyik külső porttal párosul), hogy majd tudja kezelni a választ.</li>
+        <li><strong>Továbbítás az internetre:</strong> A router elküldi a módosított csomagot az internetre. A célállomás szerver számára úgy tűnik, mintha a kérés közvetlenül a routertől érkezett volna.</li>
+        <li><strong>Válasz megérkezése:</strong> A távoli szerver visszaküldi a választ a router nyilvános IP-címére és a hozzá tartozó portra.</li>
+        <li><strong>Visszafordítás és kézbesítés:</strong> A router ellenőrzi a NAT-táblázatot, visszacseréli a nyilvános címet az eredeti belső IP-címre, majd továbbítja a csomagot a helyes belső eszköznek.</li>
+      </ol>
+
+      <h3>2. A statikus NAT, a dinamikus NAT és a PAT (NAT Overload) összehasonlítása</h3>
+      <p>A címfordításnak több megvalósítási szintje létezik:</p>
+      <ul>
+        <li><strong>Statikus NAT (Static NAT):</strong> Egy-az-egyhez (1:1) leképezést valósít meg egy belső privát IP-cím és egy külső publikus IP-cím között. Ez a módszer nem oldja meg az IP-címek hiányát, hanem olyan belső szerverek külső elérését biztosítja, amelyeknek fix publikus címmel kell rendelkezniük.</li>
+        <li><strong>Dinamikus NAT (Dynamic NAT):</strong> Egy belső privát IP-címet a publikus IP-címek egy előre definiált pooljából kap meg ideiglenes jelleggel, amíg a kapcsolat fennáll. Ha a készlet kimerül, újabb belső gép nem tud kapcsolatot létesíteni az internet irányába, amíg egy korábbi felszabadul.</li>
+        <li><strong>PAT (Port Address Translation) / NAT Overload:</strong> A PAT nemcsak a csomag hálózati rétegbeli IP-címét módosítja, hanem a transzport réteg portszámait is bevonja a folyamatba. Ennek köszönhetően egyetlen publikus IP-cím mögé egy teljes belső hálózat (akár több ezer eszköz) is elrejthető, mivel a belső privát_IP : privát_port párokat a router a saját egyedi publikus IP-címére és egyedileg kiosztott publikus_port párjaira képezi le.
+          <p>A PAT egyfajta alapvető tűzfalként is funkcionál. Mivel a fordítási táblázat bejegyzéseit a belső hálózatból kifelé irányuló forgalom hozza létre, a rendszer alapértelmezetten eldob minden olyan bejövő csomagot, amely nem egy már létező, belülről kezdeményezett kommunikációra érkezik válaszként.</p>
+        </li>
+      </ul>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>II. Témakör: Adatszerkezetekkel kapcsolatos alapfogalmak, elemi és összetett adatszerkezetek, valamint fák</h2>
+
+      <h3>1. Modellezés, absztrakció és az Absztrakt Adatszerkezet (ADT)</h3>
+      <ul>
+        <li><strong>Modellezés:</strong> Az a folyamat, amely során a vizsgált valós rendszer vagy probléma lényeges tulajdonságait, összefüggéseit és entitásait matematikai, illetve informatikai struktúrákként (változók, objektumok, kapcsolatok) fogalmazzuk meg.</li>
+        <li><strong>Absztrakció:</strong> Az a kognitív és tervezési elv, amely elhanyagolja a nem lényeges, alacsony szintű részleteket (pl. a hardveres címezhetőséget vagy a memóriafoglalás fizikai mikéntjét), és a feladat szempontjából kulcsfontosságú logikai tulajdonságokra fókuszál.</li>
+        <li><strong>Absztrakt Adatszerkezet (ADT – Abstract Data Type):</strong> Olyan matematikai modell vagy specifikáció, amely az adatok halmazát és azokon végezhető megengedett műveleteket kizárólag a viselkedésük alapján definiálja, függetlenül attól, hogy azt a programozási nyelvben hogyan implementálják.</li>
+      </ul>
+
+      <h3>2. Elemi adatszerkezetek: Lista, Verem, Sor</h3>
+      <p>Az elemi adatszerkezetek a lineáris adatszerkezetek családjába tartoznak, ami azt jelenti, hogy elemeik között egyenes, egymás utáni (sorrendi) kapcsolat van.</p>
+      <ul>
+        <li><strong>Lista:</strong> Olyan lineáris adatszerkezet, amely elemek véges sorozatát tárolja, ahol egy elem többször is előfordulhat.
+          <ul>
+            <li><em>Tömbalapú megvalósítás:</em> Gyors közvetlen elérést biztosít az indexek alapján, azonban a mérete statikus, és a közbülső beszúrások/törlések költségesek az elemek eltolása miatt.</li>
+            <li><em>Láncolt lista megvalósítás:</em> Az elemek nem memóriafolytonosan helyezkednek el, hanem egy adattagot és a következő elemre mutató hivatkozást (pointert) tartalmaznak. A beszúrás és törlés hatékony, de az elérés szekvenciális.</li>
+          </ul>
+        </li>
+        <li><strong>Verem:</strong> LIFO (Last-In, First-Out) elvű adatszerkezet, ahol az adatok felvétele és elvétele mindig ugyanazon a végponton (a verem tetején) történik. Tipikus alkalmazási területei: függvényhívások kezelése, fordítóprogramokban a zárójelek helyességének ellenőrzése, visszalépéses algoritmusok.</li>
+        <li><strong>Sor:</strong> FIFO (First-In, First-Out – elsőként be, elsőként ki) elven működő lineáris adatszerkezet. Az elemek beszúrása a sor végén, míg a törlése a sor elején történik.</li>
+      </ul>
+
+      <h3>3. Halmaz, Multihalmaz, Mátrix</h3>
+      <ul>
+        <li><strong>Halmaz:</strong> Olyan matematikai struktúra, amely valamilyen tulajdonság alapján megegyező, rendezetlen elemek gyűjteményét reprezentálja. Alapvető műveletei: unió, metszet, halmazkülönbség, valamint az elemtartalmazás vizsgálata.</li>
+        <li><strong>Multihalmaz:</strong> A halmaz általánosítása, ahol egy elem többször is szerepelhet a gyűjteményben; a halmazelméleti szemlélettel ellentétben itt a multiplicitásnak (az elemek előfordulási számának) is van jelentősége.</li>
+        <li><strong>Mátrix:</strong> Kétdimenziós, téglalap alakú rácsszerkezetbe rendezett adatszerkezet, amelyet m sor és n oszlop határoz meg. A programozásban leggyakrabban kétdimenziós tömbként valósítják meg, memóriában sor- vagy oszlopfolytonos linearizációval. Elengedhetetlen eszköz a lineáris algebrai számításokhoz, gráfelméletben a relációk és súlyozott élek (szomszédsági mátrixok) ábrázolásához.</li>
+      </ul>
+
+      <h3>4. Fák ábrázolása, keresések, bejárások, törlés és beszúrás</h3>
+      <p>A fa nemlineáris, hierarchikus adatszerkezet, amely csomópontokból és azokat összekötő élekből áll.</p>
+
+      <p><strong>Fogalmak és ábrázolás</strong></p>
+      <ul>
+        <li><strong>Gyökér:</strong> A fa legfelső szintjén lévő kiindulópont.</li>
+        <li><strong>Szülő, Gyermek, Testvér:</strong> A hierarchikus kapcsolatokat leíró fogalmak.</li>
+        <li><strong>Levél:</strong> Olyan csomópont, amelynek nincsenek gyermekadatai.</li>
+        <li><strong>Ábrázolás:</strong> Dinamikus láncolt szerkezettel (ahol minden csomópont tartalmazza az adatot és a gyermekekre mutató pointereket, pl. bal- és jobboldali mutató bináris fák esetén), vagy speciális esetben tömbbel (pl. kupacoknál, ahol az indexek matematikai összefüggései határozzák meg a szülő-gyermek kapcsolatot).</li>
+      </ul>
+
+      <p><strong>Bináris Keresőfák és Műveleteik</strong></p>
+      <p>A bináris keresőfa olyan bináris fa, amelyre igaz, hogy bármely csomópontra vonatkozóan a bal oldali részfa összes eleme kisebb, míg a jobb oldali részfa összes eleme nagyobb a csomópont értékénél.</p>
+      <ul>
+        <li><strong>Keresés:</strong> A gyökértől indulva összehasonlítjuk a keresett értéket az aktuális csomópontéval. Ha kisebb, balra lépünk; ha nagyobb, jobbra; ha megegyezik, megtaláltuk.</li>
+        <li><strong>Beszúrás:</strong> Megkeressük azt a helyet, ahová az elemet illeszteni kellene; ha az üres, oda hozzuk létre az új csomópontot levélként a szabályok megtartásával.</li>
+        <li><strong>Törlés:</strong> Három esetet különböztetünk meg:
+          <ul>
+            <li><em>A törlendő elem levélcsúcs:</em> Egyszerűen eltávolítjuk, a szülő mutatóját nullázzuk.</li>
+            <li><em>A törlendő elemnek egy gyermeke van:</em> A csomópontot töröljük, és a helyére emeljük az egyetlen gyermekét.</li>
+            <li><em>A törlendő elemnek két gyermeke van:</em> Megkeressük a jobb oldali részfa minimumát (vagy a bal oldali maximumát), átmásoljuk az értékét a törlendő csomópontba, majd azt a levélelemet töröljük.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <p><strong>Fa bejárási algoritmusok</strong></p>
+      <p>A bejárás azt jelenti, hogy a fa minden egyes csomópontját pontosan egyszer látogatjuk meg. A bejárás iránya szerint három alapvető mélységi bejárást ismerünk:</p>
+      <ul>
+        <li><strong>Preorder bejárás (Gyökér – Bal – Jobb):</strong> Először a gyökeret dolgozzuk fel, majd rekurzíven a bal részfát, végül a jobb részfát.</li>
+        <li><strong>Inorder bejárás (Bal – Gyökér – Jobb):</strong> Először a bal részfát járjuk be, feldolgozzuk a gyökeret, majd a jobb részfát.
+          <ul>
+            <li><em>Kiemelkedő tulajdonság:</em> Ha egy <strong>bináris keresőfán</strong> inorder bejárást hajtunk végre, az elemeket szigorúan <strong>növekvő sorrendben</strong> kapjuk vissza.</li>
+          </ul>
+        </li>
+        <li><strong>Postorder bejárás (Bal – Jobb – Gyökér):</strong> Először a bal és jobb részfát járjuk be, és a gyökeret csak a legvégén látogatjuk meg.</li>
+        <li><strong>Szint szerinti (Level-order / Szélességi) bejárás:</strong> Sor adatszerkezet segítségével szintenként, balról jobbra haladva látogatjuk meg a csomópontokat.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
