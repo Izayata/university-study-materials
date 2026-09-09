@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>15. Tétel — OOP alapfogalmai és SNMP-RMON összehasonlítása | Füles Jegyzetek</title>
+  <meta name="description" content="Az objektumorientált paradigma alapfogalmai: osztály, objektum, öröklődés, polimorfizmus, egységbe zárás, absztrakt osztályok, interfészek, UML osztálydiagram. Az SNMP és az RMON hálózatfelügyeleti rendszerek összehasonlítása. DEIK Mérnökinformatikus BSc záróvizsga tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/deik-mernokinformatikus-bsc-2017/tetel15/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-nav-key="tetelek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/deik-mernokinformatikus-bsc-2017/">DEIK Mérnökinformatikus BSC 2017</a> / 15. tétel</p>
+
+      <h1>15. Tétel — Objektumorientált paradigma alapfogalmai és SNMP-RMON hálózatfelügyeleti rendszerek összehasonlítása</h1>
+      <p class="item-meta">Frissítve: 2026-09-09</p>
+
+      <p>
+        Ez a tétel két nagyobb témakört fed le: az objektumorientált
+        paradigma alapfogalmait, valamint az SNMP és az RMON
+        hálózatfelügyeleti rendszerek összehasonlítását.
+      </p>
+
+      <h2>Témák</h2>
+      <p><strong>I. Témakör: Az objektumorientált paradigma alapfogalmai</strong></p>
+      <ul>
+        <li>Az objektumorientált paradigma alapfogalmai.</li>
+        <li>Osztály, objektum, példányosítás.</li>
+        <li>Öröklődés, osztályhierarchia.</li>
+        <li>Polimorfizmus, metódustúlterhelés.</li>
+        <li>A bezárási eszközrendszer.</li>
+        <li>Absztrakt osztályok és interfészek.</li>
+        <li>Az UML osztálydiagramja.</li>
+      </ul>
+      <p><strong>II. Témakör: Az SNMP és az RMON hálózatfelügyeleti rendszerek összehasonlítása</strong></p>
+      <ul>
+        <li>Hasonlítsa össze az SNMP és az RMON hálózatfelügyeleti rendszereket!</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>I. Témakör: Az objektumorientált paradigma alapfogalmai</h2>
+
+      <h3>1. Bevezetés az objektumorientált paradigmába</h3>
+      <p>
+        Az objektumorientált programozás (OOP) olyan
+        szoftverfejlesztési paradigmát jelöl, amelyben a
+        szoftverrendszerek szerkezetét egységes, önálló adategységek,
+        úgynevezett objektumok együttműködéseként modellezik. A
+        hagyományos eljárásvezérelt megközelítéssel ellentétben az
+        OOP az adatszerkezeteket (attribútumok) és az azokon
+        végrehajtható műveleteket (metódusok) egyetlen logikai
+        egységbe integrálja. A paradigma alapvető célkitűzései közé
+        tartozik a modularitás növelése, a szoftveralkatrészek
+        újrafelhasználhatósága, valamint a komplex rendszerek
+        karbantarthatóságának optimalizálása.
+      </p>
+
+      <h3>2. Osztály, objektum, példányosítás</h3>
+      <ul>
+        <li><strong>Osztály:</strong> Az osztály egy absztrakt tervrajz, amely formálisan meghatározza az adott típusú objektumok által közösen birtokolt struktúrát és viselkedést. Az osztály önmagában kizárólag egy logikai sablon, amely nem foglal le futásidejű memóriaterületet a program adatai számára.</li>
+        <li><strong>Objektum:</strong> Az objektum az osztály konkrét, memóriában elhelyezett példánya, amely egyedi állapottal és az osztály által definiált metóduskészlettel rendelkezik.</li>
+        <li><strong>Példányosítás:</strong> Az a futásidejű művelet, amely során az osztály definíciója alapján a memóriában lefoglalódik a szükséges tárhely az objektum attribútumai számára, és létrehozzuk annak egyedi objektumpéldányát.</li>
+      </ul>
+
+      <h3>3. A bezárási eszközrendszer (Egységbe zárás)</h3>
+      <p>
+        Az egységbe zárás elve biztosítja, hogy az objektum belső
+        állapota rejtve maradjon a külső komponensek elől,
+        megakadályozva az adatok érvénytelen vagy ellenőrizetlen
+        módosítását. A hozzáférési szint-specifikációk (hozzáférési
+        módosítók: <code>public</code>, <code>private</code>,
+        <code>protected</code>) szabályozzák az attribútumok és
+        metódusok láthatóságát:
+      </p>
+      <ul>
+        <li>A <code>private</code> szintű tagok kizárólag az osztály saját metódusain belül érhetők el.</li>
+        <li>A <code>protected</code> szint a leszármazott osztályok számára is biztosít hozzáférést.</li>
+        <li>A <code>public</code> szintű interfész publikus metódusokon (például szelektáló és módosító műveleteken keresztül) biztosít kontrollált hozzáférést a belső adatokhoz.</li>
+      </ul>
+
+      <h3>4. Öröklődés és osztályhierarchia</h3>
+      <p>Az öröklődés mechanizmusa lehetővé teszi új osztályok származtatását már létező osztályokból.</p>
+      <ul>
+        <li>A leszármazott osztály örökli a szülőosztály attribútumait és metódusait, ezáltal biztosítva a kód redundanciájának csökkentését és a hierarchikus felépítést.</li>
+        <li>Az osztályhierarchia kapcsolatot modellez, ahol a hierarchiában feljebb elhelyezkedő osztályok általánosabb tulajdonságokat, míg az alacsonyabb szinteken lévő specializált osztályok kiegészítő vagy felülírt funkciókat hordoznak.</li>
+      </ul>
+
+      <h3>5. Polimorfizmus és metódustúlterhelés</h3>
+      <ul>
+        <li><strong>Polimorfizmus (Többalakúság):</strong> A polimorfizmus (többalakúság) az OOP egyik legerősebb koncepciója. Lehetővé teszi, hogy egységesen kezeljünk különböző, de egy közös őstől származó osztályok objektumait.</li>
+        <li><strong>Metódus-felülírás:</strong> A leszármazott osztályban újraimplementálhatunk egy, az ősosztályban már létező metódust.</li>
+        <li><strong>Metódustúlterhelés (Method Overloading):</strong> Statikus polimorfizmus formája, amely megengedi, hogy egy osztályon belül több azonos nevű metódus létezzen, amennyiben a paraméterlistájuk (a paraméterek típusa, száma vagy sorrendje) eltérő.</li>
+      </ul>
+
+      <h3>6. Absztrakt osztályok és interfészek</h3>
+      <ul>
+        <li><strong>Absztrakt osztályok:</strong> Olyan strukturális elemek, amelyek nem példányosíthatók közvetlenül, kizárólag mint ősosztályok szolgálnak a hierarchiában. Tartalmazhatnak konkrét (implementált) és absztrakt metódusokat is. Az absztrakt metódus kizárólag egy azonosítóval rendelkezik, törzse nincs; a konkrét leszármazott osztályok kötelesek ezeket implementálni.</li>
+        <li><strong>Interfészek:</strong> A szerződésalapú tervezés alapvető eszközei. Kizárólag publikus absztrakt metódusok szignatúráit és publikus konstansokat tartalmaznak. Egy osztály több interfészt is implementálhat, ami áthidalja az egyszeres öröklődés korlátait, és garantálja a megkívánt viselkedési formák meglétét.</li>
+      </ul>
+
+      <h3>7. Az UML osztálydiagramja</h3>
+      <p>
+        Az Unified Modeling Language (UML) osztálydiagramja az
+        objektumorientált rendszerek statikus szerkezetének vizuális
+        modellezésére szolgál. Az osztályokat három részre osztott
+        téglalapok jelölik: a felső rész az osztály neve, a középső
+        rész az attribútumokat, az alsó rész pedig a metódusokat
+        tartalmazza. A kapcsolatok közül a generalizáció üres fejű
+        folytonos nyíllal, a realizáció szaggatott vonalú üres fejű
+        nyíllal kerül ábrázolásra.
+      </p>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>II. Témakör: Az SNMP és az RMON hálózatfelügyeleti rendszerek összehasonlítása</h2>
+
+      <h3>1. SNMP (Simple Network Management Protocol)</h3>
+      <p>
+        Az SNMP egy alkalmazási rétegbeli protokoll, amely a
+        felügyeleti központ (Network Management Station - NMS) és a
+        hálózati eszközökön futó ügynökök (Agents) közötti
+        kommunikációt biztosítja. Három fő részből áll:
+      </p>
+      <ul>
+        <li><strong>Menedzser (Network Management Station - NMS):</strong> A központi szoftver, amely a hálózatfelügyeletet végzi.</li>
+        <li><strong>Ügynök (Agent):</strong> A felügyelt hálózati eszközökön (pl. router, switch, szerver) futó szoftvermodul.</li>
+        <li><strong>Információs modell (MIB):</strong> A felügyelhető objektumok hierarchikus adatbázisba szervezve találhatók meg az ügynökön, amelyeket egyedi objektumazonosítók azonosítanak.</li>
+      </ul>
+      <ul>
+        <li><strong>Működési elv:</strong> Alapvetően lekérdezés-válasz alapú modellre épül. A menedzser periodikusan küld kéréseket az ügynököknek, amelyek <code>GetResponse</code> üzenetekben szolgáltatják az adatokat. Az aszinkron események kezelésére az ügynökök kéretlen értesítéseket küldhetnek a központ felé.</li>
+        <li><strong>Jellemzők:</strong> Az intelligencia a központi menedzserben koncentrálódik; az ügynökök passzív, alapszintű adatszolgáltatást végeznek. A periodikus lekérdezések nagyméretű hálózatokban jelentős menedzsment-forgalmat generálnak.</li>
+      </ul>
+
+      <h3>2. RMON (Remote Monitoring)</h3>
+      <p>Az RMON nem önálló protokoll, hanem az SNMP keretrendszeren alapuló, abba szervesen illeszkedő kiterjesztés (RFC szabványok alapján definiált távfelügyeleti MIB-csoportok összessége).</p>
+      <ul>
+        <li><strong>Működési elv és elosztott intelligencia:</strong> Az RMON az adatgyűjtési és elemzési feladatokat a központból a hálózat peremére, a hálózati szegmensekbe kihelyezett RMON ügynökökre delegálja. Az ügynökök önállóan, helyben gyűjtik, szűrik és elemzik a forgalmat.</li>
+        <li><strong>Proaktív felügyelet:</strong> Az RMON ügynökök küszöbérték-alapú megfigyelést hajtanak végre. A menedzsernek nem kell folyamatosan nyers adatokat lekérdeznie; az RMON ügynök kizárólag akkor generál riasztást, ha egy előre definiált paraméter túllépi a kritikus határértéket.</li>
+        <li><strong>RMON csoportok:</strong> Funkcionális csoportokra oszlik, amelyek statisztikai, történeti adatok gyűjtésére, riasztáskezelésre, gazdagép-specifikus forgalomelemzésre, valamint mátrixalapú forgalomkapcsolati vizsgálatokra specializálódnak.</li>
+      </ul>
+
+      <h3>3. Összehasonlítás</h3>
+      <ul>
+        <li><strong>Adatgyűjtési modell:</strong>
+          <ul>
+            <li>Az SNMP esetében a vezérlés a központi menedzsernél van (<em>pull</em> alapú architektúra).</li>
+            <li>Az RMON esetében az ügynök önállóan, folyamatosan gyűjti és elemzi az adatokat, és szükség esetén továbbítja (<em>push</em> elemeket is tartalmazó elosztott modell).</li>
+          </ul>
+        </li>
+        <li><strong>Az intelligencia lokációja:</strong>
+          <ul>
+            <li>SNMP: Központosított architektúra, ahol a feldolgozási logika a menedzser rendszerszoftverében összpontosul.</li>
+            <li>RMON: Elosztott intelligencia, a feldolgozás és aggregálás a helyi hálózati eszközökön vagy probe-okon történik.</li>
+          </ul>
+        </li>
+        <li><strong>Hálózati terhelés:</strong>
+          <ul>
+            <li>SNMP: Magas felügyeleti sávszélesség-igény a folyamatos, időszakos lekérdezések miatt.</li>
+            <li>RMON: Alacsony menedzsment-forgalom, mivel a nyers adatforgalom helyi feldolgozáson esik át, és a központ felé csak a tömörített statisztikák vagy rendellenességi riasztások kerülnek továbbításra.</li>
+          </ul>
+        </li>
+        <li><strong>A felügyelet mélysége és fókuszpontja:</strong>
+          <ul>
+            <li>SNMP: Eszközalapú állapotfelügyelet (például CPU-használat, interfész státusz, memóriafogyasztás).</li>
+            <li>RMON: Forgalomalapú mélyelemzés (csomagméret-eloszlás, protokollstatisztikák, forgalmi mátrixok, sávszélesség-kihasználtság szegmens szinten).</li>
+          </ul>
+        </li>
+        <li><strong>Hibadetektálás mechanizmusa:</strong>
+          <ul>
+            <li>SNMP: Reaktív; a menedzsernek kell a lekérdezett adatok elemzéséből kikövetkeztetnie a hibát.</li>
+            <li>RMON: Proaktív; az ügynök helyben detektálja az anomáliát a küszöbértékek alapján, és azonnal riasztást küld.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
