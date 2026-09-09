@@ -207,6 +207,146 @@ for it.
   AdSense publisher ID, the Funding Choices banner itself, and applying
   for AdSense only once content exists across all three sections.
 
+## Content style guide
+
+Derived by reading the three live articles (`jegyzet1`, `gyakorlat1`,
+`tetel1`) closely on 2026-09-09, not invented — every rule below is
+backed by an actual pattern in the published content. This documents
+how to *write* new jegyzet/gyakorlat/tétel content so it reads as one
+voice; it doesn't cover HTML/CSS mechanics (see Architecture above)
+or scope/length decisions for new items — those are per-item calls,
+not something to standardize here.
+
+### Two deliberate voices — don't blend them
+
+- **Jegyzet (class notes) and gyakorlat (exercises)**: informal,
+  addresses students directly in 2nd-person plural ("ti" register),
+  imperative verbs — `"Írjatok egy..."`, `"Nyissatok egy
+  szövegszerkesztőt..."`, `"Gondolkodjatok el rajta..."` — sometimes
+  mixed with 1st-person-plural "we" when describing what happens
+  together in class: `"ma ezeket Java szintaxisban gyakoroljuk be"`.
+  This is a classroom voice — the writer is present, talking to the
+  room.
+- **Tétel (worked exam topics)**: formal, impersonal 3rd person, no
+  "ti"/"mi" anywhere — reads like an actual exam-answer document:
+  `"A változó egy elnevezett memóriaterület, amely egy értéket tárol,
+  és amelynek értéke a program futása során megváltozhat."` This is
+  intentional, not a gap to fix — a kidolgozott tétel is a portable,
+  formal answer, not a classroom transcript.
+
+### Em dash as the default connector
+
+The single most consistent fingerprint across all three articles:
+when a sentence needs to explain *why* a claim is true, or attach a
+qualifying aside, it's appended to the same sentence with an em dash
+(—) rather than started as a new sentence or introduced with a colon.
+Examples as actually written:
+
+- `"...ismeritek az előző félévből — ma ezeket Java szintaxisban
+  gyakoroljuk be, nem nulláról tanuljuk."`
+- `"A do-while ciklus magját előbb végrehajtja... — ezért a törzse
+  mindig lefut legalább egyszer..."`
+- `"...egy nevet (azonosítót) és — sok nyelvben — egy adattípust
+  rendelünk."` (tétel's more formal register still uses it, just more
+  sparingly, and sometimes as a mid-sentence parenthetical pair rather
+  than a trailing clause)
+
+Use this pattern for new content rather than defaulting to a second
+sentence or a semicolon.
+
+### Bold marks the one load-bearing phrase, never decoration
+
+Bold is reserved for the single word/phrase that changes a sentence's
+meaning if a reader skims past it: the term being defined
+(`"**Java:** A Java egy statikusan típusos..."`), a key constraint
+(`"**egy** parancssori argumentumként"`, `"**akkor is írja ki legalább
+egyszer**"`), or the one fact worth flagging
+(`"**Fontos megfigyelés:** a folyamat mindkét operációs rendszeren
+**ugyanaz**..."`). Never bold a whole sentence, and never use bold for
+generic emphasis.
+
+### Arrows (→) show transformation, not just sequence
+
+Used consistently for "this becomes/produces that": command → output
+(`` `javac Hello.java` → létrejön a `Hello.class` ``), before → after
+(`` `int truncated = (int) 4.9;` → `4` ``), or a step chain
+(`` szerkesztés → `javac` → `java` ``). Use `→` in prose for this —
+not "->" or "ami azt eredményezi, hogy".
+
+### Quotation marks: straight ASCII, not Hungarian typographic
+
+`"..."` throughout, for both quoted informal terms (`"burok"`,
+`"write once, run anywhere"`) and quoted proper nouns (course names,
+"Java alapok"). Not „lower-upper" Hungarian typographic quotes —
+straight quotes are simpler and match how quotes already appear
+inside `<code>` strings (`<code>"Sziasztok!"</code>`), so prose quotes
+never visually clash with code quotes on the same page.
+
+### Term definitions: two valid patterns, pick by context
+
+- **Standalone paragraph** (jegyzet style, for a term that needs real
+  explanation): `"**Fordító (compiler):** A javac parancs a Java
+  forráskódot... fordítja."` — bold term (+ English name in parens if
+  relevant), colon, then the explanation as normal prose in the same
+  paragraph.
+- **List-item label** (tétel style, for a short set of related terms
+  that don't each need a paragraph): `"**Egész szám (integer)** — pl.
+  `42`"` — bold term as the list item's lead-in, em dash, then a
+  minimal example. No colon in this variant.
+
+### Structural pattern per item type
+
+**Jegyzet**: Tematika (`<ul>` outline, no elaboration) → Kontextus (2
+short paragraphs on why this session matters / what's assumed already
+known) → one `<h2>` per major topic (prose + `<h3>` for
+platform-specific variants like Windows/Linux + code blocks) →
+Gyakorlat (in-class exercise list, `<ol>`) → Puffer (buffer-time note
+— present because a jegyzet page is literally a class-session agenda
+with a time budget).
+
+**Gyakorlat**: short intro paragraph only (no Tematika/Kontextus
+headings) stating what's covered and any constraints → one `<h2>` per
+exercise, numbered and difficulty-tagged inline in the heading itself
+(`"N. feladat (Nehézség) — Cím"`) → each exercise gets 1–2 short
+paragraphs stating the task, optionally a `"Példa: ..."` usage example
+and/or a `"Segítség:"` hint or reflective question for harder ones. No
+Puffer section — this is take-home work, not a scheduled class.
+
+**Tétel**: short intro paragraph → "A tétel szövege" (`<h2>` +
+`<blockquote>` containing the literal official exam question, phrased
+as a formal imperative — `"Mutassa be..."`) → "Kidolgozás" (`<h2>`,
+the actual answer, broken into `<h3>` subsections) → "Kapcsolódó
+fogalmak" (`<h2>`, closing bullet list of related terms, no
+elaboration — just the terms). No Gyakorlat/Puffer sections.
+
+### `item-meta` line: intentionally different per type, not drift
+
+- Jegyzet: `Course · Session label · Frissítve: date` (3 parts) — e.g.
+  `"Java alapok · 1 óra · Frissítve: 2026-09-08"`.
+- Gyakorlat: `Course · Frissítve: date` (2 parts, no session label) —
+  e.g. `"Java alapok · Frissítve: 2026-09-08"`.
+- Tétel: `Frissítve: date` only (1 part — no course name at all) — e.g.
+  `"Frissítve: 2026-09-05"`.
+
+Don't unify these into one shared pattern. Jegyzet/gyakorlat are tied
+to a specific course session; a tétel is meant to read as a portable,
+course-agnostic reference, so it doesn't carry a course name — that's
+by design, confirmed 2026-09-09.
+
+### H1: no numbered prefix
+
+Live convention (confirmed 2026-09-09, and `jegyzet-template.html`
+updated to match): the `<h1>` is a bare descriptive title with no
+"N. Jegyzet —" / "N. Gyakorlat —" / "N. Tétel —" prefix — the
+breadcrumb already carries the item number, so repeating it in the H1
+is redundant. `jegyzet1`'s `<h1>Java fordítási folyamat, alapok</h1>`
+is the reference example. (`gyakorlat-template.html`/
+`tetel-template.html` already matched this in spirit before — their
+live examples use a numbered lead-in as part of a genuinely
+descriptive title, e.g. `"1. hét — Gyakorló feladatok"`, rather than a
+mechanical "N. Gyakorlat —" restatement; use judgment per item rather
+than copying either pattern mechanically.)
+
 ## Task execution workflow
 
 Follow this for every task. Don't skip steps, don't reorder them, and stop at the first
