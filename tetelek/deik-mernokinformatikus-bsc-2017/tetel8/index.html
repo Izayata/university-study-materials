@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>8. Tétel — Beágyazott rendszerek felépítése és hálózatfelügyeleti rendszerek (MRTG, Nagios) | Füles Jegyzetek</title>
+  <meta name="description" content="Beágyazott és valós idejű rendszerek felépítése (hardver/szoftver rétegek, RTOS), valamint hálózatfelügyeleti rendszerek (MRTG, Nagios) — DEIK Mérnökinformatikus BSc záróvizsga tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/deik-mernokinformatikus-bsc-2017/tetel8/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-nav-key="tetelek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/deik-mernokinformatikus-bsc-2017/">DEIK Mérnökinformatikus BSC 2017</a> / 8. tétel</p>
+
+      <h1>8. Tétel — Beágyazott rendszerek felépítése és hálózatfelügyeleti rendszerek (MRTG, Nagios)</h1>
+      <p class="item-meta">Frissítve: 2026-09-09</p>
+
+      <p>
+        Ez a tétel két nagyobb témakört fed le: a beágyazott és
+        valós idejű rendszerek felépítését és rétegzett
+        architektúráját, valamint a hálózatfelügyeleti rendszereket
+        (MRTG és Nagios).
+      </p>
+
+      <h2>Témák</h2>
+      <p><strong>I. Témakör: Beágyazott és valós idejű rendszerek felépítése</strong></p>
+      <ul>
+        <li>Beágyazott rendszerek fogalma, tipikus alkalmazások, követelmények.</li>
+        <li>Valós idejű és reaktív rendszerek fogalma.</li>
+        <li>Beágyazott rendszerek felépítése.</li>
+        <li>Hardver és szoftver rétegek.</li>
+        <li>Beágyazott rendszer szoftver rétegek és alkalmazói szoftver réteg.</li>
+      </ul>
+      <p><strong>II. Témakör: Hálózatfelügyeleti rendszerek (MRTG és Nagios)</strong></p>
+      <ul>
+        <li>Ismertesse az MRTG, a Nagios hálózatfelügyeleti rendszerek funkcióit és szolgáltatásait!</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>I. Témakör: Beágyazott és valós idejű rendszerek felépítése</h2>
+
+      <h3>1. Beágyazott rendszerek fogalma, tipikus alkalmazások és követelmények</h3>
+      <p>
+        A <strong>beágyazott rendszer (embedded system)</strong>
+        olyan speciális célú számítástechnikai egység, amely egy
+        nagyobb, gyakran nem számítógépes jellegű fizikai rendszer
+        részeként működik, és azt a feladatot látja el, hogy a
+        környezetéből érkező jeleket feldolgozva vezérelje a fizikai
+        folyamatokat.
+      </p>
+      <p><strong>Alapvető jellemzők:</strong></p>
+      <ul>
+        <li><strong>Erőforrás-korlátok:</strong> A beágyazott rendszerek hardveres kiépítése szigorúan optimalizált; jellemzően korlátozott a memóriaméret (Flash és RAM), a processzor teljesítménye, valamint az energiafogyasztás (különösen akkumulátorról üzemelő eszközök esetén).</li>
+        <li><strong>Magas megbízhatóság és robusztusság:</strong> Számos beágyazott rendszer kritikus infrastruktúrákban, járművekben vagy egészségügyi berendezésekben működik, ahol egy szoftver- vagy hardverhiba katasztrofális következményekkel járhat. Emiatt kulcsfontosságú a hibatűrés és a folyamatos, felügyelet nélküli üzemképesség.</li>
+        <li><strong>Költségérzékenység:</strong> Mivel a beágyazott rendszereket gyakran tömegtermelésben gyártják, a hardveres és szoftveres komponensek költségeinek minimalizálása alapvető tervezési szempont.</li>
+        <li><strong>Valós idejű működés:</strong> A rendszernek nemcsak logikailag helyes eredményt kell produkálnia, hanem szigorú időbeli korlátok betartásával kell reagálnia a külső eseményekre.</li>
+      </ul>
+      <p><strong>Funkcionális követelmények</strong></p>
+      <ul>
+        <li><strong>Specifikus feladatellátás:</strong> A rendszer egy vagy néhány előre meghatározott feladatot végez el nagy pontossággal.</li>
+        <li><strong>Interfészek kezelése:</strong> Képesnek kell lennie a környezetéből érkező adatok fogadására szenzorokon keresztül, illetve a beavatkozók (aktuátorok, motorok, kijelzők) vezérlésére.</li>
+      </ul>
+      <p><strong>Tipikus alkalmazási területek:</strong></p>
+      <ul>
+        <li><strong>Autóipar:</strong> Motorvezérlő egységek (ECU), ABS (blokkolásgátló), légzsák-vezérlők, infotainment rendszerek és a modern autonóm járművek szenzorvezérlő központjai.</li>
+        <li><strong>Egészségügy:</strong> Beültetett orvosi eszközök (pl. szívritmusszabályzó – pacemaker), betegfigyelő monitorok, képalkotó berendezések vezérlése.</li>
+        <li><strong>Ipari automatizálás:</strong> Programozható logikai vezérlők (PLC), robotika, gyártósori felügyeleti rendszerek, intelligens szenzorhálózatok.</li>
+        <li><strong>Fogyasztói elektronika:</strong> Okosotthon eszközök, háztartási gépek (mosógépek, mikrohullámú sütők) vezérlése, multimédiás lejátszók.</li>
+      </ul>
+
+      <h3>2. Valós idejű és reaktív rendszerek fogalma</h3>
+      <p><strong>Reaktív rendszerek (Reactive Systems)</strong></p>
+      <p>
+        A reaktív rendszerek folyamatos kapcsolatban állnak a
+        környezetükkel, és arra épülnek, hogy válaszoljanak a külső
+        ingerekre. Működésüket egy végtelen ciklusban zajló
+        eseménykezelési folyamat határozza meg, ahol a rendszer
+        folyamatosan figyeli a környezetet, és az események
+        függvényében lépteti belső állapotát.
+      </p>
+      <p><strong>Valós idejű rendszerek (Real-Time Systems – RTS)</strong></p>
+      <p>
+        Olyan rendszerek, amelyek helyessége nemcsak a számítás
+        logikai eredményétől függ, hanem attól az időpillanattól is,
+        amikor az eredmény megszületik. Ha egy helyes eredmény túl
+        későn érkezik meg, az a rendszer szempontjából hibának
+        minősül.
+      </p>
+      <p>A valós idejű rendszerek időbeli korlátjaik szigorúsága szerint az alábbi kategóriákba sorolhatók:</p>
+      <ul>
+        <li><strong>Kemény (Hard) valós idejű rendszerek:</strong> A határidők betartása abszolút kritikus. Egyetlen határidőtúllépés is katasztrofális fizikai, emberi vagy pénzügyi kárba torkollhat (pl. repülőgép-irányítás, légzsák kioldása).</li>
+        <li><strong>Határidős (Firm) valós idejű rendszerek:</strong> Időnként előfordulhat egy-egy határidőtúllépés, ami miatt az adott válaszérték haszontalanná válik (értéke nullára csökken), de a rendszer egészének működése nem omlik össze azonnal (pl. videófolyam-kezelés egyes képkockáinak eldobása).</li>
+        <li><strong>Puha (Soft) valós idejű rendszerek:</strong> A határidők betartása fontos a megfelelő minőséghez, de a határidő lezajlása után is hasznos marad az eredmény, csupán a teljesítmény vagy a felhasználói élmény romlik (pl. multimédiás lejátszás, hálózati adatcsomagok átvitele).</li>
+      </ul>
+
+      <h3>3. Beágyazott rendszerek felépítése: Hardver és szoftver rétegek</h3>
+      <p>
+        A beágyazott rendszerek tervezésének alapelve a
+        <strong>rétegzett architektúra</strong>, amely elválasztja
+        egymástól a fizikai hardvert és a magasabb szintű
+        alkalmazási logikát. Ez a hierarchikus felépítés biztosítja
+        a modularitást, a karbantarthatóságot és a hordozhatóságot.
+      </p>
+      <p>A rétegzett modell főbb szintjei:</p>
+      <ul>
+        <li><strong>Fizikai Hardver Réteg (Hardware Layer):</strong>
+          <ul>
+            <li><em>Mikrokontrollerek (MCU) / Mikroprocesszorok (MPU) / DSP-k / FPGA-k:</em> A rendszer számítási központja.</li>
+            <li><em>Memóriaegységek:</em> Nem-felejtő memória (Flash/ROM a kód tárolására) és felejtő memória (RAM az ideiglenes adatokhoz).</li>
+            <li><em>Perifériák és I/O egységek:</em> Analóg-digitális átalakítók (ADC), digitális-analóg átalakítók (DAC), kommunikációs interfészek (UART, SPI, I2C, CAN, Ethernet), valamint időzítők (Timers/Counters).</li>
+            <li><em>Szenzorok és akkumulátorok/aktuátorok:</em> A fizikai valósággal való interakció eszközei.</li>
+          </ul>
+        </li>
+        <li><strong>Rendszerszoftver és Illesztőprogramok Rétege (Low-Level Software / BSP):</strong>
+          <ul>
+            <li><em>Board Support Package (BSP):</em> Az adott hardver-architektúrára szabott legalacsonyabb szintű inicializáló kódok és driverek gyűjteménye.</li>
+            <li><em>Eszközillesztők (Drivers):</em> Hardverközelibb szoftvermodulok, amelyek elrejtik a regiszterek szintű közvetlen kezelését, és egységes programozói felületet biztosítanak a perifériákhoz.</li>
+          </ul>
+        </li>
+        <li><strong>Valós Idejű Operációs Rendszer (RTOS) vagy Alapszoftver Réteg:</strong> Erőforrás-korlátos környezetben működő mikrokernelek, amelyek determinisztikus feladatütemezést (scheduling), szálkezelést (threads/tasks), szinkronizációs mechanizmusokat (szemaforok, mutexek) és üzenetkezelést biztosítanak.</li>
+        <li><strong>Alkalmazói Szoftver Réteg (Application Software Layer):</strong> A legfelső szint, amely a rendszer egyedi üzleti logikáját, vezérlőalgoritmusait, felhasználói felületét (UI) és hálózati kommunikációs protokolljait valósítja meg.</li>
+      </ul>
+
+      <h3>4. Hardver és szoftver közötti interakciók, valamint a Valós Idejű Operációs Rendszerek (RTOS) működése</h3>
+      <p>
+        A rétegzett szoftverarchitektúra egyik legfőbb előnye a
+        <strong>hardverfüggetlen alkalmazásfejlesztés</strong>
+        megvalósítása. Az alkalmazói szoftver réteg nem közvetlenül
+        a fizikai regisztereket írja vagy olvassa, hanem absztrakciós
+        rétegeken vagy az RTOS szolgáltatásain keresztül kommunikál a
+        hardverrel. Ez lehetővé teszi, hogy a hardver alkatrészek
+        cseréje esetén az alkalmazói kód érintetlen maradjon,
+        elegendő csupán a BSP-t és az illesztőprogramokat módosítani.
+      </p>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>II. Témakör: Hálózatfelügyeleti rendszerek (MRTG és Nagios)</h2>
+
+      <h3>1. MRTG (Multi Router Traffic Grapher)</h3>
+      <p>
+        Az <strong>MRTG</strong> egy klasszikus, nyílt forráskódú
+        hálózatfelügyeleti eszköz, amelyet kifejezetten a hálózati
+        interfészek forgalmának mérésére és vizuális
+        megjelenítésére terveztek.
+      </p>
+      <p><strong>Működési elv és jellemzők:</strong></p>
+      <ul>
+        <li><strong>SNMP alapú lekérdezés:</strong> Az MRTG a <strong>SNMP (Simple Network Management Protocol)</strong> protokoll segítségével kommunikál a hálózati eszközökkel. Rendszeres időközönként lekérdezi az eszközök számlálóit.</li>
+        <li><strong>Adatfeldolgozás és tárolás:</strong> A lekérdezett adatokat saját, idősoros adatbázis-struktúrájában tárolja, amely tömörítési algoritmusokat alkalmaz a régebbi adatok megőrzésére (a részletesség idővel csökken).</li>
+        <li><strong>HTML és grafikon generálás:</strong> Az MRTG Perl nyelven íródott, és feladata a nyers adatokból vizuális grafikonok (GIF/PNG formátumú képek) és statisztikai HTML oldalak generálása, amelyek napra, hétre, hónapra és évre lebontva mutatják a hálózati forgalom alakulását (be- és kimenő irányban).</li>
+      </ul>
+      <p><strong>Főbb funkciók és korlátok:</strong></p>
+      <ul>
+        <li><strong>Fő erősség:</strong> Kiválóan alkalmas a sávszélesség-felhasználás historikus elemzésére és a trendek követésére.</li>
+        <li><strong>Korlát:</strong> Elsősorban numerikus adatok (forgalmi sávszélesség) grafikus ábrázolására optimalizálták; komplex hiba-kezelési, riasztási vagy összetett szolgáltatás-függőségi vizsgálatokra korlátozottan alkalmas a modern rendszerekhez képest.</li>
+      </ul>
+
+      <h3>2. Nagios</h3>
+      <p>
+        A <strong>Nagios</strong> egy ipari szabványnak számító,
+        rendkívül rugalmas, nyílt forráskódú hálózat-, szerver- és
+        szolgáltatásfelügyeleti keretrendszer, amely átfogó
+        állapotfigyelést és hiba-eseménykezelést biztosít.
+      </p>
+      <p><strong>Működési elv és felépítés:</strong></p>
+      <ul>
+        <li><strong>Host és Szolgáltatás alapú modell:</strong> A Nagios entitásai a Hostok (fizikai szerverek, hálózati eszközök, munkaállomások) és a Szolgáltatások (futó folyamatok, lemezterület, HTTP-szolgáltatás, Ping válaszidő).</li>
+        <li><strong>Pluginek (Bővítmények):</strong> A Nagios Core magrendszere önmagában nem végzi el a közvetlen ellenőrzéseket, hanem különféle plugineket (szkripteket, binárisokat Pythonban, Perlben, Bashben) hív meg. Ezek a pluginek felelnek a konkrét mérésekért (pl. lekérdezik a CPU terhelést, ellenőrzik egy weboldal HTTP státuszkódját).</li>
+        <li><strong>Aktív és passzív ellenőrzések:</strong> Az aktív ellenőrzéseket a Nagios ütemezi és indítja el időszakonként, míg a passzív ellenőrzések esetén a külső ügynökök (agents) vagy log-rendszerek küldenek állapotjelentést a Nagios szervernek.</li>
+      </ul>
+      <p><strong>Főbb funkciók és szolgáltatások:</strong></p>
+      <ul>
+        <li><strong>Állapotfelügyelet és Elérhetőség:</strong> Folyamatosan ellenőrzi a hálózati elemek és szolgáltatások működését (UP / DOWN / UNREACHABLE státuszok).</li>
+        <li><strong>Riasztási és Értesítési Rendszer (Alerting):</strong> Ha egy szolgáltatás hibás állapotba kerül (vagy kritikus küszöbértéket lép túl), a Nagios automatikusan értesíti a rendszergazdákat, támogatva az eszkalációs láncokat.</li>
+        <li><strong>Eseménykezelők (Event Handlers):</strong> Lehetőség van automatikus parancsok/szkriptek futtatására hiba észlelésekor (pl. egy leállt szolgáltatás, mint az Apache vagy MySQL automatikus újraindítása emberi beavatkozás nélkül).</li>
+        <li><strong>Függőségek kezelése (Dependencies):</strong> Képes leképezni az eszközök és szolgáltatások közötti függőségeket, így elkerülhető a felesleges riasztások áradata (pl. ha egy fő router kiesik, a mögötte lévő szerverekre vonatkozó riasztásokat elnyomja).</li>
+        <li><strong>Teljesítmény- és historikus adatok gyűjtése:</strong> Különböző kiegészítőkkel (pl. PNP4Nagios, Grafana integráció) képes a teljesítményadatok (CPU, RAM, hálózati forgalom) hosszú távú tárolására és grafikus megjelenítésére.</li>
+        <li><strong>Ellenőrzési mechanizmusok:</strong>
+          <ul>
+            <li><strong>Aktív ellenőrzés:</strong> A Nagios szerver előre ütemezett időközönként aktívan, "kívülről" kezdeményezi az ellenőrzést.</li>
+            <li><strong>Passzív ellenőrzés:</strong> Ebben az esetben nem a Nagios szerver kezdeményez, hanem a felügyelt kliens küld aszinkron módon egy eseményt vagy állapotváltozást a Nagios felé. Ennek tipikus példája az <strong>SNMP Trap</strong> alapú monitorozás, amikor egy hálózati eszköz (pl. egy szünetmentes táp) hálózati áramkimaradás esetén azonnal egy "trap" üzenetet küld a Nagios-nak. Ez a modell gyorsabb riasztást tesz lehetővé, mivel nem kell megvárni a következő aktív ellenőrzési ciklust.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>3. Összehasonlítás</h3>
+      <ul>
+        <li><strong>MRTG:</strong> Egy speciális célú, könnyen beállítható eszköz, amely elsősorban a <strong>hálózati forgalom (sávszélesség) mérésére és vizualizálására</strong> fókuszál SNMP alapokon.</li>
+        <li><strong>Nagios:</strong> Egy komplex, nagymértékben bővíthető <strong>infrastruktúra-felügyeleti keretrendszer</strong>, amely a hálózati forgalmon túl teljeskörűen felügyeli a szervereket, szolgáltatásokat, alkalmazásokat, aktív riasztásokat generál, és automatizált eseménykezelést biztosít.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
