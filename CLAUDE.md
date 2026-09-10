@@ -92,12 +92,19 @@ The section landing pages (`jegyzetek/index.html` etc.) list courses
 via `.card-grid`/`.item-card`; each course landing page (copied from
 `course-template.html`) then lists that course's items the same way.
 
-A course does not need to appear under all three sections — `tetelek/`
-currently has a different course (`deik-mernokinformatikus-bsc-2017`)
-than `jegyzetek/`/`gyakorlas/` (`java-alapok`), since `java-alapok`'s
-only `tétel` was retired (see below) and never replaced with real
-`java-alapok`-specific exam content. Don't assume every course-landing
-page has counterparts in the other two sections.
+A course does not need to appear under all three sections —
+`java-alapok` exists under `jegyzetek/`/`gyakorlas/` but not
+`tetelek/`, since its only `tétel` was retired (see below) and never
+replaced with real `java-alapok`-specific exam content. Don't assume
+every course-landing page has counterparts in the other two sections.
+
+`deik-mernokinformatikus-bsc-2017`, by contrast, is the same course
+(same degree program) appearing under both `tetelek/` (the finished
+15-tétel exam-prep series, see below) and, since 2026-09-10,
+`jegyzetek/` (semester-by-semester class notes, see the nesting
+exception right below) — reusing the identical slug across both
+sections per the convention above. It does not (yet) exist under
+`gyakorlas/`.
 
 `deik-mernokinformatikus-bsc-2017` reached its full planned scope on
 2026-09-09: all 15 tételek (`tetel1`–`tetel15`) from the site owner's
@@ -108,6 +115,36 @@ same branch → PR → explicit-merge cycle documented in "Task execution
 workflow" below; see the merged PRs (#11–#25) for the individual
 per-tétel decisions (source-content fixes, judgment calls) if that
 history is ever needed.
+
+### Deliberate exception: semester nesting under `jegyzetek/deik-mernokinformatikus-bsc-2017/`
+
+Added 2026-09-10. This is the one course-landing page on the site
+whose card-grid links to a second landing-page level instead of items
+directly: `/jegyzetek/deik-mernokinformatikus-bsc-2017/<semesterN>/`
+(`semester1`–`semester6`, English folder names per the
+identifiers-stay-English convention, Hungarian "N. félév" as the
+displayed title), each itself a landing page (copied from the new
+`semester-template.html`, structurally identical to
+`course-template.html` one level deeper) whose own card-grid will
+eventually list that semester's jegyzet items
+(`/jegyzetek/deik-mernokinformatikus-bsc-2017/<semesterN>/<itemN>/`).
+Every other course on the site (`java-alapok`, and this same course
+under `tetelek/`) stays one level deep — course → item directly — per
+the general pattern above. Don't generalize this into a new default;
+only use `semester-template.html` for a course explicitly organized by
+semester, confirmed with the site owner rather than invented.
+
+All 6 semester pages were published upfront as empty placeholders
+("Hamarosan." / "Ehhez a félévhez még nem került fel jegyzet.
+Hamarosan.") — no jegyzet content existed for this course yet at the
+time. Content is expected to arrive incrementally afterward, the same
+one-item-per-message pattern used for the 15-tétel series. When adding
+the first item to a semester: copy `jegyzet-template.html` as usual,
+but hand-add an extra breadcrumb segment for the semester (e.g.
+`Kezdőlap / Órai jegyzetek / DEIK Mérnökinformatikus BSC 2017 / 1.
+félév / N. jegyzet`) — `jegyzet-template.html`'s own default breadcrumb
+has no semester level and wasn't changed, since this nesting is a
+one-course exception, not the new norm.
 
 The course was originally named after its official university title,
 "Magas szintű programozási nyelvek 2" (course code `INBPM0315-21`) —
