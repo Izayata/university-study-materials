@@ -7,9 +7,9 @@
   <meta name="theme-color" content="#0d1117">
 
   <!-- SEO: give every course landing page a specific title + description -->
-  <title>[Kurzus neve] | [Órai jegyzetek / Gyakorló feladatok / Kidolgozott tételek] | Füles Jegyzetek</title>
+  <title>[Kurzus neve] | [Oktatási anyagok / Gyakorló feladatok / Kidolgozott tételek] | Füles Jegyzetek</title>
   <meta name="description" content="[Egy-két mondatos összefoglaló arról, mit tartalmaz ez a kurzus ebben a szekcióban.]">
-  <link rel="canonical" href="https://fulesjegyzetek.hu/[jegyzetek|gyakorlas|tetelek]/[kurzus-slug]/">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/[oktatasi-anyagok|gyakorlas|tetelek]/[kurzus-slug]/">
 
   <link rel="stylesheet" href="/style.css">
 </head>
@@ -21,8 +21,8 @@
   <!--
     FILE-BASED ROUTING NOTE (read me, then delete):
     Copy this file to /<szekció>/<kurzus-slug>/index.html — e.g.
-    /jegyzetek/java-alapok/index.html — one course-landing page per
-    course, per section. See /jegyzetek/java-alapok/index.html for a
+    /oktatasi-anyagok/java-alapok/index.html — one course-landing page per
+    course, per section. See /oktatasi-anyagok/java-alapok/index.html for a
     filled-in example. The slug should be a short, descriptive,
     URL-safe name for the course (lowercase, hyphens) — it's reused
     as-is across all three sections for the same course, so pick one
@@ -30,7 +30,7 @@
 
     This is a course-landing page, not an item page: it lists the
     items (jegyzetek/gyakorlatok/tételek) that belong to one course,
-    the same way the section landing pages (jegyzetek/index.html etc.)
+    the same way the section landing pages (oktatasi-anyagok/index.html etc.)
     list courses. Its own card-grid links to item pages copied from
     jegyzet-template.html / gyakorlat-template.html / tetel-template.html,
     placed one level deeper: /<szekció>/<kurzus-slug>/<itemN>/.
@@ -40,7 +40,7 @@
 
   <div class="page-shell">
     <main class="content">
-      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/[jegyzetek|gyakorlas|tetelek]/">[Szekció neve]</a> / [Kurzus neve]</p>
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/[oktatasi-anyagok|gyakorlas|tetelek]/">[Szekció neve]</a> / [Kurzus neve]</p>
 
       <h1>[Kurzus neve]</h1>
       <p>
@@ -52,7 +52,7 @@
       </div>
 
       <div class="card-grid">
-        <a class="item-card" href="/[jegyzetek|gyakorlas|tetelek]/[kurzus-slug]/[item1]/">
+        <a class="item-card" href="/[oktatasi-anyagok|gyakorlas|tetelek]/[kurzus-slug]/[item1]/">
           <h3>[Item címe]</h3>
           <p>[Rövid összefoglaló.]</p>
         </a>

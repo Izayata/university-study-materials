@@ -11,7 +11,7 @@ and one filled example:
 
 | Section (Hungarian) | Landing page | Template | Example |
 |---|---|---|---|
-| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/jegyzet1/` |
+| Oktatási anyagok (class notes) | `/oktatasi-anyagok/` | `jegyzet-template.html` | `/oktatasi-anyagok/jegyzet1/` |
 | Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | `/gyakorlas/gyakorlat1/` |
 | Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/tetel1/` |
 
@@ -20,7 +20,7 @@ and one filled example:
 Every page is a real, physical HTML file — no build step, no client-side
 router. Two supported patterns:
 
-- Clean URL: `jegyzetek/jegyzet1/index.html` → served at `/jegyzetek/jegyzet1/`
+- Clean URL: `oktatasi-anyagok/jegyzet1/index.html` → served at `/oktatasi-anyagok/jegyzet1/`
 - Flat file: `jegyzet2.html` → served at `/jegyzet2.html`
 
 Copy the relevant `*-template.html` for each new item and pick whichever
@@ -67,11 +67,11 @@ python -m http.server 8000
 
 ## Content nesting: section → course → item
 
-Each of the three sections (`jegyzetek`, `gyakorlas`, `tetelek`) nests
+Each of the three sections (`oktatasi-anyagok`, `gyakorlas`, `tetelek`) nests
 items one level under a course landing page:
 `/<szekció>/<kurzus-slug>/<itemN>/`, e.g.
-`/jegyzetek/java-alapok/jegyzet1/`. The section landing pages
-(`jegyzetek/index.html` etc.) list courses, and each course landing
+`/oktatasi-anyagok/java-alapok/jegyzet1/`. The section landing pages
+(`oktatasi-anyagok/index.html` etc.) list courses, and each course landing
 page lists that course's items. A course's slug is a short,
 URL-safe, descriptive name (lowercase, hyphens — e.g. `java-alapok`)
 picked once and reused identically across all three sections for the
@@ -80,26 +80,26 @@ same course.
 ## Adding a new course
 
 1. Copy `course-template.html` into each section it applies to, e.g.
-   `jegyzetek/<kurzus-slug>/index.html`,
+   `oktatasi-anyagok/<kurzus-slug>/index.html`,
    `gyakorlas/<kurzus-slug>/index.html`,
    `tetelek/<kurzus-slug>/index.html`.
 2. Fill in the course name and a short description in each.
 3. Link each one from that section's landing page card grid (e.g.
-   `jegyzetek/index.html`).
+   `oktatasi-anyagok/index.html`).
 4. Add an entry to `sitemap.xml` for each new course landing page.
 
 ## Adding a new item
 
 1. Copy the matching template (`jegyzet-template.html`,
    `gyakorlat-template.html`, or `tetel-template.html`) into its
-   course's folder, e.g. `jegyzetek/java-alapok/jegyzet2/index.html`.
+   course's folder, e.g. `oktatasi-anyagok/java-alapok/jegyzet2/index.html`.
 2. Replace the placeholder title, meta description, canonical URL, and
    breadcrumb (item number and course link).
 3. Paste your content as plain `<p>`, `<h2>/<h3>`, `<ul>`, and
    `<pre><code>` — the three ad slots and the tip widget are already
    positioned.
 4. Add a link to it from that course's landing page card grid (e.g.
-   `jegyzetek/java-alapok/index.html`).
+   `oktatasi-anyagok/java-alapok/index.html`).
 5. Add an entry to `sitemap.xml`.
 6. If it's a new note/exercise/topic that references others, cross-link
    them (see how `gyakorlat1` links back to `jegyzet1`).

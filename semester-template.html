@@ -7,9 +7,9 @@
   <meta name="theme-color" content="#0d1117">
 
   <!-- SEO: give every semester landing page a specific title + description -->
-  <title>N. félév — [Kurzus neve] | Órai jegyzetek | Füles Jegyzetek</title>
+  <title>N. félév — [Kurzus neve] | Oktatási anyagok | Füles Jegyzetek</title>
   <meta name="description" content="[Egy-két mondatos összefoglaló arról, mit tartalmaz ez a félév.]">
-  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/[kurzus-slug]/semesterN/">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/oktatasi-anyagok/[kurzus-slug]/semesterN/">
 
   <link rel="stylesheet" href="/style.css">
 </head>
@@ -25,17 +25,17 @@
 <body data-nav-key="jegyzetek">
   <!--
     FILE-BASED ROUTING NOTE (read me, then delete):
-    Copy this file to /jegyzetek/<kurzus-slug>/semesterN/index.html —
+    Copy this file to /oktatasi-anyagok/<kurzus-slug>/semesterN/index.html —
     one semester-landing page per semester, nested under that course's
     own landing page (course-template.html). See
-    /jegyzetek/deik-mernokinformatikus-bsc-2017/semester1/index.html
+    /oktatasi-anyagok/deik-mernokinformatikus-bsc-2017/semester1/index.html
     for a filled-in example.
 
     This is a semester-landing page, not an item page: it lists the
     jegyzet items that belong to one semester of one course, the same
     way a course-landing page lists a course's items. Its own
     card-grid links to item pages copied from jegyzet-template.html,
-    placed one level deeper: /jegyzetek/<kurzus-slug>/semesterN/<itemN>/.
+    placed one level deeper: /oktatasi-anyagok/<kurzus-slug>/semesterN/<itemN>/.
     Each such item's breadcrumb needs an extra "N. félév" segment
     hand-added, since jegyzet-template.html's default breadcrumb has
     no semester level.
@@ -45,7 +45,7 @@
 
   <div class="page-shell">
     <main class="content">
-      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/[kurzus-slug]/">[Kurzus neve]</a> / N. félév</p>
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/oktatasi-anyagok/">Oktatási anyagok</a> / <a href="/oktatasi-anyagok/[kurzus-slug]/">[Kurzus neve]</a> / N. félév</p>
 
       <h1>N. félév</h1>
       <p>

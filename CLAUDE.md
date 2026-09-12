@@ -34,7 +34,7 @@ load the nav.
 ### Root-relative paths assume domain-root hosting
 
 Every internal link and asset reference (`/style.css`, `/script.js`,
-`/nav.html`, `/jegyzetek/`, etc.) is root-relative by design, because the
+`/nav.html`, `/oktatasi-anyagok/`, etc.) is root-relative by design, because the
 production home is the custom domain root `fulesjegyzetek.hu` (`CNAME`
 file at the repo root + Cloudflare DNS + GitHub Pages custom-domain
 setting, configured 2026-09-06 — see the Deployment state note below).
@@ -74,12 +74,12 @@ not a bug.
 
 | Section (Hungarian) | Landing page | Item template | Filled example |
 |---|---|---|---|
-| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/java-alapok/jegyzet1/` |
+| Oktatási anyagok (class notes) | `/oktatasi-anyagok/` | `jegyzet-template.html` | `/oktatasi-anyagok/java-alapok/jegyzet1/` |
 | Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | `/gyakorlas/java-alapok/gyakorlat1/` |
 | Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) |
 
-There used to be a fourth section ("Labor") — it was merged into "Órai
-jegyzetek" and no longer exists as a separate concept; don't reintroduce
+There used to be a fourth section ("Labor") — it was merged into
+"Oktatási anyagok" and no longer exists as a separate concept; don't reintroduce
 a `labs/` path.
 
 Each section nests items one level under a **course landing page**
@@ -88,12 +88,12 @@ than one university course): `/<szekció>/<kurzus-slug>/<itemN>/`.
 Course slugs are hand-picked, descriptive, URL-safe names — not a
 course code or a generic "kurzus1" counter — chosen once per course
 and reused identically across every section that course appears in.
-The section landing pages (`jegyzetek/index.html` etc.) list courses
+The section landing pages (`oktatasi-anyagok/index.html` etc.) list courses
 via `.card-grid`/`.item-card`; each course landing page (copied from
 `course-template.html`) then lists that course's items the same way.
 
 A course does not need to appear under all three sections —
-`java-alapok` exists under `jegyzetek/`/`gyakorlas/` but not
+`java-alapok` exists under `oktatasi-anyagok/`/`gyakorlas/` but not
 `tetelek/`, since its only `tétel` was retired (see below) and never
 replaced with real `java-alapok`-specific exam content. Don't assume
 every course-landing page has counterparts in the other two sections.
@@ -101,7 +101,7 @@ every course-landing page has counterparts in the other two sections.
 `deik-mernokinformatikus-bsc-2017`, by contrast, is the same course
 (same degree program) appearing under both `tetelek/` (the finished
 15-tétel exam-prep series, see below) and, since 2026-09-10,
-`jegyzetek/` (semester-by-semester class notes, see the nesting
+`oktatasi-anyagok/` (semester-by-semester class notes, see the nesting
 exception right below) — reusing the identical slug across both
 sections per the convention above. It does not (yet) exist under
 `gyakorlas/`.
@@ -116,18 +116,18 @@ workflow" below; see the merged PRs (#11–#25) for the individual
 per-tétel decisions (source-content fixes, judgment calls) if that
 history is ever needed.
 
-### Deliberate exception: semester nesting under `jegyzetek/deik-mernokinformatikus-bsc-2017/`
+### Deliberate exception: semester nesting under `oktatasi-anyagok/deik-mernokinformatikus-bsc-2017/`
 
 Added 2026-09-10. This is the one course-landing page on the site
 whose card-grid links to a second landing-page level instead of items
-directly: `/jegyzetek/deik-mernokinformatikus-bsc-2017/<semesterN>/`
+directly: `/oktatasi-anyagok/deik-mernokinformatikus-bsc-2017/<semesterN>/`
 (`semester1`–`semester6`, English folder names per the
 identifiers-stay-English convention, Hungarian "N. félév" as the
 displayed title), each itself a landing page (copied from the new
 `semester-template.html`, structurally identical to
 `course-template.html` one level deeper) whose own card-grid will
 eventually list that semester's jegyzet items
-(`/jegyzetek/deik-mernokinformatikus-bsc-2017/<semesterN>/<itemN>/`).
+(`/oktatasi-anyagok/deik-mernokinformatikus-bsc-2017/<semesterN>/<itemN>/`).
 Every other course on the site (`java-alapok`, and this same course
 under `tetelek/`) stays one level deep — course → item directly — per
 the general pattern above. Don't generalize this into a new default;
@@ -141,7 +141,7 @@ time. Content is expected to arrive incrementally afterward, the same
 one-item-per-message pattern used for the 15-tétel series. When adding
 the first item to a semester: copy `jegyzet-template.html` as usual,
 but hand-add an extra breadcrumb segment for the semester (e.g.
-`Kezdőlap / Órai jegyzetek / DEIK Mérnökinformatikus BSC 2017 / 1.
+`Kezdőlap / Oktatási anyagok / DEIK Mérnökinformatikus BSC 2017 / 1.
 félév / N. jegyzet`) — `jegyzet-template.html`'s own default breadcrumb
 has no semester level and wasn't changed, since this nesting is a
 one-course exception, not the new norm.
@@ -167,7 +167,7 @@ default if that changes.
 
 Each page (course landing or item) is a real, physical file (no
 server-side/client-side router) using one of two equivalent patterns:
-- Clean URL: `jegyzetek/java-alapok/jegyzet1/index.html` → served at `/jegyzetek/java-alapok/jegyzet1/`
+- Clean URL: `oktatasi-anyagok/java-alapok/jegyzet1/index.html` → served at `/oktatasi-anyagok/java-alapok/jegyzet1/`
 - Flat file: `jegyzet2.html` → served at `/jegyzet2.html` (loses the course-nesting; only use this for a course-less one-off, if that ever comes up)
 
 To add a new course: copy `course-template.html` into each relevant
@@ -577,7 +577,7 @@ Never commit to `main`. If you find yourself on `main` with changes, **STOP**.
 There's no test suite to run as a baseline. Instead: serve the site locally
 (`python -m http.server 8000`) and load the page(s) you're about to touch — and, if
 you're touching `nav.html`, `script.js`, or `style.css`, one page of each type
-(`jegyzetek`, `gyakorlas`, `tetelek`) since those are shared across every page. Note
+(`oktatasi-anyagok`, `gyakorlas`, `tetelek`) since those are shared across every page. Note
 anything already broken (console errors, visual issues) before you change anything —
 pre-existing problems are not yours; report them, don't fix them in this branch.
 
@@ -586,7 +586,7 @@ pre-existing problems are not yours; report them, don't fix them in this branch.
 Build the change directly — there's no test suite to drive a red/green cycle for a
 static content site.
 
-- **Content pages** (new or edited `jegyzetek`/`gyakorlas`/`tetelek` items, or the
+- **Content pages** (new or edited `oktatasi-anyagok`/`gyakorlas`/`tetelek` items, or the
   templates): follow the existing template structure and the conventions already
   documented above — root-relative paths, ad-slot placement, `data-nav-key`,
   canonical URL, breadcrumb, sitemap entry.
