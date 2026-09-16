@@ -80,7 +80,7 @@ not a bug.
 | Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | none currently — see the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | none currently — empty since `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) |
-| Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | `/oktatoi/inbpm0315-21/jegyzet1/` (moved here 2026-09-16, renamed from `java-alapok` the same day, see below — not built from the template's default shape) |
+| Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | `/oktatoi/inbpm0315-21/jegyzet1/` (moved here 2026-09-16, renamed from `java-alapok` the same day) and `jegyzet2/` (added 2026-09-16, new content) — both keep the class-session shape, see below, not the template's default |
 
 `Oktatói jegyzetek` (added 2026-09-16) is the site owner's own
 material from teaching/tutoring — `about.html` already establishes
@@ -97,40 +97,59 @@ be derived once real content is published here, the same way the
 tétel style guide was written only after `tetel1`–`tetel3` were live.
 Don't invent one prematurely.
 
-### Deliberate exception: `oktatoi/inbpm0315-21/jegyzet1` keeps its full class-session shape
+### Class-session-shaped oktatói jegyzetek: `jegyzet1` and `jegyzet2` keep the full class-session shape
 
-This course (originally `java-alapok`, see the superseded
-de-identification note below for why, and the restoration note right
-after it for why it's `inbpm0315-21` now) moved from
-`jegyzetek/`+`gyakorlas/` to `oktatoi/` on 2026-09-16: rereading
-`jegyzet1`'s actual content showed it's written entirely in the
-instructor's own voice ("ti" register, "a mai óra célja, hogy
-lássátok...") — genuinely the site owner's own teaching material for a
-class they ran, not notes a student took while attending, so it
-belongs under `Oktatói jegyzetek` once that section existed. At the
-same move, its sibling `gyakorlas/java-alapok/gyakorlat1` (the same
-instructor's assigned homework for that same class) was merged
-directly into `jegyzet1` as a new "Házi feladat" `<h2>` section (placed
-after "Puffer"), rather than kept as a separate page — both
-`jegyzetek/java-alapok/` and `gyakorlas/java-alapok/` were removed
-entirely (no redirect stubs, same no-redirect precedent as other
-course/URL migrations on this site), leaving both of those sections
-with zero courses until new content is published there.
+Both `jegyzet1` and `jegyzet2` (the only two `oktatoi/inbpm0315-21`
+items published so far) use `jegyzet-template.html`'s full
+Tematika/Kontextus/Gyakorlat/Puffer shape, plus an appended "Házi
+feladat" `<h2>` section, instead of `oktatoi-jegyzet-template.html`'s
+freeform, no-session default. The underlying rule (generalized
+2026-09-16, when `jegyzet2` was added): **use the full class-session
+shape whenever an `oktatoi` item's source material is itself written
+as a real, held class session's agenda** — regardless of whether that
+source is moved, previously-published content, or is being published
+here for the first time. Two different histories justify the same
+shape so far:
 
-The moved+merged page **keeps its original
-Tematika/Kontextus/Gyakorlat/Puffer shape and 3-part item-meta**
-(`Course · Session label · Frissítve: date`) — it does **not** follow
-`oktatoi-jegyzet-template.html`'s freeform, no-session default. That's
-deliberate: this is a real, previously-published lesson+homework pair,
-not new content designed from scratch for this section, and it
-genuinely *is* a class-session agenda — just one written by the
-instructor rather than a student, which is a different axis from
-whether the page needs a Tematika/Gyakorlat/Puffer structure at all.
-Don't use this page as a reason to add Gyakorlat/Puffer/Házi feladat
-back into `oktatoi-jegyzet-template.html`'s default shape, and don't
-"fix" this page into the template's leaner default either — both are
-intentional per-page/per-template decisions confirmed with the site
-owner, not drift.
+- **`jegyzet1`** (originally `java-alapok`, see the superseded
+  de-identification note below for why, and the restoration note right
+  after it for why it's `inbpm0315-21` now) moved from
+  `jegyzetek/`+`gyakorlas/` to `oktatoi/` on 2026-09-16: rereading its
+  actual content showed it's written entirely in the instructor's own
+  voice ("ti" register, "a mai óra célja, hogy lássátok...") —
+  genuinely the site owner's own teaching material for a class they
+  ran, not notes a student took while attending, so it belongs under
+  `Oktatói jegyzetek` once that section existed. At the same move, its
+  sibling `gyakorlas/java-alapok/gyakorlat1` (the same instructor's
+  assigned homework for that same class) was merged directly into
+  `jegyzet1` as a new "Házi feladat" `<h2>` section (placed after
+  "Puffer"), rather than kept as a separate page — both
+  `jegyzetek/java-alapok/` and `gyakorlas/java-alapok/` were removed
+  entirely (no redirect stubs, same no-redirect precedent as other
+  course/URL migrations on this site), leaving both of those sections
+  with zero courses until new content is published there. `jegyzet1`
+  is moved, previously-published content.
+- **`jegyzet2`** was added 2026-09-16 directly from the site owner's
+  own class-session notes (`02-bemenet-tombok-debug.md`, a "2. labor
+  gyakorlat" agenda) — this content was **never** previously published
+  under `jegyzetek/`/`gyakorlas/`; it's genuinely new to the site. It
+  still keeps the full shape because its source notes are themselves
+  written as a real class-session agenda, same as `jegyzet1`'s. Its
+  accompanying practice-tasks source (`class-2-practice-tasks.md`) was
+  merged in as a "Házi feladat" `<h2>` section the same way
+  `gyakorlat1` was folded into `jegyzet1` — there's no separate
+  page/URL to remove for it, since it never had one on this site.
+
+Both pages **keep the 3-part jegyzet-style item-meta**
+(`Course · Session label · Frissítve: date`) rather than
+`oktatoi-jegyzet-template.html`'s default 2-part `Course · Frissítve:
+date`. Don't use either page as a reason to add
+Tematika/Gyakorlat/Puffer/Házi feladat to
+`oktatoi-jegyzet-template.html`'s own default shape, and don't "fix"
+either page into the template's leaner default — the template's
+freeform default still applies to any `oktatoi` item whose source
+material *isn't* itself written as a class-session agenda. Confirmed
+with the site owner as the standing rule, not per-page drift.
 
 There used to be a different, unrelated fourth section ("Labor",
 pre-`oktatoi`) — it was merged into "Órai jegyzetek" and no longer
@@ -526,10 +545,12 @@ design, not per-item drift:**
 - Oktatói jegyzet: `Course · Frissítve: date` (2 parts, same shape as
   gyakorlat) — no session label, since this content isn't tied to a
   scheduled class session. Exception: `oktatoi/inbpm0315-21/jegyzet1`
-  keeps the 3-part jegyzet-style item-meta instead
-  (`"Magas szintű programozási nyelvek 2 (INBPM0315-21) · 1. labor
-  gyakorlat · Frissítve: 2026-09-16"`), per the deliberate exception
-  documented above — it's moved content, not new.
+  and `jegyzet2` keep the 3-part jegyzet-style item-meta instead (e.g.
+  `"Magas szintű programozási nyelvek 2 (INBPM0315-21) · 1. labor
+  gyakorlat · Frissítve: 2026-09-16"`), per the class-session-shaped
+  exception documented above — their source material is itself written
+  as a real class-session agenda, whether moved (`jegyzet1`) or new
+  (`jegyzet2`).
 
 Don't unify these into one shared pattern. Jegyzet/gyakorlat are tied
 to a specific course session; a tétel is meant to read as a portable,
