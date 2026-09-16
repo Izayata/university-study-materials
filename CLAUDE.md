@@ -6,10 +6,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A static HTML/CSS/vanilla-JS site (no build tool, no framework, no
 `package.json`) hosting the site owner's own class notes, practice
-exercises, and worked exam topics (Hungarian CS coursework, e.g.
-"Java alapok"-style content) — independently produced, not affiliated
-with or endorsed by any specific university
-(see `about.html`). Deployed via GitHub Pages (`Deploy from a branch`,
+exercises, and worked exam topics (Hungarian CS coursework) —
+independently produced. The site itself isn't officially endorsed by
+any university, but as of 2026-09-16 one university (Debreceni
+Egyetem, Informatikai Kar) has confirmed it's fine to name its
+official course/code on pages covering that course's material — see
+`about.html` and the "Content model" section below for which content
+that applies to. Deployed via GitHub Pages (`Deploy from a branch`,
 `main` / root) at the custom domain `fulesjegyzetek.hu`, monetized with
 Google AdSense + a Ko-fi tip widget. Site content is Hungarian
 (`lang="hu"`); file/folder names and code comments are intentionally
@@ -74,10 +77,10 @@ not a bug.
 
 | Section (Hungarian) | Landing page | Item template | Filled example |
 |---|---|---|---|
-| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | none currently — see the DEIK semester course below; `java-alapok` moved out on 2026-09-16 (see below) |
-| Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | none currently — empty since `java-alapok` moved out on 2026-09-16 (see below) |
+| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | none currently — see the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
+| Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | none currently — empty since `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) |
-| Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | `/oktatoi/java-alapok/jegyzet1/` (moved here 2026-09-16, see below — not built from the template's default shape) |
+| Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | `/oktatoi/inbpm0315-21/jegyzet1/` (moved here 2026-09-16, renamed from `java-alapok` the same day, see below — not built from the template's default shape) |
 
 `Oktatói jegyzetek` (added 2026-09-16) is the site owner's own
 material from teaching/tutoring — `about.html` already establishes
@@ -94,18 +97,21 @@ be derived once real content is published here, the same way the
 tétel style guide was written only after `tetel1`–`tetel3` were live.
 Don't invent one prematurely.
 
-### Deliberate exception: `oktatoi/java-alapok/jegyzet1` keeps its full class-session shape
+### Deliberate exception: `oktatoi/inbpm0315-21/jegyzet1` keeps its full class-session shape
 
-`java-alapok` moved from `jegyzetek/`+`gyakorlas/` to `oktatoi/` on
-2026-09-16: rereading `jegyzet1`'s actual content showed it's written
-entirely in the instructor's own voice ("ti" register, "a mai óra
-célja, hogy lássátok...") — genuinely the site owner's own teaching
-material for a class they ran, not notes a student took while
-attending, so it belongs under `Oktatói jegyzetek` once that section
-existed. At the same move, its sibling `gyakorlas/java-alapok/gyakorlat1`
-(the same instructor's assigned homework for that same class) was
-merged directly into `jegyzet1` as a new "Házi feladat" `<h2>` section
-(placed after "Puffer"), rather than kept as a separate page — both
+This course (originally `java-alapok`, see the superseded
+de-identification note below for why, and the restoration note right
+after it for why it's `inbpm0315-21` now) moved from
+`jegyzetek/`+`gyakorlas/` to `oktatoi/` on 2026-09-16: rereading
+`jegyzet1`'s actual content showed it's written entirely in the
+instructor's own voice ("ti" register, "a mai óra célja, hogy
+lássátok...") — genuinely the site owner's own teaching material for a
+class they ran, not notes a student took while attending, so it
+belongs under `Oktatói jegyzetek` once that section existed. At the
+same move, its sibling `gyakorlas/java-alapok/gyakorlat1` (the same
+instructor's assigned homework for that same class) was merged
+directly into `jegyzet1` as a new "Házi feladat" `<h2>` section (placed
+after "Puffer"), rather than kept as a separate page — both
 `jegyzetek/java-alapok/` and `gyakorlas/java-alapok/` were removed
 entirely (no redirect stubs, same no-redirect precedent as other
 course/URL migrations on this site), leaving both of those sections
@@ -142,11 +148,11 @@ via `.card-grid`/`.item-card`; each course landing page (copied from
 `course-template.html`) then lists that course's items the same way.
 
 A course does not need to appear under all four sections —
-`java-alapok` exists only under `oktatoi/` (since 2026-09-16, see the
-exception above); it never had real `tétel` content either (its one
-placeholder `tétel` was retired, see below, and never replaced).
-Don't assume every course-landing page has counterparts in the other
-sections.
+`inbpm0315-21` (formerly `java-alapok`) exists only under `oktatoi/`
+(since 2026-09-16, see the exception above); it never had real `tétel`
+content either (its one placeholder `tétel` was retired, see below,
+and never replaced). Don't assume every course-landing page has
+counterparts in the other sections.
 
 `deik-mernokinformatikus-bsc-2017`, by contrast, is the same course
 (same degree program) appearing under both `tetelek/` (the finished
@@ -178,7 +184,7 @@ displayed title), each itself a landing page (copied from the new
 `course-template.html` one level deeper) whose own card-grid will
 eventually list that semester's jegyzet items
 (`/jegyzetek/deik-mernokinformatikus-bsc-2017/<semesterN>/<itemN>/`).
-Every other course on the site (`java-alapok`, and this same course
+Every other course on the site (`inbpm0315-21`, and this same course
 under `tetelek/`) stays one level deep — course → item directly — per
 the general pattern above. Don't generalize this into a new default;
 only use `semester-template.html` for a course explicitly organized by
@@ -196,18 +202,34 @@ félév / N. jegyzet`) — `jegyzet-template.html`'s own default breadcrumb
 has no semester level and wasn't changed, since this nesting is a
 one-course exception, not the new norm.
 
-The course was originally named after its official university title,
-"Magas szintű programozási nyelvek 2" (course code `INBPM0315-21`) —
-both were removed site-wide on 2026-09-08 per a university request not
-to identify the site's content by the official course name/code (the
-slug was renamed too, from `prog-nyelvek-2`, since it was itself
-derived from the forbidden name). The same request also covers
+**Historical note, superseded 2026-09-16 (see below) — kept for
+context, not current instruction:** the course was originally named
+after its official university title, "Magas szintű programozási
+nyelvek 2" (course code `INBPM0315-21`) — both were removed site-wide
+on 2026-09-08 per a university request not to identify the site's
+content by the official course name/code (the slug was renamed too,
+from `prog-nyelvek-2` to `java-alapok`, since it was itself derived
+from the forbidden name). The same request also covered
 course-specific pedagogical-format terms, not just the name/code
 itself: `jegyzet1`'s "1. labor gyakorlat" became "1 óra" the same day
-for this reason. Don't reintroduce the old name, the course code, or
-"labor gyakorlat"-style session labels, and don't add a course-code
-field back to `course-template.html`'s item-meta — it was deliberately
-removed along with this rename.
+for this reason.
+
+**This restriction was lifted on 2026-09-16** — the university
+confirmed it no longer objects to displaying the official name/code.
+The site owner asked for it to be restored, and it now is: the course
+lives at `oktatoi/inbpm0315-21/` (see the exception above), displaying
+"Magas szintű programozási nyelvek 2 (INBPM0315-21)" as its name
+everywhere (H1, titles, breadcrumbs, card labels), and `jegyzet1`'s
+session label reverted to "1. labor gyakorlat". `about.html` and this
+file's own "What this is" section both name the university explicitly
+now too: Debreceni Egyetem, Informatikai Kar — coincidentally the same
+faculty as `deik-mernokinformatikus-bsc-2017` (the `tetelek`/`jegyzetek`
+course elsewhere on the site), but these are two unrelated courses
+that merely share an institution; don't conflate them or merge their
+content. The **old** "don't reintroduce the old name/code" instruction
+is exactly backwards now — the restored name/code **are** the current,
+correct state. Don't re-remove them without a fresh, explicit request
+from the site owner (universities can change their minds either way).
 
 Both course-related URL migrations so far (adding the course layer,
 then renaming its slug) left the old URLs 404ing rather than adding
@@ -217,7 +239,7 @@ default if that changes.
 
 Each page (course landing or item) is a real, physical file (no
 server-side/client-side router) using one of two equivalent patterns:
-- Clean URL: `jegyzetek/java-alapok/jegyzet1/index.html` → served at `/jegyzetek/java-alapok/jegyzet1/`
+- Clean URL: `jegyzetek/deik-mernokinformatikus-bsc-2017/semester1/jegyzet1/index.html` → served at `/jegyzetek/deik-mernokinformatikus-bsc-2017/semester1/jegyzet1/`
 - Flat file: `jegyzet2.html` → served at `/jegyzet2.html` (loses the course-nesting; only use this for a course-less one-off, if that ever comes up)
 
 To add a new course: copy `course-template.html` into each relevant
@@ -390,8 +412,8 @@ not "->" or "ami azt eredményezi, hogy".
 ### Quotation marks: straight ASCII, not Hungarian typographic
 
 `"..."` throughout, for both quoted informal terms (`"burok"`,
-`"write once, run anywhere"`) and quoted proper nouns (course names,
-"Java alapok"). Not „lower-upper" Hungarian typographic quotes —
+`"write once, run anywhere"`) and quoted proper nouns (course names).
+Not „lower-upper" Hungarian typographic quotes —
 straight quotes are simpler and match how quotes already appear
 inside `<code>` strings (`<code>"Sziasztok!"</code>`), so prose quotes
 never visually clash with code quotes on the same page.
@@ -492,21 +514,22 @@ design, not per-item drift:**
 
 ### `item-meta` line: intentionally different per type, not drift
 
-- Jegyzet: `Course · Session label · Frissítve: date` (3 parts) — e.g.
-  `"Java alapok · 1 óra · Frissítve: 2026-09-08"` (this exact example
-  moved to `oktatoi/` on 2026-09-16, see the exception above — no
-  currently-live `jegyzetek/` example, but the pattern still governs
-  any future one).
+- Jegyzet: `Course · Session label · Frissítve: date` (3 parts) — no
+  currently-live `jegyzetek/` example (this course's `jegyzet1` moved
+  to `oktatoi/` on 2026-09-16, see the exception above), but the
+  pattern still governs any future one.
 - Gyakorlat: `Course · Frissítve: date` (2 parts, no session label) —
-  e.g. `"Java alapok · Frissítve: 2026-09-08"` (same caveat — no
-  currently-live `gyakorlas/` example as of 2026-09-16).
+  no currently-live `gyakorlas/` example as of 2026-09-16, same
+  caveat.
 - Tétel: `Frissítve: date` only (1 part — no course name at all) — e.g.
   `"Frissítve: 2026-09-05"`.
 - Oktatói jegyzet: `Course · Frissítve: date` (2 parts, same shape as
   gyakorlat) — no session label, since this content isn't tied to a
-  scheduled class session. Exception: `oktatoi/java-alapok/jegyzet1`
-  keeps the 3-part jegyzet-style item-meta instead, per the deliberate
-  exception documented above — it's moved content, not new.
+  scheduled class session. Exception: `oktatoi/inbpm0315-21/jegyzet1`
+  keeps the 3-part jegyzet-style item-meta instead
+  (`"Magas szintű programozási nyelvek 2 (INBPM0315-21) · 1. labor
+  gyakorlat · Frissítve: 2026-09-16"`), per the deliberate exception
+  documented above — it's moved content, not new.
 
 Don't unify these into one shared pattern. Jegyzet/gyakorlat are tied
 to a specific course session; a tétel is meant to read as a portable,
