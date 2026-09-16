@@ -6,14 +6,15 @@ AdSense ad slots and a tip-jar widget placed in every content template.
 
 ## Content structure
 
-Three parallel content sections, each with its own landing page, template,
-and one filled example:
+Four parallel content sections, each with its own landing page, template,
+and (usually) one filled example:
 
 | Section (Hungarian) | Landing page | Template | Example |
 |---|---|---|---|
 | Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/jegyzet1/` |
 | Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | `/gyakorlas/gyakorlat1/` |
 | Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/tetel1/` |
+| Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | none yet |
 
 ## File-based routing
 

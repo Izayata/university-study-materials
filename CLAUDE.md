@@ -70,16 +70,33 @@ not a bug.
   `<pre><code>` block. Both run unconditionally on every page load; they
   no-op if the target elements aren't present.
 
-### Content model: three parallel sections, nested by course
+### Content model: four parallel sections, nested by course
 
 | Section (Hungarian) | Landing page | Item template | Filled example |
 |---|---|---|---|
 | Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/java-alapok/jegyzet1/` |
 | Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | `/gyakorlas/java-alapok/gyakorlat1/` |
 | Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) |
+| Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | none yet — section added 2026-09-16, no course/content published yet |
 
-There used to be a fourth section ("Labor") — it was merged into "Órai
-jegyzetek" and no longer exists as a separate concept; don't reintroduce
+`Oktatói jegyzetek` (added 2026-09-16) is the site owner's own
+material from teaching/tutoring — `about.html` already establishes
+"időnként oktatok és korrepetálok is" — as distinct from `Órai
+jegyzetek`'s student class notes. It's not a reuse of
+`jegyzet-template.html`: that template's Tematika/Kontextus/Gyakorlat/
+Puffer skeleton exists because a jegyzet page is a live class-session
+agenda with a time budget, which doesn't apply to material written
+outside a scheduled class. `oktatoi-jegyzet-template.html` uses a
+freeform, topic-driven `<h2>`/`<h3>` structure instead (closer to how
+tétel's "Kidolgozás" works). No content style/voice guide exists yet
+for this section (see the Content style guide section below) — it'll
+be derived once real content is published here, the same way the
+tétel style guide was written only after `tetel1`–`tetel3` were live.
+Don't invent one prematurely.
+
+There used to be a different, unrelated fourth section ("Labor",
+pre-`oktatoi`) — it was merged into "Órai jegyzetek" and no longer
+exists as a separate concept; don't reintroduce
 a `labs/` path.
 
 Each section nests items one level under a **course landing page**
@@ -448,6 +465,9 @@ design, not per-item drift:**
   e.g. `"Java alapok · Frissítve: 2026-09-08"`.
 - Tétel: `Frissítve: date` only (1 part — no course name at all) — e.g.
   `"Frissítve: 2026-09-05"`.
+- Oktatói jegyzet: `Course · Frissítve: date` (2 parts, same shape as
+  gyakorlat) — no session label, since this content isn't tied to a
+  scheduled class session.
 
 Don't unify these into one shared pattern. Jegyzet/gyakorlat are tied
 to a specific course session; a tétel is meant to read as a portable,
