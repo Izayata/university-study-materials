@@ -6,30 +6,36 @@
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#0d1117">
 
-  <title>Java fordítási folyamat, alapok (1 óra) | Füles Jegyzetek</title>
-  <meta name="description" content="A Java fordítási folyamata (javac, bytecode, JVM), első Java program írása szövegszerkesztőben és IDE-ben, alapvezérlési szerkezetek, parancssori argumentumok és típuskonverzió — Java alapok.">
-  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/java-alapok/jegyzet1/">
+  <title>Java fordítási folyamat, alapok (1 óra) | Oktatói jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="A Java fordítási folyamata (javac, bytecode, JVM), első Java program írása szövegszerkesztőben és IDE-ben, alapvezérlési szerkezetek, parancssori argumentumok, típuskonverzió, valamint gyakorló és házi feladatok — Java alapok.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/oktatoi/java-alapok/jegyzet1/">
 
   <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
 
   <link rel="stylesheet" href="/style.css">
 </head>
-<body data-nav-key="jegyzetek">
-  <!--
-    This page demonstrates the CLEAN-URL routing style:
-    physical path /jegyzetek/jegyzet1/index.html => served at /jegyzetek/jegyzet1/
-    A flat alternative (/jegyzet1.html) works identically.
-  -->
-
+<!--
+  This page deliberately keeps jegyzet-template.html's full class-
+  session shape (Tematika/Kontextus/Gyakorlat/Puffer), plus an
+  appended "Házi feladat" section absorbing its former gyakorlat1
+  sibling — unlike oktatoi-jegyzet-template.html's default freeform,
+  no-session shape. That's because this is a real, previously-
+  published lesson+homework pair (moved here from jegyzetek/java-alapok
+  on 2026-09-16), not new content designed from scratch for this
+  section. See CLAUDE.md's Content model section for the full
+  rationale — don't use this page as a reason to add
+  Gyakorlat/Puffer/Házi feladat back into the template default.
+-->
+<body data-nav-key="oktatoi">
   <div id="site-header"></div>
 
   <div class="page-shell with-toc">
     <main class="content">
 
-      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/java-alapok/">Java alapok</a> / 1. jegyzet</p>
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/oktatoi/">Oktatói jegyzetek</a> / <a href="/oktatoi/java-alapok/">Java alapok</a> / 1. jegyzet</p>
 
       <h1>Java fordítási folyamat, alapok</h1>
-      <p class="item-meta">Java alapok · 1 óra · Frissítve: 2026-09-08</p>
+      <p class="item-meta">Java alapok · 1 óra · Frissítve: 2026-09-16</p>
 
       <h2>Tematika</h2>
       <ul>
@@ -92,7 +98,7 @@
         közben az adott gépre/operációs rendszerre szabja a végrehajtást.
         Emiatt mondjuk, hogy a Java "write once, run anywhere" elvű:
         ugyanaz a lefordított <code>.class</code> fájl bármely gépen
-        lefut, amin van JVM. 
+        lefut, amin van JVM.
       </p>
 
       <p>A folyamat összefoglalva:</p>
@@ -281,6 +287,73 @@ System.out.printf("Formázott kiírás: %d db, %.2f átlag\n", 5, 4.25);</code><
         Kérdések, esetleges környezet-/telepítési problémák (JDK, PATH,
         IDE-projekt létrehozása) megoldása, illetve további gyakorlási
         idő azoknak, akik lassabban haladnak.
+      </p>
+
+      <h2>Házi feladat</h2>
+      <p>
+        Ezek a feladatok az órán tanultak (fordítás, IDE, alapvezérlés,
+        kiírás, parancssori argumentumok) önálló, otthoni
+        elmélyítésére szolgálnak. Mindegyik megoldható kizárólag az
+        eddig tanult eszközökkel — nincs szükség bemenetre a
+        billentyűzetről (az a következő órán jön).
+      </p>
+
+      <h3>1. feladat (Könnyű) — Ismétlő köszöntő</h3>
+      <p>
+        Írjatok egy <code>RepeatGreeting</code> nevű programot, amely
+        <strong>egy</strong> parancssori argumentumként megkapja, hányszor
+        ismételje meg a <code>"Sziasztok!"</code> szöveg kiírását, és ezt
+        egy <code>while</code> ciklussal valósítsa meg.
+      </p>
+      <p>
+        Példa: <code>java RepeatGreeting 3</code> → háromszor írja ki,
+        hogy <code>Sziasztok!</code>.
+      </p>
+
+      <h3>2. feladat (Közepes) — Legalább egyszer</h3>
+      <p>
+        Írjatok egy <code>SafeRepeat</code> nevű programot, amely
+        <strong>két</strong> parancssori argumentumot vár: egy szót, és
+        egy számot (hányszor írja ki). Használjatok <code>do-while</code>
+        ciklust, és ügyeljetek arra, hogy <strong>akkor is írja ki
+        legalább egyszer</strong> a szót, ha a megadott szám 0 vagy
+        negatív.
+      </p>
+      <p>
+        Gondolkodjatok el rajta: miért pont a <code>do-while</code> a jó
+        választás ehhez a feladathoz, és nem egy sima <code>while</code>?
+      </p>
+
+      <h3>3. feladat (Közepes/Haladó) — FizzBuzz</h3>
+      <p>
+        Írjatok egy <code>FizzBuzz</code> nevű programot, amely egyetlen
+        parancssori argumentumként megkap egy <code>N</code> egész számot,
+        majd 1-től <code>N</code>-ig kiírja a következő szabály szerint az
+        egyes számokat:
+      </p>
+      <ul>
+        <li>ha a szám osztható 3-mal <strong>és</strong> 5-tel is, írja ki: <code>FizzBuzz</code></li>
+        <li>ha csak 3-mal osztható, írja ki: <code>Fizz</code></li>
+        <li>ha csak 5-tel osztható, írja ki: <code>Buzz</code></li>
+        <li>egyébként írja ki magát a számot</li>
+      </ul>
+
+      <h3>4. feladat (Haladó) — Háromszög minta</h3>
+      <p>
+        Írjatok egy <code>Triangle</code> nevű programot, amely egyetlen
+        parancssori argumentumként megkap egy <code>N</code> számot, és
+        kiír egy <code>N</code> sorból álló, csillagokból (<code>*</code>)
+        épített háromszöget, ahol az első sorban 1, a másodikban 2, ...,
+        az <code>N</code>. sorban <code>N</code> csillag szerepel.
+      </p>
+      <p>Példa <code>N=4</code> esetén:</p>
+      <pre><code>*
+**
+***
+****</code></pre>
+      <p>
+        Segítség: két egymásba ágyazott ciklusra lesz szükségetek — a
+        külső a sorokon, a belső az adott sor csillagjain megy végig.
       </p>
 
       <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
