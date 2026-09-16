@@ -74,10 +74,10 @@ not a bug.
 
 | Section (Hungarian) | Landing page | Item template | Filled example |
 |---|---|---|---|
-| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/java-alapok/jegyzet1/` |
-| Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | `/gyakorlas/java-alapok/gyakorlat1/` |
+| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | none currently — see the DEIK semester course below; `java-alapok` moved out on 2026-09-16 (see below) |
+| Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | none currently — empty since `java-alapok` moved out on 2026-09-16 (see below) |
 | Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) |
-| Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | none yet — section added 2026-09-16, no course/content published yet |
+| Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | `/oktatoi/java-alapok/jegyzet1/` (moved here 2026-09-16, see below — not built from the template's default shape) |
 
 `Oktatói jegyzetek` (added 2026-09-16) is the site owner's own
 material from teaching/tutoring — `about.html` already establishes
@@ -94,6 +94,38 @@ be derived once real content is published here, the same way the
 tétel style guide was written only after `tetel1`–`tetel3` were live.
 Don't invent one prematurely.
 
+### Deliberate exception: `oktatoi/java-alapok/jegyzet1` keeps its full class-session shape
+
+`java-alapok` moved from `jegyzetek/`+`gyakorlas/` to `oktatoi/` on
+2026-09-16: rereading `jegyzet1`'s actual content showed it's written
+entirely in the instructor's own voice ("ti" register, "a mai óra
+célja, hogy lássátok...") — genuinely the site owner's own teaching
+material for a class they ran, not notes a student took while
+attending, so it belongs under `Oktatói jegyzetek` once that section
+existed. At the same move, its sibling `gyakorlas/java-alapok/gyakorlat1`
+(the same instructor's assigned homework for that same class) was
+merged directly into `jegyzet1` as a new "Házi feladat" `<h2>` section
+(placed after "Puffer"), rather than kept as a separate page — both
+`jegyzetek/java-alapok/` and `gyakorlas/java-alapok/` were removed
+entirely (no redirect stubs, same no-redirect precedent as other
+course/URL migrations on this site), leaving both of those sections
+with zero courses until new content is published there.
+
+The moved+merged page **keeps its original
+Tematika/Kontextus/Gyakorlat/Puffer shape and 3-part item-meta**
+(`Course · Session label · Frissítve: date`) — it does **not** follow
+`oktatoi-jegyzet-template.html`'s freeform, no-session default. That's
+deliberate: this is a real, previously-published lesson+homework pair,
+not new content designed from scratch for this section, and it
+genuinely *is* a class-session agenda — just one written by the
+instructor rather than a student, which is a different axis from
+whether the page needs a Tematika/Gyakorlat/Puffer structure at all.
+Don't use this page as a reason to add Gyakorlat/Puffer/Házi feladat
+back into `oktatoi-jegyzet-template.html`'s default shape, and don't
+"fix" this page into the template's leaner default either — both are
+intentional per-page/per-template decisions confirmed with the site
+owner, not drift.
+
 There used to be a different, unrelated fourth section ("Labor",
 pre-`oktatoi`) — it was merged into "Órai jegyzetek" and no longer
 exists as a separate concept; don't reintroduce
@@ -109,11 +141,12 @@ The section landing pages (`jegyzetek/index.html` etc.) list courses
 via `.card-grid`/`.item-card`; each course landing page (copied from
 `course-template.html`) then lists that course's items the same way.
 
-A course does not need to appear under all three sections —
-`java-alapok` exists under `jegyzetek/`/`gyakorlas/` but not
-`tetelek/`, since its only `tétel` was retired (see below) and never
-replaced with real `java-alapok`-specific exam content. Don't assume
-every course-landing page has counterparts in the other two sections.
+A course does not need to appear under all four sections —
+`java-alapok` exists only under `oktatoi/` (since 2026-09-16, see the
+exception above); it never had real `tétel` content either (its one
+placeholder `tétel` was retired, see below, and never replaced).
+Don't assume every course-landing page has counterparts in the other
+sections.
 
 `deik-mernokinformatikus-bsc-2017`, by contrast, is the same course
 (same degree program) appearing under both `tetelek/` (the finished
@@ -460,14 +493,20 @@ design, not per-item drift:**
 ### `item-meta` line: intentionally different per type, not drift
 
 - Jegyzet: `Course · Session label · Frissítve: date` (3 parts) — e.g.
-  `"Java alapok · 1 óra · Frissítve: 2026-09-08"`.
+  `"Java alapok · 1 óra · Frissítve: 2026-09-08"` (this exact example
+  moved to `oktatoi/` on 2026-09-16, see the exception above — no
+  currently-live `jegyzetek/` example, but the pattern still governs
+  any future one).
 - Gyakorlat: `Course · Frissítve: date` (2 parts, no session label) —
-  e.g. `"Java alapok · Frissítve: 2026-09-08"`.
+  e.g. `"Java alapok · Frissítve: 2026-09-08"` (same caveat — no
+  currently-live `gyakorlas/` example as of 2026-09-16).
 - Tétel: `Frissítve: date` only (1 part — no course name at all) — e.g.
   `"Frissítve: 2026-09-05"`.
 - Oktatói jegyzet: `Course · Frissítve: date` (2 parts, same shape as
   gyakorlat) — no session label, since this content isn't tied to a
-  scheduled class session.
+  scheduled class session. Exception: `oktatoi/java-alapok/jegyzet1`
+  keeps the 3-part jegyzet-style item-meta instead, per the deliberate
+  exception documented above — it's moved content, not new.
 
 Don't unify these into one shared pattern. Jegyzet/gyakorlat are tied
 to a specific course session; a tétel is meant to read as a portable,
