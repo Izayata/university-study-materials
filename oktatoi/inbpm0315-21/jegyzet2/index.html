@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Képernyőről beolvasni, tömbök, debug (2. labor gyakorlat) | Oktatói jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Bemenet beolvasása Scannerrel, tömbök deklarálása, indexelése és bejárása, valamint hibakeresés IntelliJ debuggerével (breakpoint, lépegetés, változók megfigyelése), gyakorló és házi feladatokkal — Magas szintű programozási nyelvek 2 (INBPM0315-21).">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/oktatoi/inbpm0315-21/jegyzet2/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<!--
+  Like jegyzet1, this page keeps jegyzet-template.html's full class-
+  session shape (Tematika/Kontextus/Gyakorlat/Puffer), plus an
+  appended "Házi feladat" section absorbing its standalone practice-
+  tasks sibling — unlike oktatoi-jegyzet-template.html's default
+  freeform, no-session shape. Unlike jegyzet1, this is genuinely new
+  content (never published under jegyzetek/ or gyakorlas/ first) — the
+  shape is kept because the source material is itself written as a
+  real, held class session's agenda, not because it was moved. See
+  CLAUDE.md's Content model section for the (now generalized)
+  rationale.
+-->
+<body data-nav-key="oktatoi">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/oktatoi/">Oktatói jegyzetek</a> / <a href="/oktatoi/inbpm0315-21/">Magas szintű programozási nyelvek 2 (INBPM0315-21)</a> / 2. jegyzet</p>
+
+      <h1>Képernyőről beolvasni, tömbök, debug</h1>
+      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 2. labor gyakorlat · Frissítve: 2026-09-16</p>
+
+      <h2>Tematika</h2>
+      <ul>
+        <li>Képernyőről beolvasni: <code>Scanner</code></li>
+        <li>Tömbök: deklaráció, indexelés, bejárás</li>
+        <li>Debug IntelliJ-ben: breakpoint, lépegetés, változók megfigyelése</li>
+      </ul>
+
+      <h2>Kontextus</h2>
+      <p>
+        A múlt órán a programjaink egyetlen módon kaptak adatot
+        kívülről: parancssori argumentumként, még a program elindítása
+        előtt megadva. Ma megnézzük, hogyan tudunk adatot bekérni
+        <strong>futás közben</strong> — miközben a program már fut,
+        megvárja, amíg begépeltek valamit.
+      </p>
+      <p>
+        Utána ezt kombináljuk a <strong>tömbökkel</strong>: nem csak
+        egy, hanem több értéket is be tudunk kérni és eltárolni. Végül,
+        ahelyett hogy <code>System.out.println</code>-ekkel próbálnánk
+        kitalálni, mi történik a programunkban, megtanuljuk, hogyan
+        lehet egy futó Java programot <strong>lépésről lépésre
+        megfigyelni</strong> IntelliJ-ben — ez lesz a mai óra
+        legnagyobb, gyakorlat-központú része.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Képernyőről beolvasni — Scanner</h2>
+      <p>
+        <strong>Scanner:</strong> A <code>Scanner</code> egy beépített
+        Java osztály, amellyel a program a szabványos bemenetről
+        (jellemzően a billentyűzetről) tud adatot beolvasni, amíg fut.
+      </p>
+
+      <pre><code>import java.util.Scanner;
+
+public class GreetInput {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Mi a neved? ");
+        String name = scanner.nextLine();
+
+        System.out.println("Szia, " + name + "!");
+    }
+}</code></pre>
+
+      <p>Amit tisztázni kell:</p>
+      <ul>
+        <li><code>import java.util.Scanner;</code> — a <code>Scanner</code> nem automatikusan elérhető, importálni kell.</li>
+        <li><code>new Scanner(System.in)</code> — Példányosítjuk a Scanner-t (<code>new</code> kulcsszó); a <code>System.in</code> a szabványos bemenetet jelenti (billentyűzet); ebből hozunk létre egy <code>Scanner</code> objektumot.</li>
+        <li><code>scanner.nextLine()</code> — beolvas egy teljes sort, és <code>String</code>-ként adja vissza.</li>
+      </ul>
+
+      <p>
+        <strong>Ez a múlt héthez képest:</strong> a múlt órán a
+        <code>Greet</code> program a nevet parancssori argumentumként
+        kapta (<code>java Greet Anna</code>), és a program elindulása
+        előtt már rendelkezésre állt. Most a program <em>fut</em>,
+        megáll, megvárja, amíg begépelünk valamit, és csak utána
+        folytatja a futást.
+      </p>
+
+      <h3>Számok beolvasása</h3>
+
+      <pre><code>Scanner scanner = new Scanner(System.in);
+
+System.out.print("Hány éves vagy? ");
+int age = scanner.nextInt();
+System.out.println("Kor: " + age);
+
+System.out.print("Mennyi a tanulmányi átlagod? ");
+double average = scanner.nextDouble();
+System.out.println("Átlag: " + average);</code></pre>
+
+      <ul>
+        <li><code>nextInt()</code> — egész számot olvas be.</li>
+        <li><code>nextDouble()</code> — lebegőpontos számot olvas be.</li>
+      </ul>
+
+      <p>
+        <strong>Gyakori hiba (a "newline" csapda):</strong> ha
+        <code>nextInt()</code> vagy <code>nextDouble()</code> után egy
+        <code>nextLine()</code> következik, a <code>nextLine()</code>
+        sokszor egy üres sort fog visszaadni. Ennek az az oka, hogy a
+        <code>nextInt()</code> csak a számot olvassa be, a utána lévő
+        sortörés-karaktert a bemenetben hagyja — és a következő
+        <code>nextLine()</code> pont ezt az otthagyott sortörést olvassa
+        be, nem az újabb begépelt szöveget. Megoldás: szám beolvasása
+        után, ha utána <code>nextLine()</code>-t is hívunk, iktassunk
+        be egy plusz <code>scanner.nextLine();</code> hívást, ami
+        "felemészti" az otthagyott sortörést.
+      </p>
+
+      <h2>Tömbök</h2>
+      <p>
+        Tegyük fel, hogy nem csak egy jegyet, hanem egy egész hallgatói
+        csoport jegyeit be szeretnénk kérni és tárolni. Egyesével
+        elnevezett változókkal (<code>grade1</code>, <code>grade2</code>,
+        <code>grade3</code>, ...) ez kezelhetetlen — pont erre valók a
+        <strong>tömbök</strong>.
+      </p>
+      <p>
+        <strong>Tömb (array):</strong> A tömb azonos típusú elemek
+        <strong>rögzített méretű</strong>, sorszámozott (indexelt)
+        gyűjteménye.
+      </p>
+
+      <h3>Deklaráció és inicializálás</h3>
+
+      <pre><code>int[] grades = new int[5];   // 5 elemű, egész számokat tároló tömb, kezdetben mind 0
+
+int[] literalGrades = {5, 4, 5, 3, 4};   // közvetlenül megadott értékekkel létrehozott tömb</code></pre>
+
+      <ul>
+        <li>A tömb mérete <strong>rögzített</strong> a létrehozáskor — utólag nem bővíthető.</li>
+        <li>Az elemek indexelése <strong>0-tól</strong> kezdődik.</li>
+      </ul>
+
+      <h3>Indexelés</h3>
+
+      <pre><code>grades[0] = 5;          // az első elem beállítása
+System.out.println(grades[0]);   // az első elem kiolvasása
+
+int size = grades.length;   // a tömb mérete (nem metódus, hanem mező: nincs zárójel!)</code></pre>
+
+      <p>
+        <strong>Fontos:</strong> <code>grades.length</code> — nincsenek
+        zárójelek, mert ez egy mező, nem egy metódushívás (szemben pl. a
+        <code>String</code> <code>length()</code> metódusával, ahol van
+        zárójel).
+      </p>
+
+      <h3>Bejárás</h3>
+
+      <pre><code>for (int i = 0; i &lt; grades.length; i++) {
+    System.out.println("grades[" + i + "] = " + grades[i]);
+}
+
+for (int grade : grades) {
+    System.out.println(grade);
+}</code></pre>
+
+      <ul>
+        <li>Az első forma (klasszikus <code>for</code>) akkor kell, ha szükségünk van magára az <strong>indexre</strong> is.</li>
+        <li>A második forma (for-each) egyszerűbb, ha csak az <strong>értékekre</strong> van szükségünk, az indexre nem.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h3>Példa: jegyek beolvasása és átlaga</h3>
+
+      <pre><code>import java.util.Scanner;
+
+public class Grades {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Hány jegyet adsz meg? ");
+        int count = scanner.nextInt();
+
+        int[] grades = new int[count];
+
+        for (int i = 0; i &lt; grades.length; ++i) {
+            System.out.print((i + 1) + ". jegy: ");
+            grades[i] = scanner.nextInt();
+        }
+
+        int sum = 0;
+        for (int grade : grades) {
+            sum += grade;
+        }
+
+        double average = (double) sum / grades.length;
+        System.out.println("Átlag: " + average);
+    }
+}</code></pre>
+
+      <p>Ezt a <code>Grades</code> programot fogjuk a következő részben debugolni.</p>
+
+      <h2>Debug IntelliJ-ben</h2>
+      <p>
+        Eddig, ha egy programunk rosszul viselkedett,
+        <code>System.out.println</code>-eket szórtunk bele, hogy
+        lássuk, mi történik. Ez működik, de lassú, és utólag ki kell
+        törölni ezeket a sorokat. A <strong>debugger</strong> ennek a
+        szisztematikus, beépített változata: meg tudjuk állítani a
+        programot egy adott ponton, és <strong>élőben</strong>
+        megnézhetjük, mi van a változókban.
+      </p>
+
+      <h3>Egy hiba beültetése</h3>
+      <p>
+        Rontsuk el szándékosan a <code>Grades</code> programot —
+        cseréljük ki a ciklus feltételét egy hibás verzióra:
+      </p>
+
+      <pre><code>for (int i = 0; i &lt;= grades.length; ++i) {   // hiba: &lt;= a &lt; helyett
+    System.out.print((i + 1) + ". jegy: ");
+    grades[i] = scanner.nextInt();
+}</code></pre>
+
+      <p>
+        Ez <code>ArrayIndexOutOfBoundsException</code>-t fog dobni, mert
+        a ciklus megpróbál a tömb méreténél eggyel nagyobb indexre is
+        írni.
+      </p>
+
+      <h3>Breakpoint elhelyezése</h3>
+      <p>
+        <strong>Breakpoint (töréspont):</strong> Egy jelölés egy
+        kódsoron, amely jelzi az IntelliJ-nek, hogy futás közben itt
+        álljon meg a program, mielőtt az adott sor lefutna.
+      </p>
+      <ol>
+        <li>Kattintsatok a sorszám melletti szürke sávra a <code>grades[i] = scanner.nextInt();</code> sor mellett — megjelenik egy piros pötty.</li>
+        <li>A <code>main</code> metódus melletti zöld ▶ ikon helyett most a <strong>bogár ikonra</strong> kattintsatok (vagy jobb klikk a fájlon → <code>Debug 'Grades.main()'</code>).</li>
+        <li>A program elindul, és megáll a breakpointnál, mielőtt az adott sor lefutna.</li>
+      </ol>
+
+      <h3>Lépegetés</h3>
+      <p>Az IntelliJ ablak alján megjelenik a <em>Debug</em> panel, benne lépegető gombokkal:</p>
+      <ul>
+        <li><strong>Step Over</strong> (F8): végrehajtja az aktuális sort, és a következőre lép — ha a sor egy metódushívás, nem megy bele a metódus belsejébe.</li>
+        <li><strong>Step Into</strong> (F7): ha az aktuális sor egy metódushívást tartalmaz, belelép a metódus belsejébe is.</li>
+        <li><strong>Resume Program</strong> (F9): folytatja a futást a következő breakpointig (vagy a program végéig).</li>
+      </ul>
+
+      <h3>Változók megfigyelése</h3>
+      <p>A <em>Debug</em> panel <em>Variables</em> fülén élőben látjátok:</p>
+      <ul>
+        <li>az <code>i</code> aktuális értékét,</li>
+        <li>a <code>grades</code> tömb tartalmát (kibontható, elemenként),</li>
+        <li>a <code>count</code> és <code>sum</code> értékét, amint változnak.</li>
+      </ul>
+      <p>
+        Lépegessetek végig a ciklus néhány iterációján a <em>Step
+        Over</em> gombbal, és figyeljétek meg, ahogy <code>i</code> nő,
+        és hogyan íródnak be az értékek a <code>grades</code> tömbbe —
+        amikor <code>i</code> eléri a <code>grades.length</code>
+        értékét, a következő lépésnél lássátok meg élőben, ahogy a
+        hibás index miatt kivétel keletkezik.
+      </p>
+
+      <h3>Javítás</h3>
+      <p>
+        Cseréljétek vissza a feltételt <code>i &lt; grades.length</code>-re,
+        futtassátok újra (most már <code>Run</code>-nal, nem
+        <code>Debug</code>-gal), és ellenőrizzétek, hogy a program
+        helyesen fut.
+      </p>
+
+      <h2>Gyakorlat</h2>
+      <ol>
+        <li>Írjátok meg a <code>GreetInput</code> programot, és próbáljátok ki a <code>nextInt()</code> + <code>nextLine()</code> csapdát szándékosan — figyeljétek meg, mi történik, majd javítsátok ki egy extra <code>nextLine()</code> hívással.</li>
+        <li>Írjátok meg a <code>Grades</code> programot (helyesen), és futtassátok néhány bemenettel.</li>
+        <li>Ültessetek bele szándékosan egy hibát (pl. rossz kezdőérték, vagy <code>&lt;=</code> a <code>&lt;</code> helyett), tegyetek rá breakpointot, és debuggerrel derítsétek ki, hol romlik el.</li>
+        <li>Bővítsétek a <code>Grades</code> programot: írja ki a legnagyobb jegyet is a tömbből (ciklussal, <code>Math.max</code> vagy manuális összehasonlítással) — nem kell hozzá rendezés, csak egy futó "eddigi maximum" változó.</li>
+      </ol>
+
+      <h2>Puffer (~30 perc)</h2>
+      <p>
+        Kérdések, esetleges környezet-/telepítési problémák megoldása,
+        illetve további gyakorlási idő azoknak, akik lassabban haladnak
+        — különösen a debugger használatának begyakorlására érdemes
+        időt hagyni, mert ez sokaknak új eszköz.
+      </p>
+
+      <h2>Házi feladat</h2>
+      <p>
+        Ezek a feladatok a 2. órán tanultak (<code>Scanner</code>,
+        tömbök, IntelliJ debugger) önálló, otthoni elmélyítésére
+        szolgálnak.
+      </p>
+
+      <h3>1. feladat (Könnyű) — Három szám átlaga</h3>
+      <p>
+        Írjatok egy <code>ThreeNumbersAverage</code> nevű programot,
+        amely <code>Scanner</code>-rel egyesével bekér
+        <strong>három</strong> egész számot a felhasználótól, majd
+        kiírja az összegüket és az átlagukat.
+      </p>
+
+      <h3>2. feladat (Közepes) — Szavak visszafelé</h3>
+      <p>Írjatok egy <code>ReverseWords</code> nevű programot, amely:</p>
+      <ol>
+        <li>bekéri <code>Scanner</code>-rel, hány szót fog megadni a felhasználó (<code>N</code>),</li>
+        <li>beolvassa a szavakat egy <code>String[N]</code> tömbbe,</li>
+        <li>kiírja a szavakat <strong>fordított sorrendben</strong> (az utolsóként megadott szó legyen az első a kiírásban).</li>
+      </ol>
+      <p>
+        Segítség: ehhez egy olyan <code>for</code> ciklus kell, amely a
+        tömb <strong>végétől indulva, csökkenő</strong> indexekkel
+        halad.
+      </p>
+
+      <h3>3. feladat (Közepes/Haladó) — Legkisebb és legnagyobb hőmérséklet</h3>
+      <p>Írjatok egy <code>Temperatures</code> nevű programot, amely:</p>
+      <ol>
+        <li>bekéri <code>Scanner</code>-rel, hány hőmérsékletadatot fog megadni a felhasználó (<code>N</code>),</li>
+        <li>beolvassa az értékeket egy <code>double[N]</code> tömbbe,</li>
+        <li>kiírja a <strong>legkisebb</strong> és a <strong>legnagyobb</strong> beolvasott hőmérsékletet is.</li>
+      </ol>
+
+      <h3>4. feladat (Haladó) — Saját hibavadászat</h3>
+      <p>
+        Az alábbi program hibás — egy tömb elemeinek összegét próbálja
+        kiszámolni, de valamit elrontottunk benne:
+      </p>
+
+      <pre><code>import java.util.Scanner;
+
+public class BuggySum {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Hány számot adsz meg? ");
+        int count = scanner.nextInt();
+
+        int[] numbers = new int[count];
+        for (int i = 0; i &lt;= count; i++) {
+            System.out.print((i + 1) + ". szám: ");
+            numbers[i] = scanner.nextInt();
+        }
+
+        int sum = 0;
+        for (int i = 1; i &lt; numbers.length; i++) {
+            sum += numbers[i];
+        }
+
+        System.out.println("Összeg: " + sum);
+    }
+}</code></pre>
+
+      <p>
+        Másoljátok be a kódot IntelliJ-be, tegyetek rá <strong>legalább
+        egy breakpointot</strong>, és debug módban lépegetve derítsétek
+        ki, mi a <strong>két külön hiba</strong> a programban.
+        Javítsátok ki mindkettőt, és ellenőrizzétek, hogy helyes
+        összeget ad néhány teszteléssel.
+      </p>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
