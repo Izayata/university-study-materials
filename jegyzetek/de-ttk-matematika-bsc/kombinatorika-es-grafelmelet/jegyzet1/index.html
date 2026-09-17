@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Alapfogalmak és a skatulya-elv | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Halmazok, multihalmazok, rendezett n-esek, függvények, relációk és ekvivalenciareláció, valamint a skatulya-elv és alkalmazásai (számelméleti, geometriai példák) — DE TTK Matematika BSc, Kombinatorika és gráfelmélet.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/jegyzet1/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 1 of 10, split from one long LaTeX source (confirmed with the
+  site owner before building, 2026-09-17). Same math-note shape as
+  jegyzetek/de-ttk-matematika-bsc/jegyzet1 (Analízis alapjai): intro ->
+  "Témák" outline -> one <h2> per original LaTeX \section, <h3> per
+  \subsection. 2-part item-meta, no session label — see CLAUDE.md.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/">Kombinatorika és gráfelmélet</a> / 1. jegyzet</p>
+
+      <h1>Alapfogalmak és a skatulya-elv</h1>
+      <p class="item-meta">DE TTK Matematika BSc · Frissítve: 2026-09-17</p>
+
+      <p>
+        Ez a jegyzet a kombinatorika és gráfelmélet sorozat első
+        része: a végig használt alapfogalmakat (halmaz, multihalmaz,
+        rendezett n-es, függvény, reláció, ekvivalenciareláció)
+        tekinti át, majd bevezeti a <strong>skatulya-elvet</strong>
+        (Pigeonhole Principle), és számelméleti, geometriai
+        alkalmazásokon keresztül mutatja be a használatát.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Halmazok, multihalmazok és rendezett n-esek</li>
+        <li>Függvények (injektív, szürjektív, bijektív)</li>
+        <li>Relációk és ekvivalenciareláció</li>
+        <li>Skatulya-elv és alkalmazásai</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Halmazok, multihalmazok és rendezett n-esek</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Halmaz (alapfogalom)</span>
+        <p>
+          Valami vagy eleme egy halmaznak, vagy nem (annak nincs
+          értelme, hogy hányszor eleme). Egy halmazban <strong>nem
+          számít a sorrend</strong>. Jelölése: \(\{\}\).
+        </p>
+      </div>
+
+      <p>
+        Példa: \(X = \{a, 3, \text{alma}\} = \{3, \text{alma}, a\}\).
+        <strong>Jelölés:</strong> ha \(X\) véges halmaz, akkor
+        elemszáma (kardinális száma): \(|X|\).
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Multihalmaz</span>
+        <p>
+          Egy elem hányszor van benne a halmazban
+          (<strong>multiplicitás</strong>). Ha \(m\)-szer van benne,
+          akkor \(m\)-szeres elem, vagy az elem multiplicitása \(m\).
+          A multihalmazban <strong>nem számít az elemek sorrendje</strong>.
+          Jelölése: \(\{\{\dots\}\}\).
+        </p>
+      </div>
+
+      <p>
+        Példa: \(\{\{b, 5, b, b, \text{körte}, \text{körte}\}\} =
+        \{\{b, \text{körte}, 5, b, b, \text{körte}\}\}\) — ez egy 6
+        elemű multihalmaz, ahol \(b\) multiplicitása 3 (vagy \(b\)
+        3-szoros elem).
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Rendezett n-es</span>
+        <p>Olyan elemösszesség, ahol:</p>
+        <ul>
+          <li><strong>számít az elemek sorrendje</strong> (ezt kerek zárójellel jelöljük: \((\dots)\));</li>
+          <li>\(n\) elemet tartalmaz;</li>
+          <li>egy elem szerepelhet többször is.</li>
+        </ul>
+      </div>
+
+      <p>
+        Rendezett 5-ös példa:
+        \((4, a, c, \text{szőlő}, 4) \neq (4, \text{szőlő}, 4, 4, c)\).
+      </p>
+
+      <h2>Függvények</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Függvény</span>
+        <p>
+          Legyenek \(A, B \neq \emptyset\) halmazok. Ekkor az
+          \(f: A \to B\) függvény esetén minden \(a \in A\) elemnek
+          pontosan egy \(f(a) \in B\) képe van.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Injektív, szürjektív, bijektív</span>
+        <p>Legyenek \(A \neq \emptyset\) és \(B \neq \emptyset\) halmazok, valamint \(f: A \to B\) egy függvény.</p>
+        <ul>
+          <li>\(f\) <strong>injektív</strong>, ha különböző \(A\)-beli elemek képe különböző: \(a_1 \neq a_2 \implies f(a_1) \neq f(a_2)\)</li>
+          <li>\(f\) <strong>szürjektív</strong>, ha minden \(B\)-beli elem előáll valamely \(A\)-beli elem képeként: \(\forall b \in B, \exists a \in A : f(a) = b\)</li>
+          <li>\(f\) <strong>bijektív</strong>, ha egyszerre injektív és szürjektív (kölcsönösen egyértelmű ráképezés).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás</span>
+        <p>
+          Ha \(A \neq \emptyset\) és \(B \neq \emptyset\) véges
+          halmazok, és létezik közöttük egy \(f: A \to B\) bijektív
+          függvény, akkor \(|A| = |B|\).
+        </p>
+      </div>
+
+      <h2>Relációk és ekvivalenciareláció</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Reláció</span>
+        <p>
+          Legyen \(A \neq \emptyset\) halmaz. Ezen egy reláció az
+          elemek közötti kapcsolatot írja le, amely bármely elempár
+          esetén vagy fennáll, vagy nem áll fenn.
+        </p>
+      </div>
+
+      <ul>
+        <li>\(\mathbb{R}\)-en: \(=, <, \ge\)</li>
+        <li>\(\mathbb{N}\)-en: oszthatóság (\(a \mid b\)), pl.: \(2 \mid 6\), \(4 \nmid 5\) (megjegyzés: \(0 \notin \mathbb{N}\))</li>
+        <li>Síkbeli háromszögek halmazán: egybevágóság (\(\cong\))</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető — Relációk alaptulajdonságai</span>
+        <p>Legyen \(R\) egy reláció az \(A \neq \emptyset\) halmazon:</p>
+        <ul>
+          <li><strong>Reflexív:</strong> \(\forall a \in A : aRa\). (Pl.: \(=, \ge, \mid, \cong\); de a \(<\) nem az.)</li>
+          <li><strong>Szimmetrikus:</strong> \(aRb \implies bRa\). (Pl.: \(=, \cong\); de a \(<, \ge, \mid\) nem az.)</li>
+          <li><strong>Tranzitív:</strong> \(aRb \land bRc \implies aRc\). (Pl.: \(=, <, \ge, \mid, \cong\).)</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Ekvivalenciareláció</span>
+        <p>Az \(R\) reláció <strong>ekvivalenciareláció</strong>, ha egyszerre reflexív, szimmetrikus és tranzitív.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás</span>
+        <p>Ha \(A \neq \emptyset\) és \(R\) egy ekvivalenciareláció \(A\)-n, akkor \(R\) egy osztályozást hoz létre \(A\)-n.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Osztályozás / Partíció</span>
+        <p>
+          Nemüres részhalmazok rendszere, melyek páronként
+          diszjunktak, és uniójuk az \(A\) halmaz. (Másképpen: nemüres
+          részhalmazok rendszere úgy, hogy \(A\) minden eleme
+          pontosan egy részhalmazba tartozik.)
+        </p>
+      </div>
+
+      <p>Egy ekvivalenciaosztályba az egymással relációban álló elemek kerülnek.</p>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Skatulya-elv és alkalmazásai</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Skatulya-elv (Pigeonhole Principle)</span>
+        <p>
+          Legyen \(n, k \in \mathbb{N}\). Ha \(n\) db halmaz
+          uniójának elemszáma \(\ge k \cdot n + 1\), akkor valamelyik
+          halmaz elemszáma \(\ge k + 1\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás — indirekt</span>
+        <p>
+          Tegyük fel, hogy mindegyik halmaz elemszáma \(\le k\). Ekkor
+          az \(n\) db halmaz uniójának elemszáma legfeljebb \(n \cdot
+          k\) lehetne, ami ellentmond annak, hogy az unió elemszáma
+          \(\ge k \cdot n + 1\).
+        </p>
+      </div>
+
+      <p>A skatulya-elv alkalmazásakor a halmazokat <strong>skatulyáknak</strong> nevezzük.</p>
+
+      <h3>Bevezető példák (gyufák és golyók)</h3>
+
+      <p><strong>Gyufás skatulyák:</strong> Van 5 db skatulyánk, melyekbe gyufákat rakunk. Legkevesebb hány gyufa kell ahhoz, hogy:</p>
+      <ol>
+        <li>Valamelyik skatulyában legalább 2 gyufa legyen? <strong>Válasz:</strong> \(5 \cdot 1 + 1 = 6\) gyufa.</li>
+        <li>Valamelyik skatulyában legalább 4 gyufa legyen? <strong>Válasz:</strong> \(5 \cdot 3 + 1 = 16\) gyufa.</li>
+      </ol>
+
+      <p><strong>Golyóhúzási feladatok:</strong> Egy dobozban golyók vannak: 35 piros, 25 kék, 15 sárga, 5 fekete. Legkevesebb hány darabot kell kihúzni közülük, hogy a kihúzottak közt legyen:</p>
+      <ol type="a">
+        <li><strong>Piros:</strong> \(25 + 15 + 5 + 1 = 46\) db.</li>
+        <li><strong>Piros vagy fekete:</strong> \(25 + 15 + 1 = 41\) db.</li>
+        <li><strong>Piros és fekete:</strong> \(25 + 15 + 35 + 1 = 76\) db.</li>
+        <li><strong>2 különböző színű:</strong> \(35 + 1 = 36\) db.</li>
+        <li><strong>Mindenféle színű:</strong> \(35 + 25 + 15 + 1 = 76\) db.</li>
+        <li><strong>Valamelyik színből 3 db:</strong> \(2 + 2 + 2 + 2 + 1 = 9\) db.</li>
+        <li><strong>Mindből legalább 3 db:</strong> \(35 + 25 + 15 + 3 = 78\) db.</li>
+      </ol>
+
+      <h3>Számelméleti és geometriai alkalmazások</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás</span>
+        <p>
+          Legyen \(n \in \mathbb{N}\). Bárhogyan választunk ki \(n+1\)
+          db számot az \(1, 2, \dots, 2n\) számok közül, biztosan
+          lesz köztük két olyan, melyek lnko-ja 1 (azaz relatív
+          prímek).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>Készítsünk \(n\) db skatulyát az egymást követő párokból:</p>
+        \[ \{1, 2\}, \{3, 4\}, \dots, \{2n-1, 2n\} \quad (n \text{ db skatulya}) \]
+        <p>
+          A kiválasztott elemek száma \(n+1\). A skatulya-elv szerint
+          valamelyik skatulyából 2 elemet választottunk ki. Ezek
+          szomszédos egész számok (\(m\) és \(m+1\)). Ha \(d\) közös
+          osztójuk:
+        </p>
+        \[ \left. \begin{aligned} d \mid m \\ d \mid m+1 \end{aligned} \right\} \implies d \mid (m+1) - m \implies d \mid 1 \implies d = 1. \]
+        <p>Tehát a két kiválasztott szám valóban relatív prím.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás</span>
+        <p>
+          Legyen \(n \in \mathbb{N}\). Bárhogyan választunk ki \(n+1\)
+          db számot az \(1, 2, \dots, 2n\) számok közül, biztosan
+          lesz köztük két olyan, hogy a kisebbik osztója a nagyobbnak.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Minden pozitív egész szám egyértelműen felírható
+          \(2^l \cdot m\) alakban, ahol \(l \in \mathbb{N} \cup \{0\}\)
+          és \(m\) pozitív páratlan szám. Például:
+          \(12 = 2^2 \cdot 3\), \(16 = 2^4 \cdot 1\), \(19 = 2^0 \cdot 19\).
+        </p>
+        <p>
+          Az \(1, 2, \dots, 2n\) számok esetén a páratlan rész (\(m\))
+          csak az \(1, 3, \dots, 2n-1\) számok egyike lehet. Ez
+          összesen \(n\) féle páratlan szám. Alkossunk \(n\) db
+          skatulyát a páratlan rész szerint — pl. \(n = 10\) esetén a
+          skatulyák: az 1-es páratlan részhez \(1, 2, 4, 8, 16\)
+          tartozik, a 3-ashoz \(3, 6, 12\), az 5-öshöz \(5, 10, 20\),
+          a 7-eshez \(7, 14\), a 9-eshez \(9, 18\), a \(11, 13, 15,
+          17, 19\) páratlan részekhez pedig önmaguk.
+        </p>
+        <p>
+          Mivel \(n\) db skatulyánk van és \(n+1\) db számot
+          választunk ki, a skatulya-elv miatt van olyan skatulya,
+          amiből legalább 2-t választottunk. Ezek azonos \(m\)
+          páratlan résszel rendelkeznek: \(x = 2^{l_1} \cdot m\) és
+          \(y = 2^{l_2} \cdot m\). Ha \(l_1 &lt; l_2\), akkor
+          \(x \mid y\), azaz a kisebbik osztója a nagyobbnak.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás</span>
+        <p>
+          Bárhogyan színezzük ki a sík pontjait két színnel, biztosan
+          lesz két azonos színű pont, melyek távolsága éppen 1.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Vegyünk egy 1 oldalú szabályos háromszöget. Ennek 3 csúcsa
+          van, és 2 szín áll rendelkezésre. A skatulya-elv szerint a
+          3 csúcs között van 2 azonos színű. Mivel a háromszög minden
+          oldala 1 egységnyi, ezért a két azonos színű csúcs
+          távolsága pontosan 1.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — Hadwiger–Nelson-probléma</span>
+        <ul>
+          <li>Ha a színek száma 3 vagy 4, az állítás továbbra is igaz marad (pl. 3 színnél a Moser-orsó konstrukcióval bizonyítható).</li>
+          <li>Ha a színek száma 7 vagy több, akkor az állítás nem igaz (létezik jó színezés).</li>
+          <li>5 vagy 6 szín esetén a kérdés még nyitott!</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
