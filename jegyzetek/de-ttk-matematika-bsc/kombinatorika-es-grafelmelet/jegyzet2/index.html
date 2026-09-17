@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Permutációk, variációk, kombinációk | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Faktoriális, Stirling-formula, binomiális együttható, Pascal-háromszög, valamint ismétlés nélküli és ismétléses permutáció, variáció, kombináció — DE TTK Matematika BSc, Kombinatorika és gráfelmélet.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/jegyzet2/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!-- Part 2 of 10 — see jegyzet1's head comment for the shape rationale. -->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/">Kombinatorika és gráfelmélet</a> / 2. jegyzet</p>
+
+      <h1>Permutációk, variációk, kombinációk</h1>
+      <p class="item-meta">DE TTK Matematika BSc · Frissítve: 2026-09-17</p>
+
+      <p>
+        Ez a jegyzet a faktoriálisból és a binomiális együtthatóból
+        indul ki, majd sorra veszi a kombinatorika négy alapvető
+        leszámlálási sémáját: a permutációt, a variációt és a
+        kombinációt, mindegyiket ismétlés nélküli és ismétléses
+        változatban is.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Faktoriális, Stirling-formula</li>
+        <li>Binomiális együttható, Pascal-háromszög</li>
+        <li>Permutációk (ismétlés nélküli, ismétléses)</li>
+        <li>Variációk (ismétlés nélküli, ismétléses)</li>
+        <li>Kombinációk (ismétlés nélküli, ismétléses)</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Faktoriálisok és binomiális együtthatók</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Faktoriális</span>
+        <p>Ha \(n \in \mathbb{N}\), akkor \(n! = 1 \cdot 2 \cdot \dots \cdot n\), valamint \(0! = 1\).</p>
+      </div>
+
+      <p>
+        \(1!=1, \ 2!=2, \ 3!=6, \ 4!=24, \ 5!=120, \ 6!=720, \
+        7!=5040\) — a faktoriális értéke nagyon gyorsan nő.
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Stirling-formula</span>
+        <p>Ha \(n \in \mathbb{N}\), akkor a faktoriális nagyságrendje:</p>
+        \[ \sqrt{2\pi n} \cdot \left(\frac{n}{e}\right)^n \cdot e^{\frac{1}{12n+1}} < n! < \sqrt{2\pi n} \cdot \left(\frac{n}{e}\right)^n \cdot e^{\frac{1}{12n}} \]
+        <p>ahol \(\pi \approx 3{,}14\) és \(e \approx 2{,}71\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — egyszerűsített Stirling-formula</span>
+        \[ \sqrt{n^n} \le n! \le \left(\frac{n+1}{2}\right)^n \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető — számtani és mértani közép közötti egyenlőtlenség</span>
+        <p>Bármely \(a, b > 0\) valós számokra:</p>
+        \[ \sqrt{ab} \le \frac{a+b}{2} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás — az egyszerűsített Stirling-formula</span>
+        <p>Írjuk fel az \((n!)^2\) szorzatot a következő módon:</p>
+        \[ (n!)^2 = (1 \cdot 2 \cdots (n-1) \cdot n) \cdot (1 \cdot 2 \cdots (n-1) \cdot n) \]
+        <p>Párosítsuk össze a tényezőket az alábbiak szerint:</p>
+        \[ (n!)^2 = (1 \cdot n) \cdot (2 \cdot (n-1)) \cdots (k \cdot (n+1-k)) \cdots (n \cdot 1) \]
+        <p>Mindegyik tényező \(k(n+1-k)\) alakú, ahol \(k \in \{1, 2, \dots, n\}\).</p>
+        <p><strong>1. Alsó becslés:</strong> Alakítsuk át a \(k(n+1-k)\) kifejezést:</p>
+        \[ k(n+1-k) = (k-1)(n-k) + n \ge n \]
+        <p>
+          Mivel mindkét tényező nemnegatív, \(n \le k(n+1-k)\). Ebből
+          \(n\) db tényező szorzataként:
+        </p>
+        \[ n^n \le (n!)^2 \implies \sqrt{n^n} \le n! \]
+        <p><strong>2. Felső becslés:</strong> Alkalmazzuk a számtani-mértani közép közötti egyenlőtlenséget:</p>
+        \[ k(n+1-k) \le \left( \frac{k + (n+1-k)}{2} \right)^2 = \left(\frac{n+1}{2}\right)^2 \]
+        <p>Ezt mind az \(n\) tényezőre alkalmazva:</p>
+        \[ (n!)^2 \le \left(\frac{n+1}{2}\right)^{2n} \implies n! \le \left(\frac{n+1}{2}\right)^n \]
+      </div>
+
+      <h3>Binomiális együtthatók</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Binomiális együttható</span>
+        <p>Legyen \(n, k \in \mathbb{N} \cup \{0\}\) és \(k \le n\). Ekkor az</p>
+        \[ \binom{n}{k} = \frac{n!}{k!(n-k)!} \]
+        <p>kifejezést <strong>binomiális együtthatónak</strong> nevezzük (olvasd: "\(n\) alatt a \(k\)").</p>
+      </div>
+
+      <p>Ha \(k \ge 1\), akkor \((n-k)!\)-al egyszerűsítve:</p>
+      \[ \binom{n}{k} = \frac{n \cdot (n-1) \cdots (n-k+1)}{k!} \]
+
+      <p>Példa: \(\binom{7}{3} = \frac{7!}{3! \cdot 4!} = \frac{5 \cdot 6 \cdot 7}{3!} = 35\).</p>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — Pascal-háromszög</span>
+        <p>
+          A binomiális együtthatókat táblázatba rendezhetjük:
+          \(\binom{n}{k}\) kerül az \(n\)-edik sor \(k\)-adik helyére.
+          A sorok és az elemek számozása 0-val kezdődik:
+        </p>
+        \[
+        \begin{array}{ccccccc}
+        & & & \binom{0}{0} & & & \\
+        & & \binom{1}{0} & & \binom{1}{1} & & \\
+        & \binom{2}{0} & & \binom{2}{1} & & \binom{2}{2} & \\
+        \binom{3}{0} & & \binom{3}{1} & & \binom{3}{2} & & \binom{3}{3}
+        \end{array}
+        \]
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Permutációk</h2>
+      <p>
+        A <strong>permutáció</strong> elemek sorbarendezését jelenti.
+        <strong>Ismétlés nélküli</strong>, ha a sorbarendezendő elemek
+        mind különbözők; <strong>ismétléses</strong>, ha az elemek
+        között lehetnek azonosak is.
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Ismétlés nélküli permutáció</span>
+        <p>
+          Legyen \(n \in \mathbb{N}\) és \(X\) egy \(n\) elemű halmaz.
+          Az \(X\) elemeinek egy <strong>ismétlés nélküli
+          permutációja</strong> egy olyan rendezett \(n\)-es, amiben
+          \(X\) minden eleme pontosan egyszer szerepel.
+        </p>
+      </div>
+
+      <p>
+        Példa: \(X = \{a, b, c, d\}\) esetén egy ismétlés nélküli
+        permutáció: \((b, d, c, a)\) (itt számít a sorrend!).
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(n \in \mathbb{N}\), akkor \(n\) db elem ismétlés nélküli permutációinak száma:</p>
+        \[ P_n = n! \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Az első helyre \(n\) féle elem kerülhet, a második helyre
+          \((n-1)\) féle elem, és így tovább — az \(n\)-edik helyre
+          már csak 1 elem kerülhet. Így a lehetőségek száma:
+        </p>
+        \[ P_n = n \cdot (n-1) \cdots 1 = n! \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Ismétléses permutáció</span>
+        <p>
+          Legyen \(n \in \mathbb{N}\) és \(X\) egy \(n\) elemű
+          multihalmaz. Az \(X\) elemeinek egy <strong>ismétléses
+          permutációja</strong> egy olyan rendezett \(n\)-es, melyben
+          \(X\) minden eleme annyiszor szerepel, amennyi a
+          multiplicitása.
+        </p>
+      </div>
+
+      <p>
+        Példa: \(X = \{\{a, a, a, b, c, c\}\}\) multihalmaz esetén egy
+        ismétléses permutációja: \((a, c, b, a, a, c)\).
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — ismétléses permutációk száma</span>
+        <p>
+          Ha \(n \in \mathbb{N}\) és az adott \(n\) elem között
+          \(r\)-féle elem van, melyek multiplicitása \(k_1, k_2,
+          \dots, k_r\) (ahol \(k_1 + k_2 + \dots + k_r = n\)), akkor
+          ezek ismétléses permutációinak száma:
+        </p>
+        \[ P_n^{k_1, k_2, \dots, k_r} = \frac{n!}{k_1! \cdot k_2! \cdot \dots \cdot k_r!} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Ideiglenesen megkülönböztetjük az azonos elemeket. Álljon
+          relációban az új elemek két ismétlés nélküli permutációja,
+          ha a megkülönböztetés elhagyásával ugyanazt az ismétléses
+          permutációt adják.
+        </p>
+        <p>
+          Példa a relációra: ha az elemek \(a, a, a, b, c, c
+          \implies a^{(1)}, a^{(2)}, a^{(3)}, b^{(1)}, c^{(1)},
+          c^{(2)}\), akkor:
+        </p>
+        \[ (c^{(2)}, a^{(1)}, a^{(3)}, b^{(1)}, c^{(1)}, a^{(2)}) \sim (c^{(1)}, a^{(2)}, a^{(3)}, b^{(1)}, c^{(2)}, a^{(1)}) \]
+        <p>
+          Ez a reláció reflexív, szimmetrikus, tranzitív \(\implies\)
+          ekvivalenciareláció \(\implies\) osztályozást hoz létre az
+          új elemek ismétlés nélküli permutációinak körében.
+        </p>
+        <ul>
+          <li>Az ekvivalenciaosztályok az eredeti elemek ismétléses permutációinak felelnek meg.</li>
+          <li>Egy ekvivalenciaosztályban \(k_1! \cdot k_2! \cdots k_r!\) db ismétlés nélküli permutáció van, hiszen az \(i\)-edik típusú elem helye ugyan rögzített, de egymás közt \(k_i!\)-féleképpen permutálhatók (\(i = 1, \dots, r\)).</li>
+        </ul>
+        <p>Ebből adódóan:</p>
+        \[ P_n^{k_1, \dots, k_r} = \text{ekv. oszt. száma} = \frac{P_n}{k_1! \cdots k_r!} = \frac{n!}{k_1! \cdots k_r!} \]
+      </div>
+
+      <h2>Variációk</h2>
+      <p>
+        \(n\) db különböző elemből választunk ki \(k\) db elemet:
+        <strong>variáció</strong>, ha a választott elemek sorrendje
+        számít, <strong>kombináció</strong>, ha a sorrend nem számít.
+        Mindkettő lehet <strong>ismétlés nélküli</strong> (ha egy
+        elemet csak egyszer választhatunk, \(k \le n\)) vagy
+        <strong>ismétléses</strong> (ha egy elemet akár többször is
+        választhatunk).
+      </p>
+
+      <h3>Ismétlés nélküli variáció</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció</span>
+        <p>
+          Legyen \(n, k \in \mathbb{N}, k \le n\) és \(X\) egy \(n\)
+          elemű halmaz. \(X\) elemeinek egy <strong>\(k\)-ad osztályú
+          ismétlés nélküli variációja</strong> olyan rendezett
+          \(k\)-as, amelyben különböző \(X\)-beli elemek állnak.
+        </p>
+      </div>
+
+      <p>Példa: \(X = \{a, b, c, d, e\}\), egy 3-ad osztályú ismétlés nélküli variáció: \((d, b, e)\).</p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(n, k \in \mathbb{N}, k \le n\), akkor \(n\) db elem \(k\)-ad osztályú ismétlés nélküli variációinak száma:</p>
+        \[ V_n^k = \frac{n!}{(n-k)!} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Az 1. elem \(n\)-féleképpen választható, a 2. elem
+          \((n-1)\)-féleképpen, ..., a \(k\)-adik elem
+          \((n-k+1)\)-féleképpen. Így:
+        </p>
+        \[ V_n^k = n \cdot (n-1) \cdots (n-k+1) = \frac{n!}{(n-k)!} \]
+      </div>
+
+      <h3>Ismétléses variáció</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció</span>
+        <p>
+          Legyen \(n, k \in \mathbb{N}\) és \(X\) egy \(n\) elemű
+          halmaz. \(X\) elemeinek egy <strong>\(k\)-ad osztályú
+          ismétléses variációja</strong> egy olyan rendezett \(k\)-as,
+          amelyben \(X\)-beli elemek állnak.
+        </p>
+      </div>
+
+      <p>
+        Példa: \(X = \{a, b, c, d, e\}\) esetén 3-ad osztályú
+        ismétléses variáció: \((d, a, d)\), 7-ed osztályú: \((e, b,
+        c, c, a, c, b)\).
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(n, k \in \mathbb{N}\), akkor \(n\) db elem \(k\)-ad osztályú ismétléses variációinak száma:</p>
+        \[ V_n^{k, \text{ism}} = n^k \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Az 1. elem \(n\)-féleképpen választható, és a többi is mind
+          \(n\)-féleképpen választható (\(n \cdot n \cdots n = n^k\)).
+        </p>
+      </div>
+
+      <h2>Kombinációk</h2>
+
+      <h3>Ismétlés nélküli kombináció</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció</span>
+        <p>
+          Legyen \(n, k \in \mathbb{N}, k \le n\) és \(X\) egy \(n\)
+          elemű halmaz. \(X\) elemeinek egy <strong>\(k\)-ad osztályú
+          ismétlés nélküli kombinációja</strong> az \(X\)-nek egy
+          \(k\) elemű részhalmaza.
+        </p>
+      </div>
+
+      <p>Példa: \(X = \{a, b, c, d, e\}\) esetén egy 3-ad osztályú ismétlés nélküli kombináció: \(\{a, c, d\}\).</p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(n, k \in \mathbb{N}, k \le n\), akkor \(n\) db elem \(k\)-ad osztályú ismétlés nélküli kombinációinak száma:</p>
+        \[ C_n^k = \binom{n}{k} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás — ekvivalenciarelációval</span>
+        <p>
+          Ideiglenesen tegyük fel, hogy számít a választott elemek
+          sorrendje. Két ilyen ismétlés nélküli variáció álljon
+          relációban, ha ugyanazokat az elemeket tartalmazzák, csak
+          esetleg más sorrendben. Pl.: \(X = \{a, b, c, d, e\}
+          \implies (c, e, a) \sim (e, a, c)\).
+        </p>
+        <p>
+          Ez a reláció reflexív, szimmetrikus, tranzitív \(\implies\)
+          ekvivalenciareláció \(\implies\) osztályozást hoz létre a
+          \(k\)-ad osztályú ismétlés nélküli variációk körében.
+        </p>
+        <ul>
+          <li>Az ekvivalenciaosztályok a \(k\)-ad osztályú ismétlés nélküli kombinációknak felelnek meg.</li>
+          <li>Egy ekvivalenciaosztályban \(k!\) db \(k\)-ad osztályú ismétlés nélküli variáció van, hiszen a \(k\) db elem ennyiféleképpen rakható sorba.</li>
+        </ul>
+        \[ C_n^k = \text{ekv. oszt. száma} = \frac{V_n^k}{k!} = \frac{\frac{n!}{(n-k)!}}{k!} = \frac{n!}{k!(n-k)!} = \binom{n}{k} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás — karakterisztikus vektorokkal (bijekcióval)</span>
+        <p>
+          Kódoljuk el a \(k\)-ad osztályú ismétlés nélküli
+          kombinációkat a következőképp: legyen \(X = \{x_1, \dots,
+          x_n\}\). A kódja legyen egy \(A \in \mathcal{P}_k(X) \mapsto
+          (b_1, \dots, b_n) \in \{0, 1\}^n\) karakterisztikus vektor
+          (\(k\) db 1-esből és \(n-k\) db 0-ból álló rendezett
+          \(n\)-es), ahol:
+        </p>
+        \[ b_i = \begin{cases} 1, &amp; \text{ha } x_i \in A \\ 0, &amp; \text{ha } x_i \notin A \end{cases} \]
+        <p>
+          Ez a függvény <strong>injektív</strong> (különböző
+          részhalmazok karakterisztikus vektora különböző) és
+          <strong>szürjektív</strong> (minden \(k\) db 1-esből álló
+          vektor egy \(k\) elemű részhalmaz kódja) \(\implies\)
+          <strong>bijektív</strong>.
+        </p>
+        <p>
+          Így a \(k\) elemű részhalmazok száma megegyezik a \(k\) db
+          1-esből és \(n-k\) db 0-ból álló sorozatok számával:
+        </p>
+        \[ C_n^k = P_n^{k, n-k} = \frac{n!}{k!(n-k)!} = \binom{n}{k} \]
+      </div>
+
+      <h3>Ismétléses kombináció</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció</span>
+        <p>
+          Legyen \(n, k \in \mathbb{N}\) és \(X\) egy \(n\) elemű
+          halmaz. \(X\) elemeinek egy <strong>\(k\)-ad osztályú
+          ismétléses kombinációja</strong> egy \(k\) elemű
+          multihalmaz, melynek elemei \(X\)-ből valók.
+        </p>
+      </div>
+
+      <p>
+        Példa: \(X = \{a, b, c, d, e\}\) esetén 3-ad osztályú
+        ismétléses kombináció: \(\{\{a, b, e\}\}, \{\{a, a, d\}\}\);
+        7-ed osztályú: \(\{\{a, a, b, b, b, c, e\}\}\).
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(n, k \in \mathbb{N}\), akkor \(n\) elem \(k\)-ad osztályú ismétléses kombinációinak száma:</p>
+        \[ C_n^{k, \text{ism}} = \binom{n+k-1}{k} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás — eltolásos indexelés</span>
+        <p>
+          Legyen \(X = \{x_1, \dots, x_n\}\) és legyen \(Y = \{y_1,
+          \dots, y_{n+k-1}\}\) segédhalmaz. Vegyük a következő
+          hozzárendelést:
+        </p>
+        \[ \{x_{i_1}, x_{i_2}, \dots, x_{i_k}\} \quad (1 \le i_1 \le i_2 \le \dots \le i_k \le n) \]
+        <p>
+          (az elemek felsorolva növekvő sorszámmal). A sorszámokhoz
+          adjunk rendre \(0, 1, 2, \dots, k-1\)-et:
+        </p>
+        \[ \mapsto \{y_{i_1}, y_{i_2+1}, \dots, y_{i_k+k-1}\} \quad (1 \le i_1 &lt; i_2+1 &lt; \dots &lt; i_k+k-1 \le n+k-1) \]
+        <p>
+          Ez a függvény injektív és szürjektív \(\implies\)
+          <strong>bijektív</strong> (visszafelé levonjuk a \(0, 1,
+          \dots, k-1\)-et). Így:
+        </p>
+        \[ C_n^{k, \text{ism}} = C_{n+k-1}^k = \binom{n+k-1}{k} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás — golyó-fal kódolás</span>
+        <p>Kódoljuk el a \(k\)-ad osztályú ismétléses kombinációkat a következőképpen: legyen \(X = \{x_1, \dots, x_n\}\).</p>
+        <ul>
+          <li>Leírunk annyi 1-est, ahányszor \(x_1\)-et választottuk;</li>
+          <li>elválasztó 0;</li>
+          <li>leírunk annyi 1-est, ahányszor \(x_2\)-t választottuk;</li>
+          <li>elválasztó 0;</li>
+          <li>…</li>
+          <li>leírunk annyi 1-est, ahányszor \(x_n\)-et választottuk.</li>
+        </ul>
+        <p>Így a kód: \(k\) db 1-esből és \(n-1\) db 0-ból álló rendezett \((k+n-1)\)-es.</p>
+        <p>Ez a függvény <strong>bijektív</strong>, ezért az ismétléses kombinációk száma:</p>
+        \[ C_n^{k, \text{ism}} = P_{n+k-1}^{k, n-1} = \frac{(k+n-1)!}{k! \cdot (n-1)!} = \binom{k+n-1}{k} \]
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
