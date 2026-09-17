@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Analízis alapjai | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Halmazelmélet, relációk, függvények, pontos korlátok, testek és rendezett testek, matematikai indukció, valamint a halmazok számosságának alapjai a Cantor-tételig — DE TTK Matematika BSc.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/jegyzet1/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: renders every $...$/\(...\) inline and \[...\]/$$...$$
+       display LaTeX formula in this page client-side. See the setup
+       comment in jegyzet-template.html for the general how-to. -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  This item's structure deliberately does NOT use the class-session
+  Tematika/Kontextus/Gyakorlat/Puffer shape (see CLAUDE.md's
+  jegyzet1/jegyzet2 exception under oktatoi/ for that pattern): the
+  source material spans roughly ten distinct topics of foundational
+  analysis, not one taught session with a time budget, and has no
+  separate in-class exercise list to put in a "Gyakorlat" section — the
+  "Feladat" blocks are worked, proved examples woven into the content
+  itself. Shape used instead: intro paragraph -> "Témák" outline (same
+  pattern the deik-mernokinformatikus-bsc-2017 tétel series uses for
+  the same reason) -> one <h2> per LaTeX \section. item-meta is 2-part
+  (Kurzus · Frissítve: dátum), matching the actual current
+  jegyzet-template.html shape, not CLAUDE.md's documented 3-part one.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc</a> / 1. jegyzet</p>
+
+      <h1>Analízis alapjai</h1>
+      <p class="item-meta">DE TTK Matematika BSc · Frissítve: 2026-09-17</p>
+
+      <p>
+        Ez a jegyzet az Analízis alapjai témakör első nagy egységét
+        dolgozza fel: a halmazelmélet és relációk alapjait, a
+        függvények tulajdonságait, a valós számok rendezett test
+        szerkezetét és pontos korlátait, a matematikai indukciót,
+        valamint a halmazok számosságának alapfogalmait egészen a
+        Cantor-tételig. Az anyag önmagában is követhető, de feltételezi
+        az alapvető matematikai jelölésrendszer és a formális
+        bizonyítás fogalmának ismeretét.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Halmazelmélet alapjai és halmazműveletek</li>
+        <li>Relációk és tulajdonságaik</li>
+        <li>Függvények, injektivitás, szürjektivitás, bijektivitás</li>
+        <li>Pontos korlátok (szuprémum, infimum)</li>
+        <li>Halmazok számossága és ekvivalenciája</li>
+        <li>Testek és rendezett testek</li>
+        <li>Matematikai indukció</li>
+        <li>Megszámlálható és nem megszámlálható halmazok</li>
+        <li>Kontinuum számosság és a Cantor-tétel</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Halmazelmélet alapjai</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció</span>
+        <p>A halmaz és a halmaz eleme axiomatikus alapfogalom, nem definiáljuk — azt várjuk el, hogy mindenki ugyanazt értse alattuk.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Tartalmazás</span>
+        <p>
+          Azt mondjuk, hogy az \(A\) halmaz <strong>tartalmazza</strong>
+          a \(B\) halmazt, ha bármely \(x \in B\) esetén \(x \in A\)
+          teljesül.
+        </p>
+        <p>Jele: \(B \subseteq A\) (vagy \(A \supseteq B\)).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Egyenlőség</span>
+        <p>
+          Azt mondjuk, hogy az \(A\) és \(B\) halmazok
+          <strong>egyenlőek</strong>, ha kölcsönösen tartalmazzák
+          egymást, vagyis \(A \subseteq B \land B \subseteq A\).
+        </p>
+      </div>
+
+      <h3>Halmazműveletek</h3>
+      <p>Legyenek \(A, B \subseteq X\) halmazok:</p>
+      <ul>
+        <li><strong>Metszet (közös rész):</strong> \(A \cap B := \{x \in X \mid x \in A \land x \in B\}\)</li>
+        <li><strong>Unió (egyesítés):</strong> \(A \cup B := \{x \in X \mid x \in A \lor x \in B\}\)</li>
+        <li><strong>Különbség:</strong> \(A \setminus B := \{x \in X \mid x \in A \land x \notin B\}\)</li>
+        <li><strong>Hatványhalmaz:</strong> Egy halmaz összes részhalmazából álló halmaz, ha úgy tetszik "halmazcsalád" — \(\mathcal{P}(A) = 2^A := \{U \subseteq X \mid U \subseteq A\}\). Megjegyzés: \(\mathcal{P}(A) \neq \emptyset\) (mivel az üres halmaz mindig benne van). Jele \(\#A\), vagy \(\mathcal{P}(A)\).</li>
+      </ul>
+
+      <h3>De Morgan-szabályok</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — De Morgan I.</span>
+        <p>Bármely \(X \neq \emptyset\) és \(A, B \subseteq X\) esetén:</p>
+        \[ X \setminus (A \cap B) = (X \setminus A) \cup (X \setminus B) \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — De Morgan II.</span>
+        <p>Bármely \(X \neq \emptyset\) és \(A, B \subseteq X\) esetén:</p>
+        \[ X \setminus (A \cup B) = (X \setminus A) \cap (X \setminus B) \]
+      </div>
+
+      <h3>Descartes-szorzat és relációk</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Descartes-szorzat</span>
+        <p>
+          Legyenek \(A, B \subseteq X\) (\(A, B \neq \emptyset\)). Ha
+          \(a \in A\) és \(b \in B\), akkor a rendezett pár:
+          \((a, b) := \{\{a\}, \{a, b\}\}\).
+        </p>
+        <p>A Descartes-szorzat ilyen rendezett párok halmaza:</p>
+        \[ A \times B = \{(a, b) \mid a \in A \land b \in B\} \]
+        <p>Az \((a, b)\) pár inverze: \((b, a)\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Reláció</span>
+        <p>
+          Egy \(R\) reláció két halmaz Descartes-szorzatának
+          részhalmaza: \(R \subseteq X \times Y\). Az inverz reláció:
+          \(R^{-1} \subseteq Y \times X\).
+        </p>
+      </div>
+
+      <ul>
+        <li><strong>Értelmezési tartomány:</strong> \(\mathcal{D}_R = \{x \in X \mid \exists y \in Y, \text{hogy } (x, y) \in R\}\)</li>
+        <li><strong>Értékkészlet:</strong> \(\mathcal{R}_R = \{y \in Y \mid \exists x \in X, \text{hogy } (x, y) \in R\}\)</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Relációk kompozíciója</span>
+        <p>
+          Legyenek \(X, Y, Z\) tetszőleges halmazok, továbbá
+          \(R \subseteq X \times Y\) és \(Q \subseteq Y \times Z\)
+          relációk. Ekkor a két reláció <em>kompozícióján</em> (vagy
+          szorzatán) a \(Q \circ R \subseteq X \times Z\) relációt
+          értjük, amelynek definíciója:
+        </p>
+        \[
+        Q \circ R = \{(x, z) \in X \times Z \mid \exists y \in Y \text{ úgy, hogy } (x, y) \in R \text{ és } (y, z) \in Q\}.
+        \]
+      </div>
+
+      <p><strong>További halmaz- és Descartes-szorzat azonosságok:</strong></p>
+      <ul>
+        <li>\((A \cap B) \times C = (A \times C) \cap (B \times C)\)</li>
+        <li>\((A \setminus B) \times C = (A \times C) \setminus (B \times C)\)</li>
+        <li>\((A \times B) \cap (C \times D) = (A \cap C) \times (B \cap D)\)</li>
+      </ul>
+
+      <h3>Hatványhalmazok és számosság</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(A\) olyan halmaz, hogy \(\# A = n\) (\(n \in \mathbb{N}\)), akkor \(\# 2^A = 2^n\).</p>
+      </div>
+
+      <p><strong>Következmény:</strong> Véges halmazok hatványhalmazának számossága szigorúan nagyobb, mint az eredeti halmaz számossága (\(n &lt; 2^n\)).</p>
+
+      <p>Példák hatványhalmazokra:</p>
+      \begin{align*}
+        A_0 := \emptyset &\implies 2^{A_0} = \{\emptyset\} \implies \# 2^{A_0} = 1 = 2^0 \\
+        A_1 := \{1\} &\implies 2^{A_1} = \{\emptyset, \{1\}\} \implies \# 2^{A_1} = 2 = 2^1 \\
+        A_2 := \{1, 2\} &\implies 2^{A_2} = \{\emptyset, \{1\}, \{2\}, \{1, 2\}\} \implies \# 2^{A_2} = 4 = 2^2 \\
+        A_3 := \{1, 2, 3\} &\implies 2^{A_3} = \{\emptyset, \{1\}, \{2\}, \{3\}, \{1, 2\}, \{1, 3\}, \{2, 3\}, \{1, 2, 3\}\} \implies \# 2^{A_3} = 8 = 2^3
+      \end{align*}
+
+      <h2>Relációk tulajdonságai</h2>
+      <p>Legyen \(R \subseteq X \times X\) egy reláció:</p>
+      <ul>
+        <li><strong>Reflexív:</strong> \(\forall x \in X : (x, x) \in R\)</li>
+        <li><strong>Szimmetrikus:</strong> \((x, y) \in R \implies (y, x) \in R\)</li>
+        <li><strong>Tranzitív:</strong> \((x, y) \in R \land (y, z) \in R \implies (x, z) \in R\)</li>
+        <li><strong>Antiszimmetrikus:</strong> \((x, y) \in R \land (y, x) \in R \implies x = y\)</li>
+        <li><strong>Lineáris:</strong> \(\forall x, y \in X\) esetén \((x, y) \in R\) vagy \((y, x) \in R\)</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Ekvivalenciareláció</span>
+        <p>Az \(R\) reláció ekvivalenciareláció, ha reflexív, szimmetrikus és tranzitív.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Parciális rendezés</span>
+        <p>Az \(R\) reláció parciális rendezés (részbenrendezés), ha reflexív, antiszimmetrikus és tranzitív. Ha lineáris is, akkor rendezésnek nevezzük.</p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Függvények</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Függvény</span>
+        <p>
+          Az \(R \subseteq A \times B\) relációt <em>függvénynek</em>
+          nevezzük, ha minden \(a \in A\)-hoz legfeljebb egy olyan
+          \(b \in B\) elem tartozik, amelyre \((a, b) \in R\), azaz:
+        </p>
+        \[
+        \forall a \in A, \, \forall b_1, b_2 \in B: \Big( ((a, b_1) \in R \land (a, b_2) \in R) \implies b_1 = b_2 \Big).
+        \]
+      </div>
+
+      <p>
+        Ha \(R\) függvény, akkor \(R\) helyett az \(f, g, h\)
+        jelöléseket használjuk, és \((x, y) \in f\) helyett az
+        \(f(x) = y\), míg \(f \subseteq A \times B\) helyett az
+        \(f: A \to B\) jelölést alkalmazzuk.
+      </p>
+
+      <h3>Függvények tulajdonságai</h3>
+      <p>Legyen \(f: A \to B\) függvény:</p>
+      <ul>
+        <li><strong>Injektív (egyértelmű):</strong> Ha a különböző elemek képe különböző, azaz \(f(x) = f(y)\)-ból következik, hogy \(x = y\).</li>
+        <li><strong>Szürjektív (rávetítés):</strong> Ha minden értékkészletbeli elem előáll képként, azaz \(\forall y \in B\) esetén \(\exists x \in A\), úgy hogy \(f(x) = y\).</li>
+        <li><strong>Bijektív:</strong> Ha egyszerre injektív és szürjektív (kölcsönösen egyértelmű megfeleltetés).</li>
+      </ul>
+
+      <h3>Invertálhatóság</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Egy függvény pontosan akkor invertálható, ha injektív. (Pontosabban: bijekció esetén az inverz reláció is függvény.)</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(f: A \to B\) és \(g: B \to C\) invertálható függvények, akkor a kompozíciójuk \(g \circ f\) is invertálható, és fennáll:</p>
+        \[ (g \circ f)^{-1} = f^{-1} \circ g^{-1} \]
+      </div>
+
+      <h3>Képek és ősképek halmazműveletei</h3>
+      <p>Legyen \(f: X \to Y\) függvény, valamint \(A, B \subseteq Y\) és \(H \subseteq X\).</p>
+      <ul>
+        <li><strong>Függvény általi kép:</strong> \(f(H) = \{y \in Y \mid \exists x \in H, f(x) = y\}\)</li>
+        <li><strong>Függvény általi őskép:</strong> \(f^{-1}(H) = \{x \in X \mid \exists y \in H, f(x) = y\} = \{x \in X \mid f(x) \in H\}\)</li>
+      </ul>
+
+      <p><strong>Fontos azonosságok ősképekre és képekre:</strong></p>
+      <ul>
+        <li>\(f^{-1}(A \cup B) = f^{-1}(A) \cup f^{-1}(B)\)</li>
+        <li>\(f^{-1}(A \cap B) = f^{-1}(A) \cap f^{-1}(B)\)</li>
+        <li>\(f(A \cup B) = f(A) \cup f(B)\)</li>
+        <li>\(f(A \cap B) \subseteq f(A) \cap f(B)\) (általában csak tartalmazás áll fenn, egyenlőség injektív függvények esetén teljesül)</li>
+      </ul>
+
+      <h2>Pontos korlátok és a √2 létezése</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Pontos korlátok</span>
+        <p>Legyen \(A \subseteq X\) egy rendezett halmaz:</p>
+        <ul>
+          <li><strong>Pontos felső korlát (supremum):</strong> \(K^* = \sup A\), ha \(a \le K^*\) minden \(a \in A\)-ra, és ez a legkisebb ilyen felső korlát.</li>
+          <li><strong>Pontos alsó korlát (infimum):</strong> \(k^* = \inf A\), ha \(a \ge k^*\) minden \(a \in A\)-ra, és ez a legnagyobb ilyen alsó korlát.</li>
+        </ul>
+        <p>Ha \(\sup A \in A\), akkor \(\sup A = \max A\); ha \(\inf A \in A\), akkor \(\inf A = \min A\).</p>
+      </div>
+
+      <h3>Példák halmazok szuprémumára és infimumára</h3>
+      <ul>
+        <li>\(A = [0, 1] = \{x \in \mathbb{R} \mid 0 \le x \le 1\}\) esetén \(\inf A = \min A = 0\) és \(\sup A = \max A = 1\).</li>
+        <li>\(A = [0, 1[ = \{x \in \mathbb{R} \mid 0 \le x &lt; 1\}\) esetén \(\inf A = \min A = 0\), \(\sup A = 1\), de \(\max A\) nem létezik.</li>
+        <li>\(A = \{\frac{1}{n} \mid n \in \mathbb{N}\}\) esetén \(\inf A = 0\) (minimum nincs), és \(\sup A = \max A = 1\).</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Legyen \(\alpha = \sup \{x \in \mathbb{R} \mid 0 \le x \land x^2 \le 2\}\).
+          Ekkor \(\alpha^2 = 2\), azaz \(\alpha = \sqrt{2}\) létezik a
+          valós számok halmazán.
+        </p>
+      </div>
+
+      <h2>Halmazok számossága és ekvivalenciája</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Ekvivalencia és számosság</span>
+        <p>
+          Azt mondjuk, hogy az \(A\) és \(B\) halmazok ekvivalensek
+          (ugyanakkora számosságúak), ha létezik \(f: A \to B\)
+          bijekció (kölcsönösen egyértelmű megfeleltetés).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Feladat</span>
+        <p>Mutassuk meg, hogy a páros számok halmaza ekvivalens a természetes számok halmazával (\(\mathbb{N}\)).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Legyen \(A = \{2n \mid n \in \mathbb{N}\}\). Definiáljuk az
+          \(f: \mathbb{N} \to A\), \(f(x) = 2x\) függvényt:
+        </p>
+        <ul>
+          <li><em>Injektivitás:</em> Ha \(f(x) = f(y) \implies 2x = 2y \implies x = y\).</li>
+          <li><em>Szürjektivitás:</em> Bármely \(m \in A\) esetén \(m\) páros, azaz \(m = 2n\) valamilyen \(n \in \mathbb{N}\)-re, így létezik ősképe (\(n\)).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Feladat</span>
+        <p>Mutassuk meg, hogy \(\mathbb{Z}\) és \(\mathbb{N}\) ekvivalensek (\(\mathbb{Z} \sim \mathbb{N}\)).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>A leképezést a következő módon adjuk meg: \(f: \mathbb{Z} \to \mathbb{N}\), ahol:</p>
+        \[
+        f(z) =
+        \begin{cases}
+        2z, &amp; \text{ha } z &gt; 0 \\
+        -2z + 1, &amp; \text{ha } z &lt; 0 \\
+        1, &amp; \text{ha } z = 0
+        \end{cases}
+        \]
+        <p>Ez a függvény bijektív (minden természetes számhoz pontosan egy egész szám rendelhető és fordítva).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető a számosságokról</span>
+        <p>
+          Két halmaz akkor ekvivalens, ha tudunk köztük kölcsönösen
+          egyértelmű (bijektív) megfeleltetést létesíteni. A
+          \(\mathbb{Z}\) és \(\mathbb{N}\) ekvivalenciája azt mutatja,
+          hogy az egész számok halmaza is <em>megszámlálhatóan
+          végtelen</em>.
+        </p>
+      </div>
+
+      <h2>Testek és rendezett testek</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Test</span>
+        <p>
+          Egy \(X\) halmazt testnek nevezünk, ha értelmezve van rajta
+          egy összeadás (\(+\)) és egy szorzás (\(\cdot\)), és az
+          alábbi axiómák teljesülnek (\(a, b, c \in X\)):
+        </p>
+        <ul>
+          <li>\(a + b = b + a\) (kommutativitás)</li>
+          <li>\((a + b) + c = a + (b + c)\) (asszociativitás)</li>
+          <li>\(\exists 0 \in X\), hogy \(a + 0 = a\)</li>
+          <li>\(\forall a \in X\)-re \(\exists -a\), ahol \(a + (-a) = 0\)</li>
+          <li>\(a \cdot b = b \cdot a\) (szorzás kommutativitása)</li>
+          <li>\((a \cdot b) \cdot c = a \cdot (b \cdot c)\) (szorzás asszociativitása)</li>
+          <li>\(\exists 1 \in X \setminus \{0\}\), hogy \(1 \cdot a = a\)</li>
+          <li>\(\forall a \in X \setminus \{0\}\)-ra \(\exists a^{-1} \in X\), hogy \(a \cdot a^{-1} = 1\)</li>
+          <li>\(a \cdot (b + c) = a \cdot b + a \cdot c\) (disztributivitás)</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Rendezett test</span>
+        <p>Egy \(X\) testet rendezett testnek nevezünk, ha van rajta egy \(\le\) rendezés, amelyre:</p>
+        <ul>
+          <li>Ha \(a, b \in X\) úgy, hogy \(a \le b\), akkor \(a + c \le b + c\) minden \(c \in X\)-re.</li>
+          <li>Ha \(a, b \in X\) úgy, hogy \(0 \le a\) és \(0 \le b\), akkor \(0 \le ab\).</li>
+        </ul>
+      </div>
+
+      <h3>Alapvető állítások és bizonyítások testekben</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Feladat — Egyszerűsítési szabályok</span>
+        <p>Legyen \(X\) test.</p>
+        <ul>
+          <li>Ha \(x + y = x + z\), akkor \(y = z\).</li>
+          <li>Ha \(x \cdot y = x \cdot z\) és \(x \neq 0\), akkor \(y = z\).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás vázlat</span>
+        <p>
+          Az első állításnál mindkét oldalhoz hozzáadjuk \(x\) additív
+          inverzét (\(-x\)): \((-x) + (x + y) = (-x) + (x + z) \implies
+          ((-x) + x) + y = ((-x) + x) + z \implies 0 + y = 0 + z
+          \implies y = z\). A második állításnál \(x^{-1}\)-nel
+          szorzunk.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Feladat — Nullosztómentesség</span>
+        <p>\(x \cdot y = 0 \iff x = 0 \lor y = 0\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Feladat — Előjelek és inverzek tulajdonságai</span>
+        <ul>
+          <li>\((-1) \cdot x = -x\) minden \(x \in X\) esetén.</li>
+          <li>\((-x) \cdot (-y) = xy\).</li>
+          <li>Ha \(x \neq 0\) és \(y \neq 0\), akkor \((xy)^{-1} = x^{-1} \cdot y^{-1}\).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Rendezett testben a zéruselem mindig kisebb, mint az
+          egységelem (\(0 &lt; 1\)), és bármely \(x \neq 0\) esetén
+          \(0 &lt; x^2\). Ebből következik, hogy a komplex számok
+          teste (\(\mathbb{C}\)) nem tehető rendezett testté.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Archimédészi tulajdonság</span>
+        <p>
+          A \(\mathbb{R}\) valós számok halmaza archimédészi
+          tulajdonságú, azaz bármely \(x, y \in \mathbb{R}\)
+          (\(x &gt; 0\)) esetén létezik olyan \(n \in \mathbb{N}\), hogy
+          \(nx &gt; y\).
+        </p>
+      </div>
+
+      <h2>Matematikai indukció</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Feladat</span>
+        <p>Mutassuk meg, hogy bármely \(n \in \mathbb{N}\) esetén \(n + 2 &lt; 2^{n+1}\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás — teljes indukcióval</span>
+        <ol>
+          <li><strong>\(n = 1\) esetén:</strong> \(1 + 2 = 3\), illetve \(2^{1+1} = 2^2 = 4\). Mivel \(3 &lt; 4\), az állítás igaz.</li>
+          <li>
+            <strong>Indukciós lépés:</strong> Tegyük fel, hogy valamely
+            \(n \ge 1\) indexre az állítás igaz (<em>indukciós
+            feltevés</em>): \(n + 2 &lt; 2^{n+1}\). Megmutatjuk, hogy
+            ekkor az állítás \((n+1)\)-re is igaz (<em>öröklődik a
+            tulajdonság</em>):
+            \[
+            (n+1) + 2 = (n+2) + 1 &lt; 2^{n+1} + 1 &lt; 2^{n+1} + 2^{n+1} = 2 \cdot 2^{n+1} = 2^{n+2}
+            \]
+            Mivel \(1 &lt; 2^{n+1}\) minden \(n \in \mathbb{N}\)-re, a
+            becslés helyes, így az állítás minden \(n\)-re teljesül.
+          </li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető az indukcióról</span>
+        <p>A matematikai indukció kétlépcsős elv:</p>
+        <ol>
+          <li>Alapeset ellenőrzése (\(n=1\)).</li>
+          <li>Öröklődés vizsgálata: feltesszük, hogy \(n\)-re igaz (\(TF\)), és igazoljuk \(n+1\)-re (\(IF\)).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Feladat</span>
+        <p>Mutassuk meg, hogy minden \(n \in \mathbb{N}\) esetén:</p>
+        \[
+        \sum_{k=1}^{n} \frac{1}{k^2} \le 2 - \frac{1}{n}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás — teljes indukcióval</span>
+        <ol>
+          <li><strong>\(n = 1\) esetén:</strong> \(\sum_{k=1}^{1} \frac{1}{k^2} = \frac{1}{1^2} = 1\), és \(2 - \frac{1}{1} = 1\). Mivel \(1 \le 1\), igaz.</li>
+          <li>
+            <strong>Indukciós lépés:</strong> Tegyük fel, hogy igaz
+            \(n\)-re, és bizonyítsuk \(n+1\)-re:
+            \[
+            \sum_{k=1}^{n+1} \frac{1}{k^2} = \left( \sum_{k=1}^{n} \frac{1}{k^2} \right) + \frac{1}{(n+1)^2} \le 2 - \frac{1}{n} + \frac{1}{(n+1)^2}
+            \]
+            Meg kell mutatni, hogy
+            \(2 - \frac{1}{n} + \frac{1}{(n+1)^2} \le 2 - \frac{1}{n+1}\),
+            ami átalakítva:
+            \[
+            \frac{1}{(n+1)^2} \le \frac{1}{n} - \frac{1}{n+1} = \frac{1}{n(n+1)} \iff n \le n+1 \quad (\text{igaz}).
+            \]
+          </li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Feladat — Bernoulli-egyenlőtlenség</span>
+        <p>Mutassuk meg, hogy \((1+x)^n \ge 1 + nx\) minden \(n \in \mathbb{N}\) esetén, feltéve, hogy \(1+x \ge 0\) (\(x \ge -1\)).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás — indukcióval</span>
+        <ol>
+          <li><strong>\(n = 1\) esetén:</strong> \((1+x)^1 = 1+x\) és \(1 + 1\cdot x = 1+x\), azaz egyenlőség teljesül.</li>
+          <li><strong>Indukciós lépés:</strong> \((1+x)^{n+1} = (1+x)^n \cdot (1+x) \ge (1+nx)(1+x) = 1 + x + nx + nx^2 = 1 + (n+1)x + nx^2 \ge 1 + (n+1)x\), mivel \(nx^2 \ge 0\).</li>
+        </ol>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Megszámlálható és nem megszámlálható halmazok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció</span>
+        <p>
+          Egy halmaz <strong>megszámlálható</strong>, ha véges vagy
+          \(\mathbb{N}\)-ekvivalens (megszámlálhatóan végtelen). Egy
+          halmaz <strong>nem megszámlálható</strong>, ha nem véges és
+          nem megszámlálhatóan végtelen (azaz nem sorolható fel egy
+          sorozatba).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>A valós számok halmaza (\(\mathbb{R}\)), illetve a \([0, 1]\) intervallum <strong>nem megszámlálható</strong>.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás vázlata — Cantor-féle diagonális eljárás</span>
+        <p>
+          Indirekt módon tegyük fel, hogy a \([0, 1]\) intervallum
+          megszámlálhatóan végtelen, azaz elemei felsorolhatók egy
+          sorozatba: \(a_1, a_2, a_3, \dots\). Írjuk fel ezeket
+          tizedestört alakban:
+        </p>
+        \begin{align*}
+            a_1 &= 0,t_{11}t_{12}t_{13}\dots \\
+            a_2 &= 0,t_{21}t_{22}t_{23}\dots \\
+            a_3 &= 0,t_{31}t_{32}t_{33}\dots \\
+            &\;\;\vdots
+        \end{align*}
+        <p>
+          Definiáljunk egy új \(b = 0,b_1b_2b_3\dots\) számot úgy, hogy
+          a főátló elemeit megváltoztatjuk (pl. ha \(t_{ii} = 2\),
+          akkor legyen \(b_i = 3\), egyébként pedig \(2\)). Ekkor ez a
+          \(b\) szám nem szerepelhet a felsorolásban, mert az
+          \(i\)-edik számtól az \(i\)-edik tizedesjegyében eltér. Ez
+          ellentmondás, így a \([0, 1]\) intervallum (és így
+          \(\mathbb{R}\) is) nem megszámlálható.
+        </p>
+      </div>
+
+      <h2>Kontinuum számosság és a Cantor-tétel</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Számosságok relációja (\(\le\))</span>
+        <p>
+          Azt mondjuk, hogy az \(A\) halmaz számossága kisebb vagy
+          egyenlő, mint a \(B\) halmaz számossága (\(|A| \le |B|\)), ha
+          létezik injektív (kölcsönösen egyértelműen beágyazó)
+          függvény az \(A\)-ból a \(B\)-be (\(f: A \to B\)).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető</span>
+        <p>
+          A valós számok halmazával ekvivalens halmazok számosságát
+          <strong>kontinuum számosságnak</strong> nevezzük, jelölése:
+          \(\mathfrak{c}\) (azaz \(\mathbb{R} \sim \mathfrak{c}\)).
+          Megmutatható, hogy \(|2^\mathbb{N}| = \mathfrak{c}\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Cantor-tétel</span>
+        <p>Bármely \(A\) halmaz esetén a halmaz számossága szigorúan kisebb a hatványhalmazának számosságánál:</p>
+        \[
+        |A| < |2^A|
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>A bizonyítás két részből áll:</p>
+        <ol>
+          <li>
+            <strong>\(|A| \le |2^A|\) igazolása:</strong> Meg kell
+            adnunk egy injektív leképezést \(A\)-ból \(2^A\)-ba.
+            Például \(f: A \to 2^A\), ahol \(f(a) = \{a\}\). Mivel ha
+            \(a \neq b\), akkor \(\{a\} \neq \{b\}\), a függvény
+            injektív.
+          </li>
+          <li>
+            <strong>Indirekt rész (\(|A| \neq |2^A|\)):</strong>
+            Tegyük fel indirekt módon, hogy létezik egy
+            \(f: A \to 2^A\) <em>szürjektív</em> leképezés. Tekintsük a
+            következő Cantor-féle halmazt:
+            \[
+            H = \{x \in A \mid x \notin f(x)\} \subseteq A
+            \]
+            Mivel \(f\) szürjektív, léteznie kell olyan
+            \(a_0 \in A\)-nak, amelyre \(f(a_0) = H\). Vizsgáljuk meg
+            az \(a_0 \in H\) esetet:
+            <ul>
+              <li>Ha \(a_0 \in H\), akkor a halmaz definíciója szerint \(a_0 \notin f(a_0)\), azaz \(a_0 \notin H\) (ellentmondás!).</li>
+              <li>Ha \(a_0 \notin H\), akkor nem teljesül a feltétel, így \(a_0 \in f(a_0)\), azaz \(a_0 \in H\) (újabb ellentmondás!).</li>
+            </ul>
+            Mivel mindkét eset ellentmondáshoz vezet, ilyen szürjektív
+            \(f\) függvény nem létezhet, így \(|A| &lt; |2^A|\).
+          </li>
+        </ol>
+      </div>
+
+      <h2>Gyakorlati feladat</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Feladat</span>
+        <p>Mutassuk meg, hogy megszámlálhatóan végtelen sok olyan természetes szám van, amely 3-mal osztva 1 maradékot ad.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Meg kell mutatnunk, hogy az \(A = \{3k - 2 \mid k \in
+          \mathbb{N}\}\) halmaz ekvivalens a természetes számok
+          halmazával (\(\mathbb{N}\)). Legyen a leképezés
+          \(f: \mathbb{N} \to A\), ahol \(f(k) = 3k - 2\).
+        </p>
+        <ul>
+          <li>
+            <em>Injektivitás:</em> Tegyük fel, hogy \(f(x) = f(y)\).
+            Ekkor:
+            \[
+            3x - 2 = 3y - 2 \implies 3x = 3y \implies x = y \quad (\text{tehát injektív}).
+            \]
+          </li>
+          <li>
+            <em>Szürjektivitás:</em> Legyen \(m \in A\) tetszőleges
+            elem. Keresünk olyan \(x \in \mathbb{N}\) értéket, amelyre
+            \(f(x) = m\):
+            \[
+            3x - 2 = m \implies 3x = m + 2 \implies x = \frac{m + 2}{3}
+            \]
+            Mivel \(m\) alakja \(3k-2\), az \(m+2\) osztható 3-mal, így
+            \(x \in \mathbb{N}\), vagyis minden \(m\)-hez van őskép.
+          </li>
+        </ul>
+        <p>Mivel a függvény bijektív, a halmaz megszámlálhatóan végtelen.</p>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
