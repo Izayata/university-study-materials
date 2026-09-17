@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Gráfszínezés és Ramsey-számok | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Kromatikus szám és polinom, Brooks-tétel, Ötszín-tétel, kromatikus index (Vizing, Shannon), valamint kétszínes és többszínes Ramsey-számok — DE TTK Matematika BSc, Kombinatorika és gráfelmélet.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/jegyzet9/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 9 of 10 — see jegyzet1's head comment for the shape rationale.
+  The "Kromatikus polinom" subsection under Kromatikus szám is
+  supplied from general graph-theory knowledge, not transcribed from
+  the source: the source had an orphaned fragment (two facts about
+  P_G(x), no definition) referencing a concept it never actually
+  defined. Confirmed with the site owner (2026-09-17) to fill the gap
+  rather than drop it — flagged here for transparency, and again in
+  the PR description.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/">Kombinatorika és gráfelmélet</a> / 9. jegyzet</p>
+
+      <h1>Gráfszínezés és Ramsey-számok</h1>
+      <p class="item-meta">DE TTK Matematika BSc · Frissítve: 2026-09-17</p>
+
+      <p>
+        Ez a jegyzet a csúcs- és élszínezéssel foglalkozik (kromatikus
+        szám, kromatikus polinom, kromatikus index, Brooks- és
+        Ötszín-tétel, Vizing- és Shannon-korlát), majd a Ramsey-számok
+        témakörét dolgozza fel: mikor garantált, hogy egy elég nagy
+        teljes gráf élszínezésében mindig keletkezik egyszínű klikk.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Kromatikus szám, kromatikus polinom</li>
+        <li>Brooks-tétel, Ötszín-tétel</li>
+        <li>Kromatikus index (Vizing, Shannon)</li>
+        <li>Kétszínes Ramsey-számok</li>
+        <li>Többszínes Ramsey-számok</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Kromatikus szám (csúcsszínezés)</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — csúcsszínezés</span>
+        <p>
+          Legyen \(G\) gráf, \(C\) színek egy halmaza. Ekkor \(G\)
+          egy <strong>csúcsszínezésén</strong> egy \(f: V(G) \to C\)
+          függvényt értünk. Egy \(v \in V(G)\) csúcs színe \(f(v)\).
+          Egy csúcsszínezést <strong>jó csúcsszínezésnek</strong>
+          nevezünk, ha szomszédos csúcsok színe különböző.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Egy \(G\) gráfnak van jó csúcsszínezése \(\iff G\) hurokélmentes.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p><strong>⟹:</strong> ha lenne hurokél, annak végpontja önmagával lenne szomszédos, így nem színezhető jól.</p>
+        <p><strong>⟸:</strong> hurokélmentes esetben legyen minden csúcs különböző színű — ez jó csúcsszínezés (legfeljebb \(|V(G)|\) színnel).</p>
+      </div>
+
+      <p>
+        Csúcsszínezés szempontjából a párhuzamos éleknek nincs
+        jelentőségük (ha két csúcs között 1 él van, már különböző
+        színűnek kell lenniük, 2 vagy több él ezt nem változtatja
+        meg). Ezért csúcsszínezés vizsgálatánál általában feltehető,
+        hogy a gráf egyszerű.
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — kromatikus szám</span>
+        <p>
+          Egy \(G\) egyszerű gráf <strong>kromatikus száma</strong> a
+          legkisebb szám, ahány színnel \(G\)-nek van jó
+          csúcsszínezése. Jelölés: \(\chi(G)\) (vagy \(\chi_v(G)\)).
+          \(G\)-nek van jó csúcsszínezése \(k\) db színnel \(\iff
+          \chi(G) \le k\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Legyen \(G\) egyszerű gráf.</p>
+        <ol>
+          <li>\(\chi(G) = 1 \iff G\) üres gráf.</li>
+          <li>\(\chi(G) = 2 \iff G\) nem üres páros gráf.</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>(1) Nyilvánvaló (ha lenne legalább egy él, annak két végpontjára már két különböző szín kellene).</p>
+        <p>(2)</p>
+        <p><strong>⟹:</strong> \(\chi(G) = 2 \neq 1 \implies G\) nem üres (az (1) miatt). \(\chi(G)=2 \implies G\) csúcsai 2 színnel jól kiszínezhetők, de mindkét színt használjuk is. Ekkor \(A = \{\text{egyik színű csúcsok}\}\), \(B = \{\text{másik színű csúcsok}\}\) megfelelő csúcsosztályok, azaz \(G\) páros.</p>
+        <p><strong>⟸:</strong> tfh. \(G\) páros gráf \(A, B\) csúcsosztályokkal. Legyenek az \(A\)-beli csúcsok zöldek, a \(B\)-beliek pirosak: ez jó csúcsszínezés 2 színnel \(\implies \chi(G) \le 2\). Mivel \(G\) nem üres \(\implies \chi(G) \neq 1 \implies \chi(G) = 2\).</p>
+      </div>
+
+      <p>
+        Annak eldöntése, hogy egy egyszerű gráf csúcsai színezhetők-e
+        3 színnel (\(\chi(G) \le 3\)), ugyanolyan nehéz, mint a
+        H-út/H-kör létezésének problémája (NP-teljes feladat).
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(G\) egyszerű gráf, akkor \(\chi(G) \ge \omega(G)\), ahol \(\omega(G)\) a klikkszám.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Egy \(\omega(G)\) csúcsú klikk bármely két csúcsa
+          szomszédos, így azokat mind különböző színűre kell
+          színezni \(\implies\) legalább \(\omega(G)\) db szín
+          szükséges.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(G\) egyszerű gráf, akkor \(\chi(G) \le \Delta(G) + 1\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás — \(|V(G)|\) szerinti teljes indukcióval</span>
+        <ul>
+          <li>\(|V(G)| = 1\): \(\chi(G) = 1, \Delta(G) = 0 \implies 1 \le 0 + 1\).</li>
+          <li>
+            Tfh. \(|V(G)| \ge 2\) és kevesebb csúcsú gráfokra igaz az
+            állítás. Legyen \(v \in V(G)\) tetszőleges csúcs.
+            Alkalmazzuk az indukciós feltételt a \((G - v)\)
+            részgráfra: \(\chi(G-v) \le \Delta(G-v) + 1 \le
+            \Delta(G) + 1\), azaz \(G-v\) csúcsai jól kiszínezhetők
+            \(\Delta(G)+1\) db színnel. A \(v\) csúcsnak legfeljebb
+            \(d(v) \le \Delta(G)\) szomszédja van \(G\)-ben. Mivel
+            összesen \(\Delta(G)+1\) szín áll rendelkezésre, a
+            szomszédai által használt színek száma legfeljebb
+            \(\Delta(G)\). Így marad legalább egy olyan szín, amit
+            \(v\) egyik szomszédja sem használ \(\implies\) ez a szín
+            hozzárendelhető \(v\)-hez. \(\implies G\)-nek van jó
+            csúcsszínezése \(\Delta(G)+1\) db színnel.
+          </li>
+        </ul>
+      </div>
+
+      <p>
+        Ebben a tételben állhat fent egyenlőség! Ha \(G = K_n\)
+        (teljes gráf): \(\chi(G) = n, \Delta(G) = n-1 \implies
+        \chi(G) = \Delta(G) + 1\). Ha \(G\) páratlan csúcsszámú
+        körgráf (\(C_{2k+1}\)): \(\chi(G) = 3\), mert 3 színnel van
+        jó csúcsszínezés (egy csúcs kivételével felváltva színezünk
+        1, 2 színnel, az utolsó csúcs a 3. színű lesz), de 2 színnel
+        nincs jó színezés, mert nem páros gráf; ugyanakkor
+        \(\Delta(G) = 2 \implies \chi(G) = \Delta(G) + 1\). A
+        Brooks-tétel szerint az összefüggő gráfok között ez az
+        összes eset, ahol egyenlőség áll fent!
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Brooks-tétel</span>
+        <p>
+          Ha \(G\) egyszerű, összefüggő gráf, amely nem teljes gráf
+          és nem páratlan csúcsszámú körgráf, akkor:
+        </p>
+        \[ \chi(G) \le \Delta(G) \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Ötszín-tétel</span>
+        <p>Ha \(G\) egyszerű, síkbarajzolható gráf, akkor \(\chi(G) \le 5\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p><strong>\(|V(G)|\) szerinti teljes indukció.</strong></p>
+        <ul>
+          <li>Alapeset: \(|V(G)| \le 5\) esetén a tétel triviális (\(\chi(G) \le |V(G)| \le 5\)).</li>
+          <li>
+            Indukciós lépés: tfh. \(|V(G)| \ge 6\) és kevesebb csúcsú
+            síkgráfokra igaz az állítás. Mivel \(G\) síkbarajzolható,
+            tudjuk, hogy \(\delta(G) \le 5\) (előző jegyzet). Legyen
+            \(v \in V(G)\) olyan csúcs, amelyre \(d(v) = \delta(G)
+            \le 5\). Tekintsük a \(G - v\) részgráfot. Az indukciós
+            feltétel szerint \(G - v\) színezhető 5 színnel (legyenek
+            a színek: \(1, 2, 3, 4, 5\)).
+          </li>
+        </ul>
+        <p><strong>1. eset:</strong> ha \(d(v) \le 4\), vagy \(d(v) = 5\) de \(v\) szomszédai a \(G-v\) jó színezésében nem használják mind az 5 színt, akkor a szomszédok által fel nem használt színre színezve \(v\)-t, \(G\) jó színezését kapjuk 5 színnel.</p>
+        <p>
+          <strong>2. eset:</strong> ha \(d(v) = 5\) és \(v\)
+          szomszédai (\(v_1, v_2, v_3, v_4, v_5\) óramutató járása
+          szerint ágyazva a síkba) mind az 5 különböző színt kapták
+          (rendre az \(1, 2, 3, 4, 5\) színeket). Tekintsük a
+          \(G_{1,3}\) feszített részgráfot, amelyet az \(1\)-es és
+          \(3\)-as színű csúcsok alkotnak \(G-v\)-ben (Kempe-lánc).
+        </p>
+        <ul>
+          <li>Ha \(v_1\) és \(v_3\) <strong>nincsenek</strong> egy komponensben \(G_{1,3}\)-ban: a \(v_1\)-et tartalmazó \(G_{1,3}\)-beli komponensben felcseréljük az \(1\)-es és \(3\)-as színeket. Így \(v_1\) a \(3\)-as színt kapja, miközben \(v_3\) színe \(3\)-as marad. Ezzel az \(1\)-es szín szabaddá válik \(v\) számára!</li>
+          <li>
+            Ha \(v_1\) és \(v_3\) <strong>egy komponensben vannak</strong>
+            \(G_{1,3}\)-ban: ekkor létezik egy \(v_1\)-ből \(v_3\)-ba
+            vezető útvonal, ami csak \(1\)-es és \(3\)-as színű
+            csúcsokból áll. Ez az út a \(v\) csúccsal együtt egy zárt
+            görbét (kört) alkot a síkban, ami elválasztja \(v_2\)-t
+            és \(v_4\)-et! Emiatt a \(2\)-es és \(4\)-es színű
+            \(G_{2,4}\) részgráfban \(v_2\) és \(v_4\)
+            <strong>nem lehetnek</strong> egy komponensben (nem
+            keresztezhetik az \(1\)-\(3\) utat a síkbeliség miatt).
+            Így a \(v_2\)-t tartalmazó \(G_{2,4}\)-beli komponensben
+            felcserélve a \(2\)-es és \(4\)-es színeket, \(v_2\) a
+            \(4\)-es színt kapja, és a \(2\)-es szín szabaddá válik
+            \(v\) számára.
+          </li>
+        </ul>
+        <p>Minden esetben sikerült \(v\)-t kiszínezni \(\implies \chi(G) \le 5\).</p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h3>Kromatikus polinom</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — kromatikus polinom</span>
+        <p>
+          Legyen \(G\) egyszerű gráf és \(x \in \mathbb{N}\). Ekkor
+          \(P_G(x)\) jelöli a \(G\) <strong>jó csúcsszínezéseinek
+          számát pontosan \(x\) színnel</strong> (a \(G\) csúcsain
+          értelmezett \(f: V(G) \to \{1, \dots, x\}\) jó
+          csúcsszínezések száma). Belátható, hogy \(P_G(x)\) egy
+          \(x\)-ben polinom (innen a neve): fokszáma \(|V(G)|\),
+          főegyütthatója \(1\), és az együtthatók előjele
+          felváltva vált.
+        </p>
+      </div>
+
+      <p>
+        Két alapeset: ha \(G\) üres gráf \(n\) csúcson, \(P_G(x) =
+        x^n\) (minden csúcs függetlenül bármelyik színt felveheti).
+        Ha \(G = K_n\), \(P_G(x) = x(x-1)(x-2) \cdots (x-n+1)\)
+        (minden csúcs a maradék színek egyikét kapja).
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(G\) komponensei \(G_1, \dots, G_m\), akkor:</p>
+        \[ P_G(x) = P_{G_1}(x) \cdot P_{G_2}(x) \cdots P_{G_m}(x) \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>Az egyes komponensek színezései egymástól függetlenül választhatók.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Ha \(G\) nemüres egyszerű gráf, melynek \(m\) komponense
+          van, akkor \(P_G(x)\)-ben az \(x^0, x^1, \dots, x^{m-1}\)
+          együtthatói \(0\), az \(x^m\) együtthatója pedig \(\neq 0\)
+          — azaz a legkisebb kitevőjű nemnulla együttható foka
+          pontosan a komponensek számával egyezik meg.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Mivel \(P_{G_1}(x), \dots, P_{G_m}(x)\)-ben a konstans tag
+          \(0\) (egy nemüres, összefüggő gráf nem színezhető 0
+          színnel) \(\implies\) szorzatukban \(x^0, x^1, \dots,
+          x^{m-1}\) együtthatója \(= 0\). Másrészt \(G_1, \dots,
+          G_m\) összefüggőek \(\implies P_{G_1}(x), \dots,
+          P_{G_m}(x)\)-ben \(x^1\) együtthatója \(\neq 0\)
+          \(\implies\) szorzatukban \(x^m\) együtthatója \(\neq 0\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető</span>
+        <p>
+          Ha \(G\) nemüres egyszerű gráf, akkor \(P_G(0) = P_G(1) =
+          0\): \(x=0\) színnel nyilván nincs csúcsszínezés, \(x=1\)
+          színnel pedig bármely él két végpontja ugyanazt a színt
+          kapná, ami nem jó színezés. Ebből az is következik, hogy a
+          polinom együtthatóinak összege \(0\) (hiszen az összeg
+          épp \(P_G(1)\)).
+        </p>
+      </div>
+
+      <h2>Kromatikus index</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — élszínezés</span>
+        <p>
+          Legyen \(G\) nemüres gráf és \(C\) a színek egy halmaza.
+          Ekkor egy \(g: E(G) \to C\) függvényt
+          <strong>élszínezésnek</strong> nevezünk. Az \(e \in E(G)\)
+          él színe \(g(e)\). Egy élszínezést akkor nevezünk <strong>jó
+          élszínezésnek</strong>, ha közös végponttal rendelkező élek
+          színe különböző.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Legyen \(G\) nemüres gráf. Ekkor \(G\)-nek van jó élszínezése \(\iff G\) hurokélmentes.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p><strong>⟹:</strong> a hurokélnek van önmagával közös végpontja, így nem színezhető jól.</p>
+        <p><strong>⟸:</strong> hurokélmentes esetben minden él legyen különböző színű.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — kromatikus index</span>
+        <p>
+          Legyen \(G\) nemüres, hurokélmentes gráf. Ekkor \(G\)
+          <strong>kromatikus indexe</strong> az a legkisebb szám,
+          ahány színnel \(G\)-nek van jó élszínezése. Jelölés:
+          \(\chi'(G)\).
+        </p>
+      </div>
+
+      <p>Ha \(G\)-nek van \(k\) db színnel jó élszínezése \(\implies \chi'(G) \le k\).</p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(G\) nemüres hurokélmentes gráf, akkor \(\chi'(G) \ge \Delta(G)\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>A \(\Delta(G)\) fokú csúcsból induló \(\Delta(G)\) db él mind különböző színű kell legyen, így legalább \(\Delta(G)\) db szín szükséges.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Vizing, egyszerű változat</span>
+        <p>Ha \(G\) nemüres egyszerű gráf, akkor \(\chi'(G) \le \Delta(G) + 1\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Vizing, általános változat</span>
+        <p>Ha \(G\) nemüres hurokélmentes gráf, akkor \(\chi'(G) \le \Delta(G) + m(G)\), ahol \(m(G)\) a párhuzamos élek maximális száma.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Shannon</span>
+        <p>Ha \(G\) nemüres hurokélmentes gráf, akkor \(\chi'(G) \le \frac{3}{2} \Delta(G)\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető</span>
+        <p>
+          Ezek a tételek nem javíthatók, azaz állhat fenn bennük
+          egyenlőség. Példa: legyen \(G\) a 3 csúcsú multigráf, ahol
+          minden csúcspár között \(\ell\) db él fut. Ekkor \(\chi'(G)
+          = 3\ell\), mert minden élnek különböző színűnek kell
+          lennie. Mivel \(\Delta(G) = 2\ell\) és \(m(G) = \ell\), a
+          Shannon-korlátra: \(\frac{3}{2} \cdot 2\ell = 3\ell\), tehát
+          éles a becslés.
+        </p>
+      </div>
+
+      <svg viewBox="0 0 260 200" style="max-width: 260px; display: block; margin: 1.5rem auto;" role="img" aria-label="3 csúcsú multigráf, minden csúcspár között ℓ db párhuzamos éllel">
+        <path d="M 130 30 Q 60 90 60 150" fill="none" stroke="var(--color-text-muted)" stroke-width="1.5"/>
+        <path d="M 130 30 Q 80 100 60 150" fill="none" stroke="var(--color-text-muted)" stroke-width="1.5"/>
+        <path d="M 60 150 Q 130 190 200 150" fill="none" stroke="var(--color-text-muted)" stroke-width="1.5"/>
+        <path d="M 60 150 Q 130 210 200 150" fill="none" stroke="var(--color-text-muted)" stroke-width="1.5"/>
+        <path d="M 200 150 Q 220 90 130 30" fill="none" stroke="var(--color-text-muted)" stroke-width="1.5"/>
+        <path d="M 200 150 Q 180 100 130 30" fill="none" stroke="var(--color-text-muted)" stroke-width="1.5"/>
+        <circle cx="130" cy="30" r="4" fill="var(--color-text)"/>
+        <circle cx="60" cy="150" r="4" fill="var(--color-text)"/>
+        <circle cx="200" cy="150" r="4" fill="var(--color-text)"/>
+        <text x="40" y="95" fill="var(--color-text-muted)" font-size="12">ℓ db</text>
+        <text x="110" y="195" fill="var(--color-text-muted)" font-size="12">ℓ db</text>
+        <text x="200" y="95" fill="var(--color-text-muted)" font-size="12">ℓ db</text>
+      </svg>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(G\) nemüres páros gráf, akkor \(\chi'(G) = \Delta(G)\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Vizing, Sanders, Zhao</span>
+        <p>Ha \(G\) nemüres, egyszerű, síkbarajzolható gráf és \(\Delta(G) \ge 7\), akkor \(\chi'(G) = \Delta(G)\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető</span>
+        <ul>
+          <li>Vizing \(\Delta(G) \ge 8\)-cal látta be, és azt sejtette, hogy igaz \(\Delta(G) = 6\), illetve \(\Delta(G) = 7\) mellett is.</li>
+          <li>Sanders és Zhao \(\Delta(G) = 7\)-re bizonyították.</li>
+          <li>\(\Delta(G) = 6\)-ra még ma is nyitott.</li>
+          <li>\(\Delta(G) \le 5\) esetén már nem igaz az állítás: pl. \(\Delta(G)=2\)-re \(G = K_3\) esetén \(\chi'(G) = 3 \neq \Delta(G) = 2\); \(\Delta(G) = 3, 4, 5\) esetén a szabályos testek (poliéderek) gráfjaiból kiindulva konstruálhatók ellenpéldák.</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Kétszínes Ramsey-számok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Híres feladat</span>
+        <p>
+          Mutassuk meg, hogy 6 ember közt mindig van 3 olyan, akik
+          ismerik egymást, vagy 3 olyan, akik nem ismerik egymást!
+          Gráfelméleti nyelven: 6 csúcsú teljes gráf éleit akárhogyan
+          kiszínezzük zöld és piros színekkel, biztosan keletkezik 3
+          csúcsú klikk zöld élekkel vagy 3 csúcsú klikk piros élekkel.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — kétszínes Ramsey-szám</span>
+        <p>
+          Legyen \(k, \ell \in \mathbb{N}\). Jelölje \(R(k,\ell)\) a
+          legkisebb olyan számot, hogy a következő teljesül: ha egy
+          ennyi csúcsú teljes gráf éleit akárhogyan színezzük zölddel
+          és pirossal, biztosan keletkezik \(k\) csúcsú klikk zöld
+          élekkel vagy \(\ell\) csúcsú klikk piros élekkel. Ezt az
+          \(R(k,\ell)\)-et <strong>kétszínes Ramsey-számnak</strong>
+          nevezzük.
+        </p>
+      </div>
+
+      <p>
+        A definícióból még nem világos, hogy létezik-e \(R(k,\ell)\).
+        Viszont ha \(\exists m\), hogy \(m\) csúcsú teljes gráfra
+        fennáll a fenti tulajdonság, akkor \(\exists R(k,\ell)\) és
+        \(R(k,\ell) \le m\).
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Ramsey</span>
+        <p>\(\forall k, \ell \in \mathbb{N} : \exists R(k,\ell)\)</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás — kettős indukció</span>
+        <p>\(k = 1\): \(R(1,\ell) = 1\) világos. \(\ell = 1\): \(R(k,1) = 1\) hasonlóan.</p>
+        <p>
+          \(k, \ell \ge 2\) és \(\exists R(k-1,\ell)\) és
+          \(\exists R(k,\ell-1)\) mind létezik: tekintsünk egy
+          \(R(k-1,\ell) + R(k,\ell-1)\) csúcsú teljes gráfot. (Erről
+          látjuk be, hogy "jó \(m\)".) Színezzük éleit zölddel és
+          pirossal. Legyen \(v\) egy csúcs. Erre \(R(k-1,\ell) +
+          R(k,\ell-1) - 1\) db él illeszkedik. Ezek közt van
+          \(R(k-1,\ell)\) db zöld él vagy \(R(k,\ell-1)\) db piros
+          él, hiszen ha a zöldek száma legfeljebb \(R(k-1,\ell)-1\),
+          a pirosaké legfeljebb \(R(k,\ell-1)-1\) lenne, akkor csak
+          legfeljebb \(R(k-1,\ell) + R(k,\ell-1) - 2\) db él lenne.
+        </p>
+        <p>
+          <strong>1. eset:</strong> ha \(v\)-re illeszkedik
+          \(R(k-1,\ell)\) db zöld él. Ekkor ezen élek másik
+          végpontjai által feszített \(R(k-1,\ell)\) csúcsú teljes
+          gráfban van \(k-1\) csúcsú klikk zöld élekkel (ami \(v\)-vel
+          együtt \(k\) csúcsú zöld klikket ad), vagy \(\ell\) csúcsú
+          klikk piros élekkel.
+        </p>
+        <p>
+          <strong>2. eset:</strong> ha \(v\)-re illeszkedik
+          \(R(k,\ell-1)\) db piros él. Ez az eset teljesen hasonlóan
+          működik.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető</span>
+        <p>A bizonyításból adódik a rekurzív egyenlőtlenség: ha \(k, \ell \ge 2\), akkor:</p>
+        \[ R(k,\ell) \le R(k-1,\ell) + R(k,\ell-1) \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>\(\forall k, \ell \in \mathbb{N} : R(k,\ell) = R(\ell,k)\) (szimmetria tulajdonság).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>A színek szerepe felcserélhető.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <ol>
+          <li>\(\forall \ell \in \mathbb{N} : R(1,\ell) = 1\) és \(\forall k \in \mathbb{N} : R(k,1) = 1\)</li>
+          <li>\(\forall \ell \in \mathbb{N} : R(2,\ell) = \ell\) és \(\forall k \in \mathbb{N} : R(k,2) = k\)</li>
+          <li>\(R(3,3) = 6\)</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>(1) Lásd fent.</p>
+        <p>
+          (2) Vegyünk egy \(\ell\) csúcsú teljes gráfot, színezzük
+          éleit zölddel és pirossal: ha van zöld él, ott keletkezett
+          2 csúcsú klikk zöld élekkel; ha nincs zöld él, az egész
+          gráf egy \(\ell\) csúcsú klikk piros élekkel. Másrészt
+          \(\ell - 1\) csúcsú teljes gráf éleit lehet úgy színezni,
+          hogy ne keletkezzen sem 2 csúcsú klikk zöld élekkel, sem
+          \(\ell\) csúcsú klikk piros élekkel (legyen minden él
+          piros). \(R(k,2) = R(2,k) = k\) a szimmetria miatt.
+        </p>
+        <p>
+          (3) <strong>I.</strong> Vegyünk egy 6 csúcsú teljes gráfot,
+          színezzük éleit zölddel és pirossal. Legyen \(v\) egy
+          csúcs. Erre 5 db él illeszkedik. A skatulyaelv szerint (2
+          szín van) ezek közt van 3 azonos színű, pl. zöld. Ha ezek
+          másik végpontjai közt van zöld él, akkor \(v\)-vel együtt 3
+          csúcsú klikk keletkezik zöld élekkel. Ha pedig ezek közt
+          minden él piros, akkor ott van egy 3 csúcsú klikk piros
+          élekkel.
+        </p>
+        <p>
+          <strong>II.</strong> 5 csúcsú teljes gráf élei
+          kiszínezhetők zölddel és pirossal úgy, hogy ne keletkezzen
+          3 csúcsú klikk sem zöld, sem piros élekkel: az 5 csúcsot
+          egy körvonalra helyezve, a külső ötszög élei pirosak, a
+          belső ötágú csillag (átlók) élei zöldek.
+        </p>
+      </div>
+
+      <svg viewBox="0 0 220 220" style="max-width: 220px; display: block; margin: 1.5rem auto;" role="img" aria-label="Az R(3,3)=6 alsó becsléséhez: 5 csúcs, a külső ötszög piros, a belső csillag zöld">
+        <polygon points="110,20 190,85 160,180 60,180 30,85" fill="none" stroke="#f85149" stroke-width="1.5"/>
+        <polygon points="110,20 160,180 30,85 190,85 60,180" fill="none" stroke="#3fb950" stroke-width="1.5"/>
+        <circle cx="110" cy="20" r="4" fill="var(--color-text)"/>
+        <circle cx="190" cy="85" r="4" fill="var(--color-text)"/>
+        <circle cx="160" cy="180" r="4" fill="var(--color-text)"/>
+        <circle cx="60" cy="180" r="4" fill="var(--color-text)"/>
+        <circle cx="30" cy="85" r="4" fill="var(--color-text)"/>
+      </svg>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető</span>
+        <p>A tételben szereplőkön kívül csak kevés kétszínes Ramsey-szám pontos értéke ismert.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Erdős, Szekeres</span>
+        <p>Ha \(k, \ell \in \mathbb{N}\), akkor:</p>
+        \[ R(k,\ell) \le \binom{k+\ell-2}{k-1} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás — kettős indukció</span>
+        <p>\(k=1\): b.o. \(R(1,\ell) = 1\), j.o. \(\binom{\ell-1}{0} = 1\). \(\ell=1\): b.o. \(R(k,1) = 1\), j.o. \(\binom{k-1}{k-1} = 1\).</p>
+        <p>Tegyük fel \(k,\ell \ge 2\), és \(R(k-1,\ell)\)-re és \(R(k,\ell-1)\)-re igaz az állítás. Ekkor:</p>
+        \[ R(k,\ell) \le R(k-1,\ell) + R(k,\ell-1) \le \binom{k+\ell-3}{k-2} + \binom{k+\ell-3}{k-1} = \binom{k+\ell-2}{k-1} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Erdős</span>
+        <p>Ha \(k \in \mathbb{N}, k \ge 2\), akkor \(R(k,k) \ge 2^{k/2}\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          \(k=2\): b.o. \(R(2,2) = 2\), j.o. \(2^{2/2} = 2\).
+          \(k=3\): b.o. \(R(3,3) = 6\), j.o. \(2^{3/2} = \sqrt{8}
+          \approx 2{,}82\).
+        </p>
+        <p>
+          \(k \ge 4\): legyen \(k \le n < 2^{k/2}\). Azt fogjuk
+          belátni, hogy egy \(n\) csúcsú teljes gráf éleinek van
+          olyan színezése zölddel és pirossal, hogy nem keletkezik
+          \(k\) csúcsú klikk sem zöld, sem piros élekkel (a \(k \le
+          n\) kikötés azért tehető fel, mert \(k > n\) esetén
+          biztosan nincs \(k\) csúcsú klikk).
+        </p>
+        <ul>
+          <li>Az összes színezések száma \(= 2^{\binom{n}{2}}\), hiszen \(\binom{n}{2}\) él van, mindegyik kétféle színt kaphat.</li>
+          <li>Ha rögzítünk \(k\) db csúcsot, az olyan színezések száma, hogy a \(k\) csúcs által feszített klikk minden éle zöld, \(= 2^{\binom{n}{2} - \binom{k}{2}}\).</li>
+          <li>
+            Olyan színezések száma, ahol van \(k\) csúcsú klikk zöld
+            élekkel: \(\le \binom{n}{k} \cdot 2^{\binom{n}{2} -
+            \binom{k}{2}}\) (ennyiféleképpen választhatjuk ki a \(k\)
+            db csúcsot; egy színezés több \(k\) csúcsú klikkhez is
+            lehet számolva). Ugyanez zöld helyett piros színnel is
+            fennáll \(\implies\) olyan színezések száma, ahol van
+            \(k\) csúcsú klikk zöld vagy piros élekkel: \(\le 2 \cdot
+            \binom{n}{k} \cdot 2^{\binom{n}{2} - \binom{k}{2}}\).
+          </li>
+        </ul>
+        <p>Azt kell belátnunk, hogy ez a szám szigorúan kisebb, mint az összes színezések száma:</p>
+        \[ 2 \cdot \binom{n}{k} \cdot 2^{\binom{n}{2} - \binom{k}{2}} < 2^{\binom{n}{2}} \]
+        <p>
+          Feltesszük, hogy \(n < 2^{k/2}\). Felhasználva a
+          \(\binom{n}{k} < \frac{n^k}{k!}\) becslést (mivel \(k \ge 4
+          \implies k! > 2^{k-1}\)):
+        </p>
+        \[ \binom{n}{k} < \frac{(2^{k/2})^k}{2^{k-1}} = \frac{2^{k^2/2}}{2^{k-1}} = 2^{\frac{k^2}{2} - k + 1} \]
+        <p>Behelyettesítve:</p>
+        \[ 2 \cdot \binom{n}{k} \cdot 2^{\binom{n}{2} - \binom{k}{2}} < 2 \cdot 2^{\frac{k^2}{2} - k + 1} \cdot 2^{\frac{n(n-1)}{2} - \frac{k(k-1)}{2}} = 2^{\frac{n(n-1)}{2}} \cdot 2^{2 - \frac{k}{2}} \]
+        <p>
+          Mivel \(k \ge 4 \implies 2 - \frac{k}{2} \le 0 \implies
+          2^{2 - \frac{k}{2}} \le 1\). Így a kedvezőtlen színezések
+          száma szigorúan kisebb, mint az összes színezés száma
+          \(\implies\) van olyan színezés, amikor nem keletkezik
+          \(k\) csúcsú klikk sem zöld, sem piros élekkel.
+        </p>
+      </div>
+
+      <h2>Többszínes Ramsey-számok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — \(r\)-színes Ramsey-szám</span>
+        <p>
+          Legyen \(r \ge 2\) egész és \(k_1, \dots, k_r \in
+          \mathbb{N}\). Jelölje \(R(k_1, \dots, k_r)\) a legkisebb
+          olyan számot, hogy: egy ennyi csúcsú teljes gráf éleit
+          akárhogyan színezzük \(r\) db színnel, valamelyik \(i\)-re
+          (\(1 \le i \le r\)) keletkezik \(k_i\) csúcsú klikk
+          \(i\)-edik színű élekkel.
+        </p>
+      </div>
+
+      <p>
+        Itt sem biztos még \(R(k_1, \dots, k_r)\) létezése. De ha
+        létezik olyan \(m\), hogy \(m\) csúcsú teljes gráfra
+        teljesül a fenti, akkor \(\exists R(k_1, \dots, k_r)\) és
+        \(R(k_1, \dots, k_r) \le m\).
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Ramsey</span>
+        <p>Ha \(r \ge 2\) és \(k_1, \dots, k_r \in \mathbb{N}\), akkor \(\exists R(k_1, \dots, k_r)\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás — 1. módszer, teljes indukcióval \(r\) szerint</span>
+        <p>
+          Ha \(k_i = 1\) valamelyik \(1 \le i \le r\)-re \(\implies
+          R(k_1, \dots, k_{i-1}, 1, k_{i+1}, \dots, k_r) = 1\)
+          nyilvánvaló. Ha \(k_1, \dots, k_r \ge 2\) és \(\exists
+          R(k_1, \dots, k_{i-1}, k_i - 1, k_{i+1}, \dots, k_r)\)
+          minden \(1 \le i \le r\)-re: vegyünk egy \(\sum_{i=1}^r
+          R(k_1, \dots, k_{i-1}, k_i - 1, k_{i+1}, \dots, k_r)\)
+          csúcsú teljes gráfot, színezzük éleit \(r\) db színnel.
+          Legyen \(v\) egy csúcs. Erre \(\sum_{i=1}^r R(\dots) - 1\)
+          db él illeszkedik. Ezek közt valamelyik \(i\)-re igaz, hogy
+          van \(R(k_1, \dots, k_i - 1, \dots, k_r)\) db \(i\)-edik
+          színű él. Innen a kétszíneshez hasonlóan adódik az állítás.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető</span>
+        <p>\(k_1, \dots, k_r \ge 2\) esetén:</p>
+        \[ R(k_1, \dots, k_r) \le \sum_{i=1}^r R(k_1, \dots, k_{i-1}, k_i - 1, k_{i+1}, \dots, k_r) \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás — 2. módszer, \(r\) szerinti teljes indukció</span>
+        <p>
+          \(r=2\): kétszínes Ramsey-számok létezése (előzőleg
+          bizonyítva). Így \(r \ge 3\), és \((r-1)\)-színes R-számok
+          léteznek. Vegyünk egy \(R(k_1, \dots, k_{r-2}, R(k_{r-1},
+          k_r))\) csúcsú teljes gráfot (az első rész egy
+          \((r-1)\)-színes R-szám, a belső pedig egy 2-színes
+          R-szám). Színezzük ennek éleit \(r\) db színnel úgy, hogy
+          az \((r-1)\)-edik szín világoskék, az \(r\)-edik szín
+          sötétkék. Ha az utolsó két színt nem tudjuk
+          megkülönböztetni, azok egyszerűen "kékek" — így \(r-1\)
+          színt használunk.
+        </p>
+        <p>
+          \(\implies\) valamelyik \(1 \le i \le r-2\)-re keletkezik
+          \(k_i\) csúcsú klikk \(i\)-edik színű élekkel, vagy
+          \(R(k_{r-1}, k_r)\) csúcsú klikk kék élekkel. Utóbbi
+          esetben, ha újra meg tudjuk különböztetni a kétféle kéket:
+          keletkezik \(k_{r-1}\) csúcsú klikk világoskék élekkel,
+          vagy \(k_r\) csúcsú klikk sötétkék élekkel.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Legyen \(r \ge 2\), \(k_1, \dots, k_r \in \mathbb{N}\) és
+          \((k_{i_1}, \dots, k_{i_r})\) ezek egy permutációja. Ekkor
+          \(R(k_{i_1}, \dots, k_{i_r}) = R(k_1, \dots, k_r)\) (a
+          színek szerepének felcserélése).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <ol>
+          <li>Ha \(r \ge 2\), akkor \(R(k_1, \dots, k_{r-1}, 1) = 1\)</li>
+          <li>Ha \(r \ge 2\), akkor \(R(k_1, \dots, k_r, 2) = R(k_1, \dots, k_r)\) (\((r+1)\) színről \(r\) színre)</li>
+          <li>\(R(3,3,3) = 17\)</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>(1) Lásd korábban.</p>
+        <p>
+          (2) Vegyünk egy \(R(k_1, \dots, k_r)\) csúcsú teljes gráfot
+          és színezzük éleit \(r+1\) db színnel: ha van \((r+1)\)-edik
+          színű él, az megad egy 2 csúcsú klikket ilyen színű élekkel;
+          ha nincs, tulajdonképpen \(r\) db színnel színeztünk, ami
+          garantálja valamelyik \(k_i\) csúcsú klikk létezését. Egy
+          \((R(k_1, \dots, k_r)-1)\) csúcsú teljes gráf viszont
+          kiszínezhető \(r\) db színnel úgy, hogy egyik \(i\)-re se
+          keletkezzen \(k_i\) csúcsú klikk — ekkor nyilván 2 csúcsú
+          klikk sincs az \((r+1)\)-edik színű élekkel.
+        </p>
+        <p>
+          (3) <strong>I.</strong> Vegyünk egy 17 csúcsú teljes
+          gráfot, színezzük éleit 3 színnel: zöld, piros, kék. Legyen
+          \(v\) egy csúcs, ebből 16 él indul. A skatulyaelv szerint
+          (3 szín van) ezek között lesz 6 db azonos színű él, pl.
+          kék. Ha ezek másik végpontjai közt van kék él, akkor
+          \(v\)-vel együtt ott keletkezik 3 csúcsú klikk kék élekkel.
+          Ha nincs köztük kék él, akkor azon 6 csúcs közt minden él
+          zöld vagy piros, és mivel \(R(3,3)=6\), ott keletkezik 3
+          csúcsú klikk zöld vagy piros élekkel.
+        </p>
+        <p>
+          <strong>II.</strong> A 16 csúcsú teljes gráf éleit ki lehet
+          színezni 3 színnel úgy, hogy ne keletkezzen 3 csúcsú klikk
+          egyik színű élekkel sem (lásd: Clebsch-gráf / Greenwood–Gleason
+          konstrukció).
+        </p>
+      </div>
+
+      <svg viewBox="0 0 260 220" style="max-width: 260px; display: block; margin: 1.5rem auto;" role="img" aria-label="R(3,3,3)=17 bizonyításához: v csúcs és 6 azonos színű éle egy hatszög csúcsaihoz">
+        <circle cx="30" cy="110" r="4" fill="var(--color-text)"/>
+        <text x="10" y="100" fill="var(--color-text)" font-size="12">v</text>
+        <g stroke="#58a6ff" stroke-width="1.5" fill="none">
+          <line x1="30" y1="110" x2="150" y2="40"/>
+          <line x1="30" y1="110" x2="150" y2="75"/>
+          <line x1="30" y1="110" x2="150" y2="110"/>
+          <line x1="30" y1="110" x2="150" y2="145"/>
+          <line x1="30" y1="110" x2="150" y2="180"/>
+          <line x1="30" y1="110" x2="230" y2="110"/>
+        </g>
+        <circle cx="150" cy="40" r="4" fill="var(--color-text)"/>
+        <circle cx="150" cy="75" r="4" fill="var(--color-text)"/>
+        <circle cx="150" cy="110" r="4" fill="var(--color-text)"/>
+        <circle cx="150" cy="145" r="4" fill="var(--color-text)"/>
+        <circle cx="150" cy="180" r="4" fill="var(--color-text)"/>
+        <circle cx="230" cy="110" r="4" fill="var(--color-text)"/>
+        <text x="235" y="60" fill="var(--color-text-muted)" font-size="12">6 csúcs</text>
+      </svg>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető</span>
+        <p>Ha \(r \ge 3\), \(k_1, \dots, k_r \ge 3\), akkor ezeken kívül csak egyetlen további érték ismert pontosan.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Erdős, Szekeres</span>
+        <p>Ha \(r \ge 2, k_1, \dots, k_r \in \mathbb{N}\), akkor:</p>
+        \[ R(k_1, \dots, k_r) \le \frac{(k_1 + \dots + k_r - r)!}{(k_1 - 1)! \dots (k_r - 1)!} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás — \(r\)-szeres indukcióval</span>
+        <p>
+          \(k_i = 1\) esetén b.o. \(= 1\), j.o. \(=
+          P_{k_1+\dots+k_r-r}^{k_1-1,\dots,k_r-1} \ge 1\). Így
+          \(k_1, \dots, k_r \ge 2\) és az állítás igaz \(R(k_1,
+          \dots, k_{i-1}, k_i - 1, k_{i+1}, \dots, k_r)\)-re (\(1 \le
+          i \le r\)). Ekkor a Ramsey-tétel és az indukciós feltétel
+          alapján:
+        </p>
+        \[ R(k_1, \dots, k_r) \le \sum_{i=1}^r R(k_1, \dots, k_i - 1, \dots, k_r) \le \sum_{i=1}^r \frac{(k_1 + \dots + k_r - 1 - r)!}{(k_1 - 1)! \dots (k_i - 2)! \dots (k_r - 1)!} \]
+        <p>A számláló és nevező kiemelésével:</p>
+        \[ = (k_1 + \dots + k_r - r - 1)! \cdot \sum_{i=1}^r \frac{k_i - 1}{(k_1 - 1)! \dots (k_r - 1)!} = \frac{(k_1 + \dots + k_r - r - 1)!}{(k_1 - 1)! \dots (k_r - 1)!} \cdot \underbrace{\sum_{i=1}^r (k_i - 1)}_{k_1 + \dots + k_r - r} = \frac{(k_1 + \dots + k_r - r)!}{(k_1 - 1)! \dots (k_r - 1)!} \]
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
