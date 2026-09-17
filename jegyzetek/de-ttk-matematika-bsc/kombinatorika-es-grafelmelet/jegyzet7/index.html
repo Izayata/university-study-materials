@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Euler-vonalak, Hamilton-körök, fák | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Euler zárt/nyílt tétele és a Fleury-módszer, Hamilton-út/kör, Ore- és Dirac-tétel, nyakláncszabály, valamint fák és erdők — DE TTK Matematika BSc, Kombinatorika és gráfelmélet.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/jegyzet7/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!-- Part 7 of 10 — see jegyzet1's head comment for the shape rationale. -->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/">Kombinatorika és gráfelmélet</a> / 7. jegyzet</p>
+
+      <h1>Euler-vonalak, Hamilton-körök, fák</h1>
+      <p class="item-meta">DE TTK Matematika BSc · Frissítve: 2026-09-17</p>
+
+      <p>
+        Ez a jegyzet három klasszikus témát tárgyal: mikor járható be
+        egy gráf minden éle pontosan egyszer (Euler-vonal), mikor
+        minden csúcsa pontosan egyszer (Hamilton-út/kör), és mik a
+        körmentes, összefüggő gráfok — a fák — alapvető
+        tulajdonságai.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Euler-vonal (zárt és nyílt eset), Fleury-módszer</li>
+        <li>Hamilton-út és Hamilton-kör, Ore- és Dirac-tétel</li>
+        <li>Nyakláncszabály</li>
+        <li>Fák és erdők</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Euler-vonalak</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Eredet</span>
+        <p>
+          Königsbergi hidak problémája (lehet-e egy olyan sétát
+          tenni, hogy minden hídon pontosan egyszer menjünk át?).
+          Euler válasza 1736-ban született meg. Ehhez tartozó gráf:
+          csúcsok = partok és szigetek, élek = hidak.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Euler-vonal</span>
+        <p>
+          Egy \(G\) gráfban egy vonalat <strong>Euler-vonalnak</strong>
+          nevezünk, ha tartalmazza \(G\) minden élét. Tehát az
+          Euler-vonal olyan séta, amely a gráf minden élét pontosan
+          egyszer tartalmazza.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Euler, zárt változat</span>
+        <p>
+          Legyen \(G\) izolált csúcsmentes gráf. Ekkor \(G\)-ben van
+          zárt Euler-vonal \(\iff\) \(G\) összefüggő és \(G\) minden
+          csúcsa páros fokú.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          <strong>⟹:</strong> Mivel nincs izolált csúcs, ezért az
+          E-vonal minden csúcson átmegy \(\implies\) az E-vonal
+          mentén minden csúcsból minden csúcsba el lehet jutni. Tehát
+          a gráf összefüggő. A kiinduló csúcsból először kimegyünk,
+          majd néhányszor be és ki, majd be. Ekkor az ő fokszáma \(1 +
+          (k \cdot 2) + 1 = \text{páros}\) (\(k \in \mathbb{N} \cup
+          \{0\}\)). A többi csúcs esetén néhányszor be és ki megyünk.
+          Ezek fokszáma \(l \cdot 2 = \text{páros}\) (\(l \in
+          \mathbb{N}\)).
+        </p>
+        <p>
+          <strong>⟸:</strong> Vegyünk egy tetszőleges csúcsot. Ebből
+          indulva építsünk vonalat: ha valamelyik csúcsba értünk,
+          onnan még nem használt élen megyünk tovább. Folytassuk ezt
+          amíg lehet. A vonal biztosan a kiinduló csúcsban akad el,
+          mert minden más csúcsban a páros fokszám miatt, ha bemegyünk,
+          akkor ki is tudunk belőle jönni. Tehát zárt vonal
+          keletkezett.
+        </p>
+        <ul>
+          <li>Ha ez a zárt vonal minden élt tartalmaz, akkor ez egy zárt E-vonal.</li>
+          <li>Ha ez a zárt vonal nem tartalmaz minden élt, akkor megmutatjuk, hogy meghosszabbítható a zárt vonal. Ezt szükség szerint többször megtéve, előbb-utóbb minden élt tartalmazó zárt vonalhoz, azaz zárt E-vonalhoz jutunk a végesség miatt.</li>
+        </ul>
+        <p>A zárt vonalon kívüli él kétféle lehet:</p>
+        <ol>
+          <li>
+            típus: egyik végpontja a zárt vonalon van. Legyen \(e\)
+            egy ilyen él, zárt vonalon lévő végpontja \(v\). Ekkor
+            \(v\)-ből az \(e\) élen át indulva építsünk vonalat úgy,
+            hogy az előző zárt vonal éleit nem használhatjuk. Ez
+            \(v\)-ben akad el a fokszámok párossága miatt, így egy új
+            zárt vonalat kapunk. Az előző zárt vonalon elindulunk,
+            \(v\)-be érve beszúrjuk az új zárt vonalat, majd megyünk
+            tovább az eredeti zárt vonalon — ez egy hosszabb zárt
+            vonal.
+          </li>
+          <li>
+            típus: egyik végpontja sincs a zárt vonalon. Mivel \(G\)
+            összefüggő és nincs izolált csúcs, ezen él egyik
+            végpontja és a zárt vonal egyik csúcsa között vezet út,
+            amelyen biztosan van 1. típusú él — ez visszavezeti az 1.
+            típusra.
+          </li>
+        </ol>
+      </div>
+
+      <p>A \(\impliedby\) bizonyítás módszert ad a zárt E-vonal megkeresésére: <strong>Fleury-módszer</strong>.</p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Euler, nyílt változat</span>
+        <p>
+          Legyen \(G\) izolált csúcsmentes gráf. Ekkor \(G\)-ben van
+          nyílt E-vonal \(\iff\) \(G\) összefüggő és \(G\)-ben
+          pontosan 2 db páratlan fokú csúcs van.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          <strong>⟹:</strong> összefüggőség, mint a zárt változatban.
+          A kiinduló csúcsból kimegyünk, majd néhányszor be és ki,
+          vagyis a fokszáma: \(1 + (\text{valahányszor } 2) =
+          \text{páratlan}\). A végző csúcsba néhányszor be és ki,
+          végül be, vagyis a fokszáma: \((\text{valahányszor } 2) + 1
+          = \text{páratlan}\). A többi csúcsnál néhányszor be és ki
+          \(\implies\) fokszám \(= (\text{valahányszor } 2) =
+          \text{páros}\).
+        </p>
+        <p>
+          <strong>⟸:</strong> húzzunk be egy új élt a két páratlan
+          fokú csúcs közé. A kiegészített gráf összefüggő és minden
+          csúcsának fokszáma páros. A kiegészített gráfban van zárt
+          E-vonal. Feltehető, hogy ennek első éle az új él. Ekkor
+          viszont az első lépést elhagyva \(G\)-ben nyílt E-vonalat
+          kapunk.
+        </p>
+      </div>
+
+      <p>A königsbergi hidak problémájához tartozó gráfban 4 páratlan fokú csúcs van \(\implies\) nincs benne sem zárt, sem nyílt E-vonal.</p>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Hamilton-út és Hamilton-kör</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Eredet</span>
+        <p>Hamilton dodekaéder játéka (1857).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Hamilton-út, Hamilton-kör</span>
+        <p>
+          Egy gráfban egy utat vagy kört <strong>Hamilton-útnak</strong>
+          (H-út), illetve <strong>Hamilton-körnek</strong> (H-kör)
+          nevezünk, ha a gráf minden csúcsát tartalmazza.
+        </p>
+      </div>
+
+      <p>
+        Egy H-út / H-kör minden csúcsot pontosan egyszer tartalmaz,
+        leszámítva az első és utolsó csúcs egybeesését (kör esetén).
+        A H-út / H-kör létezésének problémája akkor érdekes, ha van
+        legalább 3 csúcs — ilyenkor a hurokélek és párhuzamos élek
+        nem használhatók, ezért itt végig feltesszük, hogy a gráf
+        egyszerű.
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Legyen \(G\) egyszerű gráf.</p>
+        <ol>
+          <li>Ha \(G\)-ben van H-kör \(\implies\) van benne H-út.</li>
+          <li>Ha \(G\)-ben van H-út / H-kör \(\implies G\) összefüggő.</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <ol>
+          <li>A H-kör utolsó lépését elhagyva H-út adódik.</li>
+          <li>H-út / H-kör mentén minden csúcsból minden más csúcsba el lehet jutni \(\implies\) összefüggő.</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Ore</span>
+        <p>
+          Legyen \(G\) egyszerű gráf és \(|V(G)| \ge 3\). Ha
+          \(\forall v, w \in V(G)\) nem szomszédos csúcspár esetén
+          \(d(v) + d(w) \ge |V(G)|\), akkor \(G\)-ben van H-kör.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p><strong>I. Először a H-út létezését bizonyítjuk:</strong> vegyünk egy tetszőleges utat \(G\)-ben.</p>
+        <ul>
+          <li>Ha ez tartalmaz minden csúcsot \(\implies\) H-út.</li>
+          <li>Ha nem, akkor megmutatjuk, hogy meghosszabbítható másik úttá — ezt ismételve a végesség miatt előbb-utóbb H-úthoz jutunk.</li>
+        </ul>
+        <p>Az úton nem lévő csúcs kétféle lehet:</p>
+        <ol>
+          <li>eset: ha van olyan csúcs, ami nincs az úton, de szomszédos az út kezdő vagy végző csúcsával, akkor nyilvánvalóan meghosszabbítható az út.</li>
+          <li>
+            eset: ha nincs ilyen csúcs, azaz az úton nem lévő csúcsok
+            nem szomszédosak sem az út kezdő, sem a végző pontjával.
+            Menjen az út \(v\)-ből \(w\)-be, és \(x\) egy úton kívüli
+            csúcs. \(x\) szomszédainak száma \(d(x)\); \(w\)
+            szomszédainak száma \(d(w)\), és ezek a szomszédok mind
+            az úton vannak. \(w\) szomszédainak rákövetkezője is
+            \(d(w)\) db van. Ha a két így kapott halmaznak nem lenne
+            közös eleme, akkor \(|V(G)| \ge d(x) + d(w) + 1 \ge
+            |V(G)| + 1\) (mivel \(x\) és \(w\) nem szomszédosak, az
+            Ore-feltétel alkalmazható rájuk). Ez ellentmondáshoz
+            vezet, vagyis van közös elemük. Legyen a közös elem
+            \(y'\), és tfh. hogy \(y'\) az \(y\)-nak rákövetkezője.
+            Ekkor \((v, \dots, y, w, \dots, y', x)\) egy hosszabb út.
+          </li>
+        </ol>
+        <p><strong>II. H-kör létezése:</strong> az I. rész szerint van H-út, tfh. ez \(v\)-ből \(w\)-be megy.</p>
+        <ol>
+          <li>eset: \(v\) és \(w\) szomszédosak \(\implies\) értelemszerűen van H-kör.</li>
+          <li>
+            eset: \(v\) és \(w\) nem szomszédosak. \(v\)
+            szomszédainak száma \(d(v)\); \(w\) szomszédainak
+            rákövetkezője \(d(w)\) db van. Ha a két halmaznak nem
+            lenne közös eleme, akkor \(|V(G)| \ge d(v) + d(w) + 1 \ge
+            |V(G)| + 1\) (a \(v\)-t 1-esként véve figyelembe, mert
+            nem tartozik a rákövetkezők közé, és \(v, w\) nem
+            szomszédosak, az Ore-feltétel alkalmazható). Tehát a két
+            halmaznak van közös eleme: \(y'\), és tfh. hogy \(y\)-t
+            követi. Ekkor \((v, \dots, y, w, \dots, y', v)\) már
+            H-kör.
+          </li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Következmény — Dirac</span>
+        <p>
+          Legyen \(G\) egyszerű gráf, \(|V(G)| \ge 3\). Ha \(\forall v
+          \in V(G) : d(v) \ge \frac{|V(G)|}{2}\), akkor \(G\)-ben van
+          H-kör.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>Ellenőrizzük az Ore-feltételt! Legyen \(v, w\) két nem szomszédos csúcs. Ekkor:</p>
+        \[ d(v) + d(w) \ge \frac{|V(G)|}{2} + \frac{|V(G)|}{2} = |V(G)| \]
+        <p>Ez épp a Dirac-feltétel miatt teljesíti az Ore-t.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — nyakláncszabály</span>
+        <p>Legyen \(G\) egyszerű és összefüggő gráf.</p>
+        <ol>
+          <li>Ha \(k\) db csúcs törlése után a komponensek száma \(\ge k + 1\), akkor \(G\)-ben nincs H-kör.</li>
+          <li>Ha \(k\) db csúcs törlése után a komponensek száma \(\ge k + 2\), akkor \(G\)-ben nincs H-út.</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          (1) Tfh. \(G\)-ben van H-kör. Ekkor a H-körbeli élekkel
+          megadott feszítő részgráf \(k\) db csúcs törlése után
+          legfeljebb \(k\) db komponensre esik szét \(\implies G\) is
+          legfeljebb \(k\) db komponensre esik szét (a H-körben nem
+          lévő élek miatt még kisebb is lehet akár a komponensek
+          száma).
+        </p>
+        <p>
+          (2) Tfh. \(G\)-ben van H-út. Ekkor a H-útbeli élek által
+          adott feszítő részgráf \(k\) db csúcs törlésével max \(k +
+          1\) db komponensre esik szét \(\implies G\) is legfeljebb
+          ennyire.
+        </p>
+      </div>
+
+      <p>
+        Nem ismert jól használható szükséges és elégséges feltétel
+        H-utak / H-körök létezésére. Sőt, valószínűleg nincs is
+        hatékony módszer ennek eldöntésére.
+      </p>
+
+      <h2>Fák, erdők</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — fa</span>
+        <p>Egy gráf <strong>fa</strong>, ha összefüggő és körmentes.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — erdő</span>
+        <p>Egy gráf <strong>erdő</strong>, ha körmentes.</p>
+      </div>
+
+      <p>Definícióból adódik: az erdő komponensei fák.</p>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás</span>
+        <p>Minden fa és minden erdő egyszerű gráf.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>fa / erdő \(\implies\) körmentes \(\implies\) nincs benne sem 1-, sem 2-hosszúságú kör \(\implies\) nincsenek sem hurokélei, sem párhuzamos élei \(\implies\) egyszerű.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(G\) fa és \(|V(G)| \ge 2\), akkor \(G\)-ben van legalább 2 db elsőfokú csúcs (ezeket szokás <strong>leveleknek</strong> nevezni).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>Vegyük \(G\)-ben a leghosszabb utat: \((v_0, v_1, v_2, \dots, v_k)\).</p>
+        <ul>
+          <li>\(v_0 \to v_1\) szomszédja \(v_0\)-nak.</li>
+          <li>\(v_0\)-nak nincs másik szomszédja az úton, mert \(G\) körmentes.</li>
+          <li>\(v_0\)-nak nincs az úton kívüli szomszédja, mert a leghosszabb utat vettük.</li>
+        </ul>
+        <p>\(\implies d(v_0) = 1\). Hasonlóképpen \(d(v_k) = 1\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(G\) fa, akkor \(|V(G)| = |E(G)| + 1\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás — \(|V(G)|\) szerinti teljes indukcióval</span>
+        <ul>
+          <li>\(|V(G)| = 1\): egyetlen csúcs, erre \(|E(G)| = 0\), így \(1 = 0 + 1\).</li>
+          <li>
+            Tfh. \(|V(G)| \ge 2\) és kevesebb csúcsú fákra igaz az
+            állítás. Előző tétel szerint \(\exists v \in V(G) : d(v)
+            = 1\). Ekkor a \(G - v\) (v-t törölve) fa, amire
+            alkalmazható az indukciós feltétel: \(|V(G - v)| =
+            |E(G - v)| + 1\). Mivel \(v\)-vel együtt 1 csúcs és 1 él
+            törlődött: \(|V(G)| - 1 = (|E(G)| - 1) + 1\), amiből
+            \(|V(G)| = |E(G)| + 1\).
+          </li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Következmény</span>
+        <p>Ha \(G\) erdő, akkor \(|V(G)| = |E(G)| + c(G)\), ahol \(c(G)\) a komponensek száma.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>Alkalmazzuk a tételt \(G\) komponenseire (komponensenként +1).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Legyen \(n \ge 2\) és \(d_1, \dots, d_n \in \mathbb{N}\). Ekkor \(\exists\) fa \(d_1, \dots, d_n\) fokú csúcsokkal \(\iff d_1 + \dots + d_n = 2n - 2\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          <strong>⟹:</strong> tfh. van ilyen fa \(G \implies d_1 +
+          \dots + d_n = 2|E(G)|\) (fokszámi tétel). Mivel \(G\) fa,
+          \(|E(G)| = |V(G)| - 1 = n - 1\), így \(2(n - 1) = 2n - 2\).
+        </p>
+        <p><strong>⟸:</strong> \(n\) szerinti teljes indukcióval.</p>
+        <ul>
+          <li>\(n = 2\): \(d_1 + d_2 = 2 \cdot 2 - 2 = 2 \implies d_1 = d_2 = 1\). Ilyen fa létezik (két csúcs egy éllel összekötve).</li>
+          <li>
+            Tfh. \(n \ge 3\) és az állítás igaz \((n - 1)\)-re.
+            Feltehető, hogy a számok növekvő sorrendűek: \(d_1 \le
+            \dots \le d_n\). \(d_1 = 1\), mert ellenkező esetben
+            \(d_1 \ge 2 \implies d_1, \dots, d_n \ge 2\), ekkor \(d_1
+            + \dots + d_n \ge 2n\) lenne, ami ellentmondás az összeg
+            \(2n - 2\) értékének. \(d_n \ge 2\), mert ellenkező
+            esetben \(d_1 = d_2 = \dots = d_n = 1\) lenne, ekkor az
+            összeg \(n \ne 2n - 2\) lenne (mivel \(n \ge 3\)).
+          </li>
+          <li>
+            Ekkor \(d_2, \dots, d_{n-1}, d_n - 1 \in \mathbb{N}\),
+            számuk \(n - 1\). Összegük: \(d_2 + \dots + d_{n-1} +
+            (d_n - 1) = (2n - 2) - d_1 - 1 = (2n-2) - 1 - 1 = 2(n -
+            1) - 2\). Ezért ezekre alkalmazható az indukciós feltétel
+            \(\implies \exists\) fa \(d_2, \dots, d_{n-1}, d_n - 1\)
+            fokú csúcsokkal. Ezután vegyünk hozzá egy új csúcsot és
+            azt kössük össze a \((d_n - 1)\) fokú csúccsal. Az új
+            csúcs fokszáma \(1 = d_1\), a \((d_n - 1)\) fokú csúcs
+            fokszáma \(d_n\) lesz. A kapott gráf fa, amelyben a
+            fokszámok: \(d_1, d_2, \dots, d_n\).
+          </li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

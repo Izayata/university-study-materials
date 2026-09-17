@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Páros gráfok és síkbarajzolhatóság | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Páros gráfok jellemzési tételei, teljes páros gráf, Euler-formula, Platóni testek, élfelosztás és élösszevonás, valamint a Kuratowski- és Fáry–Wagner-tétel — DE TTK Matematika BSc, Kombinatorika és gráfelmélet.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/jegyzet8/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 8 of 10 — see jegyzet1's head comment for the shape rationale.
+  Source-content fixes applied here specifically (confirmed with the
+  site owner before building, 2026-09-17):
+  - "Páros gráfok jellemzési tétele, 1. változat" statement was
+    missing from the source (only its proof survived) — reconstructed
+    from the 2. változat's own reference to it ("ugyanazt jelenti,
+    mint az 1. változat").
+  - Two different theorems were both labeled "2. változat" in the
+    source (one about cycles, one about closed walks) — the second
+    is relabeled "3. változat" here.
+  - The rough "előretekintés" (preview) draft of the Euler-formula/
+    Platonic-solids material is dropped; only the complete, later
+    treatment is kept (same material, not new duplication).
+  - Several "% EMLÉKEZTETŐ" LaTeX comments (never wrapped in a real
+    box in the source) are promoted to real Emlékeztető note-boxes.
+  - TikZ figures (edge subdivision/contraction) redrawn as inline SVG.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/">Kombinatorika és gráfelmélet</a> / 8. jegyzet</p>
+
+      <h1>Páros gráfok és síkbarajzolhatóság</h1>
+      <p class="item-meta">DE TTK Matematika BSc · Frissítve: 2026-09-17</p>
+
+      <p>
+        Ez a jegyzet két nagy témát tárgyal: a páros gráfok
+        jellemzését (mikor bontható a csúcshalmaz két, éleket csak
+        egymás között nem tartalmazó osztályra), majd a
+        síkbarajzolhatóságot — az Euler-formulától a Platóni testeken
+        át a Kuratowski-tételig, ami pontosan megmondja, mely gráfok
+        rajzolhatók le a síkba élkereszteződés nélkül.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Páros gráfok jellemzési tételei, teljes páros gráf</li>
+        <li>Síkbarajzolt és síkbarajzolható gráfok, duális gráf</li>
+        <li>Euler-formula, Platóni testek</li>
+        <li>Élszám-becslések, élfelosztás és élösszevonás</li>
+        <li>Kuratowski-tétel, Fáry–Wagner-tétel</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Páros gráfok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — páros gráfok jellemzési tétele, 1. változat</span>
+        <p>Legyen \(G\) gráf, \(|V(G)| \ge 2\). Ekkor \(G\) páros gráf \(\iff\) \(G\) minden köre páros hosszú.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p><strong>I. eset — ha \(G\) összefüggő:</strong> mivel \(G\) összefüggő, ezért van benne \(T\) feszítőfa. \(T\) páros gráf (fa lévén nincs benne kör), azaz létezik \(A, B\) csúcsosztály, amelyek megfelelőek \(T\)-re (bármely \(T\)-beli él egyik végpontja \(A\)-beli, a másik \(B\)-beli).</p>
+        <p>
+          Most belátjuk, hogy \(A, B\) megfelelőek a \(T\)-n kívüli
+          élekre is. Legyen \(e \in E(G) \setminus E(T)\). Mivel
+          \(T\) fa, így \(T\) maximálisan körmentes \(\implies T + e\)
+          tartalmaz egy kört. A feltétel szerint ez a kör páros
+          hosszú. Mivel a kör tartalmazza az \(e\) élt (\(e\)
+          nélkül \(T\) körmentes), de a többi éle \(T\)-beli, így a
+          körbeli szomszédos csúcsok felváltva \(A\)- és \(B\)-beliek.
+          A páros hossz miatt az \(e\) él két végpontja különböző
+          osztályba kell essen (egyik \(\in A\), másik \(\in B\)).
+          Tehát \(A\) és \(B\) jó csúcsosztályok \(G\)-re is
+          \(\implies G\) páros gráf.
+        </p>
+        <p><strong>II. eset — ha \(G\) nem összefüggő:</strong></p>
+        <ol>
+          <li>Ha \(G\) üres gráf \(\implies G\) páros gráf.</li>
+          <li>
+            Ha \(G\) nem üres gráf \(\implies\) a komponensei közt
+            van legalább egy olyan, amely legalább 2 csúcsú. Ezek az
+            I. eset szerint páros gráfok. Legyen \(A\): ezen
+            komponensek 1. csúcsosztályainak uniója kiegészítve az
+            izolált csúcsokkal; legyen \(B\): ezen komponensek 2.
+            csúcsosztályainak uniója. Ezek megfelelő csúcsosztályok.
+          </li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — páros gráfok jellemzési tétele, 2. változat</span>
+        <p>Legyen \(G\) gráf, \(|V(G)| \ge 2\). Ekkor \(G\) páros gráf \(\iff\) \(G\)-ben nincs páratlan hosszú kör.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Ez közvetlen következménye az 1. változatnak, hiszen
+          "minden kör páros hosszú" pontosan ugyanazt jelenti, mint
+          hogy "nincs páratlan hosszú kör".
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — páros gráfok jellemzési tétele, 3. változat</span>
+        <p>Legyen \(G\) gráf, \(|V(G)| \ge 2\). Ekkor \(G\) páros gráf \(\iff\) \(G\)-ben minden zárt séta páros hosszú.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p><strong>⟹:</strong> ugyanúgy bizonyítható, mint az 1. változatnál.</p>
+        <p><strong>⟸:</strong> \(\forall\) zárt séta páros hosszú \(\implies \forall\) kör páros hosszú \(\xrightarrow{\text{1. változat}} G\) páros gráf.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető</span>
+        <p>
+          Minden kör egyben zárt séta is, de nem minden zárt séta kör
+          (a zárt séta ismételhet csúcsokat és éleket). Páros gráfban
+          nincs páratlan hosszúságú kör!
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — teljes páros gráf</span>
+        <p>
+          Egy \(G\) páros gráfot \(A, B\) csúcsosztályokkal
+          <strong>teljes páros gráfnak</strong> nevezünk, ha \(G\)
+          egyszerű, és \(A\) minden csúcsa össze van kötve \(B\)
+          minden csúcsával. Jelölés: \(|A|=m, |B|=n\) esetén
+          \(K_{m,n}\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás</span>
+        <p>A \(K_{m,n}\) teljes páros gráf éleinek száma: \(|E(K_{m,n})| = m \cdot n\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(G\) egy \(n\) csúcsú egyszerű páros gráf, akkor:</p>
+        \[ |E(G)| \le \left\lfloor \frac{n^2}{4} \right\rfloor \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Legyen a két csúcsosztály mérete \(a = |A|\) és \(b = |B|\),
+          ahol \(a + b = n\). A legtöbb élt akkor kapjuk, ha \(G\)
+          teljes páros gráf, azaz \(|E(G)| \le a \cdot b = a(n - a)\).
+          Az \(f(a) = a(n - a) = an - a^2\) másodfokú függvény
+          maximuma ott van, ahol \(a = \frac{n}{2}\).
+        </p>
+        <ul>
+          <li>Ha \(n\) páros: \(a = b = \frac{n}{2} \implies |E(G)| \le \frac{n}{2} \cdot \frac{n}{2} = \frac{n^2}{4}\).</li>
+          <li>Ha \(n\) páratlan: \(a = \frac{n-1}{2}\) és \(b = \frac{n+1}{2} \implies |E(G)| \le \frac{n-1}{2} \cdot \frac{n+1}{2} = \frac{n^2 - 1}{4} = \left\lfloor \frac{n^2}{4} \right\rfloor\).</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Síkbarajzolt és síkbarajzolható gráfok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Eredet</span>
+        <p>
+          3 ház – 3 kút probléma (\(K_{3,3}\)). Van 3 ház és 3 kút.
+          Vezessünk minden háztól minden kútig ösvényt úgy, hogy az
+          ösvények nem keresztezik egymást.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — síkbarajzolt gráf</span>
+        <ul>
+          <li>\(G\) csúcsai: síkbeli pontok,</li>
+          <li>\(G\) élei: síkbeli görbék, amelyek nem metszik önmagukat, illetve nem mennek át csúcson,</li>
+          <li>egy él gráfelméleti végpontjai: geometriai végpontjai,</li>
+          <li>élek nem keresztezhetik egymást!</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció</span>
+        <ul>
+          <li>Egy \(G\) gráf <strong>síkbarajzolható gráf</strong>, ha izomorf egy síkbarajzolt gráffal.</li>
+          <li>Hasonlóan definiálhatók <strong>térberajzolt gráfok</strong> térbeli pontokkal és görbékkel.</li>
+          <li>Egy \(G\) gráf <strong>térberajzolható gráf</strong>, ha izomorf egy térberajzolt gráffal.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető</span>
+        <p>Síkbarajzolt = már le van rajzolva a síkba élek kereszteződése nélkül. Síkbarajzolható = le lehet rajzolni a síkba élek kereszteződése nélkül (létezik síkbarajzolt reprezentációja).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Minden gráf térberajzolható.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Legyen \(G\) egy tetszőleges gráf. Vegyünk egy térbeli
+          egyenest (\(e\)), és azon \(|V(G)|\) db pontot. Továbbá
+          vegyünk \(|E(G)|\) db félsíkot, melyek határoló egyenese
+          \(e\). Ha \(G\)-ben a \(k\)-adik él köti össze az
+          \(i\)-edik és \(j\)-edik csúcsokat, akkor a \(k\)-adik
+          félsíkon rajzoljunk görbét az \(i\)-edik és \(j\)-edik
+          pontok közé úgy, hogy annak a végpontjain kívül ne legyen
+          közös pontja az egyenessel. Az így kapott gráf egy
+          térberajzolt gráf \(\cong G\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — tartományok</span>
+        <p>
+          Legyen \(G\) síkbarajzolt gráf. Jelölje \(X\) azon síkbeli
+          pontok halmazát, melyek nem csúcsok és nem megy át rajtuk
+          él. Két \(X\)-beli pont álljon relációban, ha van köztük
+          \(X\)-ben haladó görbe. Ez a reláció ekvivalenciareláció,
+          melynek ekvivalenciaosztályait \(G\)
+          <strong>tartományainak</strong> nevezzük.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — duális gráf</span>
+        <p>Legyen \(G\) síkbarajzolt gráf. A \(G\) <strong>duális gráfja</strong> a \(G^*\) gráf, melyre:</p>
+        <ul>
+          <li>\(G^*\) csúcsai: \(G\) tartományai,</li>
+          <li>\(G^*\) élei: \(G\) élei,</li>
+          <li>egy él két végpontja \(G^*\)-ban: az él két oldalán lévő tartományok.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(G\) síkbarajzolt gráf, akkor \(G^*\) síkbarajzolható.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Vegyünk fel \(G\) minden tartományának belsejében egy-egy
+          pontot (a tartomány "fővárosát"). Ebből a pontból a
+          tartományt határoló élek mindegyikéhez vezessünk
+          csillagszerűen egymást nem metsző görbéket. Egy élt a két
+          oldalról elérő görbék egyesítése után kapunk egy
+          síkbarajzolt gráfot \(\cong G^*\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető</span>
+        <p>Izomorf síkbarajzolt gráfok duálisai NEM feltétlenül izomorfak! A duális gráf szerkezete függ a síkbeli lerajzolás módjától is.</p>
+      </div>
+
+      <h2>Euler-formula és Platóni testek</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — kézfogási tétel síkbarajzolt gráfokra</span>
+        <p>Ha \(G\) síkbarajzolt gráf, akkor a tartományokat határoló élek számának összege \(= 2|E(G)|\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Euler-formula összefüggő gráfokra</span>
+        <p>Ha \(G\) összefüggő síkbarajzolt gráf, akkor:</p>
+        \[ |V(G)| - |E(G)| + t(G) = 2 \]
+        <p>ahol \(t(G)\) a tartományok száma.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Euler-formula, általános változat</span>
+        <p>Ha \(G\) tetszőleges síkbarajzolt gráf, akkor:</p>
+        \[ |V(G)| - |E(G)| + t(G) = c(G) + 1 \]
+        <p>ahol \(c(G)\) a komponensek száma.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Platóni testek gráfjai</span>
+        <p>
+          Legyen \(G\) összefüggő síkbarajzolt gráf, amely
+          \(k\)-reguláris és minden tartományát \(l\) db él
+          határolja (\(k, l \ge 3\)). Ekkor a lehetséges paraméterek
+          kényszerűen \((k-2)(l-2) < 4\), aminek pontosan 5 megoldása
+          van az egész számok körében — ezek a szabályos testek
+          (Platóni testek) élgráfjai:
+        </p>
+        <ol>
+          <li>\(k=3, l=3 \implies |V|=4, |E|=6, t=4\) (<strong>Tetraéder</strong>)</li>
+          <li>\(k=3, l=4 \implies |V|=8, |E|=12, t=6\) (<strong>Kocka / Hexaéder</strong>)</li>
+          <li>\(k=4, l=3 \implies |V|=6, |E|=12, t=8\) (<strong>Oktaéder</strong>)</li>
+          <li>\(k=3, l=5 \implies |V|=20, |E|=30, t=12\) (<strong>Dodekaéder</strong>)</li>
+          <li>\(k=5, l=3 \implies |V|=12, |E|=30, t=20\) (<strong>Ikozaéder</strong>)</li>
+        </ol>
+      </div>
+
+      <p>
+        Gráfelméleti eszközökkel azt láttuk be, hogy 5 db szabályos
+        poliéder létezik — ezeket szokás <strong>Platóni testeknek</strong>
+        hívni.
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető — a Platóni testekhez</span>
+        <p>
+          Kettős duálisok: a kocka duálisa az oktaéder, a dodekaéderé
+          az ikozaéder, a tetraéderé önmaga (önduális). Élek száma
+          megegyezik a duális pároknál: \(k\) és \(l\) szerepet
+          cserél, \(|E|\) azonos marad, \(|V|\) és \(t\)
+          felcserélődik.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Élszám-becslések és a Kuratowski-tétel</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Legyen \(G\) egyszerű síkbarajzolható gráf, hogy \(|V(G)| \ge 3\). Ekkor:</p>
+        \[ |E(G)| \le 3|V(G)| - 6 \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Feltehető, hogy az élek száma \(|E(G)| \ge 2\) (ha
+          \(|E|=0\) vagy \(1\), és \(|V| \ge 3\), az állítás
+          triviálisan teljesül). Vegyünk egy \(G\)-vel izomorf
+          síkbarajzolt gráfot. Itt minden tartományt legalább \(3\)
+          él határol, mert \(1\) vagy \(2\) határoló él esetén
+          hurokél vagy párhuzamos él lenne, de \(G\) egyszerű.
+        </p>
+        <p>A kézfogási tétel síkbarajzolt gráfokra:</p>
+        \[ 2 \cdot |E(G)| = \text{tartományokat határoló élek számának összege} \ge 3 \cdot t(G) \implies t(G) \le \frac{2}{3}|E(G)| \]
+        <p>Az Euler-formula alapján (feltéve, hogy \(G\) összefüggő, így \(c(G)=1\)):</p>
+        \[ |V(G)| - |E(G)| + t(G) = 2 \implies t(G) = 2 - |V(G)| + |E(G)| \]
+        <p>Ezt behelyettesítve a fenti egyenlőtlenségbe:</p>
+        \[ 2 - |V(G)| + |E(G)| \le \frac{2}{3}|E(G)| \implies 6 - 3|V(G)| + 3|E(G)| \le 2|E(G)| \implies |E(G)| \le 3|V(G)| - 6 \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Legyen \(G\) egyszerű síkbarajzolható <strong>páros</strong> gráf, hogy \(|V(G)| \ge 3\). Ekkor:</p>
+        \[ |E(G)| \le 2|V(G)| - 4 \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Ismét tfh. \(|E(G)| \ge 2\). Vegyünk egy \(G\)-vel izomorf
+          síkbarajzolt gráfot. Síkbarajzolt gráf egy tartományát
+          határoló élek egy vagy több zárt sétát alkotnak. De a
+          páros gráfok jellemzési tételei miatt ezek hossza páros
+          \(\implies\) minden tartományt páros sok él határol
+          \(\implies\) minden tartományt legalább \(4\) él határol.
+        </p>
+        \[ 2 \cdot |E(G)| \ge 4 \cdot t(G) \implies t(G) \le \frac{1}{2}|E(G)| \]
+        <p>Az Euler-formulából \(t(G) = 2 - |V(G)| + |E(G)|\):</p>
+        \[ 2 - |V(G)| + |E(G)| \le \frac{1}{2}|E(G)| \implies 4 - 2|V(G)| + 2|E(G)| \le |E(G)| \implies |E(G)| \le 2|V(G)| - 4 \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(G\) egyszerű, síkbarajzolható gráf, akkor \(\delta(G) \le 5\) (ahol \(\delta(G)\) a minimális fokszám).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Indirekt: tfh. \(\delta(G) \ge 6 \implies \forall v \in
+          V(G): d(v) \ge 6\). Ekkor a fokszámösszeg:
+        </p>
+        \[ \sum_{v \in V(G)} d(v) \ge 6|V(G)| \implies 2|E(G)| \ge 6|V(G)| \implies |E(G)| \ge 3|V(G)| \]
+        <p>Másfelől a korábbi tétel alapján \(|E(G)| \le 3|V(G)| - 6\). Ez ellentmondás, hiszen \(3|V(G)| \le |E(G)| \le 3|V(G)| - 6\) nem lehetséges! Így \(\delta(G) \le 5\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető</span>
+        <p>
+          A \(\delta(G) \le 5\) állítás kulcsfontosságú az
+          Ötszín-tétel indukciós lépéséhez (lásd a következő
+          jegyzetben) — garanciát ad arra, hogy minden síkgráfban van
+          legalább egy legfeljebb 5-fokú csúcs, amit elhagyhatunk.
+        </p>
+      </div>
+
+      <h3>Élfelosztás és élösszevonás</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — él felosztása</span>
+        <p>
+          Legyen \(G = (V, E, \varphi)\) gráf és \(e \in E\), hogy
+          \(\varphi(e) = \{v_1, v_2\}\) (\(e\) végpontjai \(v_1,
+          v_2\)). Ekkor az \(e\) él <strong>felosztásával</strong>
+          adódó gráf \(G' = (V', E', \varphi')\), ahol:
+        </p>
+        <ul>
+          <li>\(V' = V \cup \{x\}\) (\(x \notin V\), eredetileg \(x\) nem csúcs),</li>
+          <li>\(E' = (E \setminus \{e\}) \cup \{e_1, e_2\}\) (\(e_1, e_2 \notin E\)),</li>
+          <li>\(\varphi'(f) = \varphi(f)\) ha \(f \in E \setminus \{e\}\); \(\varphi'(e_1) = \{v_1, x\}\); \(\varphi'(e_2) = \{v_2, x\}\).</li>
+        </ul>
+      </div>
+
+      <svg viewBox="0 0 320 100" style="max-width: 320px; display: block; margin: 1.5rem auto;" role="img" aria-label="Él felosztása: v1–e–v2 helyett v1–e1–x–e2–v2">
+        <circle cx="30" cy="30" r="4" fill="var(--color-text)"/>
+        <circle cx="30" cy="70" r="4" fill="var(--color-text)"/>
+        <line x1="30" y1="30" x2="30" y2="70" stroke="var(--color-text-muted)" stroke-width="1.5"/>
+        <text x="10" y="26" fill="var(--color-text)" font-size="11">v₁</text>
+        <text x="10" y="78" fill="var(--color-text)" font-size="11">v₂</text>
+        <text x="38" y="54" fill="var(--color-text-muted)" font-size="11">e</text>
+        <text x="90" y="54" fill="var(--color-accent)" font-size="16">⟹</text>
+        <circle cx="200" cy="30" r="4" fill="var(--color-text)"/>
+        <circle cx="200" cy="50" r="4" fill="var(--color-accent)"/>
+        <circle cx="200" cy="70" r="4" fill="var(--color-text)"/>
+        <line x1="200" y1="30" x2="200" y2="50" stroke="var(--color-text-muted)" stroke-width="1.5"/>
+        <line x1="200" y1="50" x2="200" y2="70" stroke="var(--color-text-muted)" stroke-width="1.5"/>
+        <text x="180" y="26" fill="var(--color-text)" font-size="11">v₁</text>
+        <text x="208" y="54" fill="var(--color-accent)" font-size="11">x</text>
+        <text x="180" y="78" fill="var(--color-text)" font-size="11">v₂</text>
+        <text x="140" y="42" fill="var(--color-text-muted)" font-size="11">e₁</text>
+        <text x="140" y="62" fill="var(--color-text-muted)" font-size="11">e₂</text>
+      </svg>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — élek összevonása</span>
+        <p>
+          Legyen \(G = (V, E, \varphi)\) gráf, \(x \in V : d(x) = 2\),
+          és az \(x\)-re illeszkedő két él \(e_1, e_2 \in E\), hogy
+          \(\varphi(e_1) = \{v_1, x\}, \varphi(e_2) = \{v_2, x\}\).
+          Ekkor az \(e_1, e_2\) élek <strong>összevonásával</strong>
+          adódó gráf \(G' = (V', E', \varphi')\), ahol:
+        </p>
+        <ul>
+          <li>\(V' = V \setminus \{x\}\),</li>
+          <li>\(E' = (E \setminus \{e_1, e_2\}) \cup \{e\}\) (\(e \notin E\)),</li>
+          <li>\(\varphi'(f) = \varphi(f)\) ha \(f \in E \setminus \{e_1, e_2\}\); \(\varphi'(e) = \{v_1, v_2\}\).</li>
+        </ul>
+      </div>
+
+      <svg viewBox="0 0 320 100" style="max-width: 320px; display: block; margin: 1.5rem auto;" role="img" aria-label="Élek összevonása: v1–e1–x–e2–v2 helyett v1–e–v2">
+        <circle cx="30" cy="30" r="4" fill="var(--color-text)"/>
+        <circle cx="30" cy="50" r="4" fill="var(--color-accent)"/>
+        <circle cx="30" cy="70" r="4" fill="var(--color-text)"/>
+        <line x1="30" y1="30" x2="30" y2="50" stroke="var(--color-text-muted)" stroke-width="1.5"/>
+        <line x1="30" y1="50" x2="30" y2="70" stroke="var(--color-text-muted)" stroke-width="1.5"/>
+        <text x="10" y="26" fill="var(--color-text)" font-size="11">v₁</text>
+        <text x="38" y="54" fill="var(--color-accent)" font-size="11">x</text>
+        <text x="10" y="78" fill="var(--color-text)" font-size="11">v₂</text>
+        <text x="-30" y="42" fill="var(--color-text-muted)" font-size="11"> </text>
+        <text x="40" y="42" fill="var(--color-text-muted)" font-size="11">e₁</text>
+        <text x="40" y="62" fill="var(--color-text-muted)" font-size="11">e₂</text>
+        <text x="90" y="54" fill="var(--color-accent)" font-size="16">⟹</text>
+        <circle cx="200" cy="30" r="4" fill="var(--color-text)"/>
+        <circle cx="200" cy="70" r="4" fill="var(--color-text)"/>
+        <line x1="200" y1="30" x2="200" y2="70" stroke="var(--color-text-muted)" stroke-width="1.5"/>
+        <text x="180" y="26" fill="var(--color-text)" font-size="11">v₁</text>
+        <text x="180" y="78" fill="var(--color-text)" font-size="11">v₂</text>
+        <text x="208" y="54" fill="var(--color-text-muted)" font-size="11">e</text>
+      </svg>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — topológiailag izomorf gráfok</span>
+        <p>
+          Két gráf <strong>topológiailag izomorf</strong>, ha az
+          elsőt véges sok élfelosztással és élösszevonással olyan
+          gráffá lehet alakítani, amely izomorf a második gráffal.
+        </p>
+      </div>
+
+      <p>
+        Az élfelosztás és élösszevonás nem befolyásolja a
+        síkbarajzolhatóságot \(\implies\) ha két gráf topológiailag
+        izomorf, akkor vagy mindkettő síkbarajzolható, vagy egyik sem.
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Kuratowski tétele síkbarajzolható gráfokra</span>
+        <p>
+          Egy \(G\) gráf síkbarajzolható \(\iff G\) nem tartalmaz
+          olyan részgráfot, amely topológiailag izomorf \(K_5\)-tel
+          vagy \(K_{3,3}\)-mal.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p><strong>⟹:</strong> elég azt belátni, hogy \(K_5\) és \(K_{3,3}\) nem síkbarajzolható.</p>
+        <ul>
+          <li>\(K_5\): \(|E(K_5)| = \frac{5 \cdot 4}{2} = 10\). A korábbi tétel szerint egyszerű síkgráfra \(|E| \le 3|V| - 6 = 3(5) - 6 = 9\). De \(10 \not\le 9 \implies K_5\) nem síkbarajzolható.</li>
+          <li>\(K_{3,3}\): \(|E(K_{3,3})| = 3 \cdot 3 = 9\). Mivel \(K_{3,3}\) páros gráf, rá \(|E| \le 2|V| - 4 = 2(6) - 4 = 8\). De \(9 \not\le 8 \implies K_{3,3}\) nem síkbarajzolható.</li>
+        </ul>
+        <p><strong>⟸:</strong> nem bizonyítjuk.</p>
+      </div>
+
+      <p>Beláttuk, hogy a 3 ház – 3 kút problémájának nincs megoldása.</p>
+
+      <p>
+        <strong>Példa — Petersen-gráf nem síkbarajzolhatósága:</strong>
+        legyen \(G\) a Petersen-gráf. Tekintsük a \(G - \{v_6\}\)
+        részgráfot. A megmaradt \(v_7, v_8, v_9\) másodfokú
+        csúcsoknál végezzünk élösszevonást! Az így kapott gráf izomorf
+        \(K_{3,3}\)-mal. Tehát \(G\)-nek van olyan részgráfja (\(G -
+        \{v_6\}\)), amely topológiailag izomorf \(K_{3,3}\)-mal
+        \(\xrightarrow{\text{Kuratowski-t.}} G\) nem síkbarajzolható.
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető</span>
+        <p>
+          A Kuratowski-tétel a síkbarajzolhatóság pontos (szükséges
+          és elégséges) jellemzése. \(K_5\) a legkisebb nem síkgráf,
+          \(K_{3,3}\) a legkisebb páros nem síkgráf (tiltott
+          "aljzatok" / tiltott minorok).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Fáry–Wagner-tétel</span>
+        <p>
+          Ha \(G\) egyszerű, síkbarajzolható gráf, akkor van olyan
+          \(G\)-vel izomorf síkbarajzolt gráf, amelyben minden él
+          egyenes szakasz.
+        </p>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

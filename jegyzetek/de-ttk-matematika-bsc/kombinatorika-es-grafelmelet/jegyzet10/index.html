@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Gráfok mátrixai és irányított gráfok | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Szomszédsági és illeszkedési mátrix, irányított gráfok, kifok/befok, irányított Euler-vonal és Hamilton-kör, DAG-ok és topologikus sorrend, Gallai–Roy-tétel — DE TTK Matematika BSc, Kombinatorika és gráfelmélet.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/jegyzet10/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!-- Part 10 of 10 — see jegyzet1's head comment for the shape rationale. -->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/">Kombinatorika és gráfelmélet</a> / 10. jegyzet</p>
+
+      <h1>Gráfok mátrixai és irányított gráfok</h1>
+      <p class="item-meta">DE TTK Matematika BSc · Frissítve: 2026-09-17</p>
+
+      <p>
+        A sorozat záró jegyzete: a gráfok mátrixos leírásával
+        (szomszédsági és illeszkedési mátrix) indul, majd bevezeti az
+        irányított gráfokat — kifok/befok, irányított Euler-vonal és
+        Hamilton-kör, körmentes irányított gráfok (DAG) és
+        topologikus sorrend —, végül összeköti az irányítást a
+        gráfszínezéssel (Gallai–Roy-tétel).
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Szomszédsági és illeszkedési mátrix</li>
+        <li>Irányított gráfok, kifok, befok</li>
+        <li>Irányított Euler-vonal és Hamilton-kör</li>
+        <li>Körmentes irányított gráfok (DAG), topologikus sorrend</li>
+        <li>Színezések és irányított gráfok kapcsolata</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Gráfok mátrixai</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — szomszédsági mátrix</span>
+        <p>
+          Legyen \(G\) gráf és \(V(G) = \{v_1, \dots, v_n\}\). Ekkor
+          \(G\) <strong>szomszédsági mátrixa</strong> az az \(A =
+          (a_{ij})_{n \times n}\) mátrix, ahol \(a_{ij}\) a \(v_i,
+          v_j\) csúcsok közötti élek száma (\(1 \le i, j \le n\)).
+        </p>
+      </div>
+
+      <p><strong>Tulajdonságok:</strong></p>
+      <ol>
+        <li>A szomszédsági mátrix szimmetrikus (\(a_{ij} = a_{ji}\)).</li>
+        <li>A hurokélek a főátlóbeli 1-nél nagyobb vagy egyenlő elemeknek felelnek meg.</li>
+        <li>A párhuzamos élek olyan elemeknek felelnek meg, melyek \(\ge 2\).</li>
+        <li>Egy gráf egyszerű \(\iff\) szomszédsági mátrixának főátlójában csak 0-k vannak, ezen kívül csak 0-k és 1-esek szerepelnek.</li>
+        <li>\(d(v_i) = i\)-edik sorösszeg \(+\) főátló \(i\)-edik eleme (a hurokélt kétszer kell számolni).</li>
+        <li>\(v_i\) izolált csúcs \(\iff i\)-edik sorban minden elem 0 (és oszlopban is).</li>
+        <li>A szomszédsági mátrix függ a csúcsok sorrendjének megválasztásától, így sor- és oszlopcserétől eltekintve egyértelmű csak.</li>
+        <li>A szomszédsági mátrix a gráfot izomorfia erejéig határozza meg.</li>
+      </ol>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Legyen \(G\) gráf, \(V(G) = \{v_1, \dots, v_n\}\), \(A\) a
+          szomszédsági mátrixa és \(\ell \in \mathbb{N}\). Ekkor
+          \((A^\ell)_{ij} =\) a \(v_i\)-ből \(v_j\)-be menő \(\ell\)
+          hosszú séták száma.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás — \(\ell\) szerinti teljes indukcióval</span>
+        <p>\(\ell = 1\): ez az \(A\) mátrix definíciója.</p>
+        <p>Tegyük fel, hogy \(\ell\)-re igaz, ekkor \((\ell+1)\)-re:</p>
+        \[ (A^{\ell+1})_{ij} = \sum_{k=1}^n (A^\ell)_{ik} \cdot a_{kj} \]
+        <p>
+          ahol \((A^\ell)_{ik}\) a \(v_i\)-ből \(v_k\)-ba menő
+          \(\ell\) hosszú séták száma, \(a_{kj}\) pedig a \(v_k\)-ból
+          \(v_j\)-be menő 1 hosszú séták (élek) száma. Ezek szorzata
+          és összege megadja a \(v_i\)-ből \(v_j\)-be menő \(\ell+1\)
+          hosszú séták számát.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — illeszkedési mátrix</span>
+        <p>
+          Legyen \(G\) nem üres gráf, \(V(G) = \{v_1, \dots, v_n\}\)
+          és \(E(G) = \{e_1, \dots, e_m\}\). Ekkor \(G\)
+          <strong>illeszkedési mátrixa</strong> a \(B =
+          (b_{ij})_{n \times m}\) mátrix, ahol:
+        </p>
+        \[ b_{ij} = \begin{cases} 1, &amp; \text{ha } v_i \text{ és } e_j \text{ illeszkedik} \\ 0 &amp; \text{amúgy} \end{cases} \]
+        <p>(Nem hurokél oszlopában pontosan 2 db 1-es van, a végpontokhoz tartozó sorokban.)</p>
+      </div>
+
+      <p><strong>Tulajdonságok:</strong></p>
+      <ol>
+        <li>Hurokél oszlopában minden elem 0 (a hurokél helyéről nem ad információt).</li>
+        <li>Hurokélmentes gráf esetén párhuzamos élekhez megegyező oszlopok tartoznak.</li>
+        <li>Egy gráf egyszerű \(\iff\) ha nincs csak 0-kat tartalmazó oszlop, és az oszlopai különbözők.</li>
+        <li>Hurokélmentes gráf esetén \(d(v_i) =\) az \(i\)-edik sorbeli 1-esek száma (sorösszeg).</li>
+        <li>Hurokélmentes gráf esetén \(v_i\) izolált csúcs \(\iff\) az \(i\)-edik sor minden eleme 0.</li>
+        <li>Az illeszkedési mátrix függ az élek és a csúcsok sorrendjétől, sor- és oszlopcserék erejéig egyértelmű.</li>
+        <li>Hurokélmentes esetben az illeszkedési mátrix a gráfot izomorfiától eltekintve határozza meg.</li>
+      </ol>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Irányított gráfok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — irányított gráf</span>
+        <p>
+          Legyen \(V \ne \emptyset\) és \(E\) véges halmazok, valamint
+          \(\Psi : E \to V \times V\) leképezés. Ekkor a \(D = (V, E,
+          \Psi)\) hármast <strong>irányított gráfnak</strong>
+          nevezzük. \(V\) elemei a \(D\) csúcsai, \(E\) elemei a
+          \(D\) élei; ha \(e \in E\)-re \(\Psi(e) = (v, w)\), akkor
+          az \(e\) él a \(v\) csúcsból a \(w\) csúcsba mutat (\(v\)
+          az \(e\) él kezdőpontja, \(w\) a végpontja).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció</span>
+        <p>Legyen \(D = (V, E, \Psi)\) irányított gráf:</p>
+        <ul>
+          <li>\(e \in E\) <strong>hurokél</strong>, ha \(\exists v \in V : \Psi(e) = (v, v)\).</li>
+          <li>\(e, f \in E\) <strong>párhuzamos élek</strong>, ha \(\Psi(e) = \Psi(f)\) (itt számít az irány is!).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — egyszerű irányított gráf</span>
+        <p>Egy irányított gráf <strong>egyszerű</strong>, ha nincs benne hurokél és nincsenek benne párhuzamos élek.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — kifok és befok</span>
+        <p>
+          Egy \(D\) irányított gráfban a \(v \in V(D)\) csúcs
+          <strong>kifoka</strong> a \(v\)-ből kiinduló élek száma,
+          <strong>befoka</strong> a \(v\)-be érkező élek száma.
+          Jelölés: \(d_{\text{ki}}(v)\), \(d_{\text{be}}(v)\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció</span>
+        <p>Egy \(D\) irányított gráfban a \(v \in V(D)\) csúcs:</p>
+        <ul>
+          <li><strong>izolált csúcs</strong>, ha \(d_{\text{be}}(v) = d_{\text{ki}}(v) = 0\)</li>
+          <li><strong>forrás</strong>, ha \(d_{\text{be}}(v) = 0\)</li>
+          <li><strong>nyelő</strong>, ha \(d_{\text{ki}}(v) = 0\)</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — kézfogási tétel, irányított változat</span>
+        <p>Ha \(D\) irányított gráf, akkor:</p>
+        \[ \sum_{v \in V(D)} d_{\text{ki}}(v) = |E(D)| = \sum_{v \in V(D)} d_{\text{be}}(v) \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>Minden élt egyszer számolunk mindkét összegben.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — irányított teljes gráf</span>
+        <p>Egy irányított gráfot <strong>irányított teljes gráfnak</strong> nevezünk, ha egyszerű, és bármely csúcsból bármely másik csúcsba vezet él.</p>
+      </div>
+
+      <svg viewBox="0 0 200 200" style="max-width: 200px; display: block; margin: 1.5rem auto;" role="img" aria-label="4 csúcsú irányított teljes gráf, minden csúcspár között mindkét irányban éllel">
+        <defs>
+          <marker id="arr10" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-text-muted)"/>
+          </marker>
+        </defs>
+        <g stroke="var(--color-text-muted)" stroke-width="1.2" marker-end="url(#arr10)" fill="none">
+          <line x1="45" y1="30" x2="155" y2="30"/>
+          <line x1="150" y1="45" x2="150" y2="155"/>
+          <line x1="155" y1="170" x2="45" y2="170"/>
+          <line x1="50" y1="155" x2="50" y2="45"/>
+          <line x1="55" y1="40" x2="145" y2="160"/>
+          <line x1="55" y1="160" x2="145" y2="40"/>
+        </g>
+        <g stroke="var(--color-text-muted)" stroke-width="1.2" marker-end="url(#arr10)" fill="none">
+          <line x1="155" y1="35" x2="45" y2="35"/>
+          <line x1="145" y1="45" x2="145" y2="155"/>
+          <line x1="45" y1="165" x2="155" y2="165"/>
+          <line x1="45" y1="155" x2="45" y2="45"/>
+        </g>
+        <circle cx="40" cy="30" r="4" fill="var(--color-text)"/>
+        <circle cx="160" cy="30" r="4" fill="var(--color-text)"/>
+        <circle cx="160" cy="170" r="4" fill="var(--color-text)"/>
+        <circle cx="40" cy="170" r="4" fill="var(--color-text)"/>
+      </svg>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Egy \(n\) csúcsú irányított teljes gráf élszáma \(= n(n-1)\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>1. bizonyítás: \(V_n^2 = \frac{n!}{(n-2)!} = n(n-1)\).</p>
+        <p>2. bizonyítás: minden csúcs kifoka \(= (n-1)\). Így a fokok összege (irányított kézfogási tétellel): \(n(n-1)\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — irányított gráfhoz tartozó irányítatlan gráf, és irányítás</span>
+        <p>
+          Legyen \(D = (V,E,\Psi)\) irányított gráf. A \(D\)-hez
+          tartozó <strong>irányítatlan gráf</strong> \(G = (V,E,\varphi)\),
+          ahol ha \(e \in E\)-re \(\Psi(e) = (v,w)\), akkor
+          \(\varphi(e) = \{v,w\}\).
+        </p>
+        <p>
+          Megfordítva: legyen \(G = (V,E,\varphi)\) irányítatlan
+          gráf. Ekkor \(G\) egy <strong>irányításán</strong> olyan
+          \(D = (V,E,\Psi)\) irányított gráfot értünk, ahol ha \(e
+          \in E\)-re \(\varphi(e) = \{v,w\}\), akkor \(\Psi(e) =
+          (v,w)\) vagy \(\Psi(e) = (w,v)\).
+        </p>
+      </div>
+
+      <p>\(G\) irányításainak száma: \(2^{\text{G-beli nem hurokélek száma}}\).</p>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — irányított séta, vonal, út, kör</span>
+        <p>
+          Legyen \(D = (V,E,\Psi)\) irányított gráf. Ebben \((v_0,
+          e_1, v_1, e_2, v_2, \dots, v_{\ell-1}, e_\ell, v_\ell)\)
+          <strong>irányított séta</strong>, ha \(v_0, v_1, \dots,
+          v_\ell \in V\), \(e_1, e_2, \dots, e_\ell \in E\), továbbá
+          \(\Psi(e_i) = (v_{i-1}, v_i)\) minden \(i = 1, \dots,
+          \ell\) esetén. A séta hossza az élek száma. A fentiekhez
+          hasonlóan definiálható a nyílt/zárt irányított séta,
+          irányított vonal, irányított út, irányított kör.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — erősen és gyengén összefüggő</span>
+        <p>Legyen \(D\) irányított gráf.</p>
+        <ul>
+          <li>\(D\) <strong>erősen összefüggő</strong>, ha minden csúcsból minden másik csúcsba vezet irányított út.</li>
+          <li>\(D\) <strong>gyengén összefüggő</strong>, ha a \(D\)-hez tartozó irányítatlan gráf összefüggő.</li>
+        </ul>
+      </div>
+
+      <p>
+        Erősen összefüggő \(\implies D\) gyengén összefüggő (a
+        megfordítás nem igaz — pl. egyetlen, egy irányba mutató él
+        két csúcs között gyengén, de nem erősen összefüggő). Az erős
+        összefüggőség definíciója ekvivalens azzal, ha az irányított
+        út helyett (nyílt) irányított séta létezését követeljük meg.
+        Erősen összefüggő irányított gráfban lehet távolságot
+        definálni, de erre nem teljesül a szimmetria: egy 3 csúcsú,
+        körbe irányított háromszögben (\(v \to w \to u \to v\))
+        \(d(v,w) = 1\), de \(d(w,v) = 2\).
+      </p>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Irányított Euler-vonal és Hamilton-kör</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — irányított Euler-vonal</span>
+        <p>A zárt / nyílt irányított Euler-vonal definíciója az irányítatlan esethez hasonló.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Euler, zárt irányított változat</span>
+        <p>
+          Legyen \(D\) izolált csúcsmentes irányított gráf. Ekkor
+          \(D\)-ben van zárt irányított Euler-vonal \(\iff\) \(D\)
+          gyengén összefüggő és \(\forall v \in V(D) :
+          d_{\text{ki}}(v) = d_{\text{be}}(v)\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p><strong>⟹:</strong> nyilvánvaló.</p>
+        <p>
+          <strong>⟸:</strong> az irányítatlan esethez hasonlóan
+          készítsünk egy csúcsból kiindulva irányított vonalat, amíg
+          el nem akadunk — ez zárt irányított vonal lesz. Ha van
+          olyan él, amely nincs benne, az háromféle lehet:
+        </p>
+        <ul>
+          <li><strong>1. típus:</strong> ha a kezdőpontja (\(v\)) a zárt irányított vonalban van — ekkor \(v\)-ből az adott élen indulva, az eredeti vonal éleit nem használva építünk egy új zárt irányított vonalat, amit \(v\)-nél beilleszthetünk az eredetibe.</li>
+          <li><strong>2. típus:</strong> ha a végpontja (\(w\)) van a zárt irányított vonalban. Mivel \(d_{\text{ki}}(w) = d_{\text{be}}(w)\), van olyan él is a vonalon kívül, ami \(w\)-ből indul, azaz 1. típusú, ami már kezelve van.</li>
+          <li><strong>3. típus:</strong> ha sem a kezdő-, sem a végpontja nincs a zárt irányított vonalban — a gyenge összefüggőség miatt ez 1. vagy 2. típusú él létezését eredményezi.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Euler, nyílt irányított változat</span>
+        <p>Legyen \(D\) izolált csúcsmentes irányított gráf. Ekkor \(D\)-ben van nyílt irányított Euler-vonal \(\iff\) \(D\) gyengén összefüggő, és \(\exists x, y \in V(D)\):</p>
+        \[ d_{\text{ki}}(x) = d_{\text{be}}(x) + 1, \quad d_{\text{be}}(y) = d_{\text{ki}}(y) + 1 \]
+        <p>továbbá \(\forall v \in V(D) \setminus \{x, y\} : d_{\text{ki}}(v) = d_{\text{be}}(v)\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p><strong>⟹:</strong> nyilvánvaló (\(x\) a nyílt irányított Euler-vonal legelső csúcsa, \(y\) pedig az utolsó csúcs).</p>
+        <p><strong>⟸:</strong> húzzunk be egy új élt \(y\)-ból \(x\)-be. Ezzel visszavezettük a zárt irányított változatra.</p>
+      </div>
+
+      <p>
+        A zárt irányított változatban a "gyengén összefüggő"
+        lecserélhető "erősen összefüggő"-re (mert a zárt irányított
+        Euler-vonal végére érve újra elindulhatunk rajta). De a
+        nyílt irányított változatban <strong>nem</strong> (pl.
+        egyetlen, egy irányba mutató él).
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — irányított Hamilton-út, irányított Hamilton-kör</span>
+        <p>Irányított H-út, irányított H-kör definíciója értelemszerű.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Legyen \(D\) egyszerű irányított gráf.</p>
+        <ol>
+          <li>Ha \(D\)-ben van irányított H-kör \(\implies\) van irányított H-út.</li>
+          <li>Ha \(D\)-ben van irányított H-kör \(\implies D\) erősen összefüggő.</li>
+          <li>Ha \(D\)-ben van irányított H-út \(\implies D\) gyengén összefüggő.</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          (2)-nél mint az előbbi megjegyzésben zárt irányított
+          Euler-vonal esetén. (3)-ban nem garantálható az erős
+          összefüggőség (pl. egyetlen, egy irányba mutató él).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Woodall–Ore, irányított változat</span>
+        <p>
+          Legyen \(D\) egyszerű irányított gráf és \(|V(D)| \ge 3\).
+          Tegyük fel, hogy \(v, w \in V(D)\) olyan csúcsok, hogy
+          nincs él \(v\)-ből \(w\)-be. Ekkor ha \(d_{\text{ki}}(v) +
+          d_{\text{be}}(w) \ge |V(D)|\), akkor \(D\)-ben van
+          irányított Hamilton-kör.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Következmény — Nash-Williams–Dirac, irányított változat</span>
+        <p>
+          Legyen \(D\) egyszerű irányított gráf és \(|V(D)| \ge 3\).
+          Ha \(\forall v \in V(D) : d_{\text{ki}}(v) \ge
+          \frac{|V(D)|}{2}\) és \(d_{\text{be}}(v) \ge
+          \frac{|V(D)|}{2}\), akkor \(D\)-ben van irányított
+          Hamilton-kör.
+        </p>
+      </div>
+
+      <h2>Irányított körmentes gráfok (DAG)</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(D\) irányított körmentes irányított gráf, akkor \(D\)-ben van forrás és nyelő.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Bizonyítsuk a nyelő létezését indirekt módon: tegyük fel,
+          hogy nincs nyelő \(\implies\) minden csúcsból megy ki él.
+          Induljunk el valamelyik csúcsból — mindig tovább tudunk
+          menni. A végesség miatt előbb-utóbb lesz ismétlődés, így
+          keletkezik egy irányított kör, ami ellentmondás. Forrásra
+          hasonlóan bizonyítható, csak "visszafelé" lépkedünk a
+          gráfban.
+        </p>
+      </div>
+
+      <p>
+        A tétel megfordítása nem igaz: van forrás- és
+        nyelőmentesen is körmentes gráf, de olyan gráf is, aminek van
+        forrása és nyelője, mégis van benne irányított kör (pl. egy
+        3 csúcsú kör, ahol mindhárom csúcsnak van ki- és bemenő éle
+        is).
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — topologikus sorrend</span>
+        <p>
+          Legyen \(D\) irányított gráf. Ekkor \(D\) irányított
+          körmentes \(\iff\) a csúcsoknak van olyan sorrendje, hogy
+          minden él kezdőpontja előbb szerepel, mint a végpontja
+          (<strong>topologikus sorrend</strong>).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          <strong>⟹:</strong> irányított körmentes esetben az előző
+          tétel szerint van forrás, legyen ez az 1. csúcs. Ezt
+          törölve is van forrás, legyen ez a 2. csúcs, stb. Ez a
+          sorrend topologikus sorrend: nem lenne az, ha \(\exists k,
+          \ell : k \ge \ell\) és él megy a \(k\)-adik csúcsból az
+          \(\ell\)-edik csúcsba — de akkor az \(\ell\)-edik lépésben
+          választott csúcs nem lett volna forrás.
+        </p>
+        <p>
+          <strong>⟸:</strong> topologikus sorrend létezése esetén
+          mindig csak nagyobb sorszámú csúcsba lehet lépni, így nem
+          juthatunk vissza a kiinduló csúcsba \(\implies\) nincs is
+          kör.
+        </p>
+      </div>
+
+      <h2>Színezések és irányított gráfok kapcsolata</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Gallai, Roy</span>
+        <p>Legyen \(G\) egyszerű irányítatlan gráf. Ekkor \(G\) minden irányításában van \(\chi(G)-1\) hosszú irányított út.</p>
+      </div>
+
+      <p>Speciálisan \(G = K_n\)-re: \(K_n\) minden irányítása esetén van \(n-1\) hosszú irányított út \(\implies\) irányított H-út.</p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Stanley</span>
+        <p>Legyen \(G\) egyszerű irányítatlan gráf. Ekkor \(|P_G(-1)| = \) irányított körmentes irányítások száma.</p>
+      </div>
+
+      <h2>Irányított gráfok mátrixai</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — irányított szomszédsági mátrix</span>
+        <p>
+          Legyen \(D\) irányított gráf és \(V(D) = \{v_1, \dots,
+          v_n\}\). Ekkor \(D\) <strong>szomszédsági mátrixa</strong>
+          \((a_{ij})_{n \times n}\), ahol \(a_{ij} = v_i\)-ből
+          \(v_j\)-be menő élek száma (\(1 \le i, j \le n\)) — nem
+          feltétlenül szimmetrikus mátrix.
+        </p>
+      </div>
+
+      <p><strong>Tulajdonságok:</strong></p>
+      <ol>
+        <li>Hurokelek, párhuzamos élek, egyszerűség — hasonlóan jellemezhetők, mint az irányítatlan esetben.</li>
+        <li>\(d_{\text{ki}}(v_i) = i\)-edik sorösszeg, \(d_{\text{be}}(v_i) = i\)-edik oszlopösszeg.</li>
+        <li>
+          \(v_i\) izolált csúcs \(\iff\) az \(i\)-edik sorban és
+          \(i\)-edik oszlopban minden elem 0. \(v_i\) forrás
+          \(\iff\) az \(i\)-edik oszlopban minden elem 0. \(v_i\)
+          nyelő \(\iff\) az \(i\)-edik sorban minden elem 0.
+        </li>
+      </ol>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — irányított illeszkedési mátrix</span>
+        <p>
+          Legyen \(D\) irányított gráf, \(V(D) = \{v_1, \dots,
+          v_n\}\) és \(E(D) = \{e_1, \dots, e_m\}\). Ekkor \(D\)
+          <strong>illeszkedési mátrixa</strong> \((b_{ij})_{n \times
+          m}\), ahol:
+        </p>
+        \[ b_{ij} = \begin{cases} -1, &amp; \text{ha } v_i \text{ kezdőpontja } e_j\text{-nek, és } e_j \text{ nem hurokél} \\ 1, &amp; \text{ha } v_i \text{ végpontja } e_j\text{-nek, és } e_j \text{ nem hurokél} \\ 0 &amp; \text{amúgy} \end{cases} \]
+      </div>
+
+      <p><strong>Tulajdonságok:</strong></p>
+      <ol>
+        <li>Hurokél, párhuzamos élek, egyszerűség — hasonlóan jellemezhetők, mint az irányítatlan esetben.</li>
+        <li>Hurokélmentes irányított gráf esetén \(d_{\text{ki}}(v_i) = i\)-edik sorbeli \((-1)\)-esek száma, \(d_{\text{be}}(v_i) = i\)-edik sorbeli 1-esek száma.</li>
+        <li>Hurokélmentes irányított gráf esetén \(v_i\) izolált csúcs \(\iff\) az \(i\)-edik sor minden eleme 0.</li>
+        <li>\(v_i\) forrás \(\iff\) az \(i\)-edik sorban minden elem \(-1\) vagy 0.</li>
+        <li>\(v_i\) nyelő \(\iff\) az \(i\)-edik sorban minden elem 1 vagy 0.</li>
+      </ol>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

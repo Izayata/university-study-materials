@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Részgráfok, izomorfizmus, séták és utak | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Feszítő és feszített részgráf, klikk, gráfizomorfizmus, séta/vonal/út/kör, összefüggőség, komponens és csúcstávolság — DE TTK Matematika BSc, Kombinatorika és gráfelmélet.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/jegyzet6/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!-- Part 6 of 10 — see jegyzet1's head comment for the shape rationale. -->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/">Kombinatorika és gráfelmélet</a> / 6. jegyzet</p>
+
+      <h1>Részgráfok, izomorfizmus, séták és utak</h1>
+      <p class="item-meta">DE TTK Matematika BSc · Frissítve: 2026-09-17</p>
+
+      <p>
+        Ez a jegyzet a gráfok belső szerkezetével foglalkozik:
+        részgráf-fajták (feszítő, feszített), klikk, gráfizomorfizmus,
+        majd a séta/vonal/út/kör fogalmak és az ezekre épülő
+        összefüggőség, komponens és csúcstávolság.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Részgráf, feszítő részgráf, feszített részgráf</li>
+        <li>Klikk, gráfizomorfizmus</li>
+        <li>Séta, vonal, út, kör</li>
+        <li>Összefüggőség, komponens</li>
+        <li>Csúcsok távolsága</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Részgráfok, izomorfizmus</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — részgráf</span>
+        <p>
+          A \(G' = (V', E', \varphi')\) gráf a \(G = (V, E, \varphi)\)
+          gráf <strong>részgráfja</strong>, ha \(V' \subseteq V\),
+          \(E' \subseteq E\) és \(\varphi' = \varphi|_{E'}\) (a
+          megmaradó élek végpontjai amik \(G\)-ben voltak).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — feszítő részgráf</span>
+        <p>A \(G\) gráfnak \(G'\) <strong>feszítő részgráfja</strong>, ha részgráfja \(G\)-nek és \(V(G') = V(G)\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — feszített részgráf</span>
+        <p>
+          Legyen \(G\) gráf, \(\emptyset \neq X \subseteq V(G)\).
+          Ekkor az <strong>\(X\) által feszített részgráf</strong> az
+          a részgráf, melynek csúcshalmaza \(X\), és tartalmaz minden
+          olyan élt, aminek mindkét végpontja \(X\)-beli.
+        </p>
+      </div>
+
+      <p>
+        Példa: \(X = \{v, u, z\}\) által feszített részgráf — ha az
+        eredeti \(G\) gráf egy 4 csúcsú teljes gráf (\(v, u, z, w\)
+        csúcsokkal), akkor az \(X\) által feszített részgráf a \(v,
+        u, z\) csúcsok által alkotott \(K_3\) (háromszög) gráf.
+      </p>
+
+      <p>
+        \(G - e\) feszítő részgráf (mivel a csúcshalmaz nem
+        változik). \(G - v\) feszített részgráf (\(V \setminus \{v\}\)
+        által feszített). De \(G / e\) (él összehúzása)
+        <strong>nem</strong> részgráf, mert \(x\) csúcsa
+        \(G/e\)-nek, de nem csúcsa \(G\)-nek (\(x \in V(G/e)
+        \setminus V(G)\)).
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — részgráfok előállítása</span>
+        <ol>
+          <li>\(G'\) részgráfja \(G\)-nek \(\iff\) \(G'\) véges sok csúcs és él törlésével adódik \(G\)-ből.</li>
+          <li>\(G'\) feszítő részgráfja \(G\)-nek \(\iff\) \(G'\) véges sok él törlésével adódik \(G\)-ből.</li>
+          <li>\(G'\) feszített részgráfja \(G\)-nek \(\iff\) \(G'\) véges sok csúcs törlésével adódik \(G\)-ből.</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — klikk</span>
+        <p>Egy gráfban egy teljes részgráfot <strong>klikknek</strong> nevezünk.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — klikkméret</span>
+        <p>
+          Egy \(G\) gráf <strong>max klikkmérete</strong> a legtöbb
+          csúcsot tartalmazó klikkjének csúcsszáma. Jelölése:
+          \(\omega(G)\) (ómega).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — gráfok izomorfizmusa</span>
+        <p>
+          A \(G = (V, E, \varphi)\) és \(G' = (V', E', \varphi')\)
+          gráfok <strong>izomorfak</strong>, ha \(\exists f: V \to
+          V'\) bijektív függvény és \(\exists g: E \to E'\) bijektív
+          függvény, amelyek illeszkedéstartók: azaz, ha \(e \in E\)
+          és \(\varphi(e) = \{v, w\}\), akkor \(\varphi'(g(e)) =
+          \{f(v), f(w)\}\). Jelölés: \(G \cong G'\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(G, G'\) egyszerű gráfok, akkor:</p>
+        \[ G \cong G' \iff \exists f: V(G) \to V(G') \text{ bijektív fc.}, \text{ amely szomszédságtartó} \]
+        <p>(azaz \(v, w\) szomszédos \(G\)-ben \(\iff f(v), f(w)\) szomszédos \(G'\)-ben).</p>
+      </div>
+
+      <p>
+        Izomorf gráfok lényeges tulajdonságai megegyeznek: csúcsszám,
+        élszám, egyszerűség, fokszámok sorozata, max klikkméret, stb.
+      </p>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Séta, vonal, út, kör és összefüggőség</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — séta</span>
+        <p>
+          Legyen \(G = (V, E, \varphi)\) gráf. Ebben a \((v_0, e_1,
+          v_1, e_2, v_2, \dots, v_{l-1}, e_l, v_l)\) sorozatot
+          <strong>sétának</strong> nevezzük, ha \(v_i \in V\), \(e_i
+          \in E\), és \(\varphi(e_i) = \{v_{i-1}, v_i\}\) (\(i = 1,
+          \dots, l\)).
+        </p>
+        <ul>
+          <li>A fenti séta <strong>nyílt</strong>, ha a kiinduló csúcs nem egyenlő az érkezővel (\(v_0 \neq v_l\)).</li>
+          <li>A séta <strong>zárt</strong>, ha \(v_0 = v_l\).</li>
+          <li>Egy séta <strong>hossza</strong> a benne szereplő élek száma (jelölésben: \(l\)).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — vonal</span>
+        <p>Egy sétát <strong>vonalnak</strong> nevezünk, ha nincs benne ismétlődő él (a benne szereplő élek különbözők).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — út</span>
+        <p>Egy sétát <strong>útnak</strong> nevezünk, ha nyílt, és nincs benne sem ismétlődő él, sem ismétlődő csúcs.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — kör</span>
+        <p>Egy sétát <strong>körnek</strong> nevezünk, ha zárt és nincs benne sem ismétlődő él, sem ismétlődő csúcs, kivéve a kezdő és végző csúcs egybeesését.</p>
+      </div>
+
+      <p>
+        út \(\implies\) nyílt vonal \(\implies\) nyílt séta; kör
+        \(\implies\) zárt vonal \(\implies\) zárt séta (fordítva
+        egyik sem igaz általánosságban).
+      </p>
+
+      <p>
+        Ha a gráf egyszerű, akkor a definícióbeli sétát egyértelműen
+        leírja a csúcsok sorozata: \((v_0, v_1, v_2, \dots, v_{l-1},
+        v_l)\). Ezt bizonyos bizonyításokban használni fogjuk.
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — összefüggő gráf</span>
+        <p>Egy gráf <strong>összefüggő</strong>, ha minden csúcsából minden más csúcsba vezet út.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Egy gráf összefüggő \(\iff\) ha minden csúcsából minden más csúcsba vezet (nyílt) séta.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p><strong>⟹:</strong> triviális, mert minden út séta.</p>
+        <p><strong>⟸:</strong> azt kell belátni, hogy ha két különálló csúcs között vezet séta, akkor út is vezet közöttük.</p>
+        <ul>
+          <li>Ha a sétában lévő csúcsok és élek különbözők, akkor az egy út.</li>
+          <li>Tegyük fel, hogy a sétában van ismétlődő csúcs. Ekkor a csúcs két előfordulása közötti részt elhagyva a sétából, rövidebb sétát kapunk.</li>
+          <li>Tegyük fel, hogy a sétában van ismétlődő él. Ekkor van ismétlődő csúcs is, ezt pedig már vizsgáltuk.</li>
+          <li>A rövidítést szükség esetén többször alkalmazzuk. A végesség miatt előbb-utóbb nem lesz a séta rövidíthető. Ekkor nem lesz benne sem ismétlődő csúcs, sem ismétlődő él, azaz út lesz.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — komponens</span>
+        <p>
+          Egy \(G\) gráf <strong>komponensén</strong> olyan
+          összefüggő részgráfját értjük, ami nem bővíthető másik
+          összefüggő részgráffá (maximálisan összefüggő részgráf).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — csúcsok távolsága</span>
+        <p>
+          Legyen \(G\) összefüggő gráf. Ekkor a \(v, w \in V(G)\)
+          különböző csúcsok <strong>távolsága</strong> a \(v\) és
+          \(w\) közötti legrövidebb út hossza. Továbbá \(v\) és \(v\)
+          távolsága \(0\). Jelölés: \(d(v, w)\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — távolságfüggvény tulajdonságai</span>
+        <ol>
+          <li>\(\forall v, w \in V(G) : d(v, w) \ge 0\) és \(d(v, w) = 0 \iff v = w\)</li>
+          <li>\(\forall v, w \in V(G) : d(v, w) = d(w, v)\) (szimmetria)</li>
+          <li>\(\forall v, w, z \in V(G) : d(v, w) + d(w, z) \ge d(v, z)\) (háromszög-egyenlőtlenség)</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>(1) és (2) triviális. (3):</p>
+        <ul>
+          <li>1. eset: ha \(v = w \implies \underbrace{d(v, w)}_{0} + d(w, z) = d(v, z)\).</li>
+          <li>2. eset: ha \(w = z \implies d(v, w) + \underbrace{d(w, z)}_{0} = d(v, z)\).</li>
+          <li>3. eset: ha \(v = z \implies d(v, w) + d(w, z) \ge 0 = d(v, z)\).</li>
+          <li>
+            4. eset: ha \(v, w, z\) különbözők. Ekkor \(v\)-ből
+            \(w\)-be vezet egy \(d(v, w)\) hosszú út, \(w\)-ből
+            \(z\)-be vezet egy \(d(w, z)\) hosszú út. Ezek
+            összefűzésével kapunk egy \(v\)-ből \(z\)-be vezető
+            \(d(v, w) + d(w, z)\) hosszú sétát. Előző bizonyításban
+            láttuk, hogy a séta lerövidíthető úttá. Ekkor \(v\)-ből
+            \(z\)-be vezet egy legfeljebb \(d(v, w) + d(w, z)\)
+            hosszú út. Így a \(v, z\) közötti legrövidebb út hossza
+            \(d(v, z) \le d(v, w) + d(w, z)\).
+          </li>
+        </ul>
+      </div>
+
+      <p>Ha egy távolságfüggvény teljesíti az (1)–(3) tulajdonságokat, azt úgy mondjuk: \((V(G), d)\) metrikus tér.</p>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

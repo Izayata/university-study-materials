@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Permutációk paritása, ciklusok és a szita-formula | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Inverzió és paritás, a szimmetrikus csoport, ciklusfelbontás, a szita-formula (tartalmazás-kizárás elve), Euler-féle φ-függvény és fixpontmentes permutációk — DE TTK Matematika BSc, Kombinatorika és gráfelmélet.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/jegyzet4/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!-- Part 4 of 10 — see jegyzet1's head comment for the shape rationale. -->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/">Kombinatorika és gráfelmélet</a> / 4. jegyzet</p>
+
+      <h1>Permutációk paritása, ciklusok és a szita-formula</h1>
+      <p class="item-meta">DE TTK Matematika BSc · Frissítve: 2026-09-17</p>
+
+      <p>
+        Ez a jegyzet a permutációkat algebrai szempontból vizsgálja
+        tovább: bevezeti az inverziót és a paritást, a permutációk
+        szorzását és a szimmetrikus csoportot, a ciklusfelbontást,
+        majd a szita-formulával (tartalmazás-kizárás elve) és annak
+        alkalmazásaival (Euler-féle \(\varphi\)-függvény,
+        fixpontmentes permutációk) zár.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Inverzió és paritás</li>
+        <li>Permutációk szorzása, a szimmetrikus csoport</li>
+        <li>Ciklusok és ciklusfelbontás</li>
+        <li>Szita-formula (tartalmazás-kizárás elve)</li>
+        <li>Euler-féle φ-függvény, fixpontmentes permutációk</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Permutációk paritása</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető — szemléltetés és kétsoros jelölés</span>
+        <p>
+          Az \(\{1, 2, \dots, n\}\) elemek ismétlés nélküli
+          permutációinak halmazát \(S_n\)-nel jelöljük (\(|S_n| =
+          n!\)). Egy \(\pi \in S_n\) permutáció megadható kétsoros
+          alakban:
+        </p>
+        \[ \pi = \begin{pmatrix} 1 & 2 & \dots & n \\ i_1 & i_2 & \dots & i_n \end{pmatrix} \]
+        <p>ahol az oszlopok sorrendje tetszőlegesen felcserélhető.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — inverzió és paritás</span>
+        <p>
+          A \(\pi = (i_1, i_2, \dots, i_n) \in S_n\) permutációban az
+          \((i_k, i_l)\) pár <strong>inverzióban áll</strong>, ha
+          \(k &lt; l\), de \(i_k &gt; i_l\). Az inverziók számát
+          \(I(\pi)\)-vel jelöljük. A \(\pi\) permutáció
+          <strong>páros</strong>, ha \(I(\pi)\) páros, és
+          <strong>páratlan</strong>, ha \(I(\pi)\) páratlan.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — elemcsere hatása a paritásra</span>
+        <p>
+          Ha egy \(S_n\)-beli permutációban két elemet felcserélünk
+          (transzpozíció), akkor a permutáció paritása megváltozik.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Tegyük fel, hogy az \(i_k\) és \(i_l\) elemeket cseréljük
+          fel, melyek között \(s\) darab elem áll.
+        </p>
+        <ul>
+          <li>Az \(i_k\) előtt és az \(i_l\) után álló elemekkel való inverziós viszonyok nem változnak.</li>
+          <li>A köztes \(s\) darab elemmel való inverziós viszonyok kétszer váltanak (egyszer az \(i_k\)-val, egyszer az \(i_l\)-lel), így ezek hatása páros (\(2s\)).</li>
+          <li>Az \(i_k\) és \(i_l\) egymáshoz képesti viszonya pontosan 1-gyel változik.</li>
+        </ul>
+        <p>Az inverziók számának változása: \(2s + 1\), ami páratlan szám. Így a permutáció paritása megváltozik.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — páros és páratlan permutációk száma</span>
+        <p>
+          Ha \(n \ge 2\), akkor az \(S_n\)-beli páros permutációk
+          száma megegyezik a páratlan permutációk számával, azaz
+          mindkettőből \(\frac{n!}{2}\) darab van.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Képezzünk egy \(f\) leképezést a páros permutációkból a
+          páratlan permutációkba úgy, hogy minden páros permutáció
+          első két elemét felcseréljük. Ez a leképezés bijektív, így
+          a két halmaz elemszáma megegyezik.
+        </p>
+      </div>
+
+      <h2>Permutációk szorzása és a szimmetrikus csoport</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — permutációk szorzása</span>
+        <p>Legyen \(\pi = (i_1, i_2, \dots, i_n) \in S_n\) és \(\rho = (j_1, j_2, \dots, j_n) \in S_n\).</p>
+        <p>
+          A \(\pi\) és \(\rho\) permutációk szorzata a leképezések
+          egymás utáni elvégzése (összetétele), ahol a műveletet
+          balról jobbra hajtjuk végre:
+        </p>
+        \[ \pi \cdot \rho = (j_{i_1}, j_{i_2}, \dots, j_{i_n}) \in S_n \]
+        <p>
+          azaz ha \(\pi\) a \(k\)-t az \(i_k\)-ba viszi, és \(\rho\)
+          az \(i_k\)-t a \(j_{i_k}\)-ba viszi, akkor \(\pi \cdot
+          \rho\) a \(k\)-t a \(j_{i_k}\)-ba viszi.
+        </p>
+      </div>
+
+      <p>Legyen \(\pi = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\ 3 & 5 & 1 & 4 & 2 \end{pmatrix}\), \(\rho = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\ 5 & 4 & 3 & 2 & 1 \end{pmatrix}\). Ekkor a szorzat permutáció:</p>
+      \[ \pi \cdot \rho = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\ 3 & 1 & 5 & 2 & 4 \end{pmatrix} \]
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — a szimmetrikus csoport tulajdonságai</span>
+        <p>Az \((S_n, \cdot)\) struktúra csoportot alkot, melyet \(n\)-edfokú szimmetrikus csoportnak nevezünk:</p>
+        <ol>
+          <li><strong>Asszociativitás:</strong> \(\forall \pi, \rho, \sigma \in S_n : (\pi \cdot \rho) \cdot \sigma = \pi \cdot (\rho \cdot \sigma)\).</li>
+          <li><strong>Egységelem:</strong> létezik \(\varepsilon = (1, 2, \dots, n) \in S_n\) identikus permutáció, melyre \(\forall \pi \in S_n : \pi \cdot \varepsilon = \varepsilon \cdot \pi = \pi\).</li>
+          <li><strong>Inverz elem:</strong> \(\forall \pi \in S_n\)-hez létezik egyértelműen \(\pi^{-1} \in S_n\), melyre \(\pi \cdot \pi^{-1} = \pi^{-1} \cdot \pi = \varepsilon\).</li>
+        </ol>
+      </div>
+
+      <p>
+        Ha \(n \ge 3\), akkor az \(S_n\) csoport <strong>nem
+        kommutatív</strong>. Például \(n=3\) esetén felcserélve az
+        elemek sorrendjét eltérő szorzatot kapunk: \(\pi \cdot \rho
+        \neq \rho \cdot \pi\).
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — paritás szabályai szorzásra és inverzre</span>
+        <ul>
+          <li>Azonos paritású \(S_n\)-beli permutációk szorzata páros.</li>
+          <li>Különböző paritású \(S_n\)-beli permutációk szorzata páratlan.</li>
+          <li>Bármely \(\pi \in S_n\) esetén \(I(\pi^{-1}) = I(\pi)\), azaz \(\pi\) és \(\pi^{-1}\) paritása megegyezik.</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Ciklusok és ciklusfelbontás</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető — ciklikus eltolás fogalma</span>
+        <p>
+          Egy \(l\) hosszúságú ciklus egy olyan speciális permutáció,
+          amely az \((i_1, i_2, \dots, i_l)\) elemeket körkörösen
+          eltolja (\(i_1 \to i_2 \to \dots \to i_l \to i_1\)), míg az
+          összes többi elemet helyben hagyja.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — ciklus és idegen ciklusok</span>
+        <ul>
+          <li>
+            Egy \(\pi \in S_n\) permutáció \(l\) hosszúságú
+            <strong>ciklus</strong>, ha létezik \(l\) (\(2 \le l \le
+            n\)) és \(i_1, \dots, i_l \in \{1, \dots, n\}\) úgy, hogy
+            \(\pi(i_1)=i_2, \pi(i_2)=i_3, \dots, \pi(i_l)=i_1\), és a
+            többi \(n-l\) elemet \(\pi\) fixen hagyja. Jelölése:
+            \((i_1 \, i_2 \, \dots \, i_l)\).
+          </li>
+          <li>Két \(S_n\)-beli ciklust <strong>idegen ciklusoknak</strong> nevezünk, ha nincs közös mozgatott elemük.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — ciklusok tulajdonságai</span>
+        <ol>
+          <li>Ha \(\pi \in S_n\) egy \(l\) hosszú ciklus, akkor \(\pi^l = \varepsilon\).</li>
+          <li>Ha \(\pi, \rho \in S_n\) idegen ciklusok, akkor felcserélhetők: \(\pi \cdot \rho = \rho \cdot \pi\).</li>
+          <li>Ha \(\pi \in S_n\) egy \(l\) hosszú ciklus, akkor \(\pi\) és \(l\) <strong>különböző paritású</strong> (azaz páros \(l\) esetén a ciklus páratlan, páratlan \(l\) esetén a ciklus páros).</li>
+          <li>Egy \(l\) hosszú ciklus inverze is \(l\) hosszú ciklus: \((i_1 \, i_2 \, \dots \, i_{l-1} \, i_l)^{-1} = (i_l \, i_{l-1} \, \dots \, i_2 \, i_1)\).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — ciklusfelbontási tétel</span>
+        <p>
+          Minden \(\pi \in S_n\) (\(\pi \neq \varepsilon\))
+          permutáció felírható páronként idegen ciklusok
+          szorzataként, és ez a felírás a tényezők sorrendjétől
+          eltekintve egyértelmű.
+        </p>
+      </div>
+
+      <h2>Szita-formula és alkalmazásai</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — szita-formula (tartalmazás és kizárás elve)</span>
+        <p>Legyen \(X \neq \emptyset\) véges halmaz és \(Y_1, \dots, Y_m \subseteq X\). Ekkor:</p>
+        \[ \left| X \setminus \bigcup_{i=1}^{m} Y_i \right| = |X| + \sum_{\emptyset \neq J \subseteq \{1, \dots, m\}} (-1)^{|J|} \left| \bigcap_{j \in J} Y_j \right| \]
+        <p>Részletesen kiírva:</p>
+        \[ \left| X \setminus \bigcup_{i=1}^{m} Y_i \right| = |X| - \sum_{i=1}^m |Y_i| + \sum_{1 \le i &lt; j \le m} |Y_i \cap Y_j| - \dots + (-1)^m |Y_1 \cap \dots \cap Y_m| \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>Azonosítsuk, hányszor számoljuk meg \(X\) egy tetszőleges \(y\) elemét a jobb oldalon:</p>
+        <ul>
+          <li>Ha \(y \notin \bigcup Y_i\), akkor a bal oldalon 1-szer számoljuk. A jobb oldalon csak \(|X|\)-ben szerepel (1-szer), a metszetekben nem. Így \(1 = 1\).</li>
+          <li>
+            Ha \(y \in \bigcup Y_i\), akkor \(y\) pontosan \(s\) darab
+            \(Y_i\) halmaznak eleme (\(s \ge 1\)). A bal oldalon
+            0-szor számoljuk. A jobb oldalon a hozzájárulása:
+            \[ 1 - \binom{s}{1} + \binom{s}{2} - \binom{s}{3} + \dots + (-1)^s \binom{s}{s} = (1-1)^s = 0 \]
+          </li>
+        </ul>
+        <p>Tehát az egyenlőség minden elemre teljesül.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Euler-féle φ-függvény képlete</span>
+        <p>
+          Legyen \(n \in \mathbb{N}, n > 1\) prímhatvány-felbontása
+          \(n = p_1^{\alpha_1} p_2^{\alpha_2} \cdots
+          p_m^{\alpha_m}\). Ekkor az \(n\)-nél nem nagyobb, \(n\)-hez
+          relatív prím pozitív egész számok száma:
+        </p>
+        \[ \varphi(n) = n \left(1 - \frac{1}{p_1}\right) \left(1 - \frac{1}{p_2}\right) \cdots \left(1 - \frac{1}{p_m}\right) \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — szürjektív leképezések száma</span>
+        <p>
+          Legyen \(k, n \in \mathbb{N}\), \(|A| = k\) és \(|B| = n\).
+          Az \(A \to B\) szürjektív (ráképező) függvények száma:
+        </p>
+        \[ \sum_{j=0}^{n} (-1)^j \binom{n}{j} (n-j)^k \]
+      </div>
+
+      <h2>Fixpontmentes permutációk</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Legyen \(n \in \mathbb{N}\). Az \(S_n\)-beli fixpontmentes permutációk (derangement-ek) száma:</p>
+        \[ \sum_{j=0}^{n} (-1)^j \binom{n}{j} (n-j)! \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Legyen \(X = S_n\), és \(Y_i = \{ \pi \in S_n \mid i
+          \text{ fixpontja } \pi\text{-nek} \}\) (\(i=1, \dots, n\)).
+          Ekkor \(|X| = n!\).
+        </p>
+        \[ |Y_i| = (n-1)! \]
+        <p>(mivel 1 elem fixpont, a többi \(n-1\) elem tetszőlegesen permutálandó). Általában \(j\) db \(Y_i\) halmaz metszetének elemszáma:</p>
+        \[ = (n-j)! \]
+        <p>(\(j\) db elem fixpont, a többi \(n-j\) elem permutálandó). A szita-formula szerint:</p>
+        \[ \left| X \setminus \bigcup_{i=1}^{n} Y_i \right| = n! - \binom{n}{1}(n-1)! + \binom{n}{2}(n-2)! - \binom{n}{3}(n-3)! + \dots + (-1)^n \binom{n}{n}(n-n)! \]
+        <p>ahol a bal oldal a fixpontmentes permutációk halmazának létszáma (azon permutációk száma, melyeknek nincs fixpontja).</p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
