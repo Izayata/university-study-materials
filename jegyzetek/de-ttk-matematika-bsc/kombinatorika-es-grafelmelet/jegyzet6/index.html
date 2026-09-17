@@ -92,6 +92,21 @@
         u, z\) csúcsok által alkotott \(K_3\) (háromszög) gráf.
       </p>
 
+      <svg viewBox="0 0 220 240" style="max-width: 220px; display: block; margin: 1.5rem auto;" role="img" aria-label="4 csúcsú teljes gráf, ahol az X={v,u,z} által feszített háromszög ki van emelve, a w csúcshoz vezető élek elhalványítva">
+        <line x1="110" y1="20" x2="110" y2="210" stroke="var(--color-text-muted)" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="30" y1="140" x2="110" y2="210" stroke="var(--color-text-muted)" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="190" y1="140" x2="110" y2="210" stroke="var(--color-text-muted)" stroke-width="1" stroke-dasharray="3,3"/>
+        <polygon points="110,20 190,140 30,140" fill="none" stroke="var(--color-accent)" stroke-width="2"/>
+        <circle cx="110" cy="20" r="4" fill="var(--color-text)"/>
+        <circle cx="30" cy="140" r="4" fill="var(--color-text)"/>
+        <circle cx="190" cy="140" r="4" fill="var(--color-text)"/>
+        <circle cx="110" cy="210" r="4" fill="var(--color-text-muted)"/>
+        <text x="118" y="16" fill="var(--color-text)" font-size="12">v</text>
+        <text x="10" y="135" fill="var(--color-text)" font-size="12">u</text>
+        <text x="198" y="135" fill="var(--color-text)" font-size="12">z</text>
+        <text x="118" y="225" fill="var(--color-text-muted)" font-size="12">w</text>
+      </svg>
+
       <p>
         \(G - e\) feszítő részgráf (mivel a csúcshalmaz nem
         változik). \(G - v\) feszített részgráf (\(V \setminus \{v\}\)
@@ -170,6 +185,29 @@
           <li>Egy séta <strong>hossza</strong> a benne szereplő élek száma (jelölésben: \(l\)).</li>
         </ul>
       </div>
+
+      <svg viewBox="0 0 260 220" style="max-width: 260px; display: block; margin: 1.5rem auto;" role="img" aria-label="Egy séta, amely a v1 csúcsot háromszor érinti: v0-v1-v2-v3-v1-v4, vonal (nincs ismétlődő él), de nem út (v1 ismétlődik)">
+        <line x1="30" y1="120" x2="130" y2="120" stroke="var(--color-accent)" stroke-width="2"/>
+        <line x1="130" y1="120" x2="190" y2="50" stroke="var(--color-accent)" stroke-width="2"/>
+        <line x1="190" y1="50" x2="230" y2="120" stroke="var(--color-accent)" stroke-width="2"/>
+        <line x1="230" y1="120" x2="130" y2="120" stroke="var(--color-accent)" stroke-width="2"/>
+        <line x1="130" y1="120" x2="130" y2="200" stroke="var(--color-accent)" stroke-width="2"/>
+        <circle cx="30" cy="120" r="4" fill="var(--color-text)"/>
+        <circle cx="130" cy="120" r="5" fill="var(--color-accent)"/>
+        <circle cx="190" cy="50" r="4" fill="var(--color-text)"/>
+        <circle cx="230" cy="120" r="4" fill="var(--color-text)"/>
+        <circle cx="130" cy="200" r="4" fill="var(--color-text)"/>
+        <text x="15" y="112" fill="var(--color-text)" font-size="12">v₀</text>
+        <text x="112" y="108" fill="var(--color-accent)" font-size="12">v₁</text>
+        <text x="196" y="42" fill="var(--color-text)" font-size="12">v₂</text>
+        <text x="236" y="112" fill="var(--color-text)" font-size="12">v₃</text>
+        <text x="112" y="215" fill="var(--color-text)" font-size="12">v₄</text>
+        <text x="70" y="112" fill="var(--color-text-muted)" font-size="10">①</text>
+        <text x="152" y="80" fill="var(--color-text-muted)" font-size="10">②</text>
+        <text x="212" y="80" fill="var(--color-text-muted)" font-size="10">③</text>
+        <text x="185" y="112" fill="var(--color-text-muted)" font-size="10">④</text>
+        <text x="105" y="165" fill="var(--color-text-muted)" font-size="10">⑤</text>
+      </svg>
 
       <div class="note-box">
         <span class="note-box__label">Definíció — vonal</span>
