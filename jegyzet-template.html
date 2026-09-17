@@ -72,10 +72,31 @@ function pelda() {
       <p>[További magyarázat.]</p>
 
       <h3>Opcionális: [Al-téma vagy képlet]</h3>
+      <!--
+        MATEMATIKAI KÉPLETEK: ha ehhez a jegyzethez LaTeX-es matematikai
+        jelölés kell, illeszd be a <head>-be (a stylesheet <link> alá)
+        az alábbi két <script>-et — ez MathJax-szal renderel minden
+        $...$ / \(...\) inline és \[...\] / $$...$$ display képletet a
+        contentben, LaTeX szintaxissal (align*, cases stb. is működik):
+
+          <script>
+            window.MathJax = {
+              tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+              }
+            };
+          </script>
+          <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+
+        Csak azokra az oldalakra tedd fel, ahol ténylegesen van képlet —
+        ne a nav/footer/script.js-be, ne site-szélesen. Élő példa:
+        /jegyzetek/de-ttk-matematika-bsc/jegyzet1/ (Analízis alapjai).
+        Ha nincs képlet, illeszd be sima szövegként/Unicode karakterekként.
+      -->
       <p>
-        [Ha matematikai jelölésre van szükséged, egyelőre illeszd be sima
-        szövegként/Unicode karakterekként, vagy kapcsold be a MathJax-ot —
-        lásd a megjegyzést a gyakorlat-template.html-ben.]
+        [Ha matematikai jelölésre van szükséged, lásd a fenti megjegyzést
+        a MathJax bekötéséről.]
       </p>
 
       <h2>Kapcsolódó feladat</h2>

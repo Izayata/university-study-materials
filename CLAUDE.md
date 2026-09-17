@@ -77,7 +77,7 @@ not a bug.
 
 | Section (Hungarian) | Landing page | Item template | Filled example |
 |---|---|---|---|
-| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | none currently — see the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
+| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/de-ttk-matematika-bsc/jegyzet1/` (added 2026-09-17, see the math-note exception below); see also the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | none currently — empty since `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) |
 | Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | `/oktatoi/inbpm0315-21/jegyzet1/` (moved here 2026-09-16, renamed from `java-alapok` the same day) and `jegyzet2/` (added 2026-09-16, new content) — both keep the class-session shape, see below, not the template's default |
@@ -173,6 +173,15 @@ content either (its one placeholder `tétel` was retired, see below,
 and never replaced). Don't assume every course-landing page has
 counterparts in the other sections.
 
+`de-ttk-matematika-bsc` (added 2026-09-17) is a third, unrelated
+course — Debreceni Egyetem, TTK, Matematika BSc — that exists only
+under `jegyzetek/` so far, with one item so far,
+`jegyzet1` ("Analízis alapjai"). See the "Math-note jegyzet exception"
+subsection below for why this item's shape deliberately differs from
+both `jegyzet-template.html`'s current default and the older
+Tematika/Kontextus/Gyakorlat/Puffer pattern the Content style guide
+documents.
+
 `deik-mernokinformatikus-bsc-2017`, by contrast, is the same course
 (same degree program) appearing under both `tetelek/` (the finished
 15-tétel exam-prep series, see below) and, since 2026-09-10,
@@ -249,6 +258,94 @@ content. The **old** "don't reintroduce the old name/code" instruction
 is exactly backwards now — the restored name/code **are** the current,
 correct state. Don't re-remove them without a fresh, explicit request
 from the site owner (universities can change their minds either way).
+
+### Deliberate exception: `jegyzetek/de-ttk-matematika-bsc/jegyzet1` skips Tematika/Gyakorlat/Puffer
+
+Added 2026-09-17. "Analízis alapjai" was converted from a LaTeX source
+file spanning roughly ten distinct foundational-analysis topics
+(halmazelmélet, relációk, függvények, pontos korlátok, testek, matek
+indukció, számosság, Cantor-tétel) — a multi-week reference
+collection, not one taught session with a time budget, and with no
+separate in-class exercise list (its "Feladat" blocks are worked,
+proved examples woven into the content itself, not homework). Forcing
+either jegyzet-template.html's Tematika/Kontextus/Gyakorlat/Puffer
+class-session shape, or even the template's own current
+Tanulási célok/N. rész/Kapcsolódó feladat shape, would misrepresent
+what the page actually is — confirmed with the site owner
+(2026-09-17) rather than assumed. Its actual shape: intro paragraph →
+"Témák" outline (`<ul>`, no elaboration — reusing the same pattern the
+`deik-mernokinformatikus-bsc-2017` tétel series uses for the same
+reason, see the Content style guide below) → one `<h2>` per original
+LaTeX `\section`, `<h3>` per `\subsection`. item-meta is 2-part
+(`Kurzus · Frissítve: dátum`), matching the actual current
+`jegyzet-template.html` shape (see the correction note in the Content
+style guide below), not the 3-part `Kurzus · Óra · Frissítve:` shape
+the same section documents.
+
+Don't generalize this into a new jegyzetek/ default either — like the
+oktatói `jegyzet1`/`jegyzet2` exception, this is a per-item call
+justified by what the source material actually is (a multi-topic
+reference vs. a single session), not a template change. A future
+jegyzetek/ item that genuinely is one class session's agenda should
+still look like a class session — copy the shape
+`oktatoi/inbpm0315-21/jegyzet1` preserves by hand, since
+`jegyzet-template.html` itself no longer has it (see below).
+
+### Math notation: MathJax, opt-in per page
+
+Added 2026-09-17, first used by `jegyzetek/de-ttk-matematika-bsc/jegyzet1`.
+Before this, `jegyzet-template.html`/`tetel-template.html` only carried
+a placeholder comment promising a MathJax note in
+`gyakorlat-template.html` that didn't actually exist — dead promise,
+fixed the same day. The real setup, copy-pasted into a page's `<head>`
+only when that page actually has formulas (never site-wide, never in
+`script.js`):
+
+```html
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+```
+
+Write formulas as LaTeX directly in the HTML (`\(...\)`, `\[...\]`,
+`\begin{align*}`/`\begin{cases}` etc. all work as MathJax scans and
+renders them client-side) rather than converting to Unicode
+approximations. One catch: MathJax typesets asynchronously and can
+finish *before* `script.js`'s ToC-builder reads `heading.textContent`
+on `DOMContentLoaded`, silently mangling a heading that contains math
+(confirmed: `\(\sqrt{2}\)` inside an `<h2>` became just "2" in the
+ToC, the radical sign lost). Because of this, **don't put MathJax
+delimiters inside an `<h2>`/`<h3>` — use the plain Unicode character
+instead** (e.g. `√2`, not `\(\sqrt{2}\)`) for anything simple enough to
+have one; the jegyzet1 heading above does this.
+
+Escaping note: raw `<`, `>`, `&` inside a formula (e.g. `n < 2^n`, or
+`&` as an `align*`/`cases` alignment marker) must be written as
+`&lt;`/`&gt;`/`&amp;` in the HTML source, same as anywhere else in an
+HTML document — the browser's HTML parser sees them before MathJax
+does, and an unescaped `<` will start a phantom tag instead of
+reaching MathJax as text.
+
+### `.note-box`: generic component for boxed math content
+
+Added 2026-09-17 in `style.css`, alongside `jegyzet1` above — its
+LaTeX source used `definicil`/`definicio`/`tetel`/`feladat`/`proof`/
+`mdframed` environments (informally named, several undefined in the
+source's own preamble) for Definíció/Tétel/Feladat/Bizonyítás/
+Emlékeztető blocks. One generic `.note-box` class (border-left accent
+in `--color-accent`, background `--color-bg-alt`, both already-used
+tokens, no new colors — same "no new colors" precedent as
+`.table-scroll`) plus a `.note-box__label` span for the type name
+(`Definíció`, `Tétel`, ...), rather than a class per type — same
+"extend the generic class" precedent as `.card-grid`/`.item-card`.
+Reuse `.note-box` for any future boxed callout rather than inventing a
+new component.
 
 Both course-related URL migrations so far (adding the course layer,
 then renaming its slug) left the old URLs 404ing rather than adding
@@ -457,7 +554,23 @@ known) → one `<h2>` per major topic (prose + `<h3>` for
 platform-specific variants like Windows/Linux + code blocks) →
 Gyakorlat (in-class exercise list, `<ol>`) → Puffer (buffer-time note
 — present because a jegyzet page is literally a class-session agenda
-with a time budget).
+with a time budget). This was accurate for `jegyzet-template.html` as
+derived from the original `jegyzet1` on 2026-09-09, and still
+describes `oktatoi/inbpm0315-21/jegyzet1`+`jegyzet2`, which explicitly
+preserve it (see the Content model section's class-session-shaped
+exception above).
+
+**Correction, found 2026-09-17:** `jegyzet-template.html` itself has
+since drifted from the paragraph above — the live file now has a
+different, simpler shape instead: intro paragraph → Tanulási célok
+(`<ul>`) → one `<h2>` per topic ("N. rész — ...") → Kapcsolódó feladat,
+with a 1-part item-meta (`Frissítve: dátum` only, no course or
+session). Copy *that actual file* for a new jegyzet item, not this
+paragraph's Tematika/Kontextus/Gyakorlat/Puffer description — unless
+the new item genuinely is one class session's agenda, in which case
+follow the `oktatoi/inbpm0315-21/jegyzet1` precedent by hand instead
+(`jegyzet-template.html` no longer has that shape to copy from). See
+also the math-note jegyzet1 exception above, which uses neither shape.
 
 **Gyakorlat**: short intro paragraph only (no Tematika/Kontextus
 headings) stating what's covered and any constraints → one `<h2>` per
@@ -534,9 +647,14 @@ design, not per-item drift:**
 ### `item-meta` line: intentionally different per type, not drift
 
 - Jegyzet: `Course · Session label · Frissítve: date` (3 parts) — no
-  currently-live `jegyzetek/` example (this course's `jegyzet1` moved
-  to `oktatoi/` on 2026-09-16, see the exception above), but the
-  pattern still governs any future one.
+  currently-live `jegyzetek/` example of this exact 3-part shape (the
+  course this pattern was derived from, `jegyzet1`, moved to
+  `oktatoi/` on 2026-09-16, see the exception above); the pattern still
+  governs any future genuinely single-session jegyzet. The one
+  currently-live `jegyzetek/` example,
+  `de-ttk-matematika-bsc/jegyzet1`, uses a 2-part
+  `Kurzus · Frissítve: date` instead — see its own documented exception
+  above for why (not a session, so no session label fits).
 - Gyakorlat: `Course · Frissítve: date` (2 parts, no session label) —
   no currently-live `gyakorlas/` example as of 2026-09-16, same
   caveat.
