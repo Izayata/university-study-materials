@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Binomiális együtthatók és azonosságaik | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Leképezések száma, binomiális együtthatók szimmetriája és elnyelési tulajdonságai, sorösszeg-azonosságok (Vandermonde, hokiütő-szabály), binomiális és polinomiális tétel — DE TTK Matematika BSc, Kombinatorika és gráfelmélet.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/jegyzet3/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!-- Part 3 of 10 — see jegyzet1's head comment for the shape rationale. -->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/">Kombinatorika és gráfelmélet</a> / 3. jegyzet</p>
+
+      <h1>Binomiális együtthatók és azonosságaik</h1>
+      <p class="item-meta">DE TTK Matematika BSc · Frissítve: 2026-09-17</p>
+
+      <p>
+        Ez a jegyzet az előző részben bevezetett binomiális
+        együtthatóra épül: leszámolja az \(A \to B\) függvényeket,
+        levezeti a binomiális együttható alapvető tulajdonságait
+        (szimmetria, elnyelési tulajdonságok, sorösszeg-azonosságok),
+        majd kimondja és bizonyítja a binomiális és a polinomiális
+        tételt.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Leképezések száma (összes, injektív, bijektív)</li>
+        <li>Binomiális együtthatók alaptulajdonságai és szimmetriája</li>
+        <li>Elnyelési tulajdonságok</li>
+        <li>Sorösszeg-azonosságok (2ⁿ, Vandermonde, hokiütő-szabály)</li>
+        <li>Binomiális és polinomiális tétel</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Leképezések száma</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Legyen \(k, n \in \mathbb{N}\), \(|A| = k, |B| = n\).</p>
+        <ol>
+          <li>Az \(f: A \to B\) függvények száma: \(n^k\).</li>
+          <li>
+            Az \(f: A \to B\) injektív függvények száma:
+            \[ \begin{cases} \frac{n!}{(n-k)!}, &amp; \text{ha } k \le n \\ 0, &amp; \text{ha } k &gt; n \end{cases} \]
+          </li>
+          <li>
+            Az \(f: A \to B\) bijektív függvények száma:
+            \[ \begin{cases} n!, &amp; \text{ha } k = n \\ 0, &amp; \text{ha } k \neq n \end{cases} \]
+          </li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>Legyen \(A = \{a_1, \dots, a_k\}\). Egy \(f: A \to B\) függvény leírható az értéktáblázattal:</p>
+        \[
+        \begin{array}{c|c|c|c}
+        a_1 & a_2 & \dots & a_k \\ \hline
+        f(a_1) & f(a_2) & \dots & f(a_k)
+        \end{array}
+        \]
+        <ol>
+          <li>A táblázat második sora a \(B\)-beli elemek egy \(k\)-ad osztályú ismétléses variációja \(\implies n^k\).</li>
+          <li>Ha \(k &gt; n\), akkor a skatulya-elv szerint lesz két \(A\)-beli elem, melyek képe azonos \(\implies f\) nem injektív. Ha \(k \le n\), akkor a második sor a \(B\)-beli elemek egy \(k\)-ad osztályú ismétlés nélküli variációja \(\implies \frac{n!}{(n-k)!}\).</li>
+          <li>Ha \(k \neq n\), nincs bijektív fv. Ha \(k = n\), a második sor a \(B\)-beli elemek egy ismétlés nélküli permutációja \(\implies n!\).</li>
+        </ol>
+      </div>
+
+      <h2>Binomiális együtthatók tulajdonságai</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(n \in \mathbb{N} \cup \{0\}\), akkor \(\binom{n}{0} = 1\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Láttuk, hogy \(\binom{n}{k}\) az \(n\) elemű halmaz \(k\)
+          elemű részhalmazainak száma. Egy \(n\) elemű halmaznak
+          egyetlen 0 elemű részhalmaza van: \(\emptyset\).
+          Algebrailag: \(\binom{n}{0} = \frac{n!}{0! \cdot n!} = 1\).
+        </p>
+      </div>
+
+      <p>A Pascal-háromszög minden sorának 0. eleme \(= 1\).</p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(n \in \mathbb{N} \cup \{0\}\), akkor \(\binom{n}{n} = 1\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>\(n\) elemű halmaznak egyetlen \(n\) elemű részhalmaza van, önmaga.</p>
+      </div>
+
+      <p>A Pascal-háromszögben minden sor utolsó eleme \(= 1\).</p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(n \in \mathbb{N}\), akkor \(\binom{n}{1} = n\) és \(\binom{n}{n-1} = n\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          \(n\) elemű halmaz 1 elemű részhalmazainak száma \(= n\). Az
+          \((n-1)\) elemű részhalmazok száma szintén \(n\), hiszen
+          pontosan 1 elem hiányzik belőlük.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — szimmetria</span>
+        <p>Ha \(n, k \in \mathbb{N} \cup \{0\}\) és \(k \le n\), akkor:</p>
+        \[ \binom{n}{k} = \binom{n}{n-k} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>Legyen \(|X| = n\) és vegyük a következő leképezést:</p>
+        \[ A \in \mathcal{P}_k(X) \mapsto X \setminus A \in \mathcal{P}_{n-k}(X) \quad (A \text{ komplementere}) \]
+        <p>
+          Ez a függvény injektív (különböző részhalmazok komplementere
+          különböző) és szürjektív (minden \(n-k\) elemű részhalmaz
+          egy \(k\) eleműnek a komplementere) \(\implies\) bijektív.
+        </p>
+        \[ \implies |\mathcal{P}_k(X)| = |\mathcal{P}_{n-k}(X)| \implies \binom{n}{k} = \binom{n}{n-k} \]
+      </div>
+
+      <p>Ez azt jelenti, hogy a Pascal-háromszög szimmetrikus.</p>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Binomiális együtthatók identitásai</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — a Pascal-háromszög additív tulajdonsága</span>
+        <p>Ha \(n, k \in \mathbb{N}\) és \(k \le n\), akkor:</p>
+        \[ \binom{n+1}{k} = \binom{n}{k-1} + \binom{n}{k} \]
+      </div>
+
+      <p>A Pascal-háromszögben egy nem széli elem megegyezik a felette álló két elem összegével.</p>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>Legyen \(|X| = n+1\). Ennek \(\binom{n+1}{k}\) darab \(k\) elemű részhalmaza van.</p>
+        <p>Másképp számolva: rögzítsünk egy \(y \in X\) elemet. \(X\) egy \(k\) elemű részhalmaza kétféle lehet:</p>
+        <ul>
+          <li><strong>Ha \(y\) benne van:</strong> a többi \(n\) elemből kell még választani \(k-1\) darabot. Ez \(\binom{n}{k-1}\) lehetőség.</li>
+          <li><strong>Ha \(y\) nincs benne:</strong> a többi \(n\) elemből kell választani \(k\) darabot. Ez \(\binom{n}{k}\) lehetőség.</li>
+        </ul>
+        <p>Összesen: \(\binom{n}{k-1} + \binom{n}{k}\) lehetőség van.</p>
+      </div>
+
+      <h3>Elnyelési tulajdonságok</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — 1. elnyelési tulajdonság</span>
+        <p>Ha \(n, k \in \mathbb{N}\) és \(k \le n\), akkor:</p>
+        \[ \binom{n}{k} = \frac{n}{k} \binom{n-1}{k-1} \iff k \binom{n}{k} = n \binom{n-1}{k-1} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>Legyen \(|X| = n\). Számoljuk össze az olyan \((A, a)\) párokat, ahol \(A \subseteq X\), \(|A| = k\) és \(a \in A\).</p>
+        <ul>
+          <li><strong>1. módszer:</strong> Először az \(A\) részhalmazt választjuk ki \(\binom{n}{k}\)-féleképpen, majd ebből az \(a\) elemet \(k\)-féleképpen. Így \(\binom{n}{k} \cdot k\) darab pár van.</li>
+          <li><strong>2. módszer:</strong> Először az \(a\) elemet választjuk ki \(n\)-féleképpen. Ezután \(A\) többi \(k-1\) elemét a maradék \(n-1\) elemből \(\binom{n-1}{k-1}\)-féleképpen választhatjuk ki. A párok száma: \(n \cdot \binom{n-1}{k-1}\).</li>
+        </ul>
+        <p>A két számlálás eredménye egyenlő: \(k \binom{n}{k} = n \binom{n-1}{k-1}\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — 2. elnyelési tulajdonság</span>
+        <p>Ha \(n, k \in \mathbb{N}\) és \(k \le n\), akkor:</p>
+        \[ \binom{n}{k} = \frac{n-k+1}{k} \binom{n}{k-1} \iff k \binom{n}{k} = (n-k+1) \binom{n}{k-1} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>Ugyanazokat az \((A, a)\) párokat számoljuk össze, mint az előző tételben (\(|A| = k, a \in A\)).</p>
+        <ul>
+          <li>Tudjuk, hogy a párok száma: \(\binom{n}{k} \cdot k\).</li>
+          <li>Másrészt: először kiválasztjuk az \(A\)-nak az \(a\)-tól különböző \(k-1\) elemét \(\binom{n}{k-1}\)-féleképpen. Majd az \(a\) elem kiválasztása a maradék \(n-(k-1) = n-k+1\) elemből történhet.</li>
+        </ul>
+        <p>Így a párok száma: \(\binom{n}{k-1} \cdot (n-k+1)\), amiből az állítás adódik.</p>
+      </div>
+
+      <h3>Sorösszegek és azonosságok</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — hatványhalmaz elemszáma</span>
+        <p>Ha \(n \in \mathbb{N} \cup \{0\}\), akkor:</p>
+        \[ \sum_{k=0}^{n} \binom{n}{k} = 2^n \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Legyen \(X = \{x_1, \dots, x_n\}\). \(X\) összes
+          részhalmazának száma egyrészt a \(k\) elemű részhalmazok
+          összege: \(\sum_{k=0}^n \binom{n}{k}\). Másrészt bijekció
+          adható meg a részhalmazok és a \(2^n\) darab \(n\)
+          hosszúságú \(\{0,1\}\) karakterisztikus vektorok között.
+        </p>
+        \[ |\mathcal{P}(X)| = V_2^{n, \text{ism}} = 2^n \implies \sum_{k=0}^{n} \binom{n}{k} = 2^n \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — előjeles sorösszeg</span>
+        <p>Legyen \(n \in \mathbb{N}\). Ekkor:</p>
+        \[ \sum_{k=0}^{n} (-1)^k \binom{n}{k} = 0 \iff \binom{n}{0} + \binom{n}{2} + \dots = \binom{n}{1} + \binom{n}{3} + \dots \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Legyen \(|X| = n\) és rögzítsünk egy \(y \in X\) elemet.
+          Tekintsük a következő leképezést a páros elemszámú
+          részhalmazokból a páratlan elemszámú részhalmazokba:
+        </p>
+        \[ f: A \in \mathcal{P}_{\text{páros}}(X) \mapsto \begin{cases} A \setminus \{y\}, &amp; \text{ha } y \in A \\ A \cup \{y\}, &amp; \text{ha } y \notin A \end{cases} \in \mathcal{P}_{\text{páratlan}}(X) \]
+        <p>
+          Ez a leképezés bijektív, amiből következik, hogy a páros és
+          páratlan elemszámú részhalmazok száma megegyezik:
+        </p>
+        \[ |\mathcal{P}_{\text{páros}}(X)| = |\mathcal{P}_{\text{páratlan}}(X)| \implies |\mathcal{P}_{\text{páros}}(X)| - |\mathcal{P}_{\text{páratlan}}(X)| = 0 \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Vandermonde-azonosság speciális esete</span>
+        <p>Ha \(n \in \mathbb{N} \cup \{0\}\), akkor:</p>
+        \[ \sum_{k=0}^{n} \binom{n}{k}^2 = \binom{2n}{n} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Legyen \(X = \{x_1, \dots, x_n, y_1, \dots, y_n\}\) egy
+          \(2n\) elemű halmaz. Ennek \(\binom{2n}{n}\) darab \(n\)
+          elemű részhalmaza van.
+        </p>
+        <p>
+          Másképp: válasszunk ki az \(x_i\)-k közül \(k\) darab elemet
+          \(\binom{n}{k}\)-féleképpen, majd az \(y_j\)-k közül \(n-k\)
+          darabot \(\binom{n}{n-k} = \binom{n}{k}\)-féleképpen. Adott
+          \(k\)-ra a lehetőségek száma \(\binom{n}{k}^2\). Summázva
+          \(k=0\)-tól \(n\)-ig megkapjuk az állítást.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — hokiütő-szabály</span>
+        <p>Legyen \(n, k \in \mathbb{N} \cup \{0\}\) és \(k \le n\). Ekkor:</p>
+        \[ \sum_{j=k}^{n} \binom{j}{k} = \binom{n+1}{k+1} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Legyen \(X = \{x_1, \dots, x_n, x_{n+1}\}\). \(X\) \(k+1\)
+          elemű részhalmazainak száma \(\binom{n+1}{k+1}\).
+        </p>
+        <p>
+          Csoportosítsuk ezen részhalmazokat a bennük lévő legnagyobb
+          sorszámú elem (\(x_j\)) szerint (\(j = k+1, \dots, n+1\)).
+          Ha a legnagyobb elem \(x_j\), akkor az \(x_1, \dots,
+          x_{j-1}\) elemekből kell \(k\) darabot kiválasztani, ami
+          \(\binom{j-1}{k}\) lehetőség. Összegezve megkapjuk az
+          azonosságot.
+        </p>
+      </div>
+
+      <h2>Binomiális és polinomiális tétel</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — binomiális tétel</span>
+        <p>
+          Legyen \(R\) kommutatív gyűrű (pl. \(\mathbb{Z}, \mathbb{R},
+          \mathbb{Q}\)), \(a, b \in R\) és \(n \in \mathbb{N}\).
+          Ekkor:
+        </p>
+        \[ (a+b)^n = \sum_{k=0}^{n} \binom{n}{k} a^k b^{n-k} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          \((a+b)^n = (a+b)(a+b)\cdots(a+b)\) (\(n\) db tényező). A
+          beszorzás elvégzése után minden tag \(a^k b^{n-k}\) alakú.
+          Egy ilyen taghoz az \(n\) db tényező közül \(k\) db-ban kell
+          az \(a\)-t választani (a többiben \(b\)-t), ami
+          \(\binom{n}{k}\)-féleképpen lehetséges.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — polinomiális (multinomiális) tétel</span>
+        <p>
+          Legyen \(R\) kommutatív gyűrű, \(a_1, \dots, a_r \in R\) és
+          \(n \in \mathbb{N}\). Ekkor:
+        </p>
+        \[ (a_1 + a_2 + \dots + a_r)^n = \sum_{\substack{k_1, \dots, k_r \in \mathbb{N} \cup \{0\} \\ k_1 + \dots + k_r = n}} \frac{n!}{k_1! \cdot k_2! \cdots k_r!} a_1^{k_1} a_2^{k_2} \cdots a_r^{k_r} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Az \(n\) tényezős szorzat kibontásakor a tagok \(a_{i_1}
+          a_{i_2} \cdots a_{i_n}\) alakúak. Egy adott \(a_1^{k_1}
+          \cdots a_r^{k_r}\) tag előfordulási száma megegyezik azon
+          sorozatok számával, ahol \(k_1\) db 1-es, \(k_2\) db 2-es,
+          …, \(k_r\) db \(r\)-es szerepel. Ez pontosan az ismétléses
+          permutációk száma: \(P_n^{k_1, \dots, k_r} = \frac{n!}{k_1!
+          \cdots k_r!}\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
