@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Gráfelméleti alapfogalmak, fokszámok, Havel–Hakimi-tétel | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Gráf, csúcs, él, fokszám, kézfogási tétel, Havel–Hakimi-tétel, k-reguláris gráfok, teljes gráfok, komplementer gráf, él/csúcs törlése és összehúzása — DE TTK Matematika BSc, Kombinatorika és gráfelmélet.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/jegyzet5/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!-- Part 5 of 10 — see jegyzet1's head comment for the shape rationale. -->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/">Kombinatorika és gráfelmélet</a> / 5. jegyzet</p>
+
+      <h1>Gráfelméleti alapfogalmak, fokszámok, Havel–Hakimi-tétel</h1>
+      <p class="item-meta">DE TTK Matematika BSc · Frissítve: 2026-09-17</p>
+
+      <p>
+        Ezzel a jegyzettel kezdődik a sorozat gráfelméleti fele: a
+        gráf formális fogalmával, a fokszámmal és a kézfogási
+        tétellel indul, majd megmutatja, mikor létezik egyáltalán
+        gráf egy adott fokszám-sorozattal (Havel–Hakimi-tétel), végül
+        a teljes gráfokat és néhány alapvető gráfműveletet (él/csúcs
+        törlése, él összehúzása) tekinti át.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Gráf, csúcs, él, fokszám</li>
+        <li>Kézfogási tétel</li>
+        <li>Havel–Hakimi-tétel</li>
+        <li>k-reguláris gráfok létezése</li>
+        <li>Teljes gráfok, komplementer gráf, alapműveletek</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Gráfelméleti alapfogalmak</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — irányítatlan gráf</span>
+        <p>
+          Legyen \(V \neq \emptyset\) véges halmaz, \(E\) véges
+          halmaz, és \(\varphi: E \to \mathcal{P}_{\le 2}(V)\) egy
+          leképezés (amely \(V\) 1 vagy 2 elemű részhalmazaiba
+          képez). Ekkor a \(G = (V, E, \varphi)\) hármast
+          (irányítatlan) <strong>gráfnak</strong> nevezzük.
+        </p>
+        <ul>
+          <li>\(V\) elemei: \(G\) gráf <strong>csúcsai</strong> (vertex).</li>
+          <li>\(E\) elemei: \(G\) gráf <strong>élei</strong> (edge).</li>
+          <li>\(\varphi\) neve: <strong>illeszkedési függvény</strong>.</li>
+        </ul>
+        <p>Ha \(e \in E\) és \(\varphi(e) = \{v, w\}\), akkor azt mondjuk, hogy:</p>
+        <ul>
+          <li>\(e\) él végpontjai \(v, w\),</li>
+          <li>\(e\) él illeszkedik \(v, w\)-re / \(v, w\) illeszkedik \(e\)-re,</li>
+          <li>\(e\) él köti össze \(v, w\)-t,</li>
+          <li>\(e\) él a \(v, w\) csúcsok között vezet.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — szomszédos csúcsok</span>
+        <p>A \(v, w \in V\) csúcsok <strong>szomszédosak</strong>, ha vezet közöttük él.</p>
+      </div>
+
+      <p>
+        \(E = \emptyset\) esetén \(\varphi\) üres függvény — ilyenkor
+        \(G\) gráfot <strong>üres gráfnak</strong> nevezzük. A
+        gráfelméletnek van olyan ága, ahol \(V, E\) lehetnek végtelen
+        halmazok is — olyankor a fenti definícióban szereplő
+        gráfokat <strong>véges gráfnak</strong> nevezzük. Ha egy
+        \(G\) gráfról nem hármasként beszélünk, akkor \(G\)
+        csúcshalmazát \(V(G)\), élhalmazát \(E(G)\) jelöli.
+      </p>
+
+      <p>
+        Példa: legyen \(V = \{v_1, v_2, v_3, v_4\}\), \(E = \{e_1,
+        e_2, e_3, e_4, e_5, e_6\}\), és
+      </p>
+      \[ \varphi(e_1) = \{v_1, v_2\}, \quad \varphi(e_2) = \{v_1, v_3\}, \quad \varphi(e_3) = \{v_1, v_3\}, \]
+      \[ \varphi(e_4) = \{v_1, v_4\}, \quad \varphi(e_5) = \{v_1, v_4\}, \quad \varphi(e_6) = \{v_4\} \]
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — hurokél és párhuzamos élek</span>
+        <p>
+          Egy \(G = (V, E, \varphi)\) gráfban egy \(e\) él
+          <strong>hurokél</strong>, ha \(|\varphi(e)| = 1\)
+          (\(e \in E\)). Az \(e, f \in E\) élek <strong>párhuzamos
+          élek</strong>, ha \(\varphi(e) = \varphi(f)\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — egyszerű gráf</span>
+        <p>Egy gráf <strong>egyszerű gráf</strong>, ha nincs benne sem hurokél, sem párhuzamos él.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — csúcs fokszáma</span>
+        <p>
+          Egy \(G\) gráfban \(v \in V(G)\) csúcs <strong>fokszáma</strong>
+          a \(v\)-re illeszkedő élek száma úgy, hogy a hurokéleket
+          kétszer számoljuk. Jelölése: \(d(v)\) (degree).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — minimális, maximális fokszám és izolált csúcs</span>
+        <ul>
+          <li>\(G\) gráf <strong>minimális fokszáma</strong>: \(\delta(G) = \min \{ d(v) \mid v \in V(G) \}\).</li>
+          <li>\(G\) gráf <strong>maximális fokszáma</strong>: \(\Delta(G) = \max \{ d(v) \mid v \in V(G) \}\).</li>
+          <li>Egy \(G\) gráfban egy csúcs <strong>izolált csúcs</strong>, ha fokszáma \(0\) (\(d(v) = 0\)).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — reguláris gráf</span>
+        <p>
+          Legyen \(G\) gráf, \(k \in \mathbb{N} \cup \{0\}\). Ekkor
+          \(G\) <strong>\(k\)-reguláris</strong> gráf, ha \(\forall v
+          \in V(G) : d(v) = k\). Például az üres gráfok
+          \(0\)-regulárisak, a körgráfok \(2\)-regulárisak.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — kézfogási tétel</span>
+        <p>Ha \(G\) gráf, akkor:</p>
+        \[ \sum_{v \in V(G)} d(v) = 2 \cdot |E(G)| \]
+        <p>(A fokszámösszeg az élek számának kétszerese.)</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>Minden él kétszer számít be a fokszámösszegbe (a 2 végpontjánál), és ez a hurokélekre is igaz.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Következmény</span>
+        <ol>
+          <li>Egy gráfban a csúcsok fokszámösszege páros.</li>
+          <li>Egy gráfban a páratlan fokszámú csúcsok száma páros.</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \(G\) egyszerű gráf és \(|V(G)| \ge 2\), akkor van benne legalább két csúcs, amiknek azonos a fokszáma.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Legyen \(n = |V(G)|\). Mivel \(G\) egyszerű, így a
+          lehetséges fokszámok: \(0, 1, \dots, n-1\) (\(n\) féle). A
+          \(0\) és \(n-1\) fokszám egyszerre nem fordulhat elő,
+          hiszen az \(n-1\) fokú csúcs minden más csúccsal össze
+          lenne kötve. Ezért egy gráfban legfeljebb \(n-1\) féle
+          fokszám lehet. Mivel \(n\) db csúcs van, a skatulya-elv
+          szerint van két azonos fokú csúcs.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Legyen \(d_1, \dots, d_n \in \mathbb{N} \cup \{0\}\).
+          Ekkor létezik gráf \(d_1, \dots, d_n\) fokú csúcsokkal
+          \(\iff\) \(d_1 + \dots + d_n\) páros.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <ul>
+          <li><strong>⟹:</strong> Lásd a kézfogási tétel következményét.</li>
+          <li>
+            <strong>⟸:</strong> Ha \(d_1 + \dots + d_n\) páros
+            \(\implies\) közöttük a páratlanok száma páros.
+            <ul>
+              <li>Ha \(d_i\) páros, \(d_i = 2k\) (\(k \in \mathbb{N} \cup \{0\}\)), akkor az \(i\)-edik csúcsra illesztünk \(k\) db hurokélt.</li>
+              <li>Ha \(d_j\) páratlan, \(d_j = 2l + 1\) (\(l \in \mathbb{N} \cup \{0\}\)), akkor a \(j\)-edik csúcsra illesztünk \(l\) db hurokélt, majd a páratlan számoknak megfelelő csúcsokat kettesével még összekötjük.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Havel–Hakimi-tétel és k-reguláris gráfok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Havel–Hakimi-tétel</span>
+        <p>
+          Legyenek \(0 \le d_1 \le d_2 \le \dots \le d_n \le n-1\)
+          egész számok. Ekkor létezik egyszerű gráf \(d_1, \dots,
+          d_n\) fokú csúcsokkal pontosan akkor (\(\iff\)), ha létezik
+          egyszerű gráf \(d_1, \dots, d_{n-d_n-1}, d_{n-d_n} - 1,
+          \dots, d_{n-1} - 1\) fokú csúcsokkal.
+        </p>
+      </div>
+
+      <p>
+        \(d_n \le n-1\) feltétel az egyszerűség miatt szerepel. A
+        jobb oldalon álló számokat úgy kapjuk, hogy \(d_n\)-et
+        elhagyjuk, az előtte lévő \(d_n\) db-ot pedig 1-gyel
+        csökkentjük.
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p><strong>⟹:</strong> Tegyük fel, hogy \(\exists G\) egyszerű gráf, hogy \(V(G) = \{v_1, \dots, v_n\}\) és \(d(v_i) = d_i\) (\(i=1, \dots, n\)).</p>
+        <p>
+          Ha \(v_n\) szomszédai \(v_{n-1}, v_{n-2}, \dots,
+          v_{n-d_n}\), akkor hagyjuk el \(v_n\) csúcsot és a belőle
+          induló éleket. Így éppen a kívánt fokszámokkal rendelkező
+          egyszerű gráfhoz jutunk.
+        </p>
+        <p>
+          Ha nem ez a helyzet, akkor olyan módosítást hajtunk végre a
+          gráfon, hogy a fokszámok ne változzanak, de \(v_n\) 1-gyel
+          több csúccsal legyen szomszédos \(v_{n-1}, \dots,
+          v_{n-d_n}\) közül. Ezt többször alkalmazva előbb-utóbb a
+          fenti már kezelt szituációhoz jutunk.
+        </p>
+        <p><em>Módosítás lépései:</em> most \(\exists i, j\), hogy \(1 \le i \le n - d_n - 1\) közötti, \(v_n\) és \(v_i\) szomszédos, és \(n - d_n \le j \le n-1\), \(v_n\) és \(v_j\) nem szomszédos. Feltétel alapján \(i &lt; j \implies d_i \le d_j\).</p>
+        <ol>
+          <li>Eset: ha \(d_i = d_j\), akkor \(v_i\) és \(v_j\) sorszámait felcserélve készen vagyunk.</li>
+          <li>
+            Eset: ha \(d_i &lt; d_j \implies d(v_i) &lt; d(v_j)
+            \implies\) van olyan csúcs \(v_k\), ami \(v_j\)-vel
+            szomszédos, de \(v_i\)-vel nem. Ekkor hagyjuk el \((v_n,
+            v_i)\) és \((v_j, v_k)\) közötti éleket, és vegyünk fel
+            új éleket \((v_n, v_j)\) és \((v_i, v_k)\) közé. Ez
+            megfelelő módosítás (mert \(v_n\) \(v_i\) helyett
+            \(v_j\)-vel lett szomszédos), és nem változik a fokszám.
+          </li>
+        </ol>
+        <p>
+          <strong>⟸:</strong> Tegyük fel, hogy létezik egyszerű gráf
+          \(d_1, \dots, d_{n-d_n-1}, d_{n-d_n}-1, \dots, d_{n-1}-1\)
+          fokú csúcsokkal. Vegyünk fel egy új csúcsot. Ezt kössük
+          össze az utolsó \(d_n\) db számhoz tartozó csúcsokkal.
+          Ekkor azok fokszáma 1-gyel nő, az új csúcs fokszáma \(d_n\)
+          lesz.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Legyen \(n \in \mathbb{N}, k \in \mathbb{N} \cup \{0\}\).
+          Ekkor \(\exists\) \(n\) csúcsú \(k\)-reguláris egyszerű
+          gráf \(\iff\) \(k \le n-1\) és \(n \cdot k\) páros.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p><strong>⟹:</strong> Az egyszerűségből következik, hogy \(k \le n-1\). A kézfogási tétel miatt a fokszámösszeg \(= n \cdot k\) páros.</p>
+        <p><strong>⟸:</strong></p>
+        <ol>
+          <li>Eset: ha \(k\) páros. Vegyünk fel egy körvonalon \(n\) db csúcsot és mindegyiket kössük össze balra \(\frac{k}{2}\) és jobbra \(\frac{k}{2}\) db csúccsal. A kapott gráf nyilván \(k\)-reguláris és egyszerű, mert a balra illetve jobbra vett \(\frac{k}{2}, \frac{k}{2}\) db csúcs közt nincs átfedés \(k \le n-1\) miatt.</li>
+          <li>Eset: ha \(k\) páratlan \(\implies n \cdot k\) páros \(\implies n\) páros. Vegyünk fel egy körvonalon \(n\) csúcsot és mindegyiket kössük össze balra \(\frac{k-1}{2}\), jobbra \(\frac{k-1}{2}\) csúccsal és az átellenes csúccsal (\(n\) páros). Ez \(k\)-reguláris és egyszerű.</li>
+        </ol>
+      </div>
+
+      <h2>Teljes gráfok és részgráf műveletek</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — teljes gráf</span>
+        <p>
+          Egy gráfot <strong>teljes gráfnak</strong> nevezünk, ha
+          egyszerű és bármely két különböző csúcsa szomszédos.
+          Jelölése: az \(n\) csúcsú teljes gráf \(K_n\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Egy \(n\) csúcsú teljes gráf éleinek száma:</p>
+        \[ \frac{n(n-1)}{2} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>1. bizonyítás: \(C_n^2 = \binom{n}{2} = \frac{n!}{2!(n-2)!} = \frac{n(n-1)}{2}\)</p>
+        <p>2. bizonyítás: az \(n\) csúcsú teljes gráfban minden csúcs fokszáma \(n-1\). Ekkor a fokszámösszeg \(n \cdot (n-1)\). A kézfogási tétel szerint: \(\frac{n(n-1)}{2} = \) élszám.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — komplementer gráf</span>
+        <p>
+          Legyen \(G\) egyszerű gráf. Ekkor \(G\)
+          <strong>komplementere</strong> az a \(\overline{G}\)
+          egyszerű gráf, ahol \(V(\overline{G}) = V(G)\), és
+          \(\overline{G}\)-ben két különálló csúcs pontosan akkor
+          szomszédos, ha \(G\)-ben nem.
+        </p>
+      </div>
+
+      <p>Szemléletesen \(G\) és \(\overline{G}\) együtt teljes gráfot ad.</p>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — él törlése</span>
+        <p>Legyen \(G = (V, E, \varphi)\) nemüres gráf és \(e \in E\). Ekkor az \(e\) él törlésével adódó gráf \(G - e = (V', E', \varphi')\), ahol:</p>
+        \[ V' = V, \quad E' = E \setminus \{e\}, \quad \varphi' = \varphi|_{E'} \]
+        <p>(a megmaradó élek végpontjai ugyanazok, mint \(G\)-ben voltak).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — csúcs törlése</span>
+        <p>Legyen \(G = (V, E, \varphi)\) gráf és \(v \in V\). Ekkor a \(v\) csúcs törlésével adódó gráf \(G - v = (V', E', \varphi')\), ahol:</p>
+        \[ V' = V \setminus \{v\}, \quad E' = E \setminus \{ e \in E \mid v \in \varphi(e) \}, \quad \varphi' = \varphi|_{E'} \]
+        <p>(\(v\) a végpontja \(e\)-nek).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — él összehúzása</span>
+        <p>Legyen \(G(V, E, \varphi)\) nemüres gráf, és \(e \in E\), hogy \(\varphi(e) = \{v, w\}\). Ekkor az \(e\) él összehúzásával adódó gráf \(G / e = (V', E', \varphi')\), ahol:</p>
+        \[ V' = (V \setminus \{v, w\}) \cup \{x\} \quad (x \notin V \text{ az összeolvasztott pont}), \qquad E' = E \setminus \{e\}, \]
+        <p>és \(f \in E'\) esetén:</p>
+        \[ \varphi'(f) = \begin{cases} (\varphi(f) \setminus \{v, w\}) \cup \{x\}, &amp; \text{ha } v \text{ vagy } w \in \varphi(f) \\ \varphi(f), &amp; \text{ha } v, w \notin \varphi(f) \end{cases} \]
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
