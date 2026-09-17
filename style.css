@@ -271,6 +271,36 @@ blockquote {
   font-weight: 700;
 }
 
+/* ---------- Math note boxes (definitions/theorems/proofs/reminders) ----------
+   Generic .note-box + a text label inside, reused across every kind of
+   boxed note (Definíció/Tétel/Feladat/Bizonyítás/Emlékeztető) instead of
+   a separate class per type — same "extend the generic class" precedent
+   as .card-grid/.item-card. No new colors: border/background/accent all
+   read from the existing --color-border/--color-bg-alt/--color-accent
+   tokens, same as blockquote and .item-card. */
+
+.note-box {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 8px;
+  background: var(--color-bg-alt);
+}
+
+.note-box p:first-child { margin-top: 0; }
+.note-box p:last-child { margin-bottom: 0; }
+
+.note-box__label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
+}
+
 /* ---------- Ad slots ----------
    Kept in static HTML (not JS-injected) so crawlers see them
    on first paint. Swap the placeholder <div> contents for the
