@@ -77,7 +77,7 @@ not a bug.
 
 | Section (Hungarian) | Landing page | Item template | Filled example |
 |---|---|---|---|
-| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/de-ttk-matematika-bsc/jegyzet1/` (added 2026-09-17, see the math-note exception below); see also the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
+| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/de-ttk-matematika-bsc/jegyzet1/` (added 2026-09-17, see the math-note exception below) and the 10-item `kombinatorika-es-grafelmelet/` topic-landing page (added 2026-09-17, see the topic-nesting exception below); see also the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | none currently — empty since `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) |
 | Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | `/oktatoi/inbpm0315-21/jegyzet1/` (moved here 2026-09-16, renamed from `java-alapok` the same day) and `jegyzet2/` (added 2026-09-16, new content) — both keep the class-session shape, see below, not the template's default |
@@ -175,12 +175,14 @@ counterparts in the other sections.
 
 `de-ttk-matematika-bsc` (added 2026-09-17) is a third, unrelated
 course — Debreceni Egyetem, TTK, Matematika BSc — that exists only
-under `jegyzetek/` so far, with one item so far,
-`jegyzet1` ("Analízis alapjai"). See the "Math-note jegyzet exception"
-subsection below for why this item's shape deliberately differs from
-both `jegyzet-template.html`'s current default and the older
-Tematika/Kontextus/Gyakorlat/Puffer pattern the Content style guide
-documents.
+under `jegyzetek/` so far. It has two children on its course-landing
+card-grid: the standalone item `jegyzet1` ("Analízis alapjai") — see
+the "Math-note jegyzet exception" subsection below for why its shape
+deliberately differs from both `jegyzet-template.html`'s current
+default and the older Tematika/Kontextus/Gyakorlat/Puffer pattern the
+Content style guide documents — and the `kombinatorika-es-grafelmelet/`
+topic-landing page, itself listing 10 jegyzet items; see the
+"Topic-nesting exception" subsection below for that second level.
 
 `deik-mernokinformatikus-bsc-2017`, by contrast, is the same course
 (same degree program) appearing under both `tetelek/` (the finished
@@ -258,6 +260,79 @@ content. The **old** "don't reintroduce the old name/code" instruction
 is exactly backwards now — the restored name/code **are** the current,
 correct state. Don't re-remove them without a fresh, explicit request
 from the site owner (universities can change their minds either way).
+
+### Deliberate exception: topic nesting under `jegyzetek/de-ttk-matematika-bsc/kombinatorika-es-grafelmelet/`
+
+Added 2026-09-17. Second course-landing page on the site (after
+`deik-mernokinformatikus-bsc-2017`) whose card-grid links to a second
+landing-page level instead of items directly — but nested by **topic**,
+not by semester. The site owner supplied one long LaTeX source
+("Kombinatorika és gráfelmélet", technically two concatenated
+`\documentclass`/`\begin{document}` files, but one continuous set of
+notes) and explicitly asked for it to be split into smaller jegyzet
+items rather than published as a single page — confirmed with the site
+owner (the exact 10-way split and grouping) before building. That
+produced the same *shape* of problem the semester exception solves
+(a course-landing card-grid that needs to link to a second landing
+page, not items directly), so `semester-template.html`'s
+course-landing-page pattern was reused as-is for
+`kombinatorika-es-grafelmelet/index.html` — same structure, different
+grouping axis (10 numbered topic jegyzetek instead of 6 numbered
+semesters).
+
+Don't generalize this into a new default either: use a second
+landing-page level only when a course's source material is genuinely
+one large document that the site owner has asked to be split, or is
+explicitly organized by semester (the original case) — confirmed with
+the site owner each time, not invented per-course. A course whose
+items were always independent (like `deik-mernokinformatikus-bsc-2017`'s
+tétel series, or `inbpm0315-21`) stays one level deep.
+
+All 10 items use the math-note shape documented in the next
+subsection (intro → "Témák" outline → one `<h2>` per LaTeX `\section`),
+since the source material has the same "multi-topic reference, not one
+class session" character as `jegyzet1`. Each item's breadcrumb has an
+extra "Kombinatorika és gráfelmélet" segment
+(`Kezdőlap / Órai jegyzetek / DE TTK Matematika BSc / Kombinatorika és
+gráfelmélet / N. jegyzet`), the same hand-added-segment approach the
+semester exception uses.
+
+**Source-content fixes applied across the 10 items** (same "silently
+fix once flagged, confirm with the owner first" approach the
+`deik-mernokinformatikus-bsc-2017` tétel series established — see the
+Content style guide below), all confirmed with the site owner before
+building:
+- Deduplicated content that appeared twice in the source (a
+  verbatim-repeated theorem; the "teljes páros gráf" definition and
+  edge-count identity, once under each of two section headers with
+  swapped variable names; a rough "előretekintés" preview draft of the
+  Euler-formula/Platonic-solids material, superseded by the later,
+  complete treatment of the same material).
+- Reconstructed one missing theorem statement ("páros gráfok
+  jellemzési tétele, 1. változat" — its proof survived in the source,
+  its statement didn't; recovered from the 2. változat's own
+  cross-reference to it) and, per the site owner's explicit request,
+  one missing concept (a "kromatikus polinom" subsection: the source
+  had two orphaned facts about \(P_G(x)\) but never defined it — this
+  subsection is supplied from general graph-theory knowledge, not
+  transcribed, and flagged as such where it appears).
+- Relabeled a genuine naming collision: two different theorems were
+  both called "2. változat" in the source (one about cycles, one about
+  closed walks) — the second is "3. változat" here.
+- Promoted several `% EMLÉKEZTETŐ` LaTeX comments (reminders the
+  source author never actually wrapped in a real box, so they'd never
+  have rendered) into real Emlékeztető `.note-box` blocks.
+- Fixed broken/malformed source markup (an invalid `\begin{* }`
+  environment, empty leading list items before case-split proofs, one
+  proof whose ⟸ case was mis-nested inside the ⟹ case's own sub-list)
+  without changing the mathematical content.
+- Redrew the source's TikZ figures (edge subdivision/contraction,
+  directed-graph examples, Ramsey-proof illustrations) as inline SVG
+  — the `% N. KÉP (....jpg)` comments scattered through the source are
+  *not* missing figures, just the author's own page-transcription
+  markers (the content following each one is already transcribed as
+  text); nothing was reconstructed from an image that isn't in the
+  page.
 
 ### Deliberate exception: `jegyzetek/de-ttk-matematika-bsc/jegyzet1` skips Tematika/Gyakorlat/Puffer
 
