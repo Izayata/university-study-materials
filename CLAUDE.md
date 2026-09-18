@@ -366,6 +366,36 @@ still look like a class session — copy the shape
 `oktatoi/inbpm0315-21/jegyzet1` preserves by hand, since
 `jegyzet-template.html` itself no longer has it (see below).
 
+### Source/attribution note on every `de-ttk-matematika-bsc` content page
+
+Added 2026-09-18. Every content item under `jegyzetek/de-ttk-matematika-bsc/`
+(currently: `jegyzet1`, and `kombinatorika-es-grafelmelet/jegyzet1`–
+`jegyzet10` — 11 pages total) ends with a `<p class="source-note">`
+(styled in `style.css`: small, muted, italic — deliberately lighter
+weight than `.note-box`, since this is a site-wide disclaimer, not
+math content) placed after the `.support-callout` Ko-fi widget,
+immediately before `</main>` — i.e. the last visible element on the
+page. The text is fixed, verbatim (confirmed with the site owner,
+don't rephrase it even though its Hungarian is slightly informal):
+
+> A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva,
+> saját megfigyelésekkel, és kiemelésekkel ellátott, általunk
+> készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik
+> a Matematika BSc tantervi követelményeire, de teljesen nem egyezik
+> azzal.
+
+This does **not** apply to the section's two landing pages
+(`de-ttk-matematika-bsc/index.html`,
+`kombinatorika-es-grafelmelet/index.html`) — they're card-grids with
+no content text of their own. **Every future content item added under
+`jegyzetek/de-ttk-matematika-bsc/` must include this same element,
+verbatim text and placement** — confirmed with the site owner as a
+standing convention for this section, not a one-off. This section has
+no single shared template (`jegyzet1` and the `kombinatorika-es-grafelmelet`
+items are each hand-built, per the exceptions above), so there's no
+template file to encode this in — it has to be added by hand to each
+new item, per this note.
+
 ### Math notation: MathJax, opt-in per page
 
 Added 2026-09-17, first used by `jegyzetek/de-ttk-matematika-bsc/jegyzet1`.
