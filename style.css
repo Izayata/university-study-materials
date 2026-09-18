@@ -358,6 +358,18 @@ blockquote {
   font-weight: 600;
 }
 
+/* ---------- Source/attribution note (de-ttk-matematika-bsc) ----------
+   Small, muted, italic disclaimer — deliberately lighter-weight than
+   .note-box so it doesn't read as another math content box. */
+
+.source-note {
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
 /* ---------- Content index cards (homepage + section landing pages) ---------- */
 
 .card-grid {
