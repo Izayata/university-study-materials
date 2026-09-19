@@ -5,6 +5,7 @@
    3) mobile nav toggle + active-link highlighting
    4) auto-builds an on-page Table of Contents from h2/h3
    5) adds copy buttons to <pre><code> blocks
+   6) blocks copying/selecting/dragging prose outside <pre> blocks
    No frameworks, no build step — safe to include as a single
    <script src="/script.js" defer> tag on every page.
    ========================================================= */
@@ -124,7 +125,58 @@
     });
   }
 
+  function elementOf(node) {
+    if (!node) return null;
+    return node.nodeType === 1 ? node : node.parentElement;
+  }
+
+  function isInCode(node) {
+    var el = elementOf(node);
+    return !!(el && el.closest("pre"));
+  }
+
+  function selectionIsInCode() {
+    var sel = window.getSelection();
+    if (!sel || sel.isCollapsed) return true;
+    return isInCode(sel.anchorNode) && isInCode(sel.focusNode);
+  }
+
+  // Event-level half of the copy protection (the CSS half is in style.css).
+  // Code blocks are the only exception; the copy button uses the Clipboard
+  // API, which doesn't fire copy events, so it is unaffected.
+  function protectText() {
+    ["copy", "cut"].forEach(function (type) {
+      document.addEventListener(type, function (event) {
+        if (!selectionIsInCode()) event.preventDefault();
+      });
+    });
+
+    document.addEventListener("selectstart", function (event) {
+      if (!isInCode(event.target)) event.preventDefault();
+    });
+
+    document.addEventListener("dragstart", function (event) {
+      var el = elementOf(event.target);
+      if (el && !el.closest("pre, a")) event.preventDefault();
+    });
+
+    // Capture phase + stopPropagation so MathJax's own right-click menu
+    // (which can copy a formula's TeX/MathML) never sees the event either.
+    document.addEventListener(
+      "contextmenu",
+      function (event) {
+        var el = elementOf(event.target);
+        if (el && !el.closest("pre, a, button")) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      },
+      true
+    );
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
+    protectText();
     loadNav();
     renderFooter();
     buildTableOfContents();

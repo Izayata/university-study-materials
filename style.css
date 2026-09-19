@@ -236,6 +236,41 @@ code {
 }
 .copy-btn:hover { color: var(--color-text); }
 
+/* ---------- Copy protection ----------
+   Prose can't be selected; only code blocks (pre) stay selectable, and the
+   copy button keeps working because it uses the Clipboard API, not a
+   selection. A deterrent for casual copy-paste — see protectText() in
+   script.js for the event-level half. Printing is disabled too. */
+
+body {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+a { -webkit-touch-callout: default; }
+
+pre,
+pre * {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.copy-btn {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+@media print {
+  body * { display: none !important; }
+  body::before {
+    content: "A nyomtatás nem engedélyezett.";
+    display: block;
+    padding: 2rem;
+    color: #000;
+  }
+}
+
 blockquote {
   margin: 1.5rem 0;
   padding: 0.25rem 1rem;

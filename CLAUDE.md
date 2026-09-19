@@ -499,6 +499,46 @@ lab-specific names during a refactor when the site grew beyond just
 "Labor" content). Don't reintroduce section-specific class names
 (e.g. `.lab-card`) — extend the generic ones instead.
 
+### Text copy protection: prose can't be selected, code blocks can
+
+Added 2026-09-19, confirmed with the site owner (CSS + JS variant, chosen
+over a CSS-only one and a softer "source note on copy" one). On every
+page, prose — body text, headings, nav/footer, breadcrumbs, cards, ToC,
+inline `<code>`, MathJax formulas, SVG figure text, `about`/`privacy`
+included — can't be selected, copied, cut or dragged. The one exception
+is `<pre>` code blocks: still selectable, and they keep their "Másolás"
+button. Printing is disabled too: the print view shows only "A nyomtatás
+nem engedélyezett."
+
+- **CSS** (`style.css`, "Copy protection" section): `user-select: none`
+  on `body`, `user-select: text` on `pre, pre *`, `none` again on
+  `.copy-btn` (so the button label isn't copied along with the code),
+  `-webkit-touch-callout: none` (iOS long-press; links opt back in), and
+  the `@media print` rule.
+- **JS** (`script.js`, `protectText()`): outside `<pre>` it blocks
+  `copy`/`cut` (selection must be entirely in code), `selectstart`,
+  `dragstart` (links may still be dragged) and `contextmenu` (allowed on
+  code, links and buttons). `contextmenu` is handled in the *capture*
+  phase with `stopPropagation()` so MathJax's own right-click menu, which
+  can copy a formula's TeX/MathML, never opens.
+- **`robots.txt`** asks 16 known AI crawlers (GPTBot, ClaudeBot,
+  PerplexityBot, CCBot, Google-Extended, ...) to stay out. Googlebot,
+  Bingbot and the AdSense crawler are deliberately unaffected. It's only
+  a request; honest bots respect it.
+
+The copy button uses `navigator.clipboard.writeText()` — no selection, no
+`copy` event — so none of this affects it; don't rewrite it to
+`document.execCommand('copy')`, which needs a selection. Every page loads
+`style.css` and `script.js`, so new pages inherit all of it with nothing
+to add; but code that should stay copyable must be a `<pre>`, and any new
+UI that needs text selection (an `<input>`/`<textarea>`) must opt back in
+with `user-select: text`.
+
+Known limits, told to the site owner: it only stops casual copy-paste.
+View-source, devtools, reader mode, screenshots/OCR and saving the page
+bypass it, and it also disables select-to-translate/dictionary/Lens and
+"read selection aloud" (Ctrl+F and screen readers are unaffected).
+
 ### Tables
 
 Added 2026-09-09 (the second `tétel` under `deik-mernokinformatikus-bsc-2017`
