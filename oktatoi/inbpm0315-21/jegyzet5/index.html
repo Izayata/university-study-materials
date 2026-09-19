@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Absztrakt osztály, interfész, Comparable, Comparator (5. labor gyakorlat) | Oktatói jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Absztrakt osztály és absztrakt metódus, interfész, a Comparable és a Comparator, valamint tömbök rendezése Arrays.sort-tal, megoldásokkal, gyakorló és házi feladatokkal — Magas szintű programozási nyelvek 2 (INBPM0315-21).">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/oktatoi/inbpm0315-21/jegyzet5/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<!--
+  Like jegyzet1–jegyzet4, this page keeps jegyzet-template.html's full
+  class-session shape (Tematika/Kontextus/Gyakorlat/Puffer), plus an
+  appended "Házi feladat" section absorbing its practice-tasks
+  sibling — unlike oktatoi-jegyzet-template.html's default freeform,
+  no-session shape. Genuinely new content, kept in this shape because
+  the source material is itself a real class session's agenda. This is
+  the first lesson whose source also carries worked solutions to the
+  in-class exercises: they sit in a "Megoldások" section between
+  Gyakorlat and Puffer. See CLAUDE.md's Content model section.
+-->
+<body data-nav-key="oktatoi">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/oktatoi/">Oktatói jegyzetek</a> / <a href="/oktatoi/inbpm0315-21/">Magas szintű programozási nyelvek 2 (INBPM0315-21)</a> / 5. jegyzet</p>
+
+      <h1>Absztrakt osztály, interfész, Comparable, Comparator</h1>
+      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 5. labor gyakorlat · Frissítve: 2026-09-19</p>
+
+      <h2>Tematika</h2>
+      <ul>
+        <li>Absztrakt osztály, absztrakt metódus</li>
+        <li>Interfész (általános fogalom)</li>
+        <li><code>Comparable</code></li>
+        <li><code>Comparator</code></li>
+        <li>Tömb rendezése (<code>Arrays.sort</code>)</li>
+      </ul>
+
+      <h2>Kontextus</h2>
+      <p>
+        Eddig a <code>Student</code> és <code>GraduateStudent</code>
+        osztályokkal dolgoztunk, mindkettő konkrét, példányosítható osztály
+        volt. Ma két új eszközt vezetünk be, amelyekkel
+        <strong>kényszeríthetjük</strong> a leszármazottakat bizonyos
+        viselkedés megvalósítására: az absztrakt osztályt és az
+        interfészt. A végén pedig egy nagyon gyakorlati problémát oldunk
+        meg mindkettő segítségével: hogyan <strong>rendezzünk</strong> egy
+        <code>Student[]</code> tömböt.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Absztrakt osztály, absztrakt metódus</h2>
+      <p>
+        Bővítsük a hierarchiánkat: vegyük észre, hogy a
+        <code>GraduateStudent</code> valójában egy <strong>speciális</strong>
+        hallgató — van neki valami "extra kötelezettsége" a sima
+        hallgatókhoz képest. Vezessünk be egy köztes osztályt, amely ezt a
+        közös tulajdonságot fogalmazza meg, de amelynek önmagában
+        <strong>nincs értelme</strong> példányosítani (egy "speciális
+        hallgató általában" nem létezik, csak konkrét fajtái).
+      </p>
+
+      <p>
+        <strong>Absztrakt osztály:</strong> Olyan osztály, amelyet
+        <strong>nem lehet közvetlenül példányosítani</strong>
+        (<code>new</code>-val létrehozni) — csak leszármazottakon keresztül
+        használható.
+      </p>
+
+      <p>
+        <strong>Absztrakt metódus:</strong> Egy metódus, amelynek
+        <strong>csak a fejlécét</strong> deklaráljuk (nincs törzse, nincs
+        <code>{}</code>), és a leszármazott osztályoknak
+        <strong>kötelező</strong> megvalósítaniuk.
+      </p>
+
+      <pre><code>public abstract class SpecialStudent extends Student {
+
+    public SpecialStudent(String name, String neptunCode, int[] grades) {
+        super(name, neptunCode, grades);
+    }
+
+    public abstract String getSpecialRequirement();
+}</code></pre>
+
+      <ul>
+        <li>Az <code>abstract</code> kulcsszó az osztálynevén jelzi, hogy <code>SpecialStudent</code>-et nem lehet közvetlenül példányosítani: <code>new SpecialStudent(...)</code> <strong>fordítási hiba</strong> lenne.</li>
+        <li>A <code>getSpecialRequirement()</code> metódusnak nincs törzse — ez egy <strong>ígéret</strong>: "minden leszármazott osztálynak meg kell mondania, mi az ő extra kötelezettsége."</li>
+      </ul>
+
+      <p>
+        Alakítsuk át a <code>GraduateStudent</code>-et úgy, hogy a
+        <code>Student</code> helyett a <code>SpecialStudent</code>-ből
+        származzon (ő <strong>is</strong> <code>Student</code>, hiszen a
+        <code>SpecialStudent</code> maga is <code>Student</code>-ből
+        öröklődik):
+      </p>
+
+      <pre><code>public class GraduateStudent extends SpecialStudent {
+
+    private String supervisor;
+    private String thesisTopic;
+
+    public GraduateStudent(String name, String neptunCode, int[] grades,
+                            String supervisor, String thesisTopic) {
+        super(name, neptunCode, grades);
+        this.supervisor = supervisor;
+        this.thesisTopic = thesisTopic;
+    }
+
+    @Override
+    public String getSpecialRequirement() {
+        return "Diplomamunka leadása, téma: " + this.getThesisTopic() + " (témavezető: " + this.getSupervisor() + ")";
+    }
+}</code></pre>
+
+      <p>
+        És vegyünk fel egy második leszármazottat is, hogy lássuk, miért
+        éri meg ez a kényszerítés:
+      </p>
+
+      <pre><code>public class ExchangeStudent extends SpecialStudent {
+
+    private String hostCountry;
+
+    public ExchangeStudent(String name, String neptunCode, int[] grades, String hostCountry) {
+        super(name, neptunCode, grades);
+        this.hostCountry = hostCountry;
+    }
+
+    public String getHostCountry() {
+        return hostCountry;
+    }
+
+    @Override
+    public String getSpecialRequirement() {
+        return "Csereprogram teljesítése: " + this.getHostCountry();
+    }
+}</code></pre>
+
+      <p>
+        <strong>A lényeg:</strong> ha valaki ír egy harmadik
+        <code>SpecialStudent</code>-leszármazottat, és elfelejti
+        megvalósítani a <code>getSpecialRequirement()</code>-et, a kód
+        <strong>nem fordul le</strong> — az absztrakt metódus
+        kikényszeríti, hogy minden konkrét leszármazott gondoskodjon róla.
+        Ez erősebb garancia, mint egy sima felülírható (de nem kötelező)
+        metódus.
+      </p>
+
+      <h2>Interfész (általános fogalom)</h2>
+      <p>
+        <strong>Interfész:</strong> Egy interfész egy
+        <strong>szerződés/kontraktus</strong>, amely megmondja, milyen
+        metódusokat kell megvalósítania egy osztálynak — de az
+        interfésznek <strong>semmilyen saját állapota</strong> (mezője) és
+        jellemzően semmilyen implementációja nincs. Egy osztály
+        <strong>egyszerre több</strong> interfészt is megvalósíthat
+        (<code>implements</code>), szemben az öröklődéssel, ahol csak
+        <strong>egy</strong> szülőosztály lehet.
+      </p>
+
+      <pre><code>public interface Reportable {
+    String getReportLine();
+}</code></pre>
+
+      <p>Valósítsa meg a <code>Student</code>:</p>
+
+      <pre><code>public class Student implements Reportable {
+    // ... eddigi mezők, konstruktor, metódusok ...
+
+    @Override
+    public String getReportLine() {
+        return this.getName() + " - átlag: " + this.getAverage();
+    }
+}</code></pre>
+
+      <p>
+        <strong>Absztrakt osztály vs. interfész — a lényegi különbség:</strong>
+      </p>
+      <ul>
+        <li>Az absztrakt osztálytól <strong>örökölünk</strong> (<code>extends</code>) — csak egyet lehet, és megkapjuk a közös <strong>mezőket és implementált metódusokat</strong> is (pl. a <code>SpecialStudent</code> konstruktorát).</li>
+        <li>Az interfészt <strong>megvalósítjuk</strong> (<code>implements</code>) — többet is lehet egyszerre, de az interfész önmagában nem ad se mezőt, se kész implementációt, csak a "mit kell tudnod" listát.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Comparable</h2>
+      <p>
+        Most egy nagyon konkrét, beépített interfészt nézünk meg: a
+        rendezéshez való <code>Comparable</code>-t.
+      </p>
+
+      <p>
+        <strong>Comparable:</strong> A
+        <code>java.lang.Comparable&lt;T&gt;</code> interfész egyetlen
+        metódust ír elő: <code>compareTo(T other)</code>. Ezt
+        implementálva megmondjuk, mi számít egy <code>Student</code>
+        <strong>természetes rendezési sorrendjének</strong>.
+      </p>
+
+      <pre><code>public class Student implements Reportable, Comparable&lt;Student&gt; {
+    // ...
+
+    @Override
+    public int compareTo(Student other) {
+        return this.name.compareTo(other.name);
+    }
+}</code></pre>
+
+      <ul>
+        <li>Egy osztály <strong>több</strong> interfészt is megvalósíthat egyszerre (itt: <code>Reportable</code> <strong>és</strong> <code>Comparable&lt;Student&gt;</code>), vesszővel elválasztva.</li>
+        <li>A <code>compareTo</code> visszatérési értéke: <strong>negatív</strong>, ha <code>this</code> "kisebb" (előrébb van), <strong>0</strong>, ha egyenlő, <strong>pozitív</strong>, ha <code>this</code> "nagyobb" (hátrébb van) a paraméterhez képest. A <code>String.compareTo</code> már pontosan ezt a konvenciót követi ábécésorrendhez, ezért egyszerűen ráépíthetünk.</li>
+      </ul>
+
+      <h2>Comparator</h2>
+      <p>
+        Mi van, ha <strong>másképp</strong> is szeretnénk rendezni néha —
+        mondjuk átlag szerint, nem név szerint? A <code>compareTo</code>-t
+        nem írhatjuk át kétféleképp egyszerre. Erre való a
+        <code>Comparator</code>.
+      </p>
+
+      <p>
+        <strong>Comparator:</strong> A
+        <code>java.util.Comparator&lt;T&gt;</code> egy
+        <strong>külön</strong> interfész, amely egy
+        <code>compare(T a, T b)</code> metódust ír elő — ezzel egy
+        <strong>alternatív</strong>, a természetes rendezéstől független
+        sorrendet tudunk megadni, anélkül hogy a <code>Student</code>
+        osztályt módosítanánk.
+      </p>
+
+      <pre><code>import java.util.Comparator;
+
+public class AverageGradeComparator implements Comparator&lt;Student&gt; {
+    @Override
+    public int compare(Student a, Student b) {
+        return Double.compare(a.getAverage(), b.getAverage());
+    }
+}</code></pre>
+
+      <ul>
+        <li><code>Double.compare(x, y)</code> ugyanazt a negatív/0/pozitív konvenciót követi, mint korábban a <code>compareTo</code>, csak <code>double</code> értékekre.</li>
+        <li>Ezt a <code>Comparator</code>-t <strong>külön, tetszőleges számban</strong> írhatjuk meg (pl. egy másikat név szerint csökkenő sorrendhez), a <code>Student</code> osztály érintetlen marad.</li>
+      </ul>
+
+      <h2>Tömb rendezése</h2>
+      <p>
+        Most tegyük össze mindent: rendezzük a <code>Student[]</code>
+        tömbünket (a múlt óráról) mindkét módon.
+      </p>
+
+      <pre><code>import java.util.Arrays;
+
+Student[] students = new Student[] {
+    new Student("Nagy Béla", "XYZ789", new int[]{3, 4, 2}),
+    new GraduateStudent("Kiss Réka", "GHI789", new int[]{5, 5, 4},
+                         "Dr. Nagy Péter", "Gépi tanulás alkalmazásai"),
+    new Student("Kovács Anna", "ABC123", new int[]{5, 4, 5}),
+};
+
+// Természetes rendezés (Comparable) — név szerint
+Arrays.sort(students);
+for (Student s : students) {
+    System.out.println(s.getReportLine());
+}
+
+// Egyedi rendezés (Comparator) — átlag szerint
+Arrays.sort(students, new AverageGradeComparator());
+for (Student s : students) {
+    System.out.println(s.getReportLine());
+}</code></pre>
+
+      <ul>
+        <li><code>Arrays.sort(tomb)</code> — a <code>Comparable</code> (természetes rendezés) alapján rendez. Ehhez a tömb elemtípusának implementálnia kell a <code>Comparable</code>-t — ezért kellett a <code>Student</code>-re rátennünk.</li>
+        <li><code>Arrays.sort(tomb, comparator)</code> — a megadott <code>Comparator</code> alapján rendez, függetlenül attól, hogy az elemtípus implementálja-e a <code>Comparable</code>-t.</li>
+      </ul>
+
+      <h2>Gyakorlat</h2>
+      <ol>
+        <li>Írjatok egy második <code>Comparator</code>-t, amely az <code>ExchangeStudent</code>/<code>GraduateStudent</code> megkülönböztetése nélkül, a Neptun-kód szerint rendez.</li>
+        <li>Próbáljátok ki, mi történik, ha egy <code>SpecialStudent</code>-et közvetlenül megpróbáltok példányosítani (<code>new SpecialStudent(...)</code>) — figyeljétek meg a fordítási hibát.</li>
+        <li>Írjatok egy harmadik <code>SpecialStudent</code>-leszármazottat (pl. <code>RepeatingStudent</code>, aki egy tárgyat ismétel) a <code>getSpecialRequirement()</code> megvalósításával, és tegyétek bele a <code>students</code> tömbbe is.</li>
+        <li>Rendezzétek a tömböt a <code>getSpecialRequirement()</code> hossza szerint (<code>String.length()</code>) egy újabb <code>Comparator</code>-ral.</li>
+      </ol>
+
+      <h2>Megoldások</h2>
+
+      <h3>1. feladat</h3>
+
+      <pre><code>import java.util.Comparator;
+
+public class NeptunCodeComparator implements Comparator&lt;Student&gt; {
+    @Override
+    public int compare(Student a, Student b) {
+        return a.getNeptunCode().compareTo(b.getNeptunCode());
+    }
+}</code></pre>
+
+      <pre><code>Student[] students = new Student[] {
+        new Student("Nagy Béla", "XYZ789", new int[]{3, 4, 2}),
+        new GraduateStudent("Kiss Réka", "ABC124", new int[]{5, 5, 4},
+                "Dr. Nagy Péter", "Gépi tanulás alkalmazásai"),
+        new Student("Kovács Anna", "ABC123", new int[]{5, 4, 5}),
+};
+
+Arrays.sort(students, new NeptunCodeComparator());
+
+// Egyedi rendezés (Comparator) — neptun kod szerint
+System.out.println("Egyedi rendezés (Comparator) — neptun kod szerint");
+Arrays.sort(students, new NeptunCodeComparator());
+for (Student s : students) {
+    System.out.println(s.getNeptunCode());
+}</code></pre>
+
+      <p>
+        Ez a <code>Comparator</code> <strong>nem törődik</strong> azzal,
+        hogy a <code>Student</code> éppen <code>GraduateStudent</code>,
+        <code>ExchangeStudent</code> vagy sima <code>Student</code> —
+        mindegyiknek van <code>getNeptunCode()</code>-ja, hiszen ez a
+        <code>Student</code> osztályból öröklődik, tehát a rendezés
+        egyformán működik mindegyikükön.
+      </p>
+
+      <h3>2. feladat</h3>
+
+      <pre><code>SpecialStudent s = new SpecialStudent("Teszt Elek", "TST000", new int[]{5});</code></pre>
+
+      <p>Ez <strong>fordítási hibát</strong> ad:</p>
+
+      <pre><code>error: SpecialStudent is abstract; cannot be instantiated</code></pre>
+
+      <p>
+        A fordító már azelőtt jelzi a hibát, mielőtt a program egyáltalán
+        lefutna — pontosan ez az absztrakt osztály lényege: nem lehet
+        "csak úgy" egy általános <code>SpecialStudent</code>-et létrehozni,
+        csak a konkrét leszármazottjait (<code>GraduateStudent</code>,
+        <code>ExchangeStudent</code>, ...).
+      </p>
+
+      <h3>3. feladat</h3>
+
+      <pre><code>public class RepeatingStudent extends SpecialStudent {
+
+    private String repeatedCourse;
+
+    public RepeatingStudent(String name, String neptunCode, int[] grades, String repeatedCourse) {
+        super(name, neptunCode, grades);
+        this.repeatedCourse = repeatedCourse;
+    }
+
+    public String getRepeatedCourse() {
+        return repeatedCourse;
+    }
+
+    @Override
+    public String getSpecialRequirement() {
+        return "Tárgyismétlés: " + this.getRepeatedCourse();
+    }
+}</code></pre>
+
+      <pre><code>Student[] students = new Student[] {
+    new Student("Nagy Béla", "XYZ789", new int[]{3, 4, 2}),
+    new GraduateStudent("Kiss Réka", "GHI789", new int[]{5, 5, 4},
+                         "Dr. Nagy Péter", "Gépi tanulás alkalmazásai"),
+    new Student("Kovács Anna", "ABC123", new int[]{5, 4, 5}),
+    new RepeatingStudent("Tóth Elemér", "QWE111", new int[]{2, 3, 3}, "Programozás alapjai"),
+};
+
+for (Student student : students) {
+    if (student instanceof RepeatingStudent) {
+        System.out.println(student.describeStudent() + " " + ((RepeatingStudent) student).getSpecialRequirement());
+    } else {
+        System.out.println(student.describeStudent());
+    }
+
+}</code></pre>
+
+      <h3>4. feladat</h3>
+
+      <pre><code>public class SpecialRequirementLengthComparator implements Comparator&lt;Student&gt; {
+    @Override
+    public int compare(Student a, Student b) {
+        return Integer.compare(getRequirementLength(a), getRequirementLength(b));
+    }
+
+    private int getRequirementLength(Student student) {
+        if (student instanceof SpecialStudent) {
+            SpecialStudent special = (SpecialStudent) student;
+            return special.getSpecialRequirement().length();
+        }
+        return 0;
+    }
+}</code></pre>
+
+      <pre><code>Arrays.sort(students, new SpecialRequirementLengthComparator());
+
+for (Student student : students) {
+    if (student instanceof RepeatingStudent) {
+        System.out.println(student.describeStudent() + " " + ((RepeatingStudent) student).getSpecialRequirement());
+    } else {
+        System.out.println(student.describeStudent());
+    }
+}</code></pre>
+
+      <p>
+        <strong>Fontos tervezési döntés:</strong> a <code>students</code>
+        tömb <strong>vegyesen</strong> tartalmaz sima
+        <code>Student</code>-et és <code>SpecialStudent</code>-leszármazottakat
+        (<code>GraduateStudent</code>, <code>RepeatingStudent</code>, ...) —
+        de a <code>getSpecialRequirement()</code> csak a
+        <code>SpecialStudent</code>-en (és leszármazottain) létezik, sima
+        <code>Student</code>-en nem. Ezért a <code>compare()</code> egy
+        segédmetódust (<code>getRequirementLength</code>) használ, amely
+        <code>instanceof</code>-fal ellenőrzi, hogy az adott hallgató
+        <code>SpecialStudent</code>-e: ha igen, lekérdezi a hosszt; ha nem
+        (sima <code>Student</code>), <strong>0</strong>-t ad vissza —
+        mintha "nem lenne extra kötelezettsége". Enélkül a
+        <code>compare()</code> megpróbálná meghívni a
+        <code>getSpecialRequirement()</code>-et egy sima
+        <code>Student</code>-en is, ami <strong>nem fordulna le</strong>
+        (a metódus ott nem létezik).
+      </p>
+
+      <h2>Puffer (~30 perc)</h2>
+      <p>
+        Kérdések, illetve további gyakorlási idő azoknak, akik lassabban
+        haladnak — az absztrakt osztály és az interfész közti különbség
+        sokaknak elsőre elvont, érdemes rá időt hagyni.
+      </p>
+
+      <h2>Házi feladat</h2>
+      <p>
+        Ezek a feladatok az 5. órán tanultak (absztrakt osztály/metódus,
+        interfész, <code>Comparable</code>, <code>Comparator</code>, tömb
+        rendezése) önálló, otthoni elmélyítésére szolgálnak. Az első két
+        feladat a <code>Student</code> hierarchiátokra épül, a másik kettő
+        egy teljesen új, önállóan felépített hierarchiát kér — ez utóbbi azt
+        teszteli, hogy a fogalmakat egy ismeretlen helyzetben is alkalmazni
+        tudjátok, nem csak a már ismert <code>Student</code> kódot
+        bővítitek.
+      </p>
+
+      <h3>1. feladat (Könnyű) — Új interfész: Gradable</h3>
+      <p>
+        Írjatok egy <code>Gradable</code> nevű interfészt, egyetlen
+        <code>boolean isPassing()</code> metódussal. Valósítsátok meg a
+        <code>Student</code> osztályban úgy, hogy akkor adjon
+        <code>true</code>-t, ha a hallgató átlaga legalább 2.0.
+      </p>
+
+      <h3>2. feladat (Közepes) — Rendezés a jegyek száma szerint</h3>
+      <p>
+        Írjatok egy új <code>Comparator&lt;Student&gt;</code> osztályt (pl.
+        <code>GradeCountComparator</code> néven), amely a hallgatókat a
+        <strong>letett jegyek száma</strong> (<code>grades.length</code>)
+        szerint rendezi. Próbáljátok ki egy vegyes <code>Student[]</code>
+        tömbön <code>Arrays.sort</code>-tal.
+      </p>
+
+      <h3>3. feladat (Közepes/Haladó) — Önálló hierarchia: Shape</h3>
+      <p>Építsetek fel <strong>nulláról</strong> egy kis hierarchiát:</p>
+      <ul>
+        <li>egy absztrakt <code>Shape</code> osztályt, egyetlen absztrakt metódussal: <code>double getArea()</code>,</li>
+        <li>egy <code>Circle extends Shape</code> osztályt (<code>radius</code> mezővel), amely megvalósítja a <code>getArea()</code>-t (<code>Math.PI * radius * radius</code>),</li>
+        <li>egy <code>Rectangle extends Shape</code> osztályt (<code>width</code>, <code>height</code> mezőkkel), amely szintén megvalósítja a <code>getArea()</code>-t (<code>width * height</code>).</li>
+      </ul>
+      <p>
+        Próbáljátok meg közvetlenül példányosítani a <code>Shape</code>-et —
+        figyeljétek meg a fordítási hibát.
+      </p>
+
+      <h3>4. feladat (Haladó) — Shape rendezése terület szerint</h3>
+      <p>
+        Tegyétek a <code>Shape</code>-et <code>Comparable&lt;Shape&gt;</code>-é,
+        úgy hogy a <code>compareTo</code> a <code>getArea()</code> alapján
+        hasonlítson össze két alakzatot. Hozzatok létre egy
+        <code>Shape[]</code> tömböt, benne vegyesen <code>Circle</code> és
+        <code>Rectangle</code> példányokkal, és rendezzétek
+        <code>Arrays.sort</code>-tal terület szerint növekvő sorrendbe.
+      </p>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

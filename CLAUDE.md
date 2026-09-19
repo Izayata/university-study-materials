@@ -145,7 +145,10 @@ shape so far:
   `jegyzet2`: the site owner's `NN-<topic>.md` class agenda ("N. labor
   gyakorlat") plus `class-N-practice-tasks.md` merged in as its "Házi
   feladat" section. Lessons arrive one per message; copy the newest
-  existing item's structure rather than this description.
+  existing item's structure rather than this description. If a lesson's
+  source also carries worked solutions to the in-class Gyakorlat
+  (first: `jegyzet5`), they go in a "Megoldások" `<h2>` between
+  Gyakorlat and Puffer, with one `<h3>` per task.
 
 All these pages **keep the 3-part jegyzet-style item-meta**
 (`Course · Session label · Frissítve: date`) rather than
