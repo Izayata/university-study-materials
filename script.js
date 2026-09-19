@@ -66,6 +66,7 @@
       '<a href="https://ko-fi.com/izayata" target="_blank" rel="noopener">Támogasd a kurzust ☕</a>' +
       "</nav>" +
       "<p>&copy; " + year + " Füles Jegyzetek. Minden anyag a fejlesztők saját munkája.</p>" +
+      "<p>A tartalom másolása és képernyőképes terjesztése a szerző engedélye nélkül tilos.</p>" +
       "</footer>";
   }
 
