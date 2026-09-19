@@ -425,6 +425,32 @@
         is).
       </p>
 
+      <svg viewBox="0 0 260 200" style="max-width: 260px; display: block; margin: 1.5rem auto;" role="img" aria-label="Egy körmentes irányított gráf (DAG) a csúcsok topologikus sorrendjében lerajzolva: minden él balról jobbra mutat">
+        <defs>
+          <marker id="arrDAG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-text-muted)"/>
+          </marker>
+        </defs>
+        <g stroke="var(--color-text-muted)" stroke-width="1.5" marker-end="url(#arrDAG)" fill="none">
+          <line x1="35" y1="100" x2="95" y2="45"/>
+          <line x1="35" y1="100" x2="95" y2="155"/>
+          <line x1="105" y1="45" x2="160" y2="95"/>
+          <line x1="105" y1="155" x2="160" y2="100"/>
+          <line x1="105" y1="45" x2="220" y2="98"/>
+          <line x1="170" y1="100" x2="220" y2="100"/>
+        </g>
+        <circle cx="25" cy="100" r="4" fill="var(--color-text)"/>
+        <circle cx="100" cy="40" r="4" fill="var(--color-text)"/>
+        <circle cx="100" cy="160" r="4" fill="var(--color-text)"/>
+        <circle cx="165" cy="100" r="4" fill="var(--color-text)"/>
+        <circle cx="230" cy="100" r="4" fill="var(--color-text)"/>
+        <text x="10" y="90" fill="var(--color-text)" font-size="12">1</text>
+        <text x="105" y="32" fill="var(--color-text)" font-size="12">2</text>
+        <text x="105" y="178" fill="var(--color-text)" font-size="12">3</text>
+        <text x="170" y="90" fill="var(--color-text)" font-size="12">4</text>
+        <text x="235" y="90" fill="var(--color-text)" font-size="12">5</text>
+      </svg>
+
       <div class="note-box">
         <span class="note-box__label">Tétel — topologikus sorrend</span>
         <p>
