@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Unit test, Java documentation (7. labor gyakorlat) | Oktatói jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Unit teszt és a JUnit 5 IntelliJ-ben, a getAverage() és az equals()/hashCode() szerződés tesztelése, valamint a Javadoc, megoldásokkal, gyakorló és házi feladatokkal — Magas szintű programozási nyelvek 2 (INBPM0315-21).">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/oktatoi/inbpm0315-21/jegyzet7/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<!--
+  Like jegyzet1–jegyzet6, this page keeps jegyzet-template.html's full
+  class-session shape (Tematika/Kontextus/Gyakorlat/Puffer), plus an
+  appended "Házi feladat" section absorbing its practice-tasks
+  sibling — unlike oktatoi-jegyzet-template.html's default freeform,
+  no-session shape. Genuinely new content, kept in this shape because
+  the source material is itself a real class session's agenda. As in
+  jegyzet5/6, the worked solutions to the in-class exercises sit in a
+  "Megoldások" section between Gyakorlat and Puffer. See CLAUDE.md's
+  Content model section for the rationale.
+-->
+<body data-nav-key="oktatoi">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/oktatoi/">Oktatói jegyzetek</a> / <a href="/oktatoi/inbpm0315-21/">Magas szintű programozási nyelvek 2 (INBPM0315-21)</a> / 7. jegyzet</p>
+
+      <h1>Unit test, Java documentation</h1>
+      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 7. labor gyakorlat · Frissítve: 2026-09-19</p>
+
+      <h2>Tematika</h2>
+      <ul>
+        <li>Unit teszt bevezetés, JUnit 5 IntelliJ-ben</li>
+        <li>Első teszt: <code>getAverage()</code></li>
+        <li><code>equals()</code>/<code>hashCode()</code> szerződés tesztelése</li>
+        <li>Tesztek futtatása és értelmezése</li>
+        <li>Java documentation (Javadoc)</li>
+      </ul>
+
+      <h2>Kontextus</h2>
+      <p>
+        Eddig úgy ellenőriztük, hogy a programjaink helyesen működnek-e,
+        hogy lefuttattuk őket, és <strong>szemmel</strong> megnéztük a
+        kiírt eredményt (a múlt órán már egy kicsit tovább mentünk: a
+        <code>HashSet.size()</code> értékét figyeltük). Ez működik, de van
+        egy nagy hátránya: minden egyes alkalommal, amikor változtatunk
+        valamit a kódon, <strong>manuálisan</strong> kell újra
+        ellenőriznünk, hogy minden még mindig jól működik-e.
+      </p>
+      <p>
+        Ma két eszközt nézünk meg, amelyek ezen segítenek: a <strong>unit
+        tesztet</strong> (automatikusan, ismételten lefuttatható
+        ellenőrzés), és a <strong>Javadocot</strong> (a kód dokumentálása,
+        hogy mások — vagy a jövőbeli mi magunk — az implementáció
+        elolvasása nélkül is tudják, mit csinál egy metódus).
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Unit teszt bevezetés, JUnit 5 IntelliJ-ben</h2>
+      <p>
+        <strong>Unit teszt:</strong> Egy unit teszt egy <strong>külön
+        kódrészlet</strong>, amely egyetlen metódus (vagy osztály)
+        viselkedését ellenőrzi, automatikusan, emberi beavatkozás nélkül —
+        és bármikor újra lefuttatható.
+      </p>
+
+      <p>
+        Mi a <strong>JUnit</strong>? A JUnit egy Java tesztelési
+        keretrendszer — ez adja a <code>@Test</code> annotációt és az
+        ellenőrzéshez (assertion) használt segédmetódusokat. Mi az
+        <strong>5-ös</strong> verzióját (JUnit Jupiter) használjuk.
+      </p>
+
+      <h3>JUnit 5 hozzáadása a projekthez (IntelliJ)</h3>
+      <p>
+        Az 1. órán eldöntöttük, hogy nem használunk Mavent/Gradle-t — ez a
+        teszteléshez sem szükséges, az IntelliJ ezt is le tudja kezelni:
+      </p>
+      <ol>
+        <li>Nyissátok meg a <code>Student.java</code> fájlt, álljatok a <code>Student</code> osztály nevére.</li>
+        <li><code>Cmd+Shift+T</code> (macOS) / <code>Ctrl+Shift+T</code> (Windows/Linux) → <strong>Create New Test</strong>.</li>
+        <li>A felugró ablakban válasszátok a <strong>JUnit5</strong>-öt a <em>Testing library</em> legördülőből.</li>
+        <li>Ha az IntelliJ jelzi, hogy a JUnit5 nincs még a projekten ("JUnit5 library not found") — kattintsatok a felkínált <strong>Fix</strong>/letöltés gombra. Az IntelliJ automatikusan letölti és hozzáadja a szükséges könyvtárat.</li>
+        <li>Az IntelliJ létrehoz egy <code>StudentTest.java</code> fájlt egy <code>test</code> mappában.</li>
+      </ol>
+
+      <h2>Első teszt: getAverage()</h2>
+
+      <pre><code>import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class StudentTest {
+
+    @Test
+    void averageIsCalculatedCorrectly() {
+        Student student = new Student("Kovács Anna", "ABC123", new int[]{5, 4, 5});
+
+        double result = student.getAverage();
+
+        assertEquals(4.666666666666667, result, 0.0001);
+    }
+}</code></pre>
+
+      <p>Amit tisztázni kell:</p>
+      <ul>
+        <li><strong><code>@Test</code>:</strong> jelzi a JUnit-nak, hogy ez a metódus egy futtatandó teszteset.</li>
+        <li><strong><code>assertEquals(expected, actual)</code>:</strong> ellenőrzi, hogy a várt (<code>expected</code>) és a ténylegesen kapott (<code>actual</code>) érték megegyezik-e. Ha nem, a teszt <strong>elbukik</strong> (piros), és a hibaüzenet megmutatja mindkét értéket.</li>
+        <li>A harmadik paraméter (<code>0.0001</code>) egy <strong>tolerancia</strong> — <code>double</code> értékek összehasonlításánál szükséges, mert a lebegőpontos aritmetika miatt egy apró kerekítési eltérés is előfordulhat.</li>
+        <li>A teszt metódus neve (<code>averageIsCalculatedCorrectly</code>) leíró — nem <code>test1</code>, hanem elmondja, <strong>mit</strong> ellenőrzünk.</li>
+      </ul>
+
+      <h2>equals()/hashCode() szerződés tesztelése</h2>
+      <p>
+        A múlt órán println-nel néztük meg, hogy a <code>HashSet</code>
+        hogyan viselkedik a <code>hashCode()</code> javítása előtt és
+        után. Most írjuk meg ugyanezt <strong>automatikus
+        tesztként</strong>, amit bármikor újra lefuttathatunk:
+      </p>
+
+      <pre><code>import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+@Test
+void equalStudentsAreEqual() {
+    Student s1 = new Student("Tóth Elemér", "QWE111", new int[]{5, 5, 5});
+    Student s2 = new Student("Tóth Elemér", "QWE111", new int[]{5, 5, 5});
+
+    assertEquals(s1, s2);
+    assertEquals(s1.hashCode(), s2.hashCode());
+}
+
+@Test
+void differentStudentsAreNotEqual() {
+    Student s1 = new Student("Tóth Elemér", "QWE111", new int[]{5, 5, 5});
+    Student s2 = new Student("Kovács Anna", "ABC123", new int[]{5, 4, 5});
+
+    assertNotEquals(s1, s2);
+}</code></pre>
+
+      <ul>
+        <li>Az első teszt <strong>mindkét felét</strong> ellenőrzi a szerződésnek: nem elég, hogy <code>equals()</code> szerint egyenlők, a <code>hashCode()</code>-juknak is meg kell egyezniük — pontosan ez volt a múlt órai hiba forrása.</li>
+        <li>A második teszt azt biztosítja, hogy a <code>equals()</code> <strong>ne</strong> mondjon mindenre igent — egy hibásan megírt <code>equals()</code> (pl. <code>return true;</code>) ezen elbukna.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Tesztek futtatása és értelmezése</h2>
+      <ul>
+        <li>Egyetlen teszt futtatása: kattintsatok a metódus melletti zöld ▶ ikonra a sorszám mellett.</li>
+        <li>Az egész osztály futtatása: kattintsatok az osztálynév melletti zöld ▶▶ ikonra, vagy jobb klikk a fájlon → <code>Run 'StudentTest'</code>.</li>
+        <li><strong>Zöld</strong> eredmény: minden <code>assertEquals</code>/<code>assertNotEquals</code> teljesült.</li>
+        <li><strong>Piros</strong> eredmény: legalább egy ellenőrzés elbukott. Az IntelliJ <em>Run</em> panelje megmutatja, melyik teszt bukott el, és <strong>mit várt, mit kapott</strong> ("expected: X but was: Y").</li>
+      </ul>
+
+      <p>Próbáljuk ki szándékosan egy hibás elvárt értékkel:</p>
+
+      <pre><code>assertEquals(5.0, student.getAverage(), 0.0001);   // szándékosan rossz érték</code></pre>
+
+      <p>
+        Futtatás után figyeljétek meg a piros hibaüzenetet, és azt, hogy
+        pontosan megmutatja a különbséget a várt és a tényleges érték
+        között.
+      </p>
+
+      <h2>Java documentation (Javadoc)</h2>
+      <p>
+        <strong>Javadoc:</strong> A Javadoc egy speciális
+        megjegyzés-formátum (<code>/** ... */</code>), amellyel egy
+        osztályt, metódust vagy mezőt dokumentálunk — az IDE-k (pl.
+        IntelliJ) ezt megjelenítik, amikor valaki használja az adott
+        metódust, anélkül hogy meg kellene nyitnia annak forráskódját.
+      </p>
+
+      <pre><code>/**
+ * Egy hallgatót reprezentál névvel, Neptun-kóddal és jegyekkel.
+ *
+ * @author Martin Juracskó
+ */
+public class Student {
+
+    /**
+     * Létrehoz egy új hallgatót a megadott adatokkal.
+     *
+     * @param name       a hallgató neve
+     * @param neptunCode a hallgató Neptun-kódja
+     * @param grades     a hallgató jegyei
+     */
+    public Student(String name, String neptunCode, int[] grades) {
+        // ...
+    }
+
+    /**
+     * Kiszámolja a hallgató jegyeinek átlagát.
+     *
+     * @return a jegyek számtani átlaga
+     */
+    public double getAverage() {
+        // ...
+    }
+}</code></pre>
+
+      <p>Amit tisztázni kell:</p>
+      <ul>
+        <li>A Javadoc komment <strong><code>/**</code></strong>-gal kezdődik (két csillag), nem sima <code>/*</code>-gal — ez különbözteti meg egy szokásos blokk-kommenttől.</li>
+        <li><strong><code>@param</code></strong> — egy paramétert ír le; annyi kell belőle, ahány paramétere van a metódusnak.</li>
+        <li><strong><code>@return</code></strong> — a visszatérési értéket írja le (konstruktornál és <code>void</code> metódusnál nincs).</li>
+        <li><strong><code>@author</code></strong> — opcionális, az osztály szerzőjét jelöli.</li>
+      </ul>
+
+      <p>
+        <strong>IntelliJ-s gyorsítás:</strong> álljatok egy metódus fölé,
+        gépeljetek be <code>/**</code>, majd nyomjatok Entert — az IntelliJ
+        automatikusan legenerálja a <code>@param</code>/<code>@return</code>
+        sablont a metódus szignatúrája alapján, már csak ki kell tölteni a
+        szöveget.
+      </p>
+
+      <h2>Gyakorlat</h2>
+      <ol>
+        <li>Írjatok egy tesztet a <code>GraduateStudent</code> (vagy <code>ExchangeStudent</code>) <code>getSpecialRequirement()</code> metódusára — ellenőrizzétek, hogy a visszaadott szöveg tartalmazza a megadott témát/országot.</li>
+        <li>Módosítsatok egy <code>assertEquals</code>-t szándékosan hibás elvárt értékre, futtassátok le, és olvassátok el a piros hibaüzenetet — majd javítsátok vissza.</li>
+        <li>Írjatok Javadocot a <code>Student.equals()</code> és <code>hashCode()</code> metódusokhoz, elmagyarázva, miért tartoznak össze.</li>
+        <li>Írjatok egy tesztet, amely ellenőrzi, hogy egy <code>Student</code> és egy <code>GraduateStudent</code> (azonos alap-adatokkal) <strong>nem</strong> egyenlő az <code>equals()</code> szerint (segítség: gondoljátok át, mit ellenőriz az <code>instanceof</code> a 3. órai <code>equals()</code>-ban — kizárja-e a leszármazottakat is?).</li>
+      </ol>
+
+      <h2>Megoldások</h2>
+
+      <h3>1. feladat</h3>
+
+      <pre><code>import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@Test
+void graduateStudentSpecialRequirementContainsThesisTopic() {
+    GraduateStudent g = new GraduateStudent("Kiss Réka", "GHI789", new int[]{5, 5, 4},
+            "Dr. Nagy Péter", "Gépi tanulás alkalmazásai");
+
+    String requirement = g.getSpecialRequirement();
+
+    assertTrue(requirement.contains("Gépi tanulás alkalmazásai"));
+}</code></pre>
+
+      <ul>
+        <li><code>assertTrue(feltétel)</code> — akkor bukik el a teszt, ha a megadott logikai kifejezés <code>false</code>.</li>
+        <li><code>String.contains(...)</code> — ellenőrzi, hogy egy részlet szerepel-e a szövegben, anélkül hogy a teljes formázott mondatot szóról szóra le kellene másolni a tesztbe.</li>
+      </ul>
+
+      <h3>2. feladat</h3>
+      <p>
+        Ez a feladat nem ad új kódot, hanem egy meglévő teszt szándékos
+        elrontását és a hibaüzenet elolvasását kéri:
+      </p>
+
+      <pre><code>assertEquals(5.0, student.getAverage(), 0.0001);   // szándékosan rossz érték</code></pre>
+
+      <p>
+        Futtatás után az IntelliJ <em>Run</em> panelje <strong>piros</strong>
+        eredményt mutat, valahogy így:
+      </p>
+
+      <pre><code>org.opentest4j.AssertionFailedError: expected: &lt;5.0&gt; but was: &lt;4.666666666666667&gt;</code></pre>
+
+      <ul>
+        <li>Az <code>expected: &lt;5.0&gt;</code> a tesztbe beírt (hibás) elvárt érték.</li>
+        <li>A <code>but was: &lt;4.666666666666667&gt;</code> a metódus <strong>ténylegesen</strong> visszaadott értéke.</li>
+      </ul>
+
+      <p>
+        Miután visszaírtátok a helyes <code>4.666666666666667</code>-et, a
+        teszt újra <strong>zöld</strong> lesz.
+      </p>
+
+      <h3>3. feladat</h3>
+
+      <pre><code>/**
+ * Két objektumot akkor tekint egyenlőnek, ha mindkettő {@code Student},
+ * és megegyezik a nevük és a Neptun-kódjuk.
+ *
+ * @param obj az összehasonlítandó objektum
+ * @return {@code true}, ha a két objektum egyenlő
+ */
+@Override
+public boolean equals(Object obj) {
+    // ...
+}
+
+/**
+ * A {@link #equals(Object)}-ben használt mezőkkel (név, Neptun-kód)
+ * konzisztens hash-kódot ad vissza — enélkül a {@code HashSet}/{@code HashMap}
+ * hibásan viselkedne két, egyenlőnek számító hallgatóval (6. óra).
+ *
+ * @return a hallgató hash-kódja
+ */
+@Override
+public int hashCode() {
+    // ...
+}</code></pre>
+
+      <p>
+        A két Javadoc szándékosan <strong>hivatkozik egymásra</strong>
+        (<code>{@link #equals(Object)}</code>) — ez is jelzi, hogy a kettő
+        nem írható meg egymástól függetlenül: a <code>hashCode()</code>-nak
+        mindig ugyanazokon a mezőkön kell alapulnia, mint az
+        <code>equals()</code>-nak.
+      </p>
+
+      <h3>4. feladat</h3>
+      <p>Ha megpróbáljátok megírni a tesztet a jelenlegi <code>equals()</code>-szal:</p>
+
+      <pre><code>@Test
+void studentAndGraduateStudentWithSameDataAreNotEqual() {
+    Student s = new Student("Kovács Anna", "ABC123", new int[]{5, 4, 5});
+    GraduateStudent g = new GraduateStudent("Kovács Anna", "ABC123", new int[]{5, 4, 5},
+            "Dr. Nagy Péter", "Gépi tanulás alkalmazásai");
+
+    assertNotEquals(s, g);
+}</code></pre>
+
+      <p>
+        ...ez a teszt <strong>elbukik</strong>! A
+        <code>!(obj instanceof Student)</code> ellenőrzés nem azt
+        vizsgálja, hogy <code>obj</code> <strong>pontosan</strong>
+        <code>Student</code>-e, hanem hogy <strong>is-a</strong>
+        <code>Student</code>-e — egy <code>GraduateStudent</code> is
+        <code>instanceof Student</code> (hiszen <code>extends
+        Student</code>), tehát az ellenőrzés átengedi, és mivel a
+        név/Neptun-kód megegyezik, az <code>equals()</code>
+        <strong>igazat</strong> ad vissza.
+      </p>
+
+      <p>
+        <strong>A javítás:</strong> cseréljük az <code>instanceof</code>
+        ellenőrzést <code>getClass()</code>-ra, ami a <strong>pontos</strong>
+        osztályt hasonlítja össze, nem az "is-a" viszonyt:
+      </p>
+
+      <pre><code>@Override
+public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null || getClass() != obj.getClass()) return false;
+
+    Student other = (Student) obj;
+    return this.name.equals(other.name) &amp;&amp; this.neptunCode.equals(other.neptunCode);
+}</code></pre>
+
+      <p>
+        Ezzel a fenti teszt már <strong>lefut helyesen</strong>
+        (<code>assertNotEquals</code> teljesül), mert
+        <code>s.getClass()</code> (<code>Student</code>) és
+        <code>g.getClass()</code> (<code>GraduateStudent</code>)
+        különböznek, még akkor is, ha <code>g</code> egyébként
+        <code>instanceof Student</code>.
+      </p>
+
+      <h2>Puffer (~30 perc)</h2>
+      <p>
+        Kérdések, illetve további gyakorlási idő azoknak, akik lassabban
+        haladnak — a JUnit-projekt beállítása (library letöltés) néhány
+        gépen tovább tarthat, érdemes erre időt hagyni.
+      </p>
+
+      <h2>Házi feladat</h2>
+      <p>
+        Ezek a feladatok a 7. órán tanultak (JUnit 5, Javadoc) önálló,
+        otthoni elmélyítésére szolgálnak, a <code>Student</code>
+        hierarchiátokra építve.
+      </p>
+
+      <h3>1. feladat (Könnyű) — compareTo() tesztelése</h3>
+      <p>
+        Írjatok egy JUnit tesztet, amely ellenőrzi a <code>Student</code>
+        <code>compareTo()</code> (5. óra, <code>Comparable</code>)
+        metódusát:
+      </p>
+      <ul>
+        <li>egy hallgató önmagával összehasonlítva <code>0</code>-t adjon,</li>
+        <li>egy "Anna" nevű hallgató egy "Béla" nevű hallgatóval összehasonlítva <strong>negatív</strong> értéket adjon (mert ábécésorrendben előrébb van).</li>
+      </ul>
+
+      <h3>2. feladat (Közepes) — AverageGradeComparator tesztelése</h3>
+      <p>
+        Írjatok egy JUnit tesztet, amely két, különböző átlagú
+        <code>Student</code> objektumot hoz létre, és ellenőrzi, hogy az
+        <code>AverageGradeComparator</code> (5. óra) a <strong>kisebb átlagú</strong>
+        hallgatót helyezi előbbre (negatív <code>compare()</code>
+        eredmény).
+      </p>
+
+      <h3>3. feladat (Közepes/Haladó) — Javadoc kiegészítés</h3>
+      <p>
+        Írjatok Javadocot a <code>GraduateStudent</code> konstruktorához
+        (<code>@param</code> minden paraméterhez), valamint az
+        <code>AverageGradeComparator</code> <code>compare()</code>
+        metódusához (<code>@param</code>, <code>@return</code>) — ezek még
+        nincsenek dokumentálva.
+      </p>
+
+      <h3>4. feladat (Haladó) — Az equals()/hashCode() szerződés tulajdonságainak tesztelése</h3>
+      <p>
+        Írjatok teszteket, amelyek a szerződés <strong>általános
+        tulajdonságait</strong> ellenőrzik, nem csak egy konkrét esetet:
+      </p>
+      <ol>
+        <li><strong>Reflexivitás:</strong> egy <code>Student</code> mindig egyenlő önmagával (<code>s.equals(s)</code>).</li>
+        <li><strong>Szimmetria:</strong> ha <code>a.equals(b)</code> igaz, akkor <code>b.equals(a)</code>-nak is igaznak kell lennie.</li>
+        <li><strong>hashCode konzisztencia:</strong> ugyanazon objektum <code>hashCode()</code>-ja kétszer meghívva <strong>mindig ugyanazt</strong> az értéket adja.</li>
+      </ol>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
