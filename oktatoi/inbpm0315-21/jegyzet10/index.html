@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Lambda kifejezések, stream-ek (10. labor gyakorlat) | Oktatói jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Funkcionális interfész és lambda kifejezések, az AverageGradeComparator és az assertThrows lambdává alakítása, metódusreferencia, valamint stream alapok és aggregáció, gyakorló és házi feladatokkal — Magas szintű programozási nyelvek 2 (INBPM0315-21).">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/oktatoi/inbpm0315-21/jegyzet10/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<!--
+  Like jegyzet1–jegyzet9, this page keeps jegyzet-template.html's full
+  class-session shape (Tematika/Kontextus/Gyakorlat/Puffer), plus an
+  appended "Házi feladat" section absorbing its practice-tasks
+  sibling — unlike oktatoi-jegyzet-template.html's default freeform,
+  no-session shape. Genuinely new content, kept in this shape because
+  the source material is itself a real class session's agenda. Like
+  jegyzet9, this lesson's source has no worked solutions, so there is
+  no "Megoldások" section. See CLAUDE.md's Content model section for
+  the rationale.
+-->
+<body data-nav-key="oktatoi">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/oktatoi/">Oktatói jegyzetek</a> / <a href="/oktatoi/inbpm0315-21/">Magas szintű programozási nyelvek 2 (INBPM0315-21)</a> / 10. jegyzet</p>
+
+      <h1>Lambda kifejezések, stream-ek</h1>
+      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 10. labor gyakorlat · Frissítve: 2026-09-19</p>
+
+      <h2>Tematika</h2>
+      <ul>
+        <li>Funkcionális interfész, lambda alapszintaxis</li>
+        <li>Reveal: <code>AverageGradeComparator</code> lambdává alakítása</li>
+        <li>Reveal: <code>assertThrows</code> <code>Executable</code>-je lambdává</li>
+        <li>Metódusreferencia (<code>::</code>)</li>
+        <li>Stream alapok: <code>filter</code>, <code>map</code>, <code>forEach</code>, <code>collect</code></li>
+        <li>Stream aggregáció: <code>count</code>, átlag, összeg</li>
+      </ul>
+
+      <h2>Kontextus</h2>
+      <p>
+        Az elmúlt hetekben <strong>kétszer</strong> is írtunk egy egész,
+        külön nevesített osztályt, csak azért, hogy megvalósítsunk
+        <strong>egyetlen</strong> metódust: az 5. órán az
+        <code>AverageGradeComparator</code>-t, a 8. órán pedig egy
+        <code>Executable</code>-t az <code>assertThrows</code>-hoz.
+        Mindkétszer megjegyeztük, hogy van egy rövidebb mód is — ma
+        megnézzük, mi az.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Funkcionális interfész, lambda alapszintaxis</h2>
+      <p>
+        <strong>Funkcionális interfész:</strong> Egy interfész, amelynek
+        <strong>pontosan egy</strong> absztrakt metódusa van. A
+        <code>Comparator&lt;T&gt;</code> (egyetlen absztrakt metódusa:
+        <code>compare</code>) és a JUnit <code>Executable</code> (egyetlen
+        absztrakt metódusa: <code>execute</code>) is ilyenek — csak eddig
+        nem neveztük meg ezt a tulajdonságukat.
+      </p>
+
+      <p>
+        <strong>Lambda kifejezés:</strong> Egy funkcionális interfész
+        megvalósítása <strong>tömör, név nélküli</strong> formában, egy
+        külön osztály megírása helyett.
+      </p>
+
+      <pre><code>(paraméterek) -&gt; törzs</code></pre>
+
+      <p>
+        Nézzünk egy vadonatúj, egyszerű példát, mielőtt visszatérnénk a
+        régi kódunkhoz. A <code>Runnable</code> egy funkcionális interfész
+        (<code>void run()</code>):
+      </p>
+
+      <pre><code>Runnable greeting = () -&gt; System.out.println("Szia!");
+greeting.run();   // kiírja: Szia!</code></pre>
+
+      <ul>
+        <li>A <code>()</code> a paraméterlista (itt nincs paraméter).</li>
+        <li>A <code>-&gt;</code> választja el a paramétereket a törzstől.</li>
+        <li>Ha a törzs egyetlen kifejezés, nem kell <code>{}</code> és <code>return</code> — ha több utasításból áll, akkor igen: <code>() -&gt; { ...; return ...; }</code>.</li>
+      </ul>
+
+      <h2>Reveal: AverageGradeComparator lambdává alakítása</h2>
+      <p>Emlékezzünk vissza az 5. órára — egy teljes, külön osztályt írtunk:</p>
+
+      <pre><code>public class AverageGradeComparator implements Comparator&lt;Student&gt; {
+    @Override
+    public int compare(Student a, Student b) {
+        return Double.compare(a.getAverage(), b.getAverage());
+    }
+}
+
+// használat:
+Arrays.sort(students, new AverageGradeComparator());</code></pre>
+
+      <p>
+        Mivel a <code>Comparator&lt;Student&gt;</code> egy funkcionális
+        interfész (egyetlen absztrakt metódusa:
+        <code>compare(Student a, Student b)</code>), ugyanez lambdával:
+      </p>
+
+      <pre><code>Comparator&lt;Student&gt; byAverage = (a, b) -&gt; Double.compare(a.getAverage(), b.getAverage());
+
+Arrays.sort(students, byAverage);
+// vagy akár közvetlenül, külön változó nélkül:
+Arrays.sort(students, (a, b) -&gt; Double.compare(a.getAverage(), b.getAverage()));</code></pre>
+
+      <p>
+        <strong>Ami eltűnt:</strong> a
+        <code>public class AverageGradeComparator implements Comparator&lt;Student&gt; { @Override ... }</code>
+        köré épülő teljes osztályváz — csak a <strong>lényeg</strong> (a két
+        paraméter és az összehasonlítás logikája) maradt.
+      </p>
+
+      <h2>Reveal: assertThrows Executable-je lambdává</h2>
+      <p>A 8. órán ezt írtuk, mert a lambdákat még nem ismertétek:</p>
+
+      <pre><code>assertThrows(InvalidGradeException.class, new Executable() {
+    @Override
+    public void execute() throws Throwable {
+        new Student("X", "Y", new int[]{6});
+    }
+});</code></pre>
+
+      <p>
+        Az <code>Executable</code> is funkcionális interfész (egyetlen
+        absztrakt metódusa: <code>execute()</code>), tehát:
+      </p>
+
+      <pre><code>assertThrows(InvalidGradeException.class, () -&gt; new Student("X", "Y", new int[]{6}));</code></pre>
+
+      <p>
+        Ugyanaz a viselkedés, egyetlen sorban — az anonim osztály teljes
+        <code>new Executable() { @Override public void execute() ... }</code>
+        váza eltűnt.
+      </p>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Metódusreferencia (::)</h2>
+      <p>
+        Ha egy lambda <strong>csak továbbad</strong> egy már létező
+        metódusnak, tovább rövidíthetjük
+        <strong>metódusreferenciával</strong>.
+      </p>
+
+      <pre><code>import java.util.function.Function;
+
+// lambda, ami csak meghívja a getName()-t:
+Function&lt;Student, String&gt; nameGetter = s -&gt; s.getName();
+
+// ugyanaz metódusreferenciával:
+Function&lt;Student, String&gt; nameGetterRef = Student::getName;</code></pre>
+
+      <ul>
+        <li><code>Student::getName</code> azt jelenti: "vedd az <code>s</code> paramétert, és hívd meg rajta a <code>getName()</code>-t" — pontosan azt, amit a lambda expliciten leírt, csak rövidebben.</li>
+        <li>Ez akkor működik, ha a lambda <strong>egyetlen, meglévő</strong> metódushívásból áll, semmi extra logika nincs benne.</li>
+      </ul>
+
+      <p>Ezt mindjárt hasznosítjuk is a stream-es <code>map</code>-nél.</p>
+
+      <h2>Stream alapok: filter, map, forEach, collect</h2>
+      <p>
+        <strong>Stream:</strong> A <code>Stream</code> egy olyan API,
+        amellyel egy kollekció (pl. <code>List</code>) elemein
+        <strong>egymás után láncolt</strong> műveleteket (szűrés,
+        átalakítás, stb.) végezhetünk, tömören, ciklusok kézi megírása
+        nélkül.
+      </p>
+
+      <pre><code>import java.util.List;
+import java.util.stream.Collectors;
+
+List&lt;Student&gt; graduateStudents = students.stream()
+        .filter(s -&gt; s instanceof GraduateStudent)
+        .collect(Collectors.toList());
+
+List&lt;String&gt; names = students.stream()
+        .map(Student::getName)
+        .collect(Collectors.toList());
+
+students.stream()
+        .filter(s -&gt; s.getAverage() &gt;= 4.0)
+        .forEach(s -&gt; System.out.println(s.getReportLine()));</code></pre>
+
+      <p>Amit tisztázni kell:</p>
+      <ul>
+        <li><strong><code>.stream()</code>:</strong> bármely <code>List</code>-ből (vagy más kollekcióból) elindítja a stream-et.</li>
+        <li><strong><code>filter(predicate)</code>:</strong> csak azokat az elemeket engedi tovább, amelyekre a lambda <code>true</code>-t ad vissza.</li>
+        <li><strong><code>map(function)</code>:</strong> minden elemet <strong>átalakít</strong> valami mássá (itt: <code>Student</code> → <code>String</code> név) — itt használtuk a <code>Student::getName</code> metódusreferenciát.</li>
+        <li><strong><code>forEach(consumer)</code>:</strong> minden elemen végrehajt egy műveletet (jellemzően a lánc <em>végén</em>, mert nem ad vissza új stream-et).</li>
+        <li><strong><code>collect(Collectors.toList())</code>:</strong> a stream végeredményét visszaalakítja egy <code>List</code>-té.</li>
+      </ul>
+
+      <h2>Stream aggregáció: count, átlag, összeg</h2>
+
+      <pre><code>long graduateCount = students.stream()
+        .filter(s -&gt; s instanceof GraduateStudent)
+        .count();
+
+double overallAverage = students.stream()
+        .mapToDouble(Student::getAverage)
+        .average()
+        .orElse(0.0);
+
+int totalGradeCount = students.stream()
+        .mapToInt(s -&gt; s.getGrades().length)
+        .sum();</code></pre>
+
+      <ul>
+        <li><strong><code>count()</code>:</strong> megszámolja, hány elem maradt a lánc végén.</li>
+        <li><strong><code>mapToDouble</code>/<code>mapToInt</code>:</strong> a <code>map</code>-hez hasonló, de kifejezetten primitív <code>double</code>/<code>int</code> értékekre specializált stream-et ad vissza — ez teszi elérhetővé az <code>.average()</code>, <code>.sum()</code> metódusokat.</li>
+        <li><strong><code>.average()</code>:</strong> egy <code>OptionalDouble</code>-t ad vissza (lehet, hogy a stream üres volt) — az <code>.orElse(0.0)</code> ad egy alapértéket, ha nincs eredmény.</li>
+      </ul>
+
+      <h2>Stream + rendezés lambdával</h2>
+
+      <pre><code>List&lt;Student&gt; sortedByAverage = students.stream()
+        .sorted(Comparator.comparing(Student::getAverage))
+        .collect(Collectors.toList());</code></pre>
+
+      <ul>
+        <li><strong><code>Comparator.comparing(keyExtractor)</code>:</strong> egy beépített segédmetódus, amely egy metódusreferenciából (vagy lambdából) készít egy teljes <code>Comparator</code>-t — még rövidebb, mint amit korábban kézzel írtunk.</li>
+      </ul>
+
+      <h2>Gyakorlat</h2>
+      <ol>
+        <li>Válasszatok egy korábbi órán írt, névvel ellátott osztályt vagy anonim osztályt (pl. a <code>Reportable</code> egy megvalósítása, ha van ilyenetek), és alakítsátok át lambdává, ha az adott interfész funkcionális.</li>
+        <li>Írjatok egy stream pipeline-t, amely a <code>students</code> listából kiszűri az <code>ExchangeStudent</code>-eket, kigyűjti a nevüket egy <code>List&lt;String&gt;</code>-be, és kiírja őket.</li>
+        <li>Számítsátok ki stream-mel, hány hallgatónak van 4.5 fölötti átlaga (<code>filter</code> + <code>count</code>).</li>
+        <li>Rendezzétek a <code>students</code> listát <code>Comparator.comparing(Student::getName)</code>-nel, stream-en keresztül.</li>
+      </ol>
+
+      <h2>Puffer (~30 perc)</h2>
+      <p>
+        Kérdések, illetve további gyakorlási idő azoknak, akik lassabban
+        haladnak — a stream-es láncolt hívások
+        (<code>filter().map().collect()</code>) olvasása/írása sokaknak
+        gyakorlást igényel, mielőtt magabiztosan menne.
+      </p>
+
+      <h2>Házi feladat</h2>
+      <p>
+        Ezek a feladatok a 10. órán tanultak (funkcionális interfész,
+        lambda, metódusreferencia, stream-ek) önálló, otthoni
+        elmélyítésére szolgálnak, a <code>Student</code> hierarchiátokra
+        építve.
+      </p>
+
+      <h3>1. feladat (Könnyű) — Saját funkcionális interfész</h3>
+      <p>
+        Írjatok egy saját <code>Validator</code> funkcionális interfészt,
+        egyetlen <code>boolean isValid(Student s)</code> metódussal.
+        Hozzatok létre belőle egy lambdával megvalósított példányt, amely
+        akkor ad <code>true</code>-t, ha a hallgató átlaga legalább 3.0.
+        Próbáljátok ki néhány hallgatón.
+      </p>
+
+      <h3>2. feladat (Közepes) — Összes jegy száma stream-mel</h3>
+      <p>
+        Számítsátok ki stream-mel, hogy a <code>students</code>
+        listátokban <strong>összesen hány jegy</strong> szerepel (minden
+        hallgató minden jegyét összeszámolva). Segítség:
+        <code>mapToInt(s -&gt; s.getGrades().length)</code>, majd
+        <code>.sum()</code>.
+      </p>
+
+      <h3>3. feladat (Közepes/Haladó) — Rendezés Neptun-kód szerint, metódusreferenciával</h3>
+      <p>
+        Rendezzétek a <code>students</code> listát stream-mel,
+        <strong>Neptun-kód szerint</strong>,
+        <code>Comparator.comparing(Student::getNeptunCode)</code>
+        használatával, majd írjátok ki az eredményt egy
+        <code>forEach(System.out::println)</code> hívással (ez is egy
+        metódusreferencia — gondoljátok át, milyen lambdát vált ki).
+      </p>
+
+      <h3>4. feladat (Haladó) — Legjobbak, csökkenő sorrendben</h3>
+      <p>Építsetek egy stream pipeline-t, amely:</p>
+      <ol>
+        <li>kiszűri azokat a hallgatókat, akiknek az átlaga legalább 4.0,</li>
+        <li><strong>csökkenő</strong> átlag szerint rendezi őket (nézzetek utána a <code>Comparator</code> <code>reversed()</code> metódusának),</li>
+        <li><code>collect</code>-tel <code>List&lt;Student&gt;</code>-té alakítja,</li>
+        <li>végül kiírja mindegyiket.</li>
+      </ol>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
