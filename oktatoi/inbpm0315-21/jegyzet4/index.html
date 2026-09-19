@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Öröklés, túlterhelés, felülírás, polimorfizmus (4. labor gyakorlat) | Oktatói jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Öröklés (extends, super), a protected láthatóság, metódus túlterhelés és felülírás, valamint a polimorfizmus egy Student/GraduateStudent hierarchián keresztül, gyakorló és házi feladatokkal — Magas szintű programozási nyelvek 2 (INBPM0315-21).">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/oktatoi/inbpm0315-21/jegyzet4/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<!--
+  Like jegyzet1–jegyzet3, this page keeps jegyzet-template.html's full
+  class-session shape (Tematika/Kontextus/Gyakorlat/Puffer), plus an
+  appended "Házi feladat" section absorbing its practice-tasks
+  sibling — unlike oktatoi-jegyzet-template.html's default freeform,
+  no-session shape. Genuinely new content, kept in this shape because
+  the source material is itself a real class session's agenda. See
+  CLAUDE.md's Content model section for the rationale.
+-->
+<body data-nav-key="oktatoi">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/oktatoi/">Oktatói jegyzetek</a> / <a href="/oktatoi/inbpm0315-21/">Magas szintű programozási nyelvek 2 (INBPM0315-21)</a> / 4. jegyzet</p>
+
+      <h1>Öröklés, túlterhelés, felülírás, polimorfizmus</h1>
+      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 4. labor gyakorlat · Frissítve: 2026-09-19</p>
+
+      <h2>Tematika</h2>
+      <ul>
+        <li>Öröklés (<code>extends</code>, <code>super</code>)</li>
+        <li>Láthatóság: <code>protected</code></li>
+        <li>Metódus túlterhelés (overloading)</li>
+        <li>Metódus felülírás (overriding)</li>
+        <li>Polimorfizmus</li>
+      </ul>
+
+      <h2>Kontextus</h2>
+      <p>
+        A múlt órán felépítettük a <code>Student</code> osztályt: névvel,
+        Neptun-kóddal, jegyekkel. Ma tegyük fel, hogy szükségünk van egy
+        <strong>speciális</strong> hallgatóra is — mondjuk egy
+        diplomamunkás hallgatóra, akinek mindene megvan, amije egy
+        <code>Student</code>-nek, plusz van egy témavezetője és egy
+        diplomamunka-témája is.
+      </p>
+      <p>
+        Megtehetnénk, hogy lemásoljuk a <code>Student</code> teljes kódját
+        egy új osztályba, és hozzáadjuk az új mezőket — de ez
+        kódduplikáció, és ha a <code>Student</code>-en változtatunk,
+        mindenhol külön kellene javítani. Erre a problémára ad megoldást
+        az <strong>öröklés</strong>.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Öröklés</h2>
+      <p>
+        <strong>Öröklés (inheritance):</strong> Az öröklés lehetővé teszi,
+        hogy egy osztály átvegye egy másik osztály mezőit és metódusait,
+        és csak a különbségeket adja hozzá.
+      </p>
+
+      <pre><code>public class GraduateStudent extends Student {
+    protected String supervisor;
+    protected String thesisTopic;
+
+    public GraduateStudent(String name, String neptunCode, int[] grades,
+                            String supervisor, String thesisTopic) {
+        super(name, neptunCode, grades);
+        this.supervisor = supervisor;
+        this.thesisTopic = thesisTopic;
+    }
+}</code></pre>
+
+      <p>Amit tisztázni kell:</p>
+      <ul>
+        <li><strong><code>extends</code>:</strong> a <code>GraduateStudent extends Student</code> azt jelenti, hogy a <code>GraduateStudent</code> egy <code>Student</code> <strong>is</strong>, plusz extra képességekkel. A <code>Student</code>-et itt <strong>szülőosztálynak</strong> (superclass), a <code>GraduateStudent</code>-et <strong>leszármazott osztálynak</strong> (subclass) nevezzük.</li>
+        <li><strong><code>super(...)</code>:</strong> a leszármazott osztály konstruktorának <strong>első sorában</strong> meg kell hívnunk a szülő konstruktorát, hogy az beállítsa az öröklött mezőket (<code>name</code>, <code>neptunCode</code>, <code>grades</code>). A <code>super(...)</code> pontosan ezt teszi.</li>
+        <li>A <code>GraduateStudent</code> automatikusan megkapja a <code>Student</code> <strong>összes</strong> <code>public</code>/<code>protected</code> mezőjét és metódusát (pl. <code>getAverage()</code>) — ezeket nem kell újra megírni.</li>
+      </ul>
+
+      <pre><code>GraduateStudent g = new GraduateStudent(
+    "Kiss Réka", "GHI789", new int[]{5, 5, 4},
+    "Dr. Nagy Péter", "Gépi tanulás alkalmazásai"
+);
+
+System.out.println(g.getAverage());   // öröklött metódus, működik simán</code></pre>
+
+      <h2>Láthatóság: protected</h2>
+      <p>
+        Emlékeztető az előző óráról: <code>private</code> — csak az adott
+        osztályon belülről érhető el; <code>public</code> — bárhonnan
+        elérhető. Ha a <code>Student</code> mezői (<code>name</code>,
+        <code>neptunCode</code>, <code>grades</code>) <code>private</code>-ok
+        lennének, a <code>GraduateStudent</code> <strong>nem</strong> férne
+        hozzájuk közvetlenül — pedig logikailag "családon belül vagyunk".
+      </p>
+
+      <p>
+        <strong><code>protected</code>:</strong> A <code>protected</code>
+        mező/metódus elérhető az adott osztályon belülről, <strong>és a
+        leszármazott osztályokból is</strong> (akkor is, ha azok más
+        csomagban vannak), de kívülről (nem-leszármazott osztályokból)
+        nem.
+      </p>
+
+      <pre><code>public class Student {
+    protected String name;
+    protected String neptunCode;
+    protected int[] grades;
+
+    // ...
+}</code></pre>
+
+      <p>
+        Ezért írtuk a <code>Student</code> mezőit <code>protected</code>-re
+        — így a <code>GraduateStudent</code> konstruktora (a
+        <code>super(...)</code> híváson keresztül) és bármelyik jövőbeli
+        leszármazott hozzáférhet hozzájuk.
+      </p>
+
+      <p>
+        <strong>Megjegyzés:</strong> a valós, "védekező" kódolási
+        stílusban gyakran inkább <code>private</code> mezőket tartunk a
+        szülőosztályban is, és <code>protected</code>/<code>public</code>
+        gettereken/settereken keresztül engedünk hozzáférést a
+        leszármazottaknak — így a szülőosztály teljes kontrollt tart a
+        saját állapota felett. Ma a fogalom tisztasága kedvéért
+        közvetlenül <code>protected</code> mezőket használunk, de éles
+        kódban érdemes megfontolni a getteres/setteres változatot is.
+      </p>
+
+      <h2>Metódus túlterhelés (overloading)</h2>
+      <p>
+        <strong>Túlterhelés (overloading):</strong> Ugyanabban az
+        osztályban <strong>több metódus (vagy konstruktor) is viselheti
+        ugyanazt a nevet</strong>, ha a <strong>paraméterlistájuk
+        különbözik</strong> (más számú vagy más típusú paraméter).
+      </p>
+
+      <pre><code>public class Student {
+    // ...
+
+    public void addGrade(int newGrade) {
+        int currentGradeLength = this.grades.length;
+        int newGradeLength = currentGradeLength + 1;
+        int[] newGrades = new int[newGradeLength];
+
+        for (int i = 0; i &lt; currentGradeLength; ++i) {
+            newGrades[i] = this.grades[i];
+        }
+
+        newGrades[newGradeLength - 1] = newGrade;
+
+        this.setGrades(newGrades);
+    }
+
+    public void addGrade(int newGrade, String comment) {
+        this.addGrade(newGrade);
+        System.out.println("Megjegyzés a jegyhez: " + comment);
+    }
+}</code></pre>
+
+      <p>
+        Mindkét metódus neve <code>addGrade</code>, de a fordító a
+        <strong>paraméterek száma/típusa</strong> alapján tudja eldönteni,
+        melyiket hívjuk. Ez <strong>nem</strong> ugyanaz, mint a felülírás
+        — a túlterhelés <strong>ugyanabban</strong> az osztályban történik,
+        és a metódus <strong>viselkedése teljesen új</strong>, nincs
+        "felülírt" kapcsolat egy szülőosztály metódusával.
+      </p>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Metódus felülírás (overriding)</h2>
+      <p>
+        <strong>Felülírás (overriding):</strong> Egy leszármazott osztály
+        <strong>újraírhatja</strong> egy örökölt metódus viselkedését,
+        <strong>ugyanazzal a névvel és paraméterlistával</strong>.
+      </p>
+
+      <p>Adjunk a <code>Student</code>-hez egy <code>describeStudent()</code> metódust:</p>
+
+      <pre><code>public class Student {
+    // ...
+
+    public String describeStudent() {
+        return this.getName() + " (" + this.getNeptunCode() + "), átlag: " + this.getAverage();
+    }
+}</code></pre>
+
+      <p>
+        A <code>GraduateStudent</code> írja felül, hogy a témavezetőt és a
+        témát is megjelenítse:
+      </p>
+
+      <pre><code>public class GraduateStudent extends Student {
+    // ...
+
+    @Override
+    public String describeStudent() {
+        return super.describeStudent() + ", temavezeto: " + this.getSupervisor() + ", tema: " + this.getThesisTopic();
+    }
+}</code></pre>
+
+      <p>Amit tisztázni kell:</p>
+      <ul>
+        <li><strong><code>@Override</code>:</strong> jelzi (és a fordítóval ellenőrizteti), hogy szándékosan írjuk felül a szülőosztály egy metódusát — ugyanazt láttuk már az <code>equals()</code>-nál a múlt órán.</li>
+        <li><strong><code>super.describeStudent()</code>:</strong> meghívja a <strong>szülőosztály</strong> eredeti <code>describeStudent()</code> implementációját, és ahhoz fűzzük hozzá az új, <code>GraduateStudent</code>-specifikus részt — így nem duplikáljuk a szülő logikáját, csak kibővítjük.</li>
+      </ul>
+
+      <p>
+        <strong>Túlterhelés vs. felülírás — a leggyakoribb keveredés:</strong>
+        a <strong>túlterhelés</strong> ugyanabban az osztályban, különböző
+        paraméterlistával hoz létre <strong>több változatot</strong> egy
+        névből; a <strong>felülírás</strong> egy <strong>leszármazott
+        osztályban</strong>, <strong>ugyanazzal</strong> a paraméterlistával
+        <strong>cseréli le</strong> egy örökölt metódus viselkedését.
+      </p>
+
+      <h2>Polimorfizmus</h2>
+      <p>
+        <strong>Polimorfizmus:</strong> Azt jelenti, hogy egy szülőosztály
+        típusú változó mögött <strong>ténylegesen egy leszármazott osztály
+        példánya</strong> is állhat, és a metódushívás <strong>a tényleges
+        típus</strong> szerinti viselkedést váltja ki — nem a változó
+        deklarált típusa szerintit.
+      </p>
+
+      <pre><code>Student s = new GraduateStudent(
+    "Kiss Réka", "GHI789", new int[]{5, 5, 4},
+    "Dr. Nagy Péter", "Gépi tanulás alkalmazásai"
+);
+
+System.out.println(s.describeStudent());</code></pre>
+
+      <p>
+        Bár <code>s</code> deklarált típusa <code>Student</code>, a
+        <code>describeStudent()</code> hívás a <code>GraduateStudent</code>
+        <strong>felülírt</strong> verzióját futtatja le, mert az
+        <code>s</code> mögötti <strong>valódi objektum</strong> egy
+        <code>GraduateStudent</code>. Ezt hívjuk <strong>upcastingnak</strong>
+        (a leszármazottat a szülő típusaként kezeljük) — és emiatt működik
+        a polimorfizmus.
+      </p>
+
+      <h3>Miért hasznos ez? — egy vegyes tömb</h3>
+      <p>
+        Emlékezzetek a 2. óra tömbjeire: egy tömb elemei azonos típusúak —
+        de mivel a <code>GraduateStudent</code> <strong>is</strong> egy
+        <code>Student</code>, egy <code>Student[]</code> tömbben
+        <strong>mindkét fajta</strong> objektum elfér:
+      </p>
+
+      <pre><code>Student[] students = new Student[3];
+students[0] = new Student("Kovács Anna", "ABC123", new int[]{5, 4, 5});
+students[1] = new GraduateStudent("Kiss Réka", "GHI789", new int[]{5, 5, 4},
+                                   "Dr. Nagy Péter", "Gépi tanulás alkalmazásai");
+students[2] = new Student("Nagy Béla", "XYZ789", new int[]{3, 4, 2});
+
+for (Student current : students) {
+    System.out.println(current.describeStudent());
+}</code></pre>
+
+      <p>
+        A ciklus törzse <strong>egyáltalán nem tudja</strong> (és nem is
+        kell tudnia), hogy éppen egy <code>Student</code>-tel vagy egy
+        <code>GraduateStudent</code>-tel dolgozik — mindegyik elemen
+        meghívja a <code>describeStudent()</code>-ot, és <strong>mindegyik
+        a saját, tényleges típusának megfelelő</strong> változatot futtatja
+        le. Ez a polimorfizmus gyakorlati haszna: egységesen tudunk kezelni
+        különböző, de rokon típusú objektumokat.
+      </p>
+
+      <h2>Gyakorlat</h2>
+      <ol>
+        <li>Adjatok a <code>GraduateStudent</code>-hez egy újabb felülírt metódust (pl. <code>getAverage()</code> felülírása úgy, hogy a diplomamunka-jegyet is beleszámítsa az átlagba, <code>super.getAverage()</code> felhasználásával).</li>
+        <li>Írjatok egy újabb túlterhelt <code>addGrade</code> változatot a <code>Student</code>-ben (pl. dátummal), és hívjátok meg mindkét (vagy mindhárom) verziót.</li>
+        <li>Hozzatok létre egy <code>Student[]</code> tömböt, amiben legalább 2 <code>Student</code> és 2 <code>GraduateStudent</code> objektum van vegyesen, és írjátok ki mindegyikre a <code>describeStudent()</code> eredményét egy ciklussal.</li>
+        <li>Debuggerrel (2. óra!) lépegessetek végig a ciklus egy <code>GraduateStudent</code>-elemén, és nézzétek meg, hogyan "ugrik be" a <code>describeStudent()</code> hívásnál a felülírt (nem az eredeti) implementáció.</li>
+      </ol>
+
+      <h2>Puffer (~30 perc)</h2>
+      <p>
+        Kérdések, illetve további gyakorlási idő azoknak, akik lassabban
+        haladnak — a polimorfizmus sokaknak csak a második-harmadik
+        konkrét példa után "kattan", érdemes időt hagyni rá.
+      </p>
+
+      <h2>Házi feladat</h2>
+      <p>
+        Ezek a feladatok a 4. órán tanultak (öröklés,
+        <code>protected</code>, túlterhelés vs. felülírás, polimorfizmus)
+        önálló, otthoni elmélyítésére szolgálnak, a
+        <code>Student</code>/<code>GraduateStudent</code> hierarchiátokra
+        építve.
+      </p>
+
+      <h3>1. feladat (Könnyű) — Új leszármazott: PartTimeStudent</h3>
+      <p>
+        Hozzatok létre egy <code>PartTimeStudent extends Student</code>
+        osztályt, egy extra <code>int workHoursPerWeek</code> mezővel
+        (heti munkaóra). A konstruktorban hívjátok meg a
+        <code>super(...)</code>-t a <code>Student</code> mezőinek
+        beállításához, majd állítsátok be a saját mezőt is.
+      </p>
+
+      <h3>2. feladat (Közepes) — Túlterhelt konstruktor</h3>
+      <p>
+        Vegyetek fel a <code>Student</code> osztályba egy <strong>második,
+        túlterhelt</strong> konstruktort, amely csak a <code>name</code>-et
+        és a <code>neptunCode</code>-ot várja paraméterként (jegyek nélkül),
+        és belül egy <strong>üres</strong> <code>int[0]</code> tömböt állít
+        be <code>grades</code>-nek. Ellenőrizzétek, hogy
+        <code>getAverage()</code> meghívása egy így létrehozott hallgatón
+        nem dob-e hibát (gondoljátok át: mi történik 0 hosszú tömb esetén
+        az átlagszámításnál — ha hibát találtok, ez rendben van, ez a
+        feladat pont erre a felfedezésre irányul).
+      </p>
+
+      <h3>3. feladat (Közepes/Haladó) — Felülírás és polimorfizmus a PartTimeStudent-en</h3>
+      <p>
+        Írjatok egy <code>describeStudent()</code> felülírást a
+        <code>PartTimeStudent</code>-be, amely a
+        <code>super.describeStudent()</code> eredményéhez hozzáfűzi a heti
+        munkaóra számát. Hozzatok létre egy vegyes <code>Student[]</code>
+        tömböt (<code>Student</code>, <code>GraduateStudent</code>,
+        <code>PartTimeStudent</code> keverve), és írjátok ki mindegyik
+        <code>describeStudent()</code>-ját egy ciklussal.
+      </p>
+
+      <h3>4. feladat (Haladó) — Jósold meg a kimenetet</h3>
+      <p>
+        Az alábbi kódrészlet <strong>túlterhelést és felülírást is
+        tartalmaz</strong>. Mielőtt lefuttatnátok, írjátok le
+        <strong>papírra</strong>, mit vártok, hogy kiírjon a program —
+        utána futtassátok le, és ellenőrizzétek magatokat.
+      </p>
+
+      <pre><code>public class Base {
+    public String greet() {
+        return "Base.greet()";
+    }
+
+    public String greet(String name) {
+        return "Base.greet(String) - " + name;
+    }
+}
+
+public class Derived extends Base {
+    @Override
+    public String greet() {
+        return "Derived.greet()";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Base b = new Derived();
+        System.out.println(b.greet());
+        System.out.println(b.greet("Anna"));
+    }
+}</code></pre>
+
+      <p>
+        A három osztályt külön fájlba tegyétek (<code>Base.java</code>,
+        <code>Derived.java</code>, <code>Main.java</code>) — fájlonként
+        csak egy <code>public</code> osztály lehet.
+      </p>
+
+      <p>
+        Gondolkodjatok el rajta: miért <strong>ugyanaz</strong> a
+        viselkedés az első hívásnál, mint amit a polimorfizmusnál
+        tanultunk, míg a második hívásnál <strong>nincs is</strong>
+        felülírt verzió a <code>Derived</code>-ben — mégis lefordul és
+        lefut a kód. Miért?
+      </p>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
