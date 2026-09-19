@@ -539,6 +539,45 @@ View-source, devtools, reader mode, screenshots/OCR and saving the page
 bypass it, and it also disables select-to-translate/dictionary/Lens and
 "read selection aloud" (Ctrl+F and screen readers are unaffected).
 
+### Screenshot deterrent: faint tiled watermark + copyright line
+
+Added 2026-09-19. The site owner asked to block screenshots site-wide.
+That isn't possible from a web page — screenshots are taken outside the
+browser (OS shortcuts, Snipping Tool, phones, extensions, DevTools, a
+photo of the screen) and the page never learns about them — and the owner
+accepted "deterrent / source marking is enough". What's built:
+
+- **Watermark** (`style.css`, "Screenshot watermark" section): `body::after`
+  is a fixed, click-through (`pointer-events: none`) overlay tiling a
+  slanted "fulesjegyzetek.hu" (inline SVG data URI, 280×180 tile) at
+  `opacity: 0.025`. The owner explicitly wants it **not visible on the
+  site**, so it's a trace, not a visible deterrent: it adds about 6/255 to
+  a dark pixel, i.e. practically invisible while reading, but it's in a
+  screenshot's pixels and shows up after a contrast boost (provenance
+  evidence). On a good monitor in a dark room it can be faintly
+  perceptible; if the owner finds it visible, lower the opacity. **Don't
+  raise it without asking.**
+- **Layering:** overlay `z-index: 1` (above content), `.ad-slot` and
+  `.support-callout` `z-index: 2` (a watermark must never overlay an ad),
+  both below the sticky `.site-header` (`z-index: 50`, opaque, so the
+  header itself isn't watermarked). It's `position: fixed`, so it always
+  covers the viewport (short pages, scrolling, DevTools full-page capture).
+- **Print:** hidden in the `@media print` block (printing is disabled
+  anyway, see above).
+- **Copyright line:** `renderFooter()` in `script.js` has a second
+  paragraph: "A tartalom másolása és képernyőképes terjesztése a szerző
+  engedélye nélkül tilos." — legal footing for a takedown, not a
+  technical protection.
+
+Offered to the owner and **not** built (don't add them unasked): a
+visible ~6% watermark; a flickering/temporal watermark (invisible to the
+eye, visible in a still frame — but flicker/eye strain, constant repaint,
+can't be verified without a real display); overwriting the clipboard on
+PrintScreen (only that key, wipes the reader's clipboard); hiding content
+when the window loses focus (students read the notes beside IntelliJ, and
+snips are captured before the blur fires); blocking headless browsers
+(Googlebot renders with one); DRM (video only).
+
 ### Tables
 
 Added 2026-09-09 (the second `tétel` under `deik-mernokinformatikus-bsc-2017`
