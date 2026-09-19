@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Kivételkezelés (8. labor gyakorlat) | Oktatói jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Kivételkezelés Javában: try/catch/finally, checked és unchecked kivételek, több catch ág, saját kivétel (InvalidGradeException), megoldásokkal, gyakorló és házi feladatokkal — Magas szintű programozási nyelvek 2 (INBPM0315-21).">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/oktatoi/inbpm0315-21/jegyzet8/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<!--
+  Like jegyzet1–jegyzet7, this page keeps jegyzet-template.html's full
+  class-session shape (Tematika/Kontextus/Gyakorlat/Puffer), plus an
+  appended "Házi feladat" section absorbing its practice-tasks
+  sibling — unlike oktatoi-jegyzet-template.html's default freeform,
+  no-session shape. Genuinely new content, kept in this shape because
+  the source material is itself a real class session's agenda. As in
+  jegyzet5–7, the worked solutions to the in-class exercises sit in a
+  "Megoldások" section between Gyakorlat and Puffer. See CLAUDE.md's
+  Content model section for the rationale.
+-->
+<body data-nav-key="oktatoi">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/oktatoi/">Oktatói jegyzetek</a> / <a href="/oktatoi/inbpm0315-21/">Magas szintű programozási nyelvek 2 (INBPM0315-21)</a> / 8. jegyzet</p>
+
+      <h1>Kivételkezelés</h1>
+      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 8. labor gyakorlat · Frissítve: 2026-09-19</p>
+
+      <h2>Tematika</h2>
+      <ul>
+        <li>Kivétel alapok: <code>try</code>/<code>catch</code></li>
+        <li>Checked vs. unchecked kivételek</li>
+        <li><code>finally</code>, több <code>catch</code> ág</li>
+        <li>Saját kivétel: <code>InvalidGradeException</code></li>
+      </ul>
+
+      <h2>Kontextus</h2>
+      <p>
+        A 2. órán már láttatok egy programot <strong>összeomlani</strong>:
+        a szándékosan elrontott ciklus
+        <code>ArrayIndexOutOfBoundsException</code>-t dobott, és a program
+        futása azonnal megszakadt. A <code>Scanner.nextInt()</code> is
+        hasonlóan viselkedik, ha valaki szöveget gépel be szám helyett —
+        <code>InputMismatchException</code>-nel áll le. Ma megtanuljuk,
+        hogyan <strong>kezeljük</strong> ezeket a helyzeteket szándékosan,
+        ahelyett hogy hagynánk a programot összeomlani — és hogyan írjunk
+        <strong>saját</strong> kivételt a <code>Student</code>
+        hierarchiánkhoz.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Kivétel alapok: try-catch</h2>
+      <p>
+        <strong>Kivétel (exception):</strong> Egy kivétel egy objektum,
+        amely azt jelzi, hogy futás közben valami
+        <strong>rendellenes</strong> történt — és amely, ha nem kezeljük,
+        megszakítja a program normális futását.
+      </p>
+
+      <p>Idézzük fel a 2. óra hibáját, de most kezeljük le:</p>
+
+      <pre><code>int[] grades = {5, 4, 5};
+
+try {
+    System.out.println(grades[5]);   // nincs 6. elem, ArrayIndexOutOfBoundsException
+} catch (ArrayIndexOutOfBoundsException e) {
+    System.out.println("Hibás index! Üzenet: " + e.getMessage());
+}
+
+System.out.println("A program folytatódik.");</code></pre>
+
+      <p>Amit tisztázni kell:</p>
+      <ul>
+        <li><strong><code>try { ... }</code>:</strong> az a kódrész, amelyben egy esetlegesen dobódó kivételre számítunk.</li>
+        <li><strong><code>catch (Típus e) { ... }</code>:</strong> ha a <code>try</code> blokkban a megadott típusú (vagy annak leszármazott) kivétel keletkezik, ide ugrik a vezérlés — a program <strong>nem</strong> áll le, hanem itt folytatódik.</li>
+        <li><strong><code>e.getMessage()</code>:</strong> a kivétel objektum egy metódusa, amely egy szöveges leírást ad a hibáról.</li>
+        <li>A <code>try/catch</code> blokk után a program <strong>normálisan folytatódik</strong> — ez a legfontosabb különbség a kezeletlen kivételhez képest, ami a 2. órán a teljes programot leállította.</li>
+      </ul>
+
+      <h2>Checked vs. unchecked kivételek</h2>
+      <p>
+        Minden kivétel a <code>Throwable</code> osztályból származik,
+        ezen belül két nagy ágra oszlik:
+      </p>
+
+      <p>
+        <strong>Unchecked (nem ellenőrzött) kivétel:</strong> A
+        <code>RuntimeException</code> (és leszármazottai, pl.
+        <code>ArrayIndexOutOfBoundsException</code>,
+        <code>InputMismatchException</code>,
+        <code>NullPointerException</code>) leszármazottja. A fordító
+        <strong>nem</strong> kényszerít minket arra, hogy kezeljük vagy
+        deklaráljuk — a program simán lefordul akkor is, ha nincs
+        <code>try/catch</code> körülötte, csak futás közben, ha
+        bekövetkezik, összeomlik a program.
+      </p>
+
+      <p>
+        <strong>Checked (ellenőrzött) kivétel:</strong> Az
+        <code>Exception</code> leszármazottja, de <strong>nem</strong> a
+        <code>RuntimeException</code>-é. A fordító
+        <strong>kikényszeríti</strong>, hogy vagy <code>try/catch</code>-csel
+        kezeljük, vagy a metódus fejlécében <code>throws</code>-szal
+        jelezzük, hogy továbbadjuk — enélkül a kód <strong>nem fordul
+        le</strong>.
+      </p>
+
+      <pre><code>Throwable
+├── Exception                     (checked — kivéve a RuntimeException ágat)
+│   ├── IOException                (checked — jövő héten találkozunk vele)
+│   └── RuntimeException           (unchecked)
+│       ├── ArrayIndexOutOfBoundsException
+│       ├── InputMismatchException
+│       └── NullPointerException
+└── Error                         (súlyos, JVM-szintű hibák — ritkán kezeljük)</code></pre>
+
+      <p>
+        A jövő héten meg fogjátok látni, hogy fájlkezeléskor az
+        <code>IOException</code> egy <strong>checked</strong> kivétel —
+        pontosan emiatt fogja a fordító megkövetelni, hogy minden
+        fájlműveletet <code>try/catch</code>-csel vagy
+        <code>throws</code>-szal kezeljetek.
+      </p>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>finally, több catch ág</h2>
+      <p>
+        <strong><code>finally</code>:</strong> A <code>finally</code>
+        blokk <strong>mindig</strong> lefut — akár volt kivétel, akár nem,
+        akár <code>return</code> volt a <code>try</code>-ban. Jellemzően
+        "takarítási" műveletekhez használjuk (pl. erőforrás lezárása —
+        erre jövő héten látunk valódi példát fájlokkal).
+      </p>
+
+      <pre><code>try {
+    System.out.println(grades[5]);
+} catch (ArrayIndexOutOfBoundsException e) {
+    System.out.println("Hibás index!");
+} finally {
+    System.out.println("Ez mindig lefut.");
+}</code></pre>
+
+      <p>
+        <strong>Több <code>catch</code> ág:</strong> Egy <code>try</code>
+        blokkhoz több <code>catch</code> ág is tartozhat, különböző
+        kivételtípusokra — a <strong>specifikusabb</strong> típust mindig
+        az <strong>általánosabb</strong> elé kell írni, különben a fordító
+        hibát jelez (a specifikusabb ág soha nem futna le).
+      </p>
+
+      <pre><code>try {
+    int[] numbers = {1, 2, 3};
+    System.out.println(numbers[5] / 0);
+} catch (ArrayIndexOutOfBoundsException e) {
+    System.out.println("Hibás index: " + e.getMessage());
+} catch (ArithmeticException e) {
+    System.out.println("Nullával osztás: " + e.getMessage());
+} catch (Exception e) {
+    System.out.println("Valami más hiba történt: " + e.getMessage());
+}</code></pre>
+
+      <h2>Saját kivétel: InvalidGradeException</h2>
+      <p>
+        Eddig csak <strong>beépített</strong> kivételeket fogtunk el. Most
+        írjunk egy <strong>sajátot</strong>: a <code>Student</code>
+        osztályba felvett jegyeknek 1 és 5 közé kell esniük — ha valaki
+        érvénytelen jegyet próbál megadni, ezt egy dedikált kivétellel
+        jelezzük, nem csak egy általános
+        <code>IllegalArgumentException</code>-nel.
+      </p>
+
+      <pre><code>public class InvalidGradeException extends Exception {
+    public InvalidGradeException(String message) {
+        super(message);
+    }
+}</code></pre>
+
+      <p>
+        Mivel az <code>Exception</code>-ből (és nem a
+        <code>RuntimeException</code>-ből) származtatjuk, ez egy
+        <strong>checked</strong> kivétel — a fordító mindenhol meg fogja
+        követelni a kezelését, ahol dobható.
+      </p>
+
+      <p>Vezessük be a validációt a <code>Student</code> konstruktorába:</p>
+
+      <pre><code>public class Student {
+    // ...
+
+    public Student(String name, String neptunCode, int[] grades) throws InvalidGradeException {
+        for (int grade : grades) {
+            if (grade &lt; 1 || grade &gt; 5) {
+                throw new InvalidGradeException("Érvénytelen jegy: " + grade + " (1 és 5 között kell lennie)");
+            }
+        }
+        this.name = name;
+        this.neptunCode = neptunCode;
+        this.grades = grades;
+    }
+}</code></pre>
+
+      <p>
+        <strong>Fontos, azonnali következmény:</strong> mivel a konstruktor
+        most már <code>throws InvalidGradeException</code>-t deklarál,
+        <strong>minden</strong> eddigi <code>new Student(...)</code>
+        hívásunk (az összes korábbi óránkban!) mostantól <strong>nem fordul
+        le</strong> kezelés nélkül. Két lehetőségünk van:
+      </p>
+
+      <pre><code>// 1. lehetőség: try/catch a hívás körül
+try {
+    Student anna = new Student("Kovács Anna", "ABC123", new int[]{5, 4, 5});
+    System.out.println(anna.getAverage());
+} catch (InvalidGradeException e) {
+    System.out.println("Nem sikerült létrehozni a hallgatót: " + e.getMessage());
+}
+
+// 2. lehetőség: throws továbbadása (pl. ha a main-ben vagyunk, és ott akarjuk kezelni)
+public static void main(String[] args) throws InvalidGradeException {
+    Student anna = new Student("Kovács Anna", "ABC123", new int[]{5, 4, 5});
+    System.out.println(anna.getAverage());
+}</code></pre>
+
+      <p>
+        Ez a legjobb, kézzelfogható bizonyíték arra, mit is jelent
+        valójában a "checked" jelző: a <strong>fordító</strong> kényszerít
+        minket a hiba explicit kezelésére, még mielőtt a program egyáltalán
+        lefutna.
+      </p>
+
+      <h2>Gyakorlat</h2>
+      <ol>
+        <li>Fogjátok el az <code>InputMismatchException</code>-t egy <code>Scanner.nextInt()</code> hívás körül (2. óra) — ha a felhasználó szöveget ír be szám helyett, írjatok ki egy barátságos hibaüzenetet ahelyett, hogy a program összeomlana.</li>
+        <li>Adjatok egy hasonló validációt egy másik mezőhöz is (pl. a <code>name</code> ne lehessen üres) — dönthettek úgy, hogy ez unchecked (<code>IllegalArgumentException</code>) vagy checked (saját, <code>Exception</code>-ből származó) kivételt dob; indokoljátok a választást.</li>
+        <li>
+          Írjatok egy JUnit tesztet (7. óra) <code>assertThrows</code>-zal, amely ellenőrzi, hogy egy 6-os "jegy" megadásakor <code>InvalidGradeException</code> keletkezik:
+          <pre><code>import org.junit.jupiter.api.function.Executable;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+@Test
+void invalidGradeThrowsException() {
+    assertThrows(InvalidGradeException.class, new Executable() {
+        @Override
+        public void execute() throws Throwable {
+            new Student("X", "Y", new int[]{6});
+        }
+    });
+}</code></pre>
+          <p>(A rövidebb, lambdás forma majd a 10. órán kerül elő — most szándékosan az explicit <code>Executable</code> megvalósítást használjuk.)</p>
+        </li>
+        <li>Vizsgáljátok meg debuggerrel (2. óra!): tegyetek egy breakpointot az <code>InvalidGradeException</code> <code>throw</code> sorára, és nézzétek meg lépésről lépésre, hogyan "ugrik ki" a vezérlés a <code>catch</code> ágba.</li>
+      </ol>
+
+      <h2>Megoldások</h2>
+
+      <h3>1. feladat</h3>
+
+      <pre><code>import java.util.InputMismatchException;
+import java.util.Scanner;
+
+Scanner scanner = new Scanner(System.in);
+System.out.print("Hány éves vagy? ");
+
+try {
+    int age = scanner.nextInt();
+    System.out.println("Kor: " + age);
+} catch (InputMismatchException e) {
+    System.out.println("Ez nem egy érvényes szám volt! Egész számot adj meg.");
+}</code></pre>
+
+      <p>
+        Ha a felhasználó szöveget gépel be (<code>"huszonöt"</code> helyett
+        <code>25</code>-öt várva), a <code>nextInt()</code>
+        <code>InputMismatchException</code>-t dob — ezt fogjuk el,
+        ahelyett hogy a program összeomlana.
+      </p>
+
+      <h3>2. feladat</h3>
+      <p>
+        A <code>name</code> mezőre már van validáció a 3. óráról
+        (<code>setName()</code>, unchecked
+        <code>IllegalArgumentException</code>) — válasszunk egy
+        <strong>másik</strong>, még nem validált mezőt: a
+        <code>neptunCode</code> legyen pontosan 6 karakter hosszú.
+      </p>
+
+      <pre><code>public class InvalidNeptunCodeException extends Exception {
+    public InvalidNeptunCodeException(String message) {
+        super(message);
+    }
+}</code></pre>
+
+      <pre><code>public void setNeptunCode(String neptunCode) throws InvalidNeptunCodeException {
+    if (neptunCode == null || neptunCode.length() != 6) {
+        throw new InvalidNeptunCodeException("A Neptun-kódnak pontosan 6 karakterből kell állnia: " + neptunCode);
+    }
+    this.neptunCode = neptunCode;
+}</code></pre>
+
+      <p>
+        <strong>Indoklás:</strong> ez szándékosan <strong>checked</strong>
+        kivétel, szemben a <code>setName()</code> <strong>unchecked</strong>
+        <code>IllegalArgumentException</code>-jével — jó alkalom a kettő
+        összehasonlítására. A Neptun-kód formátuma egy
+        <strong>domain-specifikus, várható</strong> hiba (hasonlóan az
+        <code>InvalidGradeException</code>-hez), amit érdemes explicit
+        módon kikényszeríteni a hívó kódra — szemben a
+        <code>setName()</code>-nél látott, inkább "ez sosem kellene, hogy
+        előforduljon" jellegű, programozói hibára emlékeztető esettel,
+        ahol az unchecked forma volt indokolt.
+      </p>
+
+      <h3>3. feladat</h3>
+      <p>
+        Ennek a feladatnak a megoldása már <strong>teljes egészében
+        szerepel</strong> a feladat szövegében (a
+        <code>assertThrows</code> + <code>Executable</code> kód fentebb) —
+        nincs mit hozzátenni, a feladat lényege pontosan az volt, hogy
+        lássátok, hogyan tesztelhető egy checked kivétel dobása JUnit-tal.
+      </p>
+
+      <h3>4. feladat</h3>
+      <p>
+        Ez a feladat a debuggeren keresztül figyelendő meg, nincs önálló
+        "megoldó" kód:
+      </p>
+      <ul>
+        <li>Tegyetek egy breakpointot a <code>throw new InvalidGradeException(...)</code> sorra (a <code>Student</code> konstruktorában), és hozzatok létre egy <code>Student</code>-et érvénytelen jeggyel (pl. <code>6</code>) Debug módban.</li>
+        <li>A program megáll a <code>throw</code> sornál, mielőtt a kivétel objektum "elindulna".</li>
+        <li><strong>Step Over</strong>-rel (vagy <strong>Step Into</strong>-vel) tovább lépve figyeljétek meg: a vezérlés <strong>nem</strong> a <code>throw</code> utáni sorra megy (nincs is olyan, hiszen a konstruktor további sorai — <code>this.name = name;</code> stb. — ilyenkor <strong>nem futnak le</strong>), hanem <strong>egyenesen a hívó kódban lévő, megfelelő <code>catch (InvalidGradeException e)</code> ág elejére</strong> ugrik.</li>
+        <li>Ez konkrétan megmutatja, mit jelent a "kivétel dobása": a normális, soronkénti végrehajtás megszakad, és a vezérlés a legközelebbi, megfelelő típusú <code>catch</code> ághoz "ugrik", útközben kihagyva mindent, ami a <code>try</code> blokkban még hátra volt.</li>
+      </ul>
+
+      <h2>Puffer (~30 perc)</h2>
+      <p>
+        Kérdések, illetve további gyakorlási idő azoknak, akik lassabban
+        haladnak — a checked/unchecked megkülönböztetés, illetve a
+        <code>throws</code> visszamenőleges hatása a korábbi kódra
+        sokaknak elsőre meglepő, érdemes rá időt hagyni.
+      </p>
+
+      <h2>Házi feladat</h2>
+      <p>
+        Ezek a feladatok a 8. órán tanultak
+        (<code>try</code>/<code>catch</code>/<code>finally</code>, checked
+        vs. unchecked kivételek, saját kivétel) önálló, otthoni
+        elmélyítésére szolgálnak.
+      </p>
+
+      <h3>1. feladat (Könnyű) — Nullával osztás elkapása</h3>
+      <p>
+        Írjatok egy <code>getAverageAsInt()</code> metódust a
+        <code>Student</code>-hez, amely <strong>egész osztással</strong>
+        (<code>int sum / grades.length</code>, tehát <strong>nem</strong>
+        <code>double</code>-lé alakítva) számolja ki az átlagot.
+        Hívjátok meg egy olyan <code>Student</code>-en, akinek a
+        <code>grades</code> tömbje üres
+        (<code>new Student("X", "Y", new int[0])</code>),
+        <code>try</code>/<code>catch</code>-csel fogva el az
+        <code>ArithmeticException</code>-t. (Ne feledjétek: a konstruktor
+        checked <code>InvalidGradeException</code>-t is deklarál, tehát
+        arra is kell egy <code>catch</code> ág, még akkor is, ha üres
+        tömb esetén ez sosem dobódik ténylegesen.) Hasonlítsátok össze:
+        miért <strong>kivételt</strong> dob ez, míg a 4. órán az üres
+        tömbös <code>double</code>-ös átlag csak <code>NaN</code>-t adott
+        vissza, kivétel nélkül?
+      </p>
+
+      <h3>2. feladat (Közepes) — Saját unchecked kivétel</h3>
+      <p>
+        Vegyetek fel a <code>Student</code> osztályba egy új
+        <code>int semesterNumber</code> mezőt (hányadik félévében jár a
+        hallgató), és írjatok hozzá egy
+        <code>NegativeSemesterException extends RuntimeException</code>
+        kivételt — a setterében (vagy a konstruktorban) negatív érték
+        esetén dobjon kivételt.
+      </p>
+      <p>
+        Gondolkodjatok el rajta, és írjátok le indoklással: miért
+        <strong>unchecked</strong> ez a kivétel, míg az órán megismert
+        <code>InvalidGradeException</code> <strong>checked</strong>? Mi
+        indokolhatja a különböző választást a két esetben?
+      </p>
+
+      <h3>3. feladat (Közepes/Haladó) — Több kivételtípus egy catch ágban</h3>
+      <p>
+        Írjatok egy <code>parseAndValidateGrade(String text)</code>
+        metódust, amely egy szöveget egész számmá alakít
+        (<code>Integer.parseInt</code>, ami
+        <code>NumberFormatException</code>-t dobhat, ha a szöveg nem
+        szám), majd ellenőrzi, hogy 1–5 közé esik-e (ha nem, dobjon
+        <code>InvalidGradeException</code>-t). Hívjátok meg ezt a metódust
+        egy <strong>egyetlen, több típust kezelő <code>catch</code>
+        ággal</strong>
+        (<code>catch (InvalidGradeException | NumberFormatException e)</code>),
+        amely mindkét esetben ugyanazt a barátságos hibaüzenetet írja ki.
+      </p>
+
+      <h3>4. feladat (Haladó) — Garantált "lezárás" finally-val</h3>
+      <p>
+        Írjatok egy egyszerű <code>SimulatedConnection</code> osztályt
+        <code>open()</code> és <code>close()</code> metódusokkal (csak
+        <code>System.out.println</code>-nel jelezzék, hogy
+        megnyíltak/bezárultak), és egy <code>doRiskyWork()</code>
+        metódust, amely néha (pl. egy paraméter alapján)
+        <code>RuntimeException</code>-t dob. Írjatok egy
+        <code>try</code>/<code>finally</code> blokkot úgy, hogy a
+        <code>close()</code> <strong>mindig</strong> lefusson, akkor is, ha
+        a <code>doRiskyWork()</code> kivételt dob.
+      </p>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
