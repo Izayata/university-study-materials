@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>I/O, állománykezelés (9. labor gyakorlat) | Oktatói jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Állománykezelés Javában: klasszikus java.io és manuális close(), try-with-resources, a modern NIO.2 (Files, Path), exists/delete, valamint egy Student lista mentése és betöltése, gyakorló és házi feladatokkal — Magas szintű programozási nyelvek 2 (INBPM0315-21).">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/oktatoi/inbpm0315-21/jegyzet9/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<!--
+  Like jegyzet1–jegyzet8, this page keeps jegyzet-template.html's full
+  class-session shape (Tematika/Kontextus/Gyakorlat/Puffer), plus an
+  appended "Házi feladat" section absorbing its practice-tasks
+  sibling — unlike oktatoi-jegyzet-template.html's default freeform,
+  no-session shape. Genuinely new content, kept in this shape because
+  the source material is itself a real class session's agenda. Unlike
+  jegyzet5–8, this lesson's source has no worked solutions, so there is
+  no "Megoldások" section. See CLAUDE.md's Content model section for
+  the rationale.
+-->
+<body data-nav-key="oktatoi">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/oktatoi/">Oktatói jegyzetek</a> / <a href="/oktatoi/inbpm0315-21/">Magas szintű programozási nyelvek 2 (INBPM0315-21)</a> / 9. jegyzet</p>
+
+      <h1>I/O, állománykezelés</h1>
+      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 9. labor gyakorlat · Frissítve: 2026-09-19</p>
+
+      <h2>Tematika</h2>
+      <ul>
+        <li>Klasszikus <code>java.io</code>: írás és olvasás, manuális <code>close()</code></li>
+        <li>Miért <code>try-with-resources</code>?</li>
+        <li>Modern NIO.2: <code>Files</code>, <code>Path</code></li>
+        <li>Állománykezelés: <code>exists</code>, <code>delete</code></li>
+        <li>Összerakás: <code>Student</code> lista mentése és betöltése</li>
+      </ul>
+
+      <h2>Kontextus</h2>
+      <p>
+        A 6. órán felépítettünk egy <code>List&lt;Student&gt;</code>-et —
+        de amint a program leáll, ez az egész adat <strong>eltűnik</strong>.
+        Ma megtanuljuk, hogyan mentsük fájlba, és hogyan olvassuk vissza
+        onnan. Ez a mai óra a szokásosnál egy kicsit sűrűbb: két különböző
+        API-t nézünk meg (a klasszikusat és a modernet), úgyhogy a puffer
+        idő ma rövidebb lesz a végén.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Klasszikus java.io: írás és olvasás, manuális close()</h2>
+      <p>
+        <strong>Állomány (fájl):</strong> A program futása után is
+        megmaradó adattároló egység a lemezen.
+      </p>
+
+      <p>
+        Mentsük ki a hallgatóinkat egy szöveges fájlba, soronként
+        <code>név;neptunkód;jegy1,jegy2,jegy3</code> formátumban:
+      </p>
+
+      <pre><code>import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public void saveStudentsClassic(List&lt;Student&gt; students, String fileName) throws IOException {
+    BufferedWriter writer = null;
+    try {
+        writer = new BufferedWriter(new FileWriter(fileName));
+        for (Student s : students) {
+            writer.write(toLine(s));
+            writer.newLine();
+        }
+    } finally {
+        if (writer != null) {
+            writer.close();
+        }
+    }
+}
+
+private String toLine(Student s) {
+    StringBuilder gradesText = new StringBuilder();
+    int[] grades = s.getGrades();
+    for (int i = 0; i &lt; grades.length; i++) {
+        gradesText.append(grades[i]);
+        if (i &lt; grades.length - 1) {
+            gradesText.append(",");
+        }
+    }
+    return s.getName() + ";" + s.getNeptunCode() + ";" + gradesText;
+}</code></pre>
+
+      <p>Amit tisztázni kell:</p>
+      <ul>
+        <li><strong><code>FileWriter</code>/<code>BufferedWriter</code>:</strong> a <code>FileWriter</code> közvetlenül a fájlba ír, a <code>BufferedWriter</code> egy hatékonyabb, pufferelt réteget tesz köré — ezért csomagoljuk egymásba.</li>
+        <li><strong><code>throws IOException</code>:</strong> a fájlműveletek <code>IOException</code>-t (checked, 8. óra!) dobhatnak — pl. ha nincs jogosultságunk írni. Ezt vagy kezelnünk kell, vagy tovább kell adnunk.</li>
+        <li><strong>A <code>finally</code>-ben lévő <code>close()</code>:</strong> <em>kötelezően</em> be kell zárnunk a fájlt, különben az erőforrás (fájlkezelő) "nyitva marad" — ezt hívjuk <strong>erőforrás-szivárgásnak</strong> (resource leak). A <code>finally</code> biztosítja, hogy ez <strong>kivétel esetén is</strong> lefusson.</li>
+      </ul>
+
+      <p>Az olvasás hasonlóan néz ki:</p>
+
+      <pre><code>import java.io.BufferedReader;
+import java.io.FileReader;
+
+public List&lt;String&gt; readLinesClassic(String fileName) throws IOException {
+    List&lt;String&gt; lines = new ArrayList&lt;&gt;();
+    BufferedReader reader = null;
+    try {
+        reader = new BufferedReader(new FileReader(fileName));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            lines.add(line);
+        }
+    } finally {
+        if (reader != null) {
+            reader.close();
+        }
+    }
+    return lines;
+}</code></pre>
+
+      <h2>Miért try-with-resources?</h2>
+      <p>
+        A fenti kód működik, de van egy rejtett veszélye: ha a
+        <code>null</code>-ellenőrzést elfelejtenénk, vagy ha a
+        <code>close()</code> hívás maga is kivételt dobna, könnyen
+        hibázhatunk — és minden egyes fájlműveletnél újra le kell írnunk
+        ezt a <code>finally</code>/<code>null</code>-ellenőrzés mintázatot.
+      </p>
+
+      <p>
+        <strong>Try-with-resources:</strong> Ha egy erőforrás (pl.
+        <code>BufferedWriter</code>, <code>BufferedReader</code>)
+        implementálja az <code>AutoCloseable</code> interfészt, a
+        <code>try (...)</code> zárójeles részében megnyitva
+        <strong>automatikusan</strong> bezáródik a blokk végén — kivétel
+        esetén is —, kézi <code>close()</code> hívás nélkül.
+      </p>
+
+      <pre><code>public void saveStudentsClassic(List&lt;Student&gt; students, String fileName) throws IOException {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+        for (Student s : students) {
+            writer.write(toLine(s));
+            writer.newLine();
+        }
+    }
+}</code></pre>
+
+      <p>
+        Nincs többé <code>finally</code>, nincs <code>null</code>-ellenőrzés,
+        nincs kézi <code>close()</code> — a <code>try (...)</code>
+        zárójelben megnyitott <code>writer</code> automatikusan bezáródik,
+        amint a blokk véget ér (akár normálisan, akár kivétellel).
+      </p>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Modern NIO.2: Files, Path</h2>
+      <p>
+        A fenti minta így is sokat gépeltet velünk soronkénti
+        írásnál/olvasásnál. A modern <code>java.nio.file.Files</code>
+        osztály erre kényelmesebb, egylépéses metódusokat ad.
+      </p>
+
+      <pre><code>import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+
+public void saveStudentsNio(List&lt;Student&gt; students, String fileName) throws IOException {
+    List&lt;String&gt; lines = new ArrayList&lt;&gt;();
+    for (Student s : students) {
+        lines.add(toLine(s));
+    }
+    Files.write(Path.of(fileName), lines);
+}
+
+public List&lt;String&gt; readLinesNio(String fileName) throws IOException {
+    return Files.readAllLines(Path.of(fileName));
+}</code></pre>
+
+      <ul>
+        <li><strong><code>Path.of(fileName)</code>:</strong> egy fájl elérési útját reprezentálja (nem magát a tartalmat).</li>
+        <li><strong><code>Files.write(path, lines)</code>:</strong> egyetlen hívással kiírja a <code>lines</code> lista minden elemét, soronként — nincs szükség kézi <code>BufferedWriter</code>-re vagy <code>try-with-resources</code>-re, a <code>Files</code> osztály ezt belsőleg elintézi.</li>
+        <li><strong><code>Files.readAllLines(path)</code>:</strong> egyetlen hívással beolvassa az összes sort egy <code>List&lt;String&gt;</code>-be.</li>
+        <li>Mindkettő <strong>továbbra is</strong> <code>IOException</code>-t dobhat (checked) — ez nem változott, csak a kód sokkal rövidebb lett.</li>
+      </ul>
+
+      <h2>Állománykezelés: exists, delete</h2>
+
+      <pre><code>Path path = Path.of("students.txt");
+
+if (Files.exists(path)) {
+    System.out.println("A fájl létezik, beolvasás...");
+    List&lt;String&gt; lines = Files.readAllLines(path);
+} else {
+    System.out.println("A fájl még nem létezik.");
+}
+
+Files.deleteIfExists(path);</code></pre>
+
+      <ul>
+        <li><strong><code>Files.exists(path)</code>:</strong> megmondja, létezik-e a fájl, mielőtt megpróbálnánk olvasni belőle (elkerülve egy felesleges kivételt).</li>
+        <li><strong><code>Files.deleteIfExists(path)</code>:</strong> törli a fájlt, ha létezik; ha nem létezik, nem dob hibát (szemben a <code>Files.delete(path)</code>-tal, ami ilyenkor kivételt dobna).</li>
+      </ul>
+
+      <h2>Összerakás: Student lista mentése és betöltése</h2>
+      <p>
+        Most kössük össze mindent: mentsük ki, majd olvassuk vissza a
+        <code>List&lt;Student&gt;</code>-et — a visszaolvasásnál a 8. órai
+        <code>InvalidGradeException</code> is előkerül, hiszen a sorokból
+        új <code>Student</code> objektumokat építünk a konstruktoron
+        keresztül.
+      </p>
+
+      <pre><code>public List&lt;Student&gt; loadStudents(String fileName) throws IOException, InvalidGradeException {
+    List&lt;Student&gt; result = new ArrayList&lt;&gt;();
+    List&lt;String&gt; lines = Files.readAllLines(Path.of(fileName));
+
+    for (String line : lines) {
+        String[] parts = line.split(";");
+        String name = parts[0];
+        String neptunCode = parts[1];
+        String[] gradeParts = parts[2].split(",");
+
+        int[] grades = new int[gradeParts.length];
+        for (int i = 0; i &lt; gradeParts.length; i++) {
+            grades[i] = Integer.parseInt(gradeParts[i]);
+        }
+
+        result.add(new Student(name, neptunCode, grades));
+    }
+
+    return result;
+}</code></pre>
+
+      <p>Meghívva:</p>
+
+      <pre><code>try {
+    List&lt;Student&gt; loaded = loadStudents("students.txt");
+    for (Student s : loaded) {
+        System.out.println(s.getReportLine());
+    }
+} catch (IOException e) {
+    System.out.println("Nem sikerült beolvasni a fájlt: " + e.getMessage());
+} catch (InvalidGradeException e) {
+    System.out.println("Hibás jegy a fájlban: " + e.getMessage());
+}</code></pre>
+
+      <p>
+        Két <strong>külön</strong> <code>catch</code> ág kell, mert két,
+        egymástól független ok miatt hiúsulhat meg a betöltés: vagy a
+        fájllal van baj (<code>IOException</code>), vagy az adat
+        tartalmával (<code>InvalidGradeException</code>) — és a két esetben
+        más-más hibaüzenetet érdemes adnunk a felhasználónak.
+      </p>
+
+      <h2>Gyakorlat</h2>
+      <ol>
+        <li>Mentsétek ki a <code>students</code> listátokat (6. óra) <code>Files.write</code>-tal egy <code>students.txt</code> fájlba, majd olvassátok vissza <code>loadStudents</code>-szel, és ellenőrizzétek, hogy ugyanazokat az adatokat kaptátok vissza.</li>
+        <li>Töröljétek a fájlt <code>Files.deleteIfExists</code>-szel, majd <code>Files.exists</code>-szel ellenőrizzétek, hogy tényleg eltűnt.</li>
+        <li>Rontsatok el kézzel egy sort a fájlban (pl. írjatok bele egy 6-os jegyet), és futtassátok újra a betöltést — figyeljétek meg, hogy az <code>InvalidGradeException</code> ágon keresztül kapunk értelmes hibaüzenetet, nem egy nyers <code>NumberFormatException</code>-t vagy összeomlást.</li>
+        <li>Alakítsátok át a klasszikus (nem try-with-resources-es) írási metódust úgy, hogy a <code>finally</code>-ben lévő <code>close()</code> hívást szándékosan kihagyjátok — debuggerrel (2. óra!) figyeljétek meg, hogy a program lefut, de a fájl esetenként nem íródik ki teljesen, mielőtt a program véget érne.</li>
+      </ol>
+
+      <h2>Puffer (~20 perc)</h2>
+      <p>
+        Ma rövidebb a puffer, mert sok az anyag — ha nem jut mindenre idő,
+        a <code>Files.exists</code>/<code>delete</code> rész a legkönnyebben
+        áttehető a jövő heti óra elejére bemelegítésként.
+      </p>
+
+      <h2>Házi feladat</h2>
+      <p>
+        Ezek a feladatok a 9. órán tanultak (klasszikus
+        <code>java.io</code>, <code>try-with-resources</code>, NIO.2,
+        állománykezelés) önálló, otthoni elmélyítésére szolgálnak.
+      </p>
+
+      <h3>1. feladat (Könnyű) — Sorok számozva</h3>
+      <p>
+        Írjatok egy programot, amely <code>Files.write</code>-tal kiír egy
+        tetszőleges, legalább 5 soros szöveges fájlt (pl. egy
+        bevásárlólistát), majd <code>Files.readAllLines</code>-szal
+        visszaolvassa, és <strong>sorszámozva</strong> írja ki mindegyik
+        sort (<code>1. &lt;sor tartalma&gt;</code>,
+        <code>2. &lt;sor tartalma&gt;</code>, ...).
+      </p>
+
+      <h3>2. feladat (Közepes) — Hozzáfűzés felülírás nélkül</h3>
+      <p>
+        A <code>Files.write(path, lines)</code> alapból
+        <strong>felülírja</strong> a fájlt. Nézzetek utána (pl. a hivatalos
+        Java dokumentációban) a <code>StandardOpenOption.APPEND</code>
+        opciónak, és írjatok egy metódust, amely egy <strong>új</strong>
+        hallgatósort hozzáfűz a <code>students.txt</code> fájl
+        <strong>végéhez</strong>, a meglévő tartalom törlése nélkül.
+        Ellenőrizzétek <code>Files.readAllLines</code>-szal, hogy a régi
+        sorok megmaradtak, és az új a végén jelent meg.
+      </p>
+
+      <h3>3. feladat (Közepes/Haladó) — Sorok száma try-with-resources-szel</h3>
+      <p>
+        Írjatok egy <code>countLines(String fileName)</code> metódust,
+        amely <strong>klasszikus</strong> <code>BufferedReader</code>-t
+        használ, <strong>try-with-resources</strong>-szel (ne kézi
+        <code>close()</code>-lal), és visszaadja, hány sorból áll a
+        megadott fájl.
+      </p>
+
+      <h3>4. feladat (Haladó) — Hibatűrő betöltés</h3>
+      <p>
+        Az órai <code>loadStudents</code> metódus az <strong>első</strong>
+        hibás sornál megáll, és az egész betöltést meghiúsítja. Írjatok egy
+        <code>loadStudentsResilient(String fileName)</code> metódust,
+        amely:
+      </p>
+      <ul>
+        <li>soronként próbálja meg feldolgozni a fájlt,</li>
+        <li>ha egy adott sor feldolgozása közben <code>InvalidGradeException</code> vagy <code>NumberFormatException</code> keletkezik, <strong>kihagyja azt a sort</strong> (nem áll le), és megjegyzi, hány sort kellett kihagyni,</li>
+        <li>a végén visszaadja a sikeresen beolvasott hallgatók listáját, és kiírja, hány sort hagyott ki hiba miatt.</li>
+      </ul>
+      <p>
+        Segítség: a <code>try</code>/<code>catch</code>-nek <strong>a ciklus
+        belsejében</strong>, soronként kell lennie, nem a teljes ciklus
+        körül.
+      </p>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
