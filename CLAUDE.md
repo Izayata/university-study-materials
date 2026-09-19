@@ -303,7 +303,7 @@ subsection (intro → "Témák" outline → one `<h2>` per LaTeX `\section`),
 since the source material has the same "multi-topic reference, not one
 class session" character as `jegyzet1`. Each item's breadcrumb has an
 extra "Kombinatorika és gráfelmélet" segment
-(`Kezdőlap / Órai jegyzetek / DE TTK Matematika BSc / Kombinatorika és
+(`Kezdőlap / Órai jegyzetek / DE TTK Matematika BSc 2023/2025 / Kombinatorika és
 gráfelmélet / N. jegyzet`), the same hand-added-segment approach the
 semester exception uses.
 
