@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Osztály, objektum, konstruktor, statikus tag, equals (3. labor gyakorlat) | Oktatói jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Osztály és objektum, mezők és metódusok, példányosítás és konstruktor, láthatóság, getter és setter, statikus tag és metódus, valamint az equals() felülírása egy Student osztályon keresztül, gyakorló és házi feladatokkal — Magas szintű programozási nyelvek 2 (INBPM0315-21).">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/oktatoi/inbpm0315-21/jegyzet3/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<!--
+  Like jegyzet1 and jegyzet2, this page keeps jegyzet-template.html's
+  full class-session shape (Tematika/Kontextus/Gyakorlat/Puffer), plus
+  an appended "Házi feladat" section absorbing its practice-tasks
+  sibling — unlike oktatoi-jegyzet-template.html's default freeform,
+  no-session shape. Genuinely new content, kept in this shape because
+  the source material is itself a real class session's agenda. See
+  CLAUDE.md's Content model section for the rationale.
+-->
+<body data-nav-key="oktatoi">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/oktatoi/">Oktatói jegyzetek</a> / <a href="/oktatoi/inbpm0315-21/">Magas szintű programozási nyelvek 2 (INBPM0315-21)</a> / 3. jegyzet</p>
+
+      <h1>Osztály, objektum, konstruktor, statikus tag, equals</h1>
+      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 3. labor gyakorlat · Frissítve: 2026-09-19</p>
+
+      <h2>Tematika</h2>
+      <ul>
+        <li>Miért OOP? Osztály vs. objektum</li>
+        <li>Mezők és metódusok</li>
+        <li>Példányosítás és konstruktor</li>
+        <li>Láthatóság: <code>private</code>, <code>public</code></li>
+        <li>Getter, setter</li>
+        <li>Statikus tag és metódus</li>
+        <li><code>equals()</code></li>
+      </ul>
+
+      <h2>Kontextus</h2>
+      <p>
+        Ma lesz az első alkalom, hogy <strong>osztály, objektum,
+        példányosítás, konstruktor</strong> fogalmakat egy laboron,
+        gyakorlatban, közösen felépítve is használjuk. Ma egyetlen
+        osztályt építünk fel lépésről lépésre — a <code>Student</code>-et
+        —, és minden új fogalmat ehhez az egy példához kötünk.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Miért OOP? Osztály vs. objektum</h2>
+      <p>
+        Tegyük fel, hogy nyilván kell tartanunk néhány hallgató nevét,
+        Neptun-kódját és jegyeit — pusztán változókkal és tömbökkel:
+      </p>
+
+      <pre><code>String name1 = "Kovács Anna";
+String neptun1 = "ABC123";
+int[] grades1 = {5, 4, 5};
+
+String name2 = "Nagy Béla";
+String neptun2 = "XYZ789";
+int[] grades2 = {3, 4, 2};</code></pre>
+
+      <p>
+        Mi történik, ha 30 hallgatónk van? Mi történik, ha szükségünk
+        van egy függvényre, amely kiszámolja egy hallgató átlagát —
+        írjunk <code>getAverage1()</code>-et és
+        <code>getAverage2()</code>-t is? Az egy hallgatóhoz tartozó adat
+        (név, Neptun-kód, jegyek) és a rajta végzett műveletek
+        (átlagszámítás) szét vannak szórva, és semmi nem köti össze őket
+        explicit módon.
+      </p>
+
+      <p>
+        <strong>OOP (objektumorientált programozás):</strong> Az OOP egy
+        olyan programozási paradigma, amelyben egy dolog adatait és a
+        rajta végezhető műveleteket egyetlen egységbe — egy ún.
+        objektumba — csomagoljuk össze.
+      </p>
+
+      <p>
+        <strong>Osztály (class):</strong> Az osztály egy <em>sablon</em>
+        (blueprint): leírja, hogy minden <code>Student</code>-nek milyen
+        adatai lesznek (mezők), és milyen műveleteket lehet rajta
+        végrehajtani (metódusok) — de önmagában nem egy konkrét hallgató.
+      </p>
+
+      <pre><code>public class Student {
+    // mezők (adatok) ide kerülnek
+    // metódusok (műveletek) ide kerülnek
+}</code></pre>
+
+      <p>
+        <strong>Objektum (object, példány):</strong> Az objektum a
+        sablonból <em>ténylegesen létrehozott, konkrét dolog</em> — egy
+        adott hallgató, valós adatokkal. A <code>Student</code> osztály
+        leírja a formát; a <code>new Student(...)</code> egy valódi,
+        memóriában létező objektumot hoz létre.
+      </p>
+
+      <h2>Mezők és metódusok</h2>
+      <p>
+        <strong>Mező (attribútum):</strong> A mezők azok az adatok,
+        amelyeket egy <code>Student</code> objektum magával visz.
+      </p>
+
+      <pre><code>public class Student {
+    String name;
+    String neptunCode;
+    int[] grades;
+}</code></pre>
+
+      <p>
+        <strong>Metódus:</strong> A metódusok azok a
+        műveletek/viselkedések, amelyeket egy <code>Student</code> képes
+        végrehajtani — és amelyek a <em>saját</em> mezőin dolgoznak.
+      </p>
+
+      <pre><code>    double getAverage() {
+        int sum = 0;
+        for (int grade : grades) {
+            sum += grade;
+        }
+        return (double) sum / grades.length;
+    }</code></pre>
+
+      <p>
+        A legfontosabb szemléletváltás itt: a <code>getAverage</code>
+        metódusnak <strong>nem kell</strong> paraméterben megkapnia,
+        hogy "melyik hallgatóról" van szó — automatikusan azon az
+        objektumon dolgozik, amelyiken meghívjuk. Ez az implicit
+        "melyik objektum vagyok én" (amit Java-ban a <code>this</code>
+        kulcsszó fejez ki explicit módon, ha valaha meg kellene
+        különböztetni egy mezőt egy azonos nevű paramétertől) a lényegi
+        különbség a korábban megszokott imperatív stílushoz képest, ahol
+        egy <code>getAverage(grades1)</code>-szerű függvénynek explicit
+        meg kellett mondani, melyik adaton dolgozzon.
+      </p>
+
+      <h2>Példányosítás és konstruktor</h2>
+      <p>
+        <strong>Konstruktor:</strong> A konstruktor egy speciális
+        metódus, amely akkor fut le, amikor egy objektum létrejön —
+        ilyenkor állítjuk be a kezdeti állapotát. Neve megegyezik az
+        osztály nevével, és nincs visszatérési típusa.
+      </p>
+
+      <pre><code>public class Student {
+    String name;
+    String neptunCode;
+    int[] grades;
+
+    Student(String name, String neptunCode, int[] grades) {
+        this.name = name;
+        this.neptunCode = neptunCode;
+        this.grades = grades;
+    }
+}</code></pre>
+
+      <p>
+        Itt látjuk a <code>this</code> egy konkrét, hasznos szerepét: a
+        <code>this.name</code> a <em>mezőre</em> utal, a bal oldali
+        <code>name</code> pedig a <em>paraméterre</em> — enélkül nem
+        tudnánk megkülönböztetni a kettőt, mivel szándékosan ugyanaz a
+        nevük.
+      </p>
+
+      <p>
+        <strong>Példányosítás:</strong> A példányosítás az a lépés, amikor
+        a <code>new</code> kulcsszóval ténylegesen létrehozunk egy
+        objektumot az osztályból.
+      </p>
+
+      <pre><code>Student anna = new Student("Kovács Anna", "ABC123", new int[]{5, 4, 5});
+Student bela = new Student("Nagy Béla", "XYZ789", new int[]{3, 4, 2});
+
+System.out.println(anna.getAverage());</code></pre>
+
+      <p>
+        Fontos tudatosítani: <code>anna</code> és <code>bela</code> két
+        különálló objektum, ugyanabból az osztályból — mindegyiknek
+        saját, egymástól független példánya van a <code>name</code>,
+        <code>neptunCode</code> és <code>grades</code> mezőknek. Az
+        <code>anna</code> jegyeinek módosítása nem érinti
+        <code>bela</code> adatait.
+      </p>
+
+      <h2>Láthatóság: private, public</h2>
+      <p>
+        <strong>Láthatóság (access modifier):</strong> A láthatósági
+        szintek szabályozzák, hogy egy mező vagy metódus honnan érhető
+        el.
+      </p>
+      <ul>
+        <li><strong><code>private</code>:</strong> csak az adott osztályon belülről érhető el. Ez a mezők alapértelmezett, ajánlott láthatósága — más osztályok ne tudják közvetlenül módosítani egy <code>Student</code> belső adatait.</li>
+        <li><strong><code>public</code>:</strong> bárhonnan elérhető. Ez a metódusok jellemző láthatósága, amelyeket kívülről is meg akarunk hívni.</li>
+      </ul>
+
+      <pre><code>public class Student {
+    private String name;
+    private String neptunCode;
+    private int[] grades;
+
+    public Student(String name, String neptunCode, int[] grades) {
+        this.name = name;
+        this.neptunCode = neptunCode;
+        this.grades = grades;
+    }
+
+    public double getAverage() {
+        int sum = 0;
+        for (int grade : grades) {
+            sum += grade;
+        }
+        return (double) sum / grades.length;
+    }
+}</code></pre>
+
+      <p>
+        Ha a mezők <code>private</code>-ok, kívülről (pl. a
+        <code>main</code>-ből) nem lehet közvetlenül hozzájuk férni
+        (<code>anna.name</code> nem fordulna le). Ez szándékos — a
+        következő részben megnézzük, hogyan adunk mégis kontrollált
+        hozzáférést hozzájuk.
+      </p>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Getter, setter</h2>
+      <p>
+        <strong>Getter:</strong> Egy <code>public</code> metódus, amely
+        egy <code>private</code> mező <strong>értékét adja
+        vissza</strong>, kontrollált módon.
+      </p>
+      <p>
+        <strong>Setter:</strong> Egy <code>public</code> metódus, amely
+        egy <code>private</code> mező <strong>értékét állítja
+        be</strong>, kontrollált módon (pl. ellenőrzéssel).
+      </p>
+
+      <pre><code>public String getName() {
+    return name;
+}
+
+public void setName(String name) {
+    this.name = name;
+}</code></pre>
+
+      <p>
+        Miért nem tesszük egyszerűen <code>public</code>-ká a mezőt
+        magát? Mert a setterben tudunk <strong>ellenőrzést</strong>
+        végezni, mielőtt módosítanánk az állapotot:
+      </p>
+
+      <pre><code>public void setName(String name) {
+    if (name == null || name.isBlank()) {
+        throw new IllegalArgumentException("A név nem lehet üres!");
+    }
+    this.name = name;
+}</code></pre>
+
+      <p>
+        Egy <code>public</code> mezőnél erre nincs lehetőség — bárki
+        bármit beleírhatna.
+      </p>
+
+      <p>
+        <strong>IntelliJ-s gyorsítás:</strong> nem kell kézzel megírni
+        minden getter/settert. Helyezzétek a kurzort az osztály
+        belsejébe, <code>Alt+Insert</code> (Windows/Linux) vagy
+        <code>Cmd+N</code> (macOS) → <code>Getter and Setter</code> →
+        válasszátok ki a mezőket, amikhez kell → <code>OK</code>. Az
+        IntelliJ automatikusan legenerálja a fent látott formát. Egy
+        másik megoldás a Code → Generate → Getter and Setter menüpont
+        kiválasztása az IntelliJ programban.
+      </p>
+
+      <h2>Statikus tag és metódus</h2>
+      <p>
+        Eddig minden mező <strong>példányonként</strong>
+        (objektumonként) külön létezett. A <strong>statikus</strong>
+        tagok ezzel szemben az <strong>osztályhoz</strong> tartoznak,
+        nem egy konkrét példányhoz — egyetlen közös példányuk van, amit
+        minden objektum megoszt.
+      </p>
+
+      <p>
+        <strong>Statikus mező:</strong> Számoljuk meg, hány
+        <code>Student</code> objektumot hoztunk létre eddig:
+      </p>
+
+      <pre><code>public class Student {
+    private static int instanceCount = 0;
+
+    private String name;
+    private String neptunCode;
+    private int[] grades;
+
+    public Student(String name, String neptunCode, int[] grades) {
+        this.name = name;
+        this.neptunCode = neptunCode;
+        this.grades = grades;
+        instanceCount += 1;
+    }
+
+    public static int getInstanceCount() {
+        return instanceCount;
+    }
+}</code></pre>
+
+      <p>
+        <strong>Statikus metódus:</strong> A
+        <code>getInstanceCount()</code> <code>static</code>, mert nem
+        egy konkrét hallgatóhoz tartozó adatot ad vissza, hanem egy, az
+        egész osztályra vonatkozó információt. Ezért <strong>nem egy
+        objektumon</strong>, hanem <strong>magán az osztályon</strong>
+        hívjuk meg:
+      </p>
+
+      <pre><code>Student anna = new Student("Kovács Anna", "ABC123", new int[]{5, 4, 5});
+Student bela = new Student("Nagy Béla", "XYZ789", new int[]{3, 4, 2});
+
+System.out.println(Student.getInstanceCount());   // 2</code></pre>
+
+      <p>
+        Fontos megfigyelés: <code>instanceCount</code>-ból egyetlen
+        közös példány létezik, amelyet <code>anna</code> és
+        <code>bela</code> konstruktora is növel — szemben a
+        <code>name</code>, <code>neptunCode</code>, <code>grades</code>
+        mezőkkel, amelyekből minden objektumnak saját, független
+        példánya van.
+      </p>
+
+      <p>
+        Ez az a fogalom, amivel a korábbi órák <code>main</code>
+        metódusában (<code>public static void main</code>) már
+        találkoztatok anélkül, hogy tudtátok volna, mit jelent a
+        <code>static</code>. Azért <code>static</code>, mert a JVM-nek
+        nincs szüksége egy objektum létrehozására ahhoz, hogy elindítsa
+        a programot.
+      </p>
+
+      <h2>equals()</h2>
+      <p>
+        Próbáljuk meg összehasonlítani két, azonos adatokkal létrehozott
+        <code>Student</code> objektumot:
+      </p>
+
+      <pre><code>Student s1 = new Student("Tóth Elemér", "QWE111", new int[]{5, 5, 5});
+Student s2 = new Student("Tóth Elemér", "QWE111", new int[]{5, 5, 5});
+
+System.out.println(s1 == s2);   // false!</code></pre>
+
+      <p>
+        <strong>Miért <code>false</code>?</strong> A <code>==</code>
+        objektumoknál nem a <em>tartalmat</em>, hanem a
+        <em>referenciát</em> hasonlítja össze — azt, hogy a két változó
+        ugyanarra a memóriabeli objektumra mutat-e. <code>s1</code> és
+        <code>s2</code> két külön objektum, még ha ugyanazok is az
+        adataik.
+      </p>
+
+      <p>
+        <strong>equals():</strong> Ha azt akarjuk eldönteni, hogy két
+        objektum <em>tartalmilag</em> egyezik-e, felül kell írnunk az
+        <code>equals()</code> metódust:
+      </p>
+
+      <pre><code>@Override
+public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (!(obj instanceof Student)) return false;
+
+    Student other = (Student) obj;
+    return name.equals(other.name) &amp;&amp; neptunCode.equals(other.neptunCode);
+}</code></pre>
+
+      <pre><code>System.out.println(s1.equals(s2));   // true</code></pre>
+
+      <p>Amit tisztázni kell:</p>
+      <ul>
+        <li><code>@Override</code> — jelzi, hogy szándékosan írjuk felül az <code>Object</code> osztály <code>equals()</code> metódusát.</li>
+        <li><code>instanceof</code> — ellenőrzi, hogy a paraméter valóban <code>Student</code> típusú-e, mielőtt <code>Student</code>-té alakítanánk (<em>cast</em>).</li>
+        <li>A mezőkre <code>.equals()</code>-t hívunk (pl. <code>name.equals(other.name)</code>), nem <code>==</code>-t, mert a <code>String</code> is objektum — ugyanaz a csapda vonatkozik rá is.</li>
+      </ul>
+
+      <h2>Gyakorlat</h2>
+      <ol>
+        <li>Bővítsétek a <code>Student</code> osztályt egy új mezővel (pl. <code>major</code> — szak), és generáljatok hozzá getter/settert IntelliJ-vel.</li>
+        <li>Hozzatok létre legalább 3 <code>Student</code> objektumot, és írjátok ki a <code>Student.getInstanceCount()</code> értékét minden létrehozás után — figyeljétek meg, hogy nő.</li>
+        <li>Hozzatok létre két, teljesen azonos adatokkal rendelkező <code>Student</code> objektumot, és ellenőrizzétek <code>==</code>-vel és <code>equals()</code>-szal is — figyeljétek meg a különbséget.</li>
+        <li>Bővítsétek az <code>equals()</code>-t úgy, hogy a jegyeket (<code>grades</code>) is vegye figyelembe (segítség: <code>java.util.Arrays.equals(grades, other.grades)</code>).</li>
+      </ol>
+
+      <h2>Puffer (~30 perc)</h2>
+      <p>
+        Kérdések, illetve további gyakorlási idő azoknak, akik lassabban
+        haladnak — ez az első labor, ahol egy egész osztályt építünk fel
+        több lépésben, érdemes időt hagyni arra, hogy mindenki utolérje
+        magát.
+      </p>
+
+      <h2>Házi feladat</h2>
+      <p>
+        Ezek a feladatok a 3. órán tanultak (osztály/objektum,
+        konstruktor, láthatóság, getter/setter, statikus tag,
+        <code>equals()</code>) önálló, otthoni elmélyítésére szolgálnak.
+        Az első két feladat a saját <code>Student</code> osztályotokra
+        épül, a harmadik egy teljesen új, önállóan megírt osztályt kér,
+        a negyedik pedig egy új fogalmat vezet be a
+        <code>Student</code>-en.
+      </p>
+
+      <h3>1. feladat (Könnyű) — Email mező validációval</h3>
+      <p>
+        Vegyetek fel a <code>Student</code> osztályba egy új,
+        <code>private String email</code> mezőt, generáljatok hozzá
+        gettert/settert IntelliJ-jel. A <strong>setterben</strong>
+        ellenőrizzétek, hogy az email cím tartalmaz-e <code>"@"</code>
+        karaktert — ha nem, dobjatok
+        <code>IllegalArgumentException</code>-t (ezt a kivételt majd a
+        8. órán tárgyaljuk részletesen, most elég annyit tudni, hogy
+        <code>throw new IllegalArgumentException("üzenet");</code>
+        formában lehet dobni).
+      </p>
+
+      <h3>2. feladat (Közepes) — Összesített statisztika statikus taggal</h3>
+      <p>
+        Vegyetek fel a <code>Student</code> osztályba egy
+        <code>private static int totalGradesSum</code> mezőt, amely az
+        <strong>összes</strong>, bármely <code>Student</code>
+        objektumhoz valaha hozzáadott jegy összegét tartja nyilván
+        (frissítsétek a konstruktorban, a kezdeti jegyek alapján).
+        Írjatok egy
+        <code>public static double getOverallAverageContribution()</code>
+        metódust, amely visszaadja, hogy
+        <code>Student.getInstanceCount()</code> (3. óra) alapján
+        átlagosan hány jegy "összeg-értéket" ad hozzá egy hallgató.
+      </p>
+
+      <h3>3. feladat (Közepes/Haladó) — Önálló osztály: Book</h3>
+      <p>
+        Írjatok meg <strong>önállóan, nulláról</strong> egy
+        <code>Book</code> osztályt, amely:
+      </p>
+      <ul>
+        <li><code>private</code> mezőkkel rendelkezik: <code>title</code>, <code>author</code>, <code>isbn</code> (mindhárom <code>String</code>),</li>
+        <li>van egy konstruktora, amely mindhárom mezőt beállítja,</li>
+        <li>van gettere minden mezőhöz,</li>
+        <li>felülírja az <code>equals()</code>-t úgy, hogy két <code>Book</code> akkor egyenlő, ha az <code>isbn</code>-jük megegyezik.</li>
+      </ul>
+      <p>
+        Hozzatok létre két, azonos <code>isbn</code>-nel, de eltérő
+        <code>title</code>/<code>author</code> értékkel rendelkező
+        <code>Book</code> objektumot, és ellenőrizzétek
+        <code>equals()</code>-szal, hogy egyenlőnek számítanak-e.
+      </p>
+
+      <h3>4. feladat (Haladó) — Másoló konstruktor</h3>
+      <p>
+        Írjatok a <code>Student</code> osztályhoz egy <strong>másoló
+        konstruktort</strong> (<em>copy constructor</em>): egy olyan
+        konstruktort, amely paraméterként egy <strong>másik
+        <code>Student</code> objektumot</strong> kap, és annak adatai
+        alapján hoz létre egy új, önálló <code>Student</code>
+        példányt.
+      </p>
+
+      <pre><code>public Student(Student other) {
+    // ide kerül a megoldás
+}</code></pre>
+
+      <p>
+        Ellenőrizzétek, hogy a másolat és az eredeti valóban <strong>két
+        különálló objektum</strong> (pl. az egyik jegyeinek módosítása ne
+        érintse a másikat) — ehhez gondoljátok át, hogy a
+        <code>grades</code> tömböt egyszerű értékadással vagy
+        másolással (<code>Arrays.copyOf</code>) érdemes-e átvenni.
+      </p>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
