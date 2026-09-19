@@ -80,7 +80,7 @@ not a bug.
 | Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/de-ttk-matematika-bsc/jegyzet1/` (added 2026-09-17, see the math-note exception below) and the 10-item `kombinatorika-es-grafelmelet/` topic-landing page (added 2026-09-17, see the topic-nesting exception below); see also the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | none currently — empty since `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) |
-| Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | `/oktatoi/inbpm0315-21/jegyzet1/` (moved here 2026-09-16, renamed from `java-alapok` the same day) `jegyzet2/` (added 2026-09-16, new content) and `jegyzet3/` (added 2026-09-19, new content) — all keep the class-session shape, see below, not the template's default |
+| Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | `/oktatoi/inbpm0315-21/jegyzet1/` (moved here 2026-09-16, renamed from `java-alapok` the same day) `jegyzet2/` (added 2026-09-16, new content) and every later lesson (`jegyzet3/`, `jegyzet4/`, ... — added one per message since 2026-09-19, new content) — all keep the class-session shape, see below, not the template's default |
 
 `Oktatói jegyzetek` (added 2026-09-16) is the site owner's own
 material from teaching/tutoring — `about.html` already establishes
@@ -97,10 +97,10 @@ be derived once real content is published here, the same way the
 tétel style guide was written only after `tetel1`–`tetel3` were live.
 Don't invent one prematurely.
 
-### Class-session-shaped oktatói jegyzetek: `jegyzet1`–`jegyzet3` keep the full class-session shape
+### Class-session-shaped oktatói jegyzetek: every `inbpm0315-21` item keeps the full class-session shape
 
-`jegyzet1`, `jegyzet2` and `jegyzet3` (the only three
-`oktatoi/inbpm0315-21` items published so far) use
+Every `oktatoi/inbpm0315-21` item (`jegyzet1` and `jegyzet2`, then one
+new lesson per message from `jegyzet3` on) uses
 `jegyzet-template.html`'s full
 Tematika/Kontextus/Gyakorlat/Puffer shape, plus an appended "Házi
 feladat" `<h2>` section, instead of `oktatoi-jegyzet-template.html`'s
@@ -140,11 +140,12 @@ shape so far:
   merged in as a "Házi feladat" `<h2>` section the same way
   `gyakorlat1` was folded into `jegyzet1` — there's no separate
   page/URL to remove for it, since it never had one on this site.
-- **`jegyzet3`** was added 2026-09-19 through the same new-content
-  path as `jegyzet2` (`03-osztaly-objektum-alapok.md`, a "3. labor
-  gyakorlat" agenda, plus `class-3-practice-tasks.md` merged in as its
-  "Házi feladat" section). The remaining lessons are expected to arrive
-  one per message the same way.
+- **`jegyzet3` and every later lesson** (`jegyzet3` on 2026-09-19,
+  `jegyzet4` the same day, ...) go through the same new-content path as
+  `jegyzet2`: the site owner's `NN-<topic>.md` class agenda ("N. labor
+  gyakorlat") plus `class-N-practice-tasks.md` merged in as its "Házi
+  feladat" section. Lessons arrive one per message; copy the newest
+  existing item's structure rather than this description.
 
 All these pages **keep the 3-part jegyzet-style item-meta**
 (`Course · Session label · Frissítve: date`) rather than
@@ -667,7 +668,7 @@ Gyakorlat (in-class exercise list, `<ol>`) → Puffer (buffer-time note
 — present because a jegyzet page is literally a class-session agenda
 with a time budget). This was accurate for `jegyzet-template.html` as
 derived from the original `jegyzet1` on 2026-09-09, and still
-describes `oktatoi/inbpm0315-21/jegyzet1`–`jegyzet3`, which explicitly
+describes every `oktatoi/inbpm0315-21` jegyzet, which explicitly
 preserve it (see the Content model section's class-session-shaped
 exception above).
 
@@ -773,13 +774,13 @@ design, not per-item drift:**
   `"Frissítve: 2026-09-05"`.
 - Oktatói jegyzet: `Course · Frissítve: date` (2 parts, same shape as
   gyakorlat) — no session label, since this content isn't tied to a
-  scheduled class session. Exception: `oktatoi/inbpm0315-21/jegyzet1`,
-  `jegyzet2` and `jegyzet3` keep the 3-part jegyzet-style item-meta instead (e.g.
+  scheduled class session. Exception: every `oktatoi/inbpm0315-21`
+  jegyzet keeps the 3-part jegyzet-style item-meta instead (e.g.
   `"Magas szintű programozási nyelvek 2 (INBPM0315-21) · 1. labor
   gyakorlat · Frissítve: 2026-09-16"`), per the class-session-shaped
   exception documented above — their source material is itself written
   as a real class-session agenda, whether moved (`jegyzet1`) or new
-  (`jegyzet2`, `jegyzet3`).
+  (`jegyzet2` onward).
 
 Don't unify these into one shared pattern. Jegyzet/gyakorlat are tied
 to a specific course session; a tétel is meant to read as a portable,
