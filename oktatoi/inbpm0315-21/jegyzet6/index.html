@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Kollekciók: lista és rendezése, set, map (6. labor gyakorlat) | Oktatói jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Kollekciók a java.util csomagból: az ArrayList és rendezése Comparable/Comparator segítségével, a HashSet és az equals()/hashCode() szerződés, valamint a HashMap, megoldásokkal, gyakorló és házi feladatokkal — Magas szintű programozási nyelvek 2 (INBPM0315-21).">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/oktatoi/inbpm0315-21/jegyzet6/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<!--
+  Like jegyzet1–jegyzet5, this page keeps jegyzet-template.html's full
+  class-session shape (Tematika/Kontextus/Gyakorlat/Puffer), plus an
+  appended "Házi feladat" section absorbing its practice-tasks
+  sibling — unlike oktatoi-jegyzet-template.html's default freeform,
+  no-session shape. Genuinely new content, kept in this shape because
+  the source material is itself a real class session's agenda. As in
+  jegyzet5, the worked solutions to the in-class exercises sit in a
+  "Megoldások" section between Gyakorlat and Puffer. See CLAUDE.md's
+  Content model section for the rationale.
+-->
+<body data-nav-key="oktatoi">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/oktatoi/">Oktatói jegyzetek</a> / <a href="/oktatoi/inbpm0315-21/">Magas szintű programozási nyelvek 2 (INBPM0315-21)</a> / 6. jegyzet</p>
+
+      <h1>Kollekciók: lista és rendezése, set, map</h1>
+      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 6. labor gyakorlat · Frissítve: 2026-09-19</p>
+
+      <h2>Tematika</h2>
+      <ul>
+        <li>Lista (<code>ArrayList</code>)</li>
+        <li>Lista rendezése (<code>Comparable</code>/<code>Comparator</code> újrahasznosítása)</li>
+        <li>Halmaz (<code>HashSet</code>) — <code>equals()</code>/<code>hashCode()</code> szerződés</li>
+        <li>Map (<code>HashMap</code>)</li>
+      </ul>
+
+      <h2>Kontextus</h2>
+      <p>
+        A 2. órán a tömbökkel dolgoztunk — azoknak <strong>rögzített</strong>
+        a mérete, létrehozáskor eldől, és utólag nem változtatható. Ma
+        megnézzük a <strong>kollekciókat</strong> (<code>java.util</code>
+        csomag): olyan adatszerkezeteket, amelyek futás közben <strong>nőni
+        és zsugorodni</strong> tudnak. Három fő fajtájukat nézzük meg:
+        <code>List</code>, <code>Set</code>, <code>Map</code>.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Lista (ArrayList)</h2>
+      <p>
+        <strong>Lista (<code>List</code>):</strong> Sorrendtartó,
+        tetszőleges méretű gyűjtemény — hasonlít a tömbre, de futás közben
+        bővíthető/csökkenthető, és nincs előre rögzített mérete.
+      </p>
+
+      <pre><code>import java.util.ArrayList;
+import java.util.List;
+
+List&lt;Student&gt; students = new ArrayList&lt;&gt;();
+
+students.add(new Student("Kovács Anna", "ABC123", new int[]{5, 4, 5}));
+students.add(new Student("Nagy Béla", "XYZ789", new int[]{3, 4, 2}));
+students.add(new GraduateStudent("Kiss Réka", "GHI789", new int[]{5, 5, 4},
+                                  "Dr. Nagy Péter", "Gépi tanulás alkalmazásai"));
+
+System.out.println(students.size());   // 3, nem .length!
+
+for (Student s : students) {
+    System.out.println(s.getReportLine());
+}</code></pre>
+
+      <p>Amit tisztázni kell:</p>
+      <ul>
+        <li><code>List&lt;Student&gt;</code> — a <code>List</code> egy <strong>interfész</strong>, az <code>ArrayList</code> pedig annak egy konkrét megvalósítása. Ez ismerős mintázat: a múlt órán a <code>Comparable</code>/<code>Comparator</code> is interfészek voltak, amiket konkrét osztályok/metódusok valósítottak meg.</li>
+        <li><code>students.size()</code> — <strong>metódus</strong>, nem mező, ezért van zárójel — szemben a tömb <code>.length</code>-jével, ami mező.</li>
+        <li><code>add</code>, <code>get(i)</code>, <code>remove(i)</code> — a lista bővítése, egy elem lekérdezése index alapján, egy elem eltávolítása.</li>
+        <li>A <code>GraduateStudent</code> simán belefér egy <code>List&lt;Student&gt;</code>-be — pontosan ugyanaz a polimorfizmus, amit a 4. órán a <code>Student[]</code> tömbnél láttunk.</li>
+      </ul>
+
+      <h2>Lista rendezése</h2>
+      <p>
+        A múlt órán a <code>Student</code> osztályt
+        <code>Comparable&lt;Student&gt;</code>-té tettük (név szerint
+        rendez), és írtunk egy külön <code>AverageGradeComparator</code>-t
+        (átlag szerint rendez). Ez a munka <strong>listákra is</strong>
+        működik, nem csak tömbökre — semmit nem kell újraírni.
+      </p>
+
+      <pre><code>import java.util.Collections;
+
+Collections.sort(students);              // természetes rendezés (Comparable) — név szerint
+students.sort(new AverageGradeComparator());   // egyedi rendezés (Comparator) — átlag szerint</code></pre>
+
+      <ul>
+        <li><code>Collections.sort(list)</code> — a <code>Collections</code> segédosztály statikus metódusa, a <code>Comparable</code> alapján rendez. Ez a <code>List</code>-es megfelelője a múlt heti <code>Arrays.sort(tomb)</code>-nak.</li>
+        <li><code>list.sort(comparator)</code> — magán a listán meghívható metódus, egyedi rendezéshez. Ez a <code>List</code>-es megfelelője az <code>Arrays.sort(tomb, comparator)</code>-nak.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Halmaz (HashSet) — az equals()/hashCode() szerződés</h2>
+      <p>
+        <strong>Halmaz (<code>Set</code>):</strong> Egy <code>Set</code>
+        nem enged <strong>duplikátumokat</strong> — ha egy már benne lévő
+        elemmel <em>egyenlő</em> (<code>equals()</code> szerint) elemet
+        próbálunk hozzáadni, az nem kerül be újra.
+      </p>
+
+      <p>Próbáljuk ki:</p>
+
+      <pre><code>import java.util.HashSet;
+import java.util.Set;
+
+Set&lt;Student&gt; uniqueStudents = new HashSet&lt;&gt;();
+
+uniqueStudents.add(new Student("Tóth Elemér", "QWE111", new int[]{5, 5, 5}));
+uniqueStudents.add(new Student("Tóth Elemér", "QWE111", new int[]{5, 5, 5}));
+
+System.out.println(uniqueStudents.size());   // meglepetés: 2, nem 1!</code></pre>
+
+      <p>
+        Pedig a 3. órán megírt <code>equals()</code> szerint ez a két
+        <code>Student</code> <strong>egyenlő</strong> (ugyanaz a
+        <code>name</code> és <code>neptunCode</code>)! Mi történt?
+      </p>
+
+      <p>
+        <strong>A hashCode() szerepe:</strong> A <code>HashSet</code> (és a
+        legtöbb hash-alapú gyűjtemény) <strong>nem</strong> hívja meg
+        azonnal az <code>equals()</code>-t minden egyes benne lévő elemre —
+        az túl lassú lenne sok elemnél. Ehelyett előbb a
+        <code>hashCode()</code> alapján egy "rekeszbe" (bucketbe) sorolja
+        az elemeket, és <strong>csak az azonos rekeszben lévő</strong>
+        elemeket hasonlítja össze <code>equals()</code>-szal. Ha két,
+        <code>equals()</code> szerint egyenlő objektumnak
+        <strong>különböző</strong> a <code>hashCode()</code>-ja, a
+        <code>HashSet</code> sosem fogja őket összehasonlítani — külön
+        rekeszbe kerülnek, és úgy tűnik, mintha különbözőek lennének.
+      </p>
+
+      <p>
+        <strong>A szabály (equals/hashCode szerződés):</strong> Ha
+        felülírjuk az <code>equals()</code>-t, <strong>kötelezően</strong>
+        felül kell írnunk a <code>hashCode()</code>-ot is,
+        <strong>ugyanazokra a mezőkre</strong> alapozva — máskülönben a
+        hash-alapú gyűjtemények (<code>HashSet</code>, és később
+        <code>HashMap</code>) hibásan fognak viselkedni.
+      </p>
+
+      <p>Javítsuk a <code>Student</code>-et:</p>
+
+      <pre><code>import java.util.Objects;
+
+@Override
+public int hashCode() {
+    return Objects.hash(name, neptunCode);
+}</code></pre>
+
+      <ul>
+        <li><code>Objects.hash(...)</code> egy beépített segédmetódus, amely a megadott mezőkből konzisztens <code>hashCode</code>-ot generál — <strong>ugyanazokat</strong> a mezőket kell megadni neki, amelyeket az <code>equals()</code> is összehasonlít.</li>
+      </ul>
+
+      <p>Futtassuk újra az előző kódot:</p>
+
+      <pre><code>System.out.println(uniqueStudents.size());   // most már helyesen: 1</code></pre>
+
+      <h2>Map (HashMap)</h2>
+      <p>
+        <strong>Map:</strong> Egy <code>Map</code> <strong>kulcs-érték
+        párokat</strong> tárol — nem index, hanem egy <strong>kulcs</strong>
+        alapján érjük el az értékeket.
+      </p>
+
+      <pre><code>import java.util.HashMap;
+import java.util.Map;
+
+Map&lt;String, Student&gt; studentsByNeptun = new HashMap&lt;&gt;();
+
+studentsByNeptun.put("ABC123", new Student("Kovács Anna", "ABC123", new int[]{5, 4, 5}));
+studentsByNeptun.put("XYZ789", new Student("Nagy Béla", "XYZ789", new int[]{3, 4, 2}));
+
+Student found = studentsByNeptun.get("ABC123");
+System.out.println(found.getReportLine());
+
+System.out.println(studentsByNeptun.containsKey("QWE111"));   // false
+
+for (Map.Entry&lt;String, Student&gt; entry : studentsByNeptun.entrySet()) {
+    System.out.println(entry.getKey() + " -&gt; " + entry.getValue().getReportLine());
+}</code></pre>
+
+      <p>Amit tisztázni kell:</p>
+      <ul>
+        <li><code>put(kulcs, érték)</code> — beszúr vagy felülír egy párt.</li>
+        <li><code>get(kulcs)</code> — visszaadja a kulcshoz tartozó értéket, vagy <code>null</code>-t, ha nincs ilyen kulcs.</li>
+        <li><code>containsKey(kulcs)</code> — megmondja, létezik-e a kulcs, <code>null</code>-ellenőrzés nélkül.</li>
+        <li><code>entrySet()</code> — az összes kulcs-érték párt bejárhatóvá teszi egy ciklusban.</li>
+      </ul>
+
+      <p>
+        <strong>Fontos:</strong> a <code>HashMap</code> a kulcsok
+        tárolásához <strong>ugyanúgy</strong> a
+        <code>hashCode()</code>/<code>equals()</code> párost használja, mint
+        a <code>HashSet</code> — ha <code>Student</code>-et (és nem
+        <code>String</code>-et) használnánk kulcsként, pontosan ugyanaz a
+        szabály vonatkozna rá, amit az imént a <code>Set</code>-nél
+        megbeszéltünk.
+      </p>
+
+      <h2>Gyakorlat</h2>
+      <ol>
+        <li>Építsetek egy <code>List&lt;Student&gt;</code>-et, benne legalább egy <code>Student</code>, egy <code>GraduateStudent</code> és egy <code>ExchangeStudent</code> objektummal, majd rendezzétek mindkét módon (<code>Collections.sort</code>, majd <code>list.sort(new AverageGradeComparator())</code>).</li>
+        <li>Reprodukáljátok a <code>HashSet</code>-es hibát: adjatok hozzá két, azonos adatú <code>Student</code>-et egy <code>HashSet</code>-hez a <code>hashCode()</code> felülírása <strong>előtt</strong>, ellenőrizzétek a <code>size()</code>-t, majd írjátok meg a <code>hashCode()</code>-ot, és ellenőrizzétek újra.</li>
+        <li>Építsetek egy <code>Map&lt;String, Student&gt;</code>-et a <code>students</code> listátokból (ciklussal, <code>put</code>-tal), és kérdezzetek le belőle hallgatókat Neptun-kód alapján.</li>
+        <li>Debuggerrel (2. óra!) lépegessetek végig a <code>HashSet.add()</code> hívásokon, és nézzétek meg a <em>Variables</em> panelen, hogyan változik a halmaz mérete a <code>hashCode()</code> javítása előtt és után.</li>
+      </ol>
+
+      <h2>Megoldások</h2>
+
+      <h3>1. feladat</h3>
+
+      <pre><code>import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+List&lt;Student&gt; students = new ArrayList&lt;&gt;();
+students.add(new Student("Nagy Béla", "XYZ789", new int[]{3, 4, 2}));
+students.add(new GraduateStudent("Kiss Réka", "GHI789", new int[]{5, 5, 4},
+        "Dr. Nagy Péter", "Gépi tanulás alkalmazásai"));
+students.add(new ExchangeStudent("Tóth Elemér", "QWE111", new int[]{4, 5, 4}, "Németország"));
+
+// Természetes rendezés (Comparable) — név szerint
+Collections.sort(students);
+for (Student s : students) {
+    System.out.println(s.getReportLine());
+}
+
+System.out.println("---");
+
+// Egyedi rendezés (Comparator) — átlag szerint
+students.sort(new AverageGradeComparator());
+for (Student s : students) {
+    System.out.println(s.getReportLine());
+}</code></pre>
+
+      <p>
+        Ugyanaz a két rendezési mód (<code>Comparable</code>,
+        <code>AverageGradeComparator</code>), amit az 5. órán a
+        <code>Student[]</code> tömbre írtunk — most
+        <code>List&lt;Student&gt;</code>-en hívjuk meg, és semmit nem
+        kellett hozzáírni.
+      </p>
+
+      <h3>2. feladat</h3>
+
+      <pre><code>import java.util.HashSet;
+import java.util.Set;
+
+Set&lt;Student&gt; uniqueStudents = new HashSet&lt;&gt;();
+uniqueStudents.add(new Student("Tóth Elemér", "QWE111", new int[]{5, 5, 5}));
+uniqueStudents.add(new Student("Tóth Elemér", "QWE111", new int[]{5, 5, 5}));
+
+System.out.println(uniqueStudents.size());   // hashCode() felülírása előtt: 2</code></pre>
+
+      <p>
+        Miután megírtátok a <code>hashCode()</code>-ot a
+        <code>Student</code>-ben (a leckében látott
+        <code>Objects.hash(name, neptunCode)</code> alapján), ugyanez a kód:
+      </p>
+
+      <pre><code>System.out.println(uniqueStudents.size());   // hashCode() felülírása után: helyesen 1</code></pre>
+
+      <h3>3. feladat</h3>
+
+      <pre><code>import java.util.HashMap;
+import java.util.Map;
+
+Map&lt;String, Student&gt; studentsByNeptun = new HashMap&lt;&gt;();
+for (Student s : students) {
+    studentsByNeptun.put(s.getNeptunCode(), s);
+}
+
+Student found = studentsByNeptun.get("GHI789");
+System.out.println(found.getReportLine());</code></pre>
+
+      <p>
+        Itt szándékosan az <strong>1. feladatban</strong> épített
+        <code>students</code> listát használjuk — nem kell újra, elölről
+        felépíteni, csak végig kell menni rajta egy ciklussal, és minden
+        elemet betenni a Map-be a Neptun-kódja alapján.
+      </p>
+
+      <h3>4. feladat</h3>
+      <p>
+        Ez a feladat a debuggeren keresztül figyelendő meg, nincs önálló
+        "megoldó" kód — az alábbiakat várjuk, ha lépésről lépésre
+        végigmentek rajta:
+      </p>
+      <ul>
+        <li>Tegyetek egy breakpointot a 2. feladat első <code>uniqueStudents.add(...)</code> sorára, és indítsátok Debug módban.</li>
+        <li><strong><code>hashCode()</code> felülírása előtt:</strong> az első <code>add()</code> után a <em>Variables</em> panelen a <code>uniqueStudents</code> mérete <code>1</code>. Lépjetek tovább a második <code>add()</code>-ra — mivel a két <code>Student</code> objektum <code>hashCode()</code>-ja (az <code>Object</code>-től örökölt, memóriacím-alapú alapértelmezés) <strong>különböző</strong>, a <code>HashSet</code> két külön "rekeszbe" teszi őket. A méret <strong>2</strong>-re nő, annak ellenére, hogy <code>equals()</code> szerint egyenlők lennének — az <code>equals()</code>-t a <code>HashSet</code> ilyenkor meg sem hívja, mert a két elem sosem kerül azonos rekeszbe.</li>
+        <li><strong><code>hashCode()</code> megírása után:</strong> futtassátok újra ugyanígy, lépésenként. Most a két objektum <code>hashCode()</code>-ja <strong>megegyezik</strong>, tehát ugyanabba a rekeszbe kerülnek — a <code>HashSet</code> emiatt már meghívja az <code>equals()</code>-t is, ami igazat ad, így a második <code>add()</code> <strong>nem</strong> növeli a méretet: a <em>Variables</em> panelen a <code>uniqueStudents</code> mérete <code>1</code> marad.</li>
+      </ul>
+
+      <h2>Puffer (~30 perc)</h2>
+      <p>
+        Kérdések, illetve további gyakorlási idő azoknak, akik lassabban
+        haladnak — az <code>equals()</code>/<code>hashCode()</code>
+        szerződés sokaknak csak a <code>HashSet</code>-es hiba élő
+        bemutatása után válik igazán érthetővé, érdemes időt hagyni rá.
+      </p>
+
+      <h2>Házi feladat</h2>
+      <p>
+        Ezek a feladatok a 6. órán tanultak (<code>List</code>,
+        <code>Set</code>, <code>Map</code>) önálló, otthoni elmélyítésére
+        szolgálnak, a <code>Student</code> hierarchiátokra építve.
+        Ciklusokkal/feltételekkel oldjátok meg őket — a lambdás/stream-es
+        rövidítések majd a 10. órán jönnek.
+      </p>
+
+      <h3>1. feladat (Könnyű) — Hallgató eltávolítása Neptun-kód alapján</h3>
+      <p>
+        Írjatok egy metódust, amely egy <code>List&lt;Student&gt;</code>-ből
+        és egy Neptun-kódból kiindulva <strong>eltávolítja</strong> azt a
+        hallgatót, akinek ez a Neptun-kódja (ha van ilyen). Ügyeljetek
+        arra, hogy ne magán a bejáráson belül hívjatok
+        <code>remove()</code>-ot — először keressétek meg az indexet egy
+        ciklussal, és csak utána, a ciklus lezárása után távolítsátok el.
+      </p>
+
+      <h3>2. feladat (Közepes) — Egyedi értékek egy Set-tel</h3>
+      <p>
+        Tegyük fel, hogy minden <code>Student</code>-nek van egy
+        <code>major</code> (szak) mezője (ha még nincs, vegyétek fel
+        gyorsan, néhány példaértékkel). Írjatok egy metódust, amely egy
+        <code>List&lt;Student&gt;</code>-ből egy
+        <code>Set&lt;String&gt;</code>-be gyűjti az <strong>egyedi</strong>
+        szakok neveit (duplikátumok nélkül), és írjátok ki őket.
+      </p>
+
+      <h3>3. feladat (Közepes/Haladó) — Csoportosítás típus szerint</h3>
+      <p>
+        Írjatok egy metódust, amely egy <code>List&lt;Student&gt;</code>-et
+        <strong>típus szerint csoportosít</strong> egy
+        <code>Map&lt;String, List&lt;Student&gt;&gt;</code>-be — a kulcs
+        legyen <code>"Student"</code>, <code>"GraduateStudent"</code> vagy
+        <code>"ExchangeStudent"</code> (az <code>instanceof</code>
+        segítségével döntsétek el, melyik hallgató melyik csoportba
+        tartozik). Írjátok ki csoportonként a hallgatók számát.
+      </p>
+
+      <h3>4. feladat (Haladó) — Jegyek gyakorisága</h3>
+      <p>
+        Írjatok egy metódust, amely egy <code>List&lt;Student&gt;</code>
+        <strong>összes</strong> hallgatójának <strong>összes</strong>
+        jegyét végignézve elkészít egy
+        <code>Map&lt;Integer, Integer&gt;</code>-t, amely megmondja, az
+        egyes jegyértékek (1–5) <strong>hányszor</strong> fordulnak elő
+        összesen. (Segítség: ha egy jegy még nincs a Map-ben, tegyétek be
+        1-gyel; ha már van, növeljétek meg az eddigi értéket eggyel.)
+      </p>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
