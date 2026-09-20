@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Vektorterek, alterek, bázis és dimenzió | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Vektortér és altér, az altérkritérium, lineáris burok, generátorrendszer, lineáris függetlenség, bázis, dimenzió és a koordináták egyértelműsége — DE TTK Matematika BSc 2023/2025, Lineáris algebrai alapozás.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet4/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!-- Part 4 of 10 — see jegyzet1's head comment for the shape rationale. -->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/">Lineáris algebrai alapozás</a> / 4. jegyzet</p>
+
+      <h1>Vektorterek, alterek, bázis és dimenzió</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-20</p>
+
+      <p>
+        Ez a jegyzet a vektortér és az altér pontos fogalmával indul,
+        majd bevezeti a lineáris burkot, a generátorrendszert, a
+        lineáris függetlenséget és a bázist. Kimondja a dimenzió
+        tételét, végül megmutatja, hogy egy bázis mentén minden vektor
+        koordinátái egyértelműek.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Vektortér és példák</li>
+        <li>Altér és az altérkritérium</li>
+        <li>Lineáris burok, generátorrendszer</li>
+        <li>Lineáris függetlenség és bázis</li>
+        <li>A dimenzió tétele</li>
+        <li>A koordináták egyértelműsége</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Vektorterek és alterek</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Vektortér</span>
+        <p>
+          Egy \(V \neq \emptyset\) halmazt \(\mathbb{R}\) feletti
+          <strong>vektortérnek</strong> nevezünk, ha \((V, +)\)
+          kommutatív csoport, és minden \(a, b \in V\),
+          \(\lambda, \mu \in \mathbb{R}\) esetén teljesülnek a szokásos
+          disztributív és asszociatív axiómák (pl.
+          \(\lambda(a+b) = \lambda a + \lambda b\), \(1 \cdot a = a\)).
+        </p>
+      </div>
+
+      <p>
+        Példák vektortérre: \(\mathbb{R}^n\), a geometriai
+        szabadvektorok halmaza, az \(R_n[x]\) legfeljebb \(n\)-edfokú
+        polinomok halmaza, valamint az \(m \times n\)-es mátrixok
+        halmaza (\(M_{m \times n}\)).
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Altér</span>
+        <p>
+          Egy \(V\) vektortér \(H \neq \emptyset\) részhalmazát
+          <strong>altérnek</strong> nevezzük, ha \(H\) maga is vektortér
+          a \(V\)-beli műveletekre nézve (azaz tartalmazza a
+          nullvektort, és zárt a műveletekre).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Altér kritériuma</span>
+        <p>A \(V\) vektortér nem üres \(H\) részhalmaza pontosan akkor altér \(V\)-ben, ha:</p>
+        <ol>
+          <li>\(\forall a, b \in H\) esetén \(a - b \in H\)</li>
+          <li>\(\forall a \in H\) és \(\forall \lambda \in \mathbb{R}\) esetén \(\lambda a \in H\)</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés</span>
+        <p>Alterek metszete (\(\bigcap_{\gamma \in \Gamma} H_\gamma\)) szintén altér \(V\)-ben.</p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Lineáris burok, generátorrendszer és bázis</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Lineáris burok (lineáris burkolat)</span>
+        <p>
+          Legyen \(H\) részhalmaz \(V\)-ben. A \(H\) által generált
+          altér \(V\)-nek a legszűkebb olyan altere, amely \(H\)-t
+          tartalmazza. Jelölése: \(\mathcal{L}(H)\).
+        </p>
+        <p>
+          Ez egyenlő a \(H\) elemeiből képzett összes <strong>lineáris
+          kombináció</strong> halmazával:
+        </p>
+        \[
+        \mathcal{L}(H) = \{\lambda_1 a_1 + \dots + \lambda_n a_n \mid a_1, \dots, a_n \in H, \lambda_1, \dots, \lambda_n \in \mathbb{R}\}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Generátorrendszer és bázis</span>
+        <ul>
+          <li>Ha \(\mathcal{L}(H) = V\), akkor \(H\)-t a \(V\) <strong>generátorrendszerének</strong> nevezzük.</li>
+          <li>Az \(a_1, \dots, a_n \in V\) vektorok <strong>lineárisan függetlenek</strong>, ha a \(\lambda_1 a_1 + \dots + \lambda_n a_n = 0\) egyenlőség csak \(\lambda_1 = \dots = \lambda_n = 0\) esetén teljesül.</li>
+          <li>Egy lineárisan független generátorrendszert <strong>bázisnak</strong> nevezünk.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Dimenzió tétele</span>
+        <p>
+          Végesen generált vektortérben minden bázis ugyanannyi
+          elemből áll. Ezt a közös elemszámot nevezzük a vektortér
+          <strong>dimenziójának</strong> (\(\dim V\)).
+        </p>
+      </div>
+
+      <h2>Koordináták egyértelműsége vektortérben</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Koordináták egyértelműsége</span>
+        <p>
+          Ha \((b_1, \dots, b_n)\) bázis egy \(V\) vektortérben, akkor
+          \(V\) minden \(a\) vektora <strong>egyetlenféleképpen</strong>
+          áll elő a bázisvektorok lineáris kombinációjaként:
+        </p>
+        \[
+        a = \lambda_1 b_1 + \lambda_2 b_2 + \dots + \lambda_n b_n, \quad \text{ahol } \lambda_1, \dots, \lambda_n \in \mathbb{R}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (röviden)</span>
+        <p>
+          Tegyük fel, hogy egy \(a\) vektornak két előállítása is van:
+          \(a = \lambda_1 b_1 + \dots + \lambda_n b_n = \mu_1 b_1 + \dots + \mu_n b_n\).
+          Ekkor a két előállítást kivonva egymásból:
+        </p>
+        \[
+        (\lambda_1 - \mu_1)b_1 + (\lambda_2 - \mu_2)b_2 + \dots + (\lambda_n - \mu_n)b_n = 0
+        \]
+        <p>
+          Mivel a \(b_1, \dots, b_n\) vektorok bázist alkotnak, így
+          lineárisan függetlenek, ami azt jelenti, hogy minden
+          együttható nulla: \(\lambda_i - \mu_i = 0\), azaz
+          \(\lambda_i = \mu_i\) minden \(i\)-re. Tehát az előállítás
+          egyértelmű.
+        </p>
+      </div>
+
+      <p>
+        Ez lehetővé teszi, hogy minden \(a \in V\) vektorhoz
+        hozzárendeljünk egy oszlopvektort \(\mathbb{R}^n\)-ben:
+      </p>
+      \[
+      a \mapsto \begin{pmatrix} \lambda_1 \\ \lambda_2 \\ \vdots \\ \lambda_n \end{pmatrix} \in \mathbb{R}^n
+      \]
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
