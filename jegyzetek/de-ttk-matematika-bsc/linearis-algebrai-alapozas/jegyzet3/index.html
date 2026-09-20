@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Mátrixműveletek, inverz és transzponált | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Mátrixok összeadása, skalárral szorzása és szorzása, az egységmátrix, a determinánsok szorzástétele, a mátrix inverze és transzponáltja, valamint az alapvető azonosságok — DE TTK Matematika BSc 2023/2025, Lineáris algebrai alapozás.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet3/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!-- Part 3 of 10 — see jegyzet1's head comment for the shape rationale. -->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/">Lineáris algebrai alapozás</a> / 3. jegyzet</p>
+
+      <h1>Mátrixműveletek, inverz és transzponált</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-20</p>
+
+      <p>
+        Ez a jegyzet a mátrixokkal végezhető alapműveleteket tekinti át
+        (összeadás, skalárral szorzás, mátrixszorzás), megmutatja az
+        egységmátrix és a determinánsok szorzástételének szerepét,
+        majd bevezeti a mátrix inverzét és transzponáltját, valamint a
+        rájuk vonatkozó legfontosabb azonosságokat.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Mátrixok egyenlősége, összeadása, skalárral szorzása</li>
+        <li>Mátrixszorzás</li>
+        <li>Az egységmátrix és a szorzás tulajdonságai</li>
+        <li>A determinánsok szorzástétele</li>
+        <li>Invertálhatóság, reguláris és szinguláris mátrixok</li>
+        <li>Transzponálás és a fontos mátrixműveleti azonosságok</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Alapműveletek mátrixokkal</h2>
+
+      <ul>
+        <li><strong>Egyenlő mátrixok:</strong> Típusuk és elemeik is megegyeznek.</li>
+        <li><strong>Összeadás:</strong> Csak azonos típusú mátrixok esetén végezhető el (elemenként).</li>
+        <li><strong>Skalárral való szorzás:</strong> Minden elemet megszorozzuk a skalárral.</li>
+        <li>
+          <strong>Mátrixok szorzása</strong>
+          (\(A_{m \times n} \cdot B_{n \times q} = C_{m \times q}\)):
+          A szorzás eredményeként kapott mátrix \(c_{ij}\) eleme:
+          \[
+          c_{ij} = \sum_{k=1}^{n} a_{ik} b_{kj} = a_{i1}b_{1j} + a_{i2}b_{2j} + \dots + a_{in}b_{nj}
+          \]
+          <em>Megjegyzés:</em> A szorzás csak akkor végezhető el, ha az
+          első mátrix oszlopainak száma megegyezik a második sorainak
+          számával.
+        </li>
+      </ul>
+
+      <h2>Négyzetes mátrixok és mátrixműveletek tulajdonságai</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Egységmátrix</span>
+        <p>
+          Az \(n \times n\)-es négyzetes mátrixok halmazán a szorzás
+          asszociatív félcsoportot alkot, de általában nem kommutatív
+          (\(AB \neq BA\)). Az <strong>egységmátrix</strong> (\(E\)):
+        </p>
+        \[
+        E = \begin{pmatrix} 1 &amp; 0 &amp; \dots &amp; 0 \\ 0 &amp; 1 &amp; \dots &amp; 0 \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 0 &amp; 0 &amp; \dots &amp; 1 \end{pmatrix}, \quad \text{ahol } AE = EA = A
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Skalárral való szorzás és mátrixszorzás kompatibilitása</span>
+        <p>Bármely \(A, B\) mátrix és \(\lambda \in \mathbb{R}\) skalár esetén:</p>
+        \[
+        \lambda(AB) = (\lambda A)B = A(\lambda B)
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Determinánsok szorzástétele</span>
+        <p>
+          Két azonos méretű négyzetes mátrix szorzatának determinánsa
+          megegyezik a determinánsok szorzatával:
+        </p>
+        \[
+        |AB| = |A| \cdot |B|
+        \]
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Mátrix inverze és transzponáltja</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Invertálhatóság</span>
+        <p>
+          Egy \(A\) négyzetes mátrix <strong>inverze</strong> az az
+          \(A^{-1}\) mátrix, amelyre \(A A^{-1} = A^{-1} A = E\).
+          Az inverz akkor és csak akkor létezik, ha \(A\) determinánsa
+          nem nulla (\(|A| \neq 0\)).
+        </p>
+        <ul>
+          <li><strong>Reguláris mátrix:</strong> \(|A| \neq 0\)</li>
+          <li><strong>Szinguláris mátrix:</strong> \(|A| = 0\)</li>
+        </ul>
+        <p>
+          Az inverz elemei kiszámíthatók az algebrai aldeterminánsok
+          segítségével:
+        </p>
+        \[
+        A^{-1}_{ij} = \frac{A_{ji}}{|A|}, \quad \text{azaz} \quad A^{-1} = \frac{A^*}{|A|}
+        \]
+        <p>
+          ahol \(A^*\) (az <strong>adjungált mátrix</strong>) az
+          algebrai aldeterminánsokból képzett mátrix transzponáltja. A
+          gyakorlatban az inverz <strong>Gauss–Jordan-eliminációval</strong>
+          is kiszámítható: \((A \mid E) \to (E \mid A^{-1})\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető — fontos mátrixműveleti azonosságok</span>
+        <ul>
+          <li>\((A + B)^T = A^T + B^T\)</li>
+          <li>\((AB)^T = B^T A^T\) (a sorrend felcserélődik!)</li>
+          <li>\((\lambda A)^T = \lambda A^T\)</li>
+          <li>\((A^T)^{-1} = (A^{-1})^T\)</li>
+          <li>\((AB)^{-1} = B^{-1} A^{-1}\)</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Sajátértékek, karakterisztikus polinom, Cayley–Hamilton, Jordan-alak | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Sajátérték és sajátvektor, invariáns alterek, karakterisztikus polinom, Cayley–Hamilton-tétel, multiplicitások, spektrum, sajátvektorokból álló bázis és a Jordan-féle normálalak — DE TTK Matematika BSc 2023/2025, Lineáris algebrai alapozás.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet10/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!-- Part 10 of 10 — see jegyzet1's head comment for the shape rationale. -->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/">Lineáris algebrai alapozás</a> / 10. jegyzet</p>
+
+      <h1>Sajátértékek, karakterisztikus polinom, Cayley–Hamilton, Jordan-alak</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-20</p>
+
+      <p>
+        Ez a jegyzet a sorozat záró része: a lineáris transzformációk
+        sajátértékeit és sajátvektorait vizsgálja. Bevezeti az
+        invariáns altereket és a karakterisztikus polinomot, kimondja a
+        Cayley–Hamilton-tételt, megadja a multiplicitások közötti
+        kapcsolatot és azt, mikor létezik sajátvektorokból álló bázis,
+        végül a Jordan-féle normálalak tételével zár.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Sajátvektor, sajátérték, sajátaltér</li>
+        <li>Invariáns alterek és blokkmátrix alak</li>
+        <li>Karakterisztikus polinom</li>
+        <li>Cayley–Hamilton-tétel</li>
+        <li>Algebrai és geometriai multiplicitás</li>
+        <li>Spektrum és sajátvektorokból álló bázis</li>
+        <li>Jordan-féle normálalak</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Sajátértékek és sajátvektorok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Sajátvektor és sajátérték</span>
+        <p>
+          A \(\varphi \in \mathcal{L}_V\) lineáris transzformáció
+          <strong>sajátvektora</strong> egy nemnulla \(a \in V\) vektor,
+          ha \(\varphi(a) = \lambda a\) valamilyen \(\lambda \in \mathbb{R}\)
+          skalárra. Ekkor \(\lambda\) a vektorhoz tartozó
+          <strong>sajátérték</strong> (a nyújtás együtthatója).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Sajátaltér</span>
+        <p>
+          A \(\lambda\) sajátértékhez tartozó <strong>sajátaltér</strong>:
+        </p>
+        \[
+        L_\lambda = \{a \in V \mid \varphi(a) = \lambda a\}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Különböző sajátértékekhez tartozó sajátvektorok</span>
+        <p>Különböző sajátértékekhez tartozó sajátvektorok lineárisan függetlenek.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Sajátalterek összege</span>
+        <p>
+          Ha \(\lambda_1, \dots, \lambda_k\) különböző sajátértékek, akkor
+          a hozzájuk tartozó sajátalterek összege direkt összeg:
+        </p>
+        \[
+        L_{\lambda_1} \oplus \dots \oplus L_{\lambda_k}
+        \]
+      </div>
+
+      <h2>Invariáns alterek</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — \(\varphi\)-invariáns altér</span>
+        <p>
+          Legyen \(\varphi \in \mathcal{L}_V\) és \(L \le V\) a \(V\) egy
+          altere. Az \(L\) altér <strong>\(\varphi\)-invariáns</strong>,
+          ha minden \(x \in L\) esetén \(\varphi(x) \in L\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Blokkmátrix alak</span>
+        <p>
+          Legyen \(V = M \oplus N\), ahol \(M\) és \(N\)
+          \(\varphi\)-invariáns alterek. Ha \(\varphi\) mátrixa az \(M\)
+          altér bázisában \(A\), az \(N\) altér bázisában pedig \(B\),
+          akkor \(\varphi\) mátrixa a két bázis egyesítésével kapott,
+          teljes \(V\)-beli bázisban blokkmátrix alakú:
+        </p>
+        \[
+        \begin{pmatrix} A &amp; 0 \\ 0 &amp; B \end{pmatrix}
+        \]
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Karakterisztikus polinom és a Cayley–Hamilton-tétel</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Karakterisztikus polinom</span>
+        <p>
+          Az \(A \in M_{n \times n}\) mátrix <strong>karakterisztikus
+          polinomja</strong>:
+        </p>
+        \[
+        \begin{aligned}
+        f(x) = |A - xE| &amp;= \begin{vmatrix}
+        a_{11}-x &amp; a_{12} &amp; \dots &amp; a_{1n} \\
+        a_{21} &amp; a_{22}-x &amp; \dots &amp; a_{2n} \\
+        \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+        a_{n1} &amp; a_{n2} &amp; \dots &amp; a_{nn}-x
+        \end{vmatrix} \\
+        &amp;= (-1)^n x^n + a_{n-1}x^{n-1} + \dots + a_1 x + |A|
+        \end{aligned}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Hasonló mátrixok karakterisztikus polinomja</span>
+        <p>Hasonló mátrixok karakterisztikus polinomja megegyezik:</p>
+        \[
+        A \sim B \implies |A - xE| = |B - xE|
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Transzformáció karakterisztikus polinomja</span>
+        <p>
+          Egy \(\varphi \in \mathcal{L}_V\) lineáris transzformáció
+          <strong>karakterisztikus polinomja</strong> alatt egy tetszőleges
+          bázisra vonatkozó mátrixának karakterisztikus polinomját
+          értjük.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Cayley–Hamilton-tétel</span>
+        <p>
+          Minden négyzetes mátrix gyöke a saját karakterisztikus
+          polinomjának. Ha a karakterisztikus polinom
+          \(f(x) = a_n x^n + \dots + a_1 x + a_0\), akkor:
+        </p>
+        \[
+        f(A) = a_n A^n + \dots + a_1 A + a_0 E = \mathbf{0}
+        \]
+      </div>
+
+      <h2>Multiplicitások és sajátértékek</h2>
+
+      <p>Legyen \(W\) vektortér a \(T\) test felett, ahol \(T = \mathbb{R}\) vagy \(\mathbb{C}\).</p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Algebra alaptétele</span>
+        <p>
+          Az \(n\)-edfokú \(f(x) \in \mathbb{C}[x]\) polinomnak
+          \(\mathbb{C}\)-ben, multiplicitásokkal számolva, pontosan
+          \(n\) gyöke van (gyöktényezős alakban felírható).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés</span>
+        <p>
+          Ha \(f(x) \in T[x]\) gyöke \(\lambda \in T\), akkor
+          \((x - \lambda) \mid f(x)\). A \(\lambda\) elem
+          <strong>\(k\)-szoros gyöke</strong> \(f(x)\)-nek, ha
+          \((x - \lambda)^k \mid f(x)\), de
+          \((x - \lambda)^{k+1} \nmid f(x)\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Karakterisztikus gyök</span>
+        <p>
+          A \(\lambda \in T\) elem a \(\varphi\) transzformáció
+          <strong>karakterisztikus gyöke</strong>, ha \(\lambda\) gyöke a
+          karakterisztikus polinomnak.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Sajátérték és karakterisztikus gyök</span>
+        <p>
+          \(\lambda \in T\) pontosan akkor sajátértéke \(\varphi\)-nek,
+          ha \(\lambda\) karakterisztikus gyök. Azaz az alábbi három
+          állítás ekvivalens:
+        </p>
+        <ul>
+          <li>van olyan \(a \neq 0\) vektor, amelyre \(\varphi(a) = \lambda a\),</li>
+          <li>az \((A - \lambda E)X = 0\) homogén rendszernek van nemtriviális megoldása,</li>
+          <li>\(|A - \lambda E| = 0\).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Multiplicitások</span>
+        <p>Legyen \(\lambda\) sajátérték:</p>
+        <ul>
+          <li><strong>Geometriai multiplicitás:</strong> \(\dim L_\lambda\)</li>
+          <li><strong>Algebrai multiplicitás</strong> (\(\text{mult}_\lambda\)): \(\lambda\) mint gyök multiplicitása a karakterisztikus polinomban.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — A két multiplicitás kapcsolata</span>
+        <p>
+          Ha \(\lambda\) sajátértéke \(\varphi\)-nek, akkor a geometriai
+          multiplicitás nem haladja meg az algebrai multiplicitást:
+        </p>
+        \[
+        \dim L_\lambda \le \text{mult}_\lambda
+        \]
+      </div>
+
+      <h2>Spektrum és sajátvektor-bázis</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Spektrum</span>
+        <p>
+          Egy \(\varphi\) transzformáció <strong>spektruma</strong>
+          (\(\text{sp } \varphi\)) a sajátértékeinek halmaza, mindegyiket
+          az algebrai multiplicitásának megfelelő számban véve.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Teljes spektrum</span>
+        <p>
+          A spektrum <strong>teljes</strong>, ha a gyökök száma
+          (multiplicitásokkal együtt) megegyezik a tér dimenziójával
+          (\(n = \dim W\)). \(T = \mathbb{C}\) esetén ez mindig teljes,
+          \(\mathbb{R}\)-en általában nem.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Sajátvektorokból álló bázis</span>
+        <p>
+          Egy \(\varphi \in \mathcal{L}_W\) transzformációhoz pontosan
+          akkor létezik sajátvektorokból álló bázis, ha:
+        </p>
+        <ol>
+          <li>\(\text{sp } \varphi\) teljes, és</li>
+          <li>minden \(\lambda\) sajátértékre \(\dim L_\lambda = \text{mult}_\lambda\).</li>
+        </ol>
+      </div>
+
+      <h2>Jordan-féle normálalak</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Jordan-féle normálalak tétele</span>
+        <p>
+          Ha \(T = \mathbb{C}\), vagy \(T = \mathbb{R}\) és
+          \(\text{sp } \varphi\) teljes, akkor létezik olyan bázis,
+          amelyben \(\varphi\) mátrixa blokkmátrix alakú, ahol a
+          főátlóban <strong>Jordan-féle blokkok</strong> állnak:
+        </p>
+        \[
+        J_k(\lambda) = \begin{pmatrix}
+        \lambda &amp; 0 &amp; \dots &amp; 0 \\
+        1 &amp; \lambda &amp; \dots &amp; 0 \\
+        \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+        0 &amp; 0 &amp; 1 &amp; \lambda
+        \end{pmatrix}
+        \]
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Lineáris leképezések, izomorfizmus, bázistranszformáció | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Lineáris leképezések és alaptételeik, injektivitás, szürjektivitás, izomorfizmus, az izomorfizmus és dimenzió tétele, bázistranszformáció és a koordináták transzformációja — DE TTK Matematika BSc 2023/2025, Lineáris algebrai alapozás.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet5/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!-- Part 5 of 10 — see jegyzet1's head comment for the shape rationale. -->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/">Lineáris algebrai alapozás</a> / 5. jegyzet</p>
+
+      <h1>Lineáris leképezések, izomorfizmus, bázistranszformáció</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-20</p>
+
+      <p>
+        Ez a jegyzet a vektorterek közötti lineáris leképezéseket
+        vezeti be, két alaptételükkel együtt, majd az injektivitás,
+        szürjektivitás és izomorfizmus fogalmán át eljut annak
+        kimondásáig, hogy az \(n\)-dimenziós valós vektorterek mind
+        izomorfak \(\mathbb{R}^n\)-nel. Végül azt tekinti át, hogyan
+        változnak a koordináták bázisváltáskor.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Lineáris leképezés és két alaptétele</li>
+        <li>Injektív, szürjektív, bijektív leképezések</li>
+        <li>Izomorfizmus és az izomorfizmus és dimenzió tétele</li>
+        <li>Bázistranszformációs mátrix</li>
+        <li>A koordináták transzformációja</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Lineáris leképezések és alaptételeik</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Lineáris leképezés</span>
+        <p>
+          Legyenek \(V_1\) és \(V_2\) vektorterek. A
+          \(\varphi: V_1 \to V_2\) leképezést <strong>lineáris
+          leképezésnek</strong> nevezzük, ha teljesíti a következő
+          tulajdonságokat:
+        </p>
+        <ul>
+          <li><strong>Additív (összegtartó):</strong> \(\forall a, b \in V_1\) esetén \(\varphi(a + b) = \varphi(a) + \varphi(b)\)</li>
+          <li><strong>Homogén (skalártartó):</strong> \(\forall a \in V_1, \forall \lambda \in \mathbb{R}\) esetén \(\varphi(\lambda a) = \lambda \varphi(a)\)</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Lineáris leképezések 1. alaptétele</span>
+        <p>
+          Egy lineáris leképezés értékét teljesen meghatározza a
+          bázisvektorokon felvett értéke. Ha \((b_1, \dots, b_n)\)
+          bázis \(V_1\)-ben, és \(\varphi, \psi: V_1 \to V_2\) olyan
+          lineáris leképezések, amelyekre \(\varphi(b_i) = \psi(b_i)\)
+          minden \(i = 1, \dots, n\) esetén, akkor \(\varphi(a) = \psi(a)\)
+          minden \(a \in V_1\)-re (azaz a két leképezés megegyezik).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Lineáris leképezések 2. alaptétele</span>
+        <p>
+          Legyen \((b_1, \dots, b_n)\) bázis \(V_1\)-ben, és legyen
+          \(a_1, \dots, a_n\) tetszőleges vektorrendszer \(V_2\)-ben.
+          Ekkor <strong>létezik pontosan egy</strong> olyan
+          \(\varphi: V_1 \to V_2\) lineáris leképezés, amelyre
+          \(\varphi(b_i) = a_i\) minden \(i = 1, \dots, n\) esetén.
+        </p>
+      </div>
+
+      <h2>Injektivitás, szürjektivitás és izomorfizmus</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Injektív, szürjektív, bijektív, izomorf</span>
+        <p>Legyen \(\varphi: V_1 \to V_2\) lineáris leképezés:</p>
+        <ul>
+          <li><strong>Injektív (kölcsönösen egyértelmű):</strong> ha \(\forall a, b \in V_1,\ a \neq b \implies \varphi(a) \neq \varphi(b)\) (vagy másképp: \(\varphi(a) = \varphi(b) \implies a = b\)).</li>
+          <li><strong>Szürjektív (minden elem képpé válik):</strong> ha \(\forall b \in V_2\)-hez \(\exists a \in V_1\), hogy \(\varphi(a) = b\).</li>
+          <li><strong>Bijektív:</strong> ha egyszerre injektív és szürjektív.</li>
+          <li><strong>Izomorfizmus:</strong> ha egy leképezés lineáris és bijektív. Ha létezik ilyen leképezés \(V_1\) és \(V_2\) között, akkor a két vektortér <strong>izomorf</strong> (\(V_1 \cong V_2\)).</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Izomorfizmus és dimenzió tétele</span>
+        <p>
+          Két véges dimenziós vektortér pontosan akkor izomorf
+          egymással, ha a dimenziójuk megegyezik
+          (\(\dim V_1 = \dim V_2\)).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Következmény</span>
+        <p>Minden \(n\)-dimenziós valós vektortér izomorf az \(\mathbb{R}^n\)-nel.</p>
+      </div>
+
+      <h2>Bázis- és koordináta-transzformáció</h2>
+
+      <p>
+        Tegyük fel, hogy egy \(V\) vektortérben van egy régi bázisunk
+        \((e_1, \dots, e_n)\), és áttérünk egy új bázisra
+        \((f_1, \dots, f_n)\):
+      </p>
+      \[
+      (e_1, \dots, e_n) \longrightarrow (f_1, \dots, f_n)
+      \]
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Bázistranszformációs mátrix</span>
+        <p>
+          Az \((e) \to (f)\) bázistranszformáció mátrixa az az
+          \(S = (x_{ij})_{n \times n}\) mátrix, amelynek oszlopai az új
+          bázisvektorok régi bázisbeli koordinátái:
+        </p>
+        \[
+        f_i = \sum_{k=1}^{n} x_{ki} e_k \quad (i = 1, \dots, n)
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető — főbb tételek a bázistranszformációról</span>
+        <ul>
+          <li>Az \((e) \to (f)\) bázistranszformáció \(S\) mátrixa <strong>reguláris mátrix</strong> (\(|S| \neq 0\)), az \((f) \to (e)\) fordított áttérés mátrixa pedig az inverze: \(S^{-1}\).</li>
+          <li>
+            <strong>Koordináták transzformációja:</strong> Ha egy
+            \(a \in V\) vektor régi koordináta-oszlopa \(X\), az új
+            koordináta-oszlopa pedig \(Y\), akkor a kapcsolat:
+            \[
+            Y = S^{-1}X \quad \text{vagy átírva} \quad X = SY
+            \]
+          </li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

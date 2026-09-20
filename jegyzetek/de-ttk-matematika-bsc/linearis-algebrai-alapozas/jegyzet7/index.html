@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Lineáris egyenletrendszerek és Cramer-szabály | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Lineáris egyenletrendszerek, a Kronecker–Capelli-tétel, a megoldástér, a Gauss-elimináció, az egyenletrendszerek osztályozása és a Cramer-szabály — DE TTK Matematika BSc 2023/2025, Lineáris algebrai alapozás.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet7/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!-- Part 7 of 10 — see jegyzet1's head comment for the shape rationale. -->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/">Lineáris algebrai alapozás</a> / 7. jegyzet</p>
+
+      <h1>Lineáris egyenletrendszerek és Cramer-szabály</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-20</p>
+
+      <p>
+        Ez a jegyzet a lineáris egyenletrendszereket a mátrixok és a
+        rang nyelvén tárgyalja: kimondja a Kronecker–Capelli-tételet,
+        leírja a homogén és az inhomogén rendszer megoldásterét,
+        összefoglalja a Gauss-eliminációban használható átalakításokat,
+        végül a Cramer-szabályt.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Az egyenletrendszer mátrix alakja, alapmátrix és bővített mátrix</li>
+        <li>Kronecker–Capelli-tétel és az egyértelmű megoldás feltétele</li>
+        <li>Az egyenletrendszerek osztályozása</li>
+        <li>A homogén és az inhomogén rendszer megoldástere</li>
+        <li>Gauss-féle eliminációs módszer</li>
+        <li>Cramer-szabály</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Lineáris egyenletrendszerek és a Kronecker–Capelli-tétel</h2>
+
+      <p>Tekintsünk egy általános lineáris egyenletrendszert:</p>
+      \[
+      \begin{aligned}
+      \alpha_{11}x_1 + \dots + \alpha_{1n}x_n &amp;= \beta_1 \\
+      &amp;\vdots \\
+      \alpha_{m1}x_1 + \dots + \alpha_{mn}x_n &amp;= \beta_m
+      \end{aligned}
+      \]
+      <p>
+        Mátrix alakban: \(AX = b\), ahol \(A = (\alpha_{ij})_{m \times n}\)
+        az <strong>alapmátrix</strong>, \(X\) az ismeretlenek vektora,
+        \(b\) pedig a konstans tagok vektora. A <strong>bővített
+        mátrix</strong>: \((A \mid b)\).
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Kronecker–Capelli-tétel</span>
+        <p>
+          Egy lineáris egyenletrendszer pontosan akkor
+          <strong>megoldható</strong>, ha az alapmátrix rangja megegyezik
+          a bővített mátrix rangjával:
+        </p>
+        \[
+        \rho(A) = \rho(A \mid b)
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Egyértelmű megoldás feltétele</span>
+        <p>
+          Egy megoldható lineáris egyenletrendszer pontosan akkor
+          <strong>egyszeresen határozott</strong> (egyértelműen
+          megoldható), ha az alapmátrix rangja megegyezik az
+          ismeretlenek számával:
+        </p>
+        \[
+        \rho(A) = n
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető — a lineáris egyenletrendszerek osztályozása</span>
+        <p>Az \(Ax = b\) lineáris egyenletrendszer lehet:</p>
+        <ul>
+          <li><strong>Kompatibilis:</strong> ha van megoldása (\(\rho(A) = \rho(A \mid b)\)).</li>
+          <li><strong>Határozott:</strong> kompatibilis rendszer, amelynek pontosan 1 megoldása van (\(\rho(A) = n\)).</li>
+          <li><strong>Határozatlan:</strong> kompatibilis rendszer, amelynek végtelen sok megoldása van (\(\rho(A) &lt; n\)).</li>
+          <li><strong>Inkompatibilis:</strong> ha nincs megoldás (\(\rho(A) \neq \rho(A \mid b)\)).</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Egyenletrendszerek megoldástere és a Gauss-elimináció</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Homogén lineáris egyenletrendszer megoldástere</span>
+        <p>
+          Az \(AX = 0\) homogén lineáris egyenletrendszer általános
+          megoldástere \(n - \rho(A)\) dimenziós alteret alkot
+          \(\mathbb{R}^n\)-ben, ahol \(n\) az ismeretlenek száma.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Megoldástér</span>
+        <p>A homogén egyenletrendszer összes megoldásának halmaza:</p>
+        \[
+        H = \{X \in \mathbb{R}^n \mid AX = 0\}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Inhomogén lineáris egyenletrendszer általános megoldása</span>
+        <p>
+          Ha az \(AX = b\) inhomogén lineáris egyenletrendszer
+          megoldható, akkor az általános megoldása \(c + H\) alakú
+          lineáris sokaság, ahol \(c\) az inhomogén egyenlet egy
+          tetszőleges partikuláris megoldása, \(H\) pedig az
+          \(AX = 0\) homogén rendszer megoldástere.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető — Gauss-féle eliminációs módszer (ekvivalens átalakítások)</span>
+        <p>Az alábbi műveletek nem változtatják meg az egyenletrendszer általános megoldását:</p>
+        <ul>
+          <li>Egyenlet szorzása \(\lambda \neq 0\) skalárral.</li>
+          <li>Egy egyenlethez hozzáadni egy másik egyenlet \(\lambda\)-szorosát.</li>
+          <li>Függő egyenlet elhagyása.</li>
+          <li>Egyenletek sorrendjének felcserélése.</li>
+          <li>Ismeretlenek sorrendjének felcserélése (együtthatókkal együtt).</li>
+        </ul>
+      </div>
+
+      <h2>Cramer-szabály</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Cramer-szabály</span>
+        <p>
+          Ha az \(AX = b\) inhomogén lineáris egyenletrendszerben
+          \(n = m\) és \(|A| \neq 0\), akkor az egyenletrendszer
+          konzisztens, határozott, és az egyetlen megoldása:
+        </p>
+        \[
+        X = \begin{pmatrix} \gamma_1 \\ \vdots \\ \gamma_n \end{pmatrix} \in \mathbb{R}^n, \quad \text{ahol } \gamma_i = \frac{\Delta_i}{|A|}
+        \]
+        <p>
+          Itt \(\Delta_i\) az a mátrix determinánsa, amelyet úgy
+          kapunk, hogy az \(A\) mátrix \(i\)-edik oszlopát kicseréljük
+          a \(b\) oszlopvektorral.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

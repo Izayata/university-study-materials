@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Mag, kép, nullitás–rang tétel | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Lineáris leképezés magja és képe, a homomorfiatétel vektorterekre, a nullitás–rang tétel és a lineáris transzformációk — DE TTK Matematika BSc 2023/2025, Lineáris algebrai alapozás.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet8/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!-- Part 8 of 10 — see jegyzet1's head comment for the shape rationale. -->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/">Lineáris algebrai alapozás</a> / 8. jegyzet</p>
+
+      <h1>Mag, kép, nullitás–rang tétel</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-20</p>
+
+      <p>
+        Ez a jegyzet a lineáris leképezés két legfontosabb altérét, a
+        magot és a képet vezeti be, kimondja a homomorfiatételt és a
+        nullitás–rang tételt, majd bevezeti a lineáris transzformáció
+        fogalmát, és megadja, mikor ekvivalens egymással az injektivitás,
+        a szürjektivitás és a bijektivitás.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Lineáris leképezés magja és képe</li>
+        <li>Homomorfiatétel vektorterekre</li>
+        <li>Injektivitás és szürjektivitás a mag és a kép nyelvén</li>
+        <li>Nullitás–rang tétel, rang és defektus</li>
+        <li>Lineáris transzformáció</li>
+        <li>Transzformációk ekvivalens jellemzései véges dimenzióban</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Lineáris leképezések magja és képe</h2>
+
+      <p>Legyen \(\varphi: V_1 \to V_2\) lineáris leképezés.</p>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Mag és kép</span>
+        <ul>
+          <li><strong>\(\varphi\) magja (kernele):</strong> \(\ker \varphi = \{x \in V_1 \mid \varphi(x) = 0_{2}\}\)</li>
+          <li><strong>\(\varphi\) képe (imázsa):</strong> \(\operatorname{Im} \varphi = \varphi(V_1) = \{\varphi(a) \mid a \in V_1\}\)</li>
+        </ul>
+        <p>
+          Mind a \(\ker \varphi\) (mint altér \(V_1\)-ben), mind az
+          \(\operatorname{Im} \varphi\) (mint altér \(V_2\)-ben) alteret
+          alkot.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Homomorfiatétel vektorterekre</span>
+        <p>
+          Legyen \(\varphi: V_1 \to V_2\) lineáris leképezés. Ekkor a
+          magtér szerinti faktortér izomorf a leképezés képterével:
+        </p>
+        \[
+        V_1 / \ker \varphi \cong \operatorname{Im} \varphi
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Következmény</span>
+        <ul>
+          <li>\(\varphi\) pontosan akkor <strong>szürjektív</strong>, ha \(\operatorname{Im} \varphi = V_2\).</li>
+          <li>\(\varphi\) pontosan akkor <strong>injektív</strong>, ha \(\ker \varphi = \{0\}\).</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Nullitás–rang tétel és lineáris transzformációk</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Nullitás–rang tétel</span>
+        <p>Ha \(\varphi: V_1 \to V_2\) lineáris leképezés, akkor:</p>
+        \[
+        \dim V_1 = \dim(\ker \varphi) + \dim(\operatorname{Im} \varphi)
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés</span>
+        <p>A kifejezések elnevezései:</p>
+        <ul>
+          <li>\(\dim(\operatorname{Im} \varphi) = \rho(\varphi)\) — a lineáris leképezés <strong>rangja</strong>.</li>
+          <li>\(\dim(\ker \varphi)\) — a lineáris leképezés <strong>defektusa</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Lineáris transzformáció</span>
+        <p>
+          Olyan lineáris leképezés, amely egy vektorteret önmagába képez
+          (\(\varphi: V \to V\)). A \(V\)-n értelmezett lineáris
+          transzformációk halmazát \(\mathcal{L}_V\) jelöli.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Transzformációk ekvivalens jellemzései</span>
+        <p>
+          Véges dimenziós vektortérben egy lineáris transzformációra az
+          alábbi állítások ekvivalensek:
+        </p>
+        <ol>
+          <li>\(\varphi\) injektív.</li>
+          <li>\(\varphi\) szürjektív.</li>
+          <li>\(\varphi\) automorfizmus (bijektív lineáris transzformáció).</li>
+          <li>\(\ker \varphi = \{0\}\).</li>
+          <li>\(\operatorname{Im} \varphi = V\).</li>
+        </ol>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

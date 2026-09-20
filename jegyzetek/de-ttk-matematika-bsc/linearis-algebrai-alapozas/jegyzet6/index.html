@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Mátrix rangja, alterek összege, faktortér | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Vektorrendszer és mátrix rangja, ranginvariáns átalakítások, trapéz alakú mátrix, alterek összege és direkt összege, mellékosztály és faktortér — DE TTK Matematika BSc 2023/2025, Lineáris algebrai alapozás.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet6/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!-- Part 6 of 10 — see jegyzet1's head comment for the shape rationale. -->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/">Lineáris algebrai alapozás</a> / 6. jegyzet</p>
+
+      <h1>Mátrix rangja, alterek összege, faktortér</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-20</p>
+
+      <p>
+        Ez a jegyzet a vektorrendszer és a mátrix rangját vezeti be,
+        felsorolja a rangot nem változtató átalakításokat, és
+        összekapcsolja a rangot az aldeterminánsokkal. Ezután az
+        alterek összegét és direkt összegét, végül a mellékosztályokat
+        és a faktorteret tárgyalja.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Vektorrendszer és mátrix rangja</li>
+        <li>Ranginvariáns átalakítások</li>
+        <li>A rang és az aldeterminánsok kapcsolata</li>
+        <li>Trapéz alakú mátrix</li>
+        <li>Alterek összege és direkt összege</li>
+        <li>Mellékosztály és faktortér</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Mátrix rangja és ranginvariáns átalakítások</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Vektorrendszer rangja</span>
+        <p>
+          Ha \(a_1, \dots, a_k \in V\) (vektortér), akkor ezen
+          vektorok rendszerének <strong>rangja</strong> a vektorok által
+          generált vektortér dimenziója:
+        </p>
+        \[
+        \rho(a_1, \dots, a_k) = \dim \mathcal{L}(a_1, \dots, a_k)
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Mátrix rangja</span>
+        <p>
+          Egy mátrix <strong>rangja</strong> alatt a sorvektor-rendszerének
+          rangját értjük. Ha \(A = (x_{ij})_{n \times m}\), és a sorvektorai
+          \(A_1, \dots, A_n\), akkor:
+        </p>
+        \[
+        \rho(A) = \rho(A_1, \dots, A_n)
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető — ranginvariáns átalakítások (nem változtatják meg a vektorrendszer rangját)</span>
+        <ol type="a">
+          <li>Egy vektor szorzása \(\lambda \neq 0\) skalárral.</li>
+          <li>Egy vektorhoz hozzáadni egy másik vektor \(\lambda\)-szorosát.</li>
+          <li>Elhagyni lineárisan függő vektort (amely előáll a többi lineáris kombinációjaként).</li>
+          <li>Sorrend felcserélése.</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Mátrix rangja és aldeterminánsok</span>
+        <p>
+          A mátrix rangja egyenlő a mátrix legnagyobb rendű, nullától
+          különböző aldeterminánsának rendjével.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Következmény</span>
+        <p>Egy mátrix rangja megegyezik az oszlopvektor-rendszerének rangjával.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Trapéz alakú mátrix</span>
+        <p>Olyan mátrix, amelyre igaz, hogy:</p>
+        <ul>
+          <li>a sorok száma \(\le\) az oszlopok száma,</li>
+          <li>a főátló alatt csak \(0\)-k állnak,</li>
+          <li>a főátlóban \(\neq 0\) elemek vannak,</li>
+          <li>a rangja = a sorok száma.</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Alterek összege és direkt összege</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Alterek összege</span>
+        <p>
+          Egy \(V\) vektortér \(L_1, L_2\) altereinek összegén a
+          következő halmazt értjük:
+        </p>
+        \[
+        L_1 + L_2 = \{l_1 + l_2 \mid l_1 \in L_1, l_2 \in L_2\}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Direkt összeg ekvivalens feltételei</span>
+        <p>Legyenek \(L_1, L_2\) alterek \(V\)-ben. Az alábbi állítások ekvivalensek:</p>
+        <ol>
+          <li>\(L_1\) és \(L_2\) összege <strong>direkt összeg</strong> (\(L_1 \oplus L_2\)), azaz \(L_1 \cap L_2 = \{0\}\).</li>
+          <li>Minden \(a \in L_1 + L_2\) <strong>egyetlenféleképpen</strong> áll elő \(a = l_1 + l_2\) alakban (\(l_1 \in L_1, l_2 \in L_2\)).</li>
+          <li>Véges dimenziós esetben \(\dim(L_1 + L_2) = \dim L_1 + \dim L_2\).</li>
+        </ol>
+      </div>
+
+      <h2>Faktortér</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Mellékosztály és faktortér</span>
+        <p>
+          Legyen \(L\) altér \(V\)-ben, és \(a \in V\). Az \(L\) altér
+          \(a\) által reprezentált <strong>lineáris mellékosztálya</strong>
+          (lineáris sokasága):
+        </p>
+        \[
+        a + L = \{a + l \mid l \in L\}
+        \]
+        <ul>
+          <li>A <strong>faktortér:</strong> \(V/L = \{a + L \mid a \in V\}\)</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Faktortér dimenziója</span>
+        <p>Véges generált \(V\) esetén a faktortér dimenziójára fennáll a következő összefüggés:</p>
+        \[
+        \dim(V/L) = \dim V - \dim L
+        \]
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

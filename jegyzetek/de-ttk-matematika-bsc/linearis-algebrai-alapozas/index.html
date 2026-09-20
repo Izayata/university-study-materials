@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Lineáris algebrai alapozás — DE TTK Matematika BSc 2023/2025 | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Lineáris algebrai alapozás előadásjegyzet, 10 részre bontva: algebrai struktúrák és permutációk, determinánsok, mátrixok, vektorterek, lineáris leképezések, rang, lineáris egyenletrendszerek, sajátértékek és a Jordan-féle normálalak.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/">
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<!--
+  Deliberate second nesting level, same shape as
+  kombinatorika-es-grafelmelet/index.html (and semester-template.html's
+  course -> semester-landing -> item pattern), grouped by topic: this
+  course's "Lineáris algebrai alapozás" source (a single long LaTeX
+  file) was split into 10 smaller jegyzet items, confirmed with the site
+  owner before building (2026-09-20), and needed its own landing page
+  rather than 10 cards directly on the course landing page. See
+  CLAUDE.md's Content model section for the confirmed rationale — don't
+  generalize this into a new default for every course.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell">
+    <main class="content">
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / Lineáris algebrai alapozás</p>
+
+      <h1>Lineáris algebrai alapozás</h1>
+      <p>
+        Egy hosszú előadásjegyzet 10 kisebb részre bontva: az algebrai
+        struktúráktól és a permutációktól a determinánsokon, mátrixokon
+        és vektortereken át a lineáris leképezésekig, a rangig és a
+        lineáris egyenletrendszerekig, végül a sajátértékekig, a
+        Cayley–Hamilton-tételig és a Jordan-féle normálalakig.
+      </p>
+
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="card-grid">
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet1/">
+          <h3>1. Algebrai alapfogalmak és permutációk</h3>
+          <p>Félcsoport, csoport, gyűrű, test, vektortér, permutációk, inverziók és paritás.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet2/">
+          <h3>2. Determinánsok</h3>
+          <p>A determináns definíciója és tulajdonságai, algebrai aldeterminánsok, kifejtési tétel, Laplace-féle kifejtés.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet3/">
+          <h3>3. Mátrixműveletek, inverz és transzponált</h3>
+          <p>Összeadás, skalárral szorzás, mátrixszorzás, egységmátrix, determinánsok szorzástétele, inverz, transzponált.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet4/">
+          <h3>4. Vektorterek, alterek, bázis és dimenzió</h3>
+          <p>Vektortér, altér és kritériuma, lineáris burok, generátorrendszer, bázis, dimenzió, koordináták egyértelműsége.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet5/">
+          <h3>5. Lineáris leképezések, izomorfizmus, bázistranszformáció</h3>
+          <p>Lineáris leképezés és alaptételei, injektivitás, szürjektivitás, izomorfizmus, bázis- és koordináta-transzformáció.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet6/">
+          <h3>6. Mátrix rangja, alterek összege, faktortér</h3>
+          <p>Vektorrendszer és mátrix rangja, ranginvariáns átalakítások, trapéz alakú mátrix, direkt összeg, mellékosztály, faktortér.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet7/">
+          <h3>7. Lineáris egyenletrendszerek és Cramer-szabály</h3>
+          <p>Kronecker–Capelli-tétel, megoldástér, Gauss-elimináció, az egyenletrendszerek osztályozása, Cramer-szabály.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet8/">
+          <h3>8. Mag, kép, nullitás–rang tétel</h3>
+          <p>Lineáris leképezés magja és képe, homomorfiatétel, nullitás–rang tétel, lineáris transzformációk.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet9/">
+          <h3>9. Lineáris transzformációk: mátrix, műveletek, algebra, hasonló mátrixok</h3>
+          <p>Transzformáció mátrixa, bázistranszformáció, hasonló mátrixok, műveletek, algebra-izomorfizmus, automorfizmus.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet10/">
+          <h3>10. Sajátértékek, karakterisztikus polinom, Cayley–Hamilton, Jordan-alak</h3>
+          <p>Sajátérték és sajátvektor, invariáns alterek, karakterisztikus polinom, Cayley–Hamilton-tétel, multiplicitások, spektrum, Jordan-féle normálalak.</p>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <div id="site-footer"></div>
+  <script src="/script.js" defer></script>
+</body>
+</html>

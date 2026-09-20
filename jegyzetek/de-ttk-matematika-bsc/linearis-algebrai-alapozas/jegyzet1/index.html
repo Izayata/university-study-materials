@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Algebrai alapfogalmak és permutációk | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Algebrai struktúrák (félcsoport, csoport, gyűrű, test, vektortér), permutációk, inverziók és paritás — DE TTK Matematika BSc 2023/2025, Lineáris algebrai alapozás.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet1/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 1 of 10, split from one long LaTeX source (confirmed with the
+  site owner before building, 2026-09-20). Same math-note shape as
+  jegyzetek/de-ttk-matematika-bsc/jegyzet1 (Analízis alapjai) and the
+  kombinatorika-es-grafelmelet series: intro -> "Témák" outline -> one
+  <h2> per original LaTeX \section, <h3> per \subsection. 2-part
+  item-meta, no session label — see CLAUDE.md.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/">Lineáris algebrai alapozás</a> / 1. jegyzet</p>
+
+      <h1>Algebrai alapfogalmak és permutációk</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-20</p>
+
+      <p>
+        Ez a jegyzet a lineáris algebrai alapozás sorozat első része: a
+        végig használt algebrai struktúrákat (félcsoport, csoport,
+        gyűrű, test, vektortér) foglalja össze, majd bevezeti a
+        permutációkat, az inverziókat és a paritás fogalmát — erre épül
+        a következő jegyzetben a determináns definíciója.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Ismert számhalmazok és algebrai struktúrák</li>
+        <li>Félcsoport, csoport, gyűrű, test, vektortér</li>
+        <li>A szabadvektorok mint vektortér</li>
+        <li>Permutációk, inverziók és paritás</li>
+        <li>A permutációk csoportja</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Algebrai alapfogalmak</h2>
+
+      <p>Ismert számhalmazok: \(\mathbb{N}, \mathbb{Z}, \mathbb{Q}, \mathbb{R}, \mathbb{C}\).</p>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Algebrai struktúrák</span>
+        <ul>
+          <li><strong>Félcsoport:</strong> Olyan halmaz és egy művelet, amely asszociatív (csoportosítható).</li>
+          <li><strong>Csoport:</strong> Félcsoport, amelyben létezik neutrális elem, és minden elemnek van inverze. Ha a művelet kommutatív is, akkor <em>Abel-csoport</em>.</li>
+          <li><strong>Gyűrű</strong> (\((R, +, \cdot)\)): \((R, +)\) kommutatív csoport, \((R, \cdot)\) félcsoport, és a műveletek között teljesül a disztributivitás (szétoszthatóság).</li>
+          <li><strong>Test:</strong> Olyan gyűrű, amelyben a 0 (null-elem) kivételével a multiplikatív struktúra is kommutatív csoportot alkot (létezik multiplikatív inverz minden nemnulla elemre).</li>
+          <li><strong>Vektortér</strong> (\(V\) egy \(T\) test felett): \((V, +)\) kommutatív csoport, és definiálva van egy skalárral való szorzás a \(T\) test elemeivel, amely eleget tesz a szokásos axiómáknak.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető — a vektortér alapelemeiről</span>
+        <p>
+          A szabadvektorok (irányított egyenesszakaszok) halmaza
+          vektortért alkot. Két vektor pontosan akkor lineárisan függő,
+          ha párhuzamosak, azaz az egyik előáll a másik
+          skalárszorosaként; három vektor pontosan akkor lineárisan
+          függő, ha egy síkba esnek.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Permutációk</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Permutáció</span>
+        <p>
+          Az \(1, 2, \dots, n\) elemek egy sorrendjét (az
+          \(\{1, 2, \dots, n\}\) halmaz önmagára való bijekcióját)
+          <strong>permutációnak</strong> nevezzük. Jelölése
+          mátrixszerűen:
+        </p>
+        \[
+        \pi = \begin{pmatrix} 1 &amp; 2 &amp; \dots &amp; n \\ i_1 &amp; i_2 &amp; \dots &amp; i_n \end{pmatrix}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Permutációk tulajdonságai</span>
+        <ul>
+          <li>Az \(i_j\) és \(i_k\) elemek <strong>inverzióban</strong> állnak, ha \(j &lt; k\), de \(i_j &gt; i_k\). Az összes inverzió száma: \(I(i_1, i_2, \dots, i_n)\).</li>
+          <li>Két elem cseréje a permutáció paritását (előjelét) ellentettjére változtatja.</li>
+          <li>A permutációk szorzása (egymás utáni alkalmazása) csoportot alkot: a \(P_n\) halmaz (más jelöléssel \(S_n\), a szimmetrikus csoport) a szorzással csoport.</li>
+          <li>Az identikus permutáció (\(\varepsilon\)) páros paritású.</li>
+          <li>Egy permutáció és az inverzének paritása azonos.</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

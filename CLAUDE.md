@@ -77,7 +77,7 @@ not a bug.
 
 | Section (Hungarian) | Landing page | Item template | Filled example |
 |---|---|---|---|
-| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/de-ttk-matematika-bsc/jegyzet1/` (added 2026-09-17, see the math-note exception below) and the 10-item `kombinatorika-es-grafelmelet/` topic-landing page (added 2026-09-17, see the topic-nesting exception below); see also the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
+| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/de-ttk-matematika-bsc/jegyzet1/` (added 2026-09-17, see the math-note exception below) and the 10-item `kombinatorika-es-grafelmelet/` and `linearis-algebrai-alapozas/` topic-landing pages (added 2026-09-17 and 2026-09-20, see the topic-nesting exception below); see also the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | none currently — empty since `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) |
 | Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | `/oktatoi/inbpm0315-21/jegyzet1/` (moved here 2026-09-16, renamed from `java-alapok` the same day) `jegyzet2/` (added 2026-09-16, new content) and every later lesson (`jegyzet3/`, `jegyzet4/`, ... — added one per message since 2026-09-19, new content) — all keep the class-session shape, see below, not the template's default |
@@ -185,13 +185,14 @@ counterparts in the other sections.
 
 `de-ttk-matematika-bsc` (added 2026-09-17) is a third, unrelated
 course — Debreceni Egyetem, TTK, Matematika BSc — that exists only
-under `jegyzetek/` so far. It has two children on its course-landing
+under `jegyzetek/` so far. It has three children on its course-landing
 card-grid: the standalone item `jegyzet1` ("Analízis alapjai") — see
 the "Math-note jegyzet exception" subsection below for why its shape
 deliberately differs from both `jegyzet-template.html`'s current
 default and the older Tematika/Kontextus/Gyakorlat/Puffer pattern the
 Content style guide documents — and the `kombinatorika-es-grafelmelet/`
-topic-landing page, itself listing 10 jegyzet items; see the
+and `linearis-algebrai-alapozas/` ("Lineáris algebrai alapozás", added
+2026-09-20) topic-landing pages, each listing 10 jegyzet items; see the
 "Topic-nesting exception" subsection below for that second level.
 
 `deik-mernokinformatikus-bsc-2017`, by contrast, is the same course
@@ -344,6 +345,69 @@ building:
   text); nothing was reconstructed from an image that isn't in the
   page.
 
+**Second use of this pattern: `linearis-algebrai-alapozas/`** (added
+2026-09-20). Same situation, same solution: the site owner's "Lineáris
+algebrai alapozás" LaTeX (about 34 `\section`s, from the algebraic
+structures and permutations through determinants, matrices, vector
+spaces, linear maps, rank and linear systems up to eigenvalues and the
+Jordan form) was asked to be a folder, and after confirming the split
+with the owner it became a topic-landing page plus 10 items, same shape
+and breadcrumb pattern as the kombinatorika series (`Kezdőlap / Órai
+jegyzetek / DE TTK Matematika BSc 2023/2025 / Lineáris algebrai alapozás
+/ N. jegyzet`). The split follows the source's order, with the
+repetitions merged: 1 algebrai alapfogalmak és permutációk · 2
+determinánsok · 3 mátrixműveletek, inverz, transzponált · 4 vektorterek,
+alterek, bázis, dimenzió · 5 lineáris leképezések, izomorfizmus,
+bázistranszformáció · 6 rang, alterek összege, faktortér · 7 lineáris
+egyenletrendszerek, Cramer · 8 mag, kép, nullitás–rang · 9 lineáris
+transzformációk (mátrix, műveletek, algebra, hasonló mátrixok) · 10
+sajátértékek, karakterisztikus polinom, Cayley–Hamilton, Jordan-alak.
+Item 2 is short by design (one source section). The owner's first paste
+for this task was the wrong file (a Galois-theory note) and was
+discarded; only the corrected source is used.
+
+**Source-content fixes for this series**, all confirmed with the owner
+before building (the owner chose "fix everything", mechanical and
+mathematical):
+- *Deduplication.* The source was assembled from re-typed pages, so the
+  same block appeared 2–3 times: the homomorphism theorem (twice), the
+  Cayley–Hamilton theorem (twice, the first before the characteristic
+  polynomial was defined), "hasonló mátrixok" and its characteristic-
+  polynomial claim (three times), the operations on linear
+  transformations (twice), algebra isomorphism (twice), `(AB)^T`
+  (twice), the inverse (twice), alterek összege/faktortér (twice) and
+  the Cramer rule (twice). Each is kept once, in the item where it
+  belongs (Cayley–Hamilton moved to after the characteristic
+  polynomial; the "hasonló mátrixok karakterisztikus polinomja" claim
+  lives only in item 10 and item 9 links to it).
+- *Broken markup:* `\begin{kovetkezmeny}` was used three times but never
+  declared in the preamble (rendered as a Következmény `.note-box`);
+  empty leading `\item`s; Hungarian words inside `$...$`; corrupted
+  emoji in `mdframed` box titles (dropped; the boxes are Emlékeztető
+  `.note-box`es); a pile of trailing `\end{document}` lines.
+- *Garbled words:* "aldetektom" / "alalgebrai aldet" → algebrai
+  aldetermináns; "alterér" / "alterület" / "vektolya" → altér /
+  mellékosztály; "közös számozóság" → közös elemszám.
+- *Notation:* the set of transformations was `T_V` once and `L_V`
+  elsewhere → `\mathcal{L}_V` throughout; `\emptyset` zero blocks → `0`;
+  `\dot{+}` → `\oplus`; the inversion-pair notation `(i, k)` with `i_i`
+  → `j < k, i_j > i_k`. The source calls the permutation group both
+  `P_n` and `S_n`; item 1 says so once.
+- *Mathematical statements corrected:* two vectors are linearly
+  dependent iff parallel (three iff coplanar — the source mixed them up);
+  a row swap means swapping *two* rows; the rank of an n×m matrix is of
+  its rows A_1..A_n (not A_1..A_m); a linear transformation is a map
+  V → V (the source's definition was garbled); the fundamental theorem
+  of algebra counts roots with multiplicity; the eigenvalue chain
+  `φ(a)=λa ⇔ (A−λE)X=0 ⇔ |A−λE|=0` now says "nemtriviális megoldás";
+  "határozott/határozatlan" only for compatible systems; `AB ≠ BA`
+  "általában"; the direct-sum dimension condition is for finite
+  dimension. The source's Jordan block with the 1s *below* the diagonal
+  was kept as written (a basis-order convention, not an error).
+- *Added, not in the source:* only the definition of the adjungált mátrix
+  (`A^*` = transposed cofactor matrix; the source used `A^*/|A|` without
+  defining it) and the statement that the permutation group is `S_n`.
+
 ### Deliberate exception: `jegyzetek/de-ttk-matematika-bsc/jegyzet1` skips Tematika/Gyakorlat/Puffer
 
 Added 2026-09-17. "Analízis alapjai" was converted from a LaTeX source
@@ -380,7 +444,8 @@ still look like a class session — copy the shape
 
 Added 2026-09-18. Every content item under `jegyzetek/de-ttk-matematika-bsc/`
 (currently: `jegyzet1`, and `kombinatorika-es-grafelmelet/jegyzet1`–
-`jegyzet10` — 11 pages total) ends with a `<p class="source-note">`
+`jegyzet10` and `linearis-algebrai-alapozas/jegyzet1`–`jegyzet10` —
+21 pages total) ends with a `<p class="source-note">`
 (styled in `style.css`: small, muted, italic — deliberately lighter
 weight than `.note-box`, since this is a site-wide disclaimer, not
 math content) placed after the `.support-callout` Ko-fi widget,
@@ -394,9 +459,10 @@ don't rephrase it even though its Hungarian is slightly informal):
 > a Matematika BSc tantervi követelményeire, de teljesen nem egyezik
 > azzal.
 
-This does **not** apply to the section's two landing pages
+This does **not** apply to the section's three landing pages
 (`de-ttk-matematika-bsc/index.html`,
-`kombinatorika-es-grafelmelet/index.html`) — they're card-grids with
+`kombinatorika-es-grafelmelet/index.html`,
+`linearis-algebrai-alapozas/index.html`) — they're card-grids with
 no content text of their own. **Every future content item added under
 `jegyzetek/de-ttk-matematika-bsc/` must include this same element,
 verbatim text and placement** — confirmed with the site owner as a

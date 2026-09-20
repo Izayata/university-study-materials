@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Determinánsok | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="A determináns definíciója permutációkkal, tulajdonságai, algebrai aldeterminánsok, a kifejtési tétel és a Laplace-féle kifejtés — DE TTK Matematika BSc 2023/2025, Lineáris algebrai alapozás.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet2/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!-- Part 2 of 10 — see jegyzet1's head comment for the shape rationale. -->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/">Lineáris algebrai alapozás</a> / 2. jegyzet</p>
+
+      <h1>Determinánsok</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-20</p>
+
+      <p>
+        Ez a jegyzet az előző rész permutációira építve definiálja a
+        négyzetes mátrix determinánsát, összefoglalja az alapvető
+        tulajdonságait, majd bevezeti az algebrai aldeterminánsokat és
+        a kifejtési tételt, amellyel a determináns egy sor vagy oszlop
+        szerint számolható.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>A determináns definíciója permutációkkal</li>
+        <li>A determináns tulajdonságai</li>
+        <li>Algebrai aldetermináns és a kifejtési tétel</li>
+        <li>A Laplace-féle kifejtés</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Determinánsok elmélete</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Determináns</span>
+        <p>
+          Legyen \(A\) egy \(n \times n\)-es négyzetes mátrix. A
+          <strong>determináns</strong> egy számérték, amely a következő
+          összeggel adható meg:
+        </p>
+        \[
+        D = |A| = \sum_{\pi \in S_n} (-1)^{I(i_1, i_2, \dots, i_n)} a_{1,i_1} a_{2,i_2} \dots a_{n,i_n}
+        \]
+        <p>Ahol a tag előjele \(+1\), ha a permutáció páros, és \(-1\), ha páratlan.</p>
+      </div>
+
+      <h3>A determináns tulajdonságai</h3>
+      <ol>
+        <li>Ha egy sorban (vagy oszlopban) minden elem 0, akkor \(D = 0\).</li>
+        <li>\(D = D^T\) (a transzponált determinánsa megegyezik az eredetivel).</li>
+        <li>Ha egy sor minden eleme két szám összege, akkor a determináns felbontható két determináns összegére (disztributív tulajdonság).</li>
+        <li>Ha egy \(n \times n\)-es mátrix két sorát felcseréljük, a determináns előjelet vált.</li>
+        <li>Ha egy mátrixnak két sora megegyezik, akkor \(D = 0\).</li>
+        <li>Ha egy sor minden elemét \(\lambda\)-val szorozzuk, a determináns értéke \(\lambda\)-szorosára változik.</li>
+        <li>\(D\) értéke nem változik, ha bármely sor \(\lambda\)-szorosát hozzáadjuk egy másik sorhoz (ugyanez érvényes oszlopokra is).</li>
+        <li>Felső vagy alsó háromszögmátrix (triangularis mátrix) determinánsa megegyezik a főátlóbeli elemek szorzatával.</li>
+      </ol>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h3>Kifejtési tételek</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Algebrai aldetermináns</span>
+        <p>
+          Egy \(a_{ij}\) elemhez tartozó <strong>aldetermináns</strong>
+          (\(D_{ij}\)) az a determináns, amely az \(i\)-edik sor és a
+          \(j\)-edik oszlop elhagyásával marad. Az \(a_{ij}\) elemhez
+          tartozó <strong>algebrai aldetermináns</strong>:
+        </p>
+        \[
+        A_{ij} = (-1)^{i+j} D_{ij}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Determináns kifejtési tétele</span>
+        <p>
+          Egy determináns kiszámítható úgy, hogy tetszőleges sor (vagy
+          oszlop) elemeit megszorozzuk a hozzájuk tartozó algebrai
+          aldeterminánsokkal, majd összeadjuk őket:
+        </p>
+        \[
+        D = \sum_{j=1}^{n} a_{ij} A_{ij} \quad (\text{az } i\text{-edik sor szerinti kifejtés})
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Emlékeztető — a Laplace-féle kifejtésről</span>
+        <p>
+          A Laplace-tétel általánosítja a kifejtést: \(k\) darab sort
+          (vagy oszlopot) kiválasztva a kiválasztott sorokból képezhető
+          \(k\)-adrendű aldeterminánsok és a hozzájuk tartozó algebrai
+          aldeterminánsok szorzatainak összege adja meg a determinánst.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
