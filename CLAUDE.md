@@ -513,6 +513,24 @@ HTML document — the browser's HTML parser sees them before MathJax
 does, and an unescaped `<` will start a phantom tag instead of
 reaching MathJax as text.
 
+Wide formulas (added 2026-09-20): MathJax's CHTML output never wraps or
+scrolls, so before this a formula wider than the column stretched the
+whole page sideways on phones (up to 974 px of page width on a 357 px
+screen, on every math page). `style.css` ("MathJax formulas wider than
+the column") now contains it with two rules, no per-page markup needed:
+display formulas (`mjx-container[display="true"]`) scroll inside their
+own box, and — below 768px only — a `p`/`ul`/`ol` that contains a
+formula scrolls sideways when a long *inline* formula makes a line too
+wide (an inline formula can't scroll itself without breaking the text
+baseline). Two things to keep if you touch it: MathJax lets tall
+structures poke ~4–15px past their box, so the display rule turns the
+bottom margin into padding and the block rule adds a little vertical
+padding, otherwise `overflow-y:hidden` clips ink; and the selectors are
+deliberately more specific than MathJax's own injected CSS. Prefer
+splitting a very long display formula over two `aligned` lines (as the
+characteristic polynomial in `linearis-algebrai-alapozas/jegyzet10` is) —
+it reads better than a sideways scroll.
+
 ### `.note-box`: generic component for boxed math content
 
 Added 2026-09-17 in `style.css`, alongside `jegyzet1` above — its

@@ -336,6 +336,48 @@ blockquote {
   margin-bottom: 0.5rem;
 }
 
+/* ---------- MathJax formulas wider than the column ----------
+   MathJax's CHTML output never wraps or scrolls, so a formula wider than its
+   column used to stretch the whole page sideways on phones (up to 974 px of
+   page width on a 357 px screen). Two rules keep the overflow local instead.
+
+   1) Display formulas scroll inside their own box.
+      overflow-x:auto also makes the vertical direction clip, and MathJax lets
+      tall structures (matrices, cases) poke up to ~15px below the container's
+      height, so the bottom gap is padding instead of MathJax's 1em margin
+      (same total spacing) to keep those pixels visible. Higher specificity
+      than MathJax's own [jax][display] rule, which is injected after this
+      file.
+
+   2) On phones, a paragraph or list holding a long *inline* formula scrolls
+      sideways (the text still wraps normally; only the over-wide line
+      scrolls). An inline formula can't scroll itself: an overflow box would
+      sit on the text baseline and misalign every formula. Scoped with :has()
+      so blocks without math are untouched (browsers without :has() drop the
+      rule and behave as before), and to < 768px because wider viewports
+      never overflow the page. The small vertical padding keeps two-row
+      inline matrices and subscripts, which poke ~4px past the line box, from
+      being clipped by overflow-y:hidden. */
+
+.content mjx-container[jax="CHTML"][display="true"] {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  padding-bottom: 1em;
+  margin-bottom: 0;
+  scrollbar-width: thin;
+}
+
+@media (max-width: 767px) {
+  .content p:has(mjx-container),
+  .content :is(ul, ol):has(mjx-container) {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-block: 0.25em;
+    scrollbar-width: thin;
+  }
+}
+
 /* ---------- Ad slots ----------
    Kept in static HTML (not JS-injected) so crawlers see them
    on first paint. Swap the placeholder <div> contents for the
