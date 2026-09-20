@@ -269,36 +269,6 @@ pre * {
     padding: 2rem;
     color: #000;
   }
-  body::after { display: none; }
-}
-
-/* ---------- Screenshot watermark ----------
-   A web page can't block screenshots, so this only leaves a trace: a tiled
-   "fulesjegyzetek.hu" at 2.5% opacity, practically invisible while reading
-   but present in a screenshot's pixels (it shows up after a contrast boost).
-   Fixed, so it always covers the viewport, incl. DevTools full-page captures.
-   Sits above content (z-index 1), below the sticky header (50); ad slots and
-   the tip box stay above it (2) so nothing overlays an ad. Don't raise the
-   opacity without asking — the site owner wants it invisible on the site. */
-
-body::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='180'%3E%3Cg fill='white' font-family='Arial,sans-serif' font-size='18' text-anchor='middle'%3E%3Ctext transform='translate(70 50) rotate(-25)'%3Efulesjegyzetek.hu%3C/text%3E%3Ctext transform='translate(210 140) rotate(-25)'%3Efulesjegyzetek.hu%3C/text%3E%3C/g%3E%3C/svg%3E");
-  background-repeat: repeat;
-}
-
-.ad-slot,
-.support-callout {
-  position: relative;
-  z-index: 2;
 }
 
 blockquote {
