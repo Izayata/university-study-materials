@@ -50,7 +50,7 @@
       <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / 1. jegyzet</p>
 
       <h1>Analízis alapjai</h1>
-      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-17</p>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-20</p>
 
       <p>
         Ez a jegyzet az Analízis alapjai témakör első nagy egységét
@@ -523,7 +523,19 @@
         <span class="note-box__label">Bizonyítás — indukcióval</span>
         <ol>
           <li><strong>\(n = 1\) esetén:</strong> \((1+x)^1 = 1+x\) és \(1 + 1\cdot x = 1+x\), azaz egyenlőség teljesül.</li>
-          <li><strong>Indukciós lépés:</strong> \((1+x)^{n+1} = (1+x)^n \cdot (1+x) \ge (1+nx)(1+x) = 1 + x + nx + nx^2 = 1 + (n+1)x + nx^2 \ge 1 + (n+1)x\), mivel \(nx^2 \ge 0\).</li>
+          <li>
+            <strong>Indukciós lépés:</strong>
+            \[
+            \begin{aligned}
+            (1+x)^{n+1} &amp;= (1+x)^n \cdot (1+x) \\
+            &amp;\ge (1+nx)(1+x) \\
+            &amp;= 1 + x + nx + nx^2 \\
+            &amp;= 1 + (n+1)x + nx^2 \\
+            &amp;\ge 1 + (n+1)x,
+            \end{aligned}
+            \]
+            mivel \(nx^2 \ge 0\).
+          </li>
         </ol>
       </div>
 
