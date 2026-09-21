@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Torlódási pontok, limes superior és limes inferior | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="A sorozat torlódási pontja és jellemzése, a limes superior és a limes inferior, és a becslések, amelyeket a sorok gyök- és hányadoskritériuma használ, bizonyítással — DE TTK Matematika BSc 2023/2025, Mély bevezetés az analízisbe.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/jegyzet6/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 6 of 16 — see part 1's head comment for the shape rationale.
+
+  Source fixes here: "definiciom" (an undeclared LaTeX environment,
+  typed twice) is a plain Definíció; the characterisation theorem says
+  "végtelen sok sorozatelem", which is imprecise for a constant sequence
+  (one value, infinitely many terms): it is "infinitely many indices n
+  with x_n in V".
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (flagged here and in
+  the PR description): the proof of the characterisation of accumulation
+  points; the theorem that every sequence has an accumulation point in
+  the extended reals and the proof of the source's remark that limsup and
+  liminf always exist; the proof that a convergent sequence has
+  limsup = liminf = its limit; and the lemma with the four estimates
+  ("limsup < c implies x_n < c eventually", ...), which the source never
+  states but which the root and ratio criteria of part 9 need.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/">Mély bevezetés az analízisbe</a> / 6. jegyzet</p>
+
+      <h1>Torlódási pontok, limes superior és limes inferior</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a nem konvergens sorozatok szerkezetét is leírja: azt
+        a pontot nevezi torlódási pontnak, amelynek tetszőleges környezete
+        végtelen sok tagot tartalmaz, és a torlódási pontok legnagyobb és
+        legkisebb elemeként bevezeti a limes superiort és a limes
+        inferiort. Ezek a sorok gyök- és hányadoskritériumának eszközei.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Torlódási pont, jellemzése környezetekkel</li>
+        <li>Minden sorozatnak van torlódási pontja</li>
+        <li>Limes superior és limes inferior</li>
+        <li>Konvergens sorozat limes superiorja és limes inferiorja</li>
+        <li>Becslések a limes superiorral és a limes inferiorral</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Valós számsorozatok torlódási pontjai</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Torlódási pont</span>
+        <p>
+          Legyen \((x_n)_{n \in \mathbb{N}}\) egy valós számsorozat. Azt
+          mondjuk, hogy \(x \in \overline{\mathbb{R}}\) a
+          \((x_n)_{n \in \mathbb{N}}\) sorozat <strong>torlódási
+          pontja</strong>, ha a sorozatnak van olyan
+          \((x_{n_k})_{k \in \mathbb{N}}\) részsorozata, melyre:
+        </p>
+        \[
+        \lim_{k \to \infty} x_{n_k} = x
+        \]
+      </div>
+
+      <h3>Példa a torlódási pontokra</h3>
+      <p>Tekintsük az \(x_n = (-1)^n\) (\(n \in \mathbb{N}\)) sorozatot.</p>
+      <ul>
+        <li>A páros indexű részsorozat: \(x_{2n} = 1 \to 1\), így az \(1\) torlódási pont.</li>
+        <li>A páratlan indexű részsorozat: \(x_{2n+1} = -1 \to -1\), így a \(-1\) is torlódási pont.</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Torlódási pont karakterizációja</span>
+        <p>
+          Legyen \((x_n)_{n \in \mathbb{N}}\) valós számsorozat. Ekkor
+          \(x \in \overline{\mathbb{R}}\) pontosan akkor torlódási pontja a
+          sorozatnak, ha az \(x\) pont tetszőleges \(V\) környezetében
+          végtelen sok sorozatelem van (pontosabban: az
+          \(\{n \in \mathbb{N} : x_n \in V\}\) halmaz végtelen).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>(⟹)</strong> Ha \(x_{n_k} \to x\) és \(V\) az \(x\)
+          környezete, akkor \(x_{n_k} \in V\) legfeljebb véges sok \(k\)
+          kivételével. Az \(n_k\) indexek különbözők, ezért végtelen sok
+          \(n\)-re \(x_n \in V\).
+        </p>
+        <p>
+          <strong>(⟸)</strong> Legyen \(V_k\) az \(x\) környezete:
+          \(]x - \frac1k, x + \frac1k[\), ha \(x \in \mathbb{R}\);
+          \(]k, +\infty]\), ha \(x = +\infty\); \([-\infty, -k[\), ha
+          \(x = -\infty\). Ezek egymásba ágyazottak
+          (\(V_{k+1} \subseteq V_k\)), és az \(x\) minden környezete
+          tartalmaz egy \(V_k\)-t. Mivel \(V_k\)-ban végtelen sok tag van,
+          választhatunk olyan \(n_1 &lt; n_2 &lt; \dots\) indexeket, hogy
+          \(x_{n_k} \in V_k\) (minden lépésben van az előző indexnél
+          nagyobb). Ha \(V\) az \(x\) környezete, és \(V_{k_0} \subseteq V\),
+          akkor \(k \ge k_0\) esetén \(x_{n_k} \in V_k \subseteq V_{k_0} \subseteq V\),
+          tehát \(x_{n_k} \to x\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Minden sorozatnak van torlódási pontja (kiegészítés)</span>
+        <p>
+          Minden valós számsorozatnak van torlódási pontja
+          \(\overline{\mathbb{R}}\)-ben.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A 3. jegyzet szerint van monoton részsorozat. Ha korlátos, akkor
+          konvergens (2. jegyzet), határértéke valós torlódási pont. Ha
+          nem korlátos, akkor monoton növekvő esetben felülről nem
+          korlátos, és \(+\infty\)-be tart; monoton csökkenő esetben
+          alulról nem korlátos, és \(-\infty\)-be tart (2. jegyzet
+          megjegyzése). Mindenképp van torlódási pont.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Limes superior és limes inferior</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Torlódási pontok halmazának szélsőértékei</span>
+        <p>
+          Legyen \((x_n)_{n \in \mathbb{N}}\) valós számsorozat. Ekkor az
+          \((x_n)_{n \in \mathbb{N}}\) sorozat torlódási pontjainak
+          halmazának a
+        </p>
+        <ul>
+          <li><strong>pontos felső korlátját</strong> a sorozat <strong>limes superiorának</strong> nevezzük, és \(\limsup_{n \to \infty} x_n\)-nel jelöljük.</li>
+          <li><strong>pontos alsó korlátját</strong> a sorozat <strong>limes inferiorának</strong> nevezzük, és \(\liminf_{n \to \infty} x_n\)-nel jelöljük.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés</span>
+        <p>
+          Tetszőleges valós számsorozatnak mindig létezik a limes
+          superiora és a limes inferiora.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A torlódási pontok \(T\) halmaza nem üres (az előző tétel), és
+          \(\overline{\mathbb{R}}\) minden nem üres részhalmazának van
+          szuprémuma és infimuma: ha \(+\infty \in T\), a szuprémum
+          \(+\infty\); ha \(T \cap \mathbb{R}\) nem üres és felülről
+          korlátos, a szuprémuma valós; ha \(T \cap \mathbb{R}\) felülről
+          nem korlátos, a szuprémum \(+\infty\); ha \(T = \{-\infty\}\),
+          akkor \(-\infty\). Az infimum hasonlóan.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Legyen \((x_n)_{n \in \mathbb{N}}\) olyan valós számsorozat,
+          melyre \(\lim_{n \to \infty} x_n = x \in \overline{\mathbb{R}}\).
+          Ekkor:
+        </p>
+        \[
+        \liminf_{n \to \infty} x_n = \limsup_{n \to \infty} x_n = \lim_{n \to \infty} x_n = x
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Minden részsorozat határértéke is \(x\) (2. jegyzet), tehát
+          \(x\) az egyetlen torlódási pont, és van torlódási pont: a
+          torlódási pontok halmaza \(\{x\}\), így a szuprémuma és az
+          infimuma is \(x\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Lemma — Becslések a limes superiorral és limes inferiorral (kiegészítés)</span>
+        <p>Legyen \((x_n)\) valós számsorozat és \(c \in \mathbb{R}\). Ekkor:</p>
+        <ol>
+          <li>Ha \(\limsup x_n &lt; c\), akkor \(x_n &lt; c\) legfeljebb véges sok \(n\) kivételével.</li>
+          <li>Ha \(\limsup x_n &gt; c\), akkor \(x_n &gt; c\) végtelen sok \(n\)-re.</li>
+          <li>Ha \(\liminf x_n &gt; c\), akkor \(x_n &gt; c\) legfeljebb véges sok \(n\) kivételével.</li>
+          <li>Ha \(\liminf x_n &lt; c\), akkor \(x_n &lt; c\) végtelen sok \(n\)-re.</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>1.</strong> Tegyük fel indirekt, hogy \(x_n \ge c\)
+          végtelen sok \(n\)-re, ezek \(n_1 &lt; n_2 &lt; \dots\). A
+          \((x_{n_k})\) részsorozatnak van torlódási pontja \(t\) (az
+          előző tétel), azaz van olyan további részsorozata, amely
+          \(t\)-hez tart; ez az eredeti sorozatnak is részsorozata, így
+          \(t\) az \((x_n)\) torlódási pontja. Mivel a részsorozat minden
+          tagja \(\ge c\), a Rendezési tétel (4. jegyzet) szerint
+          \(t \ge c\), és így \(\limsup x_n \ge t \ge c\), ellentmondás.
+        </p>
+        <p>
+          <strong>2.</strong> A szuprémum definíciója szerint van olyan
+          \(t\) torlódási pont, hogy \(t &gt; c\). Ekkor a \(]c, +\infty]\)
+          halmaz tartalmazza \(t\) egy \(V\) környezetét (\(t \in \mathbb{R}\)
+          esetén \(V = ]c, 2t - c[\), \(t = +\infty\) esetén \(V\) maga a
+          \(]c, +\infty]\)), és a karakterizáció szerint \(V\) végtelen sok
+          tagot tartalmaz.
+        </p>
+        <p>
+          <strong>3., 4.</strong> A \((-x_n)\) sorozat torlódási pontjai
+          az \((x_n)\) torlódási pontjainak ellentettjei, így
+          \(\liminf x_n = -\limsup(-x_n)\), és az 1., 2. pontot a
+          \((-x_n)\) sorozatra, a \(-c\) számmal alkalmazzuk.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
