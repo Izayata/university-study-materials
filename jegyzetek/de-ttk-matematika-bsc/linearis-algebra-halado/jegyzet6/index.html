@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Ortonormált bázisok, Gram–Schmidt, komplementum, Bessel | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Ortonormált rendszer és bázis, a Gram–Schmidt-eljárás, az ortogonális komplementum és vetület, a Parseval-egyenlőség és a Bessel-egyenlőtlenség, az euklideszi terek izomorfiája bizonyítással — DE TTK Matematika BSc 2023/2025, Lineáris algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/jegyzet6/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 6 of 12 — see jegyzet1's head comment for the shape rationale.
+
+  Source fixes here: "párhuzamosan merőleges" is "páronként merőleges";
+  the one stray "[cite: 107, 109]" is dropped; the Gram–Schmidt theorem
+  said "jelöléstől eltekintve egyértelmű" — the basis is unique up to the
+  signs of its vectors, and unique once (b_k, e_k) > 0 is required, which
+  is now what the statement says; the theorem titled "Bessel-egyenlőtlenség"
+  also contains the Parseval equality (the full sum), so it is retitled
+  and the partial sum is stated for k <= n (the source had k < n);
+  "ahol" is out of the formula in the projection decomposition; the
+  decomposition sentence that stood loose before the projection
+  definition is the lead-in of that definition. E is finite dimensional
+  throughout (the source never said so, the proofs need it).
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description): the proofs that an orthonormal
+  system is independent, of the Gram–Schmidt theorem (existence,
+  spans, uniqueness up to sign), of the three properties of the
+  orthogonal complement, the formula pi_L(a) = sum (a, e_i) e_i for the
+  projection (a direct consequence of the complement proof), the proof
+  of the Parseval equality and the Bessel inequality, and the proof
+  that Euclidean spaces are isomorphic iff their dimensions agree. The
+  source stated all of these without proof.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/">Lineáris algebra haladó</a> / 6. jegyzet</p>
+
+      <h1>Ortonormált bázisok, Gram–Schmidt, ortogonális komplementum, Bessel</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet az euklideszi terek szerkezetét vizsgálja: ortonormált
+        bázist épít bármely bázisból (Gram–Schmidt), felbontja a teret egy
+        altér és ortogonális komplementuma összegére, koordinátákkal fejezi
+        ki a norma négyzetét (Parseval, Bessel), és megmutatja, hogy az
+        azonos dimenziós euklideszi terek lényegében ugyanazok. Az \(E\)
+        euklideszi tér mindenütt véges dimenziós.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Ortonormált rendszer és ortonormált bázis</li>
+        <li>Gram–Schmidt-féle ortogonalizációs eljárás</li>
+        <li>Ortogonális komplementum és tulajdonságai</li>
+        <li>Ortogonális vetület</li>
+        <li>Parseval-egyenlőség és Bessel-egyenlőtlenség</li>
+        <li>Euklideszi terek izomorfiája</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Ortonormált rendszerek és bázisok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Ortonormált rendszer</span>
+        <p>
+          Az \(e_1, \dots, e_k \in E\) vektorrendszer <strong>ortonormált
+          rendszer</strong>, ha páronként merőleges egységvektorokból áll,
+          azaz:
+        </p>
+        \[
+        (e_i, e_j) = \delta_{ij} = \begin{cases} 1, &amp; \text{ha } i = j \\ 0, &amp; \text{ha } i \neq j \end{cases}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — Ortonormált rendszer függetlensége</span>
+        <p>Az ortonormált vektorrendszer mindig lineárisan független.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Ha \(c_1 e_1 + \dots + c_k e_k = 0\), akkor ezt \(e_j\)-vel
+          skalárisan szorozva \(\sum_i c_i (e_i, e_j) = c_j = 0\) minden
+          \(j\)-re, tehát csak a triviális kombináció adja a nullvektort.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Ortonormált bázis</span>
+        <p>
+          Az \(e_1, \dots, e_n \in E\) rendszer <strong>ortonormált
+          bázis</strong>, ha olyan ortonormált vektorrendszer, mely egyben
+          bázis is.
+        </p>
+      </div>
+
+      <h2>Gram–Schmidt-féle ortogonalizációs eljárás</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Gram–Schmidt-féle ortogonalizációs eljárás</span>
+        <p>
+          Legyen \((b_1, \dots, b_n)\) bázis \(E\)-ben. Ekkor létezik olyan
+          \((e_1, \dots, e_n)\) ortonormált bázis, melyre:
+        </p>
+        \[
+        \mathcal{L}(b_1, \dots, b_k) = \mathcal{L}(e_1, \dots, e_k) \quad (k = 1, \dots, n)
+        \]
+        <p>
+          Ez a bázis az előjelektől eltekintve egyértelmű: bármely másik
+          ilyen bázis vektorai \(\pm e_k\) alakúak, és ha megköveteljük,
+          hogy \((b_k, e_k) > 0\) legyen minden \(k\)-ra, akkor egyetlen
+          ilyen bázis van.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Konstrukció — A Gram–Schmidt-eljárás lépései</span>
+        \[
+        e_1 = \frac{b_1}{\|b_1\|}, \quad e'_{k+1} = b_{k+1} - (b_{k+1}, e_1)e_1 - \dots - (b_{k+1}, e_k)e_k, \quad e_{k+1} = \frac{e'_{k+1}}{\|e'_{k+1}\|}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>Létezés</strong>, indukcióval \(k\)-ra. A \(b_1\) nem
+          nulla (a \(b_i\) függetlenek), így \(e_1 = b_1/\|b_1\|\) egység
+          hosszú, és \(\mathcal{L}(e_1) = \mathcal{L}(b_1)\). Tegyük fel,
+          hogy az \(e_1, \dots, e_k\) ortonormált rendszer, és
+          \(\mathcal{L}(e_1, \dots, e_k) = \mathcal{L}(b_1, \dots, b_k)\).
+          Az \(e'_{k+1}\) nem nulla: különben \(b_{k+1}\) az
+          \(e_1, \dots, e_k\) kombinációja, azaz
+          \(b_1, \dots, b_k\)-é lenne, a \(b_i\) függetlensége ellenére. Az
+          \(e'_{k+1}\) minden \(e_j\)-re (\(j \le k\)) merőleges:
+        </p>
+        \[
+        (e'_{k+1}, e_j) = (b_{k+1}, e_j) - (b_{k+1}, e_j)\,(e_j, e_j) = 0,
+        \]
+        <p>
+          (az ortonormáltság miatt az összegből csak az \(i = j\) tag
+          marad), így \(e_{k+1} = e'_{k+1}/\|e'_{k+1}\|\)-gyel az
+          \(e_1, \dots, e_{k+1}\) ortonormált rendszer. Az \(e_{k+1}\) az
+          \(b_{k+1}, e_1, \dots, e_k\), tehát a \(b_1, \dots, b_{k+1}\)
+          kombinációja, ezért
+          \(\mathcal{L}(e_1, \dots, e_{k+1}) \subseteq \mathcal{L}(b_1, \dots, b_{k+1})\);
+          mindkét altér \((k+1)\)-dimenziós (az \(e_i\) függetlenek), így
+          egyenlők. Ez a konstrukció \((b_{k+1}, e_{k+1}) = \|e'_{k+1}\| > 0\)-t
+          ad, mert \(b_{k+1} = e'_{k+1} + \sum_{i \le k} (b_{k+1}, e_i) e_i\),
+          és \(e_{k+1} \perp e_i\).
+        </p>
+        <p>
+          <strong>Egyértelműség.</strong> Legyen \((f_1, \dots, f_n)\) is
+          ortonormált bázis, amelyre
+          \(\mathcal{L}(f_1, \dots, f_k) = \mathcal{L}(b_1, \dots, b_k) = \mathcal{L}(e_1, \dots, e_k)\)
+          minden \(k\)-ra. Ekkor \(f_k = \sum_{i \le k} \gamma_i e_i\), és
+          \(f_k\) merőleges az \(\mathcal{L}(f_1, \dots, f_{k-1}) = \mathcal{L}(e_1, \dots, e_{k-1})\)
+          altérre, így \(\gamma_i = (f_k, e_i) = 0\), ha \(i < k\). Tehát
+          \(f_k = \gamma_k e_k\), és \(\|f_k\| = 1\) miatt \(\gamma_k = \pm 1\).
+          Ha még \((b_k, f_k) > 0\) is teljesül, akkor
+          \(\gamma_k (b_k, e_k) > 0\), és \((b_k, e_k) > 0\) miatt
+          \(\gamma_k = +1\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Ortogonális komplementum</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Ortogonális komplementum</span>
+        <p>
+          Az \(E\) euklideszi tér \(L\) alterének <strong>ortogonális
+          komplementuma</strong>:
+        </p>
+        \[
+        L^\perp = \{x \in E \mid \forall y \in L : x \perp y\}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Ortogonális komplementum tulajdonságai</span>
+        <ol>
+          <li>\(L^\perp\) altér \(E\)-ben.</li>
+          <li>\(L \oplus L^\perp = E\).</li>
+          <li>\((L^\perp)^\perp = L\).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>1.</strong> \(0 \in L^\perp\), és ha \(x, x' \in L^\perp\)
+          és \(\lambda \in \mathbb{R}\), akkor minden \(y \in L\)-re
+          \((x + x', y) = (x, y) + (x', y) = 0\) és
+          \((\lambda x, y) = \lambda (x, y) = 0\) a bilinearitás miatt.
+        </p>
+        <p>
+          <strong>2.</strong> Ha \(x \in L \cap L^\perp\), akkor
+          \(x\) önmagára is merőleges, \((x, x) = 0\), tehát \(x = 0\);
+          így az összeg direkt. Legyen \((e_1, \dots, e_k)\) az \(L\)
+          ortonormált bázisa (a Gram–Schmidt-eljárás egy tetszőleges
+          bázisból ilyet ad; az \(L\) a megszorított belső szorzattal maga
+          is euklideszi tér). Tetszőleges \(a \in E\)-re legyen
+          \(x = \sum_{i=1}^k (a, e_i)\, e_i \in L\) és \(y = a - x\).
+          Ekkor minden \(j \le k\)-ra
+          \((y, e_j) = (a, e_j) - (a, e_j) = 0\), tehát \(y\) az \(L\)
+          minden elemére (az \(e_j\) kombinációira) merőleges, azaz
+          \(y \in L^\perp\). Így \(a = x + y \in L + L^\perp\).
+        </p>
+        <p>
+          <strong>3.</strong> Ha \(y \in L\) és \(z \in L^\perp\), akkor
+          \((y, z) = 0\), vagyis \(y\) merőleges \(L^\perp\) minden
+          elemére: \(L \subseteq (L^\perp)^\perp\). A 2. pont miatt
+          \(\dim L^\perp = n - \dim L\), és ugyanígy
+          \(\dim (L^\perp)^\perp = n - \dim L^\perp = \dim L\). Egy véges
+          dimenziós altér és egy vele azonos dimenziós része megegyezik,
+          tehát \((L^\perp)^\perp = L\).
+        </p>
+      </div>
+
+      <h2>Ortogonális vetület, Parseval és Bessel</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Ortogonális vetület (Projekció)</span>
+        <p>
+          Mivel \(E = L \oplus L^\perp\), minden \(a \in E\) egyértelműen
+          felírható:
+        </p>
+        \[
+        a = x + y, \quad x \in L, \; y \in L^\perp
+        \]
+        <p>
+          Az \(\pi_L(a) = x\) leképezést az \(a \in E\) vektor \(L\)-re
+          vonatkozó <strong>ortogonális vetületének</strong> nevezzük.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — A vetület képlete (kiegészítés)</span>
+        <p>
+          Ha \((e_1, \dots, e_k)\) az \(L\) ortonormált bázisa, akkor
+        </p>
+        \[
+        \pi_L(a) = \sum_{i=1}^k (a, e_i)\, e_i.
+        \]
+        <p>
+          Valóban: a komplementum tulajdonságainak bizonyításában az
+          \(x = \sum_i (a, e_i) e_i \in L\) és \(y = a - x \in L^\perp\)
+          szereplőkkel \(a = x + y\) volt, és a felbontás egyértelmű.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Parseval-egyenlőség és Bessel-egyenlőtlenség</span>
+        <p>
+          Legyen \((e_1, \dots, e_n)\) ortonormált bázis \(E\)-ben. Ekkor
+          tetszőleges \(x \in E\) vektorra:
+        </p>
+        \[
+        \|x\|^2 = (x, e_1)^2 + \dots + (x, e_n)^2
+        \]
+        <p>
+          Ha \(k \le n\)-re a részletösszeget vizsgáljuk, akkor fennáll a
+          <strong>Bessel-egyenlőtlenség</strong>:
+        </p>
+        \[
+        \|x\|^2 \ge (x, e_1)^2 + \dots + (x, e_k)^2
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az \(x = \sum_i c_i e_i\) felírást \(e_j\)-vel skalárisan
+          szorozva \((x, e_j) = \sum_i c_i (e_i, e_j) = c_j\), tehát
+          \(x = \sum_i (x, e_i) e_i\), és
+        </p>
+        \[
+        \|x\|^2 = (x, x) = \sum_{i=1}^n \sum_{j=1}^n (x, e_i)(x, e_j)\,(e_i, e_j) = \sum_{i=1}^n (x, e_i)^2.
+        \]
+        <p>
+          A Bessel-egyenlőtlenség ebből következik: a
+          \(k+1, \dots, n\) indexű tagok négyzetek, tehát nemnegatívak, és
+          elhagyásuk az összeget nem növeli.
+        </p>
+      </div>
+
+      <h2>Euklideszi terek izomorfizmusa</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Euklideszi terek izomorfizmusa</span>
+        <p>
+          Az \(E_1\) és \(E_2\) euklideszi terek <strong>izomorfak</strong>,
+          ha van olyan \(\varphi: E_1 \to E_2\) leképezés, mely bijektív,
+          lineáris és megtartja a belső szorzatot, azaz:
+        </p>
+        \[
+        \forall x, y \in E_1 : (\varphi(x), \varphi(y))_2 = (x, y)_1
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Az \(E_1\) és \(E_2\) euklideszi terek pontosan akkor izomorfak,
+          ha:
+        </p>
+        \[
+        \dim E_1 = \dim E_2
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          (⟹) Az izomorfizmus vektortér-izomorfizmus is (bijektív és
+          lineáris), ezért a dimenziók megegyeznek.
+        </p>
+        <p>
+          (⟸) Legyen \(\dim E_1 = \dim E_2 = n\). A Gram–Schmidt-eljárással
+          válasszunk ortonormált bázist az \(E_1\)-ben, \((e_1, \dots, e_n)\)-t,
+          és az \(E_2\)-ben, \((f_1, \dots, f_n)\)-t. A
+          \(\varphi\left(\sum x_i e_i\right) = \sum x_i f_i\) lineáris
+          leképezés bázist bázisba visz, ezért bijektív. Ha
+          \(x = \sum x_i e_i\) és \(y = \sum y_j e_j\), akkor mindkét
+          bázis ortonormáltsága miatt
+        </p>
+        \[
+        (x, y)_1 = \sum_{i=1}^n x_i y_i = (\varphi(x), \varphi(y))_2,
+        \]
+        <p>tehát \(\varphi\) megtartja a belső szorzatot.</p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
