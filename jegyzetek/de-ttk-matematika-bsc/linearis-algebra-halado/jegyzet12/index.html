@@ -284,7 +284,10 @@
           az
         </p>
         \[
-        (A_{33} v)^T x + b^T v = 0, \quad \text{azaz} \quad v_1(a_{11}x_1 + a_{12}x_2 + a_{13}) + v_2(a_{12}x_1 + a_{22}x_2 + a_{23}) = 0
+        \begin{gathered}
+        (A_{33} v)^T x + b^T v = 0, \\
+        \text{azaz} \quad v_1(a_{11}x_1 + a_{12}x_2 + a_{13}) + v_2(a_{12}x_1 + a_{22}x_2 + a_{23}) = 0
+        \end{gathered}
         \]
         <p>
           egyenletű egyenes. A \(v\)-hez <strong>konjugált irány</strong>
@@ -425,7 +428,10 @@
           elforgatás. Ekkor
         </p>
         \[
-        F(Sy) = y^T (S^T A_{33} S)\, y + 2 (S^T b)^T y + a_{33} = \lambda_1 y_1^2 + \lambda_2 y_2^2 + 2c_{13}y_1 + 2c_{23}y_2 + c_{33},
+        \begin{aligned}
+        F(Sy) &amp;= y^T (S^T A_{33} S)\, y + 2 (S^T b)^T y + a_{33} \\
+        &amp;= \lambda_1 y_1^2 + \lambda_2 y_2^2 + 2c_{13}y_1 + 2c_{23}y_2 + c_{33},
+        \end{aligned}
         \]
         <p>
           ahol \((c_{13}, c_{23})^T = S^T b\) és \(c_{33} = a_{33}\). Ennek

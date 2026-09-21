@@ -145,7 +145,11 @@
       <div class="note-box">
         <span class="note-box__label">Konstrukció — A Gram–Schmidt-eljárás lépései</span>
         \[
-        e_1 = \frac{b_1}{\|b_1\|}, \quad e'_{k+1} = b_{k+1} - (b_{k+1}, e_1)e_1 - \dots - (b_{k+1}, e_k)e_k, \quad e_{k+1} = \frac{e'_{k+1}}{\|e'_{k+1}\|}
+        \begin{aligned}
+        e_1 &amp;= \frac{b_1}{\|b_1\|}, \\
+        e'_{k+1} &amp;= b_{k+1} - (b_{k+1}, e_1)e_1 - \dots - (b_{k+1}, e_k)e_k, \\
+        e_{k+1} &amp;= \frac{e'_{k+1}}{\|e'_{k+1}\|}
+        \end{aligned}
         \]
       </div>
 
