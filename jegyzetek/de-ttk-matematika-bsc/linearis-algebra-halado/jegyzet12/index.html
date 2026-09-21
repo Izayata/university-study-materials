@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Másodrendű görbék | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Másodrendű görbék mátrixos leírása: aszimptotikus irányok és típusok, centrum, átmérő és főtengely, a főtengely-transzformáció és az osztályozás (ellipszis, hiperbola, parabola és elfajult esetek) bizonyítással — DE TTK Matematika BSc 2023/2025, Lineáris algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/jegyzet12/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 12 of 12 — see jegyzet1's head comment for the shape rationale.
+
+  Source fixes here (the source has several real problems in this part):
+  - "az síkon" is "a síkon"; "[cite: 82]", "[cite: 83]" and
+    "[cite: 87, 88]" are dropped; the section title "Aszimptoták és
+    görbetípusok" is "Aszimptotikus irányok és görbetípusok" (asymptotes
+    are never discussed, asymptotic directions are).
+  - The centre: the source defines it as a point set ("for every point A
+    of the curve there is a point B of the curve with P the midpoint of
+    AB") and claims "centrális iff |A_33| != 0". As a point-set
+    statement that is false: a pair of parallel lines has a whole line of
+    centres although |A_33| = 0, and for the empty curve every point is
+    vacuously a centre. The proofs need the equation form, so the centre
+    is made precise as F(2d - x) = F(x) for all x (the equation is
+    unchanged by the reflection in d), which agrees with the source's
+    for a curve with enough points, and "centrális" is "has exactly one
+    centre". The source's own system sum a_ik d_k + a_i3 = 0 is exactly
+    the condition, and is proved.
+  - "Minden másodrendű görbének van 1 vagy 2 főtengelye" is false for a
+    circle (every diameter is a principal axis); the proof gives "at
+    least one" and the statement says so.
+  - The source used k in the classification but never defined it. For
+    the centric curves k = |A| / |A_33| (the constant term of the
+    equation translated to the centre), for the degenerate parabolic
+    case k = lambda_1 c_33 - c_13^2 (from the reduced equation). The
+    signs in the source's lists (k < 0: real ellipse, ...) hold for the
+    normalisation lambda_1, lambda_2 > 0 (multiply the equation by -1
+    if needed), which the statement now says; the source only hinted at
+    it ("vagy mindkettő negatív").
+  - The letter C stood for two different matrices (the new core matrix
+    and the new base matrix): they are C_33 and C here; "Q az ortogonális
+    transzformáció mátrixa" is the explicit block matrix diag(S, 1).
+  - The statement "az elfajult / nem elfajult ..., a főtengelyek számát"
+    is kept as a list of what the principal axis transformation
+    preserves, and proved.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description): the vector form and notation
+  F(x) = x^T A_33 x + 2 b^T x + a_33; the definitions of the asymptotic
+  direction, of the diameter and of the conjugate direction (the
+  source uses all three without defining them); the proofs of the type
+  theorem (via the eigenvalues of A_33), of the centre theorem, of the
+  statement that the midpoints of parallel chords lie on the diameter,
+  of the existence of a principal axis (v is a principal direction iff v
+  is an eigenvector of A_33 with a non-zero eigenvalue), of the
+  principal axis transformation, of what it preserves, of the canonical
+  forms (completing the squares, and k = |A| / |A_33|) and of the three
+  classification lists. The names of the curves (real ellipse, point
+  ellipse, imaginary ellipse, ...) are given their meaning by the
+  canonical forms. The source stated all of these without proof.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/">Lineáris algebra haladó</a> / 12. jegyzet</p>
+
+      <h1>Másodrendű görbék</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a sík másodrendű görbéit (kúpszeleteit) mátrixokkal
+        írja le: a magmátrix determinánsának előjeléből megadja a görbe
+        típusát, a centrumot és a főtengelyeket az együtthatókból
+        számolja, és a főtengely-transzformációval minden görbét
+        alapalakra hoz, amiből az osztályozás (ellipszis, hiperbola,
+        parabola és az elfajult esetek) leolvasható. Ez a sorozat
+        alkalmazása: a szimmetrikus mátrixok spektráltétele (9. jegyzet)
+        adja a főtengelyeket.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Másodrendű görbe, magmátrix és alapmátrix</li>
+        <li>Aszimptotikus irányok, elliptikus, hiperbolikus és parabolikus típus</li>
+        <li>Centrum, átmérő, konjugált irány és főtengely</li>
+        <li>Főtengely-transzformáció, amit megőriz</li>
+        <li>A másodrendű görbék osztályozása</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Másodrendű görbék</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Másodrendű görbe</span>
+        <p>
+          <strong>Másodrendű görbének</strong> nevezzük a síkon azon
+          \((x_1, x_2)\) pontjainak halmazát, melyre:
+        </p>
+        \[
+        a_{11} x_1^2 + 2a_{12} x_1 x_2 + a_{22} x_2^2 + 2a_{13} x_1 + 2a_{23} x_2 + a_{33} = 0
+        \]
+        <p>
+          ahol \(a_{11}^2 + a_{12}^2 + a_{22}^2 > 0\) (a másodfokú rész nem
+          nulla).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">A görbe mátrixai</span>
+        <p>A mátrixok:</p>
+        \[
+        A_{33} = \begin{pmatrix} a_{11} &amp; a_{12} \\ a_{12} &amp; a_{22} \end{pmatrix} \quad (\text{magmátrix}), \quad
+        A = \begin{pmatrix} a_{11} &amp; a_{12} &amp; a_{13} \\ a_{12} &amp; a_{22} &amp; a_{23} \\ a_{13} &amp; a_{23} &amp; a_{33} \end{pmatrix} \quad (\text{alapmátrix})
+        \]
+        <p>
+          Vektoros alakban: \(X^T A X = 0\), ahol
+          \(X = \begin{pmatrix} x_1 \\ x_2 \\ 1 \end{pmatrix}\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — vektoros alak és jelölés</span>
+        <p>
+          Az \(X^T A X = \sum_{i,j} a_{ij} X_i X_j\) kifejtve
+          \(a_{11}x_1^2 + a_{22}x_2^2 + 2a_{12}x_1x_2 + 2a_{13}x_1 + 2a_{23}x_2 + a_{33}\)
+          (a szimmetria miatt a vegyes tagok kétszer szerepelnek), ez a
+          görbe egyenletének bal oldala. A továbbiakban ezt
+        </p>
+        \[
+        F(x) = x^T A_{33}\, x + 2 b^T x + a_{33}, \qquad x = \begin{pmatrix} x_1 \\ x_2 \end{pmatrix}, \ b = \begin{pmatrix} a_{13} \\ a_{23} \end{pmatrix}
+        \]
+        <p>
+          alakban használjuk; a görbe az \(F(x) = 0\) pontok halmaza.
+        </p>
+      </div>
+
+      <h2>Aszimptotikus irányok és görbetípusok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Aszimptotikus irány (kiegészítés)</span>
+        <p>
+          A \(v \neq 0\) vektor iránya (a nem nulla számszorosaival együtt)
+          <strong>aszimptotikus irány</strong>, ha
+        </p>
+        \[
+        q(v) = v^T A_{33}\, v = a_{11}v_1^2 + 2a_{12}v_1v_2 + a_{22}v_2^2 = 0.
+        \]
+        <p>
+          Ekkor az \(x + tv\) egyenesen az \(F\) értéke \(t\)-ben legfeljebb
+          elsőfokú, hiszen
+          \(F(x + tv) = q(v)\,t^2 + 2\,(A_{33}x + b)^T v \; t + F(x)\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — A diszkrimináns</span>
+        <p>
+          A \(q(t, 1) = a_{11}t^2 + 2a_{12}t + a_{22}\) diszkriminánsa:
+        </p>
+        \[
+        D = 4 a_{12}^2 - 4 a_{11} a_{22} = -4 |A_{33}|
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — A görbe típusa</span>
+        <p>A görbe típusa:</p>
+        <ul>
+          <li><strong>Elliptikus</strong>, ha nincs aszimptotikus iránya \(\iff |A_{33}| > 0\).</li>
+          <li><strong>Hiperbolikus</strong>, ha \(2\) aszimptotikus iránya van \(\iff |A_{33}| < 0\).</li>
+          <li><strong>Parabolikus</strong>, ha \(1\) aszimptotikus iránya van \(\iff |A_{33}| = 0\).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az \(A_{33}\) valós szimmetrikus, ezért a 9. jegyzet szerint van
+          sajátvektorokból álló ortonormált \((f_1, f_2)\) bázisa, a
+          \(\lambda_1, \lambda_2\) sajátértékek valósak. Ha \(S\) az
+          \(f_j\) oszlopokból álló mátrix, akkor
+          \(S^T A_{33} S = \operatorname{diag}(\lambda_1, \lambda_2)\), és
+          \(\det S = \pm 1\) miatt \(|A_{33}| = \lambda_1\lambda_2\). A
+          \(\lambda_1, \lambda_2\) nem mindkettő nulla, mert a nulla
+          sajátértékű szimmetrikus mátrix nulla, az \(A_{33}\) viszont a
+          feltétel szerint nem az. A \(v = c_1 f_1 + c_2 f_2\) irányra
+          \(q(v) = \lambda_1 c_1^2 + \lambda_2 c_2^2\), és az irányok a
+          \((c_1 : c_2)\) arányokkal azonosíthatók.
+        </p>
+        <ul>
+          <li>\(\lambda_1\lambda_2 > 0\): azonos előjelűek, \(q(v) = 0\) csak \(c_1 = c_2 = 0\)-ra, tehát nincs aszimptotikus irány.</li>
+          <li>\(\lambda_1\lambda_2 < 0\): \(c_1 \neq 0\) és \(c_2/c_1 = \pm\sqrt{-\lambda_1/\lambda_2}\): pontosan két aszimptotikus irány.</li>
+          <li>\(\lambda_1\lambda_2 = 0\): az egyik, mondjuk \(\lambda_1\), nem nulla, \(q(v) = \lambda_1 c_1^2 = 0\) pontosan \(c_1 = 0\)-ra, azaz az \(f_2\) irányára: egyetlen aszimptotikus irány.</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Centrumok és átmérők</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Centrum (pontosítva)</span>
+        <p>
+          A \(P\) pont a görbe <strong>centruma</strong>, ha a görbe
+          bármely \(A\) pontjához van olyan \(B\) pontja, hogy \(P\) az
+          \(AB\) felezőpontja. Pontosan megfogalmazva a görbe egyenletére:
+          a \(P = d\) pont centrum, ha az egyenlet a \(P\)-re való
+          tükrözéssel nem változik,
+        </p>
+        \[
+        F(2d - x) = F(x) \quad \text{minden } x\text{-re}
+        \]
+        <p>
+          (az \(A\) pont tükörképe \(P\)-re \(B = 2d - A\)). A görbe
+          <strong>centrális</strong>, ha pontosan egy centruma van.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — A centrum</span>
+        <p>
+          A görbe pontosan akkor centrális, ha \(|A_{33}| \neq 0\). Ekkor
+          a centrum koordinátái \((d_1, d_2)\)-re teljesül:
+        </p>
+        \[
+        \sum_{k=1}^{2} a_{ik} d_k + a_{i3} = 0 \quad (i = 1, 2)
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az \(A_{33}\) szimmetriája miatt
+        </p>
+        \[
+        F(2d - x) - F(x) = 4\bigl(d^T A_{33} d + b^T d\bigr) - 4\,(A_{33} d + b)^T x.
+        \]
+        <p>
+          Ez akkor és csak akkor nulla minden \(x\)-re, ha az \(x\)
+          együtthatója nulla, \(A_{33} d + b = 0\) (ekkor az állandó tag,
+          \(d^T(A_{33}d + b)\), is nulla). Ez éppen a fenti két egyenlet:
+          az \(i\)-edik sora \(\sum_k a_{ik}d_k + a_{i3} = 0\). Ennek a
+          lineáris egyenletrendszernek pontosan akkor van egyetlen
+          megoldása, ha \(\det A_{33} \neq 0\); ha \(\det A_{33} = 0\),
+          akkor nincs megoldása, vagy végtelen sok van (centrumok egy
+          egyenese), és egyik esetben sincs pontosan egy centrum.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Átmérő és konjugált irány (kiegészítés)</span>
+        <p>
+          Legyen \(v\) nem aszimptotikus irány (\(q(v) \neq 0\), így
+          \(A_{33} v \neq 0\)). A \(v\)-hez tartozó <strong>átmérő</strong>
+          az
+        </p>
+        \[
+        \begin{gathered}
+        (A_{33} v)^T x + b^T v = 0, \\
+        \text{azaz} \quad v_1(a_{11}x_1 + a_{12}x_2 + a_{13}) + v_2(a_{12}x_1 + a_{22}x_2 + a_{23}) = 0
+        \end{gathered}
+        \]
+        <p>
+          egyenletű egyenes. A \(v\)-hez <strong>konjugált irány</strong>
+          az átmérő iránya: az olyan \(w \neq 0\) vektorok, amelyekre
+          \((A_{33} v)^T w = 0\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Párhuzamos húrok felezőpontjai (kiegészítés)</span>
+        <p>
+          A görbe bármely \(v\)-vel párhuzamos húrjának felezőpontja a
+          \(v\)-hez tartozó átmérőn van.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen a húr két végpontja \(m + sv\) és \(m - sv\) (\(s \neq 0\)),
+          felezőpontja \(m\). Mindkét pont a görbén van, ezért
+        </p>
+        \[
+        0 = F(m + sv) - F(m - sv) = 4s\,(A_{33} m + b)^T v,
+        \]
+        <p>
+          (a \(t^2\)-es és az állandó tag kiesik), amiből
+          \((A_{33}v)^T m + b^T v = 0\): \(m\) rajta van az átmérőn.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Főtengely (pontosítva)</span>
+        <p>
+          Az átmérő <strong>főtengely</strong>, ha merőleges a hozzá
+          konjugált irányhoz: a \(v\)-hez tartozó átmérő főtengely, ha
+          merőleges \(v\)-re.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Főtengely létezése</span>
+        <p>Minden másodrendű görbének van (legalább egy) főtengelye.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A \(v\)-hez tartozó átmérő normálvektora \(A_{33} v\), ezért az
+          átmérő pontosan akkor merőleges \(v\)-re, ha \(v\) párhuzamos a
+          normálvektorával, azaz \(A_{33} v = \lambda v\): a főtengelyek a
+          nem nulla \(\lambda\) sajátértékű sajátirányokhoz tartozó
+          átmérők (\(\lambda \neq 0\), mert \(A_{33}v \neq 0\); és fordítva,
+          nem nulla sajátértékű sajátvektorra \(q(v) = \lambda |v|^2 \neq 0\),
+          így az átmérő értelmes).
+        </p>
+        <p>
+          Az \(A_{33} \neq 0\) valós szimmetrikus mátrixnak a 9. jegyzet
+          szerint van sajátvektorokból álló ortonormált bázisa, és a
+          sajátértékei nem mind nullák. Egy nem nulla \(\lambda\)
+          sajátértékű \(v\) sajátvektorhoz tartozó átmérő tehát
+          főtengely. (Ha \(\lambda_1 = \lambda_2\), minden átmérő
+          főtengely, például a körnél.)
+        </p>
+      </div>
+
+      <h2>Főtengely-transzformáció</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">A főtengely-transzformáció</span>
+        <p>
+          Az eredeti \((e_1, e_2)\) bázist átvisszük az \(A_{33}\)
+          magmátrix sajátvektoraiból álló ortonormált bázisba: az \(S\)
+          mátrix oszlopai e sajátvektorok koordinátái, és
+        </p>
+        \[
+        \begin{pmatrix} y_1 \\ y_2 \end{pmatrix} = S^{-1} \begin{pmatrix} x_1 \\ x_2 \end{pmatrix}, \quad \text{azaz } x = S y.
+        \]
+        <ul>
+          <li><strong>Új magmátrix</strong>: \(C_{33} = S^T A_{33} S = \begin{pmatrix} \lambda_1 &amp; 0 \\ 0 &amp; \lambda_2 \end{pmatrix}\)</li>
+          <li><strong>Új alapmátrix</strong>: \(C = Q^T A Q\), ahol \(Q = \begin{pmatrix} S &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\) az \((x_1, x_2, 1)^T = Q\,(y_1, y_2, 1)^T\) átmenet ortogonális mátrixa.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Elfajult görbe</span>
+        <p>A görbe <strong>elfajult</strong>, ha \(|A| = 0\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — Amit a főtengely-transzformáció megőriz</span>
+        <p>A főtengely-transzformáció megőrzi:</p>
+        <ul>
+          <li>az elfajult / nem elfajult tulajdonságot,</li>
+          <li>a görbe jellegét (elliptikus, hiperbolikus, parabolikus),</li>
+          <li>a magmátrix sajátértékeit,</li>
+          <li>a főtengelyek számát.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A \(Q\) és az \(S\) ortogonális, determinánsuk \(\pm 1\), ezért
+          \(|C| = |Q|^2 |A| = |A|\) és
+          \(|C_{33}| = |S|^2 |A_{33}| = |A_{33}|\): az elfajultság
+          (\(|A| = 0\)) és a típus (\(|A_{33}|\) előjele, a tétel szerint)
+          megmarad. Mivel \(S^T = S^{-1}\), a
+          \(C_{33} = S^{-1} A_{33} S\) hasonló az \(A_{33}\)-hoz, így
+          karakterisztikus polinomjuk és sajátértékeik közösek. Ha
+          \(A_{33} v = \lambda v\), akkor
+          \(C_{33}(S^T v) = S^T A_{33} v = \lambda\, S^T v\): a
+          sajátirányok az \(S^T\)-tal elforgatott sajátirányok, ugyanazokkal
+          a sajátértékekkel, tehát a nem nulla sajátértékű sajátirányok
+          (azaz a főtengelyek, a fenti bizonyítás szerint) egymásnak
+          felelnek meg, számuk megmarad.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Létezik olyan elforgatás (ortogonális transzformáció), mely a
+          görbe egyenletét a következő alakra hozza:
+        </p>
+        \[
+        \lambda_1 y_1^2 + \lambda_2 y_2^2 + 2c_{13} y_1 + 2c_{23} y_2 + c_{33} = 0
+        \]
+        <p>ahol \(\lambda_1, \lambda_2\) a magmátrix sajátértékei.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A 9. jegyzet szerint van sajátvektorokból álló ortonormált
+          \((f_1, f_2)\) bázis; szükség esetén \(f_2\)-t \(-f_2\)-re
+          cserélve \(\det S = 1\), vagyis az \(x = Sy\) helyettesítés
+          elforgatás. Ekkor
+        </p>
+        \[
+        \begin{aligned}
+        F(Sy) &amp;= y^T (S^T A_{33} S)\, y + 2 (S^T b)^T y + a_{33} \\
+        &amp;= \lambda_1 y_1^2 + \lambda_2 y_2^2 + 2c_{13}y_1 + 2c_{23}y_2 + c_{33},
+        \end{aligned}
+        \]
+        <p>
+          ahol \((c_{13}, c_{23})^T = S^T b\) és \(c_{33} = a_{33}\). Ennek
+          alapmátrixa
+          \(C = \begin{pmatrix} \lambda_1 &amp; 0 &amp; c_{13} \\ 0 &amp; \lambda_2 &amp; c_{23} \\ c_{13} &amp; c_{23} &amp; c_{33} \end{pmatrix} = Q^T A Q\).
+        </p>
+      </div>
+
+      <h2>Másodrendű görbék osztályozása</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Az alapalakok (kiegészítés)</span>
+        <p>
+          A főtengely-transzformáció után (a \(\lambda_1, \lambda_2\)
+          sorrendje szabad):
+        </p>
+        <ul>
+          <li>
+            Ha \(|A_{33}| \neq 0\), akkor a \(z_j = y_j + c_{j3}/\lambda_j\)
+            eltolással (a centrumba) az egyenlet
+            \[
+            \lambda_1 z_1^2 + \lambda_2 z_2^2 + k = 0, \qquad k = \frac{|A|}{|A_{33}|}.
+            \]
+          </li>
+          <li>
+            Ha \(|A_{33}| = 0\), azaz \(\lambda_1 \neq 0 = \lambda_2\), akkor
+            \(u_1 = y_1 + c_{13}/\lambda_1\)-gyel az egyenlet
+            \(\lambda_1 u_1^2 + 2c_{23} y_2 + k/\lambda_1 = 0\), ahol
+            \(k = \lambda_1 c_{33} - c_{13}^2\). Ha \(c_{23} \neq 0\), akkor
+            (\(|A| = -\lambda_1 c_{23}^2 \neq 0\)) az
+            \(u_2 = y_2 + k/(2\lambda_1 c_{23})\) eltolással
+            \(u_1^2 = 2p\,u_2\), \(p = -c_{23}/\lambda_1 \neq 0\); ha
+            \(c_{23} = 0\) (\(|A| = 0\)), akkor \(\lambda_1 u_1^2 + k/\lambda_1 = 0\).
+          </li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>\(|A_{33}| \neq 0\).</strong> Ekkor \(\lambda_1, \lambda_2 \neq 0\),
+          és négyzetté kiegészítve
+          \(\lambda_j y_j^2 + 2c_{j3}y_j = \lambda_j (y_j + c_{j3}/\lambda_j)^2 - c_{j3}^2/\lambda_j\),
+          tehát az egyenlet
+          \(\lambda_1 z_1^2 + \lambda_2 z_2^2 + k = 0\) a
+          \(k = c_{33} - c_{13}^2/\lambda_1 - c_{23}^2/\lambda_2\)
+          állandóval. A \(C\) determinánsa
+        </p>
+        \[
+        |C| = \lambda_1(\lambda_2 c_{33} - c_{23}^2) - c_{13}\,\lambda_2 c_{13} = \lambda_1\lambda_2\, k,
+        \]
+        <p>
+          és \(|C| = |A|\), \(\lambda_1\lambda_2 = |A_{33}|\), így
+          \(k = |A|/|A_{33}|\).
+        </p>
+        <p>
+          <strong>\(|A_{33}| = 0\).</strong> Ekkor a
+          \(\lambda_1 y_1^2 + 2c_{13}y_1 = \lambda_1 u_1^2 - c_{13}^2/\lambda_1\)
+          négyzetté kiegészítéssel az egyenlet
+          \(\lambda_1 u_1^2 + 2c_{23} y_2 + (\lambda_1 c_{33} - c_{13}^2)/\lambda_1 = 0\).
+          Ha \(c_{23} \neq 0\), a \(2c_{23}y_2 + k/\lambda_1 = 2c_{23}u_2\)
+          eltolással \(\lambda_1 u_1^2 + 2c_{23}u_2 = 0\), azaz
+          \(u_1^2 = 2p\,u_2\), \(p = -c_{23}/\lambda_1\). A \(C\)
+          determinánsa \(|C| = -\lambda_1 c_{23}^2\), így
+          \(c_{23} \neq 0\) pontosan akkor, ha \(|A| \neq 0\).
+        </p>
+      </div>
+
+      <h3>I. Elliptikus görbék</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Elliptikus görbék osztályozása</span>
+        <p>
+          Feltétel: \(|A_{33}| > 0\), azaz \(\lambda_1, \lambda_2\)
+          azonos előjelűek; az egyenletet szükség esetén \(-1\)-gyel
+          szorozva \(\lambda_1 > 0\), \(\lambda_2 > 0\) (mindkettő
+          negatív is lehet az eredeti egyenletben). A \(k = |A|/|A_{33}|\)
+          előjele megegyezik az \(|A|\) előjelével:
+        </p>
+        <ul>
+          <li>\(k < 0 \iff |A| < 0\): <strong>Valós ellipszis.</strong></li>
+          <li>\(k = 0 \iff |A| = 0\): <strong>Pontellipszis</strong> (elfajult eset).</li>
+          <li>\(k > 0 \iff |A| > 0\): <strong>Képzetes ellipszis.</strong></li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az alapalak \(\lambda_1 z_1^2 + \lambda_2 z_2^2 = -k\) a
+          pozitív \(\lambda_1, \lambda_2\)-vel. Ha \(k < 0\), a jobb oldal
+          pozitív, és
+          \(\dfrac{z_1^2}{-k/\lambda_1} + \dfrac{z_2^2}{-k/\lambda_2} = 1\)
+          ellipszis. Ha \(k = 0\), a bal oldal csak a \((0, 0)\) pontban nulla:
+          egyetlen pont (a centrum). Ha \(k > 0\), a bal oldal nemnegatív, a
+          jobb oldal negatív: nincs valós pont. Mivel \(|A_{33}| > 0\),
+          \(k\) és \(|A|\) előjele egyezik.
+        </p>
+      </div>
+
+      <h3>II. Hiperbolikus görbék</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Hiperbolikus görbék osztályozása</span>
+        <p>
+          Feltétel: \(|A_{33}| < 0\), azaz \(\lambda_1 > 0\),
+          \(\lambda_2 < 0\) (a sajátvektorok sorrendje szabad). Ekkor a
+          \(k = |A|/|A_{33}|\) szerint:
+        </p>
+        <ul>
+          <li>\(k < 0\): <strong>Hiperbola.</strong></li>
+          <li>\(k > 0\): <strong>Hiperbola</strong> (fordított állású).</li>
+          <li>\(k = 0\): <strong>Metsző egyenespár</strong> (elfajult eset).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az alapalak \(\lambda_1 z_1^2 - |\lambda_2| z_2^2 = -k\).
+          Ha \(k < 0\), akkor
+          \(\dfrac{z_1^2}{-k/\lambda_1} - \dfrac{z_2^2}{-k/|\lambda_2|} = 1\):
+          hiperbola, amelynek valós tengelye a \(z_1\)-tengely. Ha
+          \(k > 0\), akkor
+          \(\dfrac{z_2^2}{k/|\lambda_2|} - \dfrac{z_1^2}{k/\lambda_1} = 1\):
+          hiperbola \(z_2\)-irányú valós tengellyel (fordított állású). Ha
+          \(k = 0\), akkor
+          \(z_2 = \pm\sqrt{\lambda_1/|\lambda_2|}\, z_1\): két egymást a
+          centrumban metsző egyenes.
+        </p>
+      </div>
+
+      <h3>III. Parabolikus görbék</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Parabolikus görbék osztályozása</span>
+        <p>
+          Feltétel: \(|A_{33}| = 0\), azaz \(\lambda_1 \neq 0\),
+          \(\lambda_2 = 0\).
+        </p>
+        <ul>
+          <li>Ha \(c_{23} \neq 0\): <strong>Parabola</strong> (\(u_1^2 = 2p\,u_2\)).</li>
+          <li>
+            Elfajult eset (\(c_{23} = 0\)), a \(k = \lambda_1 c_{33} - c_{13}^2\) jelöléssel:
+            <ul>
+              <li>\(k < 0\): <strong>Párhuzamos egyenespár.</strong></li>
+              <li>\(k = 0\): <strong>Egybeeső párhuzamos egyenespár.</strong></li>
+              <li>\(k > 0\): <strong>Képzetes párhuzamos egyenespár.</strong></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Ha \(c_{23} \neq 0\), az alapalak szerint \(u_1^2 = 2p\,u_2\)
+          parabola (\(p \neq 0\)). Ha \(c_{23} = 0\), az egyenlet
+          \(\lambda_1 u_1^2 + k/\lambda_1 = 0\), azaz
+          \(u_1^2 = -k/\lambda_1^2\). Ha \(k < 0\), ez
+          \(u_1 = \pm\sqrt{-k}/|\lambda_1|\): két különböző párhuzamos
+          egyenes; ha \(k = 0\), \(u_1 = 0\): egy (kétszeres) egyenes; ha
+          \(k > 0\), nincs valós pont (a két egyenes képzetes).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

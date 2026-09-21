@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Jacobi-tétel, pozitív definit formák, lokális szélsőérték | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="A Jacobi-tétel a főminorokkal, a pozitív definit kvadratikus formák, a Sylvester-kritérium és a többváltozós függvények lokális minimuma a Hesse-mátrixszal, bizonyítással — DE TTK Matematika BSc 2023/2025, Lineáris algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/jegyzet4/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 4 of 12 — see jegyzet1's head comment for the shape rationale.
+
+  Source fixes here: the source's Jacobi theorem never says which
+  canonical basis it means; the coefficient Delta_{i-1}/Delta_i it states
+  is the right one for the basis normalised by L(b_i, e_i) = 1, so that
+  normalisation is now part of the statement (and a remark gives the
+  other, unit-triangular normalisation, with Delta_i/Delta_{i-1}). The
+  source's orphan "Jacobi-bizonyítás (folytatás)" fragment (a positive
+  definite form has all Delta_i != 0) sat between two unrelated
+  sections; it is the first step of the proof of the Sylvester
+  criterion here, where it belongs. The local extremum remark said "az
+  első deriváltak uralják a rendszert"; it now says the gradient is
+  zero, and the Hessian is named as a symmetric matrix (the function is
+  C^2). "Főminor" / "sarokminor" are both kept, as the source uses
+  both for the leading principal minors.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description): the definition of the leading
+  principal minors Delta_i, the proof of Jacobi's theorem (the basis is
+  found from the linear systems A_i c = (0, ..., 0, 1)^T and Cramer's
+  rule), the proof of the Sylvester criterion (the Delta_i != 0 step is
+  the source's own fragment, the two directions are new), and the proof
+  of the sufficient condition for a local minimum (Taylor's formula
+  with the minimum of the form on the unit sphere).
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/">Lineáris algebra haladó</a> / 4. jegyzet</p>
+
+      <h1>Jacobi-tétel, pozitív definit formák, lokális szélsőérték</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet azt mutatja meg, hogyan olvasható le egy szimmetrikus
+        bilineáris forma kanonikus alakja a mátrixa főminorairól
+        (Jacobi), hogyan dönthető el ezekből, hogy egy kvadratikus forma
+        pozitív definit-e (Sylvester-kritérium), és hogyan használható ez
+        egy többváltozós függvény lokális minimumának felismerésére.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>A mátrix főminorai (sarokminorai)</li>
+        <li>Jacobi tétele: kanonikus alak a főminorokkal</li>
+        <li>Pozitív definit kvadratikus forma</li>
+        <li>Sylvester-kritérium (főminorok kritériuma)</li>
+        <li>Többváltozós függvény lokális minimuma, Hesse-mátrix</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Jacobi tétele</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Főminorok (kiegészítés)</span>
+        <p>
+          Az \(A = (\alpha_{ij})\) \(n \times n\)-es mátrix
+          <strong>főminorai</strong> (más néven <strong>sarokminorai</strong>)
+          a bal felső \(i \times i\)-es részmátrixok determinánsai:
+        </p>
+        \[
+        \Delta_i = \begin{vmatrix}
+        \alpha_{11} &amp; \dots &amp; \alpha_{1i} \\
+        \vdots &amp; \ddots &amp; \vdots \\
+        \alpha_{i1} &amp; \dots &amp; \alpha_{ii}
+        \end{vmatrix} \qquad (i = 1, \dots, n),
+        \]
+        <p>
+          és megállapodás szerint \(\Delta_0 = 1\). Az \(i \times i\)-es
+          bal felső részmátrixot \(A_i\)-vel jelöljük.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Jacobi tétele</span>
+        <p>
+          Legyen \(L(x, y) = \sum_{i=1}^n \sum_{j=1}^n \alpha_{ij} x_i y_j\)
+          egy szimmetrikus bilineáris forma az \((e)\) bázisban. Ha a
+          főminorok nem nullák:
+        </p>
+        \[
+        \Delta_i \neq 0 \quad (i = 1, \dots, n),
+        \]
+        <p>
+          akkor van olyan \((b)\) kanonikus bázis (amelyre
+          \(b_i \in \mathcal{L}(e_1, \dots, e_i)\) és
+          \(L(b_i, e_i) = 1\)), melyben az
+          \(x = \sum_i x_i b_i\), \(y = \sum_i y_i b_i\) vektorokra:
+        </p>
+        \[
+        L(x, y) = \sum_{i=1}^n \frac{\Delta_{i-1}}{\Delta_i}\, x_i y_i
+        \]
+        <p>ahol \(\Delta_0 = 1\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \(A = (\alpha_{ij})\), \(\alpha_{ij} = L(e_i, e_j)\); a
+          szimmetria miatt \(A\) szimmetrikus. Rögzített \(i\)-hez tekintsük
+          az \(i\) ismeretlenes
+        </p>
+        \[
+        A_i\, c = \begin{pmatrix} 0 \\ \vdots \\ 0 \\ 1 \end{pmatrix}, \qquad c = (c_1, \dots, c_i)^T
+        \]
+        <p>
+          egyenletrendszert. Mivel \(\det A_i = \Delta_i \neq 0\), pontosan
+          egy megoldása van. Legyen \(b_i = \sum_{k=1}^i c_k e_k\). Az
+          \(A_i\) szimmetriája miatt \(A_i c\) \(j\)-edik koordinátája
+          \(\sum_k c_k \alpha_{kj} = L(b_i, e_j)\), így az egyenletrendszer
+          éppen azt mondja, hogy
+        </p>
+        \[
+        L(b_i, e_j) = 0 \quad (j < i), \qquad L(b_i, e_i) = 1.
+        \]
+        <p>
+          A Cramer-szabály szerint \(b_i\)-ben \(e_i\) együtthatója
+          \(c_i = \Delta_{i-1} / \Delta_i\): a számlálóban az \(A_i\)
+          utolsó oszlopát a \((0, \dots, 0, 1)^T\) oszloppal cseréltük ki,
+          és az utolsó oszlop szerint kifejtve az egyetlen nem nulla elem
+          az \((i, i)\) helyen álló 1, amelynek aldeterminánsa
+          \(\det A_{i-1} = \Delta_{i-1}\).
+        </p>
+        <p>
+          A \((b)\) bázis: minden \(b_i\) az \(e_1, \dots, e_i\)
+          vektorokból áll, \(e_i\) együtthatója \(\Delta_{i-1}/\Delta_i \neq 0\),
+          tehát a \((e) \to (b)\) áttérési mátrix háromszögmátrix, nem nulla
+          főátlóval, így invertálható.
+        </p>
+        <p>
+          Kanonikus: ha \(j < i\), akkor \(b_j\) az \(e_1, \dots, e_j\)
+          vektorok kombinációja, ezért
+          \(L(b_i, b_j)\) az \(L(b_i, e_1), \dots, L(b_i, e_j)\) számok
+          kombinációja, amelyek mind nullák (\(j < i\)). A szimmetria miatt
+          \(L(b_j, b_i) = 0\) is, tehát \(L(b_i, b_j) = 0\), ha
+          \(i \neq j\). Végül
+          \(L(b_i, b_i) = \sum_{k \le i} c_k L(b_i, e_k) = c_i = \Delta_{i-1}/\Delta_i\).
+        </p>
+        <p>
+          Megjegyzés: a \(b_i' = \dfrac{\Delta_i}{\Delta_{i-1}}\, b_i\)
+          vektorokban \(e_i\) együtthatója már 1 (egység-háromszög
+          áttérés, determinánsa 1), és
+          \(L(b_i', b_i') = \left(\dfrac{\Delta_i}{\Delta_{i-1}}\right)^2 \dfrac{\Delta_{i-1}}{\Delta_i} = \dfrac{\Delta_i}{\Delta_{i-1}}\).
+          Ez a kanonikus alak a Gauss-elimináció főelemeit adja.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Pozitív definit kvadratikus formák</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Pozitív definit forma</span>
+        <p>
+          A \(Q\) kvadratikus forma (és a hozzá tartozó szimmetrikus
+          bilineáris forma) <strong>pozitív definit</strong>, ha minden
+          \(0 \neq x \in V\) esetén \(Q(x) > 0\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Sylvester-kritérium / Főminorok kritériuma</span>
+        <p>
+          Legyen \(A\) a \(Q\)-hoz tartozó szimmetrikus bilineáris forma
+          mátrixa egy \((e)\) bázisban. A \(Q(x)\) kvadratikus forma
+          pontosan akkor pozitív definit, ha minden sarokminora (főminora)
+          pozitív, azaz \(\Delta_1 > 0, \Delta_2 > 0, \dots, \Delta_n > 0\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>1. lépés: ha \(Q\) pozitív definit, akkor minden
+          \(\Delta_i \neq 0\).</strong> Indirekt: tegyük fel, hogy
+          \(\Delta_i = 0\). Ekkor az \(A_i\) oszlopai lineárisan függők,
+          azaz van olyan \((\lambda_1, \dots, \lambda_i) \neq 0\), hogy
+          \(\sum_l \alpha_{kl} \lambda_l = 0\) minden \(k \le i\)-re. Az
+          \(x = \lambda_1 e_1 + \dots + \lambda_i e_i\) vektor nem nulla
+          (az \(e_j\) függetlenek), és
+        </p>
+        \[
+        Q(x) = \sum_{k=1}^i \sum_{l=1}^i \alpha_{kl}\, \lambda_k \lambda_l = \sum_{k=1}^i \lambda_k \Bigl( \sum_{l=1}^i \alpha_{kl} \lambda_l \Bigr) = 0,
+        \]
+        <p>
+          ami ellentmond a pozitív definitségnek. Tehát \(\Delta_i \neq 0\)
+          minden \(i\)-re.
+        </p>
+        <p>
+          <strong>(⟹)</strong> Az 1. lépés szerint a Jacobi-tétel
+          alkalmazható: van \((b)\) kanonikus bázis, amelyben
+          \(Q(b_i) = L(b_i, b_i) = \Delta_{i-1}/\Delta_i\). Mivel
+          \(b_i \neq 0\) és \(Q\) pozitív definit, \(\Delta_{i-1}/\Delta_i > 0\)
+          minden \(i\)-re. Ebből \(\Delta_0 = 1 > 0\)-tól indulva sorban
+          \(\Delta_1 > 0, \Delta_2 > 0, \dots, \Delta_n > 0\).
+        </p>
+        <p>
+          <strong>(⟸)</strong> Ha minden \(\Delta_i > 0\), akkor a
+          Jacobi-tétel alkalmazható, és a \((b)\) bázisban
+          \(\lambda_i = \Delta_{i-1}/\Delta_i > 0\). Ha
+          \(x = \sum x_i b_i \neq 0\), akkor
+          \(Q(x) = \sum \lambda_i x_i^2 > 0\), hiszen legalább egy
+          \(x_i \neq 0\).
+        </p>
+      </div>
+
+      <h2>Lokális szélsőérték</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — Többváltozós függvények lokális szélsőértéke</span>
+        <p>
+          Legyen \(f: \mathbb{R}^n \to \mathbb{R}\) kétszer folytonosan
+          differenciálható függvény, \(x_0 \in \mathbb{R}^n\). Az \(x_0\)
+          helyen <strong>lokális minimum</strong> van, ha a gradiens nulla,
+          azaz \(\dfrac{\partial f}{\partial x_i}(x_0) = 0\) minden
+          \(i\)-re, és a második deriváltakból képzett mátrix
+          (<strong>Hesse-mátrix</strong>):
+        </p>
+        \[
+        H = \left( \frac{\partial^2 f}{\partial x_i \partial x_j}(x_0) \right)_{i,j=1}^n
+        \]
+        <p>
+          pozitív definit kvadratikus formát határoz meg
+          (\(h \mapsto h^T H h\)). A Hesse-mátrix szimmetrikus (a második
+          deriváltak felcserélhetők), pozitív definitségét tehát a
+          Sylvester-kritériummal, a sarokminorai előjeléből lehet
+          eldönteni.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A Taylor-formula (Peano-maradéktaggal) szerint, ha a gradiens
+          nulla:
+        </p>
+        \[
+        f(x_0 + h) = f(x_0) + \tfrac{1}{2}\, h^T H h + r(h), \qquad \frac{r(h)}{|h|^2} \to 0 \quad (h \to 0).
+        \]
+        <p>
+          Az \(u \mapsto u^T H u\) folytonos függvény az \(|u| = 1\)
+          egységgömbön (ez kompakt halmaz), ezért felveszi a minimumát; az
+          \(m\) minimum pozitív, mert a forma pozitív definit, és a
+          gömb pontjai nem nullák. Minden \(h \neq 0\)-ra
+          \(h = |h|\, u\) alakban írva \(h^T H h = |h|^2\, u^T H u \ge m |h|^2\).
+        </p>
+        <p>
+          A maradéktagra van olyan \(\delta > 0\), hogy
+          \(|r(h)| \le \frac{m}{4} |h|^2\), ha \(|h| < \delta\). Ekkor
+          \(0 < |h| < \delta\) esetén
+        </p>
+        \[
+        f(x_0 + h) - f(x_0) \ge \frac{m}{2} |h|^2 - \frac{m}{4} |h|^2 = \frac{m}{4} |h|^2 > 0,
+        \]
+        <p>
+          tehát \(x_0\)-ban \(f\)-nek (szigorú) lokális minimuma van.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

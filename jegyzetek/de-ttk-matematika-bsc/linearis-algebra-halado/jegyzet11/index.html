@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Normális és pozitív definit transzformációk | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Normális transzformációk felbontása önadjungált részekre és jellemzésük sajátvektorokból álló ortonormált bázissal, pozitív definit transzformációk és négyzetgyökük bizonyítással — DE TTK Matematika BSc 2023/2025, Lineáris algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/jegyzet11/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 11 of 12 — see jegyzet1's head comment for the shape rationale.
+
+  Source fixes here: "megj" was an undefined LaTeX environment (used for
+  the remark on normal transformations); it is a plain Megjegyzés box.
+  "szimmetrikus / önadjungált" in the positive definite transformation
+  is kept as the source has it (real / complex case). The definition of
+  the positive definite transformation does not say that (phi x, x) is
+  real for a self-adjoint phi (it is, otherwise "> 0" would make no
+  sense); that is added inline, as a plain sentence. The source's
+  "(C felett)" in the normal-transformation theorem is essential and is
+  kept: over R the statement is false (see the remark in its proof).
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description): the proof of the decomposition
+  phi = psi_1 + i psi_2 and of the commutation criterion; the lemma
+  (not in the source, needed by the second theorem) that commuting
+  self-adjoint operators have a common orthonormal eigenbasis, with its
+  proof; the proofs of "normal iff there is an orthonormal eigenbasis"
+  (with the remark that over R it fails), of the remark on the
+  self-adjoint and unitary normal transformations, of "positive definite
+  iff the eigenvalues are positive" and of the existence of the square
+  root. The source stated all of these without proof.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/">Lineáris algebra haladó</a> / 11. jegyzet</p>
+
+      <h1>Normális és pozitív definit transzformációk</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a szimmetrikus és az unitér transzformációkat
+        egyesítő normális transzformációkat írja le: komplex térben
+        pontosan azok diagonalizálhatók ortonormált bázisban. A második
+        rész a pozitív definit transzformációkkal foglalkozik: sajátértékeik
+        pozitívak, és van pozitív definit négyzetgyökük. A \(W\) tér
+        mindenütt véges dimenziós euklideszi vagy unitér tér.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Felbontás önadjungált részekre: \(\varphi = \psi_1 + i\psi_2\)</li>
+        <li>Normális transzformáció jellemzései</li>
+        <li>Önadjungált és unitér transzformációk a normálisak közt</li>
+        <li>Pozitív definit transzformáció, sajátértékek</li>
+        <li>Pozitív definit transzformáció négyzetgyöke</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Normális transzformációk</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          A \(W\) unitér tér minden \(\varphi\) lineáris transzformációja
+          egyértelműen felírható \(\varphi = \psi_1 + i \psi_2\) alakban,
+          ahol \(\psi_1\) és \(\psi_2\) önadjungáltak. Ekkor \(\varphi\)
+          pontosan akkor normális (\(\varphi\varphi^* = \varphi^*\varphi\),
+          8. jegyzet), ha \(\psi_1 \circ \psi_2 = \psi_2 \circ \psi_1\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>Létezés.</strong> Legyen
+          \(\psi_1 = \tfrac12(\varphi + \varphi^*)\) és
+          \(\psi_2 = \tfrac{1}{2i}(\varphi - \varphi^*)\). Ekkor
+          \(\psi_1 + i\psi_2 = \varphi\), és a 8. jegyzet tulajdonságai
+          szerint (\((\varphi^*)^* = \varphi\), \((\lambda\varphi)^* = \overline{\lambda}\varphi^*\))
+        </p>
+        \[
+        \psi_1^* = \tfrac12(\varphi^* + \varphi) = \psi_1, \qquad
+        \psi_2^* = \overline{\left(\tfrac{1}{2i}\right)} (\varphi^* - \varphi) = -\tfrac{1}{2i}(\varphi^* - \varphi) = \psi_2.
+        \]
+        <p>
+          <strong>Egyértelműség.</strong> Ha \(\varphi = \psi_1 + i\psi_2\)
+          önadjungált \(\psi_1, \psi_2\)-vel, akkor
+          \(\varphi^* = \psi_1^* + \overline{i}\,\psi_2^* = \psi_1 - i\psi_2\),
+          és a két egyenletből \(\psi_1 = \tfrac12(\varphi + \varphi^*)\),
+          \(\psi_2 = \tfrac{1}{2i}(\varphi - \varphi^*)\).
+        </p>
+        <p>
+          <strong>Normalitás.</strong> Kifejtve
+          \(\varphi\varphi^* = (\psi_1 + i\psi_2)(\psi_1 - i\psi_2) = \psi_1^2 + \psi_2^2 - i\psi_1\psi_2 + i\psi_2\psi_1\)
+          és
+          \(\varphi^*\varphi = \psi_1^2 + \psi_2^2 + i\psi_1\psi_2 - i\psi_2\psi_1\),
+          tehát
+        </p>
+        \[
+        \varphi\varphi^* - \varphi^*\varphi = -2i\,(\psi_1\psi_2 - \psi_2\psi_1),
+        \]
+        <p>
+          ami pontosan akkor nulla, ha \(\psi_1\psi_2 = \psi_2\psi_1\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Lemma — Felcserélhető önadjungált transzformációk közös sajátbázisa (kiegészítés)</span>
+        <p>
+          Ha \(\psi_1\) és \(\psi_2\) felcserélhető önadjungált
+          transzformációk (\(\psi_1\psi_2 = \psi_2\psi_1\)), akkor van
+          olyan ortonormált bázis, amelynek minden eleme mindkettőnek
+          sajátvektora.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A 9. jegyzet szerint \(W = W_1 \oplus \dots \oplus W_k\), ahol
+          \(W_j = \ker(\psi_1 - \mu_j\,\mathrm{id})\) a \(\psi_1\)
+          különböző \(\mu_j\) sajátértékeihez tartozó sajátalterek. Minden
+          \(W_j\) invariáns \(\psi_2\)-re nézve: ha \(x \in W_j\), akkor
+        </p>
+        \[
+        \psi_1(\psi_2 x) = \psi_2(\psi_1 x) = \mu_j\,\psi_2 x,
+        \]
+        <p>
+          azaz \(\psi_2 x \in W_j\). A \(\psi_2\) megszorítása \(W_j\)-re
+          önadjungált, így a spektráltétel szerint \(W_j\)-nek van
+          \(\psi_2\)-sajátvektorokból álló ortonormált bázisa; ezek a
+          \(W_j\)-ben lévén \(\psi_1\)-nek is sajátvektorai (\(\mu_j\)
+          sajátértékkel). A különböző \(W_j\)-k páronként merőlegesek (9.
+          jegyzet), így az egyesített rendszer ortonormált bázis \(W\)-ben.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          A \(W\) unitér tér \(\varphi\) lineáris transzformációja
+          pontosan akkor normális, ha létezik \(W\)-nek a
+          sajátvektorokból álló ortonormált bázisa (\(\mathbb{C}\) felett).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          (⟹) Ha \(\varphi\) normális, akkor az előző tétel szerint
+          \(\varphi = \psi_1 + i\psi_2\) felcserélhető önadjungált
+          \(\psi_1, \psi_2\)-vel. A lemma szerinti \((e_j)\) közös
+          sajátbázisban \(\psi_1 e_j = \mu_j e_j\) és
+          \(\psi_2 e_j = \nu_j e_j\), így
+          \(\varphi e_j = (\mu_j + i\nu_j)\,e_j\): \((e_j)\) sajátvektorokból
+          álló ortonormált bázis.
+        </p>
+        <p>
+          (⟸) Ha \((e_j)\) ortonormált bázis és \(\varphi e_j = \lambda_j e_j\),
+          akkor \(\varphi\) mátrixa ebben a bázisban
+          \(D = \operatorname{diag}(\lambda_1, \dots, \lambda_n)\), az
+          adjungáltjáé \(D^* = \operatorname{diag}(\overline{\lambda_1}, \dots, \overline{\lambda_n})\)
+          (8. jegyzet). Diagonális mátrixok felcserélhetők:
+          \(D D^* = D^* D\), tehát \(\varphi\varphi^* = \varphi^*\varphi\).
+        </p>
+        <p>
+          Megjegyzés: a \(\mathbb{C}\) felett lényeges. Valós euklideszi
+          térben az állítás nem igaz: a síkban az \(\alpha \neq 0, \pi\)
+          szögű elforgatás ortogonális, így normális (\(\varphi^* = \varphi^{-1}\)
+          miatt \(\varphi\varphi^* = \varphi^*\varphi = \mathrm{id}\)), de
+          nincs valós sajátvektora (10. jegyzet).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés</span>
+        <p>Normális transzformáció esetén:</p>
+        <ul>
+          <li>\(\varphi\) önadjungált \(\iff\) sajátértékei valósak.</li>
+          <li>\(\varphi\) unitér \(\iff\) sajátértékeinek abszolút értéke \(1\) (\(|\lambda_j| = 1\)).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Normális \(\varphi\)-nek van sajátvektorokból álló ortonormált
+          bázisa, amelyben a mátrixa \(D = \operatorname{diag}(\lambda_j)\), az
+          adjungáltjáé \(D^* = \operatorname{diag}(\overline{\lambda_j})\).
+          A \(\varphi = \varphi^*\) ekkor \(D = D^*\), azaz
+          \(\lambda_j = \overline{\lambda_j}\) minden \(j\)-re, vagyis a
+          sajátértékek valósak. A \(\varphi\) pontosan akkor unitér, ha
+          \(D^* D = E\), azaz \(\overline{\lambda_j}\lambda_j = |\lambda_j|^2 = 1\)
+          minden \(j\)-re.
+        </p>
+      </div>
+
+      <h2>Pozitív definit transzformációk</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Pozitív definit transzformáció</span>
+        <p>
+          A \(W\) euklideszi vagy unitér tér \(\varphi\) szimmetrikus /
+          önadjungált lineáris transzformációja <strong>pozitív
+          definit</strong>, ha minden \(0 \neq x \in W\) esetén:
+        </p>
+        \[
+        (\varphi(x), x) > 0
+        \]
+        <p>
+          (önadjungált \(\varphi\)-re \((\varphi x, x) = (x, \varphi x) = \overline{(\varphi x, x)}\)
+          valós, ezért van értelme a \(> 0\) feltételnek).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          A \(W\) euklideszi vagy unitér tér \(\varphi\) szimmetrikus /
+          önadjungált lineáris transzformációja pontosan akkor pozitív
+          definit, ha a sajátértékei pozitívak (\(\lambda_j > 0\)).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A spektráltétel szerint van sajátvektorokból álló ortonormált
+          bázis, \(\varphi e_j = \lambda_j e_j\), a \(\lambda_j\) valósak.
+          (⟹) Ha \(\varphi\) pozitív definit, akkor
+          \(\lambda_j = \lambda_j (e_j, e_j) = (\varphi e_j, e_j) > 0\).
+          (⟸) Ha minden \(\lambda_j > 0\), és \(x = \sum_j x_j e_j \neq 0\),
+          akkor
+        </p>
+        \[
+        (\varphi x, x) = \sum_j \lambda_j |x_j|^2 > 0,
+        \]
+        <p>
+          mert legalább egy \(x_j \neq 0\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Legyen \(\varphi\) a \(W\) euklideszi vagy unitér tér pozitív
+          definit lineáris transzformációja. Ekkor létezik olyan \(\psi\)
+          pozitív definit transzformáció, melyre:
+        </p>
+        \[
+        \psi^2 = \varphi
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \((e_j)\) sajátvektorokból álló ortonormált bázis,
+          \(\varphi e_j = \lambda_j e_j\); az előző tétel szerint
+          \(\lambda_j > 0\). Definiáljuk \(\psi\)-t a bázison:
+          \(\psi e_j = \sqrt{\lambda_j}\, e_j\). A \(\psi\) mátrixa ebben a
+          bázisban valós elemű diagonális mátrix, így önadjungált (9.
+          jegyzet), sajátértékei \(\sqrt{\lambda_j} > 0\), tehát az előző
+          tétel szerint pozitív definit, és
+          \(\psi^2 e_j = \sqrt{\lambda_j}\sqrt{\lambda_j}\, e_j = \lambda_j e_j = \varphi e_j\)
+          minden bázisvektorra, így \(\psi^2 = \varphi\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

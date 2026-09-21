@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Nilpotens transzformációk, Jordan-forma | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Nilpotens transzformáció és indexe, Jordan-lánc és Jordan-blokk, a Fitting-lemma és a Jordan-féle normálforma létezése bizonyítással — DE TTK Matematika BSc 2023/2025, Lineáris algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/jegyzet1/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 1 of 12, split from one long LaTeX source ("Lineáris algebra")
+  on the owner's request, along the source's own topic blocks
+  (2026-09-21). Same math-note shape as the kombinatorika-es-grafelmelet,
+  linearis-algebrai-alapozas and algebra-es-szamelmelet-alapok series:
+  intro -> "Témák" outline -> one <h2> per original LaTeX \section,
+  <h3> per \subsection. 2-part item-meta, no session label — see
+  CLAUDE.md.
+
+  Source fixes here: the Jordan theorem is stated for a finite
+  dimensional complex space, and the 1s sit only on the first
+  subdiagonal (the source said "a főátló alatt 0 vagy 1 értékek");
+  the nilpotency exponent is a positive integer, as the definition's own
+  wording says.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description):
+  - the "Definíció — Jordan-lánc és Jordan-blokk" box;
+  - the "Lemma — Fitting-lemma" box and its proof;
+  - the "Lemma — Nilpotens transzformáció Jordan-láncokból álló
+    bázisa" box and its proof;
+  - the proof of the Jordan-féle normálforma (induction on the
+    dimension: an eigenvalue, the Fitting decomposition of phi - lambda,
+    the nilpotent lemma on one summand, the induction hypothesis on the
+    other). The source stated the theorem without a proof.
+  The source's convention (1s below the diagonal) is kept, as in
+  linearis-algebrai-alapozas/jegyzet10: chains are ordered
+  (v, psi(v), psi^2(v), ...).
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/">Lineáris algebra haladó</a> / 1. jegyzet</p>
+
+      <h1>Nilpotens transzformációk, Jordan-forma</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a Lineáris algebra haladó sorozat első része: a
+        nilpotens transzformációkat vezeti be, és bebizonyítja, hogy
+        véges dimenziós komplex vektortéren minden lineáris
+        transzformációnak van Jordan-féle normálformája. A tételt a
+        <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet10/">Lineáris algebrai alapozás 10. jegyzete</a>
+        már kimondta; itt a bizonyítása következik.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Nilpotens transzformáció és nilpotencia indexe</li>
+        <li>Jordan-lánc és Jordan-blokk</li>
+        <li>A Fitting-lemma</li>
+        <li>Nilpotens transzformáció Jordan-láncokból álló bázisa</li>
+        <li>A Jordan-féle normálforma létezése</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Nilpotens transzformációk és Jordan-féle normálforma</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Nilpotens transzformáció</span>
+        <p>
+          Legyen \(W\) egy \(\mathbb{R}\) vagy \(\mathbb{C}\) vektortér. A
+          \(\varphi \in \mathcal{L}_W\) lineáris transzformáció
+          <strong>nilpotens</strong>, ha létezik olyan \(r \in \mathbb{N}^+\)
+          index, amelyre \(\varphi^r = 0\). A legkisebb ilyen \(r\) pozitív
+          egész számot a \(\varphi\) transzformáció <strong>nilpotencia
+          indexének</strong> nevezzük.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Jordan-lánc és Jordan-blokk (kiegészítés)</span>
+        <p>
+          Legyen \(\psi \in \mathcal{L}_W\). A \(v, \psi(v), \dots, \psi^{k-1}(v)\)
+          vektorok egy \(k\) hosszú <strong>Jordan-láncot</strong> alkotnak
+          (\(\psi\)-re nézve), ha \(\psi^{k}(v) = 0\), de
+          \(\psi^{k-1}(v) \neq 0\). A láncot a \((v, \psi(v), \dots, \psi^{k-1}(v))\)
+          sorrendben bázisnak véve a \(\psi\) mátrixában a főátló alatti
+          első mellékátlóban \(1\)-esek állnak, máshol \(0\). Ehhez
+          \(\lambda\cdot\mathrm{id}\)-t adva a \(\varphi = \lambda\,\mathrm{id} + \psi\)
+          transzformáció mátrixa a <strong>Jordan-blokk</strong>:
+        </p>
+        \[
+        J_k(\lambda) = \begin{pmatrix}
+        \lambda &amp; 0 &amp; \dots &amp; 0 \\
+        1 &amp; \lambda &amp; \dots &amp; 0 \\
+        \vdots &amp; \ddots &amp; \ddots &amp; \vdots \\
+        0 &amp; \dots &amp; 1 &amp; \lambda
+        \end{pmatrix} \in \mathbb{C}^{k \times k}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Jordan-féle normálforma létezése</span>
+        <p>
+          Legyen \(W\) véges dimenziós komplex vektortér. Minden
+          \(\varphi \in \mathcal{L}_W\) transzformációhoz létezik olyan
+          bázis, amelyben \(\varphi\) mátrixa <strong>Jordan-féle
+          normálalakot</strong> vesz fel, azaz olyan blokk-diagonális
+          mátrix, amelynek főátlójában Jordan-blokkok állnak: a blokkok
+          főátlójában a \(\varphi\) sajátértékei, a főátló alatti első
+          mellékátlóban \(0\) vagy \(1\), minden más helyen \(0\) áll.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Lemma — Fitting-lemma (kiegészítés)</span>
+        <p>
+          Legyen \(W\) véges dimenziós, \(\psi \in \mathcal{L}_W\). Ekkor
+          létezik olyan \(N \in \mathbb{N}\), hogy
+        </p>
+        \[
+        W = \ker \psi^N \oplus \operatorname{Im} \psi^N
+        \]
+        <p>
+          és mindkét tag \(\psi\)-invariáns; a \(\psi\) az
+          \(\operatorname{Im} \psi^N\) alteren invertálható, a
+          \(\ker \psi^N\) alteren pedig nilpotens.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A \(\ker \psi \subseteq \ker \psi^2 \subseteq \dots\) alterek
+          dimenziója legfeljebb \(\dim W\), ezért a lánc egy \(N\)-től
+          stabilizálódik: \(\ker \psi^N = \ker \psi^{N+1}\). Ekkor
+          \(\ker \psi^{N+1} = \ker \psi^{N+2}\) is: ha
+          \(\psi^{N+2}(x) = 0\), akkor
+          \(\psi(x) \in \ker \psi^{N+1} = \ker \psi^N\), tehát
+          \(\psi^{N+1}(x) = 0\). Így minden \(m \ge N\)-re
+          \(\ker \psi^m = \ker \psi^N\).
+        </p>
+        <p>
+          <em>A két altér metszete \(\{0\}\).</em> Ha
+          \(y = \psi^N(x)\) és \(\psi^N(y) = 0\), akkor
+          \(\psi^{2N}(x) = 0\), azaz \(x \in \ker \psi^{2N} = \ker \psi^N\),
+          tehát \(y = \psi^N(x) = 0\). A nullitás–rang tétel szerint
+          \(\dim \ker \psi^N + \dim \operatorname{Im} \psi^N = \dim W\), így
+          az összeg direkt és kiadja \(W\)-t.
+        </p>
+        <p>
+          <em>Invariancia.</em> \(\psi^N(\psi(x)) = \psi(\psi^N(x)) = 0\)
+          minden \(x \in \ker \psi^N\)-re, és
+          \(\psi(\psi^N(x)) = \psi^N(\psi(x)) \in \operatorname{Im} \psi^N\).
+          A \(\ker \psi^N\)-en \(\psi^N = 0\), tehát \(\psi\) ott nilpotens.
+          Az \(\operatorname{Im} \psi^N\)-en \(\psi\) injektív: ha
+          \(y \in \operatorname{Im} \psi^N\) és \(\psi(y) = 0\), akkor
+          \(y \in \ker \psi \subseteq \ker \psi^N\), így \(y\) a metszetben
+          van, tehát \(y = 0\). Véges dimenzióban az injektív
+          önleképezés bijektív.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Lemma — Nilpotens transzformáció Jordan-láncokból álló bázisa (kiegészítés)</span>
+        <p>
+          Ha \(W\) véges dimenziós és \(\psi \in \mathcal{L}_W\) nilpotens,
+          akkor \(W\)-nek van olyan bázisa, amely Jordan-láncokból áll,
+          azaz olyan \(v_1, \dots, v_m\) vektorokból és
+          \(k_1, \dots, k_m \ge 1\) számokból, hogy a
+          \(\psi^j(v_i)\) (\(1 \le i \le m\), \(0 \le j &lt; k_i\)) vektorok
+          bázist alkotnak, és \(\psi^{k_i}(v_i) = 0\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Indukció \(n = \dim W\) szerint; \(n = 0\)-ra az üres bázis
+          megfelel. Legyen \(n \ge 1\). A \(\psi\) nilpotens, ezért nem
+          injektív (különben \(\psi^r\) is injektív volna, de \(\psi^r = 0\)
+          és \(W \neq 0\)), így \(\ker \psi \neq 0\). Az
+          \(U = \operatorname{Im} \psi\) altér \(\psi\)-invariáns,
+          \(\dim U = n - \dim \ker \psi &lt; n\), és \(\psi|_U\) nilpotens.
+          Az indukciós feltevés szerint \(U\)-nak van Jordan-láncokból álló
+          bázisa: az \(u_1, \dots, u_r\) vektorokból és a
+          \(k_1, \dots, k_r\) hosszakból, \(\psi^{k_i}(u_i) = 0\).
+        </p>
+        <p>
+          Mivel \(u_i \in \operatorname{Im} \psi\), van olyan \(w_i \in W\),
+          hogy \(\psi(w_i) = u_i\). A \(\psi^{k_i - 1}(u_i)\) vektorok
+          (\(i = 1, \dots, r\)) a \(\ker \psi\)-ben vannak, és függetlenek
+          (\(U\) bázisának részei); egészítsük ki őket a \(\ker \psi\)
+          bázisává a \(z_1, \dots, z_s\) vektorokkal. Így
+          \(\dim \ker \psi = r + s\). Állítjuk, hogy a
+        </p>
+        \[
+        \psi^j(w_i) \ (1 \le i \le r,\ 0 \le j \le k_i), \qquad z_l \ (1 \le l \le s)
+        \]
+        <p>
+          vektorok bázist alkotnak. Ez Jordan-láncokból áll: a
+          \(w_i\)-ből induló lánc hossza \(k_i + 1\), mert
+          \(\psi^{k_i + 1}(w_i) = \psi^{k_i}(u_i) = 0\); a \(z_l\) hossza 1.
+          Az elemszám \(\sum (k_i + 1) + s = \dim U + r + s = \dim \operatorname{Im}\psi + \dim \ker \psi = n\).
+          Elég a függetlenséget megmutatni. Legyen
+        </p>
+        \[
+        \sum_{i, j} c_{ij}\, \psi^j(w_i) + \sum_l d_l z_l = 0.
+        \]
+        <p>
+          A \(\psi\)-t alkalmazva, és kihasználva, hogy
+          \(\psi^{j+1}(w_i) = \psi^j(u_i)\), \(\psi(z_l) = 0\) és
+          \(\psi^{k_i}(u_i) = 0\), azt kapjuk, hogy
+          \(\sum_i \sum_{j &lt; k_i} c_{ij}\, \psi^j(u_i) = 0\). Ez az \(U\)
+          bázisának lineáris kombinációja, ezért \(c_{ij} = 0\), ha
+          \(j &lt; k_i\). Az eredeti egyenlet ezután
+          \(\sum_i c_{i k_i}\, \psi^{k_i - 1}(u_i) + \sum_l d_l z_l = 0\)
+          (mert \(\psi^{k_i}(w_i) = \psi^{k_i - 1}(u_i)\)), ami a
+          \(\ker \psi\) bázisának lineáris kombinációja, tehát minden
+          együttható nulla.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — a Jordan-féle normálforma létezése</span>
+        <p>
+          Indukció \(n = \dim W\) szerint; \(n = 0\)-ra nincs mit
+          bizonyítani. Legyen \(n \ge 1\). A komplex számtest felett a
+          karakterisztikus polinomnak van gyöke, tehát \(\varphi\)-nek van
+          egy \(\lambda\) sajátértéke. Legyen
+          \(\psi = \varphi - \lambda\,\mathrm{id}\). A Fitting-lemma szerint
+          \(W = W_1 \oplus W_2\), ahol \(W_1 = \ker \psi^N\) és
+          \(W_2 = \operatorname{Im} \psi^N\) mindketten \(\psi\)-invariánsak,
+          tehát \(\varphi = \psi + \lambda\,\mathrm{id}\)-invariánsak is.
+        </p>
+        <p>
+          A \(W_1\) nem nulla, mert tartalmazza a \(\lambda\)-hoz tartozó
+          sajátvektorokat (\(\ker \psi \subseteq W_1\)), ezért
+          \(\dim W_2 &lt; n\). A \(W_1\)-en \(\psi\) nilpotens, így az előző
+          lemma szerint van Jordan-láncokból álló bázisa; ebben a bázisban
+          \(\varphi|_{W_1} = \lambda\,\mathrm{id} + \psi|_{W_1}\) mátrixa
+          \(J_{k}(\lambda)\) blokkok diagonális összeállítása. A \(W_2\)-n a
+          \(\varphi|_{W_2}\) kisebb dimenziós térre hat, tehát az indukciós
+          feltevés szerint van olyan bázisa, amelyben a mátrixa Jordan-alakú.
+          A két bázis egyesítése \(W\) bázisa, amelyben \(\varphi\) mátrixa a
+          két Jordan-alakú mátrix blokk-diagonális összeállítása, vagyis
+          Jordan-alakú. A blokkok főátlóbeli elemei \(\varphi\)
+          sajátértékei, mert háromszögmátrix főátlója a sajátértékeket
+          adja.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

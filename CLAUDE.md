@@ -77,7 +77,7 @@ not a bug.
 
 | Section (Hungarian) | Landing page | Item template | Filled example |
 |---|---|---|---|
-| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/de-ttk-matematika-bsc/jegyzet1/` (added 2026-09-17, see the math-note exception below) and the `kombinatorika-es-grafelmelet/`, `linearis-algebrai-alapozas/` (10 items each) and `algebra-es-szamelmelet-alapok/` (7 items) topic-landing pages (added 2026-09-17, 2026-09-20 and 2026-09-21, see the topic-nesting exception below); see also the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
+| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/de-ttk-matematika-bsc/jegyzet1/` (added 2026-09-17, see the math-note exception below) and the `kombinatorika-es-grafelmelet/`, `linearis-algebrai-alapozas/` (10 items each), `algebra-es-szamelmelet-alapok/` (7 items) and `linearis-algebra-halado/` (12 items) topic-landing pages (added 2026-09-17, 2026-09-20 and, the last two, 2026-09-21, see the topic-nesting exception below); see also the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | none currently — empty since `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) |
 | Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | `/oktatoi/inbpm0315-21/jegyzet1/` (moved here 2026-09-16, renamed from `java-alapok` the same day) `jegyzet2/` (added 2026-09-16, new content) and every later lesson (`jegyzet3/`, `jegyzet4/`, ... — added one per message since 2026-09-19, new content) — all keep the class-session shape, see below, not the template's default |
@@ -185,17 +185,18 @@ counterparts in the other sections.
 
 `de-ttk-matematika-bsc` (added 2026-09-17) is a third, unrelated
 course — Debreceni Egyetem, TTK, Matematika BSc — that exists only
-under `jegyzetek/` so far. It has four children on its course-landing
+under `jegyzetek/` so far. It has five children on its course-landing
 card-grid: the standalone item `jegyzet1` ("Analízis alapjai") — see
 the "Math-note jegyzet exception" subsection below for why its shape
 deliberately differs from both `jegyzet-template.html`'s current
 default and the older Tematika/Kontextus/Gyakorlat/Puffer pattern the
 Content style guide documents — and the `kombinatorika-es-grafelmelet/`,
 `linearis-algebrai-alapozas/` ("Lineáris algebrai alapozás", added
-2026-09-20) and `algebra-es-szamelmelet-alapok/` ("Algebra és
-számelmélet alapok", added 2026-09-21) topic-landing pages, listing 10,
-10 and 7 jegyzet items; see the "Topic-nesting exception" subsection
-below for that second level.
+2026-09-20), `algebra-es-szamelmelet-alapok/` ("Algebra és
+számelmélet alapok", added 2026-09-21) and `linearis-algebra-halado/`
+("Lineáris algebra haladó", added 2026-09-21) topic-landing pages,
+listing 10, 10, 7 and 12 jegyzet items; see the "Topic-nesting
+exception" subsection below for that second level.
 
 `deik-mernokinformatikus-bsc-2017`, by contrast, is the same course
 (same degree program) appearing under both `tetelek/` (the finished
@@ -478,6 +479,107 @@ fixing typos and mistakes "saját ismeretek alapján"):
   as in `linearis-algebrai-alapozas/jegyzet10`, so they don't scroll on a
   phone.
 
+**Fourth use of this pattern: `linearis-algebra-halado/`** (added
+2026-09-21). The site owner's "Lineáris algebra" LaTeX (one long file,
+about 40 `\section`s, from the Jordan form to second-order curves) was
+asked to be a fifth topic folder, "Lineáris algebra haladó", "similar in
+form to the existing ones". After confirming with the owner (12 items and
+a landing page; fix everything; fill the gaps) it became a topic-landing
+page plus 12 items. The split follows the source's order, with misplaced
+fragments moved to where they belong: 1 nilpotens transzformációk,
+Jordan-forma · 2 lineáris és bilineáris formák · 3 kvadratikus formák,
+Lagrange, Sylvester · 4 Jacobi, pozitív definit formák, lokális
+szélsőérték · 5 euklideszi terek, egyenlőtlenségek · 6 ortonormált
+bázisok, Gram–Schmidt, komplementum, Bessel · 7 unitér terek és
+Hermite-formák · 8 adjungált operátor és mátrixa · 9 szimmetrikus
+transzformációk, spektráltétel, főtengely-transzformáció · 10 ortogonális
+és unitér transzformációk · 11 normális és pozitív definit
+transzformációk · 12 másodrendű görbék. The landing's intro follows the
+owner's own wording on the other landings ("… olvashatsz N kisebb részre
+bontva: …"). The source's `\author`, `\date` and `\maketitle` are not
+published. The Jordan form is in this series too (item 1, with its full
+proof) and, stated without proof, in `linearis-algebrai-alapozas/jegyzet10`;
+each series keeps its own copy. The source's chapter comments skip
+"36. FEJEZET"; nothing is missing mathematically.
+
+**Same instruction and same flagging as the third use:** the owner asked
+for every missing definition and a proof for every theorem or claim the
+source states without one, in the source's notation. Every supplied box
+is labelled "(kiegészítés)" in its `.note-box__label`, and each page's head
+comment lists what on it is supplied and not transcribed. Two boxes in
+item 12 (the centre and the principal axis) are labelled "(pontosítva)":
+they are the source's own definitions made precise (see below). Of the 178
+`.note-box`es in the series, 84 are labelled "(kiegészítés)", 2
+"(pontosítva)", and 92 are the source's, so roughly half of the text is
+the assistant's. Those proofs were written by the assistant, not by the
+owner or the course, and have **not** been reviewed by a mathematician;
+the assistant checked that each step cites only earlier results (no
+forward references) and checked the formulas numerically (Jacobi
+coefficients against a direct solve, Gram–Schmidt, the adjoint
+identities, spectral decompositions, orthogonal matrices, conics under
+rigid motions), which catches a wrong formula but not a bad proof. Don't
+present it as the owner's own lecture notes, and don't add more supplied
+material silently.
+
+**Source-content fixes for this series** (the owner chose "mindent
+javítok"):
+- *Mathematical statements that were wrong or too loose:*
+  - Jacobi: the source states the coefficient `Δ_{i-1}/Δ_i` for "a"
+    canonical basis without saying which. It is right for the basis
+    normalised by `L(b_i, e_i) = 1` (`b_i` in the span of `e_1, …, e_i`),
+    so the theorem now says that and proves it; a remark gives the
+    unit-triangular normalisation with `Δ_i/Δ_{i-1}` (the Gaussian
+    pivots). An early working note called the source's ratio "inverted";
+    that was wrong (both are correct for their own basis), don't "fix" it.
+    The Hermitian version needs only `Δ_j ≠ 0` (they are real); the
+    source's `Δ_j > 0` is the positive case.
+  - Jordan form: finite dimension over ℂ. Gram–Schmidt: "jelöléstől
+    eltekintve egyértelmű" is unique up to sign (over ℂ up to a factor of
+    modulus 1), unique once `(b_k, e_k) > 0` is required. The theorem
+    titled "Bessel-egyenlőtlenség" also contains Parseval, so it is
+    retitled, with `k ≤ n`.
+  - `det(A) = det(conj(A^t))` is false over ℂ: `det(A^*) = conj(det A)`.
+    "A valós vagy komplex elemű szimmetrikus mátrix hasonló valós
+    diagonálishoz" is false for complex `A^t = A` (for example
+    ((1, i), (i, −1))): it is `A^* = A`, with an orthogonal / unitary `S`.
+  - The orthogonal / unitary transformation's definition had no body:
+    `φ^* = φ^{-1}`, from the source's own operator list. In the plane, a
+    map with no real eigenvalue is a rotation only (a reflection has
+    eigenvalues ±1).
+  - Second-order curves: the **centre** was a point-set notion and
+    "centrális iff `|A_33| ≠ 0`" is false as one (a pair of parallel
+    lines has a line of centres although `|A_33| = 0`; the empty curve has
+    every point as a vacuous centre), so it is made precise as
+    `F(2d − x) = F(x)` for all `x`, with "centrális" meaning exactly one
+    centre, and the source's own linear system is proved to be exactly
+    that. "1 vagy 2 főtengely" is false for a circle: at least one. `k`
+    was never defined: `k = |A|/|A_33|` for the centric curves,
+    `k = λ_1 c_33 − c_13²` for the degenerate parabolic case, and the
+    signs in the source's lists need the normalisation `λ_1, λ_2 > 0`
+    (multiply the equation by −1). The letter `C` stood for two matrices
+    (`C_33` and `C` now); asymptotic direction, diameter and conjugate
+    direction were used undefined and are defined.
+  - Local extremum: "az első deriváltak uralják a rendszert" is "the
+    gradient is zero", and the Hessian is a symmetric matrix (`C²`).
+- *Duplicates and order:* CBS, Minkowski and Parseval/Bessel are stated
+  twice in the source (real in items 5 and 6, unitary in item 7, each
+  proved once); the "unitér tér" definition came before the Hermite forms
+  it needs; the orphan "Jacobi-bizonyítás (folytatás)" fragment (a
+  positive definite form has all `Δ_i ≠ 0`) is the first step of the
+  Sylvester-criterion proof; the separate "Minkowski-egyenlőtlenség
+  bizonyítása" section is merged under its theorem.
+- *Markup and typos:* about 14 `[cite: N]` markers; the undefined
+  `\begin{megj}` environment (twice); `\emptyset` blocks in matrices → 0;
+  "Pldák", "ugyabban", "Spektrátétel", "kvadridiagonális" (kvázidiagonális),
+  "cosinusáramköre" (koszinusza), "párhuzamosan merőleges" and
+  "oszloponként merőleges" (páronként), "az síkon"; "sesquilinear" is
+  "Hermite-bilineáris (szeszkvilineáris)"; `L_W` is `\mathcal{L}_W`.
+- *Supporting lemmas the source never states* but its proofs need are
+  supplied and labelled like the rest: the Hermitian polarisation
+  identity (item 7), that commuting self-adjoint operators have a common
+  orthonormal eigenbasis (item 11), the classification of the orthogonal
+  2 × 2 matrices (item 10) and the projection formula (item 6).
+
 ### Deliberate exception: `jegyzetek/de-ttk-matematika-bsc/jegyzet1` skips Tematika/Gyakorlat/Puffer
 
 Added 2026-09-17. "Analízis alapjai" was converted from a LaTeX source
@@ -514,8 +616,9 @@ still look like a class session — copy the shape
 
 Added 2026-09-18. Every content item under `jegyzetek/de-ttk-matematika-bsc/`
 (currently: `jegyzet1`, and `kombinatorika-es-grafelmelet/jegyzet1`–
-`jegyzet10`, `linearis-algebrai-alapozas/jegyzet1`–`jegyzet10` and
-`algebra-es-szamelmelet-alapok/jegyzet1`–`jegyzet7` — 28 pages total)
+`jegyzet10`, `linearis-algebrai-alapozas/jegyzet1`–`jegyzet10`,
+`algebra-es-szamelmelet-alapok/jegyzet1`–`jegyzet7` and
+`linearis-algebra-halado/jegyzet1`–`jegyzet12` — 40 pages total)
 ends with a `<p class="source-note">`
 (styled in `style.css`: small, muted, italic — deliberately lighter
 weight than `.note-box`, since this is a site-wide disclaimer, not
@@ -530,11 +633,12 @@ don't rephrase it even though its Hungarian is slightly informal):
 > a Matematika BSc tantervi követelményeire, de teljesen nem egyezik
 > azzal.
 
-This does **not** apply to the section's four landing pages
+This does **not** apply to the section's five landing pages
 (`de-ttk-matematika-bsc/index.html`,
 `kombinatorika-es-grafelmelet/index.html`,
 `linearis-algebrai-alapozas/index.html`,
-`algebra-es-szamelmelet-alapok/index.html`) — they're card-grids with
+`algebra-es-szamelmelet-alapok/index.html`,
+`linearis-algebra-halado/index.html`) — they're card-grids with
 no content text of their own. **Every future content item added under
 `jegyzetek/de-ttk-matematika-bsc/` must include this same element,
 verbatim text and placement** — confirmed with the site owner as a

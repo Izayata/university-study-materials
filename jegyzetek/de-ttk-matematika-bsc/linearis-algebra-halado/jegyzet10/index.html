@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Ortogonális és unitér transzformációk | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Ortogonális és unitér transzformációk jellemzései, sajátértékeik és determinánsuk, a síkbeli ortogonális transzformációk, a struktúratétel és a kvázidiagonális alak bizonyítással — DE TTK Matematika BSc 2023/2025, Lineáris algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/jegyzet10/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 10 of 12 — see jegyzet1's head comment for the shape rationale.
+
+  Source fixes here: the source's Definíció of the orthogonal / unitary
+  transformation had no body at all (just "Legyen W euklideszi vagy
+  unitér tér"); it is filled from the source's own operator list
+  (phi^* = phi^{-1}, see jegyzet8), which is a fix, not supplied
+  content. "megj" was an undefined LaTeX environment (used for the
+  eigenvalue remark); it is a plain Megjegyzés box. "oszloponként
+  merőleges" is "páronként merőleges"; "Ugyanez érvényes a sorokra is"
+  is part of the theorem about columns. "Kvadridiagonális" is
+  "kvázidiagonális" (the source's own section comment says "kvázi-
+  diagonális"). The source said "Ha nincs sajátérték, a mátrix
+  elforgatást vagy tengelyes tükrözést ír le": a reflection always has
+  the eigenvalues +1 and -1, so with no real eigenvalue it is a
+  rotation only, and the statement says so. "[cite: 104]" is dropped.
+  The source's order is kept: the invariant-complement theorem (which
+  the source puts before the characterisations) is proved directly from
+  phi^* = phi^{-1}, so it does not need them. The structure theorem's
+  2-dimensional case says "elforgatás" in the source; the proof gives
+  more (no real eigenvalue, i.e. alpha != 0, pi), and the statement says
+  so, because the quasi-diagonal form uses it. The source's list of the
+  planar types (identity, central reflection, axis reflection, rotation)
+  overlaps: the identity is the rotation by 0 and the central reflection
+  is the rotation by pi; both are kept as named cases.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description): the proofs of the invariant
+  complement theorem, of the four equivalent characterisations (the
+  step (3) => (2) uses the polarisation identities of jegyzet3 and
+  jegyzet7), of |lambda| = 1, of the column/row characterisation and of
+  |det A| = 1; the classification of the orthogonal 2 x 2 matrices as
+  R(alpha) and S(alpha) (a supporting lemma the source only lists in
+  words, needed for the structure theorem); the proof of the structure
+  theorem (a real eigenvalue gives a +-1 line, otherwise a complex
+  eigenvector gives an invariant real plane); the definition of the
+  quasi-diagonal matrix (the source only says "kvadridiagonális
+  (blokk-diagonális)") and the proof of its two statements. The source
+  stated all of these without proof.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/">Lineáris algebra haladó</a> / 10. jegyzet</p>
+
+      <h1>Ortogonális és unitér transzformációk</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a belső szorzatot megtartó transzformációkat
+        vizsgálja: több egyenértékű jellemzésüket adja, megmutatja, hogy
+        sajátértékeik egység abszolút értékűek és determinánsuk is,
+        leírja a síkbeli eseteket, és bebizonyítja, hogy minden
+        ortogonális transzformáció egy- és kétdimenziós, egymásra
+        merőleges invariáns alterekre bontható, azaz ortonormált
+        bázisban kvázidiagonális mátrixú.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Ortogonális (unitér) transzformáció, invariáns alterek</li>
+        <li>Egyenértékű jellemzések: belső szorzat, norma, ortonormált bázis</li>
+        <li>Sajátértékek és determináns, ortogonális mátrixok oszlopai</li>
+        <li>A síkbeli ortogonális transzformációk típusai</li>
+        <li>Az ortogonális transzformációk struktúratétele</li>
+        <li>Kvázidiagonális mátrix</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Ortogonális (unitér) transzformációk</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Ortogonális / unitér transzformáció</span>
+        <p>
+          Legyen \(W\) euklideszi vagy unitér tér \(\mathbb{R}\) vagy
+          \(\mathbb{C}\) felett (véges dimenziós). A \(\varphi \in \mathcal{L}_W\)
+          transzformáció <strong>ortogonális (unitér)</strong>, ha
+          invertálható és \(\varphi^* = \varphi^{-1}\) (8. jegyzet).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Ha \(L\) invariáns altere a \(\varphi\) ortogonális vagy unitér
+          lineáris transzformációnak, akkor \(L^\perp\) is
+          \(\varphi\)-invariáns.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A \(\varphi\) injektív, \(\varphi(L) \subseteq L\), és
+          \(\dim \varphi(L) = \dim L\), ezért \(\varphi(L) = L\), így
+          \(\varphi^{-1}(L) = L\) is. Legyen \(y \in L^\perp\) és
+          \(x \in L\) tetszőleges. Ekkor
+        </p>
+        \[
+        (\varphi y, x) = (y, \varphi^* x) = (y, \varphi^{-1} x) = 0,
+        \]
+        <p>
+          mert \(\varphi^{-1} x \in L\) és \(y \perp L\). Tehát
+          \(\varphi y \in L^\perp\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Legyen \(\varphi \in \mathcal{L}_W\). Az alábbi állítások
+          páronként ekvivalensek:
+        </p>
+        <ol>
+          <li>\(\varphi\) ortogonális / unitér.</li>
+          <li>\(\forall x, y \in W : (\varphi(x), \varphi(y)) = (x, y)\).</li>
+          <li>\(\forall x \in W : \|\varphi(x)\| = \|x\|\).</li>
+          <li>Ha \((e_1, \dots, e_n)\) ortonormált bázis, akkor \((\varphi(e_1), \dots, \varphi(e_n))\) is ortonormált bázis (izometrikus operátorok).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>(1) ⟹ (2):</strong>
+          \((\varphi x, \varphi y) = (x, \varphi^* \varphi y) = (x, y)\),
+          mert \(\varphi^* \varphi = \varphi^{-1} \varphi = \mathrm{id}\).
+        </p>
+        <p>
+          <strong>(2) ⟹ (3):</strong> \(y = x\)-szel
+          \(\|\varphi x\|^2 = \|x\|^2\).
+        </p>
+        <p>
+          <strong>(3) ⟹ (2):</strong> A belső szorzat a normából
+          visszanyerhető: valós esetben
+          \((x, y) = \tfrac14\bigl(\|x + y\|^2 - \|x - y\|^2\bigr)\), komplex
+          esetben a 7. jegyzet polárizációs azonossága szerint
+          \((x, y) = \tfrac14\bigl[\|x+y\|^2 - \|x-y\|^2 + i\|x+iy\|^2 - i\|x-iy\|^2\bigr]\)
+          (mindkettő kifejtéssel ellenőrizhető).
+          A \(\varphi\) lineáris és megtartja a normát, ezért az
+          \((\varphi x, \varphi y)\) ugyanezzel a képlettel a
+          \(\varphi(x \pm y)\), \(\varphi(x \pm iy)\) normáiból
+          számolható, amelyek megegyeznek az \(x \pm y\), \(x \pm iy\)
+          normáival; tehát \((\varphi x, \varphi y) = (x, y)\).
+        </p>
+        <p>
+          <strong>(2) ⟹ (1):</strong> Minden \(x\)-re
+          \((x, \varphi^* \varphi y) = (\varphi x, \varphi y) = (x, y)\),
+          azaz \((x, \varphi^* \varphi y - y) = 0\), így
+          \(\varphi^* \varphi y = y\), \(\varphi^* \varphi = \mathrm{id}\).
+          Ebből \(\varphi\) injektív, véges dimenzióban tehát bijektív, és
+          \(\varphi^{-1} = \varphi^*\).
+        </p>
+        <p>
+          <strong>(2) ⟹ (4):</strong> Ha \((e_i, e_j) = \delta_{ij}\), akkor
+          \((\varphi e_i, \varphi e_j) = \delta_{ij}\) is: az \(n\) darab
+          \(\varphi e_i\) ortonormált rendszer, tehát független, és
+          \(n = \dim W\) miatt bázis.
+        </p>
+        <p>
+          <strong>(4) ⟹ (2):</strong> Legyen \((e_i)\) egy ortonormált
+          bázis (van ilyen; elég egyetlen ilyen bázisra tudni az állítást),
+          \(x = \sum x_i e_i\), \(y = \sum y_j e_j\). Ekkor
+          \((\varphi x, \varphi y) = \sum_{i,j} x_i \overline{y_j}\,(\varphi e_i, \varphi e_j) = \sum_i x_i \overline{y_i} = (x, y)\).
+        </p>
+      </div>
+
+      <h2>Ortogonális és unitér transzformációk tulajdonságai</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés</span>
+        <p>
+          Ha \(\lambda\) sajátértéke az ortogonális vagy unitér lineáris
+          transzformációnak, akkor \(|\lambda| = 1\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Ha \(\varphi x = \lambda x\), \(x \neq 0\), akkor a normamegtartás
+          miatt \(\|x\| = \|\varphi x\| = |\lambda|\,\|x\|\), így
+          \(|\lambda| = 1\). Valós térben ez a valós sajátértékekre
+          \(\lambda = \pm 1\)-et jelent. A karakterisztikus polinom komplex
+          gyökeire is igaz: az \(A\) valós ortogonális mátrix a
+          \(\mathbb{C}^n\)-ben unitér (\(A^* = A^t = A^{-1}\)), és a fenti
+          gondolatmenet ott is érvényes.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Egy valós vagy komplex elemű mátrix pontosan akkor
+          ortogonális/unitér, ha oszlopai páronként merőleges
+          egységvektorok \(\mathbb{R}^n\)-ben / \(\mathbb{C}^n\)-ben. Ugyanez
+          érvényes a sorokra is.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A szorzat elemei
+          \((A^* A)_{ij} = \sum_k \overline{a_{ki}}\, a_{kj} = (a_{\cdot j}, a_{\cdot i})\),
+          ahol \(a_{\cdot j}\) az \(A\) \(j\)-edik oszlopa a szokásos belső
+          szorzattal. Így az oszlopok pontosan akkor ortonormáltak, ha
+          \(A^* A = E\), ami négyzetes mátrixra \(A^* = A^{-1}\)-et jelent.
+          Ebből \(A A^* = E\) is következik, és
+          \((A A^*)_{ij} = \sum_k a_{ik} \overline{a_{jk}} = (a_{i \cdot}, a_{j \cdot})\),
+          tehát a sorok is ortonormáltak; fordítva, ha a sorok
+          ortonormáltak, akkor \(A A^* = E\), így \(A^* = A^{-1}\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Egy ortogonális / unitér mátrix determinánsa \(1\) abszolút
+          értékű (\(|\det(A)| = 1\)).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A 8. jegyzet szerint \(\det A^* = \overline{\det A}\), ezért
+          \(1 = \det E = \det(A^* A) = \overline{\det A} \cdot \det A = |\det A|^2\).
+          Valós ortogonális mátrixra \(\det A = \pm 1\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Euklideszi terek ortogonális transzformációi</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — A síkbeli ortogonális transzformációk típusai</span>
+        <p>A síkbeli ortogonális transzformációk típusai:</p>
+        <ul>
+          <li>Identikus leképezés</li>
+          <li>Középpontos tükrözés</li>
+          <li>Tengelyes tükrözés</li>
+          <li>Elforgatás az origó körül</li>
+        </ul>
+        <p>
+          Ha nincs (valós) sajátérték, a transzformáció elforgatás
+          (\(\alpha\) szögű; \(\alpha \neq 0, \pi\)).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — A síkbeli ortogonális mátrixok (kiegészítés)</span>
+        <p>
+          Kétdimenziós euklideszi térben, ortonormált bázisban az
+          ortogonális mátrixok pontosan az alábbiak:
+        </p>
+        \[
+        \begin{aligned}
+        R(\alpha) &amp;= \begin{pmatrix} \cos\alpha &amp; -\sin\alpha \\ \sin\alpha &amp; \cos\alpha \end{pmatrix} \ (\det = 1), \\
+        S(\alpha) &amp;= \begin{pmatrix} \cos\alpha &amp; \sin\alpha \\ \sin\alpha &amp; -\cos\alpha \end{pmatrix} \ (\det = -1).
+        \end{aligned}
+        \]
+        <p>
+          \(R(\alpha)\) az origó körüli \(\alpha\) szögű elforgatás
+          (\(R(0)\) az identikus leképezés, \(R(\pi) = -E\) a középpontos
+          tükrözés), \(S(\alpha)\) a \((\cos\frac{\alpha}{2}, \sin\frac{\alpha}{2})\)
+          irányú egyenesre vonatkozó tengelyes tükrözés, amelynek
+          sajátértékei \(+1\) és \(-1\). Ezért, ha nincs valós sajátérték,
+          a transzformáció \(\alpha\) szögű elforgatás (\(\alpha \neq 0, \pi\)).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az oszlopokról szóló tétel szerint az \(A\) oszlopai
+          ortonormáltak. Az első
+          oszlop egységvektor, ezért \((\cos\alpha, \sin\alpha)^T\) alakú.
+          A második oszlop erre merőleges egységvektor, azaz
+          \(\pm(-\sin\alpha, \cos\alpha)^T\); a \(+\) előjel az
+          \(R(\alpha)\), a \(-\) az \(S(\alpha)\).
+        </p>
+        <p>
+          Az \(R(\alpha)\) a \((1, 0)\) és \((0, 1)\) vektort az
+          \(\alpha\) szöggel elforgatott vektorba viszi, ezért az
+          \(\alpha\) szögű elforgatás. Sajátértéke pontosan akkor van, ha
+          a \(\lambda^2 - 2\cos\alpha\,\lambda + 1\) karakterisztikus
+          polinomnak van valós gyöke, azaz \(|\cos\alpha| \ge 1\), vagyis
+          \(\alpha = 0\) vagy \(\pi\) (az identitás, illetve \(-E\)).
+        </p>
+        <p>
+          Az \(S(\alpha)\) szimmetrikus, nyoma 0 és determinánsa \(-1\),
+          ezért sajátértékei \(+1\) és \(-1\); a \(+1\) sajátvektor például
+          \(v = (\cos\frac{\alpha}{2}, \sin\frac{\alpha}{2})\) (a
+          szögek összegzési képleteiből \(S(\alpha)v = v\)), a \(-1\)
+          sajátvektor rá merőleges (9. jegyzet), így \(S(\alpha)\) a
+          \(v\) egyenesére tükröz. Tehát ha nincs valós sajátérték, csak
+          \(R(\alpha)\) lehet, \(\alpha \neq 0, \pi\).
+        </p>
+      </div>
+
+      <h2>Ortogonális transzformációk struktúratétele</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Ortogonális transzformációk struktúratétele</span>
+        <p>
+          Legyen \(\varphi\) ortogonális transzformáció az \(E\)
+          euklideszi téren. Ekkor vannak olyan páronként ortogonális \(1\)
+          vagy \(2\) dimenziós \(L_1, \dots, L_k\)
+          \(\varphi\)-invariáns alterek, hogy:
+        </p>
+        \[
+        E = L_1 \oplus \dots \oplus L_k
+        \]
+        <ul>
+          <li>\(1\) dimenzió esetén: \(\varphi|_{L_j}\) identikus vagy \((-1)\)-szeres (tükrözés).</li>
+          <li>\(2\) dimenzió esetén: \(\varphi|_{L_j}\) elforgatás (valós sajátérték nélkül, azaz \(\alpha \neq 0, \pi\) szöggel).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Indukció \(n = \dim E\) szerint; \(n = 0\)-ra \(k = 0\).
+          Legyen \(n \ge 1\).
+        </p>
+        <p>
+          <strong>1. eset: van valós sajátérték.</strong> Ekkor \(\lambda = \pm 1\)
+          (az előző pont szerint) és van hozzá \(v \neq 0\) sajátvektor.
+          Az \(L_1 = \mathcal{L}(v)\) egydimenziós invariáns altér, és
+          \(\varphi|_{L_1} = \lambda\,\mathrm{id}\) (identikus vagy
+          \((-1)\)-szeres). A \(L_1^\perp\) invariáns (fenti tétel),
+          \((n-1)\)-dimenziós, és a \(\varphi\) megszorítása rajta
+          norma-megtartó, tehát ortogonális; az indukciós feltevés szerint
+          \(L_1^\perp = L_2 \oplus \dots \oplus L_k\) a kívánt alakú, és
+          \(E = L_1 \oplus L_1^\perp\).
+        </p>
+        <p>
+          <strong>2. eset: nincs valós sajátérték.</strong> Legyen \(A\) a
+          \(\varphi\) mátrixa egy ortonormált bázisban; a karakterisztikus
+          polinomnak van nem valós \(\lambda = a + bi\) (\(b \neq 0\))
+          gyöke, és van hozzá \(Z = X + iY \in \mathbb{C}^n\) sajátvektor
+          (\(X, Y \in \mathbb{R}^n\)): \(AZ = \lambda Z\). A valós és
+          képzetes részt összevetve
+        </p>
+        \[
+        AX = aX - bY, \qquad AY = bX + aY,
+        \]
+        <p>
+          így \(M = \mathcal{L}(X, Y)\) (az \(X\), \(Y\)
+          koordinátavektoroknak megfelelő \(E\)-beli vektorok altere)
+          invariáns. Ha \(X, Y\)
+          lineárisan függők lennének (valós együtthatókkal; \(Z \neq 0\), így
+          nem mindkettő nulla), akkor \(M\) egydimenziós lenne, egy valós
+          \(w\)-vel \(M = \mathcal{L}(w)\), és \(Aw = \mu w\) egy valós
+          \(\mu\)-vel: valós sajátérték, ellentmondás. Tehát \(\dim M = 2\).
+          A \(\varphi|_M\) ortogonális transzformáció, amelynek nincs valós
+          sajátértéke, így az előző tétel szerint elforgatás. Az \(M^\perp\)
+          invariáns, \((n-2)\)-dimenziós, és az indukciós feltevés adja a
+          maradék \(L_j\) alterek felbontását; \(E = M \oplus M^\perp\).
+        </p>
+      </div>
+
+      <h2>Kvázidiagonális mátrix</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Kvázidiagonális (blokk-diagonális) mátrix (kiegészítés)</span>
+        <p>
+          <strong>Kvázidiagonális</strong> az a blokk-diagonális mátrix,
+          amelynek főátlójában \(1 \times 1\)-es blokkok (értékük \(1\) vagy
+          \(-1\)) és \(2 \times 2\)-es \(R(\alpha_j)\) forgatásblokkok
+          állnak, a blokkokon kívül minden eleme \(0\):
+        </p>
+        \[
+        \operatorname{diag}\bigl(1, \dots, 1, -1, \dots, -1, R(\alpha_1), \dots, R(\alpha_m)\bigr)
+        \]
+        <p>
+          (a blokkok sorrendje tetszőleges; a lényeg, hogy minden blokk
+          \((\pm 1)\) vagy \(R(\alpha)\)).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <ol>
+          <li>Minden \(\varphi\) ortogonális transzformációhoz létezik olyan ortonormált bázis, melyben a mátrixa kvázidiagonális (blokk-diagonális).</li>
+          <li>Minden \(A\) ortogonális mátrixhoz van olyan \(S\) ortogonális mátrix, hogy \(S^{-1} A S\) kvázidiagonális.</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>1.</strong> A struktúratétel \(L_1, \dots, L_k\)
+          altereiben válasszunk ortonormált bázist (egydimenziósban egy
+          egységvektor, kétdimenziósban két merőleges egységvektor); az
+          alterek páronként merőlegesek és összegük \(E\), így az egyesített
+          rendszer ortonormált bázis. Egy \(L_j\)-ben a \(\varphi\) mátrixa:
+          egydimenziós esetben \((1)\) vagy \((-1)\); kétdimenziós esetben
+          a \(\varphi|_{L_j}\) elforgatás valós sajátérték nélkül, így a
+          síkbeli tétel szerint a mátrixa a választott ortonormált
+          bázisban \(R(\alpha)\) vagy \(S(\alpha)\) alakú, és mivel
+          \(S(\alpha)\)-nak van valós sajátértéke, \(R(\alpha)\) alakú.
+          Így az egész mátrix blokk-diagonális, a blokkok \((\pm 1)\)
+          vagy \(R(\alpha)\).
+        </p>
+        <p>
+          <strong>2.</strong> Az \(X \mapsto AX\) transzformáció az
+          \(\mathbb{R}^n\)-ben a szokásos belső szorzattal és standard
+          bázissal ortogonális (8. jegyzet). Az 1. pont szerint van olyan
+          \((f_1, \dots, f_n)\) ortonormált bázis, amelyben a mátrixa
+          kvázidiagonális \(B\). Legyen \(S\) az \(f_j\) koordinátáiból
+          álló oszlopokkal képezett mátrix: oszlopai ortonormáltak, tehát
+          \(S\) ortogonális, és \(S^{-1} A S = B\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

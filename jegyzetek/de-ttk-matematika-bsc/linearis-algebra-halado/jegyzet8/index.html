@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Adjungált operátor és mátrixa | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Lineáris forma előállítása belső szorzattal, az adjungált operátor és tulajdonságai, az adjungált mátrixa, önadjungált, ortogonális, unitér és normális operátorok, bizonyítással — DE TTK Matematika BSc 2023/2025, Lineáris algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/jegyzet8/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 8 of 12 — see jegyzet1's head comment for the shape rationale.
+
+  Source fixes here: "sesquilinear" is "Hermite-bilineáris (szeszkvilineáris)"
+  (as in jegyzet7); "ugyabban" is "ugyanabban"; the source claimed
+  det(A) = det(conj(A^t)), which is false over C — it is
+  det(A^*) = conj(det A), and the theorem says so (the two agree only
+  for real matrices). The source
+  listed the operator kinds twice (once for operators, once for
+  matrices) with the "ortogonális (unitér)" case defined as phi^* =
+  phi^{-1}; that is the definition used, and the matrix version is a
+  theorem here. The identity A^* = conj(A^t) was a bare formula after
+  the theorem that needs it; it is a Definíció box before it. The
+  operator set is written \mathcal{L}_W (the source's L_W), and the
+  matrix of an operator has the images of the basis vectors as columns,
+  as in the Lineáris algebrai alapozás series. W is finite dimensional
+  throughout.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description): the proofs of both representation
+  theorems (Riesz), of the existence and uniqueness of the adjoint, of
+  its four properties, of the formula for its matrix, of the three
+  special properties (determinant, eigenvalues, kernel and image) and of
+  the matrix characterisation of the operator kinds. The source stated
+  all of these without proof.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/">Lineáris algebra haladó</a> / 8. jegyzet</p>
+
+      <h1>Adjungált operátor és mátrixa</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a belső szorzat és a lineáris leképezések
+        kapcsolatát építi fel: minden lineáris forma egy vektorral való
+        skaláris szorzás, ebből minden lineáris transzformációhoz tartozik
+        egy adjungált, és ennek segítségével értelmezhetők az
+        önadjungált, az ortogonális (unitér) és a normális operátorok. A
+        \(W\) tér mindenütt véges dimenziós euklideszi (valós) vagy unitér
+        (komplex) tér, a belső szorzat az első változóban lineáris; valós
+        esetben a konjugálás elhagyható.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Lineáris forma előállítása belső szorzattal (Riesz)</li>
+        <li>Bilineáris forma és a hozzá tartozó operátorok</li>
+        <li>Az adjungált operátor és tulajdonságai</li>
+        <li>Az adjungált mátrixa, konjugált transzponált</li>
+        <li>Determináns, sajátérték, mag és kép az adjungáltnál</li>
+        <li>Önadjungált, ortogonális (unitér) és normális operátorok mátrixai</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Formák és belső szorzatok kapcsolata</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Lineáris forma előállítása belső szorzattal (Riesz-tétel)</span>
+        <p>
+          Legyen \(W\) euklideszi vagy unitér tér. Minden \(\ell\) lineáris
+          formához egyértelműen létezik olyan \(a \in W\), hogy:
+        </p>
+        \[
+        \forall x \in W : \ell(x) = (x, a)
+        \]
+        <p>
+          Minden \(\ell\) konjugált lineáris forma esetén egyértelműen
+          létezik \(a \in W\), hogy:
+        </p>
+        \[
+        \forall x \in W : \ell(x) = (a, x)
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \((e_1, \dots, e_n)\) a \(W\) ortonormált bázisa (a
+          6. és 7. jegyzet szerint van ilyen). Az
+          \(a = \sum_j \overline{\ell(e_j)}\, e_j\) vektorra, ha
+          \(x = \sum_i x_i e_i\):
+        </p>
+        \[
+        (x, a) = \sum_{i,j} x_i\, \overline{\overline{\ell(e_j)}}\,(e_i, e_j) = \sum_i x_i\, \ell(e_i) = \ell(x),
+        \]
+        <p>
+          ez a létezés. Egyértelműség: ha \((x, a) = (x, a')\) minden
+          \(x\)-re, akkor \((x, a - a') = 0\), és \(x = a - a'\)-vel
+          \(\|a - a'\|^2 = 0\), azaz \(a = a'\).
+        </p>
+        <p>
+          Ha \(\ell\) konjugált lineáris, akkor \(\overline{\ell}\) lineáris
+          forma, az előzőből van olyan egyértelmű \(a\), hogy
+          \(\overline{\ell(x)} = (x, a)\), és így
+          \(\ell(x) = \overline{(x, a)} = (a, x)\) a Hermite-szimmetria
+          miatt; az egyértelműség ugyanúgy következik.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Bilineáris formák és operátorok</span>
+        <p>
+          Legyen \(W\) euklideszi/unitér tér. Ekkor bármely \(L\)
+          bilineáris (illetve Hermite-bilineáris, szeszkvilineáris) forma
+          esetén egyértelműen léteznek \(\varphi, \psi \in \mathcal{L}_W\)
+          operátorok, hogy minden \(x, y \in W\)-re:
+        </p>
+        \[
+        L(x, y) = (\varphi(x), y) = (x, \psi(y))
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>\(\psi\).</strong> Rögzített \(y\)-ra az
+          \(x \mapsto L(x, y)\) lineáris forma, ezért a Riesz-tétel szerint
+          egyértelműen van olyan \(\psi(y)\), hogy
+          \(L(x, y) = (x, \psi(y))\) minden \(x\)-re. \(\psi\) lineáris:
+          \(L(x, \lambda y + \mu z) = \overline{\lambda} L(x, y) + \overline{\mu} L(x, z) = \overline{\lambda}(x, \psi(y)) + \overline{\mu}(x, \psi(z)) = (x, \lambda\psi(y) + \mu\psi(z))\)
+          minden \(x\)-re, és az egyértelműség miatt
+          \(\psi(\lambda y + \mu z) = \lambda\psi(y) + \mu\psi(z)\).
+        </p>
+        <p>
+          <strong>\(\varphi\).</strong> Rögzített \(x\)-re az
+          \(y \mapsto L(x, y)\) konjugált lineáris forma, így a Riesz-tétel
+          második fele szerint egyértelműen van olyan \(\varphi(x)\), hogy
+          \(L(x, y) = (\varphi(x), y)\) minden \(y\)-ra. \(\varphi\)
+          lineáris: \(L(\lambda x + \mu z, y) = \lambda(\varphi(x), y) + \mu(\varphi(z), y) = (\lambda\varphi(x) + \mu\varphi(z), y)\),
+          és ismét az egyértelműségből
+          \(\varphi(\lambda x + \mu z) = \lambda\varphi(x) + \mu\varphi(z)\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Adjungált operátor és tulajdonságai</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Adjungált operátor</span>
+        <p>
+          Legyen \(\varphi \in \mathcal{L}_W\). \(\varphi\)
+          <strong>adjungáltja</strong> az az egyértelműen létező
+          \(\varphi^* \in \mathcal{L}_W\), melyre:
+        </p>
+        \[
+        \forall x, y \in W : (\varphi(x), y) = (x, \varphi^*(y))
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — az adjungált létezik és egyértelmű</span>
+        <p>
+          Az \(L(x, y) = (\varphi(x), y)\) az első változóban lineáris, a
+          másodikban konjugált lineáris (valós esetben lineáris), tehát
+          (Hermite-)bilineáris forma. Az előző tétel szerint egyértelműen
+          van olyan \(\psi \in \mathcal{L}_W\), hogy
+          \(L(x, y) = (x, \psi(y))\); ez éppen \(\varphi^* = \psi\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Az operátorok fajtái</span>
+        <ul>
+          <li><strong>Szimmetrikus (önadjungált)</strong>: ha \(\varphi^* = \varphi\).</li>
+          <li><strong>Ortogonális (unitér)</strong>: ha \(\varphi\) invertálható és \(\varphi^* = \varphi^{-1}\).</li>
+          <li><strong>Normális</strong>: ha \(\varphi \circ \varphi^* = \varphi^* \circ \varphi\).</li>
+        </ul>
+        <p>
+          (Valós térben a szimmetrikus és az ortogonális, komplex térben az
+          önadjungált és az unitér elnevezést használjuk.)
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Az adjungált tulajdonságai</span>
+        <p>
+          Legyenek \(\varphi, \psi \in \mathcal{L}_W\) és
+          \(\lambda \in \mathbb{R}\) (\(\mathbb{C}\)). Ekkor:
+        </p>
+        <ol>
+          <li>\((\varphi + \psi)^* = \varphi^* + \psi^*\).</li>
+          <li>\((\lambda \varphi)^* = \overline{\lambda} \cdot \varphi^*\).</li>
+          <li>\((\varphi \circ \psi)^* = \psi^* \circ \varphi^*\).</li>
+          <li>\((\varphi^*)^* = \varphi\).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Mindegyik állításnál azt mutatjuk meg, hogy a jobb oldali
+          operátor teljesíti az adjungált definiáló egyenletét, majd az
+          egyértelműséget használjuk.
+        </p>
+        <ol>
+          <li>\(((\varphi + \psi)x, y) = (\varphi x, y) + (\psi x, y) = (x, \varphi^* y) + (x, \psi^* y) = (x, (\varphi^* + \psi^*)y)\).</li>
+          <li>\(((\lambda\varphi)x, y) = \lambda(\varphi x, y) = \lambda(x, \varphi^* y) = (x, \overline{\lambda}\varphi^* y)\), mert a második változóból a skalár konjugálva jön ki.</li>
+          <li>\(((\varphi\psi)x, y) = (\psi x, \varphi^* y) = (x, \psi^*\varphi^* y)\).</li>
+          <li>\((\varphi^* x, y) = \overline{(y, \varphi^* x)} = \overline{(\varphi y, x)} = (x, \varphi y)\), tehát \(\varphi\) teljesíti a \(\varphi^*\) adjungáltjának definícióját.</li>
+        </ol>
+      </div>
+
+      <h2>Adjungált mátrixa és tulajdonságai</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Mátrix adjungáltja (konjugált transzponáltja)</span>
+        <p>
+          Az \(A = (\alpha_{ij})\) mátrix <strong>adjungáltja</strong>
+          (konjugált transzponáltja):
+        </p>
+        \[
+        A^* = \overline{A^t}, \qquad (A^*)_{ij} = \overline{\alpha_{ji}}
+        \]
+        <p>Valós mátrixra \(A^* = A^t\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Az adjungált mátrixa</span>
+        <p>
+          Legyen \(\varphi \in \mathcal{L}_W\) mátrixa a \(W\) ortonormált
+          bázisában \(A\) (a \(j\)-edik oszlop a \(\varphi(e_j)\)
+          koordinátáiból áll). Ekkor \(\varphi^*\) mátrixa ugyanabban a
+          bázisban:
+        </p>
+        \[
+        \overline{A^t} = A^*
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Ortonormált bázisban egy \(x = \sum_i x_i e_i\) vektor
+          koordinátái \(x_i = (x, e_i)\) (a 6. és 7. jegyzet szerint),
+          tehát
+          \(\alpha_{ij} = (\varphi(e_j), e_i)\). A \(\varphi^*\) mátrixának
+          elemeire
+        </p>
+        \[
+        \beta_{ij} = (\varphi^*(e_j), e_i) = \overline{(e_i, \varphi^*(e_j))} = \overline{(\varphi(e_i), e_j)} = \overline{\alpha_{ji}}.
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Speciális tulajdonságok és relációk</span>
+        <ol>
+          <li>\(\det(\varphi^*) = \overline{\det(\varphi)}\) (mátrixok szintjén: \(\det(A^*) = \overline{\det(A)}\)).</li>
+          <li>Ha \(\lambda\) sajátértéke \(\varphi\)-nek, akkor \(\overline{\lambda}\) sajátértéke \(\varphi^*\)-nek.</li>
+          <li>\(\ker \varphi^* = (\operatorname{Im} \varphi)^\perp\) és \(\operatorname{Im} \varphi^* = (\ker \varphi)^\perp\).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>1.</strong> \(\det A^* = \det \overline{A^t} = \det \overline{A} = \overline{\det A}\):
+          a transzponálás nem változtat a determinánson, a determináns a
+          mátrix elemeinek egész együtthatós polinomja, ezért a konjugálás
+          felcserélhető vele. Valós esetben \(\det \varphi^* = \det \varphi\).
+        </p>
+        <p>
+          <strong>2.</strong> Az adjungált 1. és 2. tulajdonsága és
+          \(\mathrm{id}^* = \mathrm{id}\) szerint
+          \((\varphi - \lambda\, \mathrm{id})^* = \varphi^* - \overline{\lambda}\, \mathrm{id}\).
+          Ha \(\lambda\) sajátérték, akkor \(\det(\varphi - \lambda\, \mathrm{id}) = 0\),
+          és az 1. pont szerint
+          \(\det(\varphi^* - \overline{\lambda}\, \mathrm{id}) = \overline{\det(\varphi - \lambda\, \mathrm{id})} = 0\),
+          azaz \(\overline{\lambda}\) sajátértéke \(\varphi^*\)-nak.
+        </p>
+        <p>
+          <strong>3.</strong> \(y \in \ker \varphi^*\) pontosan akkor, ha
+          \(\varphi^* y = 0\), azaz \((x, \varphi^* y) = 0\) minden
+          \(x\)-re, azaz \((\varphi x, y) = 0\) minden \(x\)-re, vagyis
+          \(y\) merőleges az \(\operatorname{Im}\varphi\)-re. Ezt
+          \(\varphi^*\)-ra alkalmazva és \((\varphi^*)^* = \varphi\)-t
+          használva \(\ker \varphi = (\operatorname{Im} \varphi^*)^\perp\),
+          amiből a 6. jegyzet \((L^\perp)^\perp = L\) tétele szerint
+          \((\ker \varphi)^\perp = \operatorname{Im} \varphi^*\).
+        </p>
+      </div>
+
+      <h2>Operátorok fajtái mátrixként</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Az operátorok fajtái mátrixukkal</span>
+        <p>
+          Ha \(A\) a \(\varphi\) valós vagy komplex elemű mátrixa egy
+          ortonormált bázisban:
+        </p>
+        <ul>
+          <li><strong>Szimmetrikus (önadjungált)</strong>: ha \(A^* = A\) (\(\varphi^* = \varphi\)).</li>
+          <li><strong>Ortogonális / unitér</strong>: ha \(A^* = A^{-1}\) (\(\varphi^* = \varphi^{-1}\)).</li>
+          <li><strong>Normális</strong>: ha \(A A^* = A^* A\) (\(\varphi \circ \varphi^* = \varphi^* \circ \varphi\)).</li>
+        </ul>
+        <p>
+          Azaz \(\varphi\) pontosan akkor az adott fajtájú operátor, ha a
+          mátrixa ortonormált bázisban az adott fajtájú mátrix.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az operátorok és a mátrixaik közötti megfeleltetés (a
+          <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet9/">Lineáris algebrai alapozás 9. jegyzete</a>
+          szerint) kölcsönösen egyértelmű, az összetételt mátrixszorzásba
+          viszi, az inverzet mátrixinverzbe, és a
+          \(\varphi^*\) mátrixa az előző tétel szerint \(A^*\). Így a
+          \(\varphi^*\) és \(\varphi\), a \(\varphi^*\) és \(\varphi^{-1}\)
+          (\(\varphi^{-1}\) mátrixa \(A^{-1}\)), valamint a
+          \(\varphi\varphi^*\) és \(\varphi^*\varphi\) operátorok
+          egyenlősége éppen az \(A^*\) és \(A\), az \(A^*\) és \(A^{-1}\),
+          illetve az \(AA^*\) és \(A^*A\) mátrixok egyenlőségével
+          egyenértékű.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
