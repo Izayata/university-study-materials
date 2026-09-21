@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Lineáris és bilineáris formák | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Lineáris forma és koordinátás alakja, bilineáris forma, a bilineáris forma mátrixa és a bázisváltás képlete bizonyítással — DE TTK Matematika BSc 2023/2025, Lineáris algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/jegyzet2/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 2 of 12 — see jegyzet1's head comment for the shape rationale.
+
+  Source fixes here: the stray "[cite: 135]" marker in the linear form
+  definition is dropped; the four bilinearity conditions are one per row
+  of an aligned block (the source had two long rows); both coordinate
+  theorems are stated for a finite dimensional space with a basis.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description): the proofs of the coordinate form of
+  a linear form, of the coordinate form of a bilinear form, of
+  L(a, c) = X^T A Y, and of the base-change formula B = S^T A S. The
+  source stated all four without a proof. The entries alpha_ij =
+  L(b_i, b_j) of the matrix are stated explicitly in the definition (the
+  source only obtained them inside the omitted proof).
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/">Lineáris algebra haladó</a> / 2. jegyzet</p>
+
+      <h1>Lineáris és bilineáris formák</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a formák elméletének alapjait rakja le: a lineáris
+        formát és koordinátás alakját, majd a bilineáris formát, annak
+        mátrixát egy bázisban, és azt, hogyan változik a mátrix
+        bázisváltáskor. A sorozat következő részei erre építenek.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Lineáris forma és együtthatórendszere</li>
+        <li>Bilineáris forma és koordinátás előállítása</li>
+        <li>A bilineáris forma mátrixa</li>
+        <li>Bázisváltás bilineáris formáknál</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Lineáris formák</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Lineáris forma</span>
+        <p>
+          Legyen \(V\) egy \(\mathbb{R}\) feletti vektortér. Az
+          \(\ell: V \to \mathbb{R}\) leképezést <strong>lineáris
+          formának</strong> nevezzük, ha lineáris leképezés, azaz minden
+          \(x, y \in V\) és \(\lambda \in \mathbb{R}\) esetén:
+        </p>
+        <ol>
+          <li>\(\ell(x + y) = \ell(x) + \ell(y)\),</li>
+          <li>\(\ell(\lambda x) = \lambda\, \ell(x)\).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Lineáris forma koordinátás alakja</span>
+        <p>
+          Ha \((b_1, \dots, b_n)\) bázis \(V\)-ben, akkor az \(\ell\)
+          formához egyértelműen léteznek olyan
+          \(\alpha_1, \dots, \alpha_n \in \mathbb{R}\) számok, hogy ha
+          \(a = x_1 b_1 + \dots + x_n b_n\), akkor:
+        </p>
+        \[
+        \ell(a) = \alpha_1 x_1 + \dots + \alpha_n x_n = \sum_{i=1}^n \alpha_i x_i
+        \]
+        <p>
+          ahol az \(\alpha_i = \ell(b_i)\) a lineáris forma
+          <strong>együtthatórendszere</strong>.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az additivitás és a homogenitás alapján (az additivitást
+          indukcióval több tagra kiterjesztve)
+          \(\ell(x_1 b_1 + \dots + x_n b_n) = x_1 \ell(b_1) + \dots + x_n \ell(b_n)\),
+          tehát az \(\alpha_i = \ell(b_i)\) számok megfelelnek.
+          Egyértelműség: ha az \(\alpha_i'\) számok is teljesítik az
+          állítást minden \(a\)-ra, akkor az \(a = b_j\) vektorra
+          (\(x_i = \delta_{ij}\)) \(\ell(b_j) = \alpha_j'\), vagyis
+          \(\alpha_j' = \alpha_j\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Bilineáris formák és mátrixaik</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Bilineáris forma</span>
+        <p>
+          Az \(L: V \times V \to \mathbb{R}\) leképezést <strong>bilineáris
+          formának</strong> nevezzük, ha mindkét változójában additív és
+          homogén, azaz tetszőleges \(x, y, z \in V\) és
+          \(\lambda \in \mathbb{R}\) esetén:
+        </p>
+        \[
+        \begin{aligned}
+        L(x + y, z) &amp;= L(x, z) + L(y, z), \\
+        L(\lambda x, y) &amp;= \lambda L(x, y), \\
+        L(x, y + z) &amp;= L(x, y) + L(x, z), \\
+        L(x, \lambda y) &amp;= \lambda L(x, y).
+        \end{aligned}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Bilineáris forma koordinátás előállítása</span>
+        <p>
+          Ha \((b_1, \dots, b_n)\) bázis \(V\)-ben, akkor az \(L\)
+          bilineáris formához egyértelműen léteznek
+          \(\alpha_{ij} \in \mathbb{R}\) (\(1 \le i, j \le n\)) együtthatók
+          úgy, hogy ha \(a = \sum_{i=1}^n x_i b_i\) és
+          \(c = \sum_{j=1}^n y_j b_j\), akkor:
+        </p>
+        \[
+        L(a, c) = \sum_{i=1}^n \sum_{j=1}^n \alpha_{ij}\, x_i y_j
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az additivitást és a homogenitást mindkét változóban
+          alkalmazva
+          \(L\bigl(\sum_i x_i b_i, \sum_j y_j b_j\bigr) = \sum_i \sum_j x_i y_j\, L(b_i, b_j)\),
+          tehát az \(\alpha_{ij} = L(b_i, b_j)\) együtthatók megfelelnek.
+          Egyértelműség: ha az \(\alpha_{ij}'\) együtthatók is teljesítik
+          az állítást, akkor az \(a = b_i\), \(c = b_j\) választással
+          \(L(b_i, b_j) = \alpha_{ij}'\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Bilineáris forma mátrixa</span>
+        <p>
+          Az \(A = (\alpha_{ij})\), \(\alpha_{ij} = L(b_i, b_j)\) mátrixot a
+          bilineáris formának a \((b)\) bázisra vonatkozó
+          <strong>mátrixának</strong> nevezzük. Ekkor oszlopvektorokkal
+          felírva (\(X = [x_i]\), \(Y = [y_j]\)):
+        </p>
+        \[
+        L(a, c) = X^T \cdot A \cdot Y
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az \(X^T A Y\) egyetlen számot ad, amely a mátrixszorzás
+          definíciója szerint
+          \(\sum_i x_i \bigl(\sum_j \alpha_{ij} y_j\bigr) = \sum_i \sum_j \alpha_{ij}\, x_i y_j\),
+          ez pedig az előző tétel szerint \(L(a, c)\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Bázisváltás bilineáris formáknál</span>
+        <p>
+          Legyenek \((b)\) és \((f)\) bázisok \(V\)-ben, és legyen \(S\) a
+          bázis áttérési mátrixa (a <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebrai-alapozas/jegyzet5/">Lineáris algebrai alapozás 5. jegyzete</a>
+          szerint: \(f_j = \sum_k s_{kj} b_k\)). Ha az \(L\) bilineáris
+          forma mátrixa a \((b)\) bázisban \(A\), az \((f)\) bázisban pedig
+          \(B\), akkor:
+        </p>
+        \[
+        B = S^T A S
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A \(B\) elemei \(\beta_{ij} = L(f_i, f_j)\). Az
+          \(f_i = \sum_k s_{ki} b_k\) és \(f_j = \sum_l s_{lj} b_l\)
+          kifejezést beírva, a bilinearitás miatt:
+        </p>
+        \[
+        \beta_{ij} = \sum_k \sum_l s_{ki}\, L(b_k, b_l)\, s_{lj} = \sum_k \sum_l s_{ki}\, \alpha_{kl}\, s_{lj} = (S^T A S)_{ij}
+        \]
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
