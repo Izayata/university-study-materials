@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Komplex számsorozatok | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Komplex számsorozat és konvergenciája, a bővített komplex számkör, a határérték egyértelműsége, korlátosság, Cauchy-sorozatok, Bolzano–Weierstrass-tétel és a műveletek bizonyítással — DE TTK Matematika BSc 2023/2025, Mély bevezetés az analízisbe.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/jegyzet7/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 7 of 16 — see part 1's head comment for the shape rationale.
+
+  Source fixes here: "-R subset C" is "R subset C"; the source's
+  neighbourhood of infinity, U(infinity, eps) = {w in C : |w| > eps},
+  leaves out the point infinity itself, so it is not a neighbourhood of
+  infinity; it is {w : |w| > eps} u {infinity}. The uniqueness theorem
+  was a Tétel whose text is really its proof, with a stray Arabic
+  character and "nagytöbbségben esnek": it is a Tétel and a Bizonyítás,
+  with "all but finitely many". "Ričl-féle vagy azzal ekvivalens
+  becslésekkel" (garbled) is the inequality |Re w|, |Im w| <= |w|. The
+  Bolzano–Weierstrass proof of the source ("Tekintsük ekkor az (y_n)
+  részsorozatának az (y_{n_k}) részsorozatát ...") is garbled about
+  indexing; it is rewritten (a subsequence of (y_{n_k}) with a subsequence
+  of (x_{n_k})). The source states "lim 1/z_n = 1/z (ha z != 0)" without
+  saying that z_n != 0 for all n; it does now.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (flagged here and in
+  the PR description): the inequality |Re w|, |Im w| <= |w| <= |Re w| +
+  |Im w|, the proof of the disjoint neighbourhoods in the extended
+  complex plane and the definition of the limit there, the proofs of
+  uniqueness (in this setting), of boundedness of a convergent sequence
+  and of the Re/Im boundedness criterion, the "only if" direction of the
+  Re/Im convergence theorem, the ordinary |z_n - z_m| < eps form of the
+  Cauchy property with its equivalence, the proof of the Cauchy criterion
+  in C, and the proofs of the product and reciprocal rules (the source
+  only shows part of the sum rule).
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/">Mély bevezetés az analízisbe</a> / 7. jegyzet</p>
+
+      <h1>Komplex számsorozatok</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a sorozatok elméletét viszi át a komplex számokra: a
+        határérték ugyanúgy környezetekkel és távolsággal definiálható,
+        és a valós és képzetes rész külön-külön vizsgálásával minden
+        korábbi tétel (korlátosság, Cauchy-kritérium,
+        Bolzano–Weierstrass, műveletek) visszavezethető a valós esetre.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Komplex számsorozat, határérték, végtelenbe divergálás</li>
+        <li>A bővített komplex számkör és környezetei</li>
+        <li>A határérték egyértelműsége, korlátosság</li>
+        <li>Konvergencia a valós és a képzetes résszel</li>
+        <li>Cauchy-sorozat, Bolzano–Weierstrass-tétel</li>
+        <li>Műveletek komplex sorozatokkal</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Komplex számsorozatok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Komplex számsorozat</span>
+        <p>
+          Komplex számsorozaton egy \(f: \mathbb{N} \to \mathbb{C}\)
+          leképezést értünk (\(z_n\)-nel jelölve a tagokat). Mivel minden
+          valós szám komplex szám is (\(\mathbb{R} \subset \mathbb{C}\)), a
+          valós számsorozatok természetes módon általánosíthatók a komplex
+          síkra.
+        </p>
+      </div>
+
+      <h3>Alapfogalmak a komplex számkörben</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Határérték, konvergencia, végtelenbe divergálás</span>
+        <ul>
+          <li><strong>Határérték:</strong> \(\lim_{n \to \infty} z_n = z\), ha tetszőleges \(\varepsilon &gt; 0\)-hoz létezik \(N\), hogy ha \(n &gt; N\), akkor \(|z_n - z| &lt; \varepsilon\).</li>
+          <li><strong>Konvergens vagy divergens:</strong> A valós esethez hasonlóan definiálva.</li>
+          <li><strong>Végtelenbe divergálás:</strong> \(\lim_{n \to \infty} z_n = \infty\), ha tetszőleges \(K\)-hoz létezik \(N\), hogy ha \(n &gt; N\), akkor \(|z_n| &gt; K\).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés</span>
+        <p>
+          Ha egy valós számsorozat a valós értelemben \(\pm \infty\)-be
+          divergál, akkor a komplex esetben ez egységesen a
+          \(\infty\)-be való divergenciát jelenti.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Lemma — A modulus és a valós, képzetes rész (kiegészítés)</span>
+        <p>Ha \(w = a + bi\) (\(a, b \in \mathbb{R}\)), akkor:</p>
+        \[
+        |a| \le |w|, \quad |b| \le |w|, \quad |w| \le |a| + |b|.
+        \]
+        <p>
+          Valóban, \(a^2 \le a^2 + b^2 = |w|^2\), hasonlóan \(b^2\)-re,
+          és \((|a| + |b|)^2 = a^2 + b^2 + 2|a||b| \ge |w|^2\).
+        </p>
+      </div>
+
+      <h3>A bővített komplex számkör</h3>
+      <p>A bővített komplex számok halmaza: \(\overline{\mathbb{C}} = \mathbb{C} \cup \{\infty\}\).</p>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Környezetek a \(\overline{\mathbb{C}}\)-ban (pontosítva)</span>
+        <ul>
+          <li>\(U(z, \varepsilon) = \{w \in \mathbb{C} \mid |z - w| &lt; \varepsilon\}\) (\(\varepsilon &gt; 0\), ha \(z \in \mathbb{C}\))</li>
+          <li>\(U(\infty, \varepsilon) = \{w \in \mathbb{C} \mid |w| &gt; \varepsilon\} \cup \{\infty\}\) (\(\varepsilon &gt; 0\), ha \(z = \infty\))</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Ha \(u\) és \(v\) adott különböző \(\overline{\mathbb{C}}\)-beli
+          számok (\(u \neq v\)), akkor létezik diszjunkt környezetük.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Ha \(u, v \in \mathbb{C}\): \(\varepsilon = |u - v|/2\). Ha
+          \(w \in U(u, \varepsilon) \cap U(v, \varepsilon)\) volna, akkor
+          \(|u - v| \le |u - w| + |w - v| &lt; 2\varepsilon = |u - v|\),
+          ellentmondás. Ha \(u \in \mathbb{C}\) és \(v = \infty\): az
+          \(U(u, 1)\) és az \(U(\infty, |u| + 1)\) diszjunktak, mert
+          \(|w - u| &lt; 1\) esetén \(|w| &lt; |u| + 1\), és
+          \(\infty \notin U(u, 1)\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Határérték a bővített komplex számok között (kiegészítés)</span>
+        <p>
+          Legyen \(z \in \overline{\mathbb{C}}\). Azt mondjuk, hogy
+          \(\lim z_n = z\), ha \(z\) minden \(V\) környezetére
+          \(z_n \in V\) legfeljebb véges sok \(n\) kivételével. Ez
+          \(z \in \mathbb{C}\) esetén a \(|z_n - z| &lt; \varepsilon\)
+          feltétellel, \(z = \infty\) esetén a \(|z_n| &gt; K\)
+          feltétellel egyenértékű, pontosan úgy, ahogy az 1. jegyzetben a
+          valós esetben.
+        </p>
+      </div>
+
+      <h3>Határérték egyértelműsége</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Határérték egyértelműsége</span>
+        <p>
+          Egy \((z_n)_{n \in \mathbb{N}}\) komplex számsorozatnak
+          legfeljebb egy határértéke van \(\overline{\mathbb{C}}\)-ban.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Indirekt feltételezzük, hogy \(\lim z_n = u\) és
+          \(\lim z_n = v\), ahol \(u, v \in \overline{\mathbb{C}}\) és
+          \(u \neq v\). Mivel \(u \neq v\), léteznek olyan \(U, V\)
+          diszjunkt környezetek (\(U \cap V = \emptyset\)), amelyekre
+          \(u \in U\) és \(v \in V\). A határérték definíciója miatt a
+          sorozat elemei legfeljebb véges sok kivétellel \(U\)-ba és
+          legfeljebb véges sok kivétellel \(V\)-be is esnek, így elég nagy
+          indexre egyszerre mindkettőbe, ami ellentmondás, így a határérték
+          egyértelmű.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h3>Komplex számsorozatok korlátossága</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Korlátos komplex sorozat</span>
+        <p>
+          Egy \((z_n)_{n \in \mathbb{N}}\) komplex számsorozat
+          <strong>korlátos</strong>, ha létezik olyan \(K \in \mathbb{R}\),
+          hogy minden \(n \in \mathbb{N}\) esetén \(|z_n| \le K\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha a \((z_n)_{n \in \mathbb{N}}\) komplex számsorozat konvergens, akkor korlátos is.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \(\lim z_n = z\). Az \(U(z, 1)\) környezeten kívül csak
+          véges sok tag van, legyenek ezek \(z_{n_1}, \dots, z_{n_k}\).
+          Az \(U(z, 1)\)-ben \(|z_n| &lt; |z| + 1\), így
+          \(K = \max\{|z| + 1, |z_{n_1}|, \dots, |z_{n_k}|\}\) korlát.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Komplex sorozat korlátossága és a valós részek</span>
+        <p>
+          Legyen \(z_n = x_n + y_n i\) (\(n \in \mathbb{N}\)). Ekkor a
+          \((z_n)\) sorozat pontosan akkor korlátos \(\mathbb{C}\)-ben, ha
+          az \((x_n)\) és \((y_n)\) valós számsorozatok korlátosak
+          \(\mathbb{R}\)-ben.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Ha \(|z_n| \le K\), akkor a lemma szerint
+          \(|x_n| \le |z_n| \le K\) és \(|y_n| \le K\). Fordítva, ha
+          \(|x_n| \le K_1\) és \(|y_n| \le K_2\), akkor
+          \(|z_n| \le |x_n| + |y_n| \le K_1 + K_2\).
+        </p>
+      </div>
+
+      <h3>Komplex számsorozatok konvergenciája</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Egy \((z_n)_{n \in \mathbb{N}}\) komplex számsorozat (ahol
+          \(z_n = x_n + y_n i\)) pontosan akkor konvergens
+          \(\mathbb{C}\)-ben, ha a valós rész \((x_n)\) és a képzetes rész
+          \((y_n)\) sorozata is konvergens \(\mathbb{R}\)-ben. Ha
+          \(\lim z_n = z = x + yi\), akkor \(\lim x_n = x\) és
+          \(\lim y_n = y\), és megfordítva.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — a konvergens sorozat valós és képzetes része konvergens</span>
+        <p>
+          Ha \(z_n \to z = x + yi\), akkor a lemma szerint
+          \(|x_n - x| \le |z_n - z|\) és \(|y_n - y| \le |z_n - z|\),
+          így az \(\varepsilon\)-hoz tartozó küszöb után mindkettő
+          \(&lt; \varepsilon\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás — a valós és a képzetes rész konvergenciájából a sorozaté</span>
+        <p>
+          Legyenek \((x_n)\) és \((y_n)\) olyan valós számsorozatok, hogy
+          \(\lim x_n = x\) és \(\lim y_n = y\). Legyen
+          \(z_n = x_n + y_n i\). Megmutatjuk, hogy
+          \(\lim z_n = x + y \cdot i\). Tetszőleges \(\varepsilon &gt; 0\)
+          esetén:
+        </p>
+        <ul>
+          <li>Az \(\frac{\varepsilon}{2}\)-höz létezik \(N_1 &gt; 0\), hogy ha \(n \in \mathbb{N}, n &gt; N_1\), akkor \(|x_n - x| &lt; \frac{\varepsilon}{2}\).</li>
+          <li>Az \(\frac{\varepsilon}{2}\)-höz létezik \(N_2 &gt; 0\), hogy ha \(n \in \mathbb{N}, n &gt; N_2\), akkor \(|y_n - y| &lt; \frac{\varepsilon}{2}\).</li>
+        </ul>
+        <p>Legyen \(N = \max\{N_1, N_2\}\) és \(n \in \mathbb{N}, n &gt; N\). Ekkor:</p>
+        \[
+        \begin{aligned}
+        |z_n - (x + y \cdot i)| &amp;= |(x_n - x) + (y_n - y) \cdot i| \\
+        &amp;\le |x_n - x| + |y_n - y| &lt; \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
+        \end{aligned}
+        \]
+        <p>Tehát \(\lim z_n = x + y \cdot i\).</p>
+      </div>
+
+      <h3>Cauchy-sorozat komplex számkörben</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Cauchy-sorozat \(\mathbb{C}\)-ben</span>
+        <p>
+          Egy \((z_n)\) komplex számsorozat <strong>Cauchy-sorozat</strong>
+          \(\mathbb{C}\)-ben, ha a valós és képzetes részek sorozatai is
+          Cauchy-sorozatok \(\mathbb{R}\)-ben.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — Az általános alak (kiegészítés)</span>
+        <p>
+          Ez egyenértékű a szokásos alakkal: bármely \(\varepsilon &gt; 0\)-hoz
+          van olyan \(N\), hogy \(n, m &gt; N\) esetén
+          \(|z_n - z_m| &lt; \varepsilon\). Valóban, ha \((x_n)\) és
+          \((y_n)\) Cauchy, akkor az \(\varepsilon/2\)-höz tartozó közös
+          küszöb után
+          \(|z_n - z_m| \le |x_n - x_m| + |y_n - y_m| &lt; \varepsilon\); és
+          ha \(|z_n - z_m| &lt; \varepsilon\), akkor
+          \(|x_n - x_m| \le |z_n - z_m| &lt; \varepsilon\), és hasonlóan
+          \(y\)-ra.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Egy komplex számsorozat pontosan akkor konvergens, ha Cauchy-sorozat.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          \((z_n)\) konvergens \(\iff\) \((x_n)\) és \((y_n)\) konvergens
+          (az előző tétel) \(\iff\) \((x_n)\) és \((y_n)\) Cauchy-sorozat
+          (a valós Cauchy-kritérium, 3. jegyzet) \(\iff\) \((z_n)\)
+          Cauchy-sorozat (a definíció).
+        </p>
+      </div>
+
+      <h3>Bolzano–Weierstrass-féle kiválasztási tétel</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Bolzano–Weierstrass</span>
+        <p>Minden korlátos komplex számsorozatnak létezik konvergens részsorozata.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Legyen \((z_n)_{n \in \mathbb{N}}\) egy korlátos komplex
+          számsorozat. Ekkor \(z_n = x_n + y_n i\) (\(n \in \mathbb{N}\))
+          módon megadott valós sorozatok korlátosak \(\mathbb{R}\)-ben.
+          Mivel \((x_n)\) korlátos, a Bolzano–Weierstrass tétel miatt van
+          konvergens részsorozata, legyen ez \((x_{n_k})_{k \in \mathbb{N}}\),
+          \(x_{n_k} \to x\). Az \((y_{n_k})_{k \in \mathbb{N}}\) sorozat az
+          \((y_n)\) részsorozata, tehát korlátos, így ennek is van
+          konvergens részsorozata: \((y_{n_{k_l}})_{l \in \mathbb{N}}\),
+          \(y_{n_{k_l}} \to y\). Az \((x_{n_{k_l}})\) az \((x_{n_k})\)
+          részsorozata, tehát \(x_{n_{k_l}} \to x\). Így az
+          \(l\)-edik lépésben kapott \(z_{n_{k_l}} = x_{n_{k_l}} + y_{n_{k_l}} i\)
+          komplex sorozat az eredeti \((z_n)_{n \in \mathbb{N}}\) egy
+          konvergens részsorozata (határértéke \(x + yi\)).
+        </p>
+      </div>
+
+      <h3>Konvergencia és műveletek</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Műveletek komplex sorozatokkal</span>
+        <p>
+          Legyen \(\lim_{n \to \infty} z_n = z\) és
+          \(\lim_{n \to \infty} u_n = u\). Ekkor:
+        </p>
+        <ol type="i">
+          <li>\(\lim_{n \to \infty} (z_n + u_n) = z + u\)</li>
+          <li>\(\lim_{n \to \infty} (z_n \cdot u_n) = z \cdot u\)</li>
+          <li>\(\lim_{n \to \infty} \frac{1}{z_n} = \frac{1}{z}\) (ha \(z \neq 0\), és \(z_n \neq 0\) minden \(n\)-re)</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (i)</span>
+        <p>
+          Legyen \(z_n = x_n + y_n i\) és \(u_n = v_n + w_n i\)
+          (\(n \in \mathbb{N}\)). Ekkor a valós és képzetes részek
+          határértékeire visszavezetve:
+        </p>
+        \[
+        \lim_{n \to \infty} (x_n + v_n) = \lim_{n \to \infty} x_n + \lim_{n \to \infty} v_n = \text{Re}(z) + \text{Re}(u) = \text{Re}(z + u)
+        \]
+        \[
+        \lim_{n \to \infty} (y_n + w_n) = \lim_{n \to \infty} y_n + \lim_{n \to \infty} w_n = \text{Im}(z) + \text{Im}(u) = \text{Im}(z + u)
+        \]
+        <p>
+          Tehát \(z_n + u_n = (x_n + v_n) + (y_n + w_n)i \to \text{Re}(z+u) + \text{Im}(z+u)i = z + u\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (ii) és (iii) (kiegészítés)</span>
+        <p>
+          <strong>(ii)</strong> A szorzat valós és képzetes része
+          \(x_n v_n - y_n w_n\), illetve \(x_n w_n + y_n v_n\). A valós
+          sorozatok szorzat- és összegszabálya (4. jegyzet) szerint ezek
+          \(xv - yw\)-hez, illetve \(xw + yv\)-hez tartanak, ami
+          \(zu\) valós és képzetes része, így \(z_n u_n \to zu\).
+        </p>
+        <p>
+          <strong>(iii)</strong> A reciprokra vonatkozó összefüggés:
+        </p>
+        \[
+        \frac{1}{z_n} = \frac{\overline{z_n}}{|z_n|^2} = \frac{x_n}{x_n^2 + y_n^2} - \frac{y_n}{x_n^2 + y_n^2}\, i
+        \]
+        <p>
+          A valós műveleti tételek szerint \(x_n^2 + y_n^2 \to x^2 + y^2 = |z|^2 \neq 0\),
+          így a két hányados \(\frac{x}{|z|^2}\)-hez, illetve
+          \(\frac{y}{|z|^2}\)-hez tart, és
+          \(\frac{1}{z_n} \to \frac{x - yi}{|z|^2} = \frac{\overline{z}}{|z|^2} = \frac{1}{z}\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
