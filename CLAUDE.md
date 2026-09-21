@@ -77,7 +77,7 @@ not a bug.
 
 | Section (Hungarian) | Landing page | Item template | Filled example |
 |---|---|---|---|
-| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/de-ttk-matematika-bsc/jegyzet1/` (added 2026-09-17, see the math-note exception below) and the `kombinatorika-es-grafelmelet/`, `linearis-algebrai-alapozas/` (10 items each) and `algebrai-strukturak-bevezetes/` (7 items) topic-landing pages (added 2026-09-17, 2026-09-20 and 2026-09-21, see the topic-nesting exception below); see also the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
+| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/de-ttk-matematika-bsc/jegyzet1/` (added 2026-09-17, see the math-note exception below) and the `kombinatorika-es-grafelmelet/`, `linearis-algebrai-alapozas/` (10 items each) and `algebra-es-szamelmelet-alapok/` (7 items) topic-landing pages (added 2026-09-17, 2026-09-20 and 2026-09-21, see the topic-nesting exception below); see also the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | none currently — empty since `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) |
 | Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | `/oktatoi/inbpm0315-21/jegyzet1/` (moved here 2026-09-16, renamed from `java-alapok` the same day) `jegyzet2/` (added 2026-09-16, new content) and every later lesson (`jegyzet3/`, `jegyzet4/`, ... — added one per message since 2026-09-19, new content) — all keep the class-session shape, see below, not the template's default |
@@ -192,10 +192,10 @@ deliberately differs from both `jegyzet-template.html`'s current
 default and the older Tematika/Kontextus/Gyakorlat/Puffer pattern the
 Content style guide documents — and the `kombinatorika-es-grafelmelet/`,
 `linearis-algebrai-alapozas/` ("Lineáris algebrai alapozás", added
-2026-09-20) and `algebrai-strukturak-bevezetes/` ("Algebrai struktúrák
-(bevezetés)", added 2026-09-21) topic-landing pages, listing 10, 10 and
-7 jegyzet items; see the "Topic-nesting exception" subsection below for
-that second level.
+2026-09-20) and `algebra-es-szamelmelet-alapok/` ("Algebra és
+számelmélet alapok", added 2026-09-21) topic-landing pages, listing 10,
+10 and 7 jegyzet items; see the "Topic-nesting exception" subsection
+below for that second level.
 
 `deik-mernokinformatikus-bsc-2017`, by contrast, is the same course
 (same degree program) appearing under both `tetelek/` (the finished
@@ -410,7 +410,7 @@ mathematical):
   (`A^*` = transposed cofactor matrix; the source used `A^*/|A|` without
   defining it) and the statement that the permutation group is `S_n`.
 
-**Third use of this pattern: `algebrai-strukturak-bevezetes/`** (added
+**Third use of this pattern: `algebra-es-szamelmelet-alapok/`** (added
 2026-09-21). The site owner's "Algebra és Számelmélet" LaTeX (10
 `\section`s) was asked to be split "into a few smaller parts like the
 kombinatorika series". The split follows the source's own "N. FEJEZET"
@@ -419,10 +419,14 @@ leképezések · 2 algebrai struktúrák és csoportok · 3 részcsoportok,
 Lagrange-tétel, gyűrűk és testek · 4 számelmélet alapjai (oszthatóság,
 prímek) · 5 kongruenciák, Euler–Fermat-tétel, kínai maradéktétel · 6
 komplex számok, De Moivre-formula, egységgyökök · 7 polinomgyűrűk és
-gyöktulajdonságok. The folder is named "Algebrai struktúrák (bevezetés)"
-exactly as the owner asked, although the material also covers number
-theory, ℂ and polynomials (the source's own title is "Algebra és
-Számelmélet"); slug `algebrai-strukturak-bevezetes`. The source's
+gyöktulajdonságok. **Naming history:** the owner first asked for the
+folder to be called "Algebrai struktúrák (bevezetés)" and it was built
+under that name (slug `algebrai-strukturak-bevezetes`); since the
+material also covers number theory, ℂ and polynomials (the source's own
+title is "Algebra és Számelmélet"), the owner then renamed it to "Algebra
+és számelmélet alapok" (slug `algebra-es-szamelmelet-alapok`) before the
+pull request was merged, so the old slug was never published and no
+redirect is needed. Don't "restore" the earlier name. The source's
 `\author` line (a personal name), `\date`, title page and table of
 contents are not published, same as in every other series. Item 7 has
 four `<h3>` headings the source's single last `\section` did not, only to
@@ -511,7 +515,7 @@ still look like a class session — copy the shape
 Added 2026-09-18. Every content item under `jegyzetek/de-ttk-matematika-bsc/`
 (currently: `jegyzet1`, and `kombinatorika-es-grafelmelet/jegyzet1`–
 `jegyzet10`, `linearis-algebrai-alapozas/jegyzet1`–`jegyzet10` and
-`algebrai-strukturak-bevezetes/jegyzet1`–`jegyzet7` — 28 pages total)
+`algebra-es-szamelmelet-alapok/jegyzet1`–`jegyzet7` — 28 pages total)
 ends with a `<p class="source-note">`
 (styled in `style.css`: small, muted, italic — deliberately lighter
 weight than `.note-box`, since this is a site-wide disclaimer, not
@@ -530,7 +534,7 @@ This does **not** apply to the section's four landing pages
 (`de-ttk-matematika-bsc/index.html`,
 `kombinatorika-es-grafelmelet/index.html`,
 `linearis-algebrai-alapozas/index.html`,
-`algebrai-strukturak-bevezetes/index.html`) — they're card-grids with
+`algebra-es-szamelmelet-alapok/index.html`) — they're card-grids with
 no content text of their own. **Every future content item added under
 `jegyzetek/de-ttk-matematika-bsc/` must include this same element,
 verbatim text and placement** — confirmed with the site owner as a
