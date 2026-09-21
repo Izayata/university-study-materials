@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Szimmetrikus transzformációk, spektráltétel, főtengely-transzformáció | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Szimmetrikus (önadjungált) transzformációk, valós sajátértékek, invariáns alterek, a spektráltétel, a főtengely-transzformáció és a spektrálreprezentációs tétel bizonyítással — DE TTK Matematika BSc 2023/2025, Lineáris algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/jegyzet9/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 9 of 12 — see jegyzet1's head comment for the shape rationale.
+
+  Source fixes here: "Spektrátétel" is "Spektráltétel" (the theorem
+  title and the section title); "sesquilinear-szimmetrikus" is
+  "Hermite-szimmetrikus Hermite-bilineáris" (as in jegyzet7); the
+  \emptyset blocks of the diagonal matrix are 0; the theorem "Az A
+  valós vagy komplex elemű szimmetrikus mátrix hasonló egy valós elemű
+  diagonális mátrixhoz" is false for complex matrices with A^t = A (for
+  example ((1, i), (i, -1)) is not diagonalisable), and what is meant
+  is A^* = A: it now says "valós szimmetrikus vagy komplex önadjungált
+  mátrix", and adds that the similarity can be done with an orthogonal /
+  unitary S. The source states the Definíció of the symmetric
+  transformation again although jegyzet8 already has it; it is kept
+  here as the source has it (with the (phi x, y) = (x, phi y) form).
+  The formula "Q(x) = L(x, x) = (phi(x), x) = ..." stood loose after
+  the theorem; it is its own Megjegyzés box.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description): the proofs that the two examples are
+  symmetric, that the roots of the characteristic polynomial are real,
+  that eigenvectors of different eigenvalues are orthogonal, that the
+  orthogonal complement of an invariant subspace is invariant, of the
+  spectral theorem (induction on the dimension), of the principal axis
+  transformation (via jegyzet8's operator of a bilinear form), of the
+  similarity to a diagonal matrix (with an orthogonal / unitary S) and of
+  the spectral representation theorem. The source stated all of these
+  without proof.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/">Lineáris algebra haladó</a> / 9. jegyzet</p>
+
+      <h1>Szimmetrikus transzformációk, spektráltétel, főtengely-transzformáció</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a szimmetrikus (önadjungált) transzformációk
+        szerkezetét írja le: sajátértékeik valósak, sajátvektoraikból
+        ortonormált bázis választható (spektráltétel), ebből következik,
+        hogy minden szimmetrikus bilineáris forma ortonormált bázisban
+        diagonalizálható (főtengely-transzformáció), és az ilyen
+        transzformáció ortogonális projekciók valós együtthatós
+        összegeként áll elő. A \(W\) tér mindenütt véges dimenziós
+        euklideszi vagy unitér tér.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Szimmetrikus (önadjungált) transzformáció, példák</li>
+        <li>A sajátértékek valósak, a sajátvektorok merőlegesek</li>
+        <li>Invariáns alterek, spektráltétel</li>
+        <li>Főtengely-transzformáció, mátrix diagonális alakja</li>
+        <li>Spektrálreprezentációs tétel</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Szimmetrikus (önadjungált) transzformációk</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Szimmetrikus (önadjungált) transzformáció</span>
+        <p>
+          \(W\)-ben (euklideszi vagy unitér tér) a \(\varphi\) transzformáció
+          <strong>szimmetrikus (önadjungált)</strong>, ha
+          \(\varphi^* = \varphi\), azaz:
+        </p>
+        \[
+        \forall x, y \in W : (\varphi(x), y) = (x, \varphi(y))
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Példák</span>
+        <ol>
+          <li>Ortonormált bázisban diagonális mátrix valós \(\lambda_i\) elemekkel (\(A^* = A\)).</li>
+          <li>Ortogonális projekció (\(W = L \oplus L^\perp\)).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>1.</strong> Ha \(A = \operatorname{diag}(\lambda_1, \dots, \lambda_n)\)
+          a \(\varphi\) mátrixa egy ortonormált bázisban, és a
+          \(\lambda_i\) valósak, akkor \(A^* = \overline{A^t} = A\), így a
+          8. jegyzet szerint \(\varphi^* = \varphi\).
+        </p>
+        <p>
+          <strong>2.</strong> Legyen \(a = x_a + y_a\) és
+          \(b = x_b + y_b\) (\(x_a, x_b \in L\), \(y_a, y_b \in L^\perp\)).
+          Mivel \(L \perp L^\perp\), a \(\pi_L\) vetületre
+          \((\pi_L a, b) = (x_a, x_b + y_b) = (x_a, x_b)\) és
+          \((a, \pi_L b) = (x_a + y_a, x_b) = (x_a, x_b)\), tehát
+          \((\pi_L a, b) = (a, \pi_L b)\).
+        </p>
+      </div>
+
+      <h2>Szimmetrikus transzformációk sajátértékei</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          A szimmetrikus lineáris transzformáció karakterisztikus
+          polinomjának minden gyöke valós (\(\lambda \in \mathbb{R}\)).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \(A\) a \(\varphi\) mátrixa egy ortonormált bázisban; a
+          8. jegyzet szerint \(A^* = A\). Egy \(\lambda \in \mathbb{C}\)
+          gyök esetén \(\det(A - \lambda E) = 0\), tehát van olyan
+          \(0 \neq X \in \mathbb{C}^n\), hogy \(AX = \lambda X\). A
+          \(\mathbb{C}^n\)-ben a szokásos belső szorzattal az \(X \mapsto AX\)
+          transzformáció mátrixa \(A\), így az adjungáltjáé \(A^* = A\),
+          és
+        </p>
+        \[
+        \lambda (X, X) = (AX, X) = (X, AX) = (X, \lambda X) = \overline{\lambda}\,(X, X).
+        \]
+        <p>
+          Mivel \((X, X) > 0\), \(\lambda = \overline{\lambda}\), azaz
+          \(\lambda\) valós. (Valós euklideszi térben is így érvelünk: a
+          valós mátrix a \(\mathbb{C}^n\)-ben is önadjungált.)
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          A szimmetrikus lineáris transzformáció különböző
+          sajátértékeihez tartozó sajátvektorok egymásra merőlegesek
+          (ortogonálisak).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \(\varphi x = \lambda x\), \(\varphi y = \mu y\) és
+          \(\lambda \neq \mu\); az előző tétel szerint \(\mu\) valós. Ekkor
+        </p>
+        \[
+        \lambda (x, y) = (\varphi x, y) = (x, \varphi y) = (x, \mu y) = \mu\,(x, y),
+        \]
+        <p>
+          tehát \((\lambda - \mu)(x, y) = 0\), és \(\lambda \neq \mu\)
+          miatt \((x, y) = 0\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Invariáns alterek és spektráltétel</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Ha \(H\) invariáns altere a szimmetrikus lineáris
+          transzformációnak, akkor \(H^\perp\) is invariáns.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \(y \in H^\perp\) és \(x \in H\) tetszőleges. Mivel
+          \(\varphi x \in H\), és \(\varphi\) szimmetrikus,
+          \((\varphi y, x) = (y, \varphi x) = 0\). Tehát \(\varphi y\)
+          merőleges \(H\)-ra, azaz \(\varphi y \in H^\perp\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Struktúratétel / Spektráltétel</span>
+        <p>
+          Minden szimmetrikus lineáris transzformációhoz létezik
+          sajátvektorokból álló ortonormált bázis.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Indukció \(n = \dim W\) szerint; \(n = 0\)-ra az üres bázis jó.
+          Legyen \(n \ge 1\). A karakterisztikus polinomnak van komplex
+          gyöke (az algebra alaptétele), és a gyökök valósak. Ha \(\lambda\)
+          valós gyök, akkor \(\det(\varphi - \lambda\,\mathrm{id}) = 0\),
+          tehát a \(W\)-beli \(\varphi - \lambda\,\mathrm{id}\)
+          transzformációnak van nem nulla \(v\) magvektora (valós térben is,
+          mert az operátor valós). Legyen \(e_1 = v / \|v\|\), és
+          \(H = \mathcal{L}(e_1)\); ez invariáns altér, így az előző tétel
+          szerint \(H^\perp\) is invariáns, \((n-1)\)-dimenziós, és a
+          \(\varphi\) megszorítása \(H^\perp\)-ra ott is szimmetrikus. Az
+          indukciós feltevés szerint \(H^\perp\)-nak van sajátvektorokból
+          álló ortonormált bázisa, \((e_2, \dots, e_n)\). Mivel
+          \(W = H \oplus H^\perp\) (6. jegyzet) és \(e_1 \perp H^\perp\), az
+          \((e_1, \dots, e_n)\) a \(W\) sajátvektorokból álló ortonormált
+          bázisa.
+        </p>
+      </div>
+
+      <h2>Főtengely-transzformáció tétele</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Főtengely-transzformáció tétele</span>
+        <p>
+          A \(W\) euklideszi vagy unitér tér minden \(L(x, y)\)
+          szimmetrikus (valós), illetve Hermite-szimmetrikus
+          Hermite-bilineáris (komplex) formájához létezik ortonormált
+          kanonikus bázis.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A 8. jegyzet tétele szerint van olyan \(\varphi \in \mathcal{L}_W\),
+          hogy \(L(x, y) = (\varphi x, y)\) minden \(x, y\)-ra. A \(\varphi\)
+          szimmetrikus:
+        </p>
+        \[
+        (\varphi x, y) = L(x, y) = \overline{L(y, x)} = \overline{(\varphi y, x)} = (x, \varphi y).
+        \]
+        <p>
+          A spektráltétel szerint van olyan \((e_1, \dots, e_n)\) ortonormált
+          bázis, amelyre \(\varphi e_j = \lambda_j e_j\), és \(\lambda_j\)
+          valós. Ekkor
+          \(L(e_i, e_j) = (\varphi e_i, e_j) = \lambda_i (e_i, e_j) = \lambda_i \delta_{ij}\),
+          tehát az \((e_j)\) kanonikus bázis is.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — A kvadratikus forma és a mátrix diagonális alakja</span>
+        <p>Kvadratikus forma előállítása:</p>
+        \[
+        Q(x) = L(x, x) = (\varphi(x), x) = \sum_{j=1}^{n} \lambda_j |x_j|^2
+        \]
+        <p>
+          Ha \((e_1, \dots, e_n)\) sajátvektorokból álló ortonormált bázis
+          \(\varphi\)-hez, akkor a mátrix diagonális alakja:
+        </p>
+        \[
+        B = \begin{pmatrix}
+        \lambda_1 &amp; &amp; 0 \\
+        &amp; \ddots &amp; \\
+        0 &amp; &amp; \lambda_n
+        \end{pmatrix} \quad (\text{valós elemű diagonális mátrix})
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az \(x = \sum_j x_j e_j\) vektorra
+          \((\varphi x, x) = \bigl(\sum_j \lambda_j x_j e_j, \sum_i x_i e_i\bigr) = \sum_j \lambda_j x_j \overline{x_j} = \sum_j \lambda_j |x_j|^2\).
+          A \(B\) \(j\)-edik oszlopa a \(\varphi(e_j) = \lambda_j e_j\)
+          koordinátáiból áll, azaz \(\lambda_j\)-ból a \(j\)-edik helyen és
+          nullákból.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Az \(A\) valós szimmetrikus vagy komplex önadjungált
+          (\(A^* = A\)) mátrix hasonló egy valós elemű diagonális
+          mátrixhoz; a hasonlóság ortogonális (unitér) \(S\) mátrixszal
+          megvalósítható:
+        </p>
+        \[
+        S^{-1} A S = B, \quad S^{-1} = S^*
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az \(A\) mátrixú \(\varphi: X \mapsto AX\) transzformáció a
+          szokásos belső szorzattal az \(\mathbb{R}^n\)-ben (illetve
+          \(\mathbb{C}^n\)-ben) a standard ortonormált bázisban \(A\)-val
+          adott, és \(A^* = A\), tehát a 8. jegyzet szerint szimmetrikus.
+          A spektráltétel szerint van sajátvektorokból álló ortonormált
+          \((f_1, \dots, f_n)\) bázis; az \(S\) mátrix oszlopai legyenek
+          az \(f_j\) koordinátái. Az \(S\) az áttérés mátrixa, így
+          \(S^{-1} A S\) a \(\varphi\) mátrixa az \((f)\) bázisban, ami
+          a fenti diagonális \(B\). Az oszlopok ortonormáltsága miatt
+          \((S^* S)_{ij} = \sum_k \overline{s_{ki}}\, s_{kj} = (f_j, f_i) = \delta_{ij}\),
+          azaz \(S^* S = E\), és \(S^{-1} = S^*\).
+        </p>
+      </div>
+
+      <h2>Spektrálreprezentációs tétel</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Spektrálreprezentációs tétel</span>
+        <p>
+          A \(W\) euklideszi vagy unitér tér \(\varphi\) lineáris
+          transzformációja pontosan akkor szimmetrikus, ha:
+        </p>
+        \[
+        \varphi = \lambda_1 \pi_1 + \dots + \lambda_k \pi_k
+        \]
+        <p>
+          ahol \(\lambda_1, \dots, \lambda_k \in \mathbb{R}\), és
+          \(\pi_1, \dots, \pi_k\) ortogonális projekciók, melyekre:
+        </p>
+        \[
+        \pi_1 + \dots + \pi_k = \operatorname{id} \quad \text{és} \quad \pi_j \circ \pi_q = 0 \quad (j \neq q)
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          (⟸) A \(\pi_j\) ortogonális projekció szimmetrikus (a fenti 2.
+          példa), és a \(\lambda_j\) valósak, így a 8. jegyzet szerint
+          \(\varphi^* = \sum_j \overline{\lambda_j}\,\pi_j^* = \sum_j \lambda_j \pi_j = \varphi\).
+        </p>
+        <p>
+          (⟹) Legyenek \(\lambda_1, \dots, \lambda_k\) a \(\varphi\)
+          különböző sajátértékei (valósak), és
+          \(W_j = \ker(\varphi - \lambda_j\,\mathrm{id})\) a hozzájuk
+          tartozó sajátalterek. A spektráltétel szerinti sajátvektor-bázis
+          minden eleme valamelyik \(W_j\)-ben van, ezért \(W = W_1 + \dots + W_k\);
+          a különböző \(W_j\)-k vektorai merőlegesek egymásra (a fenti
+          tétel), így az összeg direkt. Tehát minden \(x\) egyértelműen
+          \(x = x_1 + \dots + x_k\), \(x_j \in W_j\) alakú, és
+          \(\sum_{q \neq j} x_q \in W_j^\perp\), vagyis az \(x\)-nek a
+          \(W_j\)-re vett ortogonális vetülete \(\pi_j x = x_j\), ahol
+          \(\pi_j\) a \(W_j\)-re vetítő ortogonális projekció. Ebből
+          \(\sum_j \pi_j x = x\), és \(\pi_j \pi_q x = \pi_j x_q = 0\), ha
+          \(j \neq q\) (mert \(x_q \perp W_j\)), valamint
+        </p>
+        \[
+        \varphi x = \sum_j \varphi x_j = \sum_j \lambda_j x_j = \sum_j \lambda_j\, \pi_j x.
+        \]
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
