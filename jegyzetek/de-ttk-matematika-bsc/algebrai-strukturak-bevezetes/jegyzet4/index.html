@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Számelmélet alapjai: oszthatóság és prímek | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Oszthatóság, maradékos osztás, legnagyobb közös osztó, Bézout-identitás, relatív prímek, Euklidész segédtétele és a számelmélet alaptétele bizonyítással — DE TTK Matematika BSc 2023/2025, Algebrai struktúrák (bevezetés).">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebrai-strukturak-bevezetes/jegyzet4/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 4 of 7 — see jegyzet1's head comment for the shape rationale.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description):
+  - the proofs of the Maradékos osztás tétele (existence and
+    uniqueness), the Bézout-identitás, Euklidész segédtétele and the
+    számelmélet alaptétele (existence and uniqueness) — the source
+    stated all four without a proof;
+  - the "Megjegyzés — A legnagyobb közös osztó egyértelműsége" box;
+  - the "Állítás — Relatív prímek tulajdonságai" box and its proof: a
+    lemma (coprime iff a Bézout combination equals 1; a product of
+    numbers coprime to m is coprime to m; m | ab and (a, m) = 1 give
+    m | b) that the proof of Euklidész segédtétele needs here and that
+    part 5 (Euler–Fermat, kínai maradéktétel) reuses, so it is proven
+    once, here;
+  - the "Definíció — Összetett szám" box (the source used "prím" but
+    the existence proof needs its complement).
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebrai-strukturak-bevezetes/">Algebrai struktúrák (bevezetés)</a> / 4. jegyzet</p>
+
+      <h1>Számelmélet alapjai: oszthatóság és prímek</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet az egész számok oszthatóságával foglalkozik. A
+        maradékos osztásból kiindulva bevezeti a legnagyobb közös
+        osztót, bebizonyítja a Bézout-identitást és Euklidész
+        segédtételét, és eljut a számelmélet alaptételéig: minden
+        1-nél nagyobb egész egyértelműen bontható prímek szorzatára.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Oszthatóság és maradékos osztás</li>
+        <li>Legnagyobb közös osztó, Bézout-identitás</li>
+        <li>Relatív prímek és prímszámok</li>
+        <li>Euklidész segédtétele</li>
+        <li>A számelmélet alaptétele (egyértelmű prímtényezős felbontás)</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Számelmélet alapjai: oszthatóság és prímek</h2>
+
+      <p>
+        A számelmélet az egészek gyűrűjének (\(\mathbb{Z}\))
+        tulajdonságaival, az oszthatósággal és a prímek viselkedésével
+        foglalkozik.
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Oszthatóság</span>
+        <p>
+          Legyenek \(a, b \in \mathbb{Z}\). Azt mondjuk, hogy az \(a\)
+          <em>osztja</em> a \(b\)-t (jelölésben: \(a \mid b\)), ha létezik
+          olyan \(q \in \mathbb{Z}\) hányados, amelyre:
+        </p>
+        \[
+        b = a \cdot q
+        \]
+        <p>Ha ilyen \(q\) nem létezik, akkor \(a \nmid b\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Maradékos osztás tétele</span>
+        <p>
+          Bármely \(a \in \mathbb{Z}\) egész számhoz és tetszőleges
+          \(b \in \mathbb{Z} \setminus \{0\}\) egész számhoz léteznek
+          <em>egyértelműen meghatározott</em> \(q\) (hányados) és \(r\)
+          (maradék) egészek, amelyekre teljesül:
+        </p>
+        \[
+        a = b \cdot q + r \quad \text{és} \quad 0 \le r &lt; |b|
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>Létezés.</strong> Tekintsük az
+          \(S = \{a - b \cdot k \mid k \in \mathbb{Z},\ a - b \cdot k \ge 0\}\)
+          halmazt. Nem üres: a \(k = -|a| \cdot b\) esetén
+          \(a - b \cdot k = a + |a| \cdot b^2 \ge a + |a| \ge 0\), mert
+          \(b^2 \ge 1\). A jólrendezési elv szerint \(S\)-nek van legkisebb
+          eleme; legyen ez \(r = a - b \cdot q\). Ekkor \(r \ge 0\).
+          Ha \(r \ge |b|\) lenne, akkor \(r - |b|\) is \(S\)-ben volna
+          (\(b &gt; 0\) esetén \(r - b = a - b(q + 1)\), \(b &lt; 0\) esetén
+          \(r + b = a - b(q - 1)\)), és kisebb lenne \(r\)-nél, ami
+          ellentmond a minimalitásnak. Tehát \(0 \le r &lt; |b|\).
+        </p>
+        <p>
+          <strong>Egyértelműség.</strong> Legyen
+          \(a = b \cdot q + r = b \cdot q' + r'\), ahol
+          \(0 \le r, r' &lt; |b|\). Ekkor
+          \(b \cdot (q - q') = r' - r\), és \(|r' - r| &lt; |b|\). Ha
+          \(q \neq q'\) lenne, akkor \(|b \cdot (q - q')| \ge |b|\)
+          volna, ami ellentmondás. Tehát \(q = q'\), és így \(r = r'\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Legnagyobb közös osztó (lnko)</span>
+        <p>
+          Legyenek \(a, b \in \mathbb{Z}\) nem mindkettő nulla egészek. A
+          \(d \in \mathbb{N}^+\) számot az \(a\) és \(b\)
+          <em>legnagyobb közös osztójának</em> nevezzük (jelölése:
+          \(d = \operatorname{lnko}(a, b)\) vagy \(d = (a, b)\)), ha:
+        </p>
+        <ol>
+          <li>\(d \mid a\) és \(d \mid b\) (közös osztó).</li>
+          <li>Ha \(c \mid a\) és \(c \mid b\), akkor \(c \mid d\) (a legnagyobb a közös osztók közül).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — A legnagyobb közös osztó egyértelműsége (kiegészítés)</span>
+        <p>
+          A legnagyobb közös osztó, ha létezik, egyértelmű: ha \(d\) és
+          \(d'\) is eleget tesz a definíciónak, akkor a 2. feltétel
+          szerint \(d \mid d'\) és \(d' \mid d\), és mivel mindkettő
+          pozitív, \(d = d'\). A létezést a Bézout-identitás bizonyítása
+          mutatja meg.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Bézout-identitás</span>
+        <p>
+          Ha \(a, b \in \mathbb{Z}\) nem mindkettő nulla egészek, és
+          \(d = (a, b)\) a legnagyobb közös osztójuk, akkor léteznek
+          olyan \(u, v \in \mathbb{Z}\) egész számok (ún.
+          Bézout-együtthatók), amelyekre fennáll a következő lineáris
+          kombináció:
+        </p>
+        \[
+        d = a \cdot u + b \cdot v
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az \(L = \{a \cdot x + b \cdot y \mid x, y \in \mathbb{Z}\}\)
+          halmaz pozitív elemei között van legalább egy (az
+          \(a \cdot a + b \cdot b &gt; 0\)), ezért van legkisebb pozitív
+          eleme: \(d_0 = a \cdot u + b \cdot v\). Megmutatjuk, hogy
+          \(d_0\) eleget tesz az lnko definíciójának. Osszuk el
+          maradékosan \(a\)-t \(d_0\)-lal: \(a = d_0 \cdot q + r\),
+          \(0 \le r &lt; d_0\). Ekkor
+          \(r = a - q \cdot (a \cdot u + b \cdot v) = a \cdot (1 - q u) + b \cdot (-q v) \in L\).
+          Mivel \(r &lt; d_0\), és \(d_0\) volt a legkisebb pozitív elem
+          \(L\)-ben, csak \(r = 0\) lehet, azaz \(d_0 \mid a\). Ugyanígy
+          \(d_0 \mid b\). Ha \(c \mid a\) és \(c \mid b\), akkor
+          \(c \mid a \cdot u + b \cdot v = d_0\). Tehát \(d_0\) az \(a\)
+          és \(b\) legnagyobb közös osztója, az egyértelműség miatt
+          \(d_0 = d\), és \(d = a \cdot u + b \cdot v\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Relatív prímek és prímszámok</span>
+        <ul>
+          <li><strong>Relatív prímek:</strong> Az \(a\) és \(b\) egészeket relatív prímeknek nevezzük, ha \((a, b) = 1\).</li>
+          <li><strong>Prímszám:</strong> Egy \(p \in \mathbb{Z}\) (\(p &gt; 1\)) számot prímnek nevezünk, ha pozitív osztói csak az \(1\) és önmaga.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Összetett szám (kiegészítés)</span>
+        <p>
+          Az 1-nél nagyobb egész számot <strong>összetettnek</strong>
+          nevezzük, ha nem prím, azaz felírható \(n = n_1 \cdot n_2\)
+          alakban, ahol \(1 &lt; n_1, n_2 &lt; n\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás — Relatív prímek tulajdonságai (kiegészítés)</span>
+        <p>Legyenek \(a, b, m\) egészek, \(m \neq 0\).</p>
+        <ol>
+          <li>\((a, m) = 1\) pontosan akkor, ha léteznek olyan \(u, v \in \mathbb{Z}\), amelyekre \(a \cdot u + m \cdot v = 1\).</li>
+          <li>Ha \((a, m) = 1\) és \((b, m) = 1\), akkor \((a \cdot b, m) = 1\).</li>
+          <li>Ha \((a, m) = 1\) és \(m \mid a \cdot b\), akkor \(m \mid b\).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>1.</strong> (⟹) A Bézout-identitás. (⟸) Ha
+          \(a \cdot u + m \cdot v = 1\), akkor a \((a, m)\) osztja
+          \(a\)-t és \(m\)-et, tehát az 1-et is, így \((a, m) = 1\).
+        </p>
+        <p>
+          <strong>2.</strong> Az 1. rész szerint
+          \(a \cdot u + m \cdot v = 1\) és \(b \cdot s + m \cdot t = 1\).
+          Összeszorozva:
+        </p>
+        \[
+        \begin{aligned}
+        1 &amp;= (a u + m v)(b s + m t) \\
+        &amp;= a b \cdot (u s) + m \cdot (a u t + v b s + v m t)
+        \end{aligned}
+        \]
+        <p>Az 1. rész (⟸) iránya szerint tehát \((a \cdot b, m) = 1\).</p>
+        <p>
+          <strong>3.</strong> Az 1. rész szerint
+          \(a \cdot u + m \cdot v = 1\). Szorozzuk \(b\)-vel:
+          \(b = a b \cdot u + m \cdot b v\). A jobb oldal mindkét tagja
+          osztható \(m\)-mel (az első \(m \mid a b\) miatt), tehát
+          \(m \mid b\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Euklidész segédtétele (lemma)</span>
+        <p>
+          Ha egy \(p\) prím osztója az \(a \cdot b\) szorzatnak
+          (\(p \mid a \cdot b\)), akkor \(p\) osztója az \(a\)-nak vagy
+          osztója a \(b\)-nek (\(p \mid a\) vagy \(p \mid b\)).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Tegyük fel, hogy \(p \nmid a\). A \((a, p)\) a \(p\) pozitív
+          osztója, ezért \(1\) vagy \(p\); mivel \(p \nmid a\), nem
+          lehet \(p\), tehát \((a, p) = 1\). Az előző állítás 3. része
+          szerint (\(m = p\)) a \(p \mid a \cdot b\) feltételből
+          \(p \mid b\) következik.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — A számelmélet alaptétele (egyértelmű prímtényezős felbontás)</span>
+        <p>
+          Minden 1-nél nagyobb egész szám egyértelműen felbontható prímek
+          szorzatára (a tényezők sorrendjétől eltekintve). Pontosabban:
+          bármely \(n &gt; 1\) esetén:
+        </p>
+        \[
+        n = p_1^{\alpha_1} \cdot p_2^{\alpha_2} \cdots p_k^{\alpha_k}
+        \]
+        <p>
+          ahol a \(p_i\)-k különböző prímek, az \(\alpha_i\)-k pedig
+          pozitív egészek, és ez a felbontás — a tényezők sorrendjét
+          leszámítva — egyértelmű.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>Létezés.</strong> Teljes indukcióval igazoljuk, hogy
+          minden \(n \ge 2\) felírható prímek szorzataként. Ha \(n\) prím,
+          akkor egytényezős szorzat. Ha \(n\) összetett, akkor
+          \(n = n_1 \cdot n_2\), ahol \(1 &lt; n_1, n_2 &lt; n\); az
+          indukciós feltevés szerint mindkettő prímek szorzata, így
+          \(n\) is az. A szorzatban az egyenlő prímeket összevonva
+          kapjuk az \(n = p_1^{\alpha_1} \cdots p_k^{\alpha_k}\) alakot.
+        </p>
+        <p>
+          <strong>Egyértelműség.</strong> Először: ha egy \(p\) prím
+          osztja a \(c_1 \cdots c_t\) szorzatot, akkor osztja valamelyik
+          \(c_i\)-t. (\(t\) szerinti indukció: Euklidész segédtételét
+          az \(a = c_1\), \(b = c_2 \cdots c_t\) esetre alkalmazzuk.)
+          Legyen most \(n = p_1 \cdots p_r = q_1 \cdots q_s\) két
+          felbontás prímek szorzatára; \(n\) szerinti teljes indukcióval
+          megmutatjuk, hogy a két felbontás a sorrendtől eltekintve
+          ugyanaz. A \(p_1\) osztja a \(q_1 \cdots q_s\) szorzatot,
+          ezért valamelyik \(q_j\)-t is; mivel \(q_j\) prím, és
+          \(p_1 &gt; 1\), \(p_1 = q_j\). A tényezők átrendezésével
+          \(p_1 = q_1\), és egyszerűsítve
+          \(p_2 \cdots p_r = q_2 \cdots q_s\). Ha ez a szám 1, akkor
+          \(r = s = 1\). Különben ez egy \(n\)-nél kisebb, 1-nél nagyobb
+          szám két prímfelbontása, amelyek az indukciós feltevés szerint
+          a sorrendtől eltekintve megegyeznek. Tehát az eredeti két
+          felbontás is.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
