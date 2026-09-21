@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Részcsoportok, Lagrange-tétel, gyűrűk és testek | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Részcsoport-kritérium, bal oldali mellékosztályok, a Lagrange-tétel bizonyítással, valamint a gyűrű, a nullosztómentes gyűrű, az integritási tartomány és a test fogalma — DE TTK Matematika BSc 2023/2025, Algebrai struktúrák (bevezetés).">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebrai-strukturak-bevezetes/jegyzet3/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 3 of 7 — see jegyzet1's head comment for the shape rationale.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description):
+  - the proof of the Részcsoport-kritérium (the source stated it
+    without one);
+  - the "Lemma — A bal oldali mellékosztályok tulajdonságai" box and
+    its proof, and the proof of the Lagrange-tétel (the source stated
+    the theorem without a proof, and the proof needs the lemma);
+  - the "Definíció — Gyűrűk fajtái és speciális elemei" box (egységelem,
+    kommutatív/egységelemes gyűrű, egység, nullosztó), which the source
+    used ("egységelemes", "nullosztómentes") without defining.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebrai-strukturak-bevezetes/">Algebrai struktúrák (bevezetés)</a> / 3. jegyzet</p>
+
+      <h1>Részcsoportok, Lagrange-tétel, gyűrűk és testek</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a csoportok elméletének első nagy tételéig jut el:
+        megadja a részcsoportok ellenőrzésének kritériumát, bevezeti a
+        mellékosztályokat, és bebizonyítja a Lagrange-tételt. Ezután két
+        műveletes struktúrákra tér át: a gyűrűre, az integritási
+        tartományra és a testre.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Részcsoport-kritérium</li>
+        <li>Bal és jobb oldali mellékosztályok</li>
+        <li>Lagrange-tétel, a részcsoport indexe</li>
+        <li>Gyűrű, kommutatív és egységelemes gyűrű, nullosztó</li>
+        <li>Integritási tartomány és test</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Részcsoportok és Lagrange-tétel</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Részcsoport-kritérium</span>
+        <p>
+          Legyen \((G, *)\) egy csoport, és \(H \subseteq G\) egy nem üres
+          részhalmaz. Ekkor \(H\) pontosan akkor részcsoportja
+          \(G\)-nek (\(H \le G\)), ha:
+        </p>
+        <ol>
+          <li>Bármely \(a, b \in H\) esetén \(a * b \in H\) (zárt a műveletre nézve).</li>
+          <li>Bármely \(a \in H\) esetén \(a^{-1} \in H\) (zárt az inverzképzésre nézve).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>(⟹)</strong> Legyen \(H \le G\), vagyis \(H\) a
+          \(*\) műveletre nézve csoport. Ekkor a művelet \(H\)-ban is
+          belső művelet, így az 1. feltétel teljesül. A 2. feltételhez
+          jelölje \(e_H\) a \(H\) neutrális elemét, \(e\) pedig a \(G\)
+          neutrális elemét. Mivel \(e_H\) neutrális \(H\)-ban,
+          \(e_H * e_H = e_H\). Szorozzuk ezt balról az \(e_H\) \(G\)-beli
+          inverzével:
+        </p>
+        \[
+        \begin{aligned}
+        e_H &amp;= e * e_H = (e_H^{-1} * e_H) * e_H \\
+        &amp;= e_H^{-1} * (e_H * e_H) \\
+        &amp;= e_H^{-1} * e_H = e
+        \end{aligned}
+        \]
+        <p>
+          tehát \(e_H = e\). Legyen most \(a \in H\), és \(b \in H\) az
+          \(a\) inverze \(H\)-ban, azaz \(a * b = b * a = e_H = e\). Ekkor
+          \(b\) az \(a\) egy inverze \(G\)-ben is, amely az inverz
+          egyértelműsége miatt (2. jegyzet) megegyezik az \(a^{-1}\)-nel.
+          Tehát \(a^{-1} = b \in H\).
+        </p>
+        <p>
+          <strong>(⟸)</strong> Tegyük fel, hogy az 1. és 2. feltétel
+          teljesül. Az 1. feltétel szerint a \(*\) belső művelet
+          \(H\)-n, és asszociatív, mert \(G\)-ben az. Mivel \(H\) nem
+          üres, van benne egy \(a\) elem; a 2. feltétel szerint
+          \(a^{-1} \in H\), így az 1. feltétel szerint
+          \(e = a * a^{-1} \in H\). Az \(e\) minden \(H\)-beli elemre
+          neutrális (\(G\)-ben is az), és a 2. feltétel szerint minden
+          \(H\)-beli elem inverze is \(H\)-ban van. Tehát \((H, *)\)
+          csoport.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Mellékosztályok</span>
+        <p>
+          Legyen \(H \le G\) egy részcsoport, és \(g \in G\) egy
+          tetszőleges elem. A \(g\) elem szerinti <strong>bal oldali
+          mellékosztály</strong> a következő halmaz:
+        </p>
+        \[
+        gH = \{g * h \mid h \in H\}
+        \]
+        <p>
+          Hasonlóan definiálható a jobb oldali mellékosztály is:
+          \(Hg = \{h * g \mid h \in H\}\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Lemma — A bal oldali mellékosztályok tulajdonságai (kiegészítés)</span>
+        <p>Legyen \(H \le G\). Ekkor:</p>
+        <ol>
+          <li>Minden \(g \in G\)-re a \(h \mapsto g * h\) leképezés bijekció \(H\) és \(gH\) között, így \(|gH| = |H|\).</li>
+          <li>A bal oldali mellékosztályok \(G\) partícióját alkotják: bármely két bal oldali mellékosztály vagy megegyezik, vagy diszjunkt, és az uniójuk \(G\).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>1.</strong> A \(h \mapsto g * h\) leképezés \(H\)-t
+          \(gH\)-ba képezi, és szürjektív, hiszen \(gH\) minden eleme
+          \(g * h\) alakú. Injektív is: ha \(g * h_1 = g * h_2\), akkor
+          balról \(g^{-1}\)-zel szorozva \(h_1 = h_2\). Tehát bijekció,
+          és \(|gH| = |H|\).
+        </p>
+        <p>
+          <strong>2.</strong> Értelmezzük \(G\)-n a következő relációt:
+          \(x \sim_H y\), ha \(x^{-1} * y \in H\). Ez ekvivalenciareláció:
+        </p>
+        <ul>
+          <li><em>reflexív</em>, mert \(x^{-1} * x = e \in H\);</li>
+          <li>
+            <em>szimmetrikus</em>: ha \(h = x^{-1} * y \in H\), akkor
+            \(h * (y^{-1} * x) = x^{-1} * (y * y^{-1}) * x = e\), és
+            hasonlóan \((y^{-1} * x) * h = e\), tehát \(y^{-1} * x\) a
+            \(h\) inverze, ami az inverz egyértelműsége miatt \(h^{-1}\),
+            a részcsoport-kritérium szerint pedig \(h^{-1} \in H\);
+          </li>
+          <li>
+            <em>tranzitív</em>: ha \(x^{-1} * y \in H\) és
+            \(y^{-1} * z \in H\), akkor a szorzatuk,
+            \((x^{-1} * y) * (y^{-1} * z) = x^{-1} * z\), is \(H\)-ban
+            van.
+          </li>
+        </ul>
+        <p>
+          A \(g\) elem ekvivalenciaosztálya
+          \(\{x \in G \mid g^{-1} * x \in H\} = gH\): ha
+          \(g^{-1} * x = h \in H\), akkor \(x = g * h \in gH\); fordítva,
+          ha \(x = g * h\), akkor \(g^{-1} * x = h \in H\). Az
+          ekvivalenciareláció osztályozási tétele (1. jegyzet) szerint
+          ezek az osztályok \(G\) partícióját alkotják.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Lagrange-tétel</span>
+        <p>
+          Ha \(G\) egy véges csoport, és \(H\) a \(G\) egy tetszőleges
+          részcsoportja, akkor a \(H\) részcsoport rendje (azaz az
+          elemeinek száma, \(|H|\)) osztója a \(G\) csoport rendjének
+          (\(|G|\)), és érvényes a következő összefüggés:
+        </p>
+        \[
+        |G| = [G : H] \cdot |H|
+        \]
+        <p>
+          ahol \([G : H]\) a \(H\) indexét (a bal oldali mellékosztályok
+          számát) jelöli.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az előző lemma szerint a bal oldali mellékosztályok \(G\)
+          partícióját alkotják, számuk definíció szerint \([G : H]\), és
+          mindegyikük \(|H|\) elemű. Mivel \(G\) véges és a partíció
+          osztályai diszjunktak, az elemszámok összeadódnak:
+          \(|G| = [G : H] \cdot |H|\). Ebből közvetlenül látszik, hogy
+          \(|H|\) osztója \(|G|\)-nek.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Gyűrűk, integritási tartományok és testek</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Gyűrű</span>
+        <p>Egy \((R, +, \cdot)\) algebrai struktúrát <em>gyűrűnek</em> nevezünk, ha:</p>
+        <ol>
+          <li>\((R, +)\) egy Abel-csoport (az összeadás kommutatív, asszociatív, van nullaeleme \(0\), és minden elemnek van ellentettje).</li>
+          <li>\((R, \cdot)\) egy félcsoport (a szorzás asszociatív).</li>
+          <li>
+            A szorzás disztributív az összeadásra nézve, azaz minden
+            \(a, b, c \in R\) esetén:
+            \[
+            \begin{aligned}
+            a \cdot (b + c) &amp;= a \cdot b + a \cdot c \quad \text{és} \\
+            (a + b) \cdot c &amp;= a \cdot c + b \cdot c
+            \end{aligned}
+            \]
+          </li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Gyűrűk fajtái és speciális elemei (kiegészítés)</span>
+        <p>Legyen \((R, +, \cdot)\) gyűrű.</p>
+        <ul>
+          <li>Az \(R\) <strong>kommutatív</strong>, ha a szorzás kommutatív: \(a \cdot b = b \cdot a\) minden \(a, b \in R\) esetén.</li>
+          <li>Az \(R\) <strong>egységelemes</strong>, ha az \((R, \cdot)\) félcsoportnak van neutrális eleme; ezt egységelemnek nevezzük és \(1\)-gyel jelöljük (\(1 \cdot a = a \cdot 1 = a\)).</li>
+          <li>Egységelemes gyűrűben az \(a \in R\) elem <strong>egység</strong>, ha létezik olyan \(b \in R\), amelyre \(a \cdot b = b \cdot a = 1\).</li>
+          <li>Az \(a \in R\) elem <strong>nullosztó</strong>, ha \(a \neq 0\), és létezik olyan \(b \neq 0\), amelyre \(a \cdot b = 0\) vagy \(b \cdot a = 0\).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Integritási tartomány és test</span>
+        <ul>
+          <li><strong>Nullosztómentes gyűrű:</strong> Olyan gyűrű, amelyben ha \(a \cdot b = 0\), akkor \(a = 0\) vagy \(b = 0\).</li>
+          <li><strong>Integritási tartomány (vagy épségtartomány):</strong> Kommutatív, egységelemes, nullosztómentes gyűrű, amelyben \(1 \neq 0\).</li>
+          <li><strong>Test:</strong> Olyan kommutatív, egységelemes gyűrű, amelyben \(1 \neq 0\), és minden \(0\)-tól különböző elemnek létezik multiplikatív inverze (azaz a nemnulla elemek csoportot alkotnak a szorzásra nézve).</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
