@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Végtelen sorok | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Végtelen sor, részletösszeg, konvergens, abszolút és feltételesen konvergens sor, a Cauchy-kritérium, műveletek sorokkal, csoportosított és átrendezett sorok bizonyítással — DE TTK Matematika BSc 2023/2025, Mély bevezetés az analízisbe.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/jegyzet8/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 8 of 16 — see part 1's head comment for the shape rationale.
+
+  Source fixes here: "definiciom" (an undeclared LaTeX environment) is a
+  plain Definíció; "részlettömegekre" (garbled) is "részlettörtekre".
+  The proof that a convergent series has a null general term used the
+  index range sum_{k=n}^m x_k, which is not the one the Cauchy criterion
+  above it is stated for; it is redone with sum_{k=n+1}^{n+1}. The
+  inequality |sum x_n| <= sum |x_n| in the source's "műveletek" theorem
+  holds only for an absolutely convergent series (for a merely
+  convergent one the right-hand side may be +infinity or undefined);
+  the statement says so.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (flagged here and in
+  the PR description): the proofs of the three rules for operations with
+  series, and the full proof that a rearrangement of an absolutely
+  convergent series is absolutely convergent with the same sum (the
+  source states it without any proof).
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/">Mély bevezetés az analízisbe</a> / 8. jegyzet</p>
+
+      <h1>Végtelen sorok</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a végtelen összeg fogalmát a részletösszegek
+        sorozatának határértékére vezeti vissza. Megmutatja, hogy a sor
+        konvergenciájára a Cauchy-kritérium érvényes, hogy az abszolút
+        konvergens sor konvergens, hogy a konvergens sor általános tagja
+        nullához tart, és hogy az összeg műveleteknek, csoportosításnak és
+        (abszolút konvergencia esetén) átrendezésnek is ellenáll.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Részletösszeg, konvergens sor, a sor összege</li>
+        <li>Abszolút és feltételes konvergencia</li>
+        <li>Teleszkopikus sor, divergens sor</li>
+        <li>Cauchy-kritérium sorokra</li>
+        <li>Az általános tag nullsorozat</li>
+        <li>Műveletek sorokkal</li>
+        <li>Csoportosított és átrendezett sorok</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Végtelen sorok (valós és komplex sorozatok)</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Részletösszeg és sor konvergenciája</span>
+        <p>
+          Legyen \((x_n)_{n \in \mathbb{N}}\) egy valós vagy komplex
+          számsorozat. Képezzük a részletösszegekből álló sorozatot:
+        </p>
+        \[
+        \begin{aligned}
+            \sigma_1 &amp;= x_1 \\
+            \sigma_2 &amp;= x_1 + x_2 \\
+            &amp;\;\;\vdots \\
+            \sigma_n &amp;= \sum_{k=1}^n x_k = x_1 + x_2 + \dots + x_n \quad (n \ge 2)
+        \end{aligned}
+        \]
+        <p>
+          Az így megadott \((\sigma_n)_{n \in \mathbb{N}}\) sorozatot a
+          \(\sum_{n=1}^{\infty} x_n\) sor <strong>részletösszeg-sorozatának</strong>
+          nevezzük. Ha a \((\sigma_n)_{n \in \mathbb{N}}\)
+          részletösszeg-sorozat konvergens, akkor azt mondjuk, hogy a
+          \(\sum_{n=1}^{\infty} x_n\) <strong>sor konvergens</strong>.
+          Ebben az esetben a \(\lim_{n \to \infty} \sigma_n\) határértéket a
+          sor <strong>összegének</strong> nevezzük.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Abszolút és feltételes konvergencia</span>
+        <ul>
+          <li>Ha a \(\sum_{n=1}^{\infty} |x_n|\) sor konvergens, akkor azt mondjuk, hogy a \(\sum_{n=1}^{\infty} x_n\) sor <strong>abszolút konvergens</strong>.</li>
+          <li>Ha egy sor konvergens, de nem abszolút konvergens, akkor <strong>feltételesen konvergens</strong>.</li>
+        </ul>
+      </div>
+
+      <h3>Példák sorokra</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Példa — Teleszkopikus sor</span>
+        <p>
+          Vizsgáljuk a \(\sum_{n=1}^{\infty} \frac{1}{n(n+1)}\) sort. Mivel
+          az általános tag felbontható részlettörtekre:
+        </p>
+        \[
+        x_n = \frac{1}{n(n+1)} = \frac{1}{n} - \frac{1}{n+1} \quad (n \in \mathbb{N})
+        \]
+        <p>A részletösszegek:</p>
+        \[
+        \begin{aligned}
+        \sigma_n &amp;= \sum_{k=1}^n \left(\frac{1}{k} - \frac{1}{k+1}\right) \\
+        &amp;= \left(1 - \frac{1}{2}\right) + \left(\frac{1}{2} - \frac{1}{3}\right) + \dots + \left(\frac{1}{n} - \frac{1}{n+1}\right) = 1 - \frac{1}{n+1}
+        \end{aligned}
+        \]
+        <p>
+          Mivel \(\lim_{n \to \infty} \sigma_n = \lim_{n \to \infty} \left(1 - \frac{1}{n+1}\right) = 1\),
+          így a sor <strong>konvergens</strong> és az összege \(1\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Példa — Divergens sor</span>
+        <p>
+          Vizsgáljuk a \(\sum_{n=1}^{\infty} n\) sort (\(x_n = n\)). A
+          részletösszeg:
+        </p>
+        \[
+        \sigma_n = \sum_{k=1}^n k = \frac{n(n+1)}{2} \xrightarrow{n \to \infty} +\infty
+        \]
+        <p>
+          Mivel a részletösszeg-sorozat a \(+\infty\)-be tart, a sor
+          <strong>divergens</strong> (ami abból is következik, hogy az
+          általános tag nem nullsorozat, lásd alább).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Cauchy-féle konvergenciakritérium sorokra</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Cauchy-kritérium sorokra</span>
+        <p>
+          A \(\sum_{n=1}^{\infty} x_n\) sor pontosan akkor konvergens, ha
+          tetszőleges \(\varepsilon &gt; 0\)-hoz létezik olyan \(N &gt; 0\),
+          hogy minden \(n, m &gt; N\) (\(m &gt; n\)) indexre:
+        </p>
+        \[
+        \left|\sum_{k=n+1}^m x_k\right| &lt; \varepsilon
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          A tétel közvetlenül következik abból, hogy a sor konvergenciája
+          ekvivalens a részletösszeg-sorozat \((\sigma_n)\)
+          konvergenciájával, a számsorozatok esetén pedig a konvergencia
+          ekvivalens a Cauchy-tulajdonsággal (3. és 7. jegyzet). Azaz
+          \(\left|\sigma_m - \sigma_n\right| = \left|\sum_{k=n+1}^m x_k\right| &lt; \varepsilon\).
+        </p>
+      </div>
+
+      <h2>Abszolút konvergencia és az általános tag</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha egy sor abszolút konvergens, akkor konvergens is.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Feltesszük, hogy a \(\sum_{n=1}^{\infty} x_n\) sor abszolút
+          konvergens, ami azt jelenti, hogy a
+          \(\sum_{n=1}^{\infty} |x_n|\) sor konvergens. Legyen
+          \(\varepsilon &gt; 0\) tetszőleges. A Cauchy-kritérium alapján
+          létezik \(N &gt; 0\), hogy minden \(n, m &gt; N\) (\(m &gt; n\))
+          indexre:
+        </p>
+        \[
+        \left|\sum_{k=n+1}^m x_k\right| \le \sum_{k=n+1}^m |x_k| &lt; \varepsilon
+        \]
+        <p>Tehát a \(\sum_{n=1}^{\infty} x_n\) sor konvergens.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Ha a \(\sum_{n=1}^{\infty} x_n\) sor konvergens, akkor
+          \(\lim_{n \to \infty} x_n = 0\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Tételezzük fel, hogy a \(\sum x_n\) sor konvergens, és legyen
+          \(\varepsilon &gt; 0\) tetszőleges. A Cauchy-kritériumot
+          \(m = n + 1\)-re alkalmazva létezik \(N &gt; 0\), hogy minden
+          \(n &gt; N\) esetén:
+        </p>
+        \[
+        |x_{n+1}| = \left|\sum_{k=n+1}^{n+1} x_k\right| &lt; \varepsilon \implies |x_{n+1} - 0| &lt; \varepsilon
+        \]
+        <p>
+          Így az \((x_n)_{n \in \mathbb{N}}\) sorozat nullsorozat.
+          (Másképp: \(x_n = \sigma_n - \sigma_{n-1} \to \sigma - \sigma = 0\).)
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés</span>
+        <p>
+          Ha az \((x_n)_{n \in \mathbb{N}}\) sorozat nem nullsorozat, akkor
+          a \(\sum_{n=1}^{\infty} x_n\) sor divergens.
+        </p>
+      </div>
+
+      <h2>Műveletek sorokkal</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Műveletek konvergens sorokkal</span>
+        <p>
+          Legyenek \(\sum_{n=1}^{\infty} x_n\) és
+          \(\sum_{n=1}^{\infty} y_n\) konvergens sorok, valamint
+          \(\lambda \in \mathbb{C}\). Ekkor:
+        </p>
+        <ol type="i">
+          <li>\(\sum_{n=1}^{\infty} (x_n + y_n) = \sum_{n=1}^{\infty} x_n + \sum_{n=1}^{\infty} y_n\)</li>
+          <li>\(\sum_{n=1}^{\infty} (\lambda x_n) = \lambda \sum_{n=1}^{\infty} x_n\)</li>
+          <li>ha a \(\sum_{n=1}^{\infty} x_n\) sor abszolút konvergens, akkor \(\left|\sum_{n=1}^{\infty} x_n\right| \le \sum_{n=1}^{\infty} |x_n|\)</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyenek \(\sigma_n\), \(\tau_n\) az \(x_n\), illetve \(y_n\)
+          sor részletösszegei, \(\sigma\), \(\tau\) az összegeik.
+        </p>
+        <p>
+          (i), (ii): az \((x_n + y_n)\) sor részletösszege
+          \(\sigma_n + \tau_n\), a \((\lambda x_n)\) soré \(\lambda\sigma_n\),
+          és a sorozatok összeg- és konstansszorzat-szabálya (4. és 7.
+          jegyzet) szerint ezek \(\sigma + \tau\)-hoz, illetve
+          \(\lambda\sigma\)-hoz tartanak.
+        </p>
+        <p>
+          (iii): a háromszög-egyenlőtlenség szerint
+          \(|\sigma_n| \le \sum_{k=1}^n |x_k| \le S\), ahol \(S\) a
+          \(\sum|x_n|\) sor összege (a nemnegatív tagú sor részletösszegei
+          monoton növekednek \(S\)-hez). Mivel \(|\sigma_n| \to |\sigma|\)
+          (\(\bigl||\sigma_n| - |\sigma|\bigr| \le |\sigma_n - \sigma|\)),
+          a Rendezési tétel (4. jegyzet) adja \(|\sigma| \le S\).
+        </p>
+      </div>
+
+      <h2>Csoportosított sorok és átrendezések</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Csoportosított sor</span>
+        <p>
+          Legyen \(\sum_{n=1}^{\infty} x_n\) sor. Egy <strong>csoportosított
+          sor</strong> a következő alakú:
+        </p>
+        \[
+        \sum_{n=1}^{\infty} \left(\sum_{k=q_{n-1}+1}^{q_n} x_k\right)
+        \]
+        <p>
+          ahol \((q_n)_{n \in \mathbb{N}}\) egy szigorúan monoton növekvő
+          indexsorozat (\(q_0 = 0\)).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Ha \(\sum_{n=1}^{\infty} x_n\) konvergens sor, akkor bármely
+          csoportosított sora is konvergens, és a csoportosított sor
+          összege megegyezik az eredeti sor összegével.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Mivel \(\sum x_n\) konvergens, a \((\sigma_n)_{n \in \mathbb{N}}\)
+          részletösszeg-sorozat konvergens, és \(\lim \sigma_n = \sigma\).
+          A csoportosított sor \(n\)-edik részletösszege a \(\sigma_{q_n}\)
+          részsorozat, amely az eredeti sor részletösszeg-sorozatának egy
+          részsorozata. Mivel minden részsorozat konvergens és ugyanabba a
+          határértékbe tart, a csoportosított sor konvergens és összege
+          megegyezik az eredetiével.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Átrendezett sor</span>
+        <p>
+          Legyen \(\varphi: \mathbb{N} \to \mathbb{N}\) bijekció. Ekkor a
+          \(\sum_{n=1}^{\infty} x_{\varphi(n)}\) sort az eredeti sor
+          <strong>átrendezésének</strong> nevezzük.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Egy abszolút konvergens sornak bármely átrendezése is abszolút
+          konvergens, és az átrendezett sor összege ugyanannyi, mint az
+          eredeti sor összege.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \(\sum |x_n|\) konvergens, összege \(S\), és
+          \(\sum x_n\) összege \(\sigma\).
+        </p>
+        <p>
+          <strong>Abszolút konvergens.</strong> Az átrendezett
+          \(\sum |x_{\varphi(k)}|\) sor részletösszege \(T_m = \sum_{k \le m} |x_{\varphi(k)}|\).
+          A \(\varphi(1), \dots, \varphi(m)\) indexek különbözők és
+          legfeljebb \(M = \max_k \varphi(k)\), ezért
+          \(T_m \le \sum_{j \le M} |x_j| \le S\). Az \((T_m)\) monoton
+          növekvő és korlátos, tehát konvergens.
+        </p>
+        <p>
+          <strong>Ugyanaz az összeg.</strong> Legyen \(\varepsilon &gt; 0\).
+          A Cauchy-kritérium szerint van olyan \(N \in \mathbb{N}\) (a
+          küszöböt természetes számnak választva), hogy
+          \(\sum_{k=n+1}^{m} |x_k| &lt; \varepsilon\), ha \(m &gt; n \ge N\);
+          \(m \to \infty\)-nel a Rendezési tétel szerint
+          \(\sum_{k &gt; N} |x_k| \le \varepsilon\), és így
+          \(|\sigma - \sigma_N| \le \varepsilon\). Mivel \(\varphi\)
+          szürjektív, van olyan \(M\), hogy
+          \(\{1, \dots, N\} \subseteq \{\varphi(1), \dots, \varphi(M)\}\).
+          Ha \(m \ge M\), akkor az \(\rho_m = \sum_{k \le m} x_{\varphi(k)}\)
+          részletösszegben az \(x_1, \dots, x_N\) mind pontosan egyszer
+          szerepel, a többi tag \(x_j\), \(j &gt; N\) alakú, különböző
+          indexekkel, ezért
+        </p>
+        \[
+        |\rho_m - \sigma_N| \le \sum_{j &gt; N} |x_j| \le \varepsilon, \qquad |\rho_m - \sigma| \le |\rho_m - \sigma_N| + |\sigma_N - \sigma| \le 2\varepsilon.
+        \]
+        <p>Tehát az átrendezett sor összege is \(\sigma\).</p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
