@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Kongruenciák, Euler–Fermat-tétel, kínai maradéktétel | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Kongruencia, maradékosztályok gyűrűje, Euler-féle φ-függvény, az Euler–Fermat-tétel, Fermat kis-tétele és a kínai maradéktétel bizonyítással — DE TTK Matematika BSc 2023/2025, Algebra és számelmélet alapok.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-es-szamelmelet-alapok/jegyzet5/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 5 of 7 — see jegyzet1's head comment for the shape rationale.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description):
+  - the "Állítás — A kongruencia tulajdonságai" box and its proof (the
+    source stated that congruence is an equivalence relation, and that
+    Z_m has m classes, without proof);
+  - the "Állítás — A műveletek jóldefiniáltsága" box and its proof (the
+    source stated that Z_m is a commutative ring without showing the
+    operations are well defined);
+  - the proofs of the Euler–Fermat-tétel, of Fermat kis-tétele (that
+    phi(p) = p - 1 and that the tétel applies) and of the kínai
+    maradéktétel, all stated without proof. They rely on the "Állítás —
+    Relatív prímek tulajdonságai" from part 4.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-es-szamelmelet-alapok/">Algebra és számelmélet alapok</a> / 5. jegyzet</p>
+
+      <h1>Kongruenciák, Euler–Fermat-tétel, kínai maradéktétel</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a kongruenciával és a maradékosztályok gyűrűjével
+        kezdődik, majd bebizonyítja a számelmélet két klasszikus
+        tételét: az Euler–Fermat-tételt (és belőle Fermat kis-tételét),
+        valamint a kínai maradéktételt. A bizonyítások az előző rész
+        Bézout-identitására és a relatív prímekről szóló állításaira
+        épülnek.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Kongruencia modulo \(m\), maradékosztályok</li>
+        <li>A maradékosztályok gyűrűje, \(\mathbb{Z}_m\)</li>
+        <li>Euler-féle \(\varphi\)-függvény</li>
+        <li>Euler–Fermat-tétel, Fermat kis-tétele</li>
+        <li>Kínai maradéktétel</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Kongruenciák és maradékosztályok gyűrűje</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Kongruencia reláció</span>
+        <p>
+          Legyen \(m \in \mathbb{N}^+\) egy rögzített pozitív egész (a
+          modulus). Azt mondjuk, hogy az \(a\) egész <strong>kongruens</strong>
+          a \(b\) egésszel modulo \(m\) (jelölése:
+          \(a \equiv b \pmod m\)), ha az \(m\) osztja a \(b - a\)
+          különbséget, azaz \(m \mid (b - a)\). Ekvivalensen: \(a\) és
+          \(b\) ugyanazt a maradékot adja \(m\)-mel osztva.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás — A kongruencia tulajdonságai (kiegészítés)</span>
+        <ol>
+          <li>\(a \equiv b \pmod m\) pontosan akkor, ha \(a\) és \(b\) ugyanazt a maradékot adja \(m\)-mel osztva.</li>
+          <li>Az \(m\) modulus szerinti kongruencia ekvivalenciareláció \(\mathbb{Z}\)-n.</li>
+          <li>Pontosan \(m\) ekvivalenciaosztály van, és mindegyikben pontosan egy \(0, 1, \dots, m-1\) közé eső szám van.</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>1.</strong> Legyen \(a = m q + r\) és \(b = m q' + r'\)
+          a maradékos osztás szerint (\(0 \le r, r' &lt; m\)). Ekkor
+          \(b - a = m (q' - q) + (r' - r)\), és \(|r' - r| &lt; m\).
+          Tehát \(m \mid b - a\) pontosan akkor, ha \(m \mid r' - r\);
+          mivel \(|r' - r| &lt; m\), az egyetlen \(m\)-mel osztható ilyen
+          szám a \(0\), vagyis ez pontosan akkor teljesül, ha \(r = r'\).
+        </p>
+        <p>
+          <strong>2.</strong> Reflexív: \(m \mid 0\). Szimmetrikus: ha
+          \(m \mid b - a\), akkor \(m \mid a - b\) is. Tranzitív: ha
+          \(m \mid b - a\) és \(m \mid c - b\), akkor \(m\) osztja az
+          összegüket, \(c - a\)-t is.
+        </p>
+        <p>
+          <strong>3.</strong> Az 1. rész szerint az \(a\) osztálya
+          egyértelműen meghatározott az \(a\) maradékával, amely a
+          \(0, 1, \dots, m-1\) számok egyike; és mindegyik \(r\)
+          előfordul, hiszen az \(r\) maradéka önmaga. Tehát különböző
+          maradékokhoz különböző osztályok tartoznak, és pontosan \(m\)
+          osztály van.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Maradékosztályok gyűrűje (\(\mathbb{Z}_m\))</span>
+        <p>
+          Az \(m\) modulus szerinti kongruencia ekvivalenciareláció az
+          egészek \(\mathbb{Z}\) halmazán. Az ekvivalenciaosztályokat
+          <em>maradékosztályoknak</em> nevezzük. A maradékosztályok
+          halmazát \(\mathbb{Z}_m\)-mel jelöljük:
+        </p>
+        \[
+        \mathbb{Z}_m = \{[0], [1], [2], \dots, [m-1]\}
+        \]
+        <p>
+          Ezen a halmazon bevezethetünk összeadást és szorzást:
+          \([a] + [b] = [a + b]\) és \([a] \cdot [b] = [a \cdot b]\),
+          amelyekkel \(\mathbb{Z}_m\) egy kommutatív gyűrűt alkot.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás — A műveletek jóldefiniáltsága, \(\mathbb{Z}_m\) gyűrű (kiegészítés)</span>
+        <p>
+          A fenti műveletek nem függnek a reprezentánsok választásától, és
+          \(\mathbb{Z}_m\) a \([0]\) nullelemmel és az \([1]\) egységelemmel
+          kommutatív, egységelemes gyűrű.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>Jóldefiniáltság.</strong> Legyen \(a \equiv a'\) és
+          \(b \equiv b' \pmod m\), azaz \(m \mid a' - a\) és
+          \(m \mid b' - b\). Ekkor
+          \((a' + b') - (a + b) = (a' - a) + (b' - b)\) és
+          \(a' b' - a b = a' (b' - b) + (a' - a) b\) is osztható
+          \(m\)-mel, vagyis \([a + b] = [a' + b']\) és
+          \([a b] = [a' b']\).
+        </p>
+        <p>
+          <strong>Gyűrűaxiómák.</strong> Mivel a műveleteket
+          reprezentánsokkal végezzük, és \(\mathbb{Z}\)-ben minden
+          gyűrűaxióma teljesül, ugyanezek teljesülnek a
+          maradékosztályokra is. Például
+          \(([a] + [b]) + [c] = [(a + b) + c] = [a + (b + c)] = [a] + ([b] + [c])\),
+          a nullelem \([0]\), az \([a]\) ellentettje \([-a]\), és
+          \([a] \cdot ([b] + [c]) = [a (b + c)] = [a b + a c] = [a] [b] + [a] [c]\).
+          A szorzás asszociatív és kommutatív, \([1]\) egységelem, mert
+          \(\mathbb{Z}\)-ben ez igaz.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Euler–Fermat-tétel és a kínai maradéktétel</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Euler-féle \(\varphi\) függvény</span>
+        <p>
+          Az Euler-féle \(\varphi(m)\) függvény megadja azon \(1\)-nél nem
+          kisebb és \(m\)-nél nem nagyobb egészek számát, amelyek relatív
+          prímek \(m\)-hez:
+        </p>
+        \[
+        \varphi(m) = |\{k \in \mathbb{N} \mid 1 \le k \le m \text{ és } (k, m) = 1\}|
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Euler–Fermat-tétel</span>
+        <p>
+          Ha \(a\) és \(m\) relatív prím pozitív egészek (azaz
+          \((a, m) = 1\)), akkor teljesül a következő kongruencia:
+        </p>
+        \[
+        a^{\varphi(m)} \equiv 1 \pmod m
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyenek \(r_1, \dots, r_\varphi\) (ahol \(\varphi = \varphi(m)\))
+          az \(1, \dots, m\) számok közül azok, amelyek relatív prímek
+          \(m\)-hez. Ezek páronként inkongruensek \(m\)-re, mert két
+          különböző, \(1\) és \(m\) közé eső szám különbsége kisebb
+          \(m\)-nél, tehát nem osztható vele. Jelölje \(U\) az
+          \([r_1], \dots, [r_\varphi]\) maradékosztályok halmazát; ez
+          \(\mathbb{Z}_m\) összes olyan osztálya, amelynek reprezentánsa
+          relatív prím \(m\)-hez (ez nem függ a reprezentánstól, mert
+          \((r, m) = (r + k m, m)\)).
+        </p>
+        <p>
+          Tekintsük az \([r] \mapsto [a] \cdot [r]\) leképezést.
+        </p>
+        <ul>
+          <li>\(U\)-ba képez: ha \((r, m) = 1\), akkor \((a, m) = 1\) miatt \((a \cdot r, m) = 1\) (4. jegyzet, a relatív prímek 2. tulajdonsága).</li>
+          <li>Injektív: ha \(a r \equiv a r' \pmod m\), akkor \(m \mid a (r - r')\), és \((a, m) = 1\) miatt \(m \mid r - r'\) (4. jegyzet, 3. tulajdonság), azaz \([r] = [r']\).</li>
+        </ul>
+        <p>
+          Egy véges halmaz önmagába vezető injektív leképezése bijekció,
+          tehát az \([a] \cdot [r_1], \dots, [a] \cdot [r_\varphi]\)
+          osztályok az \([r_1], \dots, [r_\varphi]\) osztályok egy
+          permutációját adják. Az összes osztály szorzata ezért
+          megegyezik:
+        </p>
+        \[
+        [a]^{\varphi} \cdot [P] = [P], \quad \text{ahol } P = r_1 \cdots r_\varphi
+        \]
+        <p>
+          azaz \(m \mid P \cdot (a^{\varphi} - 1)\). A \(P\) relatív
+          prím \(m\)-hez (a relatív prímek 2. tulajdonságának ismételt
+          alkalmazásával), így a 3. tulajdonság szerint
+          \(m \mid a^{\varphi} - 1\), vagyis
+          \(a^{\varphi(m)} \equiv 1 \pmod m\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — Fermat kis-tétele</span>
+        <p>
+          Ha az Euler–Fermat-tételben az \(m = p\) modulus egy prím, akkor
+          \(\varphi(p) = p - 1\), így kapjuk a Fermat kis-tételét:
+        </p>
+        \[
+        a^{p-1} \equiv 1 \pmod p \quad (\text{ha } p \nmid a)
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az \(1, 2, \dots, p-1\) számok mindegyike relatív prím
+          \(p\)-hez: \((k, p)\) a \(p\) pozitív osztója, ezért \(1\)
+          vagy \(p\), és \(k &lt; p\) miatt nem lehet \(p\). A \(p\)
+          maga nem relatív prím önmagához (\((p, p) = p \neq 1\)), tehát
+          \(\varphi(p) = p - 1\). Ha \(p \nmid a\), akkor az Euklidész
+          segédtételénél látott módon \((a, p) = 1\), így az
+          Euler–Fermat-tétel alkalmazható: \(a^{p-1} \equiv 1 \pmod p\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Kínai maradéktétel</span>
+        <p>
+          Legyenek \(m_1, m_2, \dots, m_k\) páronként relatív prím
+          pozitív egészek (azaz \((m_i, m_j) = 1\) minden \(i \neq j\)
+          esetén), és legyen \(M = m_1 \cdot m_2 \cdots m_k\). Ekkor
+          tetszőleges \(a_1, a_2, \dots, a_k \in \mathbb{Z}\) maradékok
+          esetén az alábbi kongruenciarendszernek:
+        </p>
+        \[
+        \begin{aligned}
+        x &amp;\equiv a_1 \pmod{m_1} \\
+        x &amp;\equiv a_2 \pmod{m_2} \\
+        &amp;\;\;\vdots \\
+        x &amp;\equiv a_k \pmod{m_k}
+        \end{aligned}
+        \]
+        <p>
+          modulo \(M\) <em>pontosan egy megoldása van</em> (vagyis
+          \(\mathbb{Z}_M\)-ben egyértelműen oldható meg).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>Egyértelműség modulo \(M\).</strong> Ha \(x\) és \(y\)
+          is megoldás, akkor \(m_i \mid x - y\) minden \(i\)-re. Ebből
+          \(M \mid x - y\) következik, ugyanis \(k\) szerinti
+          indukcióval: ha \(m_1 \cdots m_{k-1} \mid n\), azaz
+          \(n = m_1 \cdots m_{k-1} \cdot t\), és \(m_k \mid n\), akkor
+          mivel \((m_k, m_1 \cdots m_{k-1}) = 1\) (a relatív prímek 2.
+          tulajdonsága), a 3. tulajdonság szerint \(m_k \mid t\), tehát
+          \(m_1 \cdots m_k \mid n\). Így \(x \equiv y \pmod M\).
+        </p>
+        <p>
+          <strong>Létezés.</strong> Legyen \(M_i = M / m_i\). Az \(M_i\)
+          az \(m_i\)-től különböző \(m_j\)-k szorzata, tehát relatív prím
+          \(m_i\)-hez (a 2. tulajdonság ismételt alkalmazásával). Az 1.
+          tulajdonság szerint létezik olyan \(y_i\), hogy
+          \(M_i \cdot y_i \equiv 1 \pmod{m_i}\). Legyen
+        </p>
+        \[
+        x_0 = a_1 M_1 y_1 + a_2 M_2 y_2 + \dots + a_k M_k y_k
+        \]
+        <p>
+          Rögzített \(i\)-re minden \(j \neq i\) esetén \(m_i \mid M_j\),
+          ezért \(M_j \equiv 0 \pmod{m_i}\), és így
+          \(x_0 \equiv a_i M_i y_i \equiv a_i \pmod{m_i}\). Tehát
+          \(x_0\) megoldás. Az egyértelműség szerint minden megoldás
+          kongruens \(x_0\)-lal modulo \(M\), és nyilván minden ilyen
+          szám megoldás, tehát modulo \(M\) pontosan egy megoldás van.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

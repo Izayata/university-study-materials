@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Polinomgyűrűk és gyöktulajdonságok | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Polinomgyűrű és fokszám, a polinomok műveletei, maradékos osztás test felett, gyök és helyettesítési érték, a gyökfaktor-tétel és az irreducibilis polinom bizonyítással — DE TTK Matematika BSc 2023/2025, Algebra és számelmélet alapok.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-es-szamelmelet-alapok/jegyzet7/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 7 of 7 — see jegyzet1's head comment for the shape rationale.
+  The source's last \section has no \subsection; the four <h3> headings
+  here (Polinomgyűrű és fokszám, Maradékos osztás, Gyök és
+  gyökfaktor-tétel, Irreducibilis polinom) are added only to keep this
+  longer part navigable in the table of contents.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description):
+  - the "Definíció — A polinomok műveletei" box (the source defined
+    R[x] as "formal expressions" without saying how to add or multiply
+    them), and the "Állítás — R[x] gyűrű, a fokszám tulajdonságai" box
+    with its proof;
+  - the proof of the maradékos osztás tétele over a field;
+  - the "Definíció — Helyettesítési érték" box (the source used
+    f(alpha) undefined), the statement that substitution respects the
+    operations, and its proof;
+  - the proof of the gyökfaktor-tétel;
+  - the "Megjegyzés — Az egységek R[x]-ben" box (needed to read the
+    irreducibility definition).
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-es-szamelmelet-alapok/">Algebra és számelmélet alapok</a> / 7. jegyzet</p>
+
+      <h1>Polinomgyűrűk és gyöktulajdonságok</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        A sorozat záró része a polinomokkal foglalkozik: megadja a
+        polinomgyűrű műveleteit és a fokszám szabályait, bizonyítja a
+        polinomok maradékos osztását test felett és a gyökfaktor-tételt,
+        végül kimondja az irreducibilis polinom definícióját.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Polinomgyűrű, fokszám, főegyüttható, normált polinom</li>
+        <li>A polinomok műveletei és a fokszám tulajdonságai</li>
+        <li>Polinomok maradékos osztása test felett</li>
+        <li>Gyök, helyettesítési érték, gyökfaktor-tétel</li>
+        <li>Irreducibilis polinom</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Polinomgyűrűk és gyöktulajdonságok</h2>
+
+      <h3>Polinomgyűrű és fokszám</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Polinomgyűrű és fokszám</span>
+        <p>
+          Legyen \(R\) egy egységelemes kommutatív gyűrű. Az \(R\)
+          feletti <em>polinomgyűrű</em>, jele \(R[x]\), azon formális
+          kifejezések halmaza, amelyek a következő alakúak:
+        </p>
+        \[
+        f(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0
+        \]
+        <p>
+          ahol \(a_i \in R\) a polinom együtthatói, és \(x\) egy
+          határozatlan. Ha \(a_n \neq 0\), akkor a polinom
+          <em>fokszáma</em> \(\operatorname{deg}(f) = n\). A legmagasabb
+          fokú tag együtthatóját (\(a_n\)) <em>főegyütthatónak</em>
+          nevezzük; ha \(a_n = 1\), a polinom <em>normált</em>.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — A polinomok műveletei (kiegészítés)</span>
+        <p>
+          Két polinom egyenlő, ha minden együtthatójuk egyenlő. Legyen
+          \(f(x) = \sum_i a_i x^i\) és \(g(x) = \sum_i b_i x^i\)
+          (véges sok együttható nem nulla). Ekkor:
+        </p>
+        \[
+        \begin{aligned}
+        (f + g)(x) &amp;= \sum_k (a_k + b_k) x^k \\
+        (f \cdot g)(x) &amp;= \sum_k c_k x^k, \quad c_k = \sum_{i + j = k} a_i b_j
+        \end{aligned}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás — \(R[x]\) gyűrű, a fokszám tulajdonságai (kiegészítés)</span>
+        <ol>
+          <li>Az \(R[x]\) a fenti műveletekkel egységelemes kommutatív gyűrű.</li>
+          <li>Nemnulla \(f\), \(g\) esetén \(\operatorname{deg}(f + g) \le \max(\operatorname{deg} f, \operatorname{deg} g)\) (ha \(f + g \neq 0\)), és \(\operatorname{deg}(f \cdot g) \le \operatorname{deg} f + \operatorname{deg} g\).</li>
+          <li>Ha \(R\) nullosztómentes (például test vagy integritási tartomány) és \(f, g \neq 0\), akkor \(\operatorname{deg}(f \cdot g) = \operatorname{deg} f + \operatorname{deg} g\).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>1.</strong> Az összeadás együtthatónként történik, ezért
+          \((R[x], +)\) Abel-csoport (nullelem a nulla polinom, az \(f\)
+          ellentettje \(-f\)). A szorzás kommutatív, mert a
+          \(c_k = \sum_{i+j=k} a_i b_j\) képlet szimmetrikus \(f\) és
+          \(g\) felcserélésére (\(R\) kommutatív). Asszociatív: az
+          \((f g) h\) és az \(f (g h)\) \(k\)-adik együtthatója is
+          \(\sum_{i+j+l=k} a_i b_j c_l\). Disztributív: az
+          \(f (g + h)\) \(k\)-adik együtthatója
+          \(\sum_{i+j=k} a_i (b_j + c_j) = \sum_{i+j=k} a_i b_j + \sum_{i+j=k} a_i c_j\),
+          ami az \(f g + f h\) együtthatója. Az \(1\) konstans polinom
+          egységelem.
+        </p>
+        <p>
+          <strong>2.</strong> Ha \(k &gt; \max(n, m)\), akkor
+          \(a_k + b_k = 0\). Az \(f g\) \(k\)-adik együtthatójában
+          \(i + j = k &gt; n + m\) esetén \(i &gt; n\) vagy \(j &gt; m\),
+          tehát \(a_i b_j = 0\), vagyis \(c_k = 0\).
+        </p>
+        <p>
+          <strong>3.</strong> A \(k = n + m\) együttható
+          \(c_{n+m} = a_n b_m\), és nullosztómentes \(R\)-ben
+          \(a_n \neq 0\), \(b_m \neq 0\) miatt \(a_n b_m \neq 0\). Tehát
+          \(\operatorname{deg}(f g) = n + m\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h3>Maradékos osztás</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Polinomok maradékos osztása test felett</span>
+        <p>
+          Ha \(F\) egy test, és \(f(x), g(x) \in F[x]\) polinomok, ahol
+          \(g(x) \neq 0\), akkor léteznek olyan egyértelműen meghatározott
+          \(q(x)\) (hányados) és \(r(x)\) (maradék) polinomok, amelyekre
+          teljesül:
+        </p>
+        \[
+        \begin{aligned}
+        f(x) &amp;= g(x) \cdot q(x) + r(x) \quad \text{és} \\
+        \operatorname{deg}(r) &amp;&lt; \operatorname{deg}(g) \text{ vagy } r(x) = 0
+        \end{aligned}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>Létezés</strong> \(\operatorname{deg}(f)\) szerinti
+          teljes indukcióval. Ha \(f = 0\) vagy
+          \(\operatorname{deg} f &lt; \operatorname{deg} g\), akkor
+          \(q = 0\), \(r = f\). Különben legyen
+          \(\operatorname{deg} f = n \ge m = \operatorname{deg} g\), az
+          \(f\) főegyütthatója \(a_n\), a \(g\)-é \(b_m \neq 0\). Mivel
+          \(F\) test, \(b_m\)-nek van inverze, és
+        </p>
+        \[
+        f_1(x) = f(x) - a_n b_m^{-1} x^{n-m} \cdot g(x)
+        \]
+        <p>
+          \(x^n\)-es tagja kiesik, tehát \(f_1 = 0\) vagy
+          \(\operatorname{deg} f_1 &lt; n\). Az indukciós feltevés szerint
+          \(f_1 = g q_1 + r\) alkalmas \(q_1\)-gyel és a kívánt
+          tulajdonságú \(r\)-rel, így
+          \(f = g \cdot (q_1 + a_n b_m^{-1} x^{n-m}) + r\).
+        </p>
+        <p>
+          <strong>Egyértelműség.</strong> Legyen
+          \(f = g q + r = g q' + r'\), mindkét maradék \(0\) vagy
+          \(g\)-nél kisebb fokú. Ekkor \(g (q - q') = r' - r\). Ha
+          \(q \neq q'\), akkor \(F\) nullosztómentessége miatt
+          \(\operatorname{deg}(g (q - q')) = \operatorname{deg} g + \operatorname{deg}(q - q') \ge \operatorname{deg} g\),
+          míg \(r' - r\) nulla vagy \(g\)-nél kisebb fokú, ami
+          ellentmondás. Tehát \(q = q'\), és így \(r = r'\).
+        </p>
+      </div>
+
+      <h3>Gyök és gyökfaktor-tétel</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Helyettesítési érték (kiegészítés)</span>
+        <p>
+          Legyen \(R\) egységelemes kommutatív gyűrű,
+          \(f(x) = a_n x^n + \dots + a_1 x + a_0 \in R[x]\) és
+          \(\alpha \in R\). Az \(f\) polinom <strong>helyettesítési
+          értéke</strong> az \(\alpha\)-ban:
+        </p>
+        \[
+        f(\alpha) = a_n \alpha^n + \dots + a_1 \alpha + a_0 \in R
+        \]
+        <p>
+          A helyettesítés a műveletekkel felcserélhető:
+          \((f + g)(\alpha) = f(\alpha) + g(\alpha)\) és
+          \((f \cdot g)(\alpha) = f(\alpha) \cdot g(\alpha)\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az összegre az állítás az együtthatók összeadásából adódik. A
+          szorzatra
+          \((f g)(\alpha) = \sum_k \Bigl(\sum_{i+j=k} a_i b_j\Bigr) \alpha^k = \sum_{i, j} (a_i \alpha^i)(b_j \alpha^j) = f(\alpha) \cdot g(\alpha)\),
+          ahol azt használtuk, hogy \(R\) kommutatív, így
+          \(\alpha^{i+j} = \alpha^i \alpha^j\), és a tagok tetszőleges
+          sorrendben összeadhatók és szorozhatók.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Gyök fogalma</span>
+        <p>
+          Legyen \(R\) egy kommutatív gyűrű, és \(f(x) \in R[x]\) egy
+          polinom. Azt mondjuk, hogy az \(\alpha \in R\) elem az
+          \(f(x)\) polinom <em>gyöke</em>, ha a polinom helyettesítési
+          értéke \(\alpha\)-ban nulla, azaz \(f(\alpha) = 0\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Gyökfaktor-tétel</span>
+        <p>
+          Legyen \(R\) egy egységelemes kommutatív gyűrű,
+          \(f(x) \in R[x]\) polinom, és \(\alpha \in R\). Az \(\alpha\)
+          elem pontosan akkor gyöke az \(f(x)\) polinomnak, ha a
+          \((x - \alpha)\) elsőfokú polinom osztója \(f(x)\)-nek, azaz
+          létezik olyan \(q(x) \in R[x]\) polinom, hogy:
+        </p>
+        \[
+        f(x) = (x - \alpha) \cdot q(x)
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Minden \(k \ge 1\)-re \(R[x]\)-ben
+          \(x^k - \alpha^k = (x - \alpha)(x^{k-1} + x^{k-2} \alpha + \dots + \alpha^{k-1})\),
+          ahogy a szorzást kifejtve a közbenső tagok kiesnek. Ezért
+        </p>
+        \[
+        \begin{aligned}
+        f(x) - f(\alpha) &amp;= \sum_{k \ge 1} a_k (x^k - \alpha^k) \\
+        &amp;= (x - \alpha) \cdot h(x)
+        \end{aligned}
+        \]
+        <p>
+          alkalmas \(h(x) \in R[x]\)-szel. (\(\Rightarrow\)) Ha
+          \(f(\alpha) = 0\), akkor \(f(x) = (x - \alpha) \cdot h(x)\),
+          vagyis \(q = h\) megfelel. (\(\Leftarrow\)) Ha
+          \(f(x) = (x - \alpha) \cdot q(x)\), akkor a helyettesítési érték
+          szorzattartása miatt
+          \(f(\alpha) = (\alpha - \alpha) \cdot q(\alpha) = 0\).
+        </p>
+      </div>
+
+      <h3>Irreducibilis polinom</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Irreducibilis (felbonthatatlan) polinom</span>
+        <p>
+          Legyen \(R\) integritási tartomány (például test). Egy
+          nemkonstans \(f(x) \in R[x]\) polinomot
+          <em>irreducibilisnek</em> nevezünk, ha nem bontható fel két
+          nem egység polinom szorzatára a gyűrűben, azaz ha
+          \(f(x) = g(x) \cdot h(x)\), akkor \(g(x)\) vagy \(h(x)\) egység
+          \(R[x]\)-ben. (Test felett az egységek a nemnulla konstans
+          polinomok, ezért ekkor ez azt jelenti, hogy \(f\) nem bontható
+          fel két alacsonyabb fokszámú polinom szorzatára.)
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — Az egységek \(R[x]\)-ben (kiegészítés)</span>
+        <p>
+          Ha \(R\) integritási tartomány és \(f \cdot g = 1\), akkor a
+          fokszámok összegére
+          \(\operatorname{deg} f + \operatorname{deg} g = \operatorname{deg} 1 = 0\),
+          tehát \(f\) és \(g\) konstans polinom, és \(R\) egységei.
+          Test felett ezek pontosan a nemnulla konstansok.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

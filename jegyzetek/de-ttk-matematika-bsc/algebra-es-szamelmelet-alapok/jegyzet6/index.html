@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Komplex számok, De Moivre-formula, egységgyökök | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="A komplex számok műveletei és testtulajdonsága, algebrai és trigonometrikus alak, konjugált és abszolút érték, a De Moivre-formula és a komplex egységgyökök bizonyítással — DE TTK Matematika BSc 2023/2025, Algebra és számelmélet alapok.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-es-szamelmelet-alapok/jegyzet6/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 6 of 7 — see jegyzet1's head comment for the shape rationale.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description):
+  - the "Definíció — A komplex számok műveletei" box (the source said
+    C is a field under "the introduced" operations without ever
+    introducing them) and the "Állítás — C test" box with its proof;
+  - the proof of z * conj(z) = |z|^2 (the source only said it is
+    "megfigyelhető");
+  - the proof that the trigonometric form exists;
+  - the "Lemma — Szorzás trigonometrikus alakban" box and its proof, and
+    the proof of the De Moivre-formula (both need the angle-addition
+    formulas);
+  - the proof that the n-th roots of unity are exactly the n numbers
+    epsilon_k (the source stated the count and the formula without proof).
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-es-szamelmelet-alapok/">Algebra és számelmélet alapok</a> / 6. jegyzet</p>
+
+      <h1>Komplex számok, De Moivre-formula, egységgyökök</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a komplex számokat építi fel a valós számpárokból:
+        megadja a műveleteket, belátja, hogy testet alkotnak, majd
+        bevezeti a konjugáltat, az abszolút értéket és a trigonometrikus
+        alakot. Erre építve bizonyítja a De Moivre-formulát, és leírja
+        a komplex egységgyököket.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>A komplex számok algebrai alakja, műveletei, testtulajdonsága</li>
+        <li>Konjugált és abszolút érték</li>
+        <li>Trigonometrikus alak és argumentum</li>
+        <li>De Moivre-formula</li>
+        <li>Komplex egységgyökök</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Komplex számok és alakjaik</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Komplex számok halmaza (algebrai alak)</span>
+        <p>
+          A komplex számok halmazát, \(\mathbb{C}\)-t, úgy definiáljuk,
+          mint a valós számpárok halmazát (\(\mathbb{R} \times \mathbb{R}\)),
+          amelyeken a bevezetett összeadás és szorzás műveletekkel testet
+          alkotnak. A komplex számok <em>algebrai alakja</em>:
+        </p>
+        \[
+        z = a + bi
+        \]
+        <p>
+          ahol \(a, b \in \mathbb{R}\), és \(i\) az <em>imaginárius
+          egység</em>, amelyre \(i^2 = -1\) teljesül.
+        </p>
+        <ul>
+          <li>Az \(a\)-t a komplex szám <em>valós részének</em> nevezzük (\(\operatorname{Re}(z) = a\)).</li>
+          <li>A \(b\)-t a komplex szám <em>imaginárius részének</em> nevezzük (\(\operatorname{Im}(z) = b\)).</li>
+          <li>Ha \(b = 0\), akkor valós számot kapunk; ha \(a = 0\) és \(b \neq 0\), akkor tiszta imaginárius számról beszélünk.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — A komplex számok műveletei (kiegészítés)</span>
+        <p>
+          A \(\mathbb{C} = \mathbb{R} \times \mathbb{R}\) halmazon az
+          összeadást és a szorzást így értelmezzük:
+        </p>
+        \[
+        \begin{aligned}
+        (a, b) + (c, d) &amp;= (a + c,\ b + d) \\
+        (a, b) \cdot (c, d) &amp;= (ac - bd,\ ad + bc)
+        \end{aligned}
+        \]
+        <p>
+          Az \(a \in \mathbb{R}\) valós számot az \((a, 0)\) számpárral
+          azonosítjuk (ez összhangban van a műveletekkel:
+          \((a, 0) + (c, 0) = (a + c, 0)\) és
+          \((a, 0) \cdot (c, 0) = (ac, 0)\)). Az \(i = (0, 1)\) elemre
+          \(i^2 = (0, 1) \cdot (0, 1) = (-1, 0) = -1\), és
+          \((a, b) = (a, 0) + (b, 0) \cdot (0, 1) = a + bi\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás — \(\mathbb{C}\) test (kiegészítés)</span>
+        <p>
+          A \(\mathbb{C}\) a fenti műveletekkel test: nulleleme \((0, 0)\),
+          egységeleme \((1, 0)\), és az \((a, b) \neq (0, 0)\) elem
+          inverze
+          \(\left(\dfrac{a}{a^2 + b^2},\ \dfrac{-b}{a^2 + b^2}\right)\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az összeadás komponensenként történik, ezért
+          \((\mathbb{C}, +)\) Abel-csoport, mert \((\mathbb{R}, +)\) az. A
+          szorzás kommutatív, mert az \((ac - bd,\ ad + bc)\) kifejezés
+          szimmetrikus az \((a, b)\) és \((c, d)\) felcserélésére. A
+          szorzás asszociatív: mindkét oldalt kifejtve
+        </p>
+        \[
+        \begin{aligned}
+        ((a, b)(c, d))(e, f) &amp;= (ace - bde - adf - bcf, \\
+        &amp;\qquad acf - bdf + ade + bce) \\
+        (a, b)((c, d)(e, f)) &amp;= (ace - adf - bcf - bde, \\
+        &amp;\qquad acf + ade + bce - bdf)
+        \end{aligned}
+        \]
+        <p>
+          a két oldal tagjai ugyanazok. A disztributivitás:
+          \((a, b)((c, d) + (e, f)) = (a(c+e) - b(d+f),\ a(d+f) + b(c+e))\)
+          \(= (ac - bd,\ ad + bc) + (ae - bf,\ af + be)\). Az
+          \((1, 0) \cdot (c, d) = (c, d)\), tehát \((1, 0)\) egységelem,
+          és \((1, 0) \neq (0, 0)\). Végül ha \((a, b) \neq (0, 0)\), akkor
+          \(a^2 + b^2 &gt; 0\), és
+        </p>
+        \[
+        \begin{aligned}
+        &amp;(a, b) \cdot \left(\frac{a}{a^2 + b^2},\ \frac{-b}{a^2 + b^2}\right) \\
+        &amp;= \left(\frac{a^2 + b^2}{a^2 + b^2},\ \frac{-ab + ba}{a^2 + b^2}\right) \\
+        &amp;= (1, 0)
+        \end{aligned}
+        \]
+        <p>Tehát \(\mathbb{C}\) test.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Konjugált és abszolút érték</span>
+        <p>Legyen \(z = a + bi\) egy komplex szám.</p>
+        <ul>
+          <li><strong>Konjugált:</strong> \(\bar{z} = a - bi\).</li>
+          <li><strong>Abszolút érték (vagy norma):</strong> \(|z| = \sqrt{a^2 + b^2}\). Megfigyelhető, hogy \(z \cdot \bar{z} = a^2 + b^2 = |z|^2\).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          \(z \cdot \bar{z} = (a + bi)(a - bi) = a^2 - (bi)^2 = a^2 - b^2 i^2 = a^2 + b^2\),
+          mert \(i^2 = -1\); a jobb oldal pedig az abszolút érték
+          definíciója szerint \(|z|^2\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Trigonometrikus alak</span>
+        <p>
+          Bármely \(z \in \mathbb{C} \setminus \{0\}\) nemnulla komplex
+          szám felírható <em>trigonometrikus alakban</em> is:
+        </p>
+        \[
+        z = |z| \cdot (\cos \varphi + i \sin \varphi)
+        \]
+        <p>
+          ahol \(|z|\) a komplex szám abszolút értéke, a \(\varphi\) szög
+          pedig a szám <em>argumentuma</em> (irányszöge), amelyre
+          \(\cos \varphi = \dfrac{a}{|z|}\) és
+          \(\sin \varphi = \dfrac{b}{|z|}\) (ha \(a \neq 0\), akkor ez azt
+          jelenti, hogy \(\tan \varphi = \dfrac{b}{a}\), a megfelelő
+          síknegyed figyelembevételével). Az argumentum \(2\pi\) egész
+          számú többszöröséig egyértelmű.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \(z = a + bi \neq 0\). Ekkor
+          \(\left(\frac{a}{|z|}\right)^2 + \left(\frac{b}{|z|}\right)^2 = \frac{a^2 + b^2}{|z|^2} = 1\),
+          tehát az \(\left(\frac{a}{|z|}, \frac{b}{|z|}\right)\) pont az
+          egységkörön van, így van olyan \(\varphi\) szög, amelyre
+          \(\cos \varphi = \frac{a}{|z|}\) és
+          \(\sin \varphi = \frac{b}{|z|}\). Ekkor
+          \(|z|(\cos \varphi + i \sin \varphi) = a + bi = z\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>De Moivre-formula és egységgyökök</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Lemma — Szorzás trigonometrikus alakban (kiegészítés)</span>
+        <p>
+          Ha \(z_1 = r_1 (\cos \varphi_1 + i \sin \varphi_1)\) és
+          \(z_2 = r_2 (\cos \varphi_2 + i \sin \varphi_2)\), akkor:
+        </p>
+        \[
+        z_1 z_2 = r_1 r_2 \cdot \bigl(\cos(\varphi_1 + \varphi_2) + i \sin(\varphi_1 + \varphi_2)\bigr)
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>A szorzást kifejtve és az addíciós tételeket használva:</p>
+        \[
+        \begin{aligned}
+        z_1 z_2 &amp;= r_1 r_2 \bigl[(\cos \varphi_1 \cos \varphi_2 - \sin \varphi_1 \sin \varphi_2) \\
+        &amp;\qquad\quad + i (\sin \varphi_1 \cos \varphi_2 + \cos \varphi_1 \sin \varphi_2)\bigr] \\
+        &amp;= r_1 r_2 \bigl[\cos(\varphi_1 + \varphi_2) + i \sin(\varphi_1 + \varphi_2)\bigr]
+        \end{aligned}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — De Moivre-formula</span>
+        <p>
+          Ha \(z = |z|(\cos \varphi + i \sin \varphi)\) egy
+          trigonometrikus alakban megadott komplex szám, és
+          \(n \in \mathbb{Z}\) egy tetszőleges egész szám, akkor a
+          komplex szám \(n\)-edik hatványa:
+        </p>
+        \[
+        z^n = |z|^n \cdot (\cos(n\varphi) + i \sin(n\varphi))
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>\(n \ge 0\).</strong> \(n = 0\)-ra mindkét oldal
+          \(1\). Ha az állítás \(n\)-re igaz, akkor a lemma szerint
+          \(z^{n+1} = z^n \cdot z = |z|^{n+1} \bigl(\cos((n+1)\varphi) + i \sin((n+1)\varphi)\bigr)\),
+          tehát teljes indukcióval minden \(n \ge 0\)-ra igaz. (Az érvelés
+          bármely \(r (\cos \psi + i \sin \psi)\), \(r &gt; 0\) alakú
+          számra érvényes.)
+        </p>
+        <p>
+          <strong>\(n &lt; 0\).</strong> A lemma szerint
+          \(z \cdot |z|^{-1} \bigl(\cos(-\varphi) + i \sin(-\varphi)\bigr) = \cos 0 + i \sin 0 = 1\),
+          tehát \(z^{-1} = |z|^{-1} \bigl(\cos(-\varphi) + i \sin(-\varphi)\bigr)\).
+          Legyen \(n = -m\), \(m &gt; 0\). Az előző rész szerint az
+          \(m\)-edik hatványt véve a \(z^{-1}\) számra:
+          \(z^{n} = (z^{-1})^m = |z|^{-m} \bigl(\cos(-m\varphi) + i \sin(-m\varphi)\bigr) = |z|^n \bigl(\cos(n\varphi) + i \sin(n\varphi)\bigr)\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Komplex egységgyökök</span>
+        <p>
+          Azokat a komplex számokat, amelyekre fennáll a \(z^n = 1\)
+          egyenlet (\(n \in \mathbb{N}^+\)), <em>\(n\)-edik
+          egységgyököknek</em> nevezzük. A gyökök száma pontosan \(n\),
+          és a trigonometrikus alak segítségével így adhatók meg:
+        </p>
+        \[
+        \varepsilon_k = \cos\left(\frac{2k\pi}{n}\right) + i \sin\left(\frac{2k\pi}{n}\right)
+        \]
+        <p>ahol \(k = 0, 1, 2, \dots, n-1\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>Az \(\varepsilon_k\) gyök.</strong> A De Moivre-formula
+          szerint \(\varepsilon_k^n = \cos(2k\pi) + i \sin(2k\pi) = 1\).
+        </p>
+        <p>
+          <strong>Különbözők.</strong> A \(k = 0, 1, \dots, n-1\)
+          esetén a \(\frac{2k\pi}{n}\) szögek a \([0, 2\pi)\)
+          intervallumban különböznek, ezért az egységkör különböző
+          pontjait adják.
+        </p>
+        <p>
+          <strong>Nincs más gyök.</strong> Ha \(z^n = 1\), akkor
+          \(z \neq 0\); legyen \(z = r (\cos t + i \sin t)\), \(r &gt; 0\).
+          A De Moivre-formula szerint
+          \(r^n (\cos nt + i \sin nt) = 1\), vagyis
+          \(r^n \cos nt = 1\) és \(r^n \sin nt = 0\). A két egyenlet
+          négyzetösszegéből \(r^{2n} = 1\), azaz \(r = 1\), így
+          \(\cos nt = 1\) és \(\sin nt = 0\). Ebből \(nt = 2k\pi\)
+          valamely \(k \in \mathbb{Z}\)-re, azaz \(t = \frac{2k\pi}{n}\).
+          Ha \(k = qn + s\), \(0 \le s &lt; n\), akkor
+          \(t = \frac{2s\pi}{n} + 2q\pi\), tehát \(z = \varepsilon_s\).
+          Így a gyökök pontosan az \(n\) darab \(\varepsilon_0, \dots, \varepsilon_{n-1}\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

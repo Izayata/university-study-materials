@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Algebrai struktúrák és csoportok | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Belső művelet, algebrai struktúra, félcsoport, monoid, csoport, Abel-csoport, a neutrális és az inverz elem egyértelműsége bizonyítással, valamint a részcsoport fogalma — DE TTK Matematika BSc 2023/2025, Algebra és számelmélet alapok.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-es-szamelmelet-alapok/jegyzet2/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 2 of 7 — see jegyzet1's head comment for the shape rationale.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description): the "Definíció — Belső művelet" box.
+  The source used "belső művelet" without defining it.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-es-szamelmelet-alapok/">Algebra és számelmélet alapok</a> / 2. jegyzet</p>
+
+      <h1>Algebrai struktúrák és csoportok</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet bevezeti az algebrai struktúra fogalmát, majd
+        lépésről lépésre építi fel a félcsoportot, a monoidot és a
+        csoportot. Bizonyítja, hogy a neutrális elem és az inverz elem
+        egyértelmű, végül kimondja a részcsoport definícióját.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Belső művelet és algebrai struktúra</li>
+        <li>Félcsoport, monoid, csoport, Abel-csoport</li>
+        <li>A neutrális elem egyértelműsége</li>
+        <li>Az inverz elem egyértelműsége</li>
+        <li>Részcsoport</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Algebrai struktúrák és csoportelmélet</h2>
+
+      <p>
+        Az algebrai struktúrák olyan halmazok, amelyeken egy vagy több
+        belső művelet van értelmezve, és ezek a műveletek bizonyos
+        axiómáknak (törvényeknek) tesznek eleget.
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Belső művelet (kiegészítés)</span>
+        <p>
+          Egy \(A\) nem üres halmazon értelmezett (kétváltozós)
+          <strong>belső művelet</strong> egy \(*: A \times A \to A\)
+          leképezés; az \((a, b)\) pár képét \(a * b\)-vel jelöljük. A
+          művelet eredménye tehát mindig \(A\)-ban marad.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Algebrai struktúra és félcsoport</span>
+        <p>
+          Egy \(A\) nem üres halmazt és rajta értelmezett egy vagy több
+          belső műveletet együtt <em>algebrai struktúrának</em> nevezünk.
+          Egy \((S, *)\) struktúrát <em>félcsoportnak</em> nevezünk, ha a
+          \(*\) művelet asszociatív, azaz minden \(a, b, c \in S\) esetén:
+        </p>
+        \[
+        (a * b) * c = a * (b * c)
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Monoid és csoport</span>
+        <ul>
+          <li>
+            <strong>Monoid:</strong> Olyan \((M, *)\) félcsoport, amely
+            tartalmaz egy olyan \(e \in M\) elemet (neutrális vagy
+            egységelem), amelyre minden \(a \in M\) esetén:
+            \[
+            a * e = e * a = a
+            \]
+          </li>
+          <li>
+            <strong>Csoport:</strong> Olyan \((G, *)\) monoid, amelyben
+            minden \(a \in G\) elemhez létezik inverz elem (jelölésben
+            \(a^{-1} \in G\)), amelyre teljesül:
+            \[
+            a * a^{-1} = a^{-1} * a = e
+            \]
+          </li>
+        </ul>
+        <p>
+          Ha a csoport művelete a csoport elemeire nézve kommutatív is
+          (\(a * b = b * a\)), akkor a csoportot <em>Abel-csoportnak</em>
+          nevezzük.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h3>Alapvető tételek és bizonyítások csoportokban</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — A neutrális elem egyértelműsége</span>
+        <p>
+          Ha \((G, *)\) egy csoport (vagy monoid), akkor abban a
+          neutrális elem egyértelműen meghatározott.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Tegyük fel indirekt módon, hogy a \(G\) halmazban létezik két
+          különböző neutrális elem, \(e\) és \(e'\). Mivel \(e'\)
+          neutrális elem, ezért ha \(e\)-re alkalmazzuk, azt kapjuk, hogy:
+        </p>
+        \[
+        e * e' = e
+        \]
+        <p>
+          Másrészről, mivel \(e\) is neutrális elem, ezért az
+          \(e'\)-vel való szorzásra nézve fennáll:
+        </p>
+        \[
+        e * e' = e'
+        \]
+        <p>
+          A két egyenlőség bal oldala megegyezik, így az egyenlőség
+          tranzitivitása miatt:
+        </p>
+        \[
+        e = e'
+        \]
+        <p>
+          Ez ellentmond annak a feltevésünknek, hogy \(e\) és \(e'\)
+          különbözőek voltak. Tehát a neutrális elem csak egyetlen egy
+          lehet.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Az inverz elem egyértelműsége</span>
+        <p>
+          Legyen \((G, *)\) egy csoport, és \(a\) egy tetszőleges eleme
+          \(G\)-nek. Ekkor az \(a\) elemhez tartozó \(a^{-1}\) inverz
+          elem egyértelmű.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Tegyük fel, hogy az \(a\) elemnek két inverze is létezik a
+          csoportban, nevezetesen \(b\) és \(c\) (azaz
+          \(a * b = b * a = e\) és \(a * c = c * a = e\)). Vizsgáljuk meg
+          a \(b * a * c\) kifejezést. Mivel a művelet asszociatív, ezt a
+          kifejezést kétféleképpen is kiszámíthatjuk:
+        </p>
+        <ol>
+          <li>\((b * a) * c = e * c = c\)</li>
+          <li>\(b * (a * c) = b * e = b\)</li>
+        </ol>
+        <p>
+          Mivel mindkettő ugyanahhoz a kifejezéshez vezet, kapjuk, hogy
+          \(b = c\). Ezzel beteljesült az állítás, az inverz elem
+          egyértelmű.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Részcsoport</span>
+        <p>
+          Legyen \((G, *)\) egy csoport. Egy \(H \subseteq G\) nem üres
+          részhalmazt a \(G\) <em>részcsoportjának</em> nevezünk
+          (jelölése: \(H \le G\)), ha \(H\) önmagában is csoport a
+          \(G\)-ből örökölt \(*\) műveletre nézve.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
