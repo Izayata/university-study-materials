@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Halmazok, relációk és leképezések | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Részhalmaz, Descartes-szorzat, hatványhalmaz, relációk és tulajdonságaik, ekvivalenciareláció és az osztályozási tétel, injektív, szürjektív és bijektív leképezések — DE TTK Matematika BSc 2023/2025, Algebrai struktúrák (bevezetés).">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebrai-strukturak-bevezetes/jegyzet1/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 1 of 7, split from one long LaTeX source ("Algebra és
+  Számelmélet") at the owner's request, following the source's own
+  "N. FEJEZET" comments (2026-09-21). Same math-note shape as the
+  kombinatorika-es-grafelmelet and linearis-algebrai-alapozas series:
+  intro -> "Témák" outline -> one <h2> per original LaTeX \section,
+  <h3> per \subsection. 2-part item-meta, no session label — see
+  CLAUDE.md.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description): in this part only the
+  "Definíció — Partíció" box. The source's classification theorem used
+  the word "partícionálja" without ever defining it.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebrai-strukturak-bevezetes/">Algebrai struktúrák (bevezetés)</a> / 1. jegyzet</p>
+
+      <h1>Halmazok, relációk és leképezések</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet az algebrai struktúrák sorozat első része: a
+        halmazelméleti alapfogalmakat (részhalmaz, Descartes-szorzat,
+        hatványhalmaz), a relációkat és az ekvivalenciarelációt —
+        az osztályozási tétellel és bizonyításával —, valamint a
+        leképezések alaptulajdonságait foglalja össze. Ezekre épül a
+        későbbi struktúrák (csoportok, gyűrűk, testek) tárgyalása.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Részhalmaz, Descartes-szorzat, hatványhalmaz</li>
+        <li>Relációk és tulajdonságaik</li>
+        <li>Ekvivalenciareláció, ekvivalenciaosztály, partíció</li>
+        <li>Az ekvivalenciarelációk osztályozási tétele</li>
+        <li>Leképezések: injektív, szürjektív, bijektív</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Halmazok, relációk és leképezések alapjai</h2>
+
+      <p>
+        A modern algebra és számelmélet nyelve a halmazelméletre épül.
+        Az alábbiakban lefektetjük azokat az alapvető fogalmakat és
+        tételeket, amelyekre a későbbi algebrai struktúrák épülni
+        fognak.
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Halmazelméleti alapfogalmak</span>
+        <p>Legyenek \(A\) és \(B\) tetszőleges halmazok.</p>
+        <ul>
+          <li><strong>Részhalmaz:</strong> Az \(A\) halmaz részhalmaza a \(B\)-nek (jelölésben: \(A \subseteq B\)), ha minden \(x \in A\) esetén \(x \in B\) is teljesül.</li>
+          <li>
+            <strong>Descartes-szorzat:</strong> Az \(A\) és \(B\) halmazok
+            Descartes-szorzata a rendezett párok halmaza:
+            \[
+            A \times B = \{(a, b) \mid a \in A \text{ és } b \in B\}
+            \]
+          </li>
+          <li><strong>Hatványhalmaz:</strong> Egy \(A\) halmaz összes részhalmazának halmazát a halmaz hatványhalmazának nevezzük, jele \(\mathcal{P}(A)\) vagy \(2^A\).</li>
+        </ul>
+      </div>
+
+      <h3>Relációk és ekvivalenciarelációk</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Reláció</span>
+        <p>
+          Egy \(A\) és \(B\) halmaz közötti <strong>reláció</strong> az
+          \(A \times B\) Descartes-szorzat tetszőleges
+          \(\rho \subseteq A \times B\) részhalmaza. Ha \(A = B\), akkor
+          \(A\)-beli relációról beszélünk (\(\rho \subseteq A^2\)).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Relációk tulajdonságai</span>
+        <p>
+          Legyen \(\rho \subseteq A^2\) egy \(A\) halmazon értelmezett
+          reláció. Ekkor \(\rho\):
+        </p>
+        <ul>
+          <li><strong>Reflexív</strong>, ha minden \(a \in A\) esetén \((a, a) \in \rho\).</li>
+          <li><strong>Szimmetrikus</strong>, ha minden \(a, b \in A\) esetén, ha \((a, b) \in \rho\), akkor \((b, a) \in \rho\) is teljesül.</li>
+          <li><strong>Tranzitív</strong>, ha minden \(a, b, c \in A\) esetén, ha \((a, b) \in \rho\) és \((b, c) \in \rho\), akkor \((a, c) \in \rho\).</li>
+          <li><strong>Antiszimmetrikus</strong>, ha minden \(a, b \in A\) esetén, ha \((a, b) \in \rho\) és \((b, a) \in \rho\), akkor \(a = b\).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Ekvivalenciareláció és ekvivalenciaosztály</span>
+        <p>
+          Egy \(\rho \subseteq A^2\) relációt <em>ekvivalenciarelációnak</em>
+          nevezünk, ha reflexív, szimmetrikus és tranzitív. Ha \(\sim\)
+          egy ekvivalenciareláció az \(A\) halmazon, akkor egy
+          \(a \in A\) elemhez tartozó <strong>ekvivalenciaosztály</strong>
+          a következő halmaz:
+        </p>
+        \[
+        [a]_\sim = \{x \in A \mid x \sim a\}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Partíció (kiegészítés)</span>
+        <p>
+          Egy \(A\) halmaz <strong>partíciója</strong> (diszjunkt
+          felbontása) az \(A\) nem üres részhalmazaiból álló olyan
+          halmazrendszer, amelynek elemei páronként diszjunktak, és
+          uniójuk az egész \(A\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Ekvivalenciareláció alaptétele: Osztályozás</span>
+        <p>
+          Ha \(\sim\) ekvivalenciareláció az \(A\) halmazon, akkor az
+          ekvivalenciaosztályok halmaza diszjunkt részhalmazokra bontja
+          (partícionálja) az \(A\) halmazt, azaz:
+        </p>
+        <ol>
+          <li>Az osztályok uniója megegyezik \(A\)-val: \(\bigcup_{a \in A} [a] = A\).</li>
+          <li>Bármely két ekvivalenciaosztály vagy megegyezik, vagy teljesen diszjunkt: \([a] \cap [b] \neq \emptyset \implies [a] = [b]\).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <ol>
+          <li>
+            Mivel a reláció reflexív, minden \(a \in A\)-ra \(a \in [a]\),
+            így \(A\) minden eleme benne van legalább egy
+            ekvivalenciaosztályban (és az osztályok nem üresek), vagyis
+            az uniójuk kiadja egész \(A\)-t.
+          </li>
+          <li>
+            Tegyük fel, hogy \([a] \cap [b] \neq \emptyset\). Legyen
+            \(c\) egy elem ebben a metszetben (\(c \in [a]\) és
+            \(c \in [b]\)). Ekkor a definíció szerint \(c \sim a\) és
+            \(c \sim b\). A szimmetria miatt \(a \sim c\), ezért a
+            tranzitivitás miatt \(a \sim c\) és \(c \sim b\)-ből
+            \(a \sim b\), a szimmetria miatt pedig \(b \sim a\) is
+            fennáll. Legyen most \(x\) egy tetszőleges elem a \([b]\)
+            osztályban (\(x \sim b\)). Ekkor \(x \sim b\) és
+            \(b \sim a\) miatt \(x \sim a\) is fennáll, azaz
+            \(x \in [a]\). Ez azt jelenti, hogy \([b] \subseteq [a]\).
+            Hasonlóan bizonyítható a fordított irány is (\(a\) és \(b\)
+            szerepének felcserélésével), így \([a] = [b]\).
+          </li>
+        </ol>
+      </div>
+
+      <h3>Leképezések (függvények)</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Leképezés és tulajdonságai</span>
+        <p>
+          Legyenek \(A\) és \(B\) halmazok. Az \(f: A \to B\)
+          <strong>leképezés</strong> (vagy függvény) olyan reláció,
+          amelyre \(\mathcal{D}_f = A\) (az \(f\) értelmezési
+          tartománya az egész \(A\)), és minden \(a \in A\)-hoz pontosan
+          egy \(b \in B\) elem tartozik, amelyre \((a, b) \in f\)
+          (jelölésben: \(f(a) = b\)). Az \(f: A \to B\) leképezés:
+        </p>
+        <ul>
+          <li><strong>Injektív (egy-egy):</strong> Ha \(f(a_1) = f(a_2) \implies a_1 = a_2\) minden \(a_1, a_2 \in A\)-ra.</li>
+          <li><strong>Szürjektív (ráképezés):</strong> Ha minden \(b \in B\)-hez létezik olyan \(a \in A\), hogy \(f(a) = b\).</li>
+          <li><strong>Bijektív:</strong> Ha egyszerre injektív és szürjektív.</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
