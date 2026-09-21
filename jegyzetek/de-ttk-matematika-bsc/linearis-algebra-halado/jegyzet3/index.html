@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Kvadratikus formák, Lagrange- és Sylvester-tétel | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Szimmetrikus bilineáris forma, kvadratikus forma, polárizációs azonosság, kanonikus alak, a Lagrange-tétel és a Sylvester-féle tehetetlenségi tétel bizonyítással — DE TTK Matematika BSc 2023/2025, Lineáris algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/jegyzet3/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 3 of 12 — see jegyzet1's head comment for the shape rationale.
+
+  Source fixes here: the source's "Megjegyzés — A tehetetlenségi index"
+  only repeated the Sylvester theorem in garbled words ("a formák
+  determináltsága szempontjából"); it is restated as what it was
+  after: the definition of the inertia indices and the signature. The
+  canonical form is also stated as L(b_i, b_j) = 0 for i != j.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description): the proofs of the polarisation
+  identity, of Lagrange's theorem (induction on the dimension, splitting
+  off a vector e with L(e, e) != 0) and of Sylvester's law of inertia
+  (the dimension argument V_+ meets V_{<=0} only in 0). The source
+  stated the three without a proof.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/">Lineáris algebra haladó</a> / 3. jegyzet</p>
+
+      <h1>Kvadratikus formák, Lagrange- és Sylvester-tétel</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a szimmetrikus bilineáris formákkal és a hozzájuk
+        tartozó kvadratikus formákkal foglalkozik. Megmutatja, hogyan
+        nyerhető vissza a bilineáris forma a kvadratikus formájából,
+        bebizonyítja, hogy mindig van olyan bázis, amelyben a forma
+        diagonális (Lagrange), és hogy a pozitív, negatív és nulla
+        együtthatók száma nem függ a bázis választásától (Sylvester).
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Szimmetrikus bilineáris forma, kvadratikus forma</li>
+        <li>Polárizációs azonosság</li>
+        <li>Kanonikus alak és kanonikus bázis</li>
+        <li>Lagrange tétele</li>
+        <li>Sylvester-féle tehetetlenségi tétel, tehetetlenségi indexek</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Szimmetrikus bilineáris és kvadratikus formák</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Szimmetrikus bilineáris forma</span>
+        <p>
+          Az \(L\) bilineáris forma <strong>szimmetrikus</strong>, ha
+          minden \(x, y \in V\) esetén \(L(x, y) = L(y, x)\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Kvadratikus forma</span>
+        <p>
+          Ha \(L\) szimmetrikus bilineáris forma, akkor a hozzá tartozó
+          <strong>kvadratikus forma</strong>:
+        </p>
+        \[
+        Q(x) = L(x, x)
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Polárizációs azonosság</span>
+        <p>
+          Egy szimmetrikus bilineáris forma visszanyerhető a kvadratikus
+          formájából:
+        </p>
+        \[
+        L(x, y) = \frac{1}{2} \left[ Q(x + y) - Q(x) - Q(y) \right]
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A bilinearitás és a szimmetria miatt
+        </p>
+        \[
+        Q(x + y) = L(x + y, x + y) = L(x, x) + L(x, y) + L(y, x) + L(y, y) = Q(x) + 2 L(x, y) + Q(y),
+        \]
+        <p>amiből \(L(x, y)\) kifejezhető.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Kanonikus alak</span>
+        <p>
+          Ha az \(L\) szimmetrikus bilineáris forma mátrixa egy \((b)\)
+          bázisban <strong>diagonális alakú</strong> (azaz
+          \(L(b_i, b_j) = 0\), ha \(i \neq j\)), akkor a bázist
+          <strong>kanonikus bázisnak</strong>, az alábbi előállítást pedig
+          az \(L\) <strong>kanonikus alakjának</strong> nevezzük
+          (\(\lambda_i = L(b_i, b_i)\)):
+        </p>
+        \[
+        L(a, c) = \sum_{i=1}^n \lambda_i x_i y_i
+        \]
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Lagrange tétele és Sylvester tehetetlenségi tétele</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Lagrange tétele</span>
+        <p>
+          Minden szimmetrikus bilineáris formának (illetve kvadratikus
+          formának) van kanonikus bázisa, azaz minden kvadratikus forma
+          átírható olyan alakba, ahol csak a koordináták négyzetei
+          szerepelnek:
+        </p>
+        \[
+        Q(a) = \sum_{i=1}^n \lambda_i x_i^2
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Indukció \(n = \dim V\) szerint. Ha \(L = 0\), akkor bármely
+          bázis kanonikus (minden \(\lambda_i = 0\)); ez \(n = 0\)-ra
+          mindig így van (az üres bázis kanonikus). Legyen most
+          \(L \neq 0\) (így \(n \ge 1\)), és tegyük fel az állítást
+          \((n-1)\)-dimenziós terekre.
+        </p>
+        <p>
+          Van olyan \(e \in V\), amelyre \(L(e, e) \neq 0\): különben
+          \(Q \equiv 0\), és a polárizációs azonosság szerint
+          \(L(x, y) = \frac12 [Q(x+y) - Q(x) - Q(y)] = 0\) minden
+          \(x, y\)-ra, ellentétben \(L \neq 0\)-val. Az
+          \(x \mapsto L(e, x)\) lineáris forma nem nulla (az \(e\)-n
+          \(L(e, e) \neq 0\)-t vesz fel), ezért a
+          \(H = \{x \in V : L(e, x) = 0\}\) magja \(n - 1\) dimenziós
+          (nullitás–rang tétel), és \(e \notin H\). Így
+          \(V = \mathcal{L}(e) \oplus H\).
+        </p>
+        <p>
+          Az \(L\) megszorítása \(H \times H\)-ra szimmetrikus bilineáris
+          forma az \((n-1)\)-dimenziós \(H\)-n, tehát az indukciós
+          feltevés szerint \(H\)-nak van kanonikus bázisa,
+          \((h_1, \dots, h_{n-1})\). Az \((e, h_1, \dots, h_{n-1})\) a
+          \(V\) bázisa, és \(L(e, h_j) = 0\) (mert \(h_j \in H\)),
+          \(L(h_j, e) = 0\) (szimmetria), \(L(h_i, h_j) = 0\) (\(i \neq j\)).
+          Tehát ez kanonikus bázis. A kvadratikus forma alakja ebből
+          \(Q(a) = L(a, a) = \sum \lambda_i x_i^2\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Sylvester-féle tehetetlenségi tétel</span>
+        <p>
+          Tetszőleges szimmetrikus bilineáris forma bármely két kanonikus
+          alakjában a pozitív együtthatók száma ugyanannyi. Ugyanígy
+          érvényes a negatív és a nulla együtthatókra is.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \((b)\) és \((c)\) két kanonikus bázis, a hozzájuk tartozó
+          együtthatók \(\lambda_i\) és \(\mu_j\); a pozitív \(\lambda_i\)-k
+          száma \(p\), a pozitív \(\mu_j\)-ké \(p'\). Legyen
+          \(V_+ = \mathcal{L}(b_i : \lambda_i > 0)\), ennek dimenziója
+          \(p\), és \(V' = \mathcal{L}(c_j : \mu_j \le 0)\), ennek
+          dimenziója \(n - p'\). Ha \(0 \neq x \in V_+\), akkor
+          \(Q(x) = \sum_{\lambda_i > 0} \lambda_i x_i^2 > 0\); ha
+          \(y \in V'\), akkor \(Q(y) = \sum_{\mu_j \le 0} \mu_j y_j^2 \le 0\).
+          Ezért \(V_+ \cap V' = \{0\}\), így
+          \(p + (n - p') \le n\), azaz \(p \le p'\). A két bázis szerepét
+          felcserélve \(p' \le p\), tehát \(p = p'\).
+        </p>
+        <p>
+          A negatív együtthatókra ugyanez a gondolat az \(-L\) formára
+          alkalmazva (kanonikus együtthatói \(-\lambda_i\)); a nulla
+          együtthatók száma pedig \(n\) mínusz a pozitívak és a negatívak
+          száma, tehát az is bázisfüggetlen.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — A tehetetlenségi indexek</span>
+        <p>
+          A Sylvester-tétel szerint egy kvadratikus forma bármely
+          kanonikus előállításában ugyanannyi a pozitív együtthatók
+          \(p\) száma, a negatívoké \(q\), és a nulláké \(n - p - q\).
+          A \(p\) a forma <strong>pozitív</strong>, a \(q\)
+          <strong>negatív tehetetlenségi indexe</strong>, a \((p, q)\) pár
+          (vagy a \(p - q\) különbség) a forma <strong>szignatúrája</strong>.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
