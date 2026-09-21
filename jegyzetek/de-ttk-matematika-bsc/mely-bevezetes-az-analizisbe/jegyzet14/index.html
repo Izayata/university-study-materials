@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Kontrakciók, Banach-féle fixponttétel, Baire-tétel | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="A kontrakció, a Banach-féle fixponttétel, a felcserélhető és az iterált leképezések fixpontja és a Baire-féle kategóriatétel bizonyítással — DE TTK Matematika BSc 2023/2025, Mély bevezetés az analízisbe.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/jegyzet14/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 14 of 16 — see part 1's head comment for the shape rationale.
+
+  Source fixes here: "allitas" and "megjegyzes" (undeclared LaTeX
+  environments) are an Állítás and a Megjegyzés. The "iterated
+  contractions" statement and proof, and the Baire theorem, stand in the
+  source twice (the second copy repeats the first with a partly broken
+  proof: a missing closing dollar sign, "y^^*"); they are kept once. The
+  continuity proof of the source picks delta = eps/alpha "(ha alpha != 0)"
+  and leaves alpha = 0 open; delta = eps works for every alpha in [0, 1[.
+  The source's Baire proof is only an outline ("A zárt gömbök módszerével
+  ... megmutatható"); the nested closed balls are constructed in full.
+  The source says nothing about the commuting-maps statement (it sits
+  under a heading with no proof).
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (flagged here and in
+  the PR description): the definition of a contraction and of a fixed
+  point (the source uses both undefined), the proof of the commuting-maps
+  statement, and the complete proof of the Baire category theorem. The
+  contraction is shown continuous and the Banach theorem is proved as in
+  the source, with the estimate written out.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/">Mély bevezetés az analízisbe</a> / 14. jegyzet</p>
+
+      <h1>Kontrakciók, Banach-féle fixponttétel, Baire-tétel</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a teljes metrikus terek két alapvető tételét
+        bizonyítja: a Banach-féle fixponttételt (egy távolságot
+        összehúzó leképezésnek egyetlen fixpontja van, amelyhez az
+        iteráció tart), és a Baire-féle kategóriatételt (megszámlálható
+        sok nyílt, sűrű halmaz metszete sűrű).
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Kontrakció, fixpont, a kontrakció folytonos</li>
+        <li>Banach-féle fixponttétel</li>
+        <li>Felcserélhető leképezések fixpontja</li>
+        <li>Iterált kontrakciók fixponttétele</li>
+        <li>Baire-féle kategóriatétel</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Kontrakciók és folytonosság</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Kontrakció és fixpont (kiegészítés)</span>
+        <p>
+          Legyen \((X, \rho)\) metrikus tér. Az \(A : X \to X\) leképezés
+          <strong>kontrakció</strong>, ha van olyan \(\alpha \in [0, 1[\),
+          hogy minden \(x, y \in X\) esetén
+          \(\rho(A(x), A(y)) \le \alpha\, \rho(x, y)\). Az \(x^* \in X\)
+          az \(A\) <strong>fixpontja</strong>, ha \(A(x^*) = x^*\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás</span>
+        <p>
+          Legyen \((X, \rho)\) metrikus tér és \(A : X \to X\) kontrakció.
+          Ekkor \(A\) folytonos.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Mivel \(A\) kontrakció, létezik olyan \(\alpha \in [0,1[\), hogy
+          \(\rho(A(x), A(y)) \le \alpha \rho(x,y)\) minden \(x,y \in X\)
+          esetén. Tetszőleges \(x_0 \in X\) és \(\varepsilon &gt; 0\) esetén
+          meg kell mutatnunk, hogy létezik \(\delta &gt; 0\), amire ha
+          \(\rho(x_0, y) &lt; \delta\), akkor
+          \(\rho(A(x_0), A(y)) &lt; \varepsilon\). Válasszuk
+          \(\delta = \varepsilon\)-t (ez \(\alpha = 0\)-ra is jó). Ekkor:
+        </p>
+        \[
+        \rho(A(x_0), A(y)) \le \alpha \rho(x_0, y) \le \rho(x_0, y) &lt; \varepsilon
+        \]
+        <p>Tehát \(A\) minden pontban folytonos.</p>
+      </div>
+
+      <h2>Banach-féle fixponttétel (kontrakciós elv)</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás — Banach-féle fixponttétel</span>
+        <p>
+          Minden teljes metrikus téren értelmezett kontrakciónak pontosan
+          egy fixpontja van.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Legyen \((X, \rho)\) teljes metrikus tér (\(X \neq \emptyset\))
+          és \(A : X \to X\) kontrakció (\(\exists \alpha \in [0,1[\)).
+          Válasszunk egy tetszőleges \(x_0 \in X\) elemet, és definiáljuk
+          az iterációs sorozatot: \(x_n = A(x_{n-1})\) (\(n \in \mathbb{N}\)).
+          Indukcióval \(\rho(x_{k+1}, x_k) \le \alpha^k \rho(x_1, x_0)\).
+          Megmutatható, hogy ez a sorozat Cauchy-sorozat. Becsüljük meg a
+          tagok távolságát (\(m &gt; n\)):
+        </p>
+        \[
+        \begin{aligned}
+        \rho(x_n, x_m) &amp;\le \sum_{k=n}^{m-1} \rho(x_{k+1}, x_k) \le \sum_{k=n}^{m-1} \alpha^k \rho(x_1, x_0) \\
+        &amp;\le \alpha^n \cdot \rho(x_1, x_0) \cdot \frac{1}{1-\alpha} \xrightarrow{n \to \infty} 0
+        \end{aligned}
+        \]
+        <p>
+          Mivel \((X, \rho)\) teljes, a \((x_n)\) Cauchy-sorozat
+          konvergens, azaz létezik olyan \(x^* \in X\), amelyre
+          \(\lim_{n \to \infty} x_n = x^*\). A határértékre átlépve
+          (\(A\) folytonossága miatt) kapjuk:
+        </p>
+        \[
+        A(x^*) = A\left(\lim_{n \to \infty} x_n\right) = \lim_{n \to \infty} A(x_{n-1}) = \lim_{n \to \infty} x_n = x^*
+        \]
+        <p>
+          Tehát \(x^*\) fixpont. Az egyértelműség bizonyításához
+          tételezzük fel indirekt módon, hogy létezik egy másik
+          \(y^* \neq x^*\) fixpont is (\(A(y^*) = y^*\)). Ekkor:
+        </p>
+        \[
+        \rho(x^*, y^*) = \rho(A(x^*), A(y^*)) \le \alpha \rho(x^*, y^*) &lt; \rho(x^*, y^*)
+        \]
+        <p>
+          (a jobb oldali szigorú egyenlőtlenség \(\rho(x^*, y^*) &gt; 0\)
+          miatt igaz). Ez ellentmondás, mivel \(\alpha &lt; 1\), így csak
+          egyetlen fixpont létezhet.
+        </p>
+      </div>
+
+      <h3>Felcserélhető leképezések fixpontjai</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás</span>
+        <p>
+          Ha \(S, T : X \to X\) felcserélhetők
+          (\(S(T(x)) = T(S(x))\)), és \(S\)-nek pontosan egy \(x^*\)
+          fixpontja van, akkor \(x^*\) egyben \(T\)-nek is fixpontja.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          \(S(T(x^*)) = T(S(x^*)) = T(x^*)\), tehát \(T(x^*)\) is fixpontja
+          \(S\)-nek, és mivel \(S\)-nek csak egy fixpontja van,
+          \(T(x^*) = x^*\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Iterált kontrakciók fixponttétele</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás</span>
+        <p>
+          Legyen \((X, \rho)\) teljes metrikus tér és \(A : X \to X\)
+          olyan leképezés, amelynek valamely \(n \in \mathbb{N}\) esetén az
+          \(A^n\) hatványa (az \(A\) \(n\)-szeres iteráltja) kontrakció.
+          Ekkor \(A\)-nak pontosan egy fixpontja létezik.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Mivel \(A^n\) kontrakció a teljes \((X, \rho)\) metrikus téren,
+          a Banach-féle fixponttétel miatt \(A^n\)-nek létezik egyetlen
+          \(x^* \in X\) fixpontja, azaz \(A^n(x^*) = x^*\). Tekintsük az
+          \(S = A^n\) és \(T = A\) leképezéseket. Ezek felcserélhetők
+          (\(S(T(x)) = A^{n+1}(x) = T(S(x))\)), és mivel \(S\)-nek
+          pontosan egy fixpontja van (\(x^*\)), így \(x^*\) egyben
+          \(T\)-nek is fixpontja (\(A(x^*) = x^*\)).
+        </p>
+        <p>
+          Az egyértelműséghez: indirekt módon feltételezve, hogy létezik
+          egy másik \(y^*\) fixpont (\(A(y^*) = y^*\)), az iteráltakra is
+          teljesül \(A^n(y^*) = y^*\), így \(y^*\) az \(A^n\)-nek is
+          fixpontja. De \(A^n\)-nek csak egy fixpontja van, így
+          \(x^* = y^*\).
+        </p>
+      </div>
+
+      <h2>Baire-féle kategóriatétel</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Baire-féle kategóriatétel</span>
+        <p>
+          Teljes metrikus térben megszámlálható sok mindenütt sűrű nyílt
+          halmaz metszete is mindenütt sűrű.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Legyen \((X, \rho)\) teljes metrikus tér, és minden
+          \(n \in \mathbb{N}\) esetén legyen \(U_n \subset X\) mindenütt
+          sűrű, nyílt halmaz (\(\overline{U_n} = X\)). Meg kell
+          mutatnunk, hogy \(\bigcap_{n \in \mathbb{N}} U_n\) mindenütt
+          sűrű, azaz tetszőleges \(W \subset X\) nem üres nyílt halmaz
+          esetén
+          \(W \cap \left(\bigcap_{n \in \mathbb{N}} U_n\right) \neq \emptyset\).
+        </p>
+        <p>
+          <strong>Egymásba ágyazott zárt gömbök.</strong> Két nyílt
+          halmaz metszete nyílt, és ha egy \(G\) nem üres nyílt halmaz és
+          \(U\) mindenütt sűrű nyílt, akkor \(G \cap U \neq \emptyset\)
+          (egy \(B(g, r) \subseteq G\) gömbbel a sűrűség miatt
+          \(B(g, r) \cap U \neq \emptyset\)), így \(G \cap U\) nem üres
+          nyílt halmaz. A \(W \cap U_1\)-ből választunk egy \(y\) pontot
+          és \(\rho &gt; 0\)-t, hogy \(B(y, \rho) \subseteq W \cap U_1\), és
+          legyen \(x_1 = y\), \(r_1 = \min\{\rho/2, 1/2\}\); ekkor
+          \(B[x_1, r_1] \subseteq W \cap U_1\). Ha \(x_n, r_n\) adott, a
+          \(B(x_n, r_n) \cap U_{n+1}\) nem üres nyílt halmaz, így van olyan
+          \(x_{n+1}\) és \(0 &lt; r_{n+1} &lt; 1/(n+1)\), hogy
+          \(B[x_{n+1}, r_{n+1}] \subseteq B(x_n, r_n) \cap U_{n+1}\).
+        </p>
+        <p>
+          <strong>A gömbök közös pontja.</strong> Minden \(n\)-re
+          \(B[x_{n+1}, r_{n+1}] \subseteq B[x_n, r_n]\), így \(m \ge n\)
+          esetén \(x_m \in B[x_n, r_n]\), és
+          \(\rho(x_n, x_m) \le r_n &lt; 1/n\). Az \((x_n)\) tehát Cauchy-
+          sorozat, és mivel \(X\) teljes, konvergens: \(x_n \to x\). Minden
+          \(n\)-re az \(x_m\) (\(m \ge n\)) a zárt \(B[x_n, r_n]\)
+          gömbben halad, ezért a határértéke is benne van (13. jegyzet):
+          \(x \in B[x_n, r_n] \subseteq U_n\), és
+          \(x \in B[x_1, r_1] \subseteq W\). Tehát
+          \(x \in W \cap \bigcap_n U_n\), a metszet nem üres, és mivel
+          \(W\) tetszőleges volt, a \(\bigcap_n U_n\) mindenütt sűrű.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
