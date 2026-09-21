@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Unitér terek és Hermite-formák | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Hermite-bilineáris és Hermite-szimmetrikus forma, unitér tér, kanonikus alak, a Jacobi-tétel Hermite-formákra, a Cauchy–Bunyakovszkij–Schwarz-, a Minkowski- és a Bessel-egyenlőtlenség komplex esetben, bizonyítással — DE TTK Matematika BSc 2023/2025, Lineáris algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/jegyzet7/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 7 of 12 — see jegyzet1's head comment for the shape rationale.
+
+  Reordered and fixed against the source: the source defined the
+  "unitér tér" before the Hermite forms it needs and never said what an
+  inner product on a complex space is; the Hermite forms now come first
+  and the definition of the unitér tér (with the inner product) follows.
+  The source's "Kanonikus alak" theorem did not say "in a suitable
+  basis" and used "ahol" inside a formula; both fixed. Its "Jacobi-tétel
+  Hermite-formákra" required all Delta_j > 0; the proof works for any
+  Delta_j != 0 (the Delta_j are real for a Hermitian matrix), and the
+  positive case is the one the source states, so the theorem is stated
+  for Delta_j != 0 with the same normalisation as in jegyzet4. The
+  source's "Parseval- és Bessel-egyenlőtlenség" theorem restated the
+  coordinates a = x_1 e_1 + ... with the letter x also used for a
+  vector, and stated Parseval twice; it now says x_j = (x, e_j) once.
+  The source's summary section ("C-B-S egyenlőtlenség és Gram–Schmidt
+  összefoglaló") lists CBS, the quotient bound, x perp y iff (x, y) = 0
+  and Minkowski as bare formulas; they are boxed here (the two derived
+  facts go into one remark). "[cite: 116]" is dropped.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description): the definition of the inner product on
+  a complex space, the coordinate formula and the proof of "Hermite-
+  szimmetrikus iff alpha_ji = conj(alpha_ij)", the Hermitian polarisation
+  identity (a supporting lemma the source does not state: the canonical
+  form needs it to find a vector with Q(e) != 0), the proofs of the
+  canonical form, of Jacobi's theorem (same argument as jegyzet4 with
+  the conjugates), of CBS, Minkowski and Parseval/Bessel over C, and the
+  remark that the results of jegyzet6 (Gram–Schmidt, complement,
+  projection, isomorphism) carry over. The source stated all of these
+  without proof.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/">Lineáris algebra haladó</a> / 7. jegyzet</p>
+
+      <h1>Unitér terek és Hermite-formák</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a valós euklideszi terek elméletét viszi át komplex
+        számok fölé: a bilineáris formák helyett Hermite-formákkal
+        dolgozik, a belső szorzat így Hermite-szimmetrikus lesz, és a
+        hossz, a merőlegesség, a kanonikus alak és az egyenlőtlenségek
+        ugyanúgy értelmesek maradnak, mint valós esetben.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Hermite-bilineáris és Hermite-szimmetrikus forma</li>
+        <li>Belső szorzat komplex vektortéren, unitér tér</li>
+        <li>Kanonikus alak Hermite-formákra</li>
+        <li>Jacobi-tétel Hermite-formákra</li>
+        <li>Cauchy–Bunyakovszkij–Schwarz-, Minkowski- és Bessel-egyenlőtlenség unitér térben</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Hermite-formák és unitér terek</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Hermite-bilineáris forma</span>
+        <p>
+          Legyen \(W\) komplex vektortér. Az \(L: W \times W \to \mathbb{C}\)
+          leképezés <strong>Hermite-bilineáris forma</strong>
+          (szeszkvilineáris forma), ha:
+        </p>
+        <ul>
+          <li>Első változóban lineáris: \(L(x+y, z) = L(x,z) + L(y,z)\) és \(L(\lambda x, y) = \lambda L(x,y)\).</li>
+          <li>Második változóban konjugált lineáris: \(L(x, y+z) = L(x,y) + L(x,z)\) és \(L(x, \lambda y) = \overline{\lambda}\, L(x,y)\).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Hermite-szimmetrikus forma</span>
+        <p>
+          Az \(L\) Hermite-bilineáris forma <strong>Hermite-szimmetrikus</strong>,
+          ha:
+        </p>
+        \[
+        L(x, y) = \overline{L(y, x)} \iff \alpha_{ji} = \overline{\alpha_{ij}}
+        \]
+        <p>
+          ahol \(\alpha_{ij} = L(e_i, e_j)\) az \(L\) mátrixának elemei az
+          \((e)\) bázisban.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az \(x = \sum_i x_i e_i\) és \(y = \sum_j y_j e_j\) vektorokra a
+          Hermite-bilinearitásból (az első változóból a skalár változatlanul,
+          a másodikból konjugálva jön ki):
+        </p>
+        \[
+        L(x, y) = \sum_{i=1}^n \sum_{j=1}^n \alpha_{ij}\, x_i\, \overline{y_j}.
+        \]
+        <p>
+          Ha \(L(x, y) = \overline{L(y, x)}\) minden \(x, y\)-ra, akkor az
+          \(x = e_j\), \(y = e_i\) választással
+          \(\alpha_{ji} = L(e_j, e_i) = \overline{L(e_i, e_j)} = \overline{\alpha_{ij}}\).
+          Fordítva, ha \(\alpha_{ji} = \overline{\alpha_{ij}}\), akkor
+        </p>
+        \[
+        \overline{L(y, x)} = \sum_{i,j} \overline{\alpha_{ij}}\, \overline{y_i}\, x_j = \sum_{i,j} \alpha_{ji}\, x_j\, \overline{y_i} = \sum_{i,j} \alpha_{ij}\, x_i\, \overline{y_j} = L(x, y),
+        \]
+        <p>
+          ahol az utolsó előtti egyenlőségnél a két összegzési indexet
+          felcseréltük.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — A kvadratikus forma valós</span>
+        <p>A formához tartozó kvadratikus forma:</p>
+        \[
+        Q(x) = L(x, x) \implies L(x, x) = \overline{L(x, x)} \implies Q(x) \in \mathbb{R}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Belső szorzat és unitér tér (kiegészítés)</span>
+        <p>
+          Egy komplex vektortéren <strong>belső szorzatnak</strong> olyan
+          Hermite-szimmetrikus Hermite-bilineáris formát nevezünk, amelyből
+          származó kvadratikus forma pozitív definit (\(Q(x) > 0\), ha
+          \(x \neq 0\)); jelölése \((x, y)\). <strong>Unitér tér</strong> egy
+          komplex vektortér ellátva egy belső szorzattal, ahol a
+          normanégyzet:
+        </p>
+        \[
+        \|x\|^2 = (x, x)
+        \]
+        <p>
+          Két vektor <strong>merőleges</strong> (\(x \perp y\)), ha
+          \((x, y) = 0\); a Hermite-szimmetria miatt ez \((y, x) = 0\)-val
+          egyenértékű.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Kanonikus alak és Jacobi-tétel Hermite-formákra</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Polárizációs azonosság Hermite-formákra (kiegészítés)</span>
+        <p>
+          Ha \(L\) Hermite-szimmetrikus Hermite-bilineáris forma, akkor
+          visszanyerhető a kvadratikus formájából:
+        </p>
+        \[
+        L(x, y) = \tfrac{1}{4}\Bigl[ Q(x+y) - Q(x-y) + i\,Q(x+iy) - i\,Q(x-iy) \Bigr]
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Kifejtve \(Q(x \pm y) = Q(x) \pm L(x,y) \pm L(y,x) + Q(y)\), így
+          \(Q(x+y) - Q(x-y) = 2\bigl(L(x,y) + L(y,x)\bigr) = 4\,\mathrm{Re}\,L(x,y)\)
+          (mert \(L(y,x) = \overline{L(x,y)}\)). Az \(iy\)-nal:
+          \(L(x, iy) = -i\,L(x,y)\), \(L(iy, x) = i\,L(y,x)\) és
+          \(L(iy, iy) = i \cdot \overline{i}\,Q(y) = Q(y)\), tehát
+          \(Q(x \pm iy) = Q(x) \mp i\,L(x,y) \pm i\,L(y,x) + Q(y)\), és
+        </p>
+        \[
+        Q(x+iy) - Q(x-iy) = 2i\bigl(L(y,x) - L(x,y)\bigr) = 2i \cdot \bigl(-2i\,\mathrm{Im}\,L(x,y)\bigr) = 4\,\mathrm{Im}\,L(x,y).
+        \]
+        <p>
+          Ezért \(\tfrac14 [\dots] = \mathrm{Re}\,L(x,y) + i\,\mathrm{Im}\,L(x,y) = L(x,y)\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Kanonikus alak</span>
+        <p>
+          Ha \(L\) Hermite-szimmetrikus Hermite-bilineáris forma, akkor
+          alkalmas \((b)\) bázisban (\(x = \sum_j x_j b_j\)):
+        </p>
+        \[
+        Q(x) = \sum_{j=1}^{n} \lambda_j |x_j|^2, \quad \lambda_j \in \mathbb{R}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Indukció \(n = \dim W\) szerint, ugyanúgy, mint a valós esetben
+          (3. jegyzet). Ha \(L = 0\), akkor bármely bázis megfelel
+          (\(\lambda_j = 0\)); \(n = 0\)-ra ez mindig így van. Legyen
+          \(L \neq 0\). Van olyan \(e\), hogy \(Q(e) \neq 0\): különben
+          a polárizációs azonosság szerint \(L = 0\) lenne. Az
+          \(x \mapsto L(x, e)\) az első változóban lineáris, nem nulla
+          forma (\(e\)-nél \(Q(e) \neq 0\)-t vesz fel), így magja,
+          \(H = \{x : L(x, e) = 0\}\), \((n-1)\)-dimenziós, és \(e \notin H\);
+          tehát \(W = \mathbb{C}e \oplus H\).
+        </p>
+        <p>
+          Az \(L\) megszorítása \(H \times H\)-ra Hermite-szimmetrikus
+          Hermite-bilineáris forma, így az indukciós feltevés szerint
+          \(H\)-nak van olyan \((h_1, \dots, h_{n-1})\) bázisa, amelyre
+          \(L(h_i, h_j) = 0\), ha \(i \neq j\). Az
+          \(L(h_j, e) = 0\) (mert \(h_j \in H\)), és a Hermite-szimmetria
+          miatt \(L(e, h_j) = \overline{L(h_j, e)} = 0\) is. Ezért az
+          \((e, h_1, \dots, h_{n-1})\) bázisban
+          \(L(b_i, b_j) = 0\), ha \(i \neq j\), és
+          \(\lambda_j = L(b_j, b_j) = Q(b_j) \in \mathbb{R}\). Az
+          \(L(x, y) = \sum_{i,j} x_i \overline{y_j}\, L(b_i, b_j)\)
+          képletből \(Q(x) = \sum_j \lambda_j |x_j|^2\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Jacobi-tétel Hermite-formákra</span>
+        <p>
+          Legyen \(L\) Hermite-szimmetrikus Hermite-bilineáris forma az
+          \((e)\) bázisban felírt \(A = (\alpha_{ij})\) mátrixszal, és
+          legyenek a főminorok (a 4. jegyzet szerint) nem nullák,
+          \(\Delta_j \neq 0\) (ezek valósak). Az alábbi formula adja meg a
+          mátrix elemeiből a kanonikus előállítást egy olyan \((b)\)
+          bázisban, amelyre \(b_j \in \mathcal{L}(e_1, \dots, e_j)\) és
+          \(L(b_j, e_j) = 1\):
+        </p>
+        \[
+        L(x, y) = \sum_{j=1}^{n} \frac{\Delta_{j-1}}{\Delta_j}\, x_j\, \overline{y_j}
+        \]
+        <p>
+          Ha a főminorok pozitívak (\(\Delta_j > 0\) minden
+          \(j = 1, \dots, n\) esetén), akkor minden együttható pozitív.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A \(\Delta_j\) valós: az \(A_j\) bal felső részmátrix
+          Hermite-mátrix, így \(\Delta_j = \det A_j = \det \overline{A_j} = \overline{\Delta_j}\).
+          Rögzített \(i\)-hez legyen \(b_i = \sum_{k \le i} c_k e_k\), ahol
+          \(c\) az
+        </p>
+        \[
+        A_i^T\, c = (0, \dots, 0, 1)^T
+        \]
+        <p>
+          egyenletrendszer megoldása (van és egyértelmű, mert
+          \(\det A_i^T = \Delta_i \neq 0\)). Ez pontosan azt jelenti, hogy
+          \(L(b_i, e_j) = \sum_k c_k \alpha_{kj} = 0\), ha \(j < i\), és
+          \(L(b_i, e_i) = 1\). A Cramer-szabály és a kifejtés (mint a
+          4. jegyzetben) szerint \(c_i = \Delta_{i-1}/\Delta_i\), ami valós
+          és nem nulla, ezért az \((e) \to (b)\) áttérési mátrix nem nulla
+          főátlójú háromszögmátrix, tehát \((b)\) bázis.
+        </p>
+        <p>
+          Ha \(j < i\), akkor \(b_j \in \mathcal{L}(e_1, \dots, e_j)\),
+          ezért \(L(b_i, b_j)\) az \(L(b_i, e_1), \dots, L(b_i, e_j)\)
+          számok (konjugált együtthatós) kombinációja, azaz 0; a
+          Hermite-szimmetria miatt \(L(b_j, b_i) = 0\) is. Végül
+          \(L(b_i, b_i) = \sum_{k \le i} \overline{c_k}\, L(b_i, e_k) = \overline{c_i} = \Delta_{i-1}/\Delta_i\).
+          Az \(L(x, y) = \sum_{i,j} x_i \overline{y_j}\, L(b_i, b_j)\)
+          képletből következik az állítás. Ha \(\Delta_j > 0\) minden
+          \(j\)-re, akkor \(\Delta_{j-1}/\Delta_j > 0\).
+        </p>
+      </div>
+
+      <h2>Cauchy–Bunyakovszkij–Schwarz, Minkowski és Parseval unitér térben</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Cauchy–Bunyakovszkij–Schwarz-egyenlőtlenség</span>
+        <p>Tetszőleges \(x, y\) vektorokra unitér térben:</p>
+        \[
+        |(x, y)| \le \|x\| \cdot \|y\|
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Ha \(y = 0\), az állítás nyilvánvaló. Legyen \(y \neq 0\), és
+          \(t \in \mathbb{C}\) tetszőleges:
+        </p>
+        \[
+        0 \le \|x - t y\|^2 = \|x\|^2 - \overline{t}\,(x, y) - t\,(y, x) + |t|^2 \|y\|^2.
+        \]
+        <p>
+          A \(t = \dfrac{(x, y)}{\|y\|^2}\) helyettesítéssel az utolsó
+          három tag rendre \(-X\), \(-X\) és \(+X\), ahol
+          \(X = \dfrac{|(x, y)|^2}{\|y\|^2}\)
+          (hiszen \(\overline{t}\,(x, y) = t\,(y, x) = |t|^2\|y\|^2 = X\)),
+          tehát
+        </p>
+        \[
+        0 \le \|x\|^2 - \frac{|(x, y)|^2}{\|y\|^2},
+        \]
+        <p>
+          amiből \(|(x, y)|^2 \le \|x\|^2\|y\|^2\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — Következmények</span>
+        <p>Ha \(x \neq 0\) és \(y \neq 0\), akkor:</p>
+        \[
+        \left| \frac{(x, y)}{\|x\| \cdot \|y\|} \right| \le 1
+        \]
+        <p>
+          és \(x \perp y \iff (x, y) = 0\) (ez a merőlegesség
+          definíciója).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Minkowski-egyenlőtlenség</span>
+        \[
+        \|x + y\| \le \|x\| + \|y\|
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          \(\|x + y\|^2 = \|x\|^2 + (x, y) + (y, x) + \|y\|^2 = \|x\|^2 + 2\,\mathrm{Re}\,(x, y) + \|y\|^2\),
+          és \(\mathrm{Re}\,(x, y) \le |(x, y)| \le \|x\|\,\|y\|\) a
+          Cauchy–Bunyakovszkij–Schwarz-egyenlőtlenség szerint, így
+          \(\|x + y\|^2 \le (\|x\| + \|y\|)^2\), és gyökvonás után
+          \(\|x + y\| \le \|x\| + \|y\|\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Parseval- és Bessel-egyenlőtlenség</span>
+        <p>
+          Legyen \((e_1, \dots, e_n)\) ortonormált bázis unitér térben
+          (a definíció ugyanaz, mint valós esetben:
+          \((e_i, e_j) = \delta_{ij}\)), és
+          \(x = x_1 e_1 + \dots + x_n e_n\). Ekkor \(x_j = (x, e_j)\),
+          és:
+        </p>
+        <p><strong>Parseval-egyenlőség</strong>:</p>
+        \[
+        \|x\|^2 = |x_1|^2 + \dots + |x_n|^2 = |(x, e_1)|^2 + \dots + |(x, e_n)|^2
+        \]
+        <p><strong>Bessel-egyenlőtlenség</strong> (\(k \le n\) esetén):</p>
+        \[
+        \|x\|^2 \ge |(x, e_1)|^2 + \dots + |(x, e_k)|^2
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az \(x = \sum_i x_i e_i\) felírást \(e_j\)-vel jobbról
+          skalárisan szorozva \((x, e_j) = \sum_i x_i (e_i, e_j) = x_j\).
+          Ezután
+        </p>
+        \[
+        \|x\|^2 = (x, x) = \sum_{i=1}^n \sum_{j=1}^n x_i\, \overline{x_j}\,(e_i, e_j) = \sum_{i=1}^n |x_i|^2.
+        \]
+        <p>
+          A Bessel-egyenlőtlenség ebből következik: a
+          \(k+1, \dots, n\) indexű tagok nemnegatívak, elhagyásuk az
+          összeget nem növeli.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — A 6. jegyzet eredményei unitér térben (kiegészítés)</span>
+        <p>
+          Az ortonormált rendszer függetlensége, a Gram–Schmidt-eljárás
+          (ugyanazokkal a képletekkel: \(e'_{k+1} = b_{k+1} - \sum_{i \le k} (b_{k+1}, e_i)\, e_i\)),
+          az ortogonális komplementum tulajdonságai, az ortogonális vetület
+          képlete (\(\pi_L(a) = \sum_i (a, e_i)\, e_i\)) és az izomorfiatétel
+          (az azonos dimenziójú unitér terek izomorfak, ugyanazzal a
+          definícióval: a belső szorzatot megtartó lineáris bijekció)
+          unitér térben is
+          érvényesek, lényegében ugyanazokkal a bizonyításokkal: azok csak
+          azt használták, hogy a belső szorzat az első változóban lineáris,
+          Hermite-szimmetrikus és pozitív definit, a második változóból
+          kivett skalár pedig konjugálva jön ki (ez a levezetések egyetlen
+          lépését sem változtatja meg).
+        </p>
+        <p>
+          Egyetlen különbség van: a Gram–Schmidt-tételben a bázis nem
+          az előjelig, hanem egy egységnyi abszolút értékű szorzóig
+          egyértelmű (\(f_k = \gamma_k e_k\), \(|\gamma_k| = 1\), mert
+          \(\|f_k\|^2 = |\gamma_k|^2\)); a \((b_k, e_k) > 0\) feltétel
+          ekkor is egyértelművé teszi, hiszen
+          \((b_k, \gamma_k e_k) = \overline{\gamma_k}\,(b_k, e_k) > 0\)
+          és \(|\gamma_k| = 1\) csak \(\gamma_k = 1\)-re teljesül.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
