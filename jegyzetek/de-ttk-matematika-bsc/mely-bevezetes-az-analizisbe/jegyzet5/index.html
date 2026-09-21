@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Geometriai sorozatok, nevezetes határértékek, az Euler-szám | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="A Bernoulli-egyenlőtlenség, a q^n sorozat minden esetben, a hatvány-, polinom-, faktoriális- és gyökös nevezetes határértékek, és az Euler-féle e szám bizonyítással — DE TTK Matematika BSc 2023/2025, Mély bevezetés az analízisbe.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/jegyzet5/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 5 of 16 — see part 1's head comment for the shape rationale.
+
+  Source fixes here:
+  - Order: the geometric sequence comes first (the source puts the list
+    of remarkable limits before it, but the limit a^n/n! -> 0 needs
+    (1/2)^n -> 0).
+  - "Hatványkörtök" is "Hatványsorozatok"; the polynomial statement needs
+    q >= 1 and a_q != 0 (a constant does not tend to +-infinity).
+  - The source's geometric case "q in ]-1, 1[: q = -|q|" is wrong for
+    q > 0 and overlaps case 0 < q < 1: the cases are now q > 1, q = 1,
+    |q| < 1 (q = 0 included), q = -1, q < -1, with |q^n| = |q|^n for the
+    null case. "A q^n sorozat nem lehet korlátos és divergens" is "nem
+    korlátos, és divergens".
+  - The source's proofs use the arithmetic-geometric mean inequality
+    (sqrt[n]{a} <= (a + n - 1)/n, and for sqrt[n]{n}) without stating
+    it. That bound is exactly 1 + (a-1)/n, which follows from the
+    Bernoulli inequality, so it is proved from Bernoulli (which the
+    source also uses unproved) and AM-GM itself is not needed.
+  - The source's estimate n! >= (n/2)^{n/2} (half ones, half n/2) is only
+    literally right for even n; the pairing estimate k(n+1-k) >= n gives
+    (n!)^2 >= n^n, so (n!)^{1/n} >= sqrt(n), which is used instead.
+  - "rendőr lemma" (in the n! proof) is the feltételes divergencia lemma
+    of part 4. "Az a-adik gyök alatti n határértéke" is "Az n-edik gyök
+    alatti a határértéke".
+  - The Euler number: the source states lim (1 + 1/n)^n = e as if e were
+    known; e is defined here as that limit (part 12 proves exp(1) = e).
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (flagged here and in
+  the PR description): the proof of Bernoulli's inequality, the whole
+  classification of q^n with its proofs, the 1 + (a-1)/n bound, the
+  proofs of the five remarkable limits, the proof of the sqrt[n]{a} and
+  sqrt[n]{x_n} results, and the full proof that (1 + 1/n)^n converges
+  (e_n increasing, f_n decreasing, both from Bernoulli), which the source
+  only sketches ("megmutatható").
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/">Mély bevezetés az analízisbe</a> / 5. jegyzet</p>
+
+      <h1>Geometriai sorozatok, nevezetes határértékek, az Euler-szám</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a legfontosabb konkrét sorozatok határértékeit
+        gyűjti össze és bizonyítja: a geometriai sorozatét (a Bernoulli-
+        egyenlőtlenséggel), a hatványokét, a polinomokét, a faktoriálist
+        és az \(n\)-edik gyököket tartalmazó sorozatokét, és megmutatja,
+        hogy az \(\left(1 + \frac{1}{n}\right)^n\) sorozat konvergens,
+        határértéke az Euler-féle \(e\) szám.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Bernoulli-egyenlőtlenség</li>
+        <li>A \(q^n\) geometriai sorozat konvergenciája minden \(q\)-ra</li>
+        <li>Hatvány-, polinom-, \(a^n / n!\), \(\sqrt[n]{n}\) és \(\sqrt[n]{n!}\) határértéke</li>
+        <li>\(\sqrt[n]{a}\) határértéke</li>
+        <li>Az Euler-féle szám</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Geometriai sorozatok konvergenciája</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Bernoulli-egyenlőtlenség</span>
+        <p>
+          Ha \(x \ge -1\) és \(n \in \mathbb{N}\), akkor:
+        </p>
+        \[
+        (1 + x)^n \ge 1 + n \cdot x
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Indukcióval. \(n = 1\)-re egyenlőség. Ha az állítás \(n\)-re
+          igaz, akkor \(1 + x \ge 0\) miatt
+        </p>
+        \[
+        \begin{aligned}
+        (1 + x)^{n+1} &amp;= (1 + x)^n (1 + x) \ge (1 + nx)(1 + x) \\
+        &amp;= 1 + (n + 1)x + nx^2 \ge 1 + (n + 1)x.
+        \end{aligned}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — A geometriai sorozat (kiegészítés)</span>
+        <p>Legyen \(q \in \mathbb{R}\) és \(x_n = q^n\) (\(n \in \mathbb{N}\)). Ekkor:</p>
+        <ul>
+          <li>\(q &gt; 1\): \(\lim q^n = +\infty\);</li>
+          <li>\(q = 1\): \(\lim q^n = 1\);</li>
+          <li>\(|q| &lt; 1\) (\(q = 0\) is): \(\lim q^n = 0\);</li>
+          <li>\(q = -1\): a sorozat korlátos és divergens;</li>
+          <li>\(q &lt; -1\): a sorozat nem korlátos és divergens (nincs határértéke, sem véges, sem végtelen).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          <strong>\(q &gt; 1\).</strong> Használjuk a Bernoulli-egyenlőtlenséget.
+          Legyen \(x = q - 1 &gt; 0\). Ekkor:
+        </p>
+        \[
+        q^n = (1 + q - 1)^n = (1 + x)^n \ge 1 + n \cdot x = 1 + n(q - 1)
+        \]
+        <p>
+          Mivel \(1 + n(q - 1) \to +\infty\) (mint elsőfokú polinom, a 4.
+          jegyzet lemmája szerint), a feltételes divergencia lemma miatt
+          \(\lim q^n = +\infty\).
+        </p>
+        <p>
+          <strong>\(q = 1\), \(q = 0\).</strong> Konstans sorozatok
+          (\(q = 0\)-ra \(0^n = 0\)).
+        </p>
+        <p>
+          <strong>\(0 &lt; |q| &lt; 1\).</strong> Ekkor \(s = 1/|q| &gt; 1\),
+          és az előző eset miatt \(s^n \to +\infty\), így a 4. jegyzet
+          reciprok-szabálya szerint \(|q|^n = 1/s^n \to 0\). Mivel
+          \(|q^n - 0| = |q|^n\), a \(q^n\) is nullsorozat.
+        </p>
+        <p>
+          <strong>\(q = -1\).</strong> A sorozat \(\pm 1\) értékű, tehát
+          korlátos; a páros és a páratlan indexű részsorozat határértéke
+          \(1\), illetve \(-1\), és a konvergens sorozat részsorozatai
+          ugyanoda tartanak (2. jegyzet), ezért a sorozat divergens.
+        </p>
+        <p>
+          <strong>\(q &lt; -1\).</strong> Ekkor \(|q| &gt; 1\). A páros
+          indexű \(q^{2k} = |q|^{2k}\) részsorozat \(+\infty\)-be, a
+          páratlan indexű \(q^{2k+1} = -|q|^{2k+1}\) \(-\infty\)-be tart
+          (az első eset részsorozatai). Egy korlátos sorozatnak nincs
+          \(+\infty\)-be tartó részsorozata, tehát \(q^n\) nem korlátos; a
+          két részsorozat határértéke különböző, ezért a részsorozatokról
+          szóló tétel és az egyértelműség miatt a sorozatnak nincs
+          határértéke.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Nevezetes sorozatok határértékei</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Lemma — Az \(n\)-edik gyök becslése (kiegészítés)</span>
+        <p>Ha \(a \ge 1\) és \(n \in \mathbb{N}\), akkor:</p>
+        \[
+        1 \le \sqrt[n]{a} \le 1 + \frac{a - 1}{n}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Ha \(\sqrt[n]{a} &lt; 1\) volna, akkor \(a = (\sqrt[n]{a})^n &lt; 1\),
+          ellentmondás, tehát \(\sqrt[n]{a} \ge 1\). A Bernoulli-egyenlőtlenség
+          az \(x = \frac{a - 1}{n} \ge 0\) értékkel:
+          \(\left(1 + \frac{a-1}{n}\right)^n \ge 1 + (a - 1) = a\). A
+          \(t \mapsto t^n\) függvény a \([0, +\infty[\)-n szigorúan
+          növekvő, ezért \(1 + \frac{a-1}{n} \ge \sqrt[n]{a}\). (Ez a
+          becslés a számtani-mértani közép egyenlőtlenségből is adódik:
+          \(\sqrt[n]{a \cdot 1 \cdots 1} \le \frac{a + (n-1)}{n}\).)
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Nevezetes sorozatok határértékei</span>
+        <ol>
+          <li>
+            <strong>Hatványsorozatok és reciprokuk:</strong> Ha
+            \(r \in \mathbb{Q}, r &gt; 0\), akkor:
+            \[
+            \lim_{n \to \infty} \frac{1}{n^r} = 0 \quad \text{és} \quad \lim_{n \to \infty} n^r = +\infty
+            \]
+          </li>
+          <li>
+            <strong>Polinomok határértéke a végtelenben:</strong> Ha
+            \(y_n = a_q n^q + a_{q-1} n^{q-1} + \dots + a_1 n + a_0\)
+            (\(q \in \mathbb{N}\), \(a_q \neq 0\)), akkor a főegyüttható
+            (\(a_q\)) előjelétől függően:
+            \[
+            \lim_{n \to \infty} y_n = \begin{cases} +\infty, &amp; \text{ha } a_q &gt; 0 \\ -\infty, &amp; \text{ha } a_q &lt; 0 \end{cases}
+            \]
+          </li>
+          <li>
+            <strong>Exponenciális és faktoriális hányadosa:</strong> Bármely
+            \(a \in \mathbb{R}\) esetén:
+            \[
+            \lim_{n \to \infty} \frac{a^n}{n!} = 0
+            \]
+          </li>
+          <li>
+            <strong>Az \(n\)-edik gyök alatt \(n\):</strong> Az
+            \(x_n = \sqrt[n]{n}\) sorozat határértéke:
+            \[
+            \lim_{n \to \infty} \sqrt[n]{n} = 1
+            \]
+          </li>
+          <li>
+            <strong>Gyök-faktoriális:</strong> A gyök alatt \(n\)
+            faktoriális határértéke a végtelenbe tart:
+            \[
+            \lim_{n \to \infty} \sqrt[n]{n!} = +\infty
+            \]
+          </li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>1.</strong> Legyen \(r = p/s\) (\(p, s \in \mathbb{N}\)) és
+          \(K &gt; 0\). Az \(y \mapsto y^r\) függvény a \(]0, +\infty[\)-n
+          szigorúan növekvő, és \(y = K^{1/r}\)-re \(y^r = K\). Ezért
+          \(n &gt; K^{1/r}\) esetén \(n^r &gt; K\), vagyis
+          \(n^r \to +\infty\), és a reciprok-szabály miatt
+          \(1/n^r \to 0\).
+        </p>
+        <p>
+          <strong>2.</strong> Kiemelve: \(y_n = n^q \bigl(a_q + a_{q-1}/n + \dots + a_0/n^q\bigr)\).
+          Az 1. pont és a műveleti tételek szerint a zárójel \(a_q\)-hoz
+          tart, és \(n^q \to +\infty\). Ha \(a_q &gt; 0\), akkor a zárójel
+          \(\ge a_q/2 &gt; 0\) elég nagy \(n\)-re, így a szorzat
+          \(+\infty\)-hez tart (4. jegyzet, műveletek végtelennel). Ha
+          \(a_q &lt; 0\), az \((-y_n)\)-re alkalmazzuk az előzőt.
+        </p>
+        <p>
+          <strong>3.</strong> Legyen \(m \in \mathbb{N}\), \(m \ge 2|a|\).
+          Ha \(n &gt; m\), akkor
+        </p>
+        \[
+        \frac{|a|^n}{n!} = \frac{|a|^m}{m!} \prod_{k=m+1}^{n} \frac{|a|}{k} \le \frac{|a|^m}{m!} \left(\frac{1}{2}\right)^{n-m} = C \left(\frac{1}{2}\right)^n, \quad C = \frac{(2|a|)^m}{m!},
+        \]
+        <p>
+          mert \(|a|/k \le |a|/(m + 1) &lt; 1/2\). Mivel
+          \(\left(\frac12\right)^n \to 0\) (geometriai sorozat), a Rendőr-elv
+          szerint \(|a|^n/n! \to 0\), tehát \(a^n/n! \to 0\).
+        </p>
+        <p>
+          <strong>4.</strong> Az előző lemmát az \(a = \sqrt{n} \ge 1\)
+          értékkel alkalmazva, \(\sqrt[n]{\sqrt{n}} = n^{1/(2n)}\), és
+        </p>
+        \[
+        1 \le \sqrt[n]{n} = \left(n^{1/(2n)}\right)^2 \le \left(1 + \frac{\sqrt{n} - 1}{n}\right)^2.
+        \]
+        <p>
+          Mivel \(0 \le \frac{\sqrt{n} - 1}{n} &lt; \frac{1}{\sqrt{n}} \to 0\),
+          a jobb oldal \(1\)-hez tart, és a Rendőr-elv adja
+          \(\sqrt[n]{n} \to 1\).
+        </p>
+        <p>
+          <strong>5.</strong> Az \(1 \le k \le n\) számokra
+          \(k(n + 1 - k) - n = (k - 1)(n - k) \ge 0\), tehát
+          \(k(n + 1 - k) \ge n\). A szorzatot \(k = 1, \dots, n\) szerint
+          véve:
+        </p>
+        \[
+        (n!)^2 = \prod_{k=1}^n k(n + 1 - k) \ge n^n, \quad \text{így} \quad \sqrt[n]{n!} \ge \sqrt{n}.
+        \]
+        <p>
+          Mivel \(\sqrt{n} \to +\infty\) (az 1. pont), a feltételes
+          divergencia lemma miatt \(\sqrt[n]{n!} \to +\infty\).
+        </p>
+      </div>
+
+      <h3>Az \(n\)-edik gyök alatti \(a\) határértéke</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Tetszőleges \(a &gt; 0\) esetén:</p>
+        \[
+        \lim_{n \to \infty} \sqrt[n]{a} = 1
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <ul>
+          <li>
+            <strong>1. eset (\(a \ge 1\)):</strong> Ekkor \(\sqrt[n]{a} \ge 1\).
+            A fenti becslés szerint (ami a számtani-mértani közép
+            egyenlőtlenségből is következik):
+            \[
+            \sqrt[n]{a} = \sqrt[n]{a \cdot 1 \cdot 1 \cdots 1} \le \frac{a + (n-1)\cdot 1}{n} = \frac{a}{n} + 1 - \frac{1}{n}
+            \]
+            Mivel \(1 \le \sqrt[n]{a} \le \frac{a}{n} + 1 - \frac{1}{n}\), a
+            rendőr-elv alapján a határérték \(1\).
+          </li>
+          <li>
+            <strong>2. eset (\(0 &lt; a \le 1\)):</strong> Ekkor
+            \(\frac{1}{a} \ge 1\), így az előző eset alapján
+            \(\lim \sqrt[n]{\frac{1}{a}} = 1\), amiből a reciprokot véve
+            \(\lim \sqrt[n]{a} = 1\) adódik.
+          </li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Lemma</span>
+        <p>
+          Ha \((x_n)\) olyan valós számsorozat, amelyre léteznek olyan
+          \(a, b &gt; 0\) pozitív valós számok, hogy \(a &lt; x_n &lt; b\)
+          legfeljebb véges sok \(n \in \mathbb{N}\) kivételével, akkor
+          \(\lim_{n \to \infty} \sqrt[n]{x_n} = 1\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az \(n\)-edik gyök monoton, ezért véges sok kivétellel
+          \(\sqrt[n]{a} &lt; \sqrt[n]{x_n} &lt; \sqrt[n]{b}\), és mindkét
+          szélső sorozat \(1\)-hez tart az előző tétel szerint. A
+          Rendőr-elv adja az állítást.
+        </p>
+      </div>
+
+      <h2>Az Euler-féle szám (\(e\))</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Az Euler-féle szám</span>
+        <p>
+          Az \(e_n = \left(1 + \frac{1}{n}\right)^n\) sorozat konvergens;
+          a határértékét \(e\)-vel jelöljük:
+        </p>
+        \[
+        \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Tekintsük az \(e_n = \left(1 + \frac{1}{n}\right)^n\) és
+          \(f_n = \left(1 + \frac{1}{n}\right)^{n+1}\) sorozatokat
+          (\(n \in \mathbb{N}\)). Megmutatjuk, hogy az \((e_n)\) sorozat
+          monoton növekvő és felülről korlátos, az \((f_n)\) sorozat pedig
+          monoton csökkenő és alulról korlátos.
+        </p>
+        <p>
+          <strong>\((e_n)\) növekvő.</strong> A \(\frac{n+2}{n+1}\) és
+          \(\frac{n}{n+1}\) alakokat használva
+        </p>
+        \[
+        \begin{aligned}
+        \frac{e_{n+1}}{e_n} &amp;= \left(\frac{(n+2)\,n}{(n+1)^2}\right)^{n+1} \cdot \frac{n+1}{n} \\
+        &amp;= \left(1 - \frac{1}{(n+1)^2}\right)^{n+1} \cdot \frac{n+1}{n} \\
+        &amp;\ge \left(1 - \frac{1}{n+1}\right) \cdot \frac{n+1}{n} = 1,
+        \end{aligned}
+        \]
+        <p>
+          ahol a Bernoulli-egyenlőtlenséget használtuk
+          (\(x = -\frac{1}{(n+1)^2} \ge -1\)).
+        </p>
+        <p>
+          <strong>\((f_n)\) csökkenő.</strong> Ha \(n \ge 2\), akkor
+        </p>
+        \[
+        \begin{aligned}
+        \frac{f_{n-1}}{f_n} &amp;= \left(\frac{n^2}{n^2 - 1}\right)^n \cdot \frac{n}{n+1} = \left(1 + \frac{1}{n^2 - 1}\right)^n \cdot \frac{n}{n+1} \\
+        &amp;\ge \left(1 + \frac{n}{n^2 - 1}\right) \frac{n}{n+1} = \frac{n\,(n^2 + n - 1)}{(n-1)(n+1)^2} \\
+        &amp;= 1 + \frac{1}{(n-1)(n+1)^2} \ge 1,
+        \end{aligned}
+        \]
+        <p>
+          ahol a Bernoulli-egyenlőtlenség után az \(n^3 + n^2 - n\) és a
+          \((n-1)(n+1)^2 = n^3 + n^2 - n - 1\) különbsége \(1\).
+        </p>
+        <p>
+          <strong>Korlátok, közös határérték.</strong> Mivel
+          \(f_n = e_n \left(1 + \frac{1}{n}\right) &gt; e_n\), és
+          \(e_n \ge e_1 = 2\), \(f_n \le f_1 = 4\), az \((e_n)\) sorozat
+          felülről korlátos (\(e_n &lt; f_n \le 4\)), az \((f_n)\) alulról
+          korlátos (\(f_n &gt; e_n \ge 2\)). A monoton sorozatok
+          konvergenciatétele miatt mindkettő konvergens, és mivel
+          \(1 + \frac{1}{n} \to 1\), a két határérték megegyezik:
+          \(\lim e_n = \lim f_n = e\), ahol \(2 \le e \le 4\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
