@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Euklideszi terek, egyenlőtlenségek | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Belső szorzat, norma, euklideszi tér, példák, a Cauchy–Bunyakovszkij–Schwarz-egyenlőtlenség, a vektorok szöge és a Minkowski-egyenlőtlenség bizonyítással — DE TTK Matematika BSc 2023/2025, Lineáris algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/jegyzet5/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 5 of 12 — see jegyzet1's head comment for the shape rationale.
+
+  Source fixes here: the stray "[cite: N]" markers (four of them) are
+  dropped; "Pldák" is "Példák"; "cosinusáramköre" (the cosine of the
+  angle) is "koszinusza"; the norm, which the source gave as a loose
+  line under the definition, is its own Definíció box; the angle is
+  only defined for non-zero vectors (the source did not say so); the
+  source's separate "Minkowski-egyenlőtlenség bizonyítása" section is
+  merged under the section of the theorem, since it is just its proof
+  (that proof is the source's own, not supplied); "ahol" is out of the
+  formula in the R^n example.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-21; flagged
+  here and in the PR description): the check that the three examples
+  really are inner products (including the V_3 coordinate formula from
+  the law of cosines), the proof of the Cauchy–Bunyakovszkij–Schwarz
+  inequality (||x - t y||^2 >= 0 with the best t) and the argument that
+  the angle is well defined. The source stated all three without proof.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/">Lineáris algebra haladó</a> / 5. jegyzet</p>
+
+      <h1>Euklideszi terek, egyenlőtlenségek</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a pozitív definit szimmetrikus bilineáris formákból
+        indul ki: belső szorzatot és normát vezet be, példákat mutat a
+        szokásos belső szorzatokra, és bebizonyítja azokat az
+        egyenlőtlenségeket, amelyek a hosszúság és a szög fogalmát
+        értelmessé teszik.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Belső szorzat, euklideszi tér, norma</li>
+        <li>Példák: \(V_3\), \(\mathbb{R}^n\), folytonos függvények tere</li>
+        <li>Cauchy–Bunyakovszkij–Schwarz-egyenlőtlenség</li>
+        <li>Két vektor szöge, merőlegesség</li>
+        <li>Minkowski-egyenlőtlenség (háromszög-egyenlőtlenség)</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Euklideszi terek</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Euklideszi tér és belső szorzat</span>
+        <p>
+          Egy \(V\) valós vektortéren értelmezett <strong>belső
+          szorzat</strong> alatt olyan szimmetrikus bilineáris formát
+          értünk, amelyből származó kvadratikus forma pozitív definit.
+          Egy valós vektortér, amely fel van szerelve egy belső szorzattal,
+          <strong>euklideszi tér</strong>. A belső szorzatot
+          \((x, y)\)-nal jelöljük.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Norma</span>
+        <p>
+          Az \(x \in E\) vektor <strong>normája</strong> (hossza) és a belső
+          szorzat kapcsolata:
+        </p>
+        \[
+        \|x\|^2 = (x, x) \implies \|x\| = \sqrt{(x, x)}
+        \]
+        <p>
+          (a gyök létezik, mert a belső szorzat pozitív definit:
+          \((x, x) \ge 0\), és \(\|x\| = 0\) csak \(x = 0\)-ra teljesül).
+        </p>
+      </div>
+
+      <h3>Példák a belső szorzatra</h3>
+      <ol>
+        <li>\(V_3\)-ban: \((a, b) = |a| \cdot |b| \cdot \cos\alpha = x_1 y_1 + x_2 y_2 + x_3 y_3\).</li>
+        <li>\(\mathbb{R}^n\)-ben: \((a, b) = \sum_{i=1}^n x_i y_i\), és ekkor \(\|a\|^2 = \sum_{i=1}^n x_i^2\).</li>
+        <li>
+          Függvényterekben (\(f, g: [a, b] \to \mathbb{R}\) folytonos
+          függvények):
+          \[
+          (f, g) = \int_a^b f(x)g(x)\,dx
+          \]
+        </li>
+      </ol>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — a példák belső szorzatok</span>
+        <p>
+          <strong>\(\mathbb{R}^n\).</strong> A \(\sum_i x_i y_i\)
+          szimmetrikus, és mindkét változójában lineáris (minden tagja az
+          \(x_i\)-ben és az \(y_i\)-ben is elsőfokú), tehát bilineáris
+          forma. A hozzá tartozó kvadratikus forma \(\sum_i x_i^2 > 0\), ha
+          \(a \neq 0\), vagyis pozitív definit.
+        </p>
+        <p>
+          <strong>\(V_3\).</strong> A koszinusztétel szerint
+          \(|a - b|^2 = |a|^2 + |b|^2 - 2\,|a|\,|b| \cos\alpha\).
+          Derékszögű koordinátákban ugyanez
+          \(\sum_i (x_i - y_i)^2 = \sum_i x_i^2 + \sum_i y_i^2 - 2 \sum_i x_i y_i\),
+          és \(|a|^2 = \sum_i x_i^2\), \(|b|^2 = \sum_i y_i^2\). A két
+          kifejezést összevetve
+          \(|a|\,|b| \cos\alpha = x_1 y_1 + x_2 y_2 + x_3 y_3\), tehát a
+          \(V_3\)-beli szorzat az \(\mathbb{R}^3\) fenti belső szorzata.
+        </p>
+        <p>
+          <strong>Folytonos függvények (\(a < b\)).</strong> Az integrál
+          linearitása miatt \((f, g)\) bilineáris, és \(fg = gf\) miatt
+          szimmetrikus. Mivel \((f, f) = \int_a^b f^2 \ge 0\), csak a
+          pozitivitást kell látni: ha \(f(x_0) \neq 0\) valamely
+          \(x_0\)-ra, akkor az \(f^2\) folytonos függvény \(x_0\)-ban
+          pozitív, ezért egy pozitív hosszúságú, \(x_0\)-t tartalmazó
+          részintervallumon nagyobb egy \(c > 0\) számnál, így
+          \(\int_a^b f^2 > 0\). Tehát \(f \neq 0\) esetén \((f, f) > 0\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Fontos egyenlőtlenségek euklideszi terekben</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Cauchy–Bunyakovszkij–Schwarz-egyenlőtlenség</span>
+        <p>Tetszőleges \(x, y \in E\) vektorok esetén:</p>
+        \[
+        |(x, y)| \le \|x\| \cdot \|y\|
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Ha \(y = 0\), akkor \((x, y) = 0\) és \(\|y\| = 0\), az állítás
+          igaz. Legyen \(y \neq 0\), és tetszőleges \(t \in \mathbb{R}\)-re
+          vegyük az \(x - t y\) vektor norma négyzetét, amely nemnegatív:
+        </p>
+        \[
+        0 \le \|x - t y\|^2 = \|x\|^2 - 2t\,(x, y) + t^2 \|y\|^2.
+        \]
+        <p>
+          A \(t = \dfrac{(x, y)}{\|y\|^2}\) helyettesítéssel
+        </p>
+        \[
+        0 \le \|x\|^2 - 2\,\frac{(x, y)^2}{\|y\|^2} + \frac{(x, y)^2}{\|y\|^2} = \|x\|^2 - \frac{(x, y)^2}{\|y\|^2},
+        \]
+        <p>
+          amiből \((x, y)^2 \le \|x\|^2 \|y\|^2\), és gyököt vonva
+          \(|(x, y)| \le \|x\|\,\|y\|\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — Szög definíciója euklideszi térben</span>
+        <p>
+          A Cauchy–Bunyakovszkij–Schwarz-egyenlőtlenség miatt két nem nulla
+          vektor által bezárt \(\varphi\) szög koszinusza jól definiált:
+        </p>
+        \[
+        \cos \varphi = \frac{(x, y)}{\|x\| \cdot \|y\|} \quad \text{és} \quad -1 \le \cos \varphi \le 1
+        \]
+        <p>
+          Két vektor merőleges egymásra (\(x \perp y\)), pontosan akkor,
+          ha \((x, y) = 0\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Ha \(x, y \neq 0\), akkor \(\|x\|\,\|y\| > 0\), és az
+          egyenlőtlenség szerint a
+          \(q = \dfrac{(x, y)}{\|x\|\,\|y\|}\) hányados abszolút értéke
+          legfeljebb 1, vagyis \(q \in [-1, 1]\). A koszinusz a
+          \([0, \pi]\) intervallumot kölcsönösen egyértelműen képezi a
+          \([-1, 1]\)-re, ezért pontosan egy \(\varphi \in [0, \pi]\)
+          szám van, amelyre \(\cos\varphi = q\). Ez a \(\varphi\) a két
+          vektor szöge; \(\cos\varphi = 0\) pontosan akkor, ha
+          \(\varphi = \pi/2\), azaz \((x, y) = 0\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Minkowski-egyenlőtlenség</span>
+        <p>
+          Tetszőleges \(x, y \in E\) vektorok esetén a normára vonatkozó
+          háromszög-egyenlőtlenség teljesül:
+        </p>
+        \[
+        \|x + y\| \le \|x\| + \|y\|
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          A Minkowski-egyenlőtlenség érvényességét a norma tulajdonságaiból
+          és a Cauchy–Bunyakovszkij–Schwarz-egyenlőtlenségből vezetjük le:
+        </p>
+        \[
+        \|x + y\|^2 = (x + y, x + y) = \|x\|^2 + 2(x, y) + \|y\|^2
+        \]
+        <p>
+          Mivel \((x, y) \le |(x, y)|\), a Cauchy–B.–S. egyenlőtlenséget
+          felhasználva:
+        </p>
+        \[
+        \|x + y\|^2 \le \|x\|^2 + 2\|x\| \cdot \|y\| + \|y\|^2 = (\|x\| + \|y\|)^2
+        \]
+        <p>
+          Mindkét oldalból gyököt vonva (mindkettő nemnegatív) kapjuk a
+          keresett egyenlőtlenséget:
+        </p>
+        \[
+        \|x + y\| \le \|x\| + \|y\|
+        \]
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
