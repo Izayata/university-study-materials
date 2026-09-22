@@ -16,13 +16,13 @@
 </head>
 <!--
   Like jegyzet1–jegyzet7, this page keeps jegyzet-template.html's full
-  class-session shape (Tematika/Kontextus/Gyakorlat/Puffer), plus an
+  class-session shape (Tematika/Kontextus/Gyakorlat), plus an
   appended "Házi feladat" section absorbing its practice-tasks
   sibling — unlike oktatoi-jegyzet-template.html's default freeform,
   no-session shape. Genuinely new content, kept in this shape because
   the source material is itself a real class session's agenda. As in
   jegyzet5–7, the worked solutions to the in-class exercises sit in a
-  "Megoldások" section between Gyakorlat and Puffer. See CLAUDE.md's
+  "Megoldások" section between Gyakorlat and Házi feladat. See CLAUDE.md's
   Content model section for the rationale.
 -->
 <body data-nav-key="oktatoi">
@@ -348,14 +348,6 @@ try {
         <li><strong>Step Over</strong>-rel (vagy <strong>Step Into</strong>-vel) tovább lépve figyeljétek meg: a vezérlés <strong>nem</strong> a <code>throw</code> utáni sorra megy (nincs is olyan, hiszen a konstruktor további sorai — <code>this.name = name;</code> stb. — ilyenkor <strong>nem futnak le</strong>), hanem <strong>egyenesen a hívó kódban lévő, megfelelő <code>catch (InvalidGradeException e)</code> ág elejére</strong> ugrik.</li>
         <li>Ez konkrétan megmutatja, mit jelent a "kivétel dobása": a normális, soronkénti végrehajtás megszakad, és a vezérlés a legközelebbi, megfelelő típusú <code>catch</code> ághoz "ugrik", útközben kihagyva mindent, ami a <code>try</code> blokkban még hátra volt.</li>
       </ul>
-
-      <h2>Puffer (~30 perc)</h2>
-      <p>
-        Kérdések, illetve további gyakorlási idő azoknak, akik lassabban
-        haladnak — a checked/unchecked megkülönböztetés, illetve a
-        <code>throws</code> visszamenőleges hatása a korábbi kódra
-        sokaknak elsőre meglepő, érdemes rá időt hagyni.
-      </p>
 
       <h2>Házi feladat</h2>
       <p>

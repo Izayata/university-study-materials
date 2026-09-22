@@ -16,7 +16,7 @@
 </head>
 <!--
   Like jegyzet1–jegyzet8, this page keeps jegyzet-template.html's full
-  class-session shape (Tematika/Kontextus/Gyakorlat/Puffer), plus an
+  class-session shape (Tematika/Kontextus/Gyakorlat), plus an
   appended "Házi feladat" section absorbing its practice-tasks
   sibling — unlike oktatoi-jegyzet-template.html's default freeform,
   no-session shape. Genuinely new content, kept in this shape because
@@ -276,13 +276,6 @@ Files.deleteIfExists(path);</code></pre>
         <li>Rontsatok el kézzel egy sort a fájlban (pl. írjatok bele egy 6-os jegyet), és futtassátok újra a betöltést — figyeljétek meg, hogy az <code>InvalidGradeException</code> ágon keresztül kapunk értelmes hibaüzenetet, nem egy nyers <code>NumberFormatException</code>-t vagy összeomlást.</li>
         <li>Alakítsátok át a klasszikus (nem try-with-resources-es) írási metódust úgy, hogy a <code>finally</code>-ben lévő <code>close()</code> hívást szándékosan kihagyjátok — debuggerrel (2. óra!) figyeljétek meg, hogy a program lefut, de a fájl esetenként nem íródik ki teljesen, mielőtt a program véget érne.</li>
       </ol>
-
-      <h2>Puffer (~20 perc)</h2>
-      <p>
-        Ma rövidebb a puffer, mert sok az anyag — ha nem jut mindenre idő,
-        a <code>Files.exists</code>/<code>delete</code> rész a legkönnyebben
-        áttehető a jövő heti óra elejére bemelegítésként.
-      </p>
 
       <h2>Házi feladat</h2>
       <p>

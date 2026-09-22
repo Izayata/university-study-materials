@@ -16,7 +16,7 @@
 </head>
 <!--
   Like jegyzet1–jegyzet9, this page keeps jegyzet-template.html's full
-  class-session shape (Tematika/Kontextus/Gyakorlat/Puffer), plus an
+  class-session shape (Tematika/Kontextus/Gyakorlat), plus an
   appended "Házi feladat" section absorbing its practice-tasks
   sibling — unlike oktatoi-jegyzet-template.html's default freeform,
   no-session shape. Genuinely new content, kept in this shape because
@@ -248,14 +248,6 @@ int totalGradeCount = students.stream()
         <li>Számítsátok ki stream-mel, hány hallgatónak van 4.5 fölötti átlaga (<code>filter</code> + <code>count</code>).</li>
         <li>Rendezzétek a <code>students</code> listát <code>Comparator.comparing(Student::getName)</code>-nel, stream-en keresztül.</li>
       </ol>
-
-      <h2>Puffer (~30 perc)</h2>
-      <p>
-        Kérdések, illetve további gyakorlási idő azoknak, akik lassabban
-        haladnak — a stream-es láncolt hívások
-        (<code>filter().map().collect()</code>) olvasása/írása sokaknak
-        gyakorlást igényel, mielőtt magabiztosan menne.
-      </p>
 
       <h2>Házi feladat</h2>
       <p>

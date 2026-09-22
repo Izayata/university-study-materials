@@ -16,13 +16,13 @@
 </head>
 <!--
   Like jegyzet1–jegyzet5, this page keeps jegyzet-template.html's full
-  class-session shape (Tematika/Kontextus/Gyakorlat/Puffer), plus an
+  class-session shape (Tematika/Kontextus/Gyakorlat), plus an
   appended "Házi feladat" section absorbing its practice-tasks
   sibling — unlike oktatoi-jegyzet-template.html's default freeform,
   no-session shape. Genuinely new content, kept in this shape because
   the source material is itself a real class session's agenda. As in
   jegyzet5, the worked solutions to the in-class exercises sit in a
-  "Megoldások" section between Gyakorlat and Puffer. See CLAUDE.md's
+  "Megoldások" section between Gyakorlat and Házi feladat. See CLAUDE.md's
   Content model section for the rationale.
 -->
 <body data-nav-key="oktatoi">
@@ -316,14 +316,6 @@ System.out.println(found.getReportLine());</code></pre>
         <li><strong><code>hashCode()</code> felülírása előtt:</strong> az első <code>add()</code> után a <em>Variables</em> panelen a <code>uniqueStudents</code> mérete <code>1</code>. Lépjetek tovább a második <code>add()</code>-ra — mivel a két <code>Student</code> objektum <code>hashCode()</code>-ja (az <code>Object</code>-től örökölt, memóriacím-alapú alapértelmezés) <strong>különböző</strong>, a <code>HashSet</code> két külön "rekeszbe" teszi őket. A méret <strong>2</strong>-re nő, annak ellenére, hogy <code>equals()</code> szerint egyenlők lennének — az <code>equals()</code>-t a <code>HashSet</code> ilyenkor meg sem hívja, mert a két elem sosem kerül azonos rekeszbe.</li>
         <li><strong><code>hashCode()</code> megírása után:</strong> futtassátok újra ugyanígy, lépésenként. Most a két objektum <code>hashCode()</code>-ja <strong>megegyezik</strong>, tehát ugyanabba a rekeszbe kerülnek — a <code>HashSet</code> emiatt már meghívja az <code>equals()</code>-t is, ami igazat ad, így a második <code>add()</code> <strong>nem</strong> növeli a méretet: a <em>Variables</em> panelen a <code>uniqueStudents</code> mérete <code>1</code> marad.</li>
       </ul>
-
-      <h2>Puffer (~30 perc)</h2>
-      <p>
-        Kérdések, illetve további gyakorlási idő azoknak, akik lassabban
-        haladnak — az <code>equals()</code>/<code>hashCode()</code>
-        szerződés sokaknak csak a <code>HashSet</code>-es hiba élő
-        bemutatása után válik igazán érthetővé, érdemes időt hagyni rá.
-      </p>
 
       <h2>Házi feladat</h2>
       <p>
