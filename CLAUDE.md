@@ -102,7 +102,7 @@ Don't invent one prematurely.
 Every `oktatoi/inbpm0315-21` item (`jegyzet1` and `jegyzet2`, then one
 new lesson per message from `jegyzet3` on) uses
 `jegyzet-template.html`'s full
-Tematika/Kontextus/Gyakorlat/Puffer shape, plus an appended "Házi
+Tematika/Kontextus/Gyakorlat shape, plus an appended "Házi
 feladat" `<h2>` section, instead of `oktatoi-jegyzet-template.html`'s
 freeform, no-session default. The underlying rule (generalized
 2026-09-16, when `jegyzet2` was added): **use the full class-session
@@ -124,7 +124,8 @@ shape so far:
   sibling `gyakorlas/java-alapok/gyakorlat1` (the same instructor's
   assigned homework for that same class) was merged directly into
   `jegyzet1` as a new "Házi feladat" `<h2>` section (placed after
-  "Puffer"), rather than kept as a separate page — both
+  "Puffer" at the time — see the Puffer-removal note below), rather
+  than kept as a separate page — both
   `jegyzetek/java-alapok/` and `gyakorlas/java-alapok/` were removed
   entirely (no redirect stubs, same no-redirect precedent as other
   course/URL migrations on this site), leaving both of those sections
@@ -148,18 +149,30 @@ shape so far:
   existing item's structure rather than this description. If a lesson's
   source also carries worked solutions to the in-class Gyakorlat
   (first: `jegyzet5`), they go in a "Megoldások" `<h2>` between
-  Gyakorlat and Puffer, with one `<h3>` per task.
+  Gyakorlat and Házi feladat, with one `<h3>` per task.
 
 All these pages **keep the 3-part jegyzet-style item-meta**
 (`Course · Session label · Frissítve: date`) rather than
 `oktatoi-jegyzet-template.html`'s default 2-part `Course · Frissítve:
 date`. Don't use any of them as a reason to add
-Tematika/Gyakorlat/Puffer/Házi feladat to
+Tematika/Gyakorlat/Házi feladat to
 `oktatoi-jegyzet-template.html`'s own default shape, and don't "fix"
 any of these pages into the template's leaner default — the template's
 freeform default still applies to any `oktatoi` item whose source
 material *isn't* itself written as a class-session agenda. Confirmed
 with the site owner as the standing rule, not per-page drift.
+
+**Puffer section removed, 2026-09-22.** Every `oktatoi/inbpm0315-21`
+item (`jegyzet1`–`jegyzet10`) originally also had a "Puffer" `<h2>`
+(a buffer-time note, `~20`–`~30 perc`) between Gyakorlat/Megoldások
+and Házi feladat — described as a standing, confirmed part of this
+shape everywhere above. The site owner explicitly asked for it to be
+removed from all 10 items, and it now is: the shape described above
+(Tematika/Kontextus/Gyakorlat, plus Megoldások where present, plus
+Házi feladat) is the current, correct state — the earlier "keep
+Puffer" instruction is superseded. Don't reintroduce a Puffer section
+into these pages, or into any future `inbpm0315-21` lesson, without a
+fresh, explicit request from the site owner.
 
 There used to be a different, unrelated fourth section ("Labor",
 pre-`oktatoi`) — it was merged into "Órai jegyzetek" and no longer
@@ -1006,10 +1019,12 @@ platform-specific variants like Windows/Linux + code blocks) →
 Gyakorlat (in-class exercise list, `<ol>`) → Puffer (buffer-time note
 — present because a jegyzet page is literally a class-session agenda
 with a time budget). This was accurate for `jegyzet-template.html` as
-derived from the original `jegyzet1` on 2026-09-09, and still
-describes every `oktatoi/inbpm0315-21` jegyzet, which explicitly
-preserve it (see the Content model section's class-session-shaped
-exception above).
+derived from the original `jegyzet1` on 2026-09-09. It no longer
+describes any `oktatoi/inbpm0315-21` jegyzet — Puffer was removed
+from all of them on 2026-09-22, see the Content model section's
+class-session-shaped exception above — so the current shape for that
+series is the same list minus Puffer: Tematika → Kontextus → topic
+`<h2>`s → Gyakorlat (plus Megoldások where present) → Házi feladat.
 
 **Correction, found 2026-09-17:** `jegyzet-template.html` itself has
 since drifted from the paragraph above — the live file now has a
@@ -1020,8 +1035,9 @@ session). Copy *that actual file* for a new jegyzet item, not this
 paragraph's Tematika/Kontextus/Gyakorlat/Puffer description — unless
 the new item genuinely is one class session's agenda, in which case
 follow the `oktatoi/inbpm0315-21/jegyzet1` precedent by hand instead
-(`jegyzet-template.html` no longer has that shape to copy from). See
-also the math-note jegyzet1 exception above, which uses neither shape.
+(`jegyzet-template.html` no longer has that shape to copy from) —
+without its now-removed Puffer section, per the note above. See also
+the math-note jegyzet1 exception above, which uses neither shape.
 
 **Gyakorlat**: short intro paragraph only (no Tematika/Kontextus
 headings) stating what's covered and any constraints → one `<h2>` per
