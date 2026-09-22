@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Az exponenciális, hiperbolikus és trigonometrikus függvények | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Az exponenciális függvény hatványsorral és tulajdonságai, a hiperbolikus és a trigonometrikus függvények, az Euler-formula és az összefüggések a komplex argumentumon bizonyítással — DE TTK Matematika BSc 2023/2025, Mély bevezetés az analízisbe.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/jegyzet12/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 12 of 16 — see part 1's head comment for the shape rationale.
+
+  Source fixes here:
+  - "definíciózza" is "definiálja"; "x in \int R" (garbled) is "x in R".
+  - The markdown "*" bullets in the lists of this part (cosh/sinh,
+    tanh/coth, cos/sin, tg/ctg; the same slip is in the metric examples
+    of part 13) sit inside LaTeX itemize/enumerate and do not render;
+    they are real lists.
+  - "sinus" is "szinusz" (the Hungarian spelling).
+  - The source says the exp series "converges uniformly on the whole
+    complex plane". A power series with radius infinity converges
+    uniformly on bounded sets (part 11), not on all of C; it says so.
+  - The source's property "exp(1) = lim (1 + 1/n)^n = e" is asserted
+    without proof. Part 5 defined e as that limit, so exp(1) = e is a
+    theorem, and it is proved here (both inequalities).
+  - The last theorem of the source lists "cos(ix) = cosh(x)" twice (once
+    with a garbled "vagy sin(ix) = i sinh(x)"); the four identities are
+    cosh(ix) = cos x, sinh(ix) = i sin x, cos(ix) = cosh x, sin(ix) = i
+    sinh x.
+  - tanh, coth, tg and ctg are quotients: they are defined where the
+    denominator is not 0, which the source does not say for complex x
+    (cosh(i pi / 2) = 0, for instance).
+  - The source never proves that sin and cos are periodic (it only
+    defines "periodikus függvény" and moves on) and never defines pi;
+    that is left as in the source, see the PR notes.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (flagged here and in
+  the PR description): the proofs of the five properties of exp
+  (addition theorem from the Mertens theorem and the binomial theorem,
+  exp(1) = e, exp(r) = e^r on the rationals), the completion of the
+  hyperbolic proof (the sinh half and exp = cosh + sinh), the Euler
+  formula exp(ix) = cos x + i sin x with its consequences (a lemma the
+  source does not state, which every trigonometric identity below is
+  derived from), the proofs of the five properties of cos and sin, and
+  the proofs of the two identities the source's proof does not reach.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/">Mély bevezetés az analízisbe</a> / 12. jegyzet</p>
+
+      <h1>Az exponenciális, hiperbolikus és trigonometrikus függvények</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a hatványsorokkal definiálja az elemi függvényeket: az
+        exponenciálist, a hiperbolikus függvényeket (cosh, sinh) és a
+        trigonometrikus függvényeket (cos, sin), mind a teljes komplex
+        síkon. A közös alap az exponenciális függvény összeadási tétele
+        (a Mertens-tételből) és az Euler-formula, amelyből a
+        trigonometrikus azonosságok mind adódnak.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Az \(\exp\) függvény és tulajdonságai, \(\exp(1) = e\)</li>
+        <li>Hiperbolikus függvények</li>
+        <li>Trigonometrikus függvények, az Euler-formula</li>
+        <li>Összefüggések a hiperbolikus és a trigonometrikus függvények között</li>
+        <li>Periodikus függvények, tangens és kotangens</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Elemi függvények</h2>
+
+      <h3>Az exponenciális függvény (\(\exp\))</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Exponenciális függvény</span>
+        <p>
+          Az \(\exp : \mathbb{C} \to \mathbb{C}\) függvényt a következő
+          hatványsorral definiáljuk:
+        </p>
+        \[
+        \exp(x) = \sum_{n=0}^{\infty} \frac{x^n}{n!} = \sum_{n=0}^{\infty} \frac{1}{n!} (x-0)^n \quad (x \in \mathbb{C})
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — A konvergencia (pontosítva)</span>
+        <p>
+          A Cauchy–Hadamard-tétel alapján (11. jegyzet) \(r = +\infty\),
+          így az \(\exp\) hatványsor az egész komplex síkon abszolút
+          konvergens, és minden korlátos halmazon egyenletesen konvergál.
+          Ha \(x \in \mathbb{R}\), akkor \(\exp(x) \in \mathbb{R}\) (a
+          részletösszegek valósak, és valós sorozat határértéke valós),
+          azaz \(\exp\big|_{\mathbb{R}} : \mathbb{R} \to \mathbb{R}\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Az \(\exp\) függvény tulajdonságai</span>
+        <p>Minden \(x, y \in \mathbb{C}\) esetén:</p>
+        <ol>
+          <li>\(\exp(0) = 1\)</li>
+          <li>\(\exp(x+y) = \exp(x) \cdot \exp(y)\)</li>
+          <li>\(\exp(-x) = \frac{1}{\exp(x)}\)</li>
+          <li>\(\exp(1) = \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e\)</li>
+          <li>\(\exp(r) = e^r\) minden \(r \in \mathbb{Q}\) esetén</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>1.</strong> \(x = 0\)-ban csak az \(n = 0\) tag nem nulla
+          (\(x^0 = 1\)), értéke \(1\).
+        </p>
+        <p>
+          <strong>2.</strong> A \(\sum x^n/n!\) és \(\sum y^n/n!\) sorok
+          abszolút konvergensek, így a Mertens-tétel (10. jegyzet) szerint
+          a Cauchy-szorzatuk konvergens, és összege a szorzatuk. A
+          szorzatsor \(n\)-edik tagja a binomiális tétellel
+        </p>
+        \[
+        \sum_{k=0}^n \frac{x^k}{k!} \cdot \frac{y^{n-k}}{(n-k)!} = \frac{1}{n!} \sum_{k=0}^n \binom{n}{k} x^k y^{n-k} = \frac{(x+y)^n}{n!},
+        \]
+        <p>
+          tehát a szorzatsor \(\sum (x+y)^n/n! = \exp(x + y)\).
+        </p>
+        <p>
+          <strong>3.</strong> A 2. és 1. pontból
+          \(\exp(x)\exp(-x) = \exp(0) = 1\), így \(\exp(x) \neq 0\) és
+          \(\exp(-x) = 1/\exp(x)\).
+        </p>
+        <p>
+          <strong>4.</strong> Legyen \(n \in \mathbb{N}\). A binomiális
+          tétellel
+        </p>
+        \[
+        \left(1 + \frac{1}{n}\right)^n = \sum_{k=0}^n \binom{n}{k} \frac{1}{n^k} = \sum_{k=0}^n \frac{1}{k!} \prod_{j=0}^{k-1} \left(1 - \frac{j}{n}\right).
+        \]
+        <p>
+          Minden tényező \(\le 1\) és \(\ge 0\), így
+          \(\left(1 + \frac1n\right)^n \le \sum_{k=0}^n \frac{1}{k!} \le \exp(1)\),
+          és \(n \to \infty\)-nel (Rendezési tétel) \(e \le \exp(1)\).
+          Fordítva, rögzített \(m\)-re és \(n \ge m\)-re a
+          nemnegatív, \(k &gt; m\) indexű tagok elhagyásával
+          \(\left(1 + \frac1n\right)^n \ge \sum_{k=0}^m \frac{1}{k!} \prod_{j&lt;k} \left(1 - \frac{j}{n}\right)\),
+          és a jobb oldal \(n \to \infty\)-nel \(\sum_{k=0}^m \frac{1}{k!}\)-hoz
+          tart (véges sok konvergens sorozat összege, szorzata). Így
+          \(e \ge \sum_{k=0}^m \frac{1}{k!}\) minden \(m\)-re, és
+          \(m \to \infty\)-nel \(e \ge \exp(1)\). Tehát \(\exp(1) = e\).
+        </p>
+        <p>
+          <strong>5.</strong> A 2. pontból indukcióval
+          \(\exp(n) = \exp(1)^n = e^n\) (\(n \in \mathbb{N}\)), a 3.
+          pontból \(\exp(-n) = e^{-n}\). Legyen \(r = p/q\)
+          (\(p \in \mathbb{Z}\), \(q \in \mathbb{N}\)). A 2. pont szerint
+          \(\exp(p/q)^q = \exp(p) = e^p\). Valós \(t \ge 0\)-ra
+          \(\exp(t) \ge 1\), és \(\exp(-t) = 1/\exp(t) &gt; 0\), tehát
+          \(\exp(p/q) &gt; 0\) az \(e^p\) egyetlen pozitív \(q\)-adik
+          gyöke: \(\exp(p/q) = (e^p)^{1/q} = e^{p/q}\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h3>Hiperbolikus függvények</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Koszinusz és szinusz hiperbolikusz</span>
+        <p>
+          Definiáljuk a hiperbolikus függvényeket a következő
+          hatványsorokkal (\(x \in \mathbb{C}\)):
+        </p>
+        <ul>
+          <li>\(\cosh(x) = \sum_{n=0}^{\infty} \frac{x^{2n}}{(2n)!}\) (koszinusz hiperbolikusz)</li>
+          <li>\(\sinh(x) = \sum_{n=0}^{\infty} \frac{x^{2n+1}}{(2n+1)!}\) (szinusz hiperbolikusz)</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Minden \(x \in \mathbb{C}\) esetén fennállnak az alábbi összefüggések:</p>
+        <ol>
+          <li>\(\cosh(x) = \frac{\exp(x) + \exp(-x)}{2}\)</li>
+          <li>\(\sinh(x) = \frac{\exp(x) - \exp(-x)}{2}\)</li>
+          <li>\(\exp(x) = \cosh(x) + \sinh(x)\)</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>Legyen \(x \in \mathbb{C}\) tetszőleges. Ekkor:</p>
+        \[
+        \begin{aligned}
+        \frac{\exp(x) + \exp(-x)}{2} &amp;= \frac{1}{2} \left( \sum_{n=0}^{\infty} \frac{x^n}{n!} + \sum_{n=0}^{\infty} \frac{(-x)^n}{n!} \right) \\
+        &amp;= \frac{1}{2} \sum_{n=0}^{\infty} \left( \frac{x^n + (-1)^n x^n}{n!} \right) = \frac{1}{2} \sum_{n=0}^{\infty} (1 + (-1)^n) \frac{x^n}{n!}
+        \end{aligned}
+        \]
+        <p>
+          Mivel \((1 + (-1)^n) = 2\), ha \(n = 2k\), és \(0\), ha
+          \(n = 2k+1\), így kapjuk (a nulla tagok elhagyása a
+          részletösszegek egy részsorozatát adja, tehát a határérték nem
+          változik):
+        </p>
+        \[
+        = \sum_{n=0}^{\infty} \frac{x^{2n}}{(2n)!} = \cosh(x)
+        \]
+        <p>
+          Hasonlóan, \((1 - (-1)^n) = 2\), ha \(n = 2k+1\), és \(0\),
+          ha \(n = 2k\), ezért
+          \(\frac{\exp(x) - \exp(-x)}{2} = \sum_{n=0}^{\infty} \frac{x^{2n+1}}{(2n+1)!} = \sinh(x)\).
+          A harmadik összefüggés az első kettő összege.
+        </p>
+      </div>
+
+      <h3>További hiperbolikus függvények</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció</span>
+        <p>
+          Definiáljuk a többi hiperbolikus függvényt is (\(x \in \mathbb{C}\),
+          ahol a nevező nem nulla):
+        </p>
+        <ul>
+          <li>\(\tanh(x) = \frac{\sinh(x)}{\cosh(x)}\) (tangens hiperbolikusz)</li>
+          <li>\(\coth(x) = \frac{\cosh(x)}{\sinh(x)}\) (kotangens hiperbolikusz)</li>
+        </ul>
+      </div>
+
+      <h3>Trigonometrikus függvények (\(\cos\) és \(\sin\))</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Koszinusz és szinusz függvények</span>
+        <p>
+          A trigonometrikus függvényeket a következő hatványsorokkal
+          definiáljuk (\(x \in \mathbb{C}\)):
+        </p>
+        <ul>
+          <li>\(\cos(x) = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n}}{(2n)!}\) (koszinusz)</li>
+          <li>\(\sin(x) = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n+1}}{(2n+1)!}\) (szinusz)</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Lemma — Az Euler-formula (kiegészítés)</span>
+        <p>Minden \(x \in \mathbb{C}\) esetén:</p>
+        \[
+        \begin{gathered}
+        \exp(ix) = \cos(x) + i \sin(x), \\
+        \cos(x) = \frac{\exp(ix) + \exp(-ix)}{2}, \qquad \sin(x) = \frac{\exp(ix) - \exp(-ix)}{2i},
+        \end{gathered}
+        \]
+        <p>és \(\cos(-x) = \cos(x)\), \(\sin(-x) = -\sin(x)\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A hatványsorokban \(x \to -x\) a páros hatványok előjelét nem,
+          a páratlanokét megváltoztatja, ez a paritás. Az
+          \(\exp(ix) = \sum (ix)^n/n!\) sorban
+          \((ix)^{2k} = (-1)^k x^{2k}\) és
+          \((ix)^{2k+1} = i(-1)^k x^{2k+1}\), tehát a páros és a páratlan
+          indexű tagok külön-külön a \(\cos(x)\), illetve az
+          \(i\sin(x)\) sorát adják. A részletösszegek
+          \(s_{2m+1}(ix) = \sum_{k \le m} (-1)^k x^{2k}/(2k)! + i \sum_{k \le m} (-1)^k x^{2k+1}/(2k+1)!\)
+          mindkét része konvergens, így \(\exp(ix) = \cos(x) + i\sin(x)\).
+          Az \(x\) helyett \(-x\)-et írva, a paritással
+          \(\exp(-ix) = \cos(x) - i\sin(x)\), és a két egyenlet összege,
+          illetve különbsége adja a másik két képletet.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — A \(\cos\) és \(\sin\) tulajdonságai</span>
+        <p>Minden \(x, y \in \mathbb{C}\) esetén:</p>
+        <ol>
+          <li>\(\cos(0) = 1\), \(\sin(0) = 0\)</li>
+          <li>\(\cos(x+y) = \cos(x)\cos(y) - \sin(x)\sin(y)\)</li>
+          <li>\(\sin(x+y) = \sin(x)\cos(y) + \sin(y)\cos(x)\)</li>
+          <li>\(\cos(-x) = \cos(x)\), \(\sin(-x) = -\sin(x)\)</li>
+          <li>\(\sin^2(x) + \cos^2(x) = 1\)</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>1.</strong> A sorok \(x = 0\)-ban: a \(\cos\) sorában
+          csak az \(n = 0\) tag \(1\), a \(\sin\) soráé minden tag \(0\).
+          <strong>4.</strong> Az Euler-formula lemmája.
+        </p>
+        <p>
+          <strong>5.</strong> Az Euler-formulával és az \(\exp\)
+          tulajdonságaival
+          \(1 = \exp(ix)\exp(-ix) = (\cos x + i \sin x)(\cos x - i\sin x) = \cos^2 x + \sin^2 x\)
+          (mindez komplex \(x\)-re is érvényes).
+        </p>
+        <p>
+          <strong>2., 3.</strong> A lemma szerint
+          \(\cos x = \frac{e^{ix} + e^{-ix}}{2}\),
+          \(\sin x = \frac{e^{ix} - e^{-ix}}{2i}\) (itt \(e^{z}\) az
+          \(\exp(z)\) jelölése), és az összeadási tétellel
+        </p>
+        \[
+        \begin{aligned}
+        \cos x \cos y - \sin x \sin y &amp;= \tfrac14\Bigl[(e^{ix} + e^{-ix})(e^{iy} + e^{-iy}) \\
+        &amp;\qquad + (e^{ix} - e^{-ix})(e^{iy} - e^{-iy})\Bigr] \\
+        &amp;= \tfrac{1}{2}\bigl(e^{i(x+y)} + e^{-i(x+y)}\bigr) = \cos(x+y),
+        \end{aligned}
+        \]
+        \[
+        \begin{aligned}
+        \sin x \cos y + \cos x \sin y &amp;= \tfrac{1}{4i}\Bigl[(e^{ix} - e^{-ix})(e^{iy} + e^{-iy}) \\
+        &amp;\qquad + (e^{ix} + e^{-ix})(e^{iy} - e^{-iy})\Bigr] \\
+        &amp;= \tfrac{1}{2i}\bigl(e^{i(x+y)} - e^{-i(x+y)}\bigr) = \sin(x+y).
+        \end{aligned}
+        \]
+      </div>
+
+      <h3>Összefüggések a valós és komplex argumentumok között</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel (pontosítva)</span>
+        <p>Ha \(x \in \mathbb{C}\) tetszőleges, akkor:</p>
+        <ol>
+          <li>\(\cosh(ix) = \cos(x)\) és \(\sinh(ix) = i \sin(x)\)</li>
+          <li>\(\cos(ix) = \cosh(x)\) és \(\sin(ix) = i \sinh(x)\)</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        \[
+        \begin{aligned}
+        \sinh(ix) &amp;= \sum_{n=0}^{\infty} \frac{(ix)^{2n+1}}{(2n+1)!} = \sum_{n=0}^{\infty} \frac{i^{2n+1} x^{2n+1}}{(2n+1)!} = \sum_{n=0}^{\infty} \frac{(i^2)^n \cdot i \cdot x^{2n+1}}{(2n+1)!} \\
+        &amp;= i \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n+1}}{(2n+1)!} = i \sin(x)
+        \end{aligned}
+        \]
+        <p>Hasonlóan a \(\cosh\)-ra:</p>
+        \[
+        \begin{aligned}
+        \cosh(ix) &amp;= \sum_{n=0}^{\infty} \frac{(ix)^{2n}}{(2n)!} = \sum_{n=0}^{\infty} \frac{i^{2n} x^{2n}}{(2n)!} = \sum_{n=0}^{\infty} \frac{(i^2)^n x^{2n}}{(2n)!} \\
+        &amp;= \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n}}{(2n)!} = \cos(x)
+        \end{aligned}
+        \]
+        <p>
+          Ebből helyettesítéssel (\(x \to ix\)):
+          \(\cos(ix) = \cosh(i \cdot ix) = \cosh(-x) = \cosh(x)\), mert a
+          \(\cosh\) páros. Hasonlóan
+          \(i \sin(ix) = \sinh(i \cdot ix) = \sinh(-x) = -\sinh(x)\), vagyis
+          \(\sin(ix) = -\sinh(x)/i = i \sinh(x)\) (\(\sinh\) páratlan).
+        </p>
+      </div>
+
+      <h3>Periodikus függvények</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Periodikus függvény</span>
+        <p>
+          A \(f: D \to \mathbb{C}\) függvényt <strong>periodikusnak</strong>
+          nevezzük, ha létezik olyan \(p &gt; 0\) szám (periódus), hogy
+          minden \(x \in D\) esetén \(x + p \in D\), és:
+        </p>
+        \[
+        f(x+p) = f(x)
+        \]
+      </div>
+
+      <h3>Tangens és kotangens</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció</span>
+        <p>
+          Definiáljuk a trigonometrikus alapfüggvényeket (\(x \in \mathbb{C}\),
+          ahol a nevező nem nulla):
+        </p>
+        <ul>
+          <li>\(\operatorname{tg}(x) = \frac{\sin(x)}{\cos(x)}\) (tangens)</li>
+          <li>\(\operatorname{ctg}(x) = \frac{\cos(x)}{\sin(x)}\) (kotangens)</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

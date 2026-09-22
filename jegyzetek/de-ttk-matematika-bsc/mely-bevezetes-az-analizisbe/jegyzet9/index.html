@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Kritériumok sorok konvergenciájára | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="A geometriai sor, az összehasonlító kritérium, a Cauchy-féle gyök-, a D'Alembert-féle hányados- és a sűrítési kritérium, és az általánosított harmonikus sor bizonyítással — DE TTK Matematika BSc 2023/2025, Mély bevezetés az analízisbe.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/jegyzet9/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 9 of 16 — see part 1's head comment for the shape rationale.
+
+  Source fixes here:
+  - Order: the geometric series (the source puts it after the criteria)
+    comes first, because the root and ratio criteria and the p-series
+    comparison use it; the example sum 1/(n^3 - n^2 + 1) uses the
+    p-series with alpha = 3 and is moved after it.
+  - The source's proof under "Összehasonlító kritérium II. állításához"
+    is the proof of the first comparison theorem.
+  - The limit form of the comparison test ("if lim x_n/y_n exists and is
+    finite then the series converge or diverge together") is false for a
+    limit 0: x_n = 1/n^2, y_n = 1/n has x_n/y_n -> 0, and sum x_n
+    converges while sum y_n diverges. It needs 0 < lim < +infinity (and
+    x_n >= 0, y_n > 0); the source's own example has the limit 1.
+  - The ratio test is stated for x_n != 0 (otherwise the quotient is
+    undefined). "sorozatok" (in "sum x_n and sum y_n sorozatok") is
+    "sorok".
+  - The source's condensation estimates ("sigma_{2^n} <= x_1 +
+    sigma~_{n-1}" and "sigma_{2^n} >= x_1 - 2 x_2 + sigma~_n / 2", with an
+    undefined sigma~) are not right as written (the second one has a
+    negative constant); they are replaced by sigma_{2^{n+1}-1} <= x_1 +
+    tau_n and sigma_{2^n} >= tau_n / 2, tau_n = sum_{k=1}^n 2^k x_{2^k}.
+  - The p-series is stated in the source for a real alpha > 0. A real
+    power n^alpha (= exp(alpha ln n)) needs the logarithm, which this
+    series does not introduce, so the proof is given for rational alpha;
+    it works word for word for real alpha once the power laws are
+    available (the box says so).
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (flagged here and in
+  the PR description): the proof of the geometric series, the remark that
+  the comparison and the criteria only need the inequalities for large n,
+  the proof of the limit form of the comparison test, the proofs of the
+  root and ratio criteria (from the estimates of part 6), the whole
+  correct proof of the condensation test, and the proof of the
+  generalised harmonic series (from the condensation test).
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/">Mély bevezetés az analízisbe</a> / 9. jegyzet</p>
+
+      <h1>Kritériumok sorok konvergenciájára</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet azokat az eszközöket adja, amelyekkel egy sor
+        konvergenciája a részletösszegek kiszámítása nélkül eldönthető: a
+        geometriai sorral való összehasonlítás (összehasonlító, gyök- és
+        hányadoskritérium) és a sűrítési kritérium, amelyből az
+        általánosított harmonikus sor konvergenciája is adódik.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Geometriai sor</li>
+        <li>Összehasonlító kritérium, határértékes alak</li>
+        <li>Cauchy-féle gyökkritérium</li>
+        <li>D'Alembert-féle hányadoskritérium</li>
+        <li>Cauchy-féle sűrítési kritérium</li>
+        <li>Általánosított harmonikus sor</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Geometriai sor</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Geometriai sor</span>
+        <p>
+          Legyen \(q \in \mathbb{R}\), \(|q| &lt; 1\). Ekkor a
+          \(\sum_{n=1}^{\infty} q^n\) sor konvergens, és összegére:
+        </p>
+        \[
+        \sum_{n=1}^{\infty} q^n = \frac{q}{1-q}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A részletösszegre \((1 - q)\sum_{k=1}^n q^k = q - q^{n+1}\),
+          tehát \(\sigma_n = \frac{q - q^{n+1}}{1 - q}\). Mivel
+          \(q^{n+1} \to 0\) (5. jegyzet), \(\sigma_n \to \frac{q}{1-q}\).
+          Ha \(|q| \ge 1\), akkor \(|q^n| \ge 1\), a sorozat nem
+          nullsorozat, ezért a sor divergens (8. jegyzet). Az érvelés
+          \(q \in \mathbb{C}\), \(|q| &lt; 1\) esetén is ugyanez
+          (\(|q^n| = |q|^n \to 0\)).
+        </p>
+      </div>
+
+      <h2>Összehasonlító kritériumok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — Nemnegatív tagú sorok (kiegészítés)</span>
+        <p>
+          Ha \(x_n \ge 0\) minden \(n\)-re, akkor a részletösszegek
+          monoton növekvők, ezért a sor vagy konvergens (jelölés:
+          \(\sum x_n &lt; +\infty\)), vagy \(+\infty\)-be tart
+          (\(\sum x_n = +\infty\)), lásd a monoton sorozatok
+          konvergenciatételét (2. jegyzet). A sor első véges sok tagjának
+          megváltoztatása a részletösszegeket egy állandóval tolja el,
+          ezért a konvergenciát nem változtatja: az alábbi tételekben az
+          egyenlőtlenségek elég nagy \(n\)-től is elegendők.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Összehasonlító kritérium I.</span>
+        <p>
+          Legyenek \(\sum_{n=1}^{\infty} x_n\) és
+          \(\sum_{n=1}^{\infty} y_n\) nemnegatív tagú sorok
+          (\(x_n \ge 0, y_n \ge 0\) minden \(n \in \mathbb{N}\) esetén),
+          és tegyük fel, hogy \(x_n \le y_n\) teljesül minden \(n\)-re.
+          Ekkor:
+        </p>
+        <ul>
+          <li>Ha a majoráns sor (\(\sum y_n\)) konvergens, akkor a minoráns sor (\(\sum x_n\)) is konvergens.</li>
+          <li>Ha a minoráns sor divergens, akkor a majoráns sor is divergens.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Tételezzük fel, hogy \(\sum_{n=1}^{\infty} y_n &lt; +\infty\) (azaz
+          konvergens), ekkor az \((M_n)_{n \in \mathbb{N}}\)
+          részletösszeg-sorozat konvergens, és legyen
+          \(\lim_{n \to \infty} M_n = M\). Mivel minden \(n \in \mathbb{N}\)
+          esetén \(y_n \ge 0\), ezért az \((M_n)\) sorozat monoton
+          növekedő. Így \(M = \sup \{M_n \mid n \in \mathbb{N}\}\). Mivel
+          \(x_k \le y_k\) (\(k \in \mathbb{N}\)) miatt:
+        </p>
+        \[
+        \sigma_n = \sum_{k=1}^n x_k \le \sum_{k=1}^n y_k = M_n \le \sup \{M_n \mid n \in \mathbb{N}\} = M
+        \]
+        <p>
+          Tehát a \((\sigma_n)_{n \in \mathbb{N}}\) részletösszeg-sorozat
+          felülről korlátos és monoton növekvő, ebből következően
+          konvergens, azaz \(\sum_{n=1}^{\infty} x_n &lt; +\infty\). A
+          második állítás az első ellenpozíciója: ha \(\sum y_n\)
+          konvergens volna, akkor \(\sum x_n\) is az lenne.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Összehasonlító kritérium II. (határértékes alak; pontosítva)</span>
+        <p>
+          Legyen \(x_n \ge 0\), \(y_n &gt; 0\) minden \(n\)-re. Ha
+          \(\lim_{n \to \infty} \frac{x_n}{y_n} = c\) létezik, és
+          \(0 &lt; c &lt; +\infty\), akkor a \(\sum_{n=1}^{\infty} x_n\) és
+          \(\sum_{n=1}^{\infty} y_n\) sorok vagy mindketten konvergensek,
+          vagy mindketten divergensek.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az \(\varepsilon = c/2\)-hez van olyan \(N\), hogy \(n &gt; N\)
+          esetén \(\frac{c}{2} &lt; \frac{x_n}{y_n} &lt; \frac{3c}{2}\), azaz
+          \(\frac{c}{2}\, y_n &lt; x_n &lt; \frac{3c}{2}\, y_n\). Ha
+          \(\sum y_n\) konvergens, akkor \(\sum \frac{3c}{2} y_n\) is (8.
+          jegyzet, konstansszoros), és az összehasonlító kritérium I. (elég
+          nagy \(n\)-től) szerint \(\sum x_n\) konvergens. Ha \(\sum y_n\)
+          divergens, akkor \(\sum \frac{c}{2} y_n\) is divergens, és a
+          minoráns \(\frac{c}{2} y_n\) miatt \(\sum x_n\) is az.
+        </p>
+        <p>
+          A \(c &gt; 0\) feltétel nem hagyható el: \(x_n = 1/n^2\),
+          \(y_n = 1/n\) esetén \(x_n / y_n \to 0\), \(\sum x_n\)
+          konvergens, \(\sum y_n\) divergens (az általánosított harmonikus
+          sor, lásd alább).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Cauchy-féle gyökkritérium</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Cauchy-féle gyökkritérium</span>
+        <p>Legyen \(\sum_{n=1}^{\infty} x_n\) sor.</p>
+        <ol type="i">
+          <li>Ha \(\limsup_{n \to \infty} \sqrt[n]{|x_n|} &lt; 1\), akkor a \(\sum_{n=1}^{\infty} x_n\) sor abszolút konvergens.</li>
+          <li>Ha \(\limsup_{n \to \infty} \sqrt[n]{|x_n|} &gt; 1\), akkor a \(\sum_{n=1}^{\infty} x_n\) sor divergens.</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          (i) Legyen \(L = \limsup \sqrt[n]{|x_n|} &lt; 1\) és
+          \(q = (1 + L)/2\), így \(L &lt; q &lt; 1\). A 6. jegyzet
+          lemmája szerint \(\sqrt[n]{|x_n|} &lt; q\) elég nagy \(n\)-re,
+          azaz \(|x_n| &lt; q^n\). A \(\sum q^n\) geometriai sor
+          konvergens, ezért az összehasonlító kritérium szerint
+          \(\sum |x_n|\) konvergens.
+        </p>
+        <p>
+          (ii) A 6. jegyzet lemmája szerint \(\sqrt[n]{|x_n|} &gt; 1\)
+          végtelen sok \(n\)-re, tehát \(|x_n| &gt; 1\) végtelen sok
+          \(n\)-re. Az \((x_n)\) nem nullsorozat, így a sor divergens.
+        </p>
+      </div>
+
+      <h2>D'Alembert-féle hányadoskritérium</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — D'Alembert-féle hányadoskritérium</span>
+        <p>
+          Legyen \(x_n \neq 0\) (minden, vagy elég nagy \(n\)-re).
+        </p>
+        <ol type="i">
+          <li>Ha \(\limsup_{n \to \infty} \frac{|x_{n+1}|}{|x_n|} &lt; 1\), akkor \(\sum_{n=1}^{\infty} x_n\) abszolút konvergens.</li>
+          <li>Ha \(\liminf_{n \to \infty} \frac{|x_{n+1}|}{|x_n|} &gt; 1\), akkor \(\sum_{n=1}^{\infty} x_n\) divergens.</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          (i) Legyen \(L &lt; q &lt; 1\), ahol \(L\) a limsup. A 6. jegyzet
+          lemmája szerint van olyan \(N\), hogy \(n \ge N\) esetén
+          \(|x_{n+1}| &lt; q\,|x_n|\), és indukcióval
+          \(|x_n| \le |x_N|\, q^{n-N}\). A \(\sum |x_N| q^{-N} q^n\)
+          sor konvergens (geometriai sor), így az összehasonlító
+          kritérium szerint \(\sum |x_n|\) konvergens.
+        </p>
+        <p>
+          (ii) Legyen \(1 &lt; q &lt; \liminf\). A lemma szerint van olyan
+          \(N\), hogy \(n \ge N\) esetén \(|x_{n+1}| &gt; q|x_n| &gt; |x_n|\),
+          így \(|x_n| \ge |x_N| &gt; 0\) minden \(n \ge N\)-re. Az
+          \((x_n)\) nem nullsorozat, a sor divergens.
+        </p>
+      </div>
+
+      <h3>Példa (hányadoskritériumra)</h3>
+      <p>
+        Vizsgáljuk a \(\sum_{n=1}^{\infty} \frac{5^n}{n!}\) sort
+        (\(x_n = \frac{5^n}{n!}\)). Hányados vizsgálata:
+      </p>
+      \[
+      \frac{|x_{n+1}|}{|x_n|} = \frac{\frac{5^{n+1}}{(n+1)!}}{\frac{5^n}{n!}} = \frac{5^{n+1}}{(n+1)!} \cdot \frac{n!}{5^n} = \frac{5}{n+1} \xrightarrow{n \to \infty} 0 &lt; 1
+      \]
+      <p>
+        Tehát a \(\sum_{n=1}^{\infty} \frac{5^n}{n!}\) sor abszolút
+        konvergens (a hányados határértéke létezik, így a limsup is
+        \(0 &lt; 1\), 6. jegyzet).
+      </p>
+
+      <h2>Cauchy-féle sűrítési kritérium</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Cauchy-féle sűrítési kritérium</span>
+        <p>
+          Ha \((x_n)_{n \in \mathbb{N}}\) nemnegatív tagú, monoton csökkenő
+          valós számsorozat, akkor a \(\sum_{n=1}^{\infty} x_n\) sor
+          pontosan akkor konvergens, ha a
+          \(\sum_{n=1}^{\infty} 2^n x_{2^n}\) sűrített sor is konvergens.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Legyen \(\sigma_m = \sum_{k=1}^m x_k\) és
+          \(\tau_n = \sum_{k=1}^n 2^k x_{2^k}\). Minden \(n \in \mathbb{N}\)
+          esetén teljesülnek a következő becslések. A
+          \(2^k \le j &lt; 2^{k+1}\) indexekre (\(2^k\) darab) \(x_j \le x_{2^k}\),
+          ezért
+        </p>
+        \[
+        \sigma_{2^{n+1} - 1} = x_1 + \sum_{k=1}^{n} \sum_{j=2^k}^{2^{k+1}-1} x_j \le x_1 + \tau_n.
+        \]
+        <p>
+          A \(2^{k-1} &lt; j \le 2^k\) indexekre (\(2^{k-1}\) darab)
+          \(x_j \ge x_{2^k}\), ezért
+        </p>
+        \[
+        \sigma_{2^n} \ge x_1 + x_2 + \sum_{k=2}^{n} 2^{k-1} x_{2^k} = x_1 + x_2 + \tfrac12 (\tau_n - 2x_2) \ge \tfrac12\, \tau_n.
+        \]
+        <p>
+          A tagok nemnegatívak, így \((\sigma_m)\) és \((\tau_n)\)
+          monoton növekvő: a sor pontosan akkor konvergens, ha a
+          részletösszegei korlátosak. Ha \((\tau_n)\) korlátos
+          (\(\tau_n \le C\)), akkor tetszőleges \(m\)-hez van olyan
+          \(n\), hogy \(m \le 2^{n+1} - 1\), és
+          \(\sigma_m \le \sigma_{2^{n+1}-1} \le x_1 + C\). Ha \((\sigma_m)\)
+          korlátos (\(\sigma_m \le B\)), akkor \(\tau_n \le 2\sigma_{2^n} \le 2B\).
+          Tehát a két sor egyszerre konvergens.
+        </p>
+      </div>
+
+      <h2>Általánosított harmonikus sor</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Harmonikus sor (\(\alpha \in \mathbb{Q}\))</span>
+        <p>
+          Legyen \(\alpha &gt; 0\) adott (racionális). Ekkor a
+          \(\sum_{n=1}^{\infty} \frac{1}{n^\alpha}\) harmonikus sor
+          konvergens, ha \(\alpha &gt; 1\), és divergens, ha
+          \(\alpha \le 1\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Az \(x_n = 1/n^\alpha\) nemnegatív, monoton csökkenő. A
+          sűrített sor általános tagja
+          \(2^n x_{2^n} = \dfrac{2^n}{(2^n)^\alpha} = \left(2^{1 - \alpha}\right)^n\),
+          egy \(q = 2^{1 - \alpha}\) hányadosú geometriai sor. Ha
+          \(\alpha &gt; 1\), akkor \(q &lt; 1\), a sor konvergens; ha
+          \(\alpha \le 1\), akkor \(q \ge 1\), a tagok nem nullsorozat, a
+          sor divergens. A sűrítési kritérium adja az állítást.
+        </p>
+        <p>
+          (A forrás valós \(\alpha &gt; 0\)-t mond. A valós kitevős hatvány
+          a logaritmust igényli, ami itt nincs bevezetve; a bizonyítás
+          szó szerint ugyanez marad, ha a hatványozás szokásos szabályai
+          (\(n^\alpha\) monoton, \((2^n)^\alpha = (2^\alpha)^n\)) adottak.)
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés</span>
+        <p>
+          Ha \(\alpha = 1 \implies \sum_{n=1}^{\infty} \frac{1}{n} = +\infty\)
+          (a harmonikus sor tétele). A
+          \(\sum_{n=1}^{\infty} (-1)^n \cdot \frac{1}{n} &lt; +\infty\)
+          (Leibniz miatt, 10. jegyzet), de az abszolútérték-sor
+          \(\sum_{n=1}^{\infty} \left|(-1)^n \cdot \frac{1}{n}\right| = \sum_{n=1}^{\infty} \frac{1}{n} = +\infty\).
+          Tehát a \(\sum_{n=1}^{\infty} (-1)^n \cdot \frac{1}{n}\) sor
+          konvergens, de nem abszolút konvergens \(\implies\)
+          <strong>feltételesen konvergens</strong>.
+        </p>
+      </div>
+
+      <h3>Példa (határértékes összehasonlításra)</h3>
+      <p>
+        Vizsgáljuk a \(\sum_{n=1}^{\infty} \frac{1}{n^3 - n^2 + 1}\) sort.
+        Legyen \(x_n = \frac{1}{n^3 - n^2 + 1}\) és
+        \(y_n = \frac{1}{n^3}\). (Az \(n^3 - n^2 + 1 = n^2(n-1) + 1 &gt; 0\).)
+        Határérték vizsgálata:
+      </p>
+      \[
+      \frac{x_n}{y_n} = \frac{\frac{1}{n^3 - n^2 + 1}}{\frac{1}{n^3}} = \frac{n^3}{n^3 - n^2 + 1} \xrightarrow{n \to \infty} 1 &gt; 0
+      \]
+      <p>
+        Mivel a \(\sum_{n=1}^{\infty} \frac{1}{n^3}\) sor konvergens (az
+        általánosított harmonikus sor, \(\alpha = 3 &gt; 1\)), így a
+        \(\sum_{n=1}^{\infty} \frac{1}{n^3 - n^2 + 1}\) sor is konvergens.
+      </p>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

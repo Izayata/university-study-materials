@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Bolzano–Weierstrass-tétel, Cauchy-sorozatok | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="A monoton részsorozat létezése, a Bolzano–Weierstrass-féle kiválasztási tétel, a Cauchy-sorozat és a Cauchy-féle konvergenciakritérium bizonyítással — DE TTK Matematika BSc 2023/2025, Mély bevezetés az analízisbe.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/jegyzet3/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 3 of 16 — see part 1's head comment for the shape rationale.
+
+  Source fixes here: the source's proof of the monotone-subsequence
+  theorem says that with only finitely many peaks one gets a STRICTLY
+  increasing subsequence; the chain only gives x_{n_{k+1}} >= x_{n_k}
+  (a non-peak has a later term that is >=, not >), so it is a
+  (non-strictly) monotone increasing subsequence, and the proof says so.
+  The theorem stands once here (the source also states it, without proof,
+  under "Monotonitás"; see part 2).
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (flagged here and in
+  the PR description): the proof of the Cauchy criterion, which the
+  source only sketches ("Bizonyítás vázlata") — the two directions and
+  the lemma that a Cauchy sequence is bounded, written out in full.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/">Mély bevezetés az analízisbe</a> / 3. jegyzet</p>
+
+      <h1>Bolzano–Weierstrass-tétel, Cauchy-sorozatok</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a valós számok teljességének két megjelenését
+        bizonyítja: minden korlátos sorozatnak van konvergens részsorozata
+        (Bolzano–Weierstrass), és egy sorozat pontosan akkor konvergens, ha
+        a tagjai egymáshoz tetszőlegesen közel kerülnek (Cauchy-féle
+        konvergenciakritérium), anélkül hogy a határértéket ismernünk
+        kellene.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Csúcs, monoton részsorozat létezése</li>
+        <li>Bolzano–Weierstrass-féle kiválasztási tétel</li>
+        <li>Cauchy-sorozat</li>
+        <li>Cauchy-féle konvergenciakritérium</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Monoton részsorozat és Bolzano–Weierstrass-tétel</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Monoton részsorozat létezése</span>
+        <p>Minden valós számsorozatnak létezik monoton részsorozata.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Definiáljuk a sorozat <em>csúcsait</em>: egy \(n\) indexet
+          csúcsnak nevezünk, ha minden \(m &gt; n\) esetén
+          \(x_n &gt; x_m\). Két eset lehetséges:
+        </p>
+        <ol>
+          <li>
+            <strong>Végtelen sok csúcs van:</strong> Ekkor a csúcsok
+            \(n_1 &lt; n_2 &lt; \dots\) indexeiből álló részsorozat
+            szigorúan monoton csökkenő: \(n_1\) csúcs és \(n_2 &gt; n_1\),
+            így \(x_{n_1} &gt; x_{n_2}\), és így tovább.
+          </li>
+          <li>
+            <strong>Csak véges sok csúcs van:</strong> Ekkor létezik olyan
+            \(M\) index, amely után nincsenek már csúcsok. Legyen
+            \(n_1 = M + 1\). Mivel \(n_1\) nem csúcs, van olyan
+            \(n_2 &gt; n_1\), hogy \(x_{n_2} \ge x_{n_1}\); az \(n_2 &gt; M\)
+            sem csúcs, így van \(n_3 &gt; n_2\), hogy
+            \(x_{n_3} \ge x_{n_2}\), és így tovább. Ez egy monoton növekvő
+            (nem feltétlenül szigorúan) részsorozat.
+          </li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Bolzano–Weierstrass-féle kiválasztási tétel</span>
+        <p>Minden korlátos valós számsorozatnak létezik konvergens részsorozata.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          A monoton részsorozat létezéséről szóló tétel szerint minden
+          sorozatnak van monoton részsorozata. Mivel az eredeti sorozat
+          korlátos, a részsorozata is korlátos. Egy monoton és korlátos
+          sorozat pedig a monoton sorozatok konvergenciatétele (2.
+          jegyzet) alapján mindig konvergens.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Cauchy-sorozatok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Cauchy-sorozat</span>
+        <p>
+          Az \((x_n)_{n \in \mathbb{N}}\) sorozat
+          <strong>Cauchy-sorozat</strong>, ha bármely \(\varepsilon > 0\)
+          számhoz létezik olyan \(N > 0\) szám, hogy minden
+          \(n, m \in \mathbb{N}\), \(n, m &gt; N\) esetén:
+        </p>
+        \[
+        |x_n - x_m| &lt; \varepsilon
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Cauchy-féle konvergenciakritérium</span>
+        <p>Egy valós számsorozat pontosan akkor konvergens, ha Cauchy-sorozat.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>Konvergens \(\implies\) Cauchy.</strong> Legyen
+          \(\lim x_n = x\) és \(\varepsilon &gt; 0\). Van olyan \(N\), hogy
+          \(n &gt; N\) esetén \(|x_n - x| &lt; \varepsilon/2\). A
+          háromszög-egyenlőtlenséggel, ha \(n, m &gt; N\):
+        </p>
+        \[
+        |x_n - x_m| = |(x_n - x) + (x - x_m)| \le |x_n - x| + |x_m - x| &lt; \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+        \]
+        <p>
+          <strong>Cauchy \(\implies\) konvergens.</strong> Legyen
+          \((x_n)\) Cauchy-sorozat.
+        </p>
+        <ol>
+          <li>
+            <em>Korlátos.</em> Az \(\varepsilon = 1\)-hez tartozó \(N\)-nél
+            nagyobb egy \(m_0\) indexre \(|x_n - x_{m_0}| &lt; 1\) minden
+            \(n &gt; N\)-re, tehát \(|x_n| \le |x_{m_0}| + 1\). Így
+            \(|x_n| \le \max\{|x_1|, \dots, |x_{m_0}|\} + 1\) minden
+            \(n\)-re.
+          </li>
+          <li>
+            <em>Konvergens részsorozat.</em> A Bolzano–Weierstrass-tétel
+            miatt van olyan \((x_{k_l})_{l \in \mathbb{N}}\) részsorozat,
+            amelyre \(x_{k_l} \to x\).
+          </li>
+          <li>
+            <em>Az egész sorozat is \(x\)-hez tart.</em> Legyen
+            \(\varepsilon &gt; 0\). Van olyan \(N\), hogy
+            \(|x_n - x_m| &lt; \varepsilon/2\), ha \(n, m &gt; N\), és van
+            olyan \(l\), hogy \(k_l &gt; N\) (hiszen \(k_l \ge l\)) és
+            \(|x_{k_l} - x| &lt; \varepsilon/2\). Ha \(n &gt; N\), akkor
+            \(|x_n - x| \le |x_n - x_{k_l}| + |x_{k_l} - x| &lt; \varepsilon\).
+          </li>
+        </ol>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Abel-átalakítás, Dirichlet- és Leibniz-kritérium, sorok szorzása | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Az Abel-féle summációs forma, a Dirichlet-, a Leibniz- és az Abel-kritérium, a sorok Cauchy-szorzata és a Mertens-tétel bizonyítással — DE TTK Matematika BSc 2023/2025, Mély bevezetés az analízisbe.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/jegyzet10/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 10 of 16 — see part 1's head comment for the shape rationale.
+
+  Source fixes here:
+  - The source's Abel-summation induction step stops at "Ezt átalakítva
+    megkapjuk ..."; it is carried out.
+  - The source's Dirichlet estimate applies the summation formula to the
+    block sigma~_m - sigma~_n and writes it as sum_{k=n+1}^m (lambda_k -
+    lambda_{k+1}) sigma_k + lambda_{m+1} sigma_m - lambda_{n+1} sigma_n,
+    which is not correct (the boundary terms are lambda_m sigma_m and
+    lambda_{n+1} sigma_n, and the sum runs to m - 1). The correct block
+    formula gives the same final bound 2 K lambda_{n+1}; it is used.
+  - In the Leibniz proof the source calls the monotone null sequence
+    lambda_n = x_n and then reuses x_n = (-1)^n, swapping the roles of
+    the letters; the roles are stated plainly (lambda_n is the monotone
+    null sequence, (-1)^n the sequence with bounded partial sums).
+  - "sorozatsorozata" (in the Mertens theorem) is "Cauchy-szorzatsora".
+    The theorem says which of the two series is the absolutely
+    convergent one (the proof needs it of the one whose terms multiply
+    the partial sums of the other).
+  - The Mertens proof of the source ends with "mivel a tagok különbsége
+    ... határértékbe menően nullához tart"; the estimate is written out.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (flagged here and in
+  the PR description): the completed Abel induction, the corrected
+  Dirichlet proof, the proof of the Abel criterion (the source states it
+  without proof), the full Mertens proof (the source only gives the
+  reduction), and the proof of the last claim of the theorem (two
+  absolutely convergent series have an absolutely convergent product).
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/">Mély bevezetés az analízisbe</a> / 10. jegyzet</p>
+
+      <h1>Abel-átalakítás, Dirichlet- és Leibniz-kritérium, sorok szorzása</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a feltételesen konvergens sorok eszköztárát adja: az
+        Abel-átalakítással (a sorok "parciális integrálásával") a
+        Dirichlet-, a Leibniz- és az Abel-kritériumot bizonyítja, majd
+        megmutatja, hogyan szorozhatók meg a sorok, és hogy a Cauchy-szorzat
+        konvergens (Mertens).
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Abel-féle summációs forma</li>
+        <li>Dirichlet-kritérium</li>
+        <li>Leibniz-kritérium alternáló sorokra</li>
+        <li>Abel-kritérium</li>
+        <li>Cauchy-szorzat, Mertens-tétel</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Abel-féle summációs forma</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Abel-féle summációs forma</span>
+        <p>
+          Legyenek \((\lambda_n)_{n \in \mathbb{N}}\) és
+          \((x_n)_{n \in \mathbb{N}}\) komplex sorozatok, és legyen
+          \(\sigma_n = \sum_{k=1}^n x_k\) az \(x_n\) sor \(n\)-edik
+          részletösszege. Ekkor minden \(n \in \mathbb{N}\) esetén:
+        </p>
+        \[
+        \sum_{k=1}^n \lambda_k x_k = \sum_{k=1}^{n-1} (\lambda_k - \lambda_{k+1}) \sigma_k + \lambda_n \sigma_n
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (teljes indukcióval; pontosítva)</span>
+        <ul>
+          <li>
+            <strong>\(n=1\)-re:</strong>
+            \[
+            \sum_{k=1}^1 \lambda_k x_k = \lambda_1 x_1 = \lambda_1 \sigma_1 = \sum_{k=1}^{0} (\lambda_k - \lambda_{k+1}) \sigma_k + \lambda_1 \sigma_1
+            \]
+            Tehát \(n=1\)-re az állítás igaz.
+          </li>
+          <li>
+            <strong>Indukciós lépés (\(n\)-ről \(n+1\)-re):</strong> Tegyük
+            fel, hogy az állítás igaz \(n\)-re. Ekkor
+            \[
+            \sum_{k=1}^{n+1} \lambda_k x_k = \sum_{k=1}^{n-1} (\lambda_k - \lambda_{k+1}) \sigma_k + \lambda_n \sigma_n + \lambda_{n+1} x_{n+1}.
+            \]
+            Az \(n+1\)-re felírt jobb oldal, felhasználva
+            \(\sigma_{n+1} = \sigma_n + x_{n+1}\)-et:
+            \[
+            \begin{aligned}
+            &amp;\sum_{k=1}^{n} (\lambda_k - \lambda_{k+1}) \sigma_k + \lambda_{n+1} \sigma_{n+1} \\
+            &amp;= \sum_{k=1}^{n-1} (\lambda_k - \lambda_{k+1}) \sigma_k + (\lambda_n - \lambda_{n+1}) \sigma_n + \lambda_{n+1} (\sigma_n + x_{n+1}) \\
+            &amp;= \sum_{k=1}^{n-1} (\lambda_k - \lambda_{k+1}) \sigma_k + \lambda_n \sigma_n + \lambda_{n+1} x_{n+1},
+            \end{aligned}
+            \]
+            ami az előbbivel megegyezik.
+          </li>
+        </ul>
+      </div>
+
+      <h2>Dirichlet-, Leibniz- és Abel-kritérium</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Dirichlet-féle kritérium</span>
+        <p>
+          Legyen \((\lambda_n)_{n \in \mathbb{N}}\) egy valós számokból álló
+          monoton nullsorozat, \((x_n)_{n \in \mathbb{N}}\) pedig olyan
+          komplex sorozat, amelynek a \(\sum_{n=1}^{\infty} x_n\) sor
+          részletösszeg-sorozata korlátos. Ekkor a
+          \(\sum_{n=1}^{\infty} \lambda_n x_n\) sor <strong>konvergens</strong>.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Tegyük fel, hogy \((\lambda_n)_{n \in \mathbb{N}}\) monoton
+          csökkenő nullsorozat (különben az \((-\lambda_n)\)-re
+          alkalmazzuk). Ekkor \(\lambda_n \ge 0\). Legyenek továbbá:
+        </p>
+        \[
+        \sigma_n = \sum_{k=1}^n x_k, \quad \widetilde{\sigma}_n = \sum_{k=1}^n \lambda_k x_k \quad (n \in \mathbb{N})
+        \]
+        <p>
+          Azt kell igazolni, hogy a \((\widetilde{\sigma}_n)_{n \in \mathbb{N}}\)
+          sorozat konvergens. Ehhez elég megmutatni, hogy Cauchy-sorozat.
+          A feltételek szerint a \((\sigma_n)\) sorozat korlátos, azaz
+          létezik olyan \(K\), hogy \(|\sigma_n| \le K\) minden
+          \(n \in \mathbb{N}\) esetén. Az \(x_k = \sigma_k - \sigma_{k-1}\)
+          behelyettesítésével, az Abel-átalakítás blokkra alkalmazva
+          (\(m &gt; n\)):
+        </p>
+        \[
+        \widetilde{\sigma}_m - \widetilde{\sigma}_n = \sum_{k=n+1}^m \lambda_k (\sigma_k - \sigma_{k-1}) = \sum_{k=n+1}^{m-1} (\lambda_k - \lambda_{k+1}) \sigma_k + \lambda_m \sigma_m - \lambda_{n+1} \sigma_n
+        \]
+        <p>
+          Mivel \((\lambda_n)\) monoton csökkenő nemnegatív sorozat, a
+          \(\lambda_k - \lambda_{k+1}\) különbségek nemnegatívak, és a
+          tagokat becsülve kapjuk:
+        </p>
+        \[
+        \begin{aligned}
+        |\widetilde{\sigma}_m - \widetilde{\sigma}_n| &amp;\le K \Bigl( \sum_{k=n+1}^{m-1} (\lambda_k - \lambda_{k+1}) + \lambda_m + \lambda_{n+1} \Bigr) \\
+        &amp;= K \bigl( (\lambda_{n+1} - \lambda_m) + \lambda_m + \lambda_{n+1} \bigr) = 2 K \lambda_{n+1}
+        \end{aligned}
+        \]
+        <p>
+          Mivel \(\lambda_n \to 0\), tetszőleges \(\varepsilon &gt; 0\)-hoz
+          van olyan \(N\), hogy \(n &gt; N\) esetén
+          \(2K\lambda_{n+1} &lt; \varepsilon\), így \(m &gt; n &gt; N\)-re
+          \(|\widetilde{\sigma}_m - \widetilde{\sigma}_n| &lt; \varepsilon\).
+          Tehát \((\widetilde{\sigma}_n)\) Cauchy-sorozat, ezért
+          konvergens, ami azt jelenti, hogy a
+          \(\sum_{n=1}^{\infty} \lambda_n x_n\) sor konvergens.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Leibniz-kritérium (alternáló sorokra)</span>
+        <p>
+          Ha \((x_n)_{n \in \mathbb{N}}\) monoton nullsorozat, akkor a
+          \(\sum_{n=1}^{\infty} (-1)^n x_n\) sor konvergens.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          A Dirichlet-tételben a monoton nullsorozat legyen
+          \(\lambda_n = x_n\) (\(n \in \mathbb{N}\)), a korlátos
+          részletösszegű sorozat pedig \(a_n = (-1)^n\). Ekkor a
+          részletösszegek:
+        </p>
+        \[
+        \sum_{k=1}^n a_k = \sum_{k=1}^n (-1)^k \in \{-1, 0\} \implies \text{korlátos sor}
+        \]
+        <p>
+          Tehát alkalmazható a Dirichlet-kritérium, amiből következik,
+          hogy a \(\sum_{n=1}^{\infty} (-1)^n x_n\) sor konvergens.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Abel-kritérium</span>
+        <p>
+          Ha \((\lambda_n)_{n \in \mathbb{N}}\) korlátos, monoton csökkenő
+          valós sorozat, és \(\sum_{n=1}^{\infty} x_n &lt; +\infty\)
+          (konvergens komplex sor), akkor a
+          \(\sum_{n=1}^{\infty} \lambda_n x_n\) sor konvergens.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A \((\lambda_n)\) monoton és korlátos, ezért konvergens (2.
+          jegyzet): \(\lambda_n \to \lambda\). A
+          \(\mu_n = \lambda_n - \lambda\) monoton csökkenő nullsorozat. A
+          \(\sum x_n\) sor konvergens, így a részletösszegei is
+          konvergensek, tehát korlátosak, és a Dirichlet-kritérium szerint
+          \(\sum \mu_n x_n\) konvergens. Mivel \(\sum \lambda x_n\)
+          is konvergens (konstansszoros), az összegük,
+          \(\sum (\mu_n + \lambda) x_n = \sum \lambda_n x_n\) is az (8.
+          jegyzet).
+        </p>
+      </div>
+
+      <h2>Sorok szorzása</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Cauchy-szorzat</span>
+        <p>
+          Legyenek \((x_n)_{n \in \mathbb{N} \cup \{0\}}\) és
+          \((y_n)_{n \in \mathbb{N} \cup \{0\}}\) sorozatok. A Cauchy-féle
+          szorzatsorozat elemei:
+        </p>
+        \[
+        z_n = \sum_{k=0}^n x_k y_{n-k} \quad (n \in \mathbb{N} \cup \{0\}) \quad (\text{minden tagot minden taggal})
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Mertens-tétel</span>
+        <p>
+          Ha a \(\sum x_n\) sor abszolút konvergens és a \(\sum y_n\) sor
+          konvergens, akkor a Cauchy-féle szorzatsoruk,
+          \(\sum z_n\), konvergens, és összege a két sor összegének
+          szorzata; továbbá, ha mindkét sor abszolút konvergens, akkor a
+          Cauchy-féle szorzatsor is abszolút konvergens.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Megmutatjuk, hogy a \(\sum_{n=0}^{\infty} z_n\) sor konvergens.
+          Minden \(n \in \mathbb{N} \cup \{0\}\) esetén jelölje \(\zeta_n\)
+          a \(z_n\) sor \(n\)-edik részletösszegét:
+        </p>
+        \[
+        \zeta_n = \sum_{k=0}^n z_k = \sum_{k=0}^n \left( \sum_{i=0}^k x_i y_{k-i} \right) = \sum_{k=0}^n x_k \tau_{n-k} = \sum_{k=0}^n x_k (\tau_{n-k} - \tau) + \sigma_n \cdot \tau
+        \]
+        <p>
+          Ahol \(\tau_n\) az \(y_n\) sor részletösszege,
+          \(\tau = \lim_{n \to \infty} \tau_n\), \(\sigma_n\) az \(x_n\) sor
+          részletösszege, és \(\sigma = \sum_{n=0}^{\infty} x_n\). (A
+          harmadik egyenlőség: az \(x_i y_j\) szorzatok az
+          \(i + j \le n\) indexpárokon szerepelnek, az \(i\) rögzített
+          értékéhez a \(j = 0, \dots, n - i\), ezek összege
+          \(x_i \tau_{n-i}\).) Mivel \(\sigma_n \tau \to \sigma\tau\),
+          elég megmutatni, hogy \(R_n = \sum_{k=0}^n x_k \beta_{n-k} \to 0\),
+          ahol \(\beta_j = \tau_j - \tau \to 0\).
+        </p>
+        <p>
+          Legyen \(A = \sum |x_k|\) és \(B\) a konvergens \((\beta_j)\)
+          korlátja: \(|\beta_j| \le B\). Legyen \(\varepsilon &gt; 0\). Van
+          olyan \(J\), hogy \(|\beta_j| &lt; \varepsilon\), ha \(j \ge J\),
+          és olyan \(I\), hogy \(\sum_{k &gt; I} |x_k| &lt; \varepsilon\).
+          Ha \(n \ge I + J\), akkor a \(k \le n - J\) tagokra
+          \(n - k \ge J\), és a \(k &gt; n - J\) tagokra \(k &gt; I\), így
+        </p>
+        \[
+        |R_n| \le \sum_{k \le n - J} |x_k|\,|\beta_{n-k}| + \sum_{n - J &lt; k \le n} |x_k|\,|\beta_{n-k}| \le \varepsilon A + B \sum_{k &gt; I} |x_k| \le \varepsilon (A + B).
+        \]
+        <p>
+          Tehát \(R_n \to 0\), \(\zeta_n \to \sigma\tau\), és a
+          \(\sum z_n\) sor konvergens, összege \(\sigma\cdot\tau\).
+        </p>
+        <p>
+          Ha mindkét sor abszolút konvergens, akkor
+          \(|z_n| \le \sum_{k=0}^n |x_k||y_{n-k}|\), ez a \(\sum |x_n|\) és
+          \(\sum |y_n|\) nemnegatív tagú sorok Cauchy-szorzata, amely az
+          előzők szerint konvergens (\(\sum |x_n|\) abszolút konvergens,
+          \(\sum |y_n|\) konvergens). Az összehasonlító kritérium szerint
+          \(\sum |z_n|\) is konvergens.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

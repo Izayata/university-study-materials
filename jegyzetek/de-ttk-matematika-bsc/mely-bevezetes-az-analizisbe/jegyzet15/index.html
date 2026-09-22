@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Kompakt halmazok | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Kompakt halmaz metrikus térben, korlátosság, zárt halmazrendszerek, torlódási pont kompakt térben, zárt részhalmaz és folytonos kép kompaktsága bizonyítással — DE TTK Matematika BSc 2023/2025, Mély bevezetés az analízisbe.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/jegyzet15/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 15 of 16 — see part 1's head comment for the shape rationale.
+
+  Source fixes here:
+  - The section "Kompakt halmazok" stands twice in the source, with the
+    Állítás (a compact set is bounded), its proof and the Megjegyzés about
+    ]0,1[ each stated twice; they are kept once. The second definition in
+    the source ("Egy halmaz véges sok nyílt halmazzal lefedhető (kompakt
+    halmaz lefedési tulajdonsága)") is not a definition: every set is
+    covered by one open set (the whole space). The definition is the first
+    one, "every open cover has a finite subcover".
+  - "allitas" and "megjegyzes" (undeclared LaTeX environments) are an
+    Állítás and a Megjegyzés.
+  - The source's example on finite sets ends "K véges, azaz kompakt"
+    (garbled): every finite set is compact, and in a discrete metric
+    space compact sets are exactly the finite ones.
+  - "Torlódási pont létezése kompakt térben" used the accumulation point
+    of a set without defining it, and its proof is an outline
+    ("zárt halmazok rendszere centrált halmazrendszert alkot"); it is
+    proved directly from the open cover definition.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (flagged here and in
+  the PR description): the proof that ]0,1[ is not compact, the proof
+  that a finite set is compact, the definition of a centred system and
+  the "if" direction of its characterisation, the definition of the
+  accumulation point of a set and the direct proof of the theorem, the
+  lemma that the preimage of an open set under a continuous map is
+  open.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/">Mély bevezetés az analízisbe</a> / 15. jegyzet</p>
+
+      <h1>Kompakt halmazok</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a kompaktság fogalmát vezeti be a lefedések
+        segítségével, és megmutatja alapvető következményeit: a kompakt
+        halmaz korlátos, a kompakt tér zárt részhalmaza kompakt, a
+        kompakt tér minden végtelen részhalmazának van torlódási pontja, és
+        a kompakt tér folytonos képe kompakt. A kompaktságnak több
+        egyenértékű jellemzése is van, ezekre a 16. jegyzet tér vissza.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Kompakt halmaz, kompakt metrikus tér</li>
+        <li>Kompakt halmaz korlátos; véges halmazok kompaktsága</li>
+        <li>Kompaktság jellemzése centrált zárt halmazrendszerekkel</li>
+        <li>Torlódási pont kompakt térben</li>
+        <li>Zárt részhalmaz és folytonos kép kompaktsága</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Kompakt halmazok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Kompakt halmaz (pontosítva)</span>
+        <p>
+          Legyen \((X, \rho)\) metrikus tér. A \(K \subseteq X\) halmazt
+          <strong>kompaktnak</strong> nevezzük, ha bármely nyílt
+          halmazokból álló lefedéséből kiválasztható véges sok nyílt
+          halmaz, amely szintén lefedi. Azaz: ha
+          \(\{G_\gamma\}_{\gamma \in \Gamma}\) nyílt halmazok családja és
+          \(K \subseteq \bigcup_{\gamma} G_\gamma\), akkor vannak olyan
+          \(\gamma_1, \dots, \gamma_n\) indexek, hogy
+          \(K \subseteq G_{\gamma_1} \cup \dots \cup G_{\gamma_n}\). Az
+          \((X, \rho)\) tér <strong>kompakt</strong>, ha maga az \(X\)
+          kompakt halmaz.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás</span>
+        <p>
+          Ha \((X, \rho)\) metrikus tér és \(K \subset X\) kompakt halmaz,
+          akkor \(K\) korlátos.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Tekintsük a \(K\) kompakt halmaznak egy olyan nyílt gömbökből
+          álló lefedését, amelyben a gömbök sugara \(1\):
+        </p>
+        \[
+        K \subset \bigcup_{\gamma \in \Gamma} B(x_\gamma, 1)
+        \]
+        <p>
+          (például \(\Gamma = K\), \(x_\gamma = \gamma\)). Mivel \(K\)
+          kompakt, létezik véges sok index (\(\gamma_1, \dots, \gamma_n \in \Gamma\)),
+          amelyekre:
+        </p>
+        \[
+        K \subset B(x_{\gamma_1}, 1) \cup \dots \cup B(x_{\gamma_n}, 1)
+        \]
+        <p>
+          Mivel véges sok korlátos halmaz uniója korlátos, így \(K\)
+          korlátos. (Pontosan: ha \(R = \max_i \rho(x_{\gamma_i}, x_{\gamma_1})\),
+          akkor \(y \in B(x_{\gamma_i}, 1)\)-re
+          \(\rho(y, x_{\gamma_1}) &lt; 1 + R\), tehát
+          \(K \subseteq B(x_{\gamma_1}, R + 2)\).)
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés</span>
+        <p>
+          A korlátosság \(\not\Rightarrow\) kompaktság. Például
+          \(X = \mathbb{R}\) esetén az \(M = ]0,1[\) halmaz korlátos, de
+          nem kompakt: az \(A_n = ]\frac{1}{n}, 1[\) nyílt halmazokból
+          álló lefedéséből nem választható ki véges részlefedés.
+        </p>
+        <p>
+          (kiegészítés) Valóban: az \(A_n\) halmazok uniója \(]0,1[\),
+          mert minden \(x \in ]0, 1[\)-hez van \(n\), hogy
+          \(\frac1n &lt; x\); véges sok, \(A_{n_1}, \dots, A_{n_k}\)
+          uniója viszont \(A_N = ]\frac1N, 1[\) a legnagyobb \(n_i = N\)-nel,
+          és \(\frac{1}{N + 1} \in M \setminus A_N\).
+        </p>
+      </div>
+
+      <h3>Példa: véges halmazok kompaktsága</h3>
+      <p>
+        Ha \((X, \rho)\) diszkrét metrikus tér, és \(F \subset X\) egy
+        véges halmaz (\(F = \{x_1, \dots, x_n\}\)), akkor \(F\) kompakt.
+        Megfordítva, ha \(K \subset X\) kompakt halmaz, akkor tekintve a
+        \(\frac{1}{2}\) sugarú nyílt gömbökkel való lefedést, megmutatható,
+        hogy \(K\) véges: a diszkrét térben \(B(x, \frac12) = \{x\}\),
+        így a lefedésből kiválasztott véges sok gömb már csak véges sok
+        pontot tartalmaz. (kiegészítés) Az első állítás minden metrikus
+        térben igaz véges halmazra: egy nyílt lefedésből minden
+        \(x_j\)-hez kiválasztunk egy \(G_j \ni x_j\) halmazt, és ezek véges
+        sok halmaz, amelyek lefedik \(F\)-et. Tehát a diszkrét metrikus
+        térben a kompakt halmazok pontosan a véges halmazok.
+      </p>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Kompakt metrikus terek jellemzése zárt halmazok rendszerével</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Centrált halmazrendszer (kiegészítés)</span>
+        <p>
+          Halmazok egy \(\{A_\gamma\}_{\gamma \in \Gamma}\) rendszere
+          <strong>centrált</strong>, ha bármely véges részrendszerének a
+          metszete nem üres.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>
+          Egy \((X, \rho)\) metrikus tér pontosan akkor kompakt, ha bármely
+          zárt halmazokból álló centrált halmazrendszer metszete nem üres.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          \((\implies)\) Legyen \((X, \rho)\) kompakt metrikus tér, és
+          legyen \(\{A_\gamma\}_{\gamma \in \Gamma}\) egy zárt
+          halmazokból álló centrált halmazrendszer (azaz bármely véges
+          részrendszer metszete nem üres). Meg kell mutatnunk, hogy
+          \(\bigcap_{\gamma \in \Gamma} A_\gamma \neq \emptyset\).
+          Indirekt feltételezzük, hogy
+          \(\bigcap_{\gamma \in \Gamma} A_\gamma = \emptyset\). Ekkor
+          komplementereket véve:
+        </p>
+        \[
+        X \setminus \left(\bigcap_{\gamma \in \Gamma} A_\gamma\right) = \bigcup_{\gamma \in \Gamma} (X \setminus A_\gamma) = X
+        \]
+        <p>
+          Mivel az \(A_\gamma\) halmazok zártak, a \(X \setminus A_\gamma\)
+          halmazok nyíltak. Így \(\{X \setminus A_\gamma\}_{\gamma \in \Gamma}\)
+          a \(X\) kompakt tér egy nyílt lefedése. Mivel \(X\) kompakt,
+          kiválasztható véges sok nyílt halmaz, amely lefedi \(X\)-et:
+        </p>
+        \[
+        \bigcup_{i=1}^n (X \setminus A_{\gamma_i}) = X
+        \]
+        <p>
+          Komplementert képezve kapjuk, hogy
+          \(\bigcap_{i=1}^n A_{\gamma_i} = \emptyset\), ami ellentmond
+          annak, hogy a rendszer centrált volt.
+        </p>
+        <p>
+          \((\impliedby)\) Feltesszük, hogy \(X\)-ben minden zárt
+          halmazokból álló centrált halmazrendszer metszete nem üres.
+          Megmutatjuk, hogy \(X\) kompakt. Legyen \(\{G_\gamma\}\) az \(X\)
+          egy nyílt lefedése, amelyből nem választható ki véges lefedés.
+          Az \(A_\gamma = X \setminus G_\gamma\) zárt halmazok rendszere
+          centrált: véges sok \(\gamma_1, \dots, \gamma_n\)-re
+          \(\bigcap_i A_{\gamma_i} = X \setminus \bigcup_i G_{\gamma_i} \neq \emptyset\),
+          mert a \(G_{\gamma_i}\) nem fedik le \(X\)-et. A feltevés szerint
+          van olyan \(x \in \bigcap_\gamma A_\gamma\), azaz \(x\) egyik
+          \(G_\gamma\)-ban sincs, ami ellentmond annak, hogy a \(G_\gamma\)
+          lefedik \(X\)-et. Tehát minden nyílt lefedésből kiválasztható
+          véges lefedés.
+        </p>
+      </div>
+
+      <h2>Torlódási pont létezése kompakt térben</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Halmaz torlódási pontja (kiegészítés)</span>
+        <p>
+          Legyen \(H \subseteq X\). A \(p \in X\) pont az \(H\)
+          <strong>torlódási pontja</strong>, ha minden \(r &gt; 0\)-ra a
+          \(B(p, r)\) gömb végtelen sok \(H\)-beli pontot tartalmaz.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Kompakt metrikus térben minden végtelen halmaznak van torlódási pontja.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Indirekt feltételezzük, hogy egy \(X\) kompakt térben van olyan
+          \(H\) végtelen halmaz, amelynek nincs torlódási pontja. Ekkor
+          minden \(p \in X\)-hez van olyan \(r_p &gt; 0\), hogy
+          \(B(p, r_p) \cap H\) véges. A \(\{B(p, r_p)\}_{p \in X}\) nyílt
+          gömbök az \(X\) nyílt lefedését adják, ebből kiválasztható véges
+          sok: \(B(p_1, r_1), \dots, B(p_k, r_k)\). Ekkor
+          \(H = \bigcup_{i=1}^k (B(p_i, r_i) \cap H)\) véges sok véges
+          halmaz uniója, tehát véges, ami ellentmondás. Így léteznie kell
+          torlódási pontnak.
+        </p>
+      </div>
+
+      <h2>Kompakt tér zárt altere</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás</span>
+        <p>Kompakt metrikus tér zárt altere is kompakt.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Legyen \((X, \rho)\) kompakt metrikus tér és \(M \subset X\) egy
+          zárt halmaz. Megmutatjuk, hogy \(M\) kompakt. Legyen
+          \(\{G_\gamma\}_{\gamma \in \Gamma}\) az \(M\) egy nyílt
+          halmazokból álló lefedése. Kiegészítve \(M\) komplementerével
+          (\(X \setminus M\), ami nyílt, mivel \(M\) zárt), a
+          \(H_\gamma = G_\gamma \cup (X \setminus M)\) halmazok nyílt
+          lefedését adják az egész \(X\) térnek. Mivel \(X\) kompakt,
+          ebből kiválasztható véges sok halmaz, ami lefedi \(X\)-et,
+          ebből pedig adódik, hogy \(M\) is lefedhető véges sok
+          \(G_\gamma\)-val (az \(X \setminus M\) az \(M\)-et nem fedi), azaz
+          \(M\) kompakt.
+        </p>
+      </div>
+
+      <h2>Folytonos függvény általi kép kompaktsága</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Lemma — Nyílt halmaz ősképe (kiegészítés)</span>
+        <p>
+          Ha \(f : X \to Y\) folytonos leképezés a metrikus terek között,
+          és \(G \subseteq Y\) nyílt, akkor \(f^{-1}(G)\) nyílt.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \(x_0 \in f^{-1}(G)\). Mivel \(G\) nyílt, van olyan
+          \(\varepsilon &gt; 0\), hogy \(B(f(x_0), \varepsilon) \subseteq G\),
+          és a folytonosság szerint van olyan \(\delta &gt; 0\), hogy
+          \(\rho(x_0, x) &lt; \delta\) esetén
+          \(\sigma(f(x_0), f(x)) &lt; \varepsilon\), azaz
+          \(f(x) \in G\). Tehát \(B(x_0, \delta) \subseteq f^{-1}(G)\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Kompakt metrikus tér folytonos függvény általi képe is kompakt.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Legyen \((X, \rho)\) kompakt metrikus tér, \((Y, \sigma)\)
+          metrikus tér, és \(f : X \to Y\) folytonos függvény.
+          Megmutatjuk, hogy \(f(X) \subset Y\) kompakt. Legyen
+          \(\{G_\gamma\}_{\gamma \in \Gamma}\) az \(f(X)\) halmaz egy nyílt
+          (\(Y\)-beli nyílt halmazokból álló) lefedése. Tekintsük az
+          \(H_\gamma = f^{-1}(G_\gamma)\) ősképeket. Mivel \(f\)
+          folytonos, a nyílt halmaz ősképe nyílt (a lemma), így
+          \(\{H_\gamma\}_{\gamma \in \Gamma}\) az \(X\) tér nyílt
+          lefedése. Mivel \(X\) kompakt, ebből kiválasztható véges sok
+          \(H_{\gamma_1}, \dots, H_{\gamma_n}\) lefedés, amiből következik,
+          hogy \(f(X)\) is lefedhető véges sok \(G_\gamma\)-val, azaz
+          \(f(X)\) kompakt.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

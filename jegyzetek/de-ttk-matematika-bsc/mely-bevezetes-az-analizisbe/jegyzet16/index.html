@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Teljesen korlátos és sorozatkompakt terek, Hausdorff-tétel | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Teljesen korlátos metrikus terek, szeparabilitás, sorozatkompaktság és a Hausdorff-tétel: kompakt, sorozatkompakt, illetve teljes és teljesen korlátos terek egyenértékűsége, bizonyítással — DE TTK Matematika BSc 2023/2025, Mély bevezetés az analízisbe.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/jegyzet16/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 16 of 16 — see part 1's head comment for the shape rationale.
+
+  Source fixes here:
+  - "allitas" (an undeclared LaTeX environment) is an Állítás. The
+    source's proofs of the two statements about total boundedness each
+    have an unclosed math delimiter ("B(y_i, 1). Ebből" and "M = \bigcup
+    M_n halmazt"); they are closed.
+  - In the proof that a sequentially compact space is totally bounded the
+    source constructs a sequence with rho(x_n, x_m) > eps; since the balls
+    are open, the point outside them only has distance >= eps, which is
+    what is used.
+  - The Hausdorff theorem states three equivalent properties but the
+    source's proof only sketches two arrows ((ii) => (i) and
+    (ii) => (iii)), leaving (i) => (ii) and (iii) => (ii) out and giving
+    (ii) => (i) only as "there is an open cover ... from which one
+    constructs a sequence with no accumulation point". The full circle
+    (i) => (ii) => (iii) => (ii) => (i) is proved.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (flagged here and in
+  the PR description): the definitions of the epsilon-net, total
+  boundedness, separability and sequential compactness (the source uses
+  all four undefined), the completion of the two statements on total
+  boundedness, the proof that a sequentially compact space is totally
+  bounded (the source only sketches it), and the complete proof of the
+  Hausdorff theorem, including the Lebesgue-number lemma.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/">Mély bevezetés az analízisbe</a> / 16. jegyzet</p>
+
+      <h1>Teljesen korlátos és sorozatkompakt terek, Hausdorff-tétel</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a sorozat végére ér: a kompaktság lefedéses
+        definícióját a sorozatokkal (sorozatkompaktság) és az \(\varepsilon\)-hálókkal (teljes
+        korlátosság) kapcsolja össze, és bebizonyítja, hogy metrikus
+        térben a kompaktság, a sorozatkompaktság, valamint a teljesség és
+        a teljes korlátosság együtt egyenértékű egymással (Hausdorff).
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>\(\varepsilon\)-háló, teljesen korlátos tér, szeparabilitás</li>
+        <li>Sorozatkompakt tér</li>
+        <li>A sorozatkompakt tér teljesen korlátos</li>
+        <li>A Hausdorff-tétel</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Teljesen korlátos terek tulajdonságai</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — \(\varepsilon\)-háló és teljesen korlátos tér (kiegészítés)</span>
+        <p>
+          Az \((X, \rho)\) metrikus térben az \(\{x_1, \dots, x_n\} \subseteq X\)
+          véges halmaz <strong>\(\varepsilon\)-háló</strong>, ha
+          \(X \subseteq \bigcup_{i=1}^n B(x_i, \varepsilon)\). Az
+          \((X, \rho)\) tér <strong>teljesen korlátos</strong>, ha minden
+          \(\varepsilon &gt; 0\)-hoz van véges \(\varepsilon\)-hálója.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás</span>
+        <p>Minden teljesen korlátos metrikus tér korlátos is.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Legyen \((X, \rho)\) teljesen korlátos metrikus tér. Ekkor
+          bármely \(\varepsilon &gt; 0\) esetén \(X\)-nek van véges
+          \(\varepsilon\)-hálója, azaz léteznek \(x_1, \dots, x_n \in X\)
+          pontok úgy, hogy:
+        </p>
+        \[
+        X \subset \bigcup_{i=1}^n B(x_i, \varepsilon)
+        \]
+        <p>
+          Ha \(\varepsilon = 1\), akkor létezik \(X\)-nek egy véges
+          \(1\)-hálója, azaz léteznek \(y_1, \dots, y_n \in X\) pontok,
+          hogy \(X \subset \bigcup_{i=1}^n B(y_i, 1)\). Ebből a
+          háromszög-egyenlőtlenséget használva adódik, hogy \(X\) benne
+          van egy elegendően nagy sugarú gömbben (\(R = \max_i \rho(y_i, y_1)\)-gyel
+          \(X \subseteq B(y_1, R + 2)\)), azaz \(X\) korlátos.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Szeparábilis tér (kiegészítés)</span>
+        <p>
+          Az \((X, \rho)\) tér <strong>szeparábilis</strong>, ha van
+          megszámlálható, \(X\)-ben mindenütt sűrű részhalmaza.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás</span>
+        <p>Ha egy metrikus tér teljesen korlátos, akkor szeparábilis is.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Legyen \((X, \rho)\) teljesen korlátos metrikus tér. Ekkor
+          minden \(n \in \mathbb{N}\) esetén létezik \(X\)-nek egy
+          \(\frac{1}{n}\)-hálója, jelöljük ezt \(M_n\)-nel. Tekintsük az
+          \(M = \bigcup_{n \in \mathbb{N}} M_n\) halmazt. Mivel minden
+          \(M_n\) véges, megszámlálható halmazok uniójaként \(M\) is
+          megszámlálható számosságú. Tetszőleges \(x \in X\) és
+          \(\varepsilon &gt; 0\) esetén válasszunk \(n\)-et,
+          \(\frac{1}{n} &lt; \varepsilon\); az \(M_n\) egy
+          \(\frac1n\)-háló, így van olyan \(y \in M_n\), amelyre
+          \(x \in B(y, \frac1n)\), azaz \(y \in B(x, \frac1n) \subseteq B(x, \varepsilon)\).
+          Tehát a \(B(x, \varepsilon)\) gömb tartalmaz \(M\)-beli elemet,
+          ami azt jelenti, hogy \(M\) mindenütt sűrű \(X\)-ben. Így \(X\)
+          szeparábilis.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Sorozatkompaktság és teljes korlátosság kapcsolata</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Sorozatkompakt tér (kiegészítés)</span>
+        <p>
+          Az \((X, \rho)\) metrikus tér <strong>sorozatkompakt</strong>,
+          ha minden \((x_n)\) sorozatának van olyan részsorozata, amely
+          \(X\) egy pontjához konvergál.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ha \((X, \rho)\) egy sorozatkompakt metrikus tér, akkor \(X\) teljesen korlátos.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Indirekt feltételezzük, hogy \(X\) sorozatkompakt, de nem
+          teljesen korlátos. Ekkor létezik olyan \(\varepsilon &gt; 0\),
+          amelyre \(X\)-nek nincs véges \(\varepsilon\)-hálója. Ezt az
+          eljárást iterálva konstruálható egy olyan \((x_n)_{n \in \mathbb{N}}\)
+          sorozat, amelyre \(\rho(x_n, x_m) \ge \varepsilon\) (\(n \neq m\)
+          esetén): legyen \(x_1\) tetszőleges; ha \(x_1, \dots, x_k\)
+          adott, az \(\{x_1, \dots, x_k\}\) nem \(\varepsilon\)-háló, így
+          van olyan \(x_{k+1}\), amelyre
+          \(x_{k+1} \notin \bigcup_{i \le k} B(x_i, \varepsilon)\), azaz
+          \(\rho(x_{k+1}, x_i) \ge \varepsilon\) minden \(i \le k\)-ra.
+          Ennek a sorozatnak azonban egyik részsorozata sem lehet
+          Cauchy, ezért nem lehet konvergens, ami ellentmond annak, hogy
+          \(X\) sorozatkompakt.
+        </p>
+      </div>
+
+      <h2>Hausdorff-féle ekvivalencia tétel metrikus terekre</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Hausdorff-féle tétel metrikus terekre</span>
+        <p>
+          Egy \((X, \rho)\) metrikus térben az alábbi tulajdonságok
+          ekvivalensek:
+        </p>
+        <ol>
+          <li>\(X\) kompakt</li>
+          <li>\(X\) sorozatkompakt</li>
+          <li>\(X\) teljes és teljesen korlátos</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Az \((\mathrm{i}) \Rightarrow (\mathrm{ii})\),
+          \((\mathrm{ii}) \Rightarrow (\mathrm{iii})\),
+          \((\mathrm{iii}) \Rightarrow (\mathrm{ii})\) és
+          \((\mathrm{ii}) \Rightarrow (\mathrm{i})\) implikációkat
+          igazoljuk.
+        </p>
+        <p>
+          <strong>(i) \(\Rightarrow\) (ii).</strong> Legyen \(X\) kompakt
+          és \((x_n)\) sorozat. Az \(F_n = \overline{\{x_k : k \ge n\}}\)
+          zárt halmazok (a lezárás zárt: ha \(B(x, r)\) nem metszi az
+          \(A\)-t, akkor a benne lévő \(y\) körüli \(B(y, r - \rho(x, y))\)
+          gömb sem) monoton fogyó nem üres rendszert alkotnak, tehát
+          centráltak. A 15. jegyzet tétele szerint van olyan
+          \(p \in \bigcap_n F_n\). Ekkor minden \(r &gt; 0\)-ra és
+          \(n\)-re \(B(p, r)\) tartalmaz \(\{x_k : k \ge n\}\)-beli
+          pontot, azaz végtelen sok \(k\)-ra \(x_k \in B(p, r)\).
+          Választhatunk \(n_1 &lt; n_2 &lt; \dots\) indexeket úgy, hogy
+          \(\rho(x_{n_j}, p) &lt; 1/j\), ez a részsorozat \(p\)-hez
+          konvergál.
+        </p>
+        <p>
+          <strong>(ii) \(\Rightarrow\) (iii).</strong> A sorozatkompakt tér
+          teljesen korlátos (az előző tétel). Teljes: legyen \((x_n)\)
+          Cauchy-sorozat; van konvergens részsorozata, \(x_{n_k} \to p\).
+          Ha \(\varepsilon &gt; 0\), van olyan \(N\), hogy
+          \(\rho(x_n, x_m) &lt; \varepsilon/2\), ha \(n, m &gt; N\), és
+          olyan \(k\), hogy \(n_k &gt; N\) és
+          \(\rho(x_{n_k}, p) &lt; \varepsilon/2\); ekkor
+          \(n &gt; N\)-re \(\rho(x_n, p) &lt; \varepsilon\). Tehát
+          \(x_n \to p\).
+        </p>
+        <p>
+          <strong>(iii) \(\Rightarrow\) (ii).</strong> Legyen \(X\) teljes
+          és teljesen korlátos, \((x_n)\) egy sorozat. Az 1-hálóhoz
+          tartozó véges sok \(1\) sugarú gömb közül az egyik végtelen sok
+          \(x_k\)-t tartalmaz: az ilyen indexek \(I_1\) végtelen halmaza.
+          Az \(\frac12\)-hálóból hasonlóan van olyan \(I_2 \subseteq I_1\)
+          végtelen index-halmaz, hogy az \(I_2\)-beli tagok egy
+          \(\frac12\) sugarú gömbben vannak, és így tovább: \(I_j\)
+          végtelen, és az \(I_j\)-beli tagok egy \(\frac1j\) sugarú
+          gömbben vannak. Válasszunk \(n_1 &lt; n_2 &lt; \dots\) indexeket,
+          \(n_j \in I_j\). Ha \(j \le l\), akkor \(n_j, n_l \in I_j\), így
+          \(\rho(x_{n_j}, x_{n_l}) &lt; 2/j\): a részsorozat Cauchy, és
+          \(X\) teljessége miatt konvergens.
+        </p>
+        <p>
+          <strong>(ii) \(\Rightarrow\) (i).</strong> Legyen \(X\)
+          sorozatkompakt és \(\{G_\gamma\}\) az \(X\) egy nyílt lefedése.
+          <em>Lebesgue-lemma:</em> van olyan \(\delta &gt; 0\), hogy minden
+          \(x \in X\)-hez van olyan \(\gamma\), hogy
+          \(B(x, \delta) \subseteq G_\gamma\). Különben minden \(n\)-hez
+          van olyan \(x_n\), hogy \(B(x_n, 1/n)\) egyetlen \(G_\gamma\)-ban
+          sincs benne; a sorozatnak van konvergens részsorozata,
+          \(x_{n_k} \to p\), és \(p \in G_{\gamma_0}\) miatt
+          \(B(p, r) \subseteq G_{\gamma_0}\) alkalmas \(r\)-rel; elég
+          nagy \(k\)-ra \(\rho(x_{n_k}, p) &lt; r/2\) és
+          \(1/n_k &lt; r/2\), így
+          \(B(x_{n_k}, 1/n_k) \subseteq B(p, r) \subseteq G_{\gamma_0}\),
+          ellentmondás. A sorozatkompakt tér teljesen korlátos, így van
+          véges \(\delta\)-háló \(c_1, \dots, c_m\); mindegyik
+          \(B(c_i, \delta)\) benne van valamelyik \(G_{\gamma_i}\)-ben,
+          és a \(G_{\gamma_1}, \dots, G_{\gamma_m}\) lefedik \(X\)-et.
+          Tehát \(X\) kompakt.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

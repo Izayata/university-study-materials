@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Metrikus terek | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Metrikus tér, példák (valós számok, diszkrét metrika, R^n, korlátos sorozatok, l_2 és l_p), gömbök, nyílt és zárt halmazok, konvergencia, teljesség és folytonosság bizonyítással — DE TTK Matematika BSc 2023/2025, Mély bevezetés az analízisbe.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/jegyzet13/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 13 of 16 — see part 1's head comment for the shape rationale.
+
+  Source fixes here: the markdown "*" bullets inside LaTeX itemize lists
+  (the R^n metrics and the l_2 / l_p examples) do not render; they are
+  real lists. The definition of m had a missing closing brace ("... korlátos
+  valós számsorozat \}$"). "Csebisev" stays as the source has it.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (flagged here and in
+  the PR description): the proofs that the examples are metrics, and
+  the whole section "Alapfogalmak metrikus terekben": the source uses
+  ball, open and closed set, closure, dense, convergence, Cauchy
+  sequence, complete space, bounded set and continuity in parts 14-16
+  without ever defining them.
+
+  NOT PROVED, ON PURPOSE: that rho_p is a metric on l_p for a real p > 1.
+  That is the Minkowski inequality for series, whose proof (via Hoelder)
+  needs real powers t^p = exp(p ln t), and so the logarithm, which this
+  series does not introduce. It is proved for p = 1 and p = 2 (the two
+  cases the series uses), and the box says plainly what is not proved.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/">Mély bevezetés az analízisbe</a> / 13. jegyzet</p>
+
+      <h1>Metrikus terek</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a sorozatok konvergenciáját egy olyan általános
+        keretbe emeli, amelyben csak a pontok távolsága számít: a
+        metrikus térbe. Megadja a legfontosabb példákat, és bevezeti azokat
+        az alapfogalmakat (gömb, nyílt és zárt halmaz, konvergencia,
+        teljesség, folytonosság), amelyekre a következő jegyzetek épülnek.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Metrika, metrikus tér</li>
+        <li>Példák: \(\mathbb{R}\), diszkrét metrika, \(\mathbb{R}^n\), korlátos sorozatok, \(l_2\), \(l_p\)</li>
+        <li>Gömbök, nyílt és zárt halmazok, lezárás, sűrű halmaz</li>
+        <li>Konvergencia, Cauchy-sorozat, teljes tér, korlátos halmaz</li>
+        <li>Folytonos leképezés</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Metrikus terek</h2>
+
+      <h3>A metrika definíciója</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Metrikus tér</span>
+        <p>
+          Legyen \(X \neq \emptyset\) tetszőleges halmaz, és
+          \(\rho : X \times X \to \mathbb{R}\) egy leképezés, amelyre
+          teljesülnek a következő tulajdonságok minden
+          \(x, y, z \in X\) esetén:
+        </p>
+        <ol type="i">
+          <li>\(\rho(x,y) \ge 0\), és \(\rho(x,y) = 0 \iff x = y\) (nemnegatív definit)</li>
+          <li>\(\rho(x,y) = \rho(y,x)\) (szimmetria)</li>
+          <li>\(\rho(x,z) \le \rho(x,y) + \rho(y,z)\) (háromszög-egyenlőtlenség)</li>
+        </ol>
+        <p>
+          Ekkor az \((X, \rho)\) párt <strong>metrikus térnek</strong>,
+          \(\rho\)-t pedig \(X\)-en értelmezett <strong>metrikának</strong>
+          nevezzük.
+        </p>
+      </div>
+
+      <h3>Példák metrikus terekre</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Példa — 1. Valós számok standard metrikája</span>
+        <p>
+          Ha \(X = \mathbb{R}\) és \(\rho(x,y) = |x-y|\) minden
+          \(x, y \in \mathbb{R}\) esetén, akkor \((\mathbb{R}, \rho)\) egy
+          metrikus tér.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Példa — 2. Diszkrét metrikus tér</span>
+        <p>Legyen \(X \neq \emptyset\) tetszőleges halmaz. Definiáljuk a \(\rho\) leképezést így:</p>
+        \[
+        \rho(x,y) = \begin{cases}
+        0, &amp; \text{ha } x = y \\
+        1, &amp; \text{ha } x \neq y
+        \end{cases}
+        \]
+        <p>Ekkor \((X, \rho)\) egy diszkrét metrikus tér.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Példa — 3. \(n\)-dimenziós euklideszi és egyéb terek (\(X = \mathbb{R}^n\))</span>
+        <p>
+          Legyen \(n \in \mathbb{N}\) és \(X = \mathbb{R}^n\), ahol
+          \(x = (x_1, \dots, x_n)\) és \(y = (y_1, \dots, y_n)\).
+          Különböző metrikák adhatók meg:
+        </p>
+        <ul>
+          <li><strong>Euklideszi metrika (\(\rho_2\))</strong>: \(\rho_2(x,y) = \sqrt{\sum_{i=1}^n (x_i - y_i)^2}\)</li>
+          <li><strong>Taxibusz (Manhattan) metrika (\(\rho_1\))</strong>: \(\rho_1(x,y) = \sum_{i=1}^n |x_i - y_i|\)</li>
+          <li><strong>Maximum (Csebisev) metrika (\(\rho_\infty\))</strong>: \(\rho_\infty(x,y) = \max_{1 \le i \le n} |x_i - y_i|\)</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Példa — 4. Korlátos valós számsorozatok tere (\(m\))</span>
+        <p>
+          Legyen \(m = \{ (x_n)_{n \in \mathbb{N}} \mid (x_n)_{n \in \mathbb{N}} \text{ korlátos valós számsorozat} \}\).
+          A metrika:
+        </p>
+        \[
+        \rho(x,y) = \sup_{n \in \mathbb{N}} |x_n - y_n|, \quad \text{ahol } x = (x_n)_{n \in \mathbb{N}}, y = (y_n)_{n \in \mathbb{N}} \in m
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Példa — 5. Az \(l_2\) és \(l_p\) terek</span>
+        <ul>
+          <li>\(l_2 = \left\{ (x_n)_{n \in \mathbb{N}} \;\middle|\; \sum_{n=1}^{\infty} x_n^2 &lt; +\infty \right\}\) konvergáló négyzetösszegű sorozatok tere, metrikája: \(\rho_2(x,y) = \sqrt{\sum_{n=1}^{\infty} (x_n - y_n)^2}\).</li>
+          <li>
+            Általánosan, ha \(p \ge 1\) adott, az \(l_p\) tér:
+            \[
+            l_p = \left\{ (x_n)_{n \in \mathbb{N}} \;\middle|\; \sum_{n=1}^{\infty} |x_n|^p &lt; +\infty \right\}, \quad \rho_p(x,y) = \sqrt[p]{\sum_{n=1}^{\infty} |x_n - y_n|^p}
+            \]
+          </li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — a példák metrikák</span>
+        <p>
+          A nemnegativitás és a szimmetria mindegyik példában
+          nyilvánvaló, és \(\rho(x, y) = 0\) csak \(x = y\)-ra teljesül
+          (minden koordináta különbsége \(0\)). Az érdemi rész a
+          háromszög-egyenlőtlenség.
+        </p>
+        <p>
+          <strong>1.</strong> \(|x - z| \le |x - y| + |y - z|\), a
+          valós abszolút érték háromszög-egyenlőtlensége.
+        </p>
+        <p>
+          <strong>2.</strong> Ha \(x = z\), a bal oldal \(0\). Ha
+          \(x \neq z\), a bal oldal \(1\), és \(y\) nem lehet mind
+          \(x\)-szel, mind \(z\)-vel egyenlő, így a jobb oldal \(\ge 1\).
+        </p>
+        <p>
+          <strong>3.</strong> \(\rho_2\): az \(a = x - y\), \(b = y - z\)
+          vektorokra ez a Minkowski-egyenlőtlenség az \(\mathbb{R}^n\)-ben:
+          \(\|a + b\| \le \|a\| + \|b\|\) (<a href="/jegyzetek/de-ttk-matematika-bsc/linearis-algebra-halado/jegyzet5/">Lineáris algebra haladó 5. jegyzete</a>).
+          \(\rho_1\): koordinátánként \(|x_i - z_i| \le |x_i - y_i| + |y_i - z_i|\),
+          és összegezve. \(\rho_\infty\): minden \(i\)-re
+          \(|x_i - z_i| \le |x_i - y_i| + |y_i - z_i| \le \rho_\infty(x, y) + \rho_\infty(y, z)\),
+          és a bal oldal maximuma is ennél nem nagyobb.
+        </p>
+        <p>
+          <strong>4.</strong> A szuprémum véges: ha \(|x_n|, |y_n| \le K\),
+          akkor \(|x_n - y_n| \le 2K\). Minden \(n\)-re
+          \(|x_n - z_n| \le |x_n - y_n| + |y_n - z_n| \le \rho(x, y) + \rho(y, z)\),
+          így a szuprémum is.
+        </p>
+        <p>
+          <strong>5. (\(l_2\)).</strong> Ha \(x, y \in l_2\), akkor
+          \((x_n - y_n)^2 \le 2x_n^2 + 2y_n^2\), tehát
+          \(\sum (x_n - y_n)^2\) konvergens (összehasonlító kritérium), és
+          \(\rho_2(x, y)\) véges. Minden \(N\)-re az \(\mathbb{R}^N\)-beli
+          Minkowski-egyenlőtlenség adja
+        </p>
+        \[
+        \begin{aligned}
+        \Bigl(\sum_{n \le N} (x_n - z_n)^2\Bigr)^{1/2} &amp;\le \Bigl(\sum_{n \le N} (x_n - y_n)^2\Bigr)^{1/2} + \Bigl(\sum_{n \le N} (y_n - z_n)^2\Bigr)^{1/2} \\
+        &amp;\le \rho_2(x, y) + \rho_2(y, z).
+        \end{aligned}
+        \]
+        <p>
+          A bal oldal négyzete monoton nő \(\rho_2(x, z)^2\)-hez, és
+          korlátja \((\rho_2(x, y) + \rho_2(y, z))^2\), tehát
+          \(\rho_2(x, z) \le \rho_2(x, y) + \rho_2(y, z)\). Ugyanígy
+          \(p = 1\)-re (\(l_1\)): a tagonkénti
+          \(|x_n - z_n| \le |x_n - y_n| + |y_n - z_n|\) összegezve.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — Az \(l_p\) tér és ami nincs bizonyítva (kiegészítés)</span>
+        <p>
+          Valós \(p &gt; 1\)-re a \(\rho_p\) háromszög-egyenlőtlensége a
+          Minkowski-egyenlőtlenség sorokra. Ennek a bizonyítása a
+          Hölder-egyenlőtlenségen át valós kitevős hatványokat
+          (\(t^p = \exp(p \ln t)\)) használ, azaz a logaritmust, amelyet ez
+          a jegyzetsorozat nem vezet be. Ezért itt csak a \(p = 1\) és
+          \(p = 2\) esetet bizonyítottuk (amelyeket a sorozat használ); az
+          általános \(p\)-re a forrás állítását nem bizonyítjuk.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Alapfogalmak metrikus terekben</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Gömbök, nyílt és zárt halmazok (kiegészítés)</span>
+        <p>Legyen \((X, \rho)\) metrikus tér, \(x \in X\), \(r &gt; 0\).</p>
+        <ul>
+          <li>A <strong>nyílt gömb</strong>: \(B(x, r) = \{y \in X : \rho(x, y) &lt; r\}\); a <strong>zárt gömb</strong>: \(B[x, r] = \{y \in X : \rho(x, y) \le r\}\).</li>
+          <li>A \(G \subseteq X\) halmaz <strong>nyílt</strong>, ha minden \(x \in G\)-hez van olyan \(r &gt; 0\), hogy \(B(x, r) \subseteq G\).</li>
+          <li>A \(F \subseteq X\) halmaz <strong>zárt</strong>, ha a komplementere, \(X \setminus F\) nyílt.</li>
+          <li>Az \(A \subseteq X\) halmaz <strong>lezárása</strong>: \(\overline{A} = \{x \in X : \text{minden } r &gt; 0 \text{ esetén } B(x, r) \cap A \neq \emptyset\}\); az \(A\) <strong>mindenütt sűrű</strong> (sűrű \(X\)-ben), ha \(\overline{A} = X\).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Konvergencia, Cauchy-sorozat, teljesség, korlátosság (kiegészítés)</span>
+        <ul>
+          <li>Az \((x_n)\) sorozat <strong>konvergál</strong> az \(x \in X\)-hez, ha \(\rho(x_n, x) \to 0\), azaz minden \(\varepsilon &gt; 0\)-hoz van \(N\), hogy \(n &gt; N\) esetén \(\rho(x_n, x) &lt; \varepsilon\).</li>
+          <li>Az \((x_n)\) <strong>Cauchy-sorozat</strong>, ha minden \(\varepsilon &gt; 0\)-hoz van \(N\), hogy \(n, m &gt; N\) esetén \(\rho(x_n, x_m) &lt; \varepsilon\).</li>
+          <li>Az \((X, \rho)\) tér <strong>teljes</strong>, ha minden Cauchy-sorozata konvergens (az \(X\) egy pontjához).</li>
+          <li>A \(K \subseteq X\) halmaz <strong>korlátos</strong>, ha van olyan \(x_0 \in X\) és \(R &gt; 0\), hogy \(K \subseteq B(x_0, R)\).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Folytonos leképezés (kiegészítés)</span>
+        <p>
+          Legyenek \((X, \rho)\) és \((Y, \sigma)\) metrikus terek. Az
+          \(f: X \to Y\) leképezés <strong>folytonos</strong> az
+          \(x_0 \in X\) pontban, ha minden \(\varepsilon &gt; 0\)-hoz van olyan
+          \(\delta &gt; 0\), hogy \(\rho(x_0, x) &lt; \delta\) esetén
+          \(\sigma(f(x_0), f(x)) &lt; \varepsilon\); \(f\) folytonos, ha
+          minden pontban az.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Lemma — Gömbök és zárt halmazok (kiegészítés)</span>
+        <ol>
+          <li>A \(B(x, r)\) nyílt gömb nyílt halmaz, a \(B[x, r]\) zárt gömb zárt halmaz.</li>
+          <li>Ha \(F\) zárt, \((x_n)\) az \(F\)-ben halad és \(x_n \to x\), akkor \(x \in F\).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>1.</strong> Ha \(y \in B(x, r)\) és
+          \(s = r - \rho(x, y) &gt; 0\), akkor \(z \in B(y, s)\) esetén
+          \(\rho(x, z) \le \rho(x, y) + \rho(y, z) &lt; \rho(x, y) + s = r\),
+          tehát \(B(y, s) \subseteq B(x, r)\). A zárt gömb komplementere
+          nyílt: ha \(\rho(x, y) &gt; r\), és \(s = \rho(x, y) - r\), akkor
+          \(z \in B(y, s)\)-re
+          \(\rho(x, z) \ge \rho(x, y) - \rho(y, z) &gt; r\), így
+          \(B(y, s) \cap B[x, r] = \emptyset\).
+        </p>
+        <p>
+          <strong>2.</strong> Ha \(x \notin F\), akkor \(x\) benne van a
+          nyílt \(X \setminus F\)-ben, van \(B(x, r) \subseteq X \setminus F\).
+          De \(x_n \to x\) miatt \(x_n \in B(x, r)\) elég nagy \(n\)-re,
+          holott \(x_n \in F\), ellentmondás.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — Teljes terek (kiegészítés)</span>
+        <p>
+          Az \((\mathbb{R}, |\cdot|)\) és a \((\mathbb{C}, |\cdot|)\) teljes
+          metrikus tér: a Cauchy-sorozatok konvergenciája éppen a
+          Cauchy-féle konvergenciakritérium (3. és 7. jegyzet).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

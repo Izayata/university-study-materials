@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Függvénysorozatok és hatványsorok | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Pontonkénti és egyenletes konvergencia, a Cauchy-kritérium és a Weierstrass-féle majoráns kritérium, a hatványsor, a konvergenciasugár és a Cauchy–Hadamard-tétel bizonyítással — DE TTK Matematika BSc 2023/2025, Mély bevezetés az analízisbe.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/jegyzet11/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 11 of 16 — see part 1's head comment for the shape rationale.
+
+  Source fixes here:
+  - The source's Cauchy–Hadamard theorem says "if |x - x_0| < r the
+    series converges, otherwise it diverges". On the circle |x - x_0| = r
+    that is false in general (sum x^n/n converges at x = -1 and diverges
+    at x = 1, sum x^n/n^2 converges on the whole circle, sum x^n diverges
+    on it): the theorem says convergence (in fact absolute) inside,
+    divergence outside, and nothing general on the circle.
+  - The source defines the convergence of a function sequence for
+    f_n : H -> C with H a subset of R, but applies it to power series in
+    a complex variable; H is a subset of C. "számhalmaz konvergens" is
+    "számsorozat konvergens".
+  - The source says the power series of exp "converges uniformly on the
+    whole complex plane"; a power series with radius of convergence
+    infinity converges uniformly on bounded sets (a disc of any radius),
+    not on all of C. That statement is proved (as a theorem about every
+    power series) here, and part 12 uses the correct form.
+  - The source uses "Cauchy-féle feltétel" without stating it; it is
+    stated.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (flagged here and in
+  the PR description): the definition of the limit function, of the
+  uniform convergence of a function series and of the Cauchy condition,
+  the proofs of the Cauchy criterion and of the Weierstrass criterion,
+  the proof of the Cauchy–Hadamard theorem (from the root test of part
+  9), the theorem on uniform convergence of a power series on every disc
+  strictly inside the disc of convergence, and the evaluation of the
+  radius for sum x^n / n! (the source states the value).
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/">Mély bevezetés az analízisbe</a> / 11. jegyzet</p>
+
+      <h1>Függvénysorozatok és hatványsorok</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a sorozat és a sor fogalmát függvényekre általánosítja:
+        pontonkénti konvergenciát, és annál erősebbet, az egyenletes
+        konvergenciát vizsgál, megadja a Cauchy- és a Weierstrass-féle
+        kritériumot, majd a hatványsorokat: a konvergenciasugarat és azt,
+        hogy a hatványsor a konvergenciakörön belül (abszolút és)
+        egyenletesen konvergál.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Függvénysorozat, pontonkénti és egyenletes konvergencia</li>
+        <li>Cauchy-féle kritérium egyenletes konvergenciára</li>
+        <li>Weierstrass-féle majoráns kritérium függvénysorokra</li>
+        <li>Hatványsor, konvergenciasugár, Cauchy–Hadamard-tétel</li>
+        <li>Egyenletes konvergencia a konvergenciakörön belül</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Függvénysorozatok és függvénysorok</h2>
+
+      <h3>Függvénysorozatok konvergenciája</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Konvergencia adott pontban és halmazon (pontosítva)</span>
+        <p>
+          Legyen \(H \subseteq \mathbb{C}\) (például \(H \subseteq \mathbb{R}\))
+          és \(f_n: H \to \mathbb{C}\) (\(n \in \mathbb{N}\)). A
+          \((f_n)_{n \in \mathbb{N}}\) függvénysorozat <strong>konvergens
+          az \(x \in H\) pontban</strong>, ha a \((f_n(x))_{n \in \mathbb{N}}\)
+          számsorozat konvergens.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Határfüggvény (kiegészítés)</span>
+        <p>
+          A \((f_n)\) függvénysorozat <strong>konvergens a \(H\)
+          halmazon</strong> (pontonként), ha minden \(x \in H\)-ban
+          konvergens; ekkor az \(f(x) = \lim_{n \to \infty} f_n(x)\)
+          (\(x \in H\)) függvényt a sorozat <strong>határfüggvényének</strong>
+          nevezzük.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Egyenletes konvergencia</span>
+        <p>
+          A \((f_n)_{n \in \mathbb{N}}\) függvénysorozat <strong>egyenletesen
+          konvergens</strong> a \(H\) halmazon az \(f: H \to \mathbb{C}\)
+          függvényhez, ha minden \(\varepsilon &gt; 0\)-hoz létezik olyan
+          \(N \in \mathbb{N}\), hogy minden \(n &gt; N\) és minden
+          \(x \in H\) esetén:
+        </p>
+        \[
+        |f_n(x) - f(x)| &lt; \varepsilon
+        \]
+        <p>
+          (A küszöb az \(x\)-től független; az egyenletes konvergencia
+          pontonkénti konvergenciát is jelent \(f\)-hez.)
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Függvénysor konvergenciája (kiegészítés)</span>
+        <p>
+          A \(\sum_{n=1}^{\infty} f_n\) függvénysor <strong>pontonként
+          (illetve egyenletesen) konvergens</strong> a \(H\) halmazon, ha a
+          \(s_n = \sum_{k=1}^n f_k\) részletösszeg-függvények sorozata az.
+        </p>
+      </div>
+
+      <h3>Cauchy-féle konvergenciakritérium függvénysorozatok egyenletes konvergenciájára</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Cauchy-féle feltétel (kiegészítés)</span>
+        <p>
+          A \((f_n)\) függvénysorozat <strong>kielégíti a Cauchy-féle
+          feltételt</strong> a \(H\)-n, ha minden \(\varepsilon &gt; 0\)-hoz
+          létezik \(N\), hogy minden \(n, m &gt; N\) és minden
+          \(x \in H\) esetén \(|f_n(x) - f_m(x)| &lt; \varepsilon\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Cauchy-kritérium egyenletes konvergenciára</span>
+        <p>
+          A \((f_n)_{n \in \mathbb{N}}\) függvénysorozat pontosan akkor
+          egyenletesen konvergens a \(H\) halmazon, ha kielégíti a
+          Cauchy-féle feltételt a \(H\)-n.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          (⟹) Ha \(f_n \to f\) egyenletesen, az \(\varepsilon/2\)-höz
+          tartozó \(N\)-nél nagyobb \(n, m\)-re minden \(x\)-ben
+          \(|f_n(x) - f_m(x)| \le |f_n(x) - f(x)| + |f(x) - f_m(x)| &lt; \varepsilon\).
+        </p>
+        <p>
+          (⟸) Minden \(x \in H\)-ra az \((f_n(x))\) számsorozat Cauchy,
+          tehát konvergens (7. jegyzet); legyen a határa \(f(x)\). Legyen
+          \(\varepsilon &gt; 0\) és \(N\) a Cauchy-feltételhez tartozó az
+          \(\varepsilon/2\)-re. Rögzített \(n &gt; N\)-re és \(x\)-re az
+          \(|f_n(x) - f_m(x)| &lt; \varepsilon/2\) egyenlőtlenségben
+          \(m \to \infty\)-nel (Rendezési tétel) \(|f_n(x) - f(x)| \le \varepsilon/2 &lt; \varepsilon\),
+          minden \(x\)-re: egyenletes a konvergencia.
+        </p>
+      </div>
+
+      <h3>Weierstrass-féle elegendő feltétel függvénysorok egyenletes konvergenciájára</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Weierstrass-féle majoráns kritérium</span>
+        <p>
+          Legyen \(f_n: X \to \mathbb{C}\), és tegyük fel, hogy létezik
+          olyan konvergens numerikus sor \(\sum_{n=1}^{\infty} c_n\)
+          (\(c_n \ge 0\)), hogy minden \(n \in \mathbb{N}\) és
+          \(x \in X\) esetén:
+        </p>
+        \[
+        |f_n(x)| \le c_n
+        \]
+        <p>
+          Ekkor a \(\sum_{n=1}^{\infty} f_n\) függvénysor az \(X\)
+          halmazon <strong>egyenletesen és abszolút konvergens</strong>.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Minden \(x\)-ben \(\sum |f_n(x)| \le \sum c_n\) az összehasonlító
+          kritérium szerint konvergens (9. jegyzet), tehát a sor abszolút
+          konvergens. Az egyenletességhez: a \(\sum c_n\) sor Cauchy-
+          kritériuma szerint az \(\varepsilon\)-hoz van olyan \(N\), hogy
+          \(m &gt; n &gt; N\) esetén \(\sum_{k=n+1}^m c_k &lt; \varepsilon\); ekkor
+          minden \(x \in X\)-re az \(s_n\) részletösszegekre
+        </p>
+        \[
+        |s_m(x) - s_n(x)| = \left|\sum_{k=n+1}^m f_k(x)\right| \le \sum_{k=n+1}^m c_k &lt; \varepsilon,
+        \]
+        <p>
+          vagyis az \((s_n)\) kielégíti a Cauchy-féle feltételt, tehát
+          egyenletesen konvergens.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Hatványsorok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Hatványsor</span>
+        <p>
+          <strong>Hatványsornak</strong> nevezzük az alábbi alakú
+          függvénysorokat:
+        </p>
+        \[
+        \sum_{n=0}^{\infty} a_n (x - x_0)^n = a_0 + a_1(x-x_0) + a_2(x-x_0)^2 + \dots
+        \]
+        <p>
+          Ahol \((a_n)_{n \in \mathbb{N} \cup \{0\}}\) komplex számsorozat
+          (együtthatók), \(x_0 \in \mathbb{C}\) a hatványsor
+          <strong>középpontja</strong>, \(x \in \mathbb{C}\) pedig a
+          konvergenciatartomány eleme.
+        </p>
+      </div>
+
+      <h3>Hatványsor konvergenciasugara</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Konvergenciasugár</span>
+        <p>
+          A \(\sum_{n=0}^{\infty} a_n (x-x_0)^n\) hatványsor
+          <strong>konvergenciasugara</strong> (\(r\)):
+        </p>
+        \[
+        r = \begin{cases}
+        0, &amp; \text{ha } \limsup_{n \to \infty} \sqrt[n]{|a_n|} = +\infty \\
+        \frac{1}{\limsup_{n \to \infty} \sqrt[n]{|a_n|}}, &amp; \text{ha } 0 &lt; \limsup_{n \to \infty} \sqrt[n]{|a_n|} &lt; +\infty \\
+        +\infty, &amp; \text{ha } \limsup_{n \to \infty} \sqrt[n]{|a_n|} = 0
+        \end{cases}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Cauchy–Hadamard-tétel (pontosítva)</span>
+        <p>
+          Ha \(|x - x_0| &lt; r\), akkor a
+          \(\sum_{n=0}^{\infty} a_n(x-x_0)^n\) sor abszolút konvergens; ha
+          \(|x - x_0| &gt; r\), akkor divergens. A \(|x - x_0| = r\)
+          körvonalon általában nem mondható semmi.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \(L = \limsup \sqrt[n]{|a_n|}\) és \(\rho = |x - x_0| &gt; 0\)
+          (\(\rho = 0\)-ra a sor triviálisan konvergens). A sor
+          \(n\)-edik tagjából vett gyök \(\sqrt[n]{|a_n (x-x_0)^n|} = \rho\sqrt[n]{|a_n|}\),
+          és mivel a \(\rho\)-val való szorzás a részsorozatok határértékeit
+          \(\rho\)-szorosra viszi, \(\limsup \rho \sqrt[n]{|a_n|} = \rho L\)
+          (\(\rho \cdot (+\infty) = +\infty\)). A gyökkritérium (9. jegyzet)
+          szerint a sor abszolút konvergens, ha \(\rho L &lt; 1\), azaz
+          \(\rho &lt; r\), és divergens, ha \(\rho L &gt; 1\), azaz
+          \(\rho &gt; r\). (\(r = 0\): \(L = +\infty\), minden \(\rho &gt; 0\)-ra
+          \(\rho L = +\infty &gt; 1\); \(r = +\infty\): \(L = 0\), minden
+          \(\rho\)-ra \(\rho L = 0 &lt; 1\).)
+        </p>
+        <p>
+          A körvonalon a helyzet a sorral változik: a
+          \(\sum x^n\) (\(r = 1\)) a \(|x| = 1\) minden pontján
+          divergens (nem nullsorozat), a \(\sum x^n/n^2\) minden pontján
+          konvergens, a \(\sum x^n/n\) pedig \(x = -1\)-ben konvergens
+          (Leibniz), \(x = 1\)-ben divergens.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Egyenletes konvergencia a konvergenciakörön belül (kiegészítés)</span>
+        <p>
+          Ha a hatványsor konvergenciasugara \(r\) és \(0 &lt; \rho_0 &lt; r\),
+          akkor a sor a \(\{x : |x - x_0| \le \rho_0\}\) körlapon
+          egyenletesen és abszolút konvergens. Különösen, ha \(r = +\infty\),
+          a sor minden korlátos halmazon egyenletesen konvergens.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Ha \(|x - x_0| \le \rho_0\), akkor
+          \(|a_n (x-x_0)^n| \le |a_n| \rho_0^n =: c_n\). Mivel
+          \(\rho_0 &lt; r\), a Cauchy–Hadamard-tétel szerint az
+          \(x_0 + \rho_0\) pontban a sor abszolút konvergens, azaz
+          \(\sum c_n\) konvergens. A Weierstrass-kritérium adja az
+          állítást. A korlátos halmazok egy körlapba esnek.
+        </p>
+      </div>
+
+      <h3>Példa a konvergenciasugár kiszámítására</h3>
+      <p>Tekintsük az alábbi hatványsort:</p>
+      \[
+      \sum_{n=0}^{\infty} \frac{x^n}{n!} = \sum_{n=0}^{\infty} \frac{1}{n!} (x-0)^n
+      \]
+      <p>
+        Itt \(a_n = \frac{1}{n!}\) és \(x_0 = 0\). A gyököt kiszámolva:
+      </p>
+      \[
+      \sqrt[n]{|a_n|} = \sqrt[n]{\frac{1}{n!}} = \frac{1}{\sqrt[n]{n!}} \xrightarrow{n \to \infty} 0
+      \]
+      <p>
+        (mert \(\sqrt[n]{n!} \to +\infty\) az 5. jegyzet szerint, és a
+        reciprok \(0\)-hoz tart). Mivel a limes superior \(0\), így
+        \(r = +\infty\), vagyis a sor <strong>minden \(x \in \mathbb{R}\)</strong>
+        (sőt, egész \(\mathbb{C}\)) esetén konvergens.
+      </p>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Valós sorozatok és konvergencia | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Valós sorozat, konvergencia és divergencia, példák, végtelen határértékek, a bővített valós számok és környezeteik, és a határérték egyértelműsége bizonyítással — DE TTK Matematika BSc 2023/2025, Mély bevezetés az analízisbe.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/jegyzet1/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 1 of 16. Shape: the math-note exception documented in CLAUDE.md
+  (intro -> "Témák" -> one <h2> per source section, .note-box, ad slots,
+  Ko-fi box, the verbatim source note last, 2-part item-meta), the same
+  as linearis-algebra-halado/*. This series follows the third and fourth
+  use of the topic-nesting pattern: the owner asked for missing
+  definitions and proofs to be filled in, every supplied box is labelled
+  "(kiegészítés)", a source box made precise is "(pontosítva)".
+
+  Source fixes here: the source's Lemma only says the neighbourhoods of
+  two different extended reals are disjoint; it is stated (and proved)
+  in the ordered form "u < v for all u in U, v in V", which the order
+  theorems of part 4 need, and disjointness is its consequence. The
+  truncated line of the extended neighbourhoods ("]eps, +inf] ha
+  x = +inf (eps \") is completed. The uniqueness proof used N_1, N_2
+  without introducing them; the limit in the extended reals is now
+  defined once ("only finitely many terms outside every neighbourhood"),
+  which is what the proof uses. The odd heading "Alapsebesség példa" is
+  "Az 1/n sorozat". A stray line break in the neighbourhood remark is
+  gone.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (flagged here and in
+  the PR description): the definitions of the divergent sequence and the
+  null sequence (the source uses both undefined), the proofs of the three
+  examples (the Archimedean property, and (-1)^n by |x_n - x_{n+1}| = 2),
+  the ordered neighbourhood lemma, the definition of the limit in the
+  extended reals with the proof that it agrees with the two definitions
+  above it, and the remark that the uniqueness holds for limits in the
+  extended reals. N = {1, 2, 3, ...} throughout (the source itself writes
+  N u {0} when it needs 0).
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/">Mély bevezetés az analízisbe</a> / 1. jegyzet</p>
+
+      <h1>Valós sorozatok és konvergencia</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet az analízis alapfogalmával indul, a valós számsorozat
+        konvergenciájával: pontosan definiálja a határértéket, kiterjeszti
+        a végtelenre a bővített valós számok segítségével, és
+        bebizonyítja, hogy a határérték egyértelmű. Mindenütt
+        \(\mathbb{N} = \{1, 2, 3, \dots\}\).
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Valós sorozat, konvergencia, divergencia, nullsorozat</li>
+        <li>Példák: konstans sorozat, \(1/n\), \((-1)^n\)</li>
+        <li>Végtelenbe tartó sorozatok</li>
+        <li>Bővített valós számok és környezetek</li>
+        <li>A határérték egyértelműsége</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Valós sorozatok és konvergencia</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Valós sorozat</span>
+        <p>
+          <strong>Valós sorozaton</strong> egy \(\mathbb{N} \to \mathbb{R}\)
+          függvényt értünk. A sorozat elemeit \(x_n\)-nel jelöljük
+          (\(n \in \mathbb{N}\)), magát a sorozatot
+          \((x_n)_{n \in \mathbb{N}}\)-nel.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Konvergencia</span>
+        <p>
+          Az \((x_n)_{n \in \mathbb{N}}\) valós számsorozat
+          <strong>konvergens</strong>, és <strong>határértéke</strong>
+          \(x \in \mathbb{R}\), ha bármely \(\varepsilon > 0\) számhoz
+          létezik olyan \(N > 0\) szám, hogy minden
+          \(n \in \mathbb{N}\), \(n > N\) esetén
+        </p>
+        \[
+        |x_n - x| &lt; \varepsilon
+        \]
+        <p>Jelölésben: \(\lim_{n \to \infty} x_n = x\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — A definíció jelentése</span>
+        \[
+        -\varepsilon &lt; x_n - x &lt; \varepsilon \implies x - \varepsilon &lt; x_n &lt; x + \varepsilon \implies x_n \in \, ]x - \varepsilon, x + \varepsilon[
+        \]
+        <p>
+          Ez azt jelenti, hogy az \(x\) körüli \(\varepsilon\) sugarú
+          környezeten kívül csak véges sok elem van (a küszöb utáni tagok
+          mind benne vannak, kívül legfeljebb az \(n \le N\) indexű, véges
+          sok tag lehet).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Divergens sorozat</span>
+        <p>Ha egy sorozat nem konvergens, akkor <strong>divergens</strong>.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Nullsorozat (kiegészítés)</span>
+        <p>
+          Az \((x_n)\) sorozat <strong>nullsorozat</strong>, ha
+          \(\lim x_n = 0\). A definícióból közvetlenül: \(x_n \to x\)
+          pontosan akkor, ha az \((x_n - x)\) nullsorozat, és pontosan
+          akkor, ha az \((|x_n - x|)\) nullsorozat, hiszen a három esetben
+          a küszöbre ugyanaz a feltétel áll: \(|x_n - x| &lt; \varepsilon\).
+        </p>
+      </div>
+
+      <h3>Példák sorozatokra</h3>
+      <ol>
+        <li><strong>Konstans sorozat</strong>: legyen \(c \in \mathbb{R}\) tetszőleges, de rögzített, és \(x_n = c\) (\(n \in \mathbb{N}\)). Ekkor a sorozat konvergens és \(\lim_{n \to \infty} x_n = c\).</li>
+        <li><strong>Az \(1/n\) sorozat</strong>: \(x_n = \frac{1}{n}\) (\(n \in \mathbb{N}\)). Ekkor a sorozat konvergens és \(\lim_{n \to \infty} x_n = 0\).</li>
+        <li><strong>Divergens sorozat</strong>: \(x_n = (-1)^n\) (\(n \in \mathbb{N}\)). A sorozat elemei váltakoznak (\(-1, 1, -1, 1, \dots\)), így a sorozat divergens.</li>
+      </ol>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>1.</strong> \(|x_n - c| = 0 &lt; \varepsilon\) minden
+          \(n\)-re, tehát bármely \(N\) megfelel.
+        </p>
+        <p>
+          <strong>2.</strong> Az \(\mathbb{N}\) felülről nem korlátos: ha
+          \(s\) a szuprémuma volna, akkor \(s - 1\) nem felső korlát, van
+          olyan \(n\), hogy \(n &gt; s - 1\), de akkor \(n + 1 &gt; s\),
+          ellentmondás. Így tetszőleges \(\varepsilon > 0\)-hoz van olyan
+          \(N\), hogy \(N &gt; 1/\varepsilon\), és minden \(n &gt; N\)-re
+          \(|1/n - 0| = 1/n &lt; 1/N &lt; \varepsilon\).
+        </p>
+        <p>
+          <strong>3.</strong> Ha \(x_n \to x\) volna, akkor az
+          \(\varepsilon = 1\)-hez tartozó \(N\) után
+          \(|x_n - x| &lt; 1\) és \(|x_{n+1} - x| &lt; 1\), így
+          \(2 = |x_n - x_{n+1}| \le |x_n - x| + |x - x_{n+1}| &lt; 2\),
+          ellentmondás.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Végtelen határértékek és a bővített valós számhalmaz</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Végtelenbe tartó sorozat</span>
+        <p>
+          A \((x_n)\) sorozat a <strong>\(+\infty\)-be divergens</strong>,
+          ha bármely \(K \in \mathbb{R}\) számhoz van olyan \(N > 0\) szám,
+          hogy ha \(n \in \mathbb{N}\), \(n > N\), akkor \(x_n &gt; K\).
+          Jelölés: \(\lim_{n \to \infty} x_n = +\infty\). Hasonlóan
+          definiáljuk a \(-\infty\)-be tartó sorozatot is
+          (\(x_n &lt; K\)).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Bővített valós számok</span>
+        <p>
+          A \(\overline{\mathbb{R}} = \mathbb{R} \cup \{-\infty, +\infty\}\)
+          halmazt <strong>bővített valós számoknak</strong> nevezzük. A
+          rendezés: \(-\infty &lt; x &lt; +\infty\) minden
+          \(x \in \mathbb{R}\)-re.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Bővített környezet</span>
+        <p>Bővített környezetek:</p>
+        <ul>
+          <li>\(]x - \varepsilon, x + \varepsilon[\), ha \(x \in \mathbb{R}\) (\(\varepsilon &gt; 0\)),</li>
+          <li>\(]\varepsilon, +\infty]\), ha \(x = +\infty\) (\(\varepsilon \in \mathbb{R}\)),</li>
+          <li>\([-\infty, \varepsilon[\), ha \(x = -\infty\) (\(\varepsilon \in \mathbb{R}\)).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Lemma (pontosítva)</span>
+        <p>
+          Ha \(x\) és \(y\) különböző bővített valós számok (\(x \neq y\),
+          például \(x &lt; y\)), akkor létezik \(x\)-nek és \(y\)-nak olyan
+          \(U\), illetve \(V\) környezete, hogy minden \(u \in U\),
+          \(v \in V\) esetén \(u &lt; v\). Különösen \(U \cap V = \emptyset\),
+          azaz a két pontnak van diszjunkt környezete.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>Legyen \(x &lt; y\).</p>
+        <ul>
+          <li>\(x, y \in \mathbb{R}\): \(\varepsilon = (y - x)/2\), \(U = ]x - \varepsilon, x + \varepsilon[\), \(V = ]y - \varepsilon, y + \varepsilon[\); ekkor \(u &lt; x + \varepsilon = y - \varepsilon &lt; v\).</li>
+          <li>\(x \in \mathbb{R}\), \(y = +\infty\): \(U = ]x - 1, x + 1[\), \(V = ]x + 1, +\infty]\).</li>
+          <li>\(x = -\infty\), \(y \in \mathbb{R}\): \(U = [-\infty, y - 1[\), \(V = ]y - 1, y + 1[\).</li>
+          <li>\(x = -\infty\), \(y = +\infty\): \(U = [-\infty, 0[\), \(V = ]0, +\infty]\).</li>
+        </ul>
+        <p>
+          A négy esetben \(u &lt; v\) minden \(u \in U\), \(v \in V\)-re, és
+          ebből \(u \neq v\), tehát \(U \cap V = \emptyset\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Határérték a bővített valós számok között (kiegészítés)</span>
+        <p>
+          Legyen \(x \in \overline{\mathbb{R}}\). Azt mondjuk, hogy
+          \(\lim_{n \to \infty} x_n = x\), ha az \(x\) minden \(V\)
+          környezetére az \(\{n \in \mathbb{N} : x_n \notin V\}\) halmaz
+          véges, azaz \(x_n \in V\) legfeljebb véges sok \(n\) kivételével.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — az új definíció egyezik a két korábbival</span>
+        <p>
+          \(x \in \mathbb{R}\): a konvergencia definíciója szerint az
+          \(\varepsilon\)-hoz tartozó \(N\) után \(x_n\) az
+          \(]x - \varepsilon, x + \varepsilon[\) környezetben van, így
+          azon kívül legfeljebb az \(n \le N\) indexű tagok lehetnek.
+          Fordítva, ha az
+          \(\{n : x_n \notin \, ]x - \varepsilon, x + \varepsilon[\}\)
+          véges, akkor egy nála nagyobb \(N\)-nél az \(n > N\) indexekre
+          \(|x_n - x| &lt; \varepsilon\).
+        </p>
+        <p>
+          \(x = +\infty\) (és hasonlóan \(-\infty\)): a \(K\)-hoz tartozó
+          \(N\) után \(x_n \in \, ]K, +\infty]\), és fordítva, ha az
+          \(\{n : x_n \le K\}\) halmaz véges, akkor egy nála nagyobb
+          \(N\) megfelel a \(K\)-hoz.
+        </p>
+      </div>
+
+      <h2>A határérték egyértelműsége</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — A határérték egyértelműsége</span>
+        <p>
+          Ha egy sorozat konvergens, akkor a határértéke egyértelmű.
+          Általánosabban: egy sorozatnak legfeljebb egy határértéke van a
+          bővített valós számok között.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (indirekt)</span>
+        <p>
+          Tegyük fel indirekt módon, hogy az \((x_n)_{n \in \mathbb{N}}\)
+          sorozatnak két különböző határértéke van:
+          \(\lim_{n \to \infty} x_n = x\) és \(\lim_{n \to \infty} x_n = y\),
+          ahol \(x \neq y\) és \(x, y \in \overline{\mathbb{R}}\). Az
+          előző lemma miatt léteznek olyan \(U\) és \(V\) diszjunkt
+          környezetek, amelyekre \(x \in U\) és \(y \in V\), valamint
+          \(U \cap V = \emptyset\).
+        </p>
+        <p>
+          Mivel \(\lim x_n = x\), ezért \(x_n \in U\) legfeljebb véges sok
+          \(n \in \mathbb{N}\) kivételével; legyen \(N_1\) egy olyan szám,
+          amely e kivételes indexek mindegyikénél nagyobb. Mivel
+          \(\lim x_n = y\), ezért \(x_n \in V\) legfeljebb véges sok
+          \(n\) kivételével; legyen \(N_2\) hasonlóan.
+        </p>
+        <p>
+          Így az \(N = \max\{N_1, N_2\}\) index után \(x_n\) egyszerre van
+          benne \(U\)-ban és \(V\)-ben (\(x_n \in U \cap V\)), ami
+          ellentmond annak, hogy \(U\) és \(V\) diszjunktak
+          (\(U \cap V = \emptyset\)).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

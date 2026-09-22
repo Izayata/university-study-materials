@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Részsorozatok, korlátosság, monotonitás | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Részsorozat, a konvergens sorozat részsorozata, korlátos és monoton sorozatok és a monoton sorozatok konvergenciatétele bizonyítással — DE TTK Matematika BSc 2023/2025, Mély bevezetés az analízisbe.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/jegyzet2/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 2 of 16 — see jegyzet1's head comment for the shape rationale.
+
+  Source fixes here: the source's monotonicity definition had Hungarian
+  words inside the formula ("n < m esetén x_n <= x_m"); they are out of
+  the math. The theorem "Minden valós számsorozatnak létezik monoton
+  részsorozata" stands in the source twice (here, without proof, and
+  again with a proof under the Bolzano–Weierstrass section); it is kept
+  once, in part 3, with its proof. "A állítás" is "Az állítás".
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (flagged here and in
+  the PR description): the proof of phi(n) >= n, the proof of the
+  theorem on subsequences of a convergent sequence (in a form that also
+  covers a limit +-infinity, which part 6 needs), the completion of the
+  proof that a convergent sequence is bounded, the proof of the monotone
+  convergence theorem, and the remark that a monotone sequence that is
+  not bounded tends to +-infinity (part 6 needs it too).
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/">Mély bevezetés az analízisbe</a> / 2. jegyzet</p>
+
+      <h1>Részsorozatok, korlátosság, monotonitás</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet a sorozatok három alapvető viszonyát vizsgálja: a
+        részsorozat és az eredeti sorozat kapcsolatát, a korlátosságot, és
+        a monotonitást. Megmutatja, hogy a konvergens sorozat korlátos, és
+        hogy a monoton, korlátos sorozat mindig konvergens, a határértéke
+        pedig a szuprémum, illetve az infimum.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Részsorozat, \(\varphi(n) \ge n\)</li>
+        <li>Konvergens sorozat részsorozata</li>
+        <li>Korlátos sorozat, konvergens sorozatok korlátossága</li>
+        <li>Monoton sorozatok, a monoton sorozatok konvergenciája</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Részsorozatok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Részsorozat</span>
+        <p>
+          A \((y_n)_{n \in \mathbb{N}}\) sorozat az
+          \((x_n)_{n \in \mathbb{N}}\) valós számsorozat
+          <strong>részsorozata</strong>, ha létezik olyan
+          \(\varphi: \mathbb{N} \to \mathbb{N}\) szigorúan monoton növekvő
+          függvény, hogy minden \(n \in \mathbb{N}\) esetén:
+        </p>
+        \[
+        y_n = x_{\varphi(n)}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés</span>
+        <p>
+          Mivel \(\varphi: \mathbb{N} \to \mathbb{N}\) szigorúan monoton
+          növekvő, ezért teljesül, hogy \(\varphi(n) \ge n\) minden
+          \(n\)-re (teljes indukcióval igazolható).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          \(\varphi(1) \ge 1\), mert \(\varphi(1) \in \mathbb{N}\). Ha
+          \(\varphi(n) \ge n\), akkor \(\varphi(n + 1) &gt; \varphi(n)\)
+          és az egészek miatt \(\varphi(n + 1) \ge \varphi(n) + 1 \ge n + 1\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Konvergens sorozat részsorozata</span>
+        <p>
+          Egy konvergens sorozat minden részsorozata konvergens, és a
+          határértéke megegyezik az eredeti sorozat határértékével.
+          Ugyanez igaz, ha az eredeti sorozat határértéke \(+\infty\)
+          vagy \(-\infty\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \(\lim_{n \to \infty} x_n = x\) (\(x \in \overline{\mathbb{R}}\))
+          és legyen \((y_n)\) az \((x_n)\) egy tetszőleges részsorozata
+          (\(y_n = x_{\varphi(n)}\)). Tetszőleges \(V\) környezetet
+          választva az \(x\) pont körül, az \(x_n\)-ek legfeljebb véges
+          sok index kivételével benne vannak \(V\)-ben: legyen
+          \(B = \{m : x_m \notin V\}\) ez a véges halmaz. Ha \(y_n \notin V\),
+          akkor \(\varphi(n) \in B\), és a \(\varphi(n) \ge n\) miatt
+          \(n \le \varphi(n) \le \max B\). Tehát \(y_n \notin V\) legfeljebb
+          véges sok \(n\)-re, ezért \(\lim y_n = x\) is teljesül.
+        </p>
+      </div>
+
+      <h3>Példák részsorozatokra</h3>
+      <ul>
+        <li>Ha \(x_n = \frac{1}{n}\) és \(\varphi(n) = 2n + 1\), akkor \(y_n = x_{2n+1} = \frac{1}{2n+1}\), aminek a határértéke \(0\).</li>
+        <li>Ha \(x_n = (-1)^n\), akkor a páros indexű részsorozat \(y_n = x_{2n} = (-1)^{2n} = 1 \to 1\), míg a páratlan indexű \(z_n = x_{2n+1} = (-1)^{2n+1} = -1 \to -1\).</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Korlátosság</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Korlátos sorozat</span>
+        <p>Egy \((x_n)_{n \in \mathbb{N}}\) sorozat:</p>
+        <ul>
+          <li><strong>alulról korlátos</strong>, ha értékkészlete alulról korlátos (\(\exists K \in \mathbb{R}: \forall n \in \mathbb{N}, K \le x_n\)),</li>
+          <li><strong>felülről korlátos</strong>, ha értékkészlete felülről korlátos (\(\exists L \in \mathbb{R}: \forall n \in \mathbb{N}, x_n \le L\)),</li>
+          <li><strong>korlátos</strong>, ha alulról és felülről is korlátos.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Konvergens sorozatok korlátossága</span>
+        <p>Bármely konvergens valós számsorozat korlátos.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Legyen \(\lim_{n \to \infty} x_n = x\). Választva az \(x\) körüli
+          \(V = ]x - 1, x + 1[\) egysugarú környezetet, abból következik,
+          hogy az \(x_n\) elemek egy véges darabtól eltekintve benne
+          vannak \(V\)-ben. A maradék véges sok elem is korlátos halmazt
+          alkot, így az egész sorozat értékkészlete korlátos lesz.
+        </p>
+        <p>
+          <strong>(kiegészítés)</strong> Pontosan: legyenek
+          \(n_1, \dots, n_k\) azok az indexek, amelyekre \(x_{n_i} \notin V\)
+          (\(k = 0\) is lehet), és
+          \(M = \max\{|x| + 1, |x_{n_1}|, \dots, |x_{n_k}|\}\). Ha
+          \(x_n \in V\), akkor \(|x_n| \le |x| + 1 \le M\); különben
+          \(x_n\) az \(x_{n_i}\)-k egyike, és \(|x_n| \le M\). Tehát
+          \(-M \le x_n \le M\) minden \(n\)-re.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés</span>
+        <p>
+          Az állítás megfordítása nem igaz: létezik olyan sorozat, amely
+          korlátos, de divergens (pl. \(x_n = (-1)^n\), lásd az 1.
+          jegyzetet).
+        </p>
+      </div>
+
+      <h2>Monotonitás</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Monoton sorozatok</span>
+        <p>Az \((x_n)_{n \in \mathbb{N}}\) sorozat:</p>
+        <ul>
+          <li><strong>monoton növekvő</strong>, ha minden \(n, m \in \mathbb{N}\), \(n &lt; m\) esetén \(x_n \le x_m\),</li>
+          <li><strong>monoton csökkenő</strong>, ha minden \(n, m \in \mathbb{N}\), \(n &lt; m\) esetén \(x_n \ge x_m\),</li>
+          <li><strong>szigorúan monoton</strong>, ha az egyenlőtlenségek élesek (\(&lt;\) vagy \(&gt;\)).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Monoton sorozatok konvergenciája</span>
+        <p>
+          Ha egy sorozat monoton növekvő és felülről korlátos, akkor
+          konvergens, és a határértéke egyenlő az értékkészlet
+          szuprémumával:
+        </p>
+        \[
+        \lim_{n \to \infty} x_n = \sup \{x_n \mid n \in \mathbb{N}\}
+        \]
+        <p>
+          Hasonlóan, ha monoton csökkenő és alulról korlátos, akkor
+          konvergens, és határértéke az infimum:
+        </p>
+        \[
+        \lim_{n \to \infty} x_n = \inf \{x_n \mid n \in \mathbb{N}\}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \((x_n)\) monoton növekvő és felülről korlátos. A
+          szuprémum létezik (<a href="/jegyzetek/de-ttk-matematika-bsc/jegyzet1/">Analízis alapjai</a>,
+          pontos korlátok); legyen \(s = \sup\{x_n\}\). Tetszőleges
+          \(\varepsilon > 0\)-hoz \(s - \varepsilon\) nem felső korlát,
+          tehát van olyan \(N\), hogy \(x_N &gt; s - \varepsilon\). Ha
+          \(n &gt; N\), akkor a monotonitás és a szuprémum miatt
+          \(s - \varepsilon &lt; x_N \le x_n \le s\), vagyis
+          \(|x_n - s| &lt; \varepsilon\). Tehát \(x_n \to s\).
+        </p>
+        <p>
+          A monoton csökkenő eset az \((-x_n)\) sorozatra alkalmazott
+          előző eset: \(\lim x_n = -\sup\{-x_n\} = \inf\{x_n\}\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — Nem korlátos monoton sorozat (kiegészítés)</span>
+        <p>
+          Ha a sorozat monoton növekvő és felülről nem korlátos, akkor
+          \(\lim x_n = +\infty\) (\(= \sup\{x_n\}\)); ha monoton csökkenő
+          és alulról nem korlátos, akkor \(\lim x_n = -\infty\).
+        </p>
+        <p>
+          Bizonyítás: tetszőleges \(K\)-hoz van olyan \(N\), hogy
+          \(x_N &gt; K\), és \(n &gt; N\) esetén \(x_n \ge x_N &gt; K\). A
+          második eset az \((-x_n)\) sorozatra alkalmazott első.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

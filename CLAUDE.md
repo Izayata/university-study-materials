@@ -77,7 +77,7 @@ not a bug.
 
 | Section (Hungarian) | Landing page | Item template | Filled example |
 |---|---|---|---|
-| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/de-ttk-matematika-bsc/jegyzet1/` (added 2026-09-17, see the math-note exception below) and the `kombinatorika-es-grafelmelet/`, `linearis-algebrai-alapozas/` (10 items each), `algebra-es-szamelmelet-alapok/` (7 items) and `linearis-algebra-halado/` (12 items) topic-landing pages (added 2026-09-17, 2026-09-20 and, the last two, 2026-09-21, see the topic-nesting exception below); see also the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
+| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/de-ttk-matematika-bsc/jegyzet1/` (added 2026-09-17, see the math-note exception below) and the `kombinatorika-es-grafelmelet/`, `linearis-algebrai-alapozas/` (10 items each), `algebra-es-szamelmelet-alapok/` (7 items), `linearis-algebra-halado/` (12 items) and `mely-bevezetes-az-analizisbe/` (16 items) topic-landing pages (added 2026-09-17, 2026-09-20 and, the last three, 2026-09-21, see the topic-nesting exception below); see also the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | none currently — empty since `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) |
 | Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | `/oktatoi/inbpm0315-21/jegyzet1/` (moved here 2026-09-16, renamed from `java-alapok` the same day) `jegyzet2/` (added 2026-09-16, new content) and every later lesson (`jegyzet3/`, `jegyzet4/`, ... — added one per message since 2026-09-19, new content) — all keep the class-session shape, see below, not the template's default |
@@ -198,7 +198,7 @@ counterparts in the other sections.
 
 `de-ttk-matematika-bsc` (added 2026-09-17) is a third, unrelated
 course — Debreceni Egyetem, TTK, Matematika BSc — that exists only
-under `jegyzetek/` so far. It has five children on its course-landing
+under `jegyzetek/` so far. It has six children on its course-landing
 card-grid: the standalone item `jegyzet1` ("Analízis alapjai") — see
 the "Math-note jegyzet exception" subsection below for why its shape
 deliberately differs from both `jegyzet-template.html`'s current
@@ -206,10 +206,12 @@ default and the older Tematika/Kontextus/Gyakorlat/Puffer pattern the
 Content style guide documents — and the `kombinatorika-es-grafelmelet/`,
 `linearis-algebrai-alapozas/` ("Lineáris algebrai alapozás", added
 2026-09-20), `algebra-es-szamelmelet-alapok/` ("Algebra és
-számelmélet alapok", added 2026-09-21) and `linearis-algebra-halado/`
-("Lineáris algebra haladó", added 2026-09-21) topic-landing pages,
-listing 10, 10, 7 and 12 jegyzet items; see the "Topic-nesting
-exception" subsection below for that second level.
+számelmélet alapok", added 2026-09-21), `linearis-algebra-halado/`
+("Lineáris algebra haladó", added 2026-09-21) and
+`mely-bevezetes-az-analizisbe/` ("Mély bevezetés az analízisbe", added
+2026-09-21) topic-landing pages, listing 10, 10, 7, 12 and 16 jegyzet
+items; see the "Topic-nesting exception" subsection below for that
+second level.
 
 `deik-mernokinformatikus-bsc-2017`, by contrast, is the same course
 (same degree program) appearing under both `tetelek/` (the finished
@@ -593,6 +595,103 @@ javítok"):
   orthonormal eigenbasis (item 11), the classification of the orthogonal
   2 × 2 matrices (item 10) and the projection formula (item 6).
 
+**Fifth use of this pattern: `mely-bevezetes-az-analizisbe/`** (added
+2026-09-21). The site owner's analysis LaTeX (one long file, first titled
+"Valós sorozatok és konvergencia", 22 `\section`s, 66 `\subsection`s and
+13 `\subsubsection`s, from real sequences to the Hausdorff theorem) was asked to
+be a sixth topic folder, "Mély bevezetés az analízisbe", split into "több
+kisebb almappa" like the others, with "minden tekintetben a már feltöltött
+matematikai anyag" as the model and any gaps filled in "matematikailag
+korrektül". The split and its grouping were left to the assistant and
+follow the source's order, with the moves that keep every item free of
+forward references: 1 valós sorozatok, konvergencia, bővített valós
+számok, egyértelműség · 2 részsorozatok, korlátosság, monotonitás · 3
+Bolzano–Weierstrass, Cauchy-sorozatok · 4 műveletek, rendezés, rendőr-elv
+· 5 geometriai sorozatok, nevezetes határértékek, az Euler-szám · 6
+torlódási pontok, limes superior/inferior · 7 komplex számsorozatok · 8
+végtelen sorok · 9 kritériumok sorok konvergenciájára · 10 Abel-átalakítás,
+Dirichlet, Leibniz, Abel, Mertens · 11 függvénysorozatok és hatványsorok ·
+12 exponenciális, hiperbolikus és trigonometrikus függvények · 13
+metrikus terek · 14 kontrakciók, Banach, Baire · 15 kompakt halmazok · 16
+teljesen korlátos és sorozatkompakt terek, Hausdorff-tétel. The
+landing's intro follows the owner's own wording on the other landings.
+The source's `\author`, `\date` and `\maketitle` are not published, and
+its "% ÚJ RÉSZLET" / "% RÉSZLET" comments (the author's paste markers,
+like the "N. KÉP" comments in the kombinatorika source) are not content.
+
+**Same instruction and flagging as the third and fourth use** (definitions
+and proofs filled in, "(kiegészítés)" on every supplied `.note-box__label`,
+a head-comment list per page), plus a second label: a source box that is
+kept but made precise (a definition completed, a proof repaired or
+finished, a statement corrected) is labelled "(pontosítva)". Of the 236
+`.note-box`es in the series, 74 are labelled "(kiegészítés)", 36
+"(pontosítva)" and 126 are the source's unchanged (a few source boxes
+carry one supplied sentence inline, marked "(kiegészítés)" in the text).
+The supplied proofs are the assistant's, not the owner's or the course's,
+and have **not** been reviewed by a mathematician; the assistant checked
+that each step cites only earlier results and checked the formulas
+numerically where that is meaningful (Euler-number monotonicity, the
+condensation inequalities, the Abel summation and the Dirichlet block
+bound, the Mertens product, the identities of exp, cosh, sinh, cos and
+sin on complex arguments, the metric triangle inequalities, the Banach
+estimate). That catches a wrong formula, not a bad proof. Don't present
+it as the owner's own notes and don't add more supplied material
+silently.
+
+**Source problems fixed** (the owner authorised mathematically correct
+completion; each is also in the head comment of its page):
+- *Statements that were false or too loose:* the limit form of the
+  comparison test needs `0 < lim < +∞` (the source allowed a limit `0`:
+  `1/n²` against `1/n`); the Cauchy–Hadamard theorem said "otherwise
+  divergent", which is false on the circle `|x − x₀| = r`; "exp converges
+  uniformly on all of ℂ" is uniformly on bounded sets; the ratio test
+  needs `x_n ≠ 0`; the polynomial limit needs degree ≥ 1 and `a_q ≠ 0`;
+  a monotone subsequence in the peak argument is non-strictly increasing
+  (not strictly); the geometric case "`q = −|q|` for `q ∈ ]−1, 1[`" was
+  wrong for `q > 0`; the bound `|Σ x_n| ≤ Σ |x_n|` needs absolute
+  convergence; `Ričl-féle` became `|Re w|, |Im w| ≤ |w|`; the source's
+  neighbourhood of `∞` in ℂ omitted `∞`; "Köztes értékről szóló tétel"
+  (the intermediate value theorem) was wrongly the name of the squeeze
+  theorem, and "átviteli elv" of the order theorem.
+- *Formulas that were wrong as written:* the condensation estimates
+  (`σ_{2^n} ≥ x_1 − 2x_2 + …` has a negative constant) are replaced by
+  `σ_{2^{n+1}−1} ≤ x_1 + τ_n` and `σ_{2^n} ≥ τ_n / 2`; the Dirichlet block
+  formula (`λ_{m+1} σ_m`) is `λ_m σ_m − λ_{n+1} σ_n`; the estimate
+  `n! ≥ (n/2)^{n/2}` holds only for even `n` and is replaced by the
+  pairing `k(n+1−k) ≥ n`, giving `(n!)^{1/n} ≥ √n`; the source's
+  arithmetic-geometric-mean steps are the bound `1 + (a−1)/n`, proved
+  from Bernoulli.
+- *Duplicated blocks kept once:* the theorem on monotone subsequences,
+  the contraction/iterated-contraction statements, the Baire theorem, and
+  the whole "Kompakt halmazok" section (its second "definition", "lefedhető
+  véges sok nyílt halmazzal", is not one: every set is covered by the
+  whole space).
+- *Order:* the geometric sequence and series before the results that use
+  them; `Feltételes divergencia` before the remarkable limits; the example
+  `Σ 1/(n³ − n² + 1)` after the p-series.
+- *Definitions the source uses but never gives*, all supplied: null
+  sequence, the limit in the extended reals, `ε`-net, total boundedness,
+  separability, sequential compactness, ball, open and closed set,
+  closure, dense, Cauchy sequence in a metric space, complete space,
+  bounded set, continuity, contraction, fixed point, centred system,
+  accumulation point of a set, uniform convergence of a series, the
+  Cauchy condition, the limit function of a function sequence.
+- *Markup and typos:* `definiciom`, `allitas`, `megjegyzes`, `megj`
+  (undeclared LaTeX environments); markdown `*` bullets inside LaTeX
+  lists; unclosed math delimiters; truncated lines; "definíciózza",
+  "Hatványkörtök", "részlettömegekre", "Seltartás", a stray Arabic
+  character inside a proof; "sinus" is "szinusz".
+
+**Left as the source has it, on purpose, and said so on the pages:**
+(1) The p-series `Σ 1/n^α` is proved for rational `α`, and (2) `ρ_p` on
+`l_p` for `p ∈ {1, 2}` only: a real power `t^p = exp(p ln t)` needs the
+logarithm, which the series never introduces; the general-`p` Minkowski
+inequality for series is stated by the source and **not proved** here
+(box "Az `l_p` tér és ami nincs bizonyítva"). (3) The source defines
+"periodikus függvény" but never proves that `sin` and `cos` are periodic
+and never defines `π`; that is not added (it would be a new theorem, not
+a gap in a stated one). Add them only on a fresh ask.
+
 ### Deliberate exception: `jegyzetek/de-ttk-matematika-bsc/jegyzet1` skips Tematika/Gyakorlat/Puffer
 
 Added 2026-09-17. "Analízis alapjai" was converted from a LaTeX source
@@ -631,7 +730,8 @@ Added 2026-09-18. Every content item under `jegyzetek/de-ttk-matematika-bsc/`
 (currently: `jegyzet1`, and `kombinatorika-es-grafelmelet/jegyzet1`–
 `jegyzet10`, `linearis-algebrai-alapozas/jegyzet1`–`jegyzet10`,
 `algebra-es-szamelmelet-alapok/jegyzet1`–`jegyzet7` and
-`linearis-algebra-halado/jegyzet1`–`jegyzet12` — 40 pages total)
+`linearis-algebra-halado/jegyzet1`–`jegyzet12` and
+`mely-bevezetes-az-analizisbe/jegyzet1`–`jegyzet16` — 56 pages total)
 ends with a `<p class="source-note">`
 (styled in `style.css`: small, muted, italic — deliberately lighter
 weight than `.note-box`, since this is a site-wide disclaimer, not
@@ -646,12 +746,13 @@ don't rephrase it even though its Hungarian is slightly informal):
 > a Matematika BSc tantervi követelményeire, de teljesen nem egyezik
 > azzal.
 
-This does **not** apply to the section's five landing pages
+This does **not** apply to the section's six landing pages
 (`de-ttk-matematika-bsc/index.html`,
 `kombinatorika-es-grafelmelet/index.html`,
 `linearis-algebrai-alapozas/index.html`,
 `algebra-es-szamelmelet-alapok/index.html`,
-`linearis-algebra-halado/index.html`) — they're card-grids with
+`linearis-algebra-halado/index.html`,
+`mely-bevezetes-az-analizisbe/index.html`) — they're card-grids with
 no content text of their own. **Every future content item added under
 `jegyzetek/de-ttk-matematika-bsc/` must include this same element,
 verbatim text and placement** — confirmed with the site owner as a

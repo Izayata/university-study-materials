@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Műveletek, rendezés, rendőr-elv | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Műveletek konvergens sorozatokkal, hatványok és polinomok, végtelen határértékek, konvergencia és rendezés, előjeltartás és a rendőr-elv bizonyítással — DE TTK Matematika BSc 2023/2025, Mély bevezetés az analízisbe.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/jegyzet4/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 4 of 16 — see part 1's head comment for the shape rationale.
+
+  Source fixes here: the theorem titled "Átviteli elv / Rendezési tétel"
+  is the order theorem for limits; "átviteli elv" (transfer principle) is
+  something else, so it is titled "Rendezési tétel". "Seltartás tétele
+  (Előjeltartás)" is "Előjeltartás". The "Rendőr-elv" section title also
+  said "Köztes értékről szóló tétel", which is the intermediate value
+  theorem, a different result: dropped. The limits in the order theorem,
+  the sign theorem and the squeeze theorem are taken in the extended
+  reals (the source's proofs use disjoint / ordered neighbourhoods, which
+  work there). The source's "Feltételes divergencia" lemma stood after
+  the list of remarkable limits although the proofs of that list, and of
+  the geometric sequence, use it; it is here, before them. The source's
+  remark "a sin(n) sorozat önmagában divergens" is dropped (true, but
+  never used or proved; only |sin n| <= 1 is needed). The source's
+  product proof used K_1, K_2 for bounds of |x_n| and |y|, where one is
+  the bound of the convergent sequence and the other a constant; and the
+  quotient proof used an undefined K; both are now written out.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (flagged here and in
+  the PR description): the completed proofs of the product and quotient
+  rules (the source only sketches them), the proof of the powers and
+  polynomial theorem, the proof of the feltételes divergencia lemma, the
+  lemma on operations with infinite limits (the source uses "if x_n ->
+  +inf then 1/x_n -> 0" and "1 + n(q-1) -> +inf" without stating it), the
+  full proof of the order theorem and of the sign theorem.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/mely-bevezetes-az-analizisbe/">Mély bevezetés az analízisbe</a> / 4. jegyzet</p>
+
+      <h1>Műveletek, rendezés, rendőr-elv</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-21</p>
+
+      <p>
+        Ez a jegyzet azt mutatja meg, hogyan viselkedik a határérték a
+        műveletekkel és a rendezéssel: az összeg, a szorzat és a hányados
+        határértéke a határértékek összege, szorzata és hányadosa, az
+        egyenlőtlenségek nemszigorú formában megmaradnak, és két, ugyanahhoz
+        tartó sorozat közé szorított sorozat is odatart. A végtelen
+        határértékekre külön szabályok vonatkoznak.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Összeg, konstansszoros, szorzat és hányados határértéke</li>
+        <li>Hatványok és polinomok</li>
+        <li>Végtelen határértékek és a műveletek</li>
+        <li>Rendezési tétel, előjeltartás</li>
+        <li>Rendőr-elv</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Konvergencia és műveletek</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Műveleti tulajdonságok konvergens sorozatokkal</span>
+        <p>
+          Legyenek \((x_n)\) és \((y_n)\) konvergens sorozatok,
+          \(\lim_{n \to \infty} x_n = x\) és
+          \(\lim_{n \to \infty} y_n = y\). Ekkor:
+        </p>
+        <ol>
+          <li>Az összegsorozat is konvergens, és \(\lim_{n \to \infty} (x_n + y_n) = x + y\).</li>
+          <li>Konstansszoros konvergenciája: \(\lim_{n \to \infty} (\lambda x_n) = \lambda x\).</li>
+          <li>A szorzatsorozat is konvergens: \(\lim_{n \to \infty} (x_n y_n) = x y\).</li>
+          <li>Ha \(y_n \neq 0\) minden \(n\)-re és \(y \neq 0\), akkor a hányados sorozat is konvergens: \(\lim_{n \to \infty} \left(\frac{x_n}{y_n}\right) = \frac{x}{y}\).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (összegre)</span>
+        <p>
+          Tetszőleges \(\varepsilon > 0\)-hoz az \(\frac{\varepsilon}{2}\)-hez
+          tartozó \(N_1\) és \(N_2\) indexeket megkeresve, az
+          \(N = \max\{N_1, N_2\}\) küszöbindex után a
+          háromszög-egyenlőtlenséggel:
+        </p>
+        \[
+        \begin{aligned}
+        |(x_n + y_n) - (x + y)| &amp;= |(x_n - x) + (y_n - y)| \\
+        &amp;\le |x_n - x| + |y_n - y| &lt; \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
+        \end{aligned}
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (konstansszorosra)</span>
+        <p>Legyen \(\lambda \in \mathbb{R}\) tetszőleges és \(\lim x_n = x\).</p>
+        <ul>
+          <li>Ha \(\lambda = 0\), akkor \(\lambda x_n = 0 \to 0 = 0 \cdot x = \lambda x\).</li>
+          <li>Ha \(\lambda \neq 0\), akkor \(|\lambda| &gt; 0\). Tetszőleges \(\varepsilon > 0\)-hoz az \(\frac{\varepsilon}{|\lambda|}\)-hoz találunk olyan \(N\)-et, hogy \(n &gt; N\) esetén \(|x_n - x| &lt; \frac{\varepsilon}{|\lambda|}\), amiből \(|\lambda x_n - \lambda x| = |\lambda| \cdot |x_n - x| &lt; \varepsilon\) adódik.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (szorzatra; pontosítva)</span>
+        <p>
+          Felhasználjuk, hogy a konvergens \((x_n)\) sorozat korlátos
+          (2. jegyzet): van olyan \(K &gt; 0\), hogy \(|x_n| &lt; K\) minden
+          \(n\)-re. A háromszög-egyenlőtlenséggel:
+        </p>
+        \[
+        \begin{aligned}
+        |x_n y_n - xy| &amp;= |x_n y_n - x_n y + x_n y - xy| \\
+        &amp;\le |x_n| \cdot |y_n - y| + |y| \cdot |x_n - x| \\
+        &amp;\le K\,|y_n - y| + (|y| + 1)\,|x_n - x|
+        \end{aligned}
+        \]
+        <p>
+          Az \(\frac{\varepsilon}{2K}\)-hoz tartozó \(N_1\) és az
+          \(\frac{\varepsilon}{2(|y| + 1)}\)-hez tartozó \(N_2\) után
+          (\(N = \max\{N_1, N_2\}\)) a jobb oldal
+          \(&lt; \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon\),
+          tehát a szorzat határértéke \(xy\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (hányadosra; pontosítva)</span>
+        <p>
+          Elegendő azt megmutatni, hogy ha \(y_n \neq 0\) és \(y \neq 0\),
+          akkor az \(\left(\frac{1}{y_n}\right)\) sorozat konvergens, és
+          határértéke \(\frac{1}{y}\); a hányados ekkor az
+          \(x_n \cdot \frac{1}{y_n}\) szorzat, amire a szorzatszabály
+          vonatkozik. Az \(\varepsilon = |y|/2\)-höz tartozó \(N_0\) után
+          \(|y_n - y| &lt; |y|/2\), így \(|y_n| &gt; |y|/2\), és
+        </p>
+        \[
+        \left|\frac{1}{y_n} - \frac{1}{y}\right| = \frac{|y - y_n|}{|y_n| \cdot |y|} \le \frac{2}{|y|^2}\,|y_n - y|.
+        \]
+        <p>
+          Az \(\varepsilon\)-hoz az \(\frac{\varepsilon |y|^2}{2}\)-höz
+          tartozó \(N_1\) (és \(N = \max\{N_0, N_1\}\)) megfelel: ekkor a
+          jobb oldal \(&lt; \varepsilon\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Hatványozás és polinomok konvergenciája</span>
+        <ul>
+          <li>Ha \(\lim x_n = x\), akkor \(\lim x_n^q = x^q\) minden \(q \in \mathbb{N}\) esetén (teljes indukcióval bizonyítható).</li>
+          <li>Ha \(P(x) = a_q x^q + \dots + a_1 x + a_0\) egy polinom, akkor \(\lim P(x_n) = P(x)\).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          \(q = 1\)-re az állítás a feltétel. Ha \(x_n^q \to x^q\), akkor a
+          szorzatszabály szerint
+          \(x_n^{q+1} = x_n^q \cdot x_n \to x^q \cdot x = x^{q+1}\).
+          A polinomra: minden \(a_k x_n^k \to a_k x^k\) (konstansszoros),
+          és az összegszabály (indukcióval véges sok tagra) adja
+          \(P(x_n) \to P(x)\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Végtelen határértékek és a műveletek</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Lemma — Feltételes divergencia a végtelenbe</span>
+        <p>
+          Legyenek \((x_n)\) és \((y_n)\) olyan valós számsorozatok, hogy
+          \(\lim_{n \to \infty} y_n = +\infty\) és \(x_n \ge y_n\) minden
+          \(n \in \mathbb{N}\) esetén. Ekkor:
+        </p>
+        \[
+        \lim_{n \to \infty} x_n = +\infty
+        \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \(K \in \mathbb{R}\). Van olyan \(N\), hogy \(n &gt; N\)
+          esetén \(y_n &gt; K\), és akkor \(x_n \ge y_n &gt; K\).
+          (Hasonlóan: ha \(x_n \le y_n\) és \(y_n \to -\infty\), akkor
+          \(x_n \to -\infty\).)
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Lemma — Műveletek végtelen határértékekkel (kiegészítés)</span>
+        <p>Legyen \(\lim x_n = +\infty\). Ekkor:</p>
+        <ol>
+          <li>Ha \(y_n \ge c\) (\(c \in \mathbb{R}\)) legfeljebb véges sok \(n\) kivételével, akkor \(\lim (x_n + y_n) = +\infty\).</li>
+          <li>Ha \(y_n \ge c\) (\(c &gt; 0\)) legfeljebb véges sok \(n\) kivételével, akkor \(\lim (x_n y_n) = +\infty\).</li>
+        </ol>
+        <p>
+          Továbbá, ha \(\lim x_n = \pm\infty\), akkor \(x_n \neq 0\)
+          legfeljebb véges sok kivételével, és
+          \(\lim \dfrac{1}{x_n} = 0\); ha pedig \(x_n &gt; 0\) és
+          \(\lim x_n = 0\), akkor \(\lim \dfrac{1}{x_n} = +\infty\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>1.</strong> Legyen \(K \in \mathbb{R}\): van olyan \(N\),
+          hogy \(n &gt; N\) esetén \(x_n &gt; K - c\) és \(y_n \ge c\), így
+          \(x_n + y_n &gt; K\).
+        </p>
+        <p>
+          <strong>2.</strong> Legyen \(K &gt; 0\): \(n &gt; N\) esetén
+          \(x_n &gt; K/c\) és \(y_n \ge c\), így \(x_n y_n &gt; K\).
+        </p>
+        <p>
+          <strong>Reciprok.</strong> Ha \(x_n \to \pm\infty\) és
+          \(\varepsilon &gt; 0\), akkor van olyan \(N\), hogy \(n &gt; N\)
+          esetén \(|x_n| &gt; 1/\varepsilon\) (a \(+\infty\) esetben
+          \(x_n &gt; 1/\varepsilon\), a \(-\infty\) esetben
+          \(x_n &lt; -1/\varepsilon\)); ekkor \(x_n \neq 0\) és
+          \(|1/x_n| &lt; \varepsilon\). Ha \(x_n &gt; 0\), \(x_n \to 0\)
+          és \(K &gt; 0\), akkor \(n &gt; N\) esetén \(x_n &lt; 1/K\), így
+          \(1/x_n &gt; K\).
+        </p>
+      </div>
+
+      <h2>Konvergencia és rendezés</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Rendezési tétel</span>
+        <p>
+          Ha \(x_n \le y_n\) teljesül legfeljebb véges sok
+          \(n \in \mathbb{N}\) kivételével, és \(\lim x_n = x\),
+          \(\lim y_n = y\) (\(x, y \in \overline{\mathbb{R}}\)), akkor a
+          határértékekre is fennáll a nemszigorú egyenlőtlenség:
+          \(x \le y\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (indirekt; pontosítva)</span>
+        <p>
+          Tegyük fel indirekt, hogy \(x &gt; y\). Ekkor az 1. jegyzet
+          lemmája szerint léteznek olyan \(U\) és \(V\) környezetek \(x\),
+          illetve \(y\) körül, amelyekre minden \(u \in U\), \(v \in V\)
+          esetén \(v &lt; u\) (így \(U \cap V = \emptyset\)). A konvergencia
+          miatt azonban \(x_n \in U\) és \(y_n \in V\) legfeljebb véges sok
+          kivételével, így van olyan \(n\), amelyre egyszerre
+          \(y_n &lt; x_n\) és (a feltétel szerint) \(x_n \le y_n\), ami
+          ellentmondás.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés</span>
+        <p>
+          A szigorú egyenlőtlenséget a konvergencia <em>nem tartja
+          meg</em>: pl. \(x_n = 0\) és \(y_n = \frac{1}{n}\) esetén
+          \(0 &lt; \frac{1}{n}\) minden \(n\)-re fennáll, de a
+          határértékekre \(0 = 0\) (vagyis \(\le\) áll fenn, nem
+          \(&lt;\)).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Előjeltartás</span>
+        <p>
+          Ha \(\lim y_n = x \neq 0\), akkor a sorozat előjele megegyezik a
+          határérték előjelével legfeljebb véges sok kivételtől eltekintve
+          (azaz \(\operatorname{sgn}(y_n) = \operatorname{sgn}(x)\)).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (pontosítva)</span>
+        <p>
+          Ha \(x &gt; 0\) (\(x = +\infty\) is lehet), akkor az 1. jegyzet
+          lemmáját a \(0 &lt; x\) párra alkalmazva van olyan \(V \ni 0\) és
+          \(U \ni x\) környezet, hogy \(v &lt; u\) minden \(v \in V\),
+          \(u \in U\)-ra. Mivel \(0 \in V\), minden \(u \in U\)-ra
+          \(u &gt; 0\). A konvergencia miatt \(y_n \in U\) legfeljebb véges
+          sok kivétellel, így \(y_n &gt; 0\). Az \(x &lt; 0\) eset
+          ugyanígy megy (a lemmát az \(x &lt; 0\) párra alkalmazva).
+        </p>
+      </div>
+
+      <h2>A Rendőr-elv (Squeeze-tétel)</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Rendőr-elv</span>
+        <p>
+          Ha \(\lim_{n \to \infty} x_n = \lim_{n \to \infty} y_n = x\)
+          (\(x \in \overline{\mathbb{R}}\)) és \(x_n \le z_n \le y_n\)
+          teljesül minden (vagy legfeljebb véges sok kivétellel minden)
+          \(n \in \mathbb{N}\) esetén, akkor a \((z_n)\) sorozatnak is van
+          határértéke, és:
+        </p>
+        \[
+        \lim_{n \to \infty} z_n = x
+        \]
+        <p>Ha \(x \in \mathbb{R}\), akkor \((z_n)\) konvergens.</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Tetszőleges \(V\) környezetet választva az \(x\) pont körül, a
+          konvergencia miatt az \(x_n\) és \(y_n\) sorozatok elemei is
+          \(V\)-be esnek elég nagy indexek után. Mivel \(x_n \le z_n \le y_n\)
+          és a környezet intervallum, a \(z_n\) elemek is benne lesznek
+          ebben a környezetben, ami bizonyítja a konvergenciát.
+        </p>
+      </div>
+
+      <h3>Alkalmazási példa a Rendőr-elvre</h3>
+      <p>
+        Határozzuk meg a \(z_n = \frac{\sin(n)}{n}\) sorozat határértékét
+        (\(n \in \mathbb{N}\) esetén). Mivel a \(\sin(n)\) sorozat korlátos
+        (\(-1 \le \sin(n) \le 1\); a \(\sin\) függvényt a 12. jegyzetben
+        definiáljuk, ahol ez a \(\sin^2 + \cos^2 = 1\) összefüggésből
+        következik), az \(n\)-nel való leosztás után:
+      </p>
+      \[
+      -\frac{1}{n} \le \frac{\sin(n)}{n} \le \frac{1}{n}
+      \]
+      <p>
+        Mivel \(\lim_{n \to \infty} \left(-\frac{1}{n}\right) = 0\) és
+        \(\lim_{n \to \infty} \frac{1}{n} = 0\), a Rendőr-elv alapján:
+      </p>
+      \[
+      \lim_{n \to \infty} \frac{\sin(n)}{n} = 0
+      \]
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
