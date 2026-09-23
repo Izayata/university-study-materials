@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Generált részcsoport, ciklikus csoportok részcsoportjai, direkt szorzatok | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Generált részcsoport, a g^|G|=e következmény, prímrendű csoportok, ciklikus csoportok részcsoportjainak osztályozása és a direkt szorzat ciklikusságának feltétele, bizonyítással — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet8/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 8 of 20 — see part 1's head comment for the shape rationale.
+
+  Source fix here: the direct-product cyclicity criterion is given as
+  "G×H ciklikus iff G,H ciklikusak és lkkt(|G|,|H|)=1" (lkkt = lcm); same
+  slip as item 6's cyclic-group generators, should be "lnko(|G|,|H|)=1"
+  (lnko = gcd) — fixed, with "G, H végesek" made explicit (gcd/lcm of
+  orders is only meaningful for finite groups).
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-23; flagged
+  here and in the PR description): the proof of the g^|G|=e corollary
+  (from Lagrange), of the prime-order-groups statement, of the
+  cyclic-subgroups classification theorem (both the infinite and the
+  finite case), and of the corrected direct-product cyclicity criterion
+  — the source states all four without proof.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 8. jegyzet</p>
+
+      <h1>Generált részcsoport, ciklikus csoportok részcsoportjai, direkt szorzatok</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        Ez a jegyzet a Lagrange-tétel (7. jegyzet) néhány közvetlen
+        következményét vonja le: hogy egy véges csoport minden eleme a
+        csoport méretedik hatványon egységelemmé válik, hogy a prímrendű
+        csoportok szükségképpen ciklikusak, és hogy egy ciklikus csoport
+        részcsoportjai — akár végtelen, akár véges a csoport — maguk is
+        ciklikusak, méghozzá pontosan egy van belőlük minden lehetséges
+        méretben. Végül a csoportok direkt szorzatát és annak
+        ciklikusságát vizsgálja.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Generált részcsoport, \(g^{|G|} = e\)</li>
+        <li>Prímrendű csoportok</li>
+        <li>Ciklikus csoportok részcsoportjainak osztályozása</li>
+        <li>Csoportok direkt szorzata, ciklikusság feltétele</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Generált részcsoport és elem rendje</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Generált részcsoport</span>
+        <p>
+          Legyen \(G\) csoport és \(g \in G\). A \(g\) elem által
+          <strong>generált részcsoport</strong>:
+        </p>
+        \[ \langle g \rangle = \{g^k \mid k \in \mathbb{Z}\} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Következmény</span>
+        <p>
+          Véges csoportban minden \(G\)-beli \(g\) elemre
+          \(g^{|G|} = e\) teljesül (ez vezet az Euler–Fermat tételhez).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A \(\langle g \rangle \le G\) részcsoport mérete \(o(g)\) (5.
+          jegyzet), így a Lagrange-tétel (7. jegyzet) szerint
+          \(o(g) \mid |G|\), azaz \(|G| = o(g) \cdot m\) valamely
+          \(m \in \mathbb{N}\)-re. Ekkor
+          \(g^{|G|} = (g^{o(g)})^m = e^m = e\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás — Prímrendű csoportok</span>
+        <p>
+          Ha egy \(G\) csoport rendje prím (\(|G| = p\)), akkor \(G\)-nek
+          nincsenek nemtriviális valódi részcsoportjai (azaz csak a
+          \(\{e\}\) és \(G\) maga a részcsoportja). Ekkor \(G\) ráadásul
+          ciklikus is.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Ha \(H \le G\), akkor \(|H| \mid p\) (Lagrange), így
+          \(|H| \in \{1, p\}\), azaz \(H = \{e\}\) vagy \(H = G\). Mivel
+          \(p \ge 2\), van \(g \in G\), \(g \neq e\). A
+          \(\langle g \rangle \le G\) részcsoport mérete \(o(g) &gt; 1\)
+          (mert \(g \neq e\)) és osztója \(p\)-nek, tehát \(o(g) = p = |G|\),
+          így \(\langle g \rangle = G\): \(G\) ciklikus.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Ciklikus csoportok részcsoportjai</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        <p>Ciklikus csoport minden részcsoportja maga is ciklikus.</p>
+        <ul>
+          <li>Ha \(G = \langle g \rangle\) végtelen ciklikus csoport, akkor \(G\) minden részcsoportja \(\langle g^k \rangle\) alakú.</li>
+          <li>Ha \(G = \langle g \rangle\) véges ciklikus csoport (\(|G| = n\)), akkor minden \(d \mid n\) osztóra létezik pontosan egy \(d\) rendű részcsoportja, mégpedig a \(\langle g^{\frac{n}{d}} \rangle\).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>Minden részcsoport ciklikus (mindkét esetben egyszerre).</strong>
+          Legyen \(H \le G = \langle g \rangle\). Ha \(H = \{e\}\), akkor
+          \(H = \langle e \rangle\) ciklikus. Ha \(H \neq \{e\}\), akkor van
+          \(g^m \in H\), \(m \neq 0\); mivel \(H\) zárt az inverzre,
+          \(g^{-m} \in H\) is, tehát van pozitív kitevő is, amelyre
+          \(g^{\text{kitevő}} \in H\). Legyen \(k_0\) a legkisebb ilyen
+          pozitív kitevő. Megmutatjuk, hogy \(H = \langle g^{k_0} \rangle\):
+          \(\langle g^{k_0} \rangle \subseteq H\) nyilvánvaló. Fordítva, ha
+          \(g^m \in H\), maradékosan osztva \(m = q k_0 + r\),
+          \(0 \le r &lt; k_0\), akkor
+          \(g^r = g^m \cdot (g^{k_0})^{-q} \in H\) (két \(H\)-beli elem
+          szorzata), és \(k_0\) minimalitása miatt \(r = 0\). Tehát
+          \(m = q k_0\), \(g^m \in \langle g^{k_0} \rangle\). Ez a végtelen
+          esetben pontosan az állítás (\(\langle g^k \rangle\) alak,
+          \(k = k_0\)).
+        </p>
+        <p>
+          <strong>Véges eset: pontosan egy \(d\) rendű részcsoport.</strong>
+          Legyen \(|G| = n\), \(d \mid n\).
+        </p>
+        <p>
+          <em>Létezés.</em> Ha \(c = n/d\), akkor
+          \((g^c)^d = g^{cd} = g^n = e\), és ha \((g^c)^m = e\) valamely
+          \(0 &lt; m &lt; d\)-re, akkor \(n \mid cm\) (5. jegyzet), azaz
+          \(d \mid m\) (mindkét oldalt \(c\)-vel osztva, \(\text{lnko}(n,c)=c\)
+          miatt), ami \(0 &lt; m &lt; d\) esetén lehetetlen. Tehát
+          \(o(g^c) = d\), azaz \(\langle g^{n/d} \rangle\) egy \(d\) rendű
+          részcsoport.
+        </p>
+        <p>
+          <em>Egyértelműség.</em> Legyen \(H \le G\), \(|H| = d\). Minden
+          \(x \in H\)-ra a Lagrange-tétel Következménye (fentebb, \(H\)-ra
+          alkalmazva) szerint \(x^d = e\). Az \(x^d = e\) egyenlet
+          \(G\)-beli megoldásait keressük: \(x = g^m\)-re
+          \(g^{md} = e \iff n \mid md \iff \frac{n}{d} \mid m\) (mivel
+          \(d \mid n\), \(\text{lnko}(n,d)=d\)). A \(0 \le m &lt; n\)
+          tartományban pontosan \(d\) ilyen \(m\) van:
+          \(0, \frac{n}{d}, \frac{2n}{d}, \dots, \frac{(d-1)n}{d}\), tehát
+          az \(x^d = e\) egyenletnek pontosan \(d\) megoldása van
+          \(G\)-ben, és ezek éppen \(\langle g^{n/d} \rangle\) elemei
+          (a felsorolt kitevők pontosan \(g^{n/d}\) hatványai). Mivel
+          \(H\) minden eleme megoldás, \(H \subseteq \langle g^{n/d} \rangle\),
+          és mindkettő \(d\) elemű, tehát \(H = \langle g^{n/d} \rangle\).
+        </p>
+      </div>
+
+      <h2>Direkt szorzatok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Csoportok direkt szorzata</span>
+        <p>
+          Legyenek \(G_1, G_2, \dots, G_n\) csoportok. A
+          \(G_1 \times G_2 \times \dots \times G_n\) halmazt a csoportok
+          <strong>direkt szorzatának</strong> nevezzük, ahol a műveletet
+          komponensenként értelmezzük:
+        </p>
+        \[ (g_1, \dots, g_n) \cdot (h_1, \dots, h_n) = (g_1 h_1, \dots, g_n h_n) \]
+        <p>
+          A neutrális elem az egységelemek \(n\)-ese: \((e_1, \dots, e_n)\),
+          az inverz pedig: \((g_1, \dots, g_n)^{-1} = (g_1^{-1}, \dots, g_n^{-1})\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás (pontosítva)</span>
+        <p>
+          Legyenek \(G\) és \(H\) véges csoportok. A \(G \times H\) direkt
+          szorzat pontosan akkor ciklikus, ha \(G\) és \(H\) is
+          ciklikusak, és \(\text{lnko}(|G|, |H|) = 1\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \(|G| = m\), \(|H| = n\). Előbb: tetszőleges
+          \((a,b) \in G \times H\)-ra \(o((a,b)) = \text{lkkt}(o(a), o(b))\),
+          ugyanúgy, mint az 5. jegyzet ciklusrend-képletében: \((a,b)^N = (e,e) \iff a^N=e, b^N=e \iff o(a) \mid N, o(b) \mid N \iff \text{lkkt}(o(a),o(b)) \mid N\),
+          a legkisebb pozitív ilyen \(N\) az lkkt.
+        </p>
+        <p>
+          \((\Leftarrow)\) Ha \(G = \langle g \rangle\), \(H = \langle h \rangle\)
+          és \(\text{lnko}(m,n)=1\), akkor
+          \(o((g,h)) = \text{lkkt}(m,n) = mn/\text{lnko}(m,n) = mn = |G \times H|\),
+          tehát \((g,h)\) generálja a teljes (mert csak akkora rendű
+          részcsoportja lehet, mint a mérete) \(G \times H\)-t, amely így
+          ciklikus.
+        </p>
+        <p>
+          \((\Rightarrow)\) Ha \(G \times H\) ciklikus, van olyan
+          \((a,b)\), amelynek rendje \(mn\) (a teljes csoport mérete), azaz
+          \(\text{lkkt}(o(a),o(b)) = mn\). Az lkkt sosem nagyobb a
+          tényezők szorzatánál, \(\text{lkkt}(o(a),o(b)) \le o(a) \cdot o(b)\),
+          és \(o(a) \mid m\), \(o(b) \mid n\) (Lagrange) miatt
+          \(o(a) \le m\), \(o(b) \le n\), tehát
+          \(o(a) \cdot o(b) \le mn\). Összevetve:
+        </p>
+        \[ mn = \text{lkkt}(o(a),o(b)) \le o(a) \cdot o(b) \le mn, \]
+        <p>
+          tehát mindenütt egyenlőség áll: \(o(a) \cdot o(b) = mn\). Ebből
+          \(o(a) = mn / o(b) \ge mn/n = m\) (felhasználva \(o(b) \le n\)-t),
+          és \(o(a) \le m\) is fennáll (Lagrange), tehát \(o(a) = m\); és
+          ugyanígy \(o(b) = n\). Ekkor \(\langle a \rangle \le G\) mérete
+          \(o(a) = m = |G|\), tehát \(\langle a \rangle = G\): \(a\)
+          generálja \(G\)-t, és hasonlóan \(b\) generálja \(H\)-t —
+          mindkettő ciklikus. Végül az
+          \(\text{lkkt}(x,y) \cdot \text{lnko}(x,y) = xy\) azonosságból
+          \(\text{lnko}(m,n) = \text{lnko}(o(a),o(b)) = \dfrac{o(a) o(b)}{\text{lkkt}(o(a),o(b))} = \dfrac{mn}{mn} = 1\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
