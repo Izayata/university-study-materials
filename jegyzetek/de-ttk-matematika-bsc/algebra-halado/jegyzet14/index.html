@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Gyűrűk, ideálok és a gyűrű-homomorfizmus tétele | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Gyűrű, kommutatív/egységelemes/nullosztómentes gyűrű, integritási tartomány, test, ideál, faktorgyűrű jóldefiniáltsága, és a gyűrű-homomorfizmus tétele (R/ker φ ≅ Im φ) teljes bizonyítással — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet14/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 14 of 20 — see part 1's head comment for the shape rationale. This
+  is the first ring-theory item; it opens the same way the group-theory
+  half opened in item 2.
+
+  Source note: the ring, ideal and ring-homomorphism-theorem definitions
+  here repeat once more (verbatim, with only the group-theory analogues
+  swapped in) at the start of the source's third concatenated document —
+  not repeated here, same dedup already applied to item 2's group
+  definition and item 10's normal-subgroup/homomorphism-theorem
+  definitions.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-23; flagged
+  here and in the PR description): the formal definition of a ring
+  homomorphism (the source's theorem uses the term without ever defining
+  it, unlike the group case in item 3); the well-definedness of the
+  factor-ring operations; and the full proof of the ring-homomorphism
+  theorem's all three parts — the source states all of these without
+  proof.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 14. jegyzet</p>
+
+      <h1>Gyűrűk, ideálok és a gyűrű-homomorfizmus tétele</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        Ez a jegyzet nyitja a jegyzetsorozat gyűrűelméleti felét: bevezeti
+        a gyűrű fogalmát és a belőle származó alapfogalmakat (kommutatív,
+        egységelemes, nullosztómentes gyűrű, integritási tartomány, test),
+        majd az ideál és a faktorgyűrű segítségével kimondja és bizonyítja
+        a gyűrű-homomorfizmus tételét — a csoportok 10. jegyzetbeli
+        homomorfizmus-tételének pontos gyűrűelméleti megfelelőjét.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Gyűrű és alapfogalmai</li>
+        <li>Ideál, faktorgyűrű</li>
+        <li>Gyűrű-homomorfizmus és a gyűrű-homomorfizmus tétele</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Gyűrű és alapfogalmai</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Gyűrű</span>
+        <p>
+          Az \((R, +, \cdot)\) algebrai struktúrát <strong>gyűrűnek</strong>
+          nevezzük, ha:
+        </p>
+        <ol>
+          <li>\((R, +)\) Abel-csoport (az összeadás kommutatív, van \(0\) neutrális elem, és minden elemnek van additív inverze).</li>
+          <li>\((R, \cdot)\) félcsoport (a szorzás asszociatív).</li>
+          <li>A szorzás disztributív az összeadásra nézve: \(a(b+c) = ab + ac\) és \((a+b)c = ac + bc\).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Alapvető fogalmak a gyűrűkben</span>
+        <ul>
+          <li><strong>Kommutatív gyűrű:</strong> ha a \(\cdot\) művelet is kommutatív (\(ab = ba\)).</li>
+          <li><strong>Egységelemes gyűrű:</strong> ha a szorzásra nézve létezik semleges elem (\(1 \neq 0\)).</li>
+          <li><strong>Nullosztómentes gyűrű:</strong> ha \(a \cdot b = 0 \implies a = 0 \lor b = 0\).</li>
+          <li><strong>Invertálható elem:</strong> ha létezik \(a^{-1}\), amire \(a \cdot a^{-1} = 1\).</li>
+          <li><strong>Integritási tartomány:</strong> kommutatív, egységelemes, nullosztómentes gyűrű.</li>
+          <li><strong>Test:</strong> olyan kommutatív, egységelemes gyűrű, amelyben minden \(0 \neq a\)-nak van multiplikatív inverze.</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Ideálok és faktorgyűrűk</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Ideál</span>
+        <p>
+          Legyen \(R\) gyűrű és \(I \subseteq R\) egy részhalmaz. Azt
+          mondjuk, hogy \(I\) az \(R\) egy <strong>ideálja</strong>
+          (jelölésben: \(I \trianglelefteq R\)), ha:
+        </p>
+        <ol>
+          <li>\((I, +) \le (R, +)\) (részcsoport az összeadásra nézve).</li>
+          <li>\(\forall r \in R, i \in I\) esetén \(r \cdot i \in I\) és \(i \cdot r \in I\) (elnyeli a gyűrű elemeit).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Faktorgyűrű</span>
+        <p>
+          Ha \(I \trianglelefteq R\) egy ideál, akkor a
+          \(R/I = \{r + I \mid r \in R\}\) halmaz a mellékosztályok
+          szerinti műveletekkel:
+        </p>
+        \[ (r_1 + I) + (r_2 + I) = (r_1 + r_2) + I \]
+        \[ (r_1 + I) \cdot (r_2 + I) = (r_1 r_2) + I \]
+        <p>
+          szintén gyűrű, amit \(R\) szerinti <strong>faktorgyűrűnek</strong>
+          nevezünk.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — a faktorgyűrű műveletei jóldefiniáltak</span>
+        <p>
+          Mivel \((R, +)\) Abel-csoport, minden részcsoportja normálosztó
+          (\(r + I = I + r\) automatikusan teljesül, hiszen \(r+i = i+r\)
+          minden \(i \in I\)-re), tehát az összeadás jóldefiniáltsága
+          pontosan a 10. jegyzet faktorcsoport-bizonyítása (\((R,+)\)-ra
+          alkalmazva, additív jelöléssel).
+        </p>
+        <p>
+          A szorzás jóldefiniáltságához azt kell megmutatni, hogy
+          \((r_1+I)(r_2+I)\) nem függ a reprezentánsok választásától.
+          Legyen \(r_1' = r_1 + i_1\), \(r_2' = r_2 + i_2\)
+          (\(i_1, i_2 \in I\)). Ekkor:
+        </p>
+        \[
+        \begin{aligned}
+        r_1' r_2' &amp;= (r_1+i_1)(r_2+i_2) = r_1 r_2 + r_1 i_2 + i_1 r_2 + i_1 i_2
+        \end{aligned}
+        \]
+        <p>
+          Az ideál elnyelő tulajdonsága szerint \(r_1 i_2 \in I\),
+          \(i_1 r_2 \in I\) és \(i_1 i_2 \in I\) (hiszen \(i_1 \in I\), és
+          \(I\) elnyeli a szorzást bármely \(R\)-beli elemmel, így
+          \(i_2\)-vel is), és \(I\) zárt az összeadásra, tehát az
+          \(r_1 i_2 + i_1 r_2 + i_1 i_2\) összeg is \(I\)-ben van. Így
+          \(r_1' r_2' = r_1 r_2 + i\) valamely \(i \in I\)-re, azaz
+          \(r_1' r_2' + I = r_1 r_2 + I\), vagyis
+          \((r_1'+I)(r_2'+I) = (r_1+I)(r_2+I)\). A gyűrűaxiómák
+          (asszociativitás, disztributivitás) közvetlenül örökölnek
+          \(R\)-ből.
+        </p>
+      </div>
+
+      <h2>Gyűrű-homomorfizmus és a homomorfizmus tétele</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Gyűrű-homomorfizmus (kiegészítés)</span>
+        <p>
+          Legyenek \(R, S\) gyűrűk. Egy \(\varphi : R \to S\) leképezést
+          <strong>gyűrű-homomorfizmusnak</strong> nevezünk, ha minden
+          \(a, b \in R\)-re mindkét műveletet megtartja:
+        </p>
+        \[ \varphi(a+b) = \varphi(a) + \varphi(b), \qquad \varphi(ab) = \varphi(a)\varphi(b) \]
+        <p>
+          (A forrás a homomorfizmus fogalmát csoportokra a 3. jegyzetben
+          definiálta; gyűrűkre nem — ez a definíció annak pontos
+          megfelelője, kiegészítve a szorzás megtartásával.)
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Gyűrűk homomorfizmus tétele</span>
+        <p>Legyen \(\varphi : R \to S\) gyűrűhomomorfizmus. Ekkor:</p>
+        <ol>
+          <li>\(\operatorname{Im} \varphi \le S\) algebrája/részgyűrűje.</li>
+          <li>\(\ker \varphi = \{r \in R \mid \varphi(r) = 0\} \trianglelefteq R\) (ideál).</li>
+          <li>\(R/\ker \varphi \cong \operatorname{Im} \varphi\).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Mint a csoport-homomorfizmusoknál (9. jegyzet), előbb:
+          \(\varphi(0_R) = 0_S\) (mert
+          \(\varphi(0_R)+\varphi(0_R) = \varphi(0_R+0_R) = \varphi(0_R)\),
+          és mindkét oldalból \(\varphi(0_R)\)-t kivonva
+          \(\varphi(0_R)=0_S\)), és \(\varphi(-r) = -\varphi(r)\) (mert
+          \(\varphi(r)+\varphi(-r) = \varphi(r + (-r)) = \varphi(0_R) = 0_S\)).
+        </p>
+        <p>
+          <strong>1. \(\operatorname{Im} \varphi \le S\).</strong> Nem
+          üres, mert \(0_S = \varphi(0_R) \in \operatorname{Im} \varphi\).
+          Zárt az összeadásra és a szorzásra:
+          \(\varphi(r_1)+\varphi(r_2) = \varphi(r_1+r_2) \in \operatorname{Im} \varphi\),
+          \(\varphi(r_1)\varphi(r_2) = \varphi(r_1 r_2) \in \operatorname{Im} \varphi\).
+          Zárt az additív inverzre: \(-\varphi(r) = \varphi(-r) \in \operatorname{Im} \varphi\).
+          Tehát \(\operatorname{Im} \varphi\) az összeadásra részcsoport,
+          a szorzásra zárt — vagyis \(S\) egy részgyűrűje.
+        </p>
+        <p>
+          <strong>2. \(\ker \varphi \trianglelefteq R\).</strong> Előbb
+          \((\ker \varphi, +) \le (R, +)\): nem üres, mert
+          \(\varphi(0_R)=0_S\), tehát \(0_R \in \ker \varphi\); zárt az
+          összeadásra, mert ha \(\varphi(r_1)=\varphi(r_2)=0_S\), akkor
+          \(\varphi(r_1+r_2) = 0_S+0_S = 0_S\); zárt az additív inverzre,
+          mert \(\varphi(-r) = -\varphi(r) = -0_S = 0_S\) ha
+          \(\varphi(r)=0_S\). Elnyelő tulajdonság: ha \(r \in R\) és
+          \(i \in \ker \varphi\), akkor
+          \(\varphi(ri) = \varphi(r)\varphi(i) = \varphi(r) \cdot 0_S = 0_S\),
+          tehát \(ri \in \ker \varphi\); ugyanígy \(\varphi(ir) = 0_S\).
+          Tehát \(\ker \varphi \trianglelefteq R\).
+        </p>
+        <p>
+          <strong>3. \(R/\ker \varphi \cong \operatorname{Im} \varphi\).</strong>
+          Legyen \(K = \ker \varphi\) (a 2. pont szerint ideál, tehát
+          \(R/K\) faktorgyűrű). Definiáljuk a
+          \(\Phi : R/K \to \operatorname{Im} \varphi\),
+          \(\Phi(r+K) = \varphi(r)\) leképezést.
+        </p>
+        <p>
+          <em>Jóldefiniált.</em> Ha \(r_1+K = r_2+K\), azaz
+          \(r_1-r_2 \in K = \ker \varphi\), akkor
+          \(\varphi(r_1-r_2) = 0_S\), azaz
+          \(\varphi(r_1) - \varphi(r_2) = 0_S\) (a fenti lemma szerint
+          \(\varphi(-r_2)=-\varphi(r_2)\)), tehát \(\varphi(r_1) = \varphi(r_2)\).
+        </p>
+        <p>
+          <em>Homomorfizmus.</em> A faktorgyűrű mindkét műveletére:
+        </p>
+        \[
+        \Phi\bigl((r_1+K)+(r_2+K)\bigr) = \Phi\bigl((r_1+r_2)+K\bigr) = \varphi(r_1+r_2) = \varphi(r_1)+\varphi(r_2) = \Phi(r_1+K)+\Phi(r_2+K)
+        \]
+        \[
+        \Phi\bigl((r_1+K)(r_2+K)\bigr) = \Phi\bigl(r_1r_2+K\bigr) = \varphi(r_1r_2) = \varphi(r_1)\varphi(r_2) = \Phi(r_1+K)\Phi(r_2+K)
+        \]
+        <p>
+          <em>Injektív.</em> Ha \(\Phi(r+K) = 0_S\), azaz \(\varphi(r)=0_S\),
+          akkor \(r \in \ker \varphi = K\), tehát \(r+K = K\), az \(R/K\)
+          neutrális eleme az összeadásra. Ha
+          \(\Phi(r_1+K)=\Phi(r_2+K)\), akkor
+          \(\Phi\bigl((r_1-r_2)+K\bigr) = \varphi(r_1)-\varphi(r_2) = 0_S\),
+          tehát \((r_1-r_2)+K = K\), azaz \(r_1+K = r_2+K\).
+        </p>
+        <p>
+          <em>Szürjektív \(\operatorname{Im} \varphi\)-re.</em>
+          \(\operatorname{Im} \varphi\) minden eleme \(\varphi(r)\) alakú
+          valamely \(r\)-re, ami \(\Phi(r+K)\).
+        </p>
+        <p>
+          Tehát \(\Phi\) bijektív gyűrű-homomorfizmus, azaz izomorfizmus:
+          \(R/\ker \varphi \cong \operatorname{Im} \varphi\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
