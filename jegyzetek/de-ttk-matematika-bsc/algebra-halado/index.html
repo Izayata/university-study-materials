@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Algebra haladó — DE TTK Matematika BSc 2023/2025 | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Algebra haladó, 20 részre bontva: csoportelmélet a Cayley-tábláktól a Cauchy-tételig, gyűrű- és testelmélet a főideálgyűrűkig, majd a szerkeszthető számok és a Galois-elmélet bevezetése.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<!--
+  Deliberate second nesting level, same shape as
+  kombinatorika-es-grafelmelet/index.html,
+  linearis-algebrai-alapozas/index.html,
+  algebra-es-szamelmelet-alapok/index.html,
+  linearis-algebra-halado/index.html and
+  mely-bevezetes-az-analizisbe/index.html: this course's "Algebra haladó"
+  source (three concatenated LaTeX files with real content duplication at
+  the seams, same "pasted from multiple sessions" pattern as the
+  kombinatorika source) was split into 20 smaller jegyzet items on the
+  owner's request (2026-09-23) and needed its own landing page rather
+  than 20 cards directly on the course landing page. "Algebra haladó" is
+  the deliberate advanced companion to `algebra-es-szamelmelet-alapok`,
+  mirroring how `linearis-algebra-halado` is the advanced companion to
+  `linearis-algebrai-alapozas`. See CLAUDE.md's Content model section for
+  the confirmed rationale — don't generalize this into a new default for
+  every course.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell">
+    <main class="content">
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / Algebra haladó</p>
+
+      <h1>Algebra haladó</h1>
+      <p>
+        Az absztrakt algebra mélyebb részeit olvashatod 20 kisebb részre
+        bontva: a csoportelméletet a kétváltozós műveletektől a Cauchy-
+        tételig, a gyűrű- és testelméletet az ideáloktól a főideál-
+        gyűrűkig, végül a szerkeszthető számokat és a Galois-elmélet
+        bevezetését — a tételek bizonyításával.
+      </p>
+
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="card-grid">
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet1/">
+          <h3>1. Kétváltozós műveletek: asszociativitás, kommutativitás, neutrális és inverz elem</h3>
+          <p>Kétváltozós művelet, asszociativitás, kommutativitás, neutrális és inverz elem, egyértelműségük.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet2/">
+          <h3>2. Algebrai struktúrák: félcsoport, monoid, csoport, Abel-csoport</h3>
+          <p>Félcsoport, monoid, csoport, Abel-csoport és példák, köztük a kvaterniócsoport.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet3/">
+          <h3>3. Szimmetrikus csoport, Cayley-tábla, homomorfizmus és izomorfizmus</h3>
+          <p>Függvénykompozíció, szimmetrikus és permutációcsoport, Cayley-tábla és a Latin-négyzet tulajdonság, homomorfizmus és izomorfizmus.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet4/">
+          <h3>4. Permutációk előjele és paritása</h3>
+          <p>Transzpozíciók, a paritás jóldefiniáltsága, az előjel (sgn) és a ciklusszerkezet kapcsolata.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet5/">
+          <h3>5. Elem rendje csoportban</h3>
+          <p>Az elem rendjének két definíciója, ekvivalenciájuk, és egy permutáció rendje a ciklushosszak legkisebb közös többszöröseként.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet6/">
+          <h3>6. Ciklikus csoportok</h3>
+          <p>Ciklikus csoport, generátorelem, példák, és a ciklikus csoportok izomorfia-tétele.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet7/">
+          <h3>7. Részcsoportok, mellékosztályok és a Lagrange-tétel</h3>
+          <p>Részcsoport-kritérium, komplexusok, bal és jobb oldali mellékosztályok, a Lagrange-tétel bizonyítással.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet8/">
+          <h3>8. Generált részcsoport, ciklikus csoportok részcsoportjai, direkt szorzatok</h3>
+          <p>Generált részcsoport, prímrendű csoportok, ciklikus csoportok részcsoportjainak osztályozása, direkt szorzat.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet9/">
+          <h3>9. Homomorfizmus képe és magja; véges Abel-csoportok alaptétele</h3>
+          <p>Im φ és ker φ mint részcsoportok, a véges Abel-csoportok alaptétele egy 72 elemű példával.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet10/">
+          <h3>10. Normálosztók, faktorcsoportok és a homomorfizmus-tétel</h3>
+          <p>Normálosztó ekvivalens feltételei, faktorcsoport, természetes homomorfizmus, a csoportok homomorfizmus-tétele.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet11/">
+          <h3>11. Konjugálás, centrum és az osztályegyenlet</h3>
+          <p>Konjugálás, centralizátor, konjugáltosztály, centrum, az osztályegyenlet bizonyítással.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet12/">
+          <h3>12. Izomorfizmus-tételek I–III</h3>
+          <p>Az I., II. és III. izomorfizmus-tétel csoportokra, bizonyítással.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet13/">
+          <h3>13. p-csoportok és a Cauchy-tétel</h3>
+          <p>p-csoport, és Cauchy tétele: ha p osztja |G|-t, akkor van p rendű elem.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet14/">
+          <h3>14. Gyűrűk, ideálok és a gyűrű-homomorfizmus tétele</h3>
+          <p>Gyűrű, kommutatív/egységelemes/nullosztómentes gyűrű, integritási tartomány, test, ideál, faktorgyűrű, a gyűrű-homomorfizmus tétele.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet15/">
+          <h3>15. Polinomgyűrűk, gyökök és a gyűrű karakterisztikája</h3>
+          <p>Polinomgyűrű, polinom gyöke, a gyöktétel, gyűrű karakterisztikája, egyszerűsítés integritási tartományban.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet16/">
+          <h3>16. Maximális ideálok és testek</h3>
+          <p>Maximális és prímideál, a faktorgyűrű mint test, illetve mint integritási tartomány, példa: ℝ[x]/(x²+1)≅ℂ.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet17/">
+          <h3>17. Euklideszi gyűrűk és főideálgyűrűk</h3>
+          <p>Euklideszi gyűrű, főideálgyűrű (PID), és hogy ℤ[x] miért nem az.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet18/">
+          <h3>18. Oszthatóság, prím- és irreducibilis elemek főideálgyűrűben</h3>
+          <p>Oszthatóság, asszociáltság, irreducibilis és prím elem, és hogy főideálgyűrűben a kettő ugyanaz.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet19/">
+          <h3>19. Minimálpolinom, testbővítések és a szorzótétel</h3>
+          <p>Minimálpolinom és tulajdonságai, testbővítés fokszáma, algebrai elem, a szorzótétel.</p>
+        </a>
+        <a class="item-card" href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet20/">
+          <h3>20. Szerkeszthető számok, szabályos sokszögek és bevezetés a Galois-elméletbe</h3>
+          <p>Szerkeszthetőség algebrai feltétele, Gauss tétele a szabályos sokszögekről, gyöktest, Galois-csoport, oldható csoport, az ötödfokú egyenlet.</p>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <div id="site-footer"></div>
+  <script src="/script.js" defer></script>
+</body>
+</html>

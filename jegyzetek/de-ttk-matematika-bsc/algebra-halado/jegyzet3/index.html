@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Szimmetrikus csoport, Cayley-tábla, homomorfizmus és izomorfizmus | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Függvénykompozíció, szimmetrikus és permutációcsoport, a Cayley-tábla és a Latin-négyzet tulajdonság, csoport-homomorfizmus és izomorfizmus bizonyítással — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet3/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 3 of 20 — see part 1's head comment for the shape rationale.
+
+  Source fixes here: S_X is defined as "bijektív függvények (vagy
+  izometriák)" — "or isometries" is dropped, since isometries are a
+  narrower, metric-space-only notion that doesn't in general coincide
+  with all bijections; S_X is simply the bijective self-maps of X.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-23; flagged
+  here and in the PR description): the bijectivity check of the
+  exp-isomorphism example, which the source only asserts ("Mivel φ
+  bijekció is"). The Cayley-tábla/Latin-négyzet proof is the source's
+  own, kept as-is.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 3. jegyzet</p>
+
+      <h1>Szimmetrikus csoport, Cayley-tábla, homomorfizmus és izomorfizmus</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        Ez a jegyzet az első konkrét csoportpéldát adja (a bijektív
+        önleképezések csoportját a kompozícióra nézve), megmutatja, hogyan
+        szemléltethető egy véges csoport művelete táblázattal, és bevezeti
+        a csoportok közti struktúratartó leképezéseket, a homomorfizmust
+        és az izomorfizmust.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Függvények kompozíciója, szimmetrikus csoport</li>
+        <li>Permutációcsoport, mátrixjelölés</li>
+        <li>Cayley-tábla, Latin-négyzet tulajdonság</li>
+        <li>Homomorfizmus és izomorfizmus</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Függvények kompozíciója és szimmetrikus csoportok</h2>
+
+      <p>
+        Legyen \(X\) egy tetszőleges halmaz, és \(S_X\) jelölje az \(X\)-en
+        értelmezett bijektív függvények halmazát. A függvények
+        kompozíciója (\(\circ\)) mint kétváltozós művelet teljesíti a
+        következőket:
+      </p>
+      <ul>
+        <li>Asszociatív: \((f \circ g) \circ h = f \circ (g \circ h)\)</li>
+        <li>Neutrális eleme az identikus leképezés: \(\text{id}_X : X \to X\), \(\text{id}(x) = x\).</li>
+        <li>Minden bijektív függvény invertálható, és inverze is bijektív: \(f(a) = b \iff b = f^{-1}(a)\).</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Szimmetrikus csoport és permutációcsoport</span>
+        <p>
+          Az \((S_X, \circ)\) csoportot <strong>szimmetrikus csoportnak</strong>
+          nevezzük \(X\)-en. Ha \(X\) véges, pl. \(X = \{1, 2, 3, \dots, n\}\),
+          akkor \(S_X\)-et \(S_n\)-nel jelöljük, és az \(n\) elemű halmaz
+          <strong>permutációcsoportjának</strong> hívjuk. Egy
+          \(f \in S_n\) permutációt mátrixszerűen így jelölünk:
+        </p>
+        \[ f = \begin{pmatrix} 1 & 2 & 3 & \dots & n \\ f(1) & f(2) & f(3) & \dots & f(n) \end{pmatrix} \]
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Cayley-tábla (művelettábla)</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Művelettábla</span>
+        <p>
+          Véges halmazon értelmezett kétváltozós művelet szemléltetésére
+          használjuk a <strong>Cayley-táblát</strong>.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás — Latin-négyzet tulajdonság</span>
+        <p>
+          Egy csoport Cayley-táblájában minden elem minden sorban és
+          minden oszlopban pontosan egyszer szerepel (azaz nincsenek
+          azonos elemek egy soron/oszlopon belül).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <p>
+          Ha \(a * b = a * c\), akkor szorozva balról \(a^{-1}\)-gyel:
+          \(b = c\) (ezért minden sorban különböző elemek vannak).
+          Hasonlóan, ha \(b * a = c * a\), akkor jobbról szorozva
+          \(a^{-1}\)-gyel: \(b = c\) (ezért minden oszlopban is különböző
+          elemek vannak).
+        </p>
+      </div>
+
+      <h2>Csoportok homomorfizmusa és izomorfizmusa</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Homomorfizmus és izomorfizmus</span>
+        <p>
+          Legyenek \((G, \circ)\) és \((H, *)\) csoportok. Egy
+          \(\varphi : G \to H\) leképezést <strong>homomorfizmusnak</strong>
+          (művelettartónak) nevezünk, ha minden \(a, b \in G\) esetén:
+        </p>
+        \[ \varphi(a \circ b) = \varphi(a) * \varphi(b) \]
+        <p>
+          Ha \(\varphi\) még bijektív is, akkor <strong>izomorfizmusnak</strong>
+          nevezzük. Ha \(G\) és \(H\) között létezik izomorfizmus, akkor azt
+          mondjuk, hogy \(G\) és \(H\) <strong>izomorfak</strong>, jelölésben:
+          \(G \cong H\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Példa — Exponenciális függvény mint izomorfizmus</span>
+        <p>
+          Legyen \(G = (\mathbb{R}, +)\) és \(H = (\mathbb{R}^+, \cdot)\).
+          Definiáljuk a leképezést \(\varphi : G \to H\)-ként:
+          \(\varphi(x) = 10^x\). Ekkor művelettartó:
+        </p>
+        \[ \varphi(a + b) = 10^{a+b} = 10^a \cdot 10^b = \varphi(a) \cdot \varphi(b) \]
+        <p>
+          Mivel \(\varphi\) bijekció is, így \((\mathbb{R}, +) \cong (\mathbb{R}^+, \cdot)\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — \(\varphi\) bijekció</span>
+        <p>
+          A \(\varphi(x) = 10^x\) függvény szigorúan monoton növekvő
+          (\(x_1 &lt; x_2 \implies 10^{x_1} &lt; 10^{x_2}\)), ezért injektív.
+          Folytonos, \(\lim_{x \to -\infty} 10^x = 0\) és
+          \(\lim_{x \to +\infty} 10^x = +\infty\), így a Bolzano-tétel
+          szerint minden \(y \in \mathbb{R}^+\)-hoz van olyan \(x\), hogy
+          \(10^x = y\): \(\varphi\) szürjektív is. Tehát \(\varphi\)
+          bijekció.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

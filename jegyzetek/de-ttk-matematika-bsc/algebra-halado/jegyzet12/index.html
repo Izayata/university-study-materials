@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Izomorfizmus-tételek I–III | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Az I., II. és III. izomorfizmus-tétel csoportokra (NK≤G, N∩K◁K, K/(N∩K)≅NK/N, illetve (G/K)/(N/K)≅G/N), a 10. jegyzet homomorfizmus-tételére visszavezetve — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet12/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 12 of 20 — see part 1's head comment for the shape rationale.
+
+  Source note: "I. izomorfizmus tétel" is the surjective special case of
+  the general homomorphism theorem already proved in item 10 (Im φ = K
+  when φ is surjective) — kept here only as an explicitly-noted
+  corollary, not reproved, to avoid the same three-times duplication the
+  source itself has (see item 10's head comment).
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-23; flagged
+  here and in the PR description): the full proofs of the II. and III.
+  izomorfizmus tétel — the source states both without proof. Both proofs
+  reduce to item 10's general homomorphism theorem, applied to a
+  suitably chosen homomorphism.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 12. jegyzet</p>
+
+      <h1>Izomorfizmus-tételek I–III</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        Ez a jegyzet a 10. jegyzet homomorfizmus-tételének három
+        alkalmazását gyűjti össze: az elsőt, amely az eredeti tétel
+        szürjektív esete, és a másodikat, harmadikat, amelyek egy alkalmas
+        homomorfizmus megkonstruálásával ugyanabból a tételből adódnak.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>I. izomorfizmus tétel (a 10. jegyzet tételének szürjektív esete)</li>
+        <li>II. izomorfizmus tétel</li>
+        <li>III. izomorfizmus tétel</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>I. izomorfizmus tétel</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — I. izomorfizmus tétel</span>
+        <p>Legyen \(\varphi : G \to K\) szürjektív homomorfizmus. Ekkor:</p>
+        \[ G/\ker \varphi \cong K \]
+      </div>
+
+      <p>
+        Ez pontosan a 10. jegyzet homomorfizmus-tétele (\(G/\ker \varphi \cong \operatorname{Im} \varphi\))
+        abban a speciális esetben, amikor \(\varphi\) szürjektív, hiszen
+        ekkor \(\operatorname{Im} \varphi = K\). Külön bizonyítást nem
+        igényel.
+      </p>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>II. izomorfizmus tétel</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — II. izomorfizmus tétel</span>
+        <p>Legyen \(N \unlhd G\) és \(K \le G\). Ekkor:</p>
+        <ul>
+          <li>\(NK \le G\)</li>
+          <li>\(N \cap K \unlhd K\)</li>
+          <li>\(K/(N \cap K) \cong NK/N\)</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>\(NK \le G\).</strong> Nem üres (\(e = e \cdot e \in NK\)).
+          Zárt a műveletre: \((n_1k_1)(n_2k_2) = n_1(k_1 n_2 k_1^{-1})(k_1k_2) = (n_1 n_2')(k_1k_2)\),
+          ahol \(n_2' = k_1 n_2 k_1^{-1} \in N\) (\(N\) normálosztó), tehát
+          \(n_1 n_2' \in N\), és a szorzat \(NK\)-ban van. Zárt az
+          inverzre: \((nk)^{-1} = k^{-1}n^{-1} = (k^{-1}n^{-1}k)k^{-1} = n'' k^{-1}\),
+          ahol \(n'' = k^{-1}n^{-1}k \in N\), tehát \((nk)^{-1} \in NK\).
+        </p>
+        <p>
+          <strong>\(N \cap K \unlhd K\).</strong> \(N \cap K \le K\) (két
+          részcsoport metszete zárt a műveletre és inverzre, mert mindkét
+          részcsoport az). Normálosztó \(K\)-ban: ha \(k \in K\) és
+          \(x \in N \cap K\), akkor \(kxk^{-1} \in K\) (mert \(k, x \in K\)
+          és \(K\) csoport), és \(kxk^{-1} \in N\) (mert \(x \in N\) és
+          \(N \unlhd G\), tehát minden \(G\)-beli — így minden \(K\)-beli —
+          elemmel konjugálva \(N\)-ben marad). Tehát
+          \(kxk^{-1} \in N \cap K\).
+        </p>
+        <p>
+          <strong>\(K/(N \cap K) \cong NK/N\).</strong> Mivel \(N \unlhd G\)
+          és \(N \subseteq NK \subseteq G\), \(N\) az \(NK\) részcsoportban
+          is normálosztó (a normálosztó-feltétel minden \(G\)-beli, így
+          minden \(NK\)-beli elemre is teljesül), tehát az \(NK/N\)
+          faktorcsoport értelmes. Definiáljuk a \(\psi : K \to NK/N\),
+          \(\psi(k) = kN\) leképezést. Homomorfizmus, mert a faktorcsoport
+          szorzása szerint \(\psi(k_1k_2) = k_1k_2N = (k_1N)(k_2N) = \psi(k_1)\psi(k_2)\).
+        </p>
+        <p>
+          Szürjektív: az \(NK/N\) tetszőleges eleme \((nk)N\) alakú.
+          Mivel \(N\) normálosztó, \(nk = k(k^{-1}nk) = kn'\), ahol
+          \(n' = k^{-1}nk \in N\), tehát
+          \((nk)N = (kn')N = k(n'N) = kN = \psi(k)\) (felhasználva, hogy
+          \(n'N = N\), mert \(n' \in N\)). Tehát \(\psi\) szürjektív.
+        </p>
+        <p>
+          Mag: \(\psi(k) = N\) (az \(NK/N\) neutrális eleme)
+          \(\iff kN = N \iff k \in N\). Mivel \(k \in K\) is fennáll,
+          \(\ker \psi = N \cap K\).
+        </p>
+        <p>
+          A 10. jegyzet homomorfizmus-tétele szerint
+          \(K / \ker \psi \cong \operatorname{Im} \psi\), azaz
+          \(K/(N \cap K) \cong NK/N\).
+        </p>
+      </div>
+
+      <h2>III. izomorfizmus tétel</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — III. izomorfizmus tétel</span>
+        <p>Legyenek \(N, K \unlhd G\) olyan normálosztók, hogy \(K \le N\). Ekkor:</p>
+        <ul>
+          <li>\(K \unlhd N\)</li>
+          <li>\((G/K)/(N/K) \cong G/N\)</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>\(K \unlhd N\).</strong> \(K \unlhd G\) azt jelenti, hogy
+          \(gkg^{-1} \in K\) minden \(g \in G\)-re és \(k \in K\)-ra;
+          speciálisan minden \(g \in N \subseteq G\)-re is, tehát \(K\)
+          normálosztó \(N\)-ben is.
+        </p>
+        <p>
+          <strong>\((G/K)/(N/K) \cong G/N\).</strong> Definiáljuk a
+          \(\Theta : G/K \to G/N\), \(\Theta(gK) = gN\) leképezést.
+        </p>
+        <p>
+          Jóldefiniált: ha \(g_1 K = g_2 K\), azaz \(g_1^{-1}g_2 \in K\),
+          akkor \(K \subseteq N\) miatt \(g_1^{-1}g_2 \in N\), azaz
+          \(g_1 N = g_2 N\).
+        </p>
+        <p>
+          Homomorfizmus:
+          \(\Theta(g_1K \cdot g_2K) = \Theta(g_1g_2K) = g_1g_2N = (g_1N)(g_2N) = \Theta(g_1K)\Theta(g_2K)\).
+          Szürjektív: \(G/N\) tetszőleges eleme \(gN = \Theta(gK)\).
+        </p>
+        <p>
+          Mag: \(\Theta(gK) = N\) (a \(G/N\) neutrális eleme)
+          \(\iff gN = N \iff g \in N\). Az \(N\)-beli elemek \(K\) szerinti
+          mellékosztályai éppen \(N/K\) elemei, tehát \(\ker \Theta = N/K\)
+          (\(G/K\) egy részhalmazaként).
+        </p>
+        <p>
+          A 10. jegyzet homomorfizmus-tétele \(\Theta\)-ra alkalmazva:
+          \((G/K)/\ker \Theta \cong \operatorname{Im} \Theta\). Mivel
+          \(\Theta\) szürjektív, \(\operatorname{Im} \Theta = G/N\), és
+          \(\ker \Theta = N/K\), tehát \((G/K)/(N/K) \cong G/N\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

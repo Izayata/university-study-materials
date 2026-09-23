@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Minimálpolinom, testbővítések és a szorzótétel | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Minimálpolinom és tulajdonságai (irreducibilitás, K[x]/(m_α)≅K(α)) teljes bizonyítással, testbővítés fokszáma, algebrai elem, a szorzótétel ([M:K]=[M:L][L:K]) és a véges bővítés algebraiságának bizonyítása — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet19/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 19 of 20 — see part 1's head comment for the shape rationale.
+
+  Source note: the "Egyszerű bővítés szerkezete" tétel
+  (K(α) ≅ K[x]/(m_α(x))) restates the minimálpolinom-tulajdonságok
+  tétel's 3. pontját szó szerint — bizonyítva egyszer, a minimálpolinom
+  szakaszban; itt csak hivatkozva, nem újra bizonyítva.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-23; flagged
+  here and in the PR description): the full proof of all three parts of
+  the minimálpolinom-tulajdonságok tétele — the source states them
+  without proof; a lemma that K[x] is a PID when K is a field (needed
+  for the 3. pont, and not otherwise in the source); the full proof of
+  the szorzótétel; and the full proof that every element of a finite
+  extension is algebraic.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 19. jegyzet</p>
+
+      <h1>Minimálpolinom, testbővítések és a szorzótétel</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        Ez a jegyzet a gyűrűelméleti eszköztárat (14–18. jegyzet)
+        testbővítésekre alkalmazza: bevezeti a minimálpolinomot és
+        bizonyítja három alaptulajdonságát, majd a testbővítés
+        fokszámával és az algebrai elem fogalmával zárva kimondja és
+        bizonyítja a szorzótételt.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Minimálpolinom és tulajdonságai</li>
+        <li>Testbővítés fokszáma, algebrai elem</li>
+        <li>A szorzótétel</li>
+        <li>Véges bővítés minden eleme algebrai</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Minimálpolinom</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Minimálpolinom</span>
+        <p>
+          Legyen \(K \subseteq L\) testbővítés és \(\alpha \in L\). Az
+          \(\alpha\) elem \(K\) feletti <strong>minimálpolinomja</strong>
+          az a legkisebb fokú főegyütthatós (monikus) \(m_\alpha(x) \in K[x]\)
+          polinom, amelynek \(\alpha\) gyöke (\(m_\alpha(\alpha) = 0\)).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Minimálpolinom tulajdonságai</span>
+        <p>Ha \(m_\alpha(x)\) az \(\alpha\) minimálpolinomja \(K\) felett, akkor:</p>
+        <ol>
+          <li>\(m_\alpha(x)\) irreducibilis \(K\) felett.</li>
+          <li>Ha \(f(\alpha) = 0\) valamilyen \(f(x) \in K[x]\) esetén, akkor \(m_\alpha \mid f\).</li>
+          <li>A kiértékelési homomorfizmus magja: \(\ker \varphi_\alpha = (m_\alpha(x))\), így \(K[x]/(m_\alpha(x)) \cong K(\alpha)\).</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — 1. pont</span>
+        <p>
+          Tegyük fel, hogy \(m_\alpha = fg\) valamely \(f, g \in K[x]\)-re,
+          és mindkettő legalább elsőfokú (nem egység — \(K[x]\)-ben az
+          egységek pontosan a nemnulla konstansok, mert \(K\) test).
+          Ekkor \(\deg f, \deg g \ge 1\), és mivel
+          \(\deg f + \deg g = \deg m_\alpha\), mindkettő fokszáma szigorúan
+          kisebb, mint \(\deg m_\alpha\). Mivel \(L\) test (nullosztómentes),
+          \(0 = m_\alpha(\alpha) = f(\alpha)g(\alpha) \implies f(\alpha)=0\)
+          vagy \(g(\alpha)=0\). Ekkor viszont volna egy \(m_\alpha\)-nál
+          alacsonyabb fokú, nemnulla polinom (\(f\) vagy \(g\)), amelynek
+          \(\alpha\) gyöke — ez ellentmond \(m_\alpha\) fokszámának
+          minimalitásának. Tehát minden \(m_\alpha = fg\) felbontásban
+          \(f\) vagy \(g\) foka \(0\), azaz egység: \(m_\alpha\)
+          irreducibilis.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — 2. pont</span>
+        <p>
+          \(m_\alpha\) monic, tehát a 16. jegyzet osztási lemmája
+          alkalmazható: \(f(x) = m_\alpha(x) q(x) + r(x)\), ahol \(r=0\)
+          vagy \(\deg r &lt; \deg m_\alpha\). Az \(\alpha\)-ban kiértékelve:
+        </p>
+        \[ f(\alpha) = m_\alpha(\alpha) q(\alpha) + r(\alpha) = 0 + r(\alpha) = r(\alpha) \]
+        <p>
+          A feltétel szerint \(f(\alpha)=0\), tehát \(r(\alpha)=0\). Ha
+          \(r \neq 0\), akkor \(r\) egy \(m_\alpha\)-nál alacsonyabb fokú,
+          nemnulla polinom, amelynek \(\alpha\) gyöke — ellentmond
+          \(m_\alpha\) minimalitásának. Tehát \(r=0\), azaz
+          \(f(x) = m_\alpha(x) q(x)\), vagyis \(m_\alpha \mid f\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Lemma — \(K[x]\) főideálgyűrű, ha \(K\) test (kiegészítés)</span>
+        <p>
+          Legyen \(K\) test és \(I \trianglelefteq K[x]\) egy nemnulla
+          ideál. Ekkor \(I\) főideál.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \(h \in I\) egy legkisebb fokú nemnulla elem (ilyen van,
+          mert a fokszámok nemnegatív egészek, jólrendezettek). Mivel
+          \(K\) test, \(h\) főegyütthatója invertálható, tehát
+          \(h\)-t átskálázva feltehetjük, hogy \(h\) monic (ez nem
+          változtat az \((h)\) főideálon). A 16. jegyzet osztási lemmája
+          szerint minden \(f \in I\)-re \(f = hq+r\), \(r=0\) vagy
+          \(\deg r &lt; \deg h\). Mivel \(f, hq \in I\), \(r = f-hq \in I\)
+          is (az ideál zárt a kivonásra). Ha \(r \neq 0\) volna, \(r\) egy
+          \(h\)-nál alacsonyabb fokú nemnulla eleme volna \(I\)-nek —
+          ellentmond \(h\) fokszámának minimalitásának. Tehát \(r=0\),
+          azaz \(f = hq \in (h)\). Így \(I \subseteq (h)\); a fordított
+          tartalmazás \(h \in I\) miatt nyilvánvaló, tehát \(I = (h)\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — 3. pont</span>
+        <p>
+          Legyen \(\varphi_\alpha : K[x] \to L\), \(\varphi_\alpha(f) = f(\alpha)\)
+          a behelyettesítési homomorfizmus (ugyanaz a konstrukció, mint a
+          16. jegyzet \(\mathbb{R}[x]/(x^2+1)\)-példájában).
+        </p>
+        <p>
+          <strong>\(\ker \varphi_\alpha = (m_\alpha)\).</strong>
+          \((m_\alpha) \subseteq \ker \varphi_\alpha\), mert
+          \(m_\alpha(\alpha)=0\), tehát minden \(m_\alpha\)-többszörös is
+          \(\alpha\)-ban \(0\)-ba képződik. Fordítva, ha
+          \(f \in \ker \varphi_\alpha\), azaz \(f(\alpha)=0\), a 2. pont
+          szerint \(m_\alpha \mid f\), azaz \(f \in (m_\alpha)\). Tehát
+          \(\ker \varphi_\alpha = (m_\alpha)\).
+        </p>
+        <p>
+          <strong>\((m_\alpha)\) maximális \(K[x]\)-ben.</strong> A fenti
+          Lemma szerint \(K[x]\) főideálgyűrű; az 1. pont szerint
+          \(m_\alpha\) irreducibilis. A 18. jegyzet bizonyításának első
+          fele (amely csak azt használta ki, hogy a gyűrű főideálgyűrű és
+          az elem irreducibilis) pontosan azt mutatja meg, hogy egy
+          irreducibilis elem által generált főideál maximális — tehát
+          \((m_\alpha)\) maximális ideál \(K[x]\)-ben.
+        </p>
+        <p>
+          A 16. jegyzet tétele szerint ebből \(K[x]/(m_\alpha)\) test. A
+          14. jegyzet homomorfizmus-tétele szerint
+          \(K[x]/\ker \varphi_\alpha \cong \operatorname{Im} \varphi_\alpha\),
+          azaz (a fenti \(\ker \varphi_\alpha = (m_\alpha)\)
+          felhasználásával) \(K[x]/(m_\alpha) \cong \operatorname{Im} \varphi_\alpha = K[\alpha]\)
+          (a \(K\) és \(\alpha\) által generált részgyűrű \(L\)-ben).
+          Mivel \(K[x]/(m_\alpha)\) test, \(K[\alpha]\) is test.
+        </p>
+        <p>
+          Mivel \(K[\alpha]\) egy \(K\)-t és \(\alpha\)-t tartalmazó test,
+          és \(K(\alpha)\) a legkisebb ilyen test, \(K(\alpha) \subseteq K[\alpha]\).
+          Fordítva, \(K(\alpha)\) mint test zárt minden gyűrűműveletre,
+          tehát tartalmazza \(K\) és \(\alpha\) minden polinomiális
+          kifejezését, azaz \(K[\alpha] \subseteq K(\alpha)\). A két
+          tartalmazásból \(K[\alpha] = K(\alpha)\), tehát
+          \(K[x]/(m_\alpha(x)) \cong K(\alpha)\).
+        </p>
+      </div>
+
+      <h2>Testbővítés fokszáma és algebrai elemek</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Testbővítés dimenziója (Fokszám)</span>
+        <p>
+          Legyen \(K \subseteq L\) testbővítés. Ekkor \(L\) egy \(K\)
+          feletti vektortér, aminek a dimenzióját a testbővítés
+          <strong>fokszámának</strong> nevezzük. Jelölése: \([L:K]\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Egyszerű bővítés és algebrai elem</span>
+        <p>
+          Legyen \(K \subseteq L\) testbővítés és \(\alpha \in L\). Az
+          \(\alpha\)-t \(K\) feletti <strong>algebrai elemnek</strong>
+          nevezzük, ha létezik olyan nemnulla \(f(x) \in K[x]\) polinom,
+          amelynek \(\alpha\) gyöke (\(f(\alpha) = 0\)). Egyébként
+          \(\alpha\) <strong>transzcendens</strong> \(K\) felett.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Egyszerű bővítés szerkezete</span>
+        <p>
+          Ha \(\alpha \in L\) algebrai elem \(K\) felett, akkor a
+          \(K(\alpha)\) egyszerű bővítés izomorf a polinomgyűrű
+          megfelelő faktorával:
+        </p>
+        \[ K(\alpha) \cong K[x]/(m_\alpha(x)) \]
+        <p>
+          ahol \(m_\alpha(x)\) az \(\alpha\) minimálpolinomja. Ez pontosan
+          a fenti minimálpolinom-tétel 3. pontja — külön bizonyítást nem
+          igényel.
+        </p>
+      </div>
+
+      <h2>A szorzótétel</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Szorzótétel testbővítésekre</span>
+        <p>
+          Legyenek \(K \subseteq L \subseteq M\) testbővítések. Ekkor a
+          fokszámokra érvényes a következő összefüggés:
+        </p>
+        \[ [M : K] = [M : L] \cdot [L : K] \]
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \(\{l_i\}_{i \in I}\) egy \(K\)-bázisa \(L\)-nek
+          (\(|I| = [L:K]\)), és \(\{m_j\}_{j \in J}\) egy \(L\)-bázisa
+          \(M\)-nek (\(|J| = [M:L]\)). Megmutatjuk, hogy
+          \(\{l_i m_j\}_{(i,j) \in I \times J}\) egy \(K\)-bázisa
+          \(M\)-nek — ebből \([M:K] = |I \times J| = |I| \cdot |J| = [L:K][M:L]\)
+          azonnal adódik.
+        </p>
+        <p>
+          <strong>Kifeszítés.</strong> Legyen \(x \in M\). Mivel
+          \(\{m_j\}\) kifeszíti \(M\)-et \(L\) felett,
+          \(x = \sum_j c_j m_j\) (véges összeg, \(c_j \in L\)). Mivel
+          \(\{l_i\}\) kifeszíti \(L\)-et \(K\) felett, minden
+          \(c_j = \sum_i a_{ij} l_i\) (véges összeg, \(a_{ij} \in K\)).
+          Behelyettesítve:
+        </p>
+        \[ x = \sum_j \Bigl(\sum_i a_{ij} l_i\Bigr) m_j = \sum_{i,j} a_{ij} (l_i m_j) \]
+        <p>
+          tehát \(\{l_i m_j\}\) kifeszíti \(M\)-et \(K\) felett.
+        </p>
+        <p>
+          <strong>Lineáris függetlenség.</strong> Tegyük fel, hogy
+          \(\sum_{i,j} a_{ij} (l_i m_j) = 0\) valamely \(a_{ij} \in K\)-ra
+          (véges összeg). Átrendezve:
+        </p>
+        \[ \sum_j \Bigl(\sum_i a_{ij} l_i\Bigr) m_j = 0 \]
+        <p>
+          Mivel \(\sum_i a_{ij} l_i \in L\) minden \(j\)-re (hiszen
+          \(l_i \in L\), \(a_{ij} \in K \subseteq L\)), és \(\{m_j\}\)
+          lineárisan független \(L\) felett, minden \(j\)-re
+          \(\sum_i a_{ij} l_i = 0\). Mivel \(\{l_i\}\) lineárisan
+          független \(K\) felett, ebből minden \(i\)-re \(a_{ij}=0\)
+          adódik (rögzített \(j\)-re). Tehát minden \(a_{ij}=0\).
+        </p>
+        <p>
+          \(\{l_i m_j\}\) tehát kifeszít és lineárisan független, vagyis
+          \(K\)-bázisa \(M\)-nek: \([M:K] = [M:L] \cdot [L:K]\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás — Véges bővítés és algebraiság</span>
+        <p>
+          Ha a \(K \subseteq L\) testbővítés véges (azaz
+          \([L:K] < \infty\)), akkor \(L\) minden eleme algebrai \(K\)
+          felett.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \(n = [L:K] < \infty\) és \(\alpha \in L\). Az
+          \(1, \alpha, \alpha^2, \dots, \alpha^n \in L\) elemek \(n+1\)
+          darabból állnak, egy \(n\) dimenziós \(K\)-vektortérben — tehát
+          lineárisan összefüggők. Léteznek tehát \(c_0, \dots, c_n \in K\),
+          nem mind \(0\), amelyekre:
+        </p>
+        \[ c_0 + c_1 \alpha + \dots + c_n \alpha^n = 0 \]
+        <p>
+          Ez azt jelenti, hogy \(\alpha\) gyöke a nemnulla
+          \(f(x) = c_0+c_1x+\dots+c_nx^n \in K[x]\) polinomnak, tehát
+          \(\alpha\) algebrai \(K\) felett.
+        </p>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Részcsoportok, mellékosztályok és a Lagrange-tétel | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Részcsoport és a kétfeltételes részcsoport-teszt, komplexusok, bal és jobb oldali mellékosztályok, és a Lagrange-tétel (|H| osztja |G|-t) teljes bizonyítással — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet7/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 7 of 20 — see part 1's head comment for the shape rationale.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-23; flagged
+  here and in the PR description): the proof of the two-condition
+  subgroup test, and the full proof of Lagrange's theorem (cosets
+  partition G, and every coset has exactly |H| elements) — the source
+  states both without proof.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 7. jegyzet</p>
+
+      <h1>Részcsoportok, mellékosztályok és a Lagrange-tétel</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        Ez a jegyzet a csoporton belüli szerkezetet vizsgálja: mikor alkot
+        részhalmaz önmagában is csoportot (részcsoport), hogyan lehet egy
+        részcsoport köré a teljes csoportot egyenlő méretű darabokra
+        bontani (mellékosztályok), és ez hogyan adja a Lagrange-tételt: egy
+        véges csoport részcsoportjának mérete mindig osztója a csoport
+        méretének.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Részcsoport, a részcsoport-teszt</li>
+        <li>Komplexusok, bal és jobb oldali mellékosztályok</li>
+        <li>Lagrange-tétel, index</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Részcsoportok és alaptulajdonságaik</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Részcsoport</span>
+        <p>
+          Legyen \((G, \cdot)\) egy csoport. Azt mondjuk, hogy a
+          \(\emptyset \neq H \subseteq G\) részhalmaz a \(G\) egy
+          <strong>részcsoportja</strong> (jelölésben: \(H \le G\)), ha a
+          \((H, \cdot)\) halmaz a \(G\)-beli műveletre nézve szintén
+          csoport.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás — Részcsoport ekvivalens feltételei</span>
+        <p>Legyen \(G\) csoport és \(\emptyset \neq H \subseteq G\). Ekkor \(H \le G \iff\)</p>
+        <ol>
+          <li>\(H\) zárt a műveletre nézve: \(\forall a, b \in H \implies a \cdot b \in H\).</li>
+          <li>\(H\) zárt az inverz képzésre: \(\forall a \in H \implies a^{-1} \in H\).</li>
+        </ol>
+        <p>(Ekkor a semleges elem is benne lesz \(H\)-ban, és az asszociativitás is öröklődik.)</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Ha \(H \le G\), akkor \((H, \cdot)\) csoport, tehát zárt a
+          műveletre és az inverzre — ez az (1) és (2) feltétel.
+        </p>
+        <p>
+          Fordítva, tegyük fel (1)-et és (2)-t. Az asszociativitás
+          öröklődik, hiszen \(H \subseteq G\) és a művelet \(G\)-n
+          asszociatív. Mivel \(H \neq \emptyset\), van \(a \in H\); (2)
+          szerint \(a^{-1} \in H\), és (1) szerint
+          \(a \cdot a^{-1} = e \in H\), tehát \(H\) tartalmazza a \(G\)-beli
+          semleges elemet, ami \(H\)-ban is neutrális elemként viselkedik
+          (ugyanaz a művelet). Minden \(a \in H\)-nak van \(H\)-beli
+          inverze (2) szerint. A művelet \(H\)-n is kétváltozós (1)
+          szerint. Tehát \((H, \cdot)\) teljesíti a csoport minden
+          feltételét, \(H \le G\).
+        </p>
+      </div>
+
+      <h3>Példák részcsoportokra</h3>
+      <ul>
+        <li>\((\mathbb{Z}, +) \le (\mathbb{Q}, +) \le (\mathbb{R}, +) \le (\mathbb{C}, +)\)</li>
+        <li>\(\mathbb{Z}^* \le \mathbb{Q}^* \le \mathbb{R}^* \le \mathbb{C}^*\)</li>
+        <li>\(A_n \le S_n\) (alternáló csoport a szimmetrikus csoportban)</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Komplexusok és mellékosztályok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Komplexus szorzás és inverz</span>
+        <p>Legyenek \(X, Y \subseteq G\) tetszőleges részhalmazok (komplexusok) a \(G\) csoportban.</p>
+        <ul>
+          <li><strong>Komplexus szorzás:</strong> \(X \cdot Y = \{x \cdot y \mid x \in X, y \in Y\}\)</li>
+          <li><strong>Komplexus inverze:</strong> \(X^{-1} = \{x^{-1} \mid x \in X\}\)</li>
+        </ul>
+        <p>Megjegyzés: ha \(H \le G\) részcsoport, akkor \(H \cdot H = H\) és \(H^{-1} = H\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Mellékosztályok</span>
+        <p>Legyen \(H \le G\) részcsoport és \(g \in G\).</p>
+        <ul>
+          <li>A \(gH = \{g \cdot h \mid h \in H\}\) halmazt a \(H\) szerinti <strong>bal oldali mellékosztálynak</strong> nevezzük.</li>
+          <li>A \(Hg = \{h \cdot g \mid h \in H\}\) halmaz a <strong>jobb oldali mellékosztály</strong>.</li>
+        </ul>
+      </div>
+
+      <h2>Lagrange-tétel</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Lagrange-tétel</span>
+        <p>
+          Ha \(G\) egy véges csoport és \(H \le G\) egy tetszőleges
+          részcsoportja, akkor a \(H\) elemszáma osztója a \(G\)
+          elemszámának:
+        </p>
+        \[ |H| \mid |G| \]
+        <p>
+          Jelöljük a különböző bal oldali mellékosztályok számát (a \(H\)
+          indexét \(G\)-ben) \([G : H]\)-val. Ekkor:
+        </p>
+        \[ |G| = [G : H] \cdot |H| \implies [G : H] = \frac{|G|}{|H|} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>A mellékosztályok particionálják \(G\)-t.</strong>
+          Definiáljuk a \(g_1 \sim g_2 \iff g_1^{-1} g_2 \in H\) relációt.
+          Ez ekvivalenciareláció: reflexív (\(g^{-1}g = e \in H\)),
+          szimmetrikus (\(g_1^{-1}g_2 \in H \implies (g_1^{-1}g_2)^{-1} = g_2^{-1}g_1 \in H\)),
+          tranzitív (\(g_1^{-1}g_2, g_2^{-1}g_3 \in H \implies g_1^{-1}g_3 = (g_1^{-1}g_2)(g_2^{-1}g_3) \in H\)).
+          A \(g\) osztálya pontosan \(gH\): \(g' \sim g \iff g^{-1}g' \in H \iff g' \in gH\).
+          Egy ekvivalenciareláció osztályai particionálják az alaphalmazt
+          (páronként diszjunktak és uniójuk \(G\)), tehát a bal oldali
+          mellékosztályok is particionálják \(G\)-t.
+        </p>
+        <p>
+          <strong>Minden mellékosztály \(|H|\) elemű.</strong> A
+          \(h \mapsto gh\) leképezés \(H \to gH\) szürjektív (\(gH\)
+          definíció szerint), és injektív: ha \(gh_1 = gh_2\), balról
+          \(g^{-1}\)-gyel szorozva \(h_1 = h_2\). Tehát bijekció, így
+          \(|gH| = |H|\).
+        </p>
+        <p>
+          \(G\) tehát \([G:H]\) darab, páronként diszjunkt, egyenként
+          \(|H|\) elemű mellékosztályra bomlik, ezért
+          \(|G| = [G:H] \cdot |H|\), amiből \(|H| \mid |G|\) és
+          \([G:H] = |G|/|H|\) is következik.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
