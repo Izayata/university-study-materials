@@ -198,7 +198,7 @@ counterparts in the other sections.
 
 `de-ttk-matematika-bsc` (added 2026-09-17) is a third, unrelated
 course — Debreceni Egyetem, TTK, Matematika BSc — that exists only
-under `jegyzetek/` so far. It has six children on its course-landing
+under `jegyzetek/` so far. It has seven children on its course-landing
 card-grid: the standalone item `jegyzet1` ("Analízis alapjai") — see
 the "Math-note jegyzet exception" subsection below for why its shape
 deliberately differs from both `jegyzet-template.html`'s current
@@ -207,11 +207,11 @@ Content style guide documents — and the `kombinatorika-es-grafelmelet/`,
 `linearis-algebrai-alapozas/` ("Lineáris algebrai alapozás", added
 2026-09-20), `algebra-es-szamelmelet-alapok/` ("Algebra és
 számelmélet alapok", added 2026-09-21), `linearis-algebra-halado/`
-("Lineáris algebra haladó", added 2026-09-21) and
-`mely-bevezetes-az-analizisbe/` ("Mély bevezetés az analízisbe", added
-2026-09-21) topic-landing pages, listing 10, 10, 7, 12 and 16 jegyzet
-items; see the "Topic-nesting exception" subsection below for that
-second level.
+("Lineáris algebra haladó", added 2026-09-21), `mely-bevezetes-az-analizisbe/`
+("Mély bevezetés az analízisbe", added 2026-09-21) and `algebra-halado/`
+("Algebra haladó", added 2026-09-23) topic-landing pages, listing 10,
+10, 7, 12, 16 and 20 jegyzet items; see the "Topic-nesting exception"
+subsection below for that second level.
 
 `deik-mernokinformatikus-bsc-2017`, by contrast, is the same course
 (same degree program) appearing under both `tetelek/` (the finished
@@ -692,6 +692,99 @@ inequality for series is stated by the source and **not proved** here
 and never defines `π`; that is not added (it would be a new theorem, not
 a gap in a stated one). Add them only on a fresh ask.
 
+**Sixth use of this pattern: `algebra-halado/`** (added 2026-09-23). The
+site owner's algebra LaTeX (three concatenated `\documentclass` files,
+with real duplication at the seams — the same "pasted from multiple
+sessions" pattern as `kombinatorika-es-grafelmelet` and the others) was
+asked to be a seventh topic folder, "Algebra haladó" — confirmed as the
+deliberate advanced companion to `algebra-es-szamelmelet-alapok`, mirroring
+how `linearis-algebra-halado` is the advanced companion to
+`linearis-algebrai-alapozas`. After confirming the 20-way split with the
+owner (fill every gap with correct proofs and definitions), it became a
+topic-landing page plus 20 items, same shape and breadcrumb pattern as the
+other five series (`Kezdőlap / Órai jegyzetek / DE TTK Matematika BSc
+2023/2025 / Algebra haladó / N. jegyzet`). The split follows the source's
+order, group theory first then ring/field theory: 1 kétváltozós műveletek
+· 2 algebrai struktúrák (félcsoport, monoid, csoport, Abel-csoport) · 3
+szimmetrikus csoport, Cayley-tábla, hom./izom. · 4 permutációk előjele és
+paritása · 5 elem rendje · 6 ciklikus csoportok · 7 részcsoportok,
+mellékosztályok, Lagrange-tétel · 8 generált részcsoport, ciklikus
+csoportok részcsoportjai, direkt szorzatok · 9 hom. képe/magja, véges
+Abel-csoportok alaptétele (bizonyítás nélkül) · 10 normálosztók,
+faktorcsoportok, hom.-tétel · 11 konjugálás, centrum, osztályegyenlet · 12
+izomorfizmus-tételek I–III · 13 p-csoportok, Cauchy-tétel · 14 gyűrűk,
+ideálok, gyűrű-hom.-tétel · 15 polinomgyűrűk, gyökök, karakterisztika · 16
+maximális ideálok, testek · 17 euklideszi gyűrűk, főideálgyűrűk · 18
+oszthatóság, prím-/irreducibilis elemek · 19 minimálpolinom,
+testbővítések, szorzótétel · 20 szerkeszthető számok, Gauss tétele,
+bevezetés a Galois-elméletbe.
+
+**Same instruction and flagging as the third through fifth use:** the
+owner asked for every missing definition and a proof for every theorem or
+claim the source states without one, in the source's notation. Every
+supplied box is labelled "(kiegészítés)" in its `.note-box__label`, and
+each page's head comment lists what on it is supplied and not transcribed.
+The proofs and definitions were written by the assistant, not the owner or
+the course, and have **not** been reviewed by a mathematician; the
+assistant checked that each step cites only earlier results (no forward
+references between the 20 items) and checked the constructions
+numerically where that is meaningful (McKay's Cauchy-theorem construction
+on \(S_3\); the ring-homomorphism theorem on \(\mathbb{Z} \to \mathbb{Z}_6\);
+the factor theorem and \(\mathbb{R}[x]/(x^2+1) \cong \mathbb{C}\) on
+concrete polynomials; \((2,x)\) not principal in \(\mathbb{Z}[x]\) via the
+constant-term/leading-coefficient parity argument; the tower law on
+\([\mathbb{Q}(\sqrt2,\sqrt3):\mathbb{Q}]=4\); and Gauss's \(\varphi(n)\)
+criterion against the known constructible \(n\)-gons for \(n \le 20\)).
+That catches a wrong construction, not a bad proof. Don't present it as
+the owner's own lecture notes, and don't add more supplied material
+silently.
+
+**Source-content fixes for this series** (the owner pre-authorised fixing
+mistakes found while transcribing):
+- *Typos and garbled LaTeX:* `\mathbb{R}^*^`/`\mathbb{C}^^*` → `\mathbb{R}^*`/`\mathbb{C}^*`;
+  "ahgy p prím" → "ahol p prím"; the stray closing brace in `$2-hatvány}$`
+  → plain "2-hatvány" text (no math delimiters needed).
+- *Wrong terms/definitions:* \(S_X\) defined as "bijektív függvények
+  (vagy izometriák)" — dropped "vagy izometriák" (isometries are a
+  narrower, metric-space-only notion, wrong here); the cyclic-group
+  generator condition and the direct-product cyclicity criterion both used
+  `lkkt` (lcm) where the source meant `lnko` (gcd) — fixed in both places;
+  the permutation-parity well-definedness was labelled a "Definíció" in
+  the source although it's a genuine theorem needing proof — restructured
+  as Tétel + bizonyítás, with `sgn` kept as the following Definíció; a
+  worked 5-cycle example mislabelled "páros ciklus" — clarified (odd-length
+  cycle ⟹ even permutation).
+- *Real duplication, deduped:* the group homomorphism theorem
+  \(G/\ker\varphi \cong \operatorname{Im}\varphi\) is essentially restated
+  three times across the source's three concatenated documents — proved
+  once, in item 10; item 12's "I. izomorfizmus tétel" is kept only as an
+  explicitly-noted corollary, not reproved. The source's second document
+  reopens with the group/normal-subgroup/ring/ideal/polynomial-ring
+  definitions already given in its first document — merged into items
+  2/10/14/15 instead of repeated. Item 19's "Egyszerű bővítés szerkezete"
+  tétel restates item 19's own minimálpolinom-tulajdonságok tétel's 3.
+  pontját verbatim — proved once, the second only cross-referenced.
+- *Undefined terms, supplied:* `prímideál` (item 16), used in the
+  faktorgyűrű-mint-test tétel but never defined; `gyöktest`,
+  `Galois-csoport` and `oldható csoport` (item 20), all used by the
+  source's "Oldhatóság gyökjelekkel" definition but never defined; a
+  formal definition of ring homomorphism (item 14 — the source defines
+  group homomorphism in item 3 but never gives the ring-theoretic
+  analogue, despite using the term in its gyűrű-homomorfizmus tétele).
+
+**Left deliberately unproved, stated plainly** (matching the site's
+established precedent — e.g. the finite abelian structure tétel, the
+general \(l_p\) Minkowski inequality, sin/cos periodicity — rather than
+forcing a disproportionate proof): the finite abelian group structure
+theorem (item 9); the UFD existence-and-uniqueness half of the PID⟹UFD
+tétel (item 18 — irreducible⟺prime in a PID is proved in full, since it
+reduces cleanly to item 16's maximal-ideal tétel, but full unique
+factorization needs Noetherian/ACC induction disproportionate to one
+corollary); Gauss's tétele a szabályos sokszögekről (item 20, needs
+cyclotomic field theory); and that \(S_5\)/\(A_5\) is not oldható (item
+20, a standalone combinatorial argument about \(A_5\)'s simplicity, cited
+once "oldható csoport" is defined).
+
 ### Deliberate exception: `jegyzetek/de-ttk-matematika-bsc/jegyzet1` skips Tematika/Gyakorlat/Puffer
 
 Added 2026-09-17. "Analízis alapjai" was converted from a LaTeX source
@@ -729,9 +822,10 @@ still look like a class session — copy the shape
 Added 2026-09-18. Every content item under `jegyzetek/de-ttk-matematika-bsc/`
 (currently: `jegyzet1`, and `kombinatorika-es-grafelmelet/jegyzet1`–
 `jegyzet10`, `linearis-algebrai-alapozas/jegyzet1`–`jegyzet10`,
-`algebra-es-szamelmelet-alapok/jegyzet1`–`jegyzet7` and
-`linearis-algebra-halado/jegyzet1`–`jegyzet12` and
-`mely-bevezetes-az-analizisbe/jegyzet1`–`jegyzet16` — 56 pages total)
+`algebra-es-szamelmelet-alapok/jegyzet1`–`jegyzet7`,
+`linearis-algebra-halado/jegyzet1`–`jegyzet12`,
+`mely-bevezetes-az-analizisbe/jegyzet1`–`jegyzet16` and
+`algebra-halado/jegyzet1`–`jegyzet20` — 76 pages total)
 ends with a `<p class="source-note">`
 (styled in `style.css`: small, muted, italic — deliberately lighter
 weight than `.note-box`, since this is a site-wide disclaimer, not
@@ -746,13 +840,14 @@ don't rephrase it even though its Hungarian is slightly informal):
 > a Matematika BSc tantervi követelményeire, de teljesen nem egyezik
 > azzal.
 
-This does **not** apply to the section's six landing pages
+This does **not** apply to the section's seven landing pages
 (`de-ttk-matematika-bsc/index.html`,
 `kombinatorika-es-grafelmelet/index.html`,
 `linearis-algebrai-alapozas/index.html`,
 `algebra-es-szamelmelet-alapok/index.html`,
 `linearis-algebra-halado/index.html`,
-`mely-bevezetes-az-analizisbe/index.html`) — they're card-grids with
+`mely-bevezetes-az-analizisbe/index.html`,
+`algebra-halado/index.html`) — they're card-grids with
 no content text of their own. **Every future content item added under
 `jegyzetek/de-ttk-matematika-bsc/` must include this same element,
 verbatim text and placement** — confirmed with the site owner as a
