@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Konjugálás, centrum és az osztályegyenlet | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Konjugálás, centralizátor, konjugáltosztály és centrum, és az osztályegyenlet (|G| = |Z(G)| + a konjugáltosztályok indexeinek összege) teljes bizonyítással — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet11/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 11 of 20 — see part 1's head comment for the shape rationale.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-23; flagged
+  here and in the PR description): the full proof of the class
+  equation — the source states it without proof.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 11. jegyzet</p>
+
+      <h1>Konjugálás, centrum és az osztályegyenlet</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        Ez a jegyzet a csoport elemeit a konjugálás szerint osztályozza,
+        bevezeti a centrálizátort és a centrumot, és megszámolja a
+        konjugáltosztályok méretét — ez adja az osztályegyenletet, amely
+        a 13. jegyzetben a Cauchy-tétel bizonyításának egyik alapja lesz.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Konjugálás, centralizátor, konjugáltosztály, centrum</li>
+        <li>Osztályegyenlet</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Konjugálás, centrum és centrálizátor</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Konjugálás, osztályok</span>
+        <p>
+          Legyen \(G\) csoport és \(a \in G\). A \(G\)-nek önmagán
+          értelmezett konjugálás hatása:
+        </p>
+        \[ \varphi_g(a) = g a g^{-1} \]
+        <ul>
+          <li><strong>Centralizátor:</strong> \(C_G(a) = \{g \in G \mid ga = ag\}\) (az \(a\)-val felcserélhető elemek).</li>
+          <li><strong>Konjugált osztály:</strong> \(K(a) = \{gag^{-1} \mid g \in G\}\).</li>
+          <li><strong>Centrum:</strong> \(Z(G) = \{z \in G \mid \forall g \in G: zg = gz\}\) (a mindennel felcserélhető elemek halmaza).</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Osztályegyenlet</span>
+        <p>
+          Ha \(G\) egy véges csoport, akkor a konjugált osztályok
+          méretére fennáll az osztályegyenlet:
+        </p>
+        \[ |G| = |Z(G)| + \sum_{i} [G : C_G(a_i)] \]
+        <p>
+          ahol az összegzés az egyeleműnél nagyobb konjugált osztályok
+          reprezentánsaira fut.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>A konjugálás ekvivalenciareláció.</strong> Legyen
+          \(a \sim b\), ha \(b = gag^{-1}\) valamely \(g \in G\)-re. Ez
+          reflexív (\(a = eae^{-1}\)), szimmetrikus (\(b=gag^{-1} \implies a = g^{-1}bg\)),
+          tranzitív (\(b=g_1ag_1^{-1}, c=g_2bg_2^{-1} \implies c = (g_2g_1)a(g_2g_1)^{-1}\)),
+          tehát az osztályai (a konjugáltosztályok, \(K(a)\)) particionálják
+          \(G\)-t.
+        </p>
+        <p>
+          <strong>\(|K(a)| = [G:C_G(a)]\).</strong> Előbb: \(C_G(a) \le G\)
+          (nem üres, mert \(e \in C_G(a)\); zárt a műveletre és inverzre,
+          hiszen ha \(g_1a=ag_1\) és \(g_2a=ag_2\), akkor
+          \((g_1g_2)a = g_1(ag_2) = (g_1a)g_2 = a(g_1g_2)\), és
+          \(ga=ag \implies a = g^{-1}ag \implies ag^{-1} = g^{-1}a\)).
+          Tekintsük a \(\Psi : \{g C_G(a) : g \in G\} \to K(a)\),
+          \(\Psi(gC_G(a)) = gag^{-1}\) leképezést. Jóldefiniált és
+          injektív, mert:
+        </p>
+        \[
+        \begin{aligned}
+        g_1 C_G(a) = g_2 C_G(a) &amp;\iff g_2^{-1}g_1 \in C_G(a) \iff g_2^{-1}g_1 a = a g_2^{-1}g_1 \\
+        &amp;\iff g_1 a g_1^{-1} = g_2 a g_2^{-1}
+        \end{aligned}
+        \]
+        <p>
+          (az utolsó lépés: az előző egyenlőséget balról \(g_2\)-vel,
+          jobbról \(g_2^{-1}\)-gyel szorozva). Szürjektív \(K(a)\)-ra a
+          definíció szerint. Tehát \(\Psi\) bijekció a \(C_G(a)\) bal
+          oldali mellékosztályai és \(K(a)\) elemei között, így
+          \(|K(a)| = [G:C_G(a)]\) (a mellékosztályok száma, 7. jegyzet).
+        </p>
+        <p>
+          <strong>Az osztályegyenlet.</strong> Az \(a \in G\) elemre
+          \(K(a) = \{a\}\) (egyelemű osztály) pontosan akkor, ha minden
+          \(g\)-re \(gag^{-1} = a\), azaz \(ga = ag\), azaz \(a \in Z(G)\).
+          Tehát az egyelemű konjugáltosztályok éppen a \(Z(G)\) elemei,
+          \(|Z(G)|\) darab, mindegyik \(1 = [G:C_G(a)]\) taggal (mert
+          \(a \in Z(G) \implies C_G(a) = G\)). A többi (egynél nagyobb
+          méretű) osztály reprezentánsait \(a_1, \dots, a_r\)-rel jelölve,
+          ezek mérete \([G:C_G(a_i)]\). Mivel a konjugáltosztályok
+          particionálják \(G\)-t, a méreteik összege \(|G|\):
+        </p>
+        \[ |G| = \underbrace{1 + \dots + 1}_{|Z(G)|} + \sum_{i=1}^r [G:C_G(a_i)] = |Z(G)| + \sum_i [G:C_G(a_i)] \]
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
