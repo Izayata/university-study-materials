@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Normálosztók, faktorcsoportok és a homomorfizmus-tétel | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Normálosztó és ekvivalens feltételei, faktorcsoport és jóldefiniáltsága, természetes homomorfizmus, és a csoportok homomorfizmus-tétele (G/ker φ ≅ Im φ) teljes bizonyítással — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet10/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 10 of 20 — see part 1's head comment for the shape rationale.
+
+  Source note: the same theorem G/ker φ ≅ Im φ is essentially restated
+  three times across the source's three concatenated documents — once
+  here ("Csoportok Homomorfizmus Tétele", for a general homomorphism),
+  once verbatim in doc 2 ("Homomorfizmus Tétel Csoportokra"), and once
+  more as the surjective special case, "I. izomorfizmus tétel" (item
+  12). It is proved once, here, in full generality; item 12 keeps the
+  surjective statement only as an explicitly-noted corollary, not
+  reproved.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-23; flagged
+  here and in the PR description): the equivalence of the three normal-
+  subgroup conditions, the well-definedness of the factor-group product
+  (exactly where normality is used), that the natural homomorphism is a
+  homomorphism with kernel N, that ker φ is always a normal subgroup,
+  and the full proof of the general homomorphism theorem — the source
+  states all of these without proof.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 10. jegyzet</p>
+
+      <h1>Normálosztók, faktorcsoportok és a homomorfizmus-tétel</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        Ez a jegyzet a mellékosztályokat (7. jegyzet) csoporttá alakítja:
+        megmutatja, mikor lehet a bal oldali mellékosztályokon
+        jóldefiniált módon szorzást értelmezni (a normálosztóknál), és
+        ennek segítségével bizonyítja a csoportelmélet egyik központi
+        tételét, amely szerint egy homomorfizmus képe mindig izomorf a
+        forráscsoportnak a mag szerinti faktorcsoportjával.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Normálosztó, ekvivalens feltételei</li>
+        <li>Faktorcsoport</li>
+        <li>Természetes homomorfizmus</li>
+        <li>A csoportok homomorfizmus-tétele</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Normálosztók és faktorcsoportok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Normálosztó</span>
+        <p>
+          Legyen \(N \le G\) egy részcsoport. Azt mondjuk, hogy \(N\) a
+          \(G\) egy <strong>normálosztója</strong> (jelölésben:
+          \(N \unlhd G\)), ha minden \(g \in G\) esetén:
+        </p>
+        \[ gN = Ng \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás — Normálosztó ekvivalens feltételei</span>
+        <p>Legyen \(N \le G\). Az alábbiak ekvivalensek:</p>
+        <ol>
+          <li>\(N \unlhd G\) (azaz \(\forall g \in G: gN = Ng\)).</li>
+          <li>\(\forall g \in G, n \in N\): \(g n g^{-1} \in N\) (vagyis \(g N g^{-1} \subseteq N\)).</li>
+          <li>A bal oldali és jobb oldali mellékosztályok szerinti partícionálás megegyezik.</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>(1) \(\Rightarrow\) (2).</strong> Ha \(gN = Ng\), akkor
+          minden \(n \in N\)-re \(gn \in Ng\), azaz \(gn = n'g\) valamely
+          \(n' \in N\)-re, tehát \(gng^{-1} = n' \in N\).
+        </p>
+        <p>
+          <strong>(2) \(\Rightarrow\) (1).</strong> (2)-t minden \(g\)-re
+          feltéve, \(gNg^{-1} \subseteq N\); alkalmazva \(g^{-1}\)-re is:
+          \(g^{-1}Ng \subseteq N\), amiből (balról \(g\)-vel, jobbról
+          \(g^{-1}\)-gyel szorozva) \(N \subseteq gNg^{-1}\). A két
+          tartalmazásból \(gNg^{-1} = N\), és jobbról \(g\)-vel szorozva
+          \(gN = Ng\).
+        </p>
+        <p>
+          <strong>(1) \(\Leftrightarrow\) (3).</strong> Ha \(gN=Ng\)
+          minden \(g\)-re, akkor a bal és jobb oldali mellékosztályok
+          halmazai (mint \(G\) részhalmazai) megegyeznek, tehát a két
+          partícionálás azonos. Fordítva, ha a két partícionálás azonos,
+          akkor a \(g\)-t tartalmazó bal oldali mellékosztály, \(gN\), és
+          a \(g\)-t tartalmazó jobb oldali mellékosztály, \(Ng\), egy
+          partíció ugyanazon (egyetlen, \(g\)-t tartalmazó) blokkját
+          jelentik, tehát \(gN = Ng\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Faktorcsoport</span>
+        <p>
+          Ha \(N \unlhd G\), akkor a \(G/N = \{gN \mid g \in G\}\) halmaz a
+          komplexusok szorzásával (\(g_1 N \cdot g_2 N = (g_1 g_2) N\))
+          csoportot alkot, amit a \(G\) szerinti <strong>faktorcsoportnak</strong>
+          nevezünk.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — a szorzás jóldefiniált</span>
+        <p>
+          Meg kell mutatni, hogy \(g_1 g_2 N\) nem függ attól, mely
+          \(g_1' \in g_1 N\), \(g_2' \in g_2 N\) reprezentánsokat
+          választjuk: \(g_1' g_2' N = g_1 g_2 N\). Legyen
+          \(g_1' = g_1 n_1\), \(g_2' = g_2 n_2\) (\(n_1, n_2 \in N\)).
+          Ekkor:
+        </p>
+        \[ g_1' g_2' = g_1 n_1 g_2 n_2 = g_1 g_2 \bigl( (g_2^{-1} n_1 g_2) \, n_2 \bigr) \]
+        <p>
+          Mivel \(N\) normálosztó, a fenti Állítás (2) pontja szerint
+          \(g_2^{-1} n_1 g_2 \in N\), és \(n_2 \in N\), így a szorzatuk is
+          \(N\)-ben van. Tehát \(g_1' g_2' = g_1 g_2 \cdot n\) valamely
+          \(n \in N\)-re, azaz \(g_1' g_2' \in g_1 g_2 N\), vagyis
+          \(g_1' g_2' N = g_1 g_2 N\). A csoportaxiómák (asszociativitás,
+          \(eN=N\) mint neutrális elem, \((gN)^{-1}=g^{-1}N\)) közvetlenül
+          örökölnek \(G\)-ből.
+        </p>
+      </div>
+
+      <h2>Homomorfizmus-tételek</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Természetes homomorfizmus</span>
+        <p>
+          Legyen \(N \unlhd G\). Ekkor a \(\pi : G \to G/N\),
+          \(\pi(g) = gN\) leképezés egy szürjektív homomorfizmus
+          (természetes homomorfizmus), amelynek magja \(\ker \pi = N\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Homomorfizmus: \(\pi(g_1 g_2) = (g_1 g_2)N = (g_1 N)(g_2 N) = \pi(g_1)\pi(g_2)\)
+          a faktorcsoport szorzásának definíciója szerint. Szürjektív:
+          \(G/N\) minden eleme \(gN = \pi(g)\) alakú valamely \(g\)-re.
+          Mag: \(\pi(g) = N\) (a \(G/N\) neutrális eleme) \(\iff gN = N \iff g \in N\),
+          tehát \(\ker \pi = N\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Csoportok homomorfizmus tétele</span>
+        <p>
+          Legyenek \(G, H\) csoportok, és \(\varphi : G \to H\) egy
+          homomorfizmus. Ekkor:
+        </p>
+        \[ G/\ker \varphi \cong \operatorname{Im} \varphi \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \(N = \ker \varphi\) (részcsoport, 9. jegyzet). Előbb
+          \(N \unlhd G\): tetszőleges \(g \in G\), \(n \in N\)-re
+        </p>
+        \[ \varphi(gng^{-1}) = \varphi(g)\varphi(n)\varphi(g)^{-1} = \varphi(g) \, e_H \, \varphi(g)^{-1} = e_H, \]
+        <p>
+          tehát \(gng^{-1} \in N\); a fenti Állítás (2) pontja szerint
+          \(N \unlhd G\), így a \(G/N\) faktorcsoport értelmes.
+        </p>
+        <p>
+          Definiáljuk a \(\Phi : G/N \to \operatorname{Im} \varphi\)
+          leképezést: \(\Phi(gN) = \varphi(g)\).
+        </p>
+        <p>
+          <em>Jóldefiniált.</em> Ha \(g_1 N = g_2 N\), azaz
+          \(g_1^{-1} g_2 \in N = \ker \varphi\), akkor
+          \(\varphi(g_1^{-1} g_2) = e_H\), azaz
+          \(\varphi(g_1)^{-1} \varphi(g_2) = e_H\) (9. jegyzet lemmája),
+          tehát \(\varphi(g_1) = \varphi(g_2)\).
+        </p>
+        <p>
+          <em>Homomorfizmus.</em>
+          \(\Phi(g_1N \cdot g_2N) = \Phi(g_1g_2N) = \varphi(g_1g_2) = \varphi(g_1)\varphi(g_2) = \Phi(g_1N)\Phi(g_2N)\).
+        </p>
+        <p>
+          <em>Injektív.</em> Ha \(\Phi(gN) = e_H\), azaz \(\varphi(g) = e_H\),
+          akkor \(g \in \ker \varphi = N\), tehát \(gN = N\), a \(G/N\)
+          neutrális eleme. Így \(\Phi\) magja triviális; ha
+          \(\Phi(g_1N) = \Phi(g_2N)\), akkor
+          \(\Phi(g_1N \cdot (g_2N)^{-1}) = \Phi(g_1N)\Phi(g_2N)^{-1} = e_H\),
+          tehát \(g_1N \cdot (g_2N)^{-1} = N\), azaz \(g_1N = g_2N\).
+        </p>
+        <p>
+          <em>Szürjektív \(\operatorname{Im} \varphi\)-re.</em>
+          \(\operatorname{Im} \varphi\) minden eleme \(\varphi(g)\) alakú
+          valamely \(g\)-re, ami \(\Phi(gN)\).
+        </p>
+        <p>
+          Tehát \(\Phi\) bijektív homomorfizmus, azaz izomorfizmus:
+          \(G/\ker \varphi \cong \operatorname{Im} \varphi\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
