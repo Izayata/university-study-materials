@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Ciklikus csoportok | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Ciklikus csoport és generátorelem, példák, és a ciklikus csoportok izomorfia-tétele: minden végtelen ciklikus csoport izomorf (ℤ,+)-szal, minden n elemű pedig (ℤₙ,+)-szal, bizonyítással — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet6/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 6 of 20 — see part 1's head comment for the shape rationale.
+
+  Source fix here: the generators of (Z_n,+) are given by the condition
+  "lkkt(k,n)=1" (lkkt = lcm); this should be "lnko(k,n)=1" (lnko = gcd) —
+  the lcm of two positive integers is 1 only when both are 1, which is
+  not what "relatív prímek" (the source's own parenthetical) means. Fixed
+  to lnko; the same lkkt/lnko slip recurs in item 8's direct-product
+  criterion.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-23; flagged
+  here and in the PR description): the proof of the cyclic-group
+  classification theorem, using item 5's order results.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 6. jegyzet</p>
+
+      <h1>Ciklikus csoportok</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        Ez a jegyzet a legegyszerűbb szerkezetű csoportokat, a ciklikus
+        csoportokat vizsgálja: azokat, amelyek egyetlen elem hatványaiból
+        állnak. Megmutatja, hogy izomorfia erejéig csak kétféle ciklikus
+        csoport van: \((\mathbb{Z}, +)\) és a \((\mathbb{Z}_n, +)\) típusok.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Ciklikus csoport, generátorelem</li>
+        <li>Példák ciklikus és nem ciklikus csoportokra</li>
+        <li>A ciklikus csoportok izomorfia-tétele</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Ciklikus csoportok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Ciklikus csoport</span>
+        <p>
+          Egy csoportot <strong>ciklikus csoportnak</strong> nevezünk, ha a
+          csoport valamennyi eleme egyetlen elem hatványaiból áll:
+        </p>
+        \[ G = \{g^k \mid k \in \mathbb{Z}\} \]
+        <p>
+          Az ilyen \(g\) elemet a csoport <strong>generátorelemének</strong>
+          nevezzük (\(G = \langle g \rangle\)).
+        </p>
+      </div>
+
+      <h3>Példák ciklikus csoportokra</h3>
+      <ul>
+        <li>\((\mathbb{Z}, +)\) ciklikus, generátorai: \(1\) és \(-1\).</li>
+        <li>\((\mathbb{Z}_n, +)\) ciklikus, generátorai azok a \(k \in \mathbb{Z}_n\) elemek, amelyekre \(\text{lnko}(k, n) = 1\) (vagyis \(k\) relatív prím \(n\)-hez).</li>
+        <li>\((\mathbb{Z}_3^*, \cdot)\) — elemei: \(1, 2\) (mivel \(2^1=2, 2^2=1\)), így ez is ciklikus.</li>
+        <li>\((\mathbb{Z}_5^*, \cdot)\) — generátor elemek: \(2, 3\).</li>
+        <li>\((\mathbb{Z}_8^*, \cdot)\) — nem ciklikus, mert nincs olyan eleme, amelynek a rendje \(8\) lenne (a maximális rend \(2\)).</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Ciklikus csoportok izomorfiája</span>
+        <p>
+          Minden végtelen ciklikus csoport izomorf a \((\mathbb{Z}, +)\)
+          csoporttal (\(G \cong (\mathbb{Z}, +)\)), minden \(n\) elemű
+          véges ciklikus csoport pedig izomorf a \((\mathbb{Z}_n, +)\)
+          csoporttal (\(G \cong (\mathbb{Z}_n, +)\)).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \(G = \langle g \rangle\).
+        </p>
+        <p>
+          <strong>Végtelen eset.</strong> Ha \(g\) végtelen rendű, akkor a
+          \(\varphi : \mathbb{Z} \to G\), \(\varphi(k) = g^k\) leképezés
+          szürjektív (mert \(G = \{g^k : k \in \mathbb{Z}\}\)), és a
+          csoportelem-rend két definíciójának egyezéséből (5. jegyzet)
+          injektív is: ha \(g^i = g^j\) valamely \(i \neq j\)-re, akkor
+          \(g^{i-j} = e\) egy nem nulla kitevővel, ami ellentmond a
+          végtelen rendnek. Homomorfizmus:
+          \(\varphi(k+l) = g^{k+l} = g^k g^l = \varphi(k)\varphi(l)\).
+          Tehát \(\varphi\) izomorfizmus \((\mathbb{Z},+)\) és \(G\) között.
+        </p>
+        <p>
+          <strong>Véges eset.</strong> Ha \(|G| = n\), akkor az 5. jegyzet
+          szerint \(o(g) = n\) (a \(\langle g \rangle\)-ben pontosan \(n\)
+          elem van, és \(g^n = e\) a legkisebb ilyen pozitív kitevővel).
+          Legyen \(\varphi : \mathbb{Z}_n \to G\), \(\varphi([k]) = g^k\).
+          Ez jóldefiniált: ha \([k] = [k']\), azaz \(n \mid k - k'\), akkor
+          az 5. jegyzet \(g^m = e \iff n \mid m\) állítása szerint
+          \(g^{k-k'} = e\), azaz \(g^k = g^{k'}\). Szürjektív, mert
+          \(G = \{g^k : k \in \mathbb{Z}\}\), és minden \(g^k\) előáll
+          \(\varphi([k])\)-ként. Mivel \(|\mathbb{Z}_n| = n = |G|\), a
+          szürjektív \(\varphi\) véges, egyenlő méretű halmazok között
+          bijektív is. Homomorfizmus:
+          \(\varphi([k]+[l]) = \varphi([k+l]) = g^{k+l} = g^k g^l = \varphi([k])\varphi([l])\).
+          Tehát \(\varphi\) izomorfizmus \((\mathbb{Z}_n, +)\) és \(G\)
+          között.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

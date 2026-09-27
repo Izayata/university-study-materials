@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Algebrai struktúrák: félcsoport, monoid, csoport, Abel-csoport | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Félcsoport, monoid, csoport és Abel-csoport (kommutatív csoport) definíciója, és a leggyakoribb példák, köztük a kvaterniócsoport — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet2/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 2 of 20 — see part 1's head comment for the shape rationale.
+
+  Source fixes here: "$(\mathbb{R}^*^, \cdot)$" and "$(\mathbb{C}^^*, \cdot)$"
+  have stray extra carets (garbled LaTeX) — fixed to \(\mathbb{R}^*\) and
+  \(\mathbb{C}^*\). Doc 2 of the source (a later concatenated file) reopens
+  with "Csoportelmélet Alapjai: Egy (G,·) struktúrát csoportnak nevezünk,
+  ha a művelet asszociatív, létezik egységelem, és minden elemnek van
+  inverze" — a condensed restatement of the group definition already
+  given here; not repeated, since it adds nothing beyond what's on this
+  page.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED: nothing on this page
+  — the source's definitions and examples stand as given, once the two
+  garbled formulas above are fixed.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 2. jegyzet</p>
+
+      <h1>Algebrai struktúrák: félcsoport, monoid, csoport, Abel-csoport</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        Ez a jegyzet a kétváltozós művelet tulajdonságaiból (1. jegyzet)
+        építi fel az absztrakt algebra alapstruktúráinak hierarchiáját:
+        félcsoport, monoid, csoport és Abel-csoport, néhány jól ismert
+        példával.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Félcsoport, monoid, csoport, Abel-csoport</li>
+        <li>Példák algebrai struktúrákra</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Algebrai struktúrák: félcsoport, monoid, csoport</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Félcsoport, monoid, csoport, Abel-csoport</span>
+        <p>Legyen \(*\) egy kétváltozós művelet az \(S\) halmazon.</p>
+        <ul>
+          <li>Azt mondjuk, hogy \((S, *)\) <strong>félcsoport</strong>, ha a \(*\) művelet asszociatív.</li>
+          <li>Azt mondjuk, hogy \((S, *)\) <strong>monoid</strong> (vagy egységes félcsoport), ha félcsoport, és a \(*\)-nak van neutrális eleme.</li>
+          <li>Azt mondjuk, hogy \((S, *)\) <strong>csoport</strong>, ha monoid, és a monoid bármely elemének van inverze.</li>
+          <li>Ha a csoportban a \(*\) művelet még kommutatív is, akkor \((S, *)\)-ot <strong>Abel-csoportnak</strong> (kommutatív csoportnak) nevezzük.</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h3>Példák algebrai struktúrákra</h3>
+      <ul>
+        <li>\((\mathbb{N}, +)\) — félcsoport</li>
+        <li>\((\mathbb{N} \cup \{0\}, +)\) — monoid</li>
+        <li>\((\mathbb{Z}, +)\) — Abel-csoport</li>
+        <li>\((\mathbb{Z}_n, +)\) — Abel-csoport</li>
+        <li>\((\mathbb{Z}, \cdot)\) — monoid</li>
+        <li>\((\mathbb{Q}^*, \cdot)\), \((\mathbb{R}^*, \cdot)\), \((\mathbb{C}^*, \cdot)\) — Abel-csoportok</li>
+        <li>Kvaterniócsoport: \(\{\pm 1, \pm i, \pm j, \pm k\}\) (\(i^2 = j^2 = k^2 = -1\), \(i \cdot j = k\), \(j \cdot i = -k\), stb.) — nyolc elemű, nem kommutatív csoport</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

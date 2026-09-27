@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Polinomgyűrűk, gyökök és a gyűrű karakterisztikája | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Polinomgyűrű, polinom gyöke, a gyöktényező-tétel (f(α)=0 ⟹ f(x)=(x-α)g(x)) teljes bizonyítással, gyűrű karakterisztikája, és az egyszerűsítés nullosztómentes gyűrűben — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet15/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 15 of 20 — see part 1's head comment for the shape rationale.
+
+  Source note: the "Polinomgyűrű" definition is stated twice, almost
+  verbatim, once in the source's first document and once at the start of
+  the third — kept once here.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-23; flagged
+  here and in the PR description): the full proof of the gyöktényező-
+  tétel (the source states it without proof) and the full proof of the
+  cancellation property in a nullosztómentes gyűrű (the source states it
+  as an "Állítás" without proof).
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 15. jegyzet</p>
+
+      <h1>Polinomgyűrűk, gyökök és a gyűrű karakterisztikája</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        Ez a jegyzet a 14. jegyzet gyűrűfogalmát a kommutatív gyűrűk
+        fölötti polinomokra alkalmazza: bevezeti a polinomgyűrűt és a
+        polinom gyökének fogalmát, bizonyítja a gyöktényező-tételt, majd
+        két, egymástól független alapfogalommal zár: a gyűrű
+        karakterisztikájával és a nullosztómentes gyűrűkbeli
+        egyszerűsítéssel.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Polinomgyűrű, polinom gyöke</li>
+        <li>Gyöktényező-tétel</li>
+        <li>Gyűrű karakterisztikája</li>
+        <li>Egyszerűsítés nullosztómentes gyűrűben</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Polinomgyűrűk és gyökök</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Polinomgyűrű</span>
+        <p>
+          Legyen \(R\) kommutatív gyűrű. Az \(R[x]\) <strong>polinomgyűrű</strong>
+          elemei az \(f(x) = r_n x^n + \dots + r_1 x + r_0\) alakú formális
+          kifejezések, ahol \(r_i \in R\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Polinom gyöke</span>
+        <p>
+          Legyen \(R\) kommutatív gyűrű, \(f \in R[x]\) és \(\alpha \in R\).
+          Azt mondjuk, hogy \(\alpha\) az \(f\) polinom <strong>gyöke</strong>,
+          ha \(f^*(\alpha) = 0\) (ahol \(f^* : R \to R\) a behelyettesítési
+          homomorfizmus).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Gyök tényezőre bonthatósága</span>
+        <p>
+          Ha \(\alpha \in R\) gyöke az \(f \in R[x]\) polinomnak, akkor
+          \(f(x) = (x-\alpha) g(x)\) alakba írható valamilyen
+          \(g \in R[x]\) polinommal.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Minden \(k \ge 1\) egészre a kommutatív \(R\)-ben érvényes a
+          (geometriai sor mintájára adódó) azonosság:
+        </p>
+        \[ x^k - \alpha^k = (x-\alpha)\bigl(x^{k-1} + x^{k-2}\alpha + \dots + x\alpha^{k-2} + \alpha^{k-1}\bigr) \]
+        <p>
+          — ez közvetlenül ellenőrizhető a jobb oldal kifejtésével: a
+          szorzat \(x \cdot x^{k-1} + x \cdot x^{k-2}\alpha + \dots - \alpha \cdot x^{k-1} - \dots\)
+          tagjai teleszkóposan törlik egymást, csak \(x^k\) és \(-\alpha^k\)
+          marad. Legyen \(f(x) = \sum_{k=0}^n r_k x^k\). Ekkor:
+        </p>
+        \[
+        \begin{aligned}
+        f(x) - f(\alpha) &amp;= \sum_{k=0}^n r_k x^k - \sum_{k=0}^n r_k \alpha^k = \sum_{k=1}^n r_k (x^k - \alpha^k) \\
+        &amp;= (x-\alpha) \sum_{k=1}^n r_k \bigl(x^{k-1} + x^{k-2}\alpha + \dots + \alpha^{k-1}\bigr)
+        \end{aligned}
+        \]
+        <p>
+          (a \(k=0\) tag \(r_0 - r_0 = 0\), ezért esik ki az összegből).
+          A jobb oldali összeg egy \(R[x]\)-beli polinom — jelölje
+          \(g(x)\) —, tehát \(f(x) - f(\alpha) = (x-\alpha) g(x)\). Mivel
+          \(\alpha\) gyöke \(f\)-nek, \(f(\alpha) = 0\), így
+          \(f(x) = (x-\alpha) g(x)\).
+        </p>
+      </div>
+
+      <h2>Gyűrű karakterisztikája</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Gyűrű karakterisztikája</span>
+        <p>
+          Legyen \(R\) egységelemes gyűrű. Ha az
+          \(\underbrace{1+1+\dots+1}_{n} = 0\) összegben a legkisebb
+          pozitív egész \(n\) ad \(0\)-t, akkor \(n\) a gyűrű
+          <strong>karakterisztikája</strong>. Ha nincs ilyen pozitív
+          \(n\), akkor a karakterisztika \(0\).
+        </p>
+      </div>
+
+      <h2>Egyszerűsítés nullosztómentes gyűrűben</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás — Nullosztómentes gyűrű elemei</span>
+        <p>
+          Nullosztómentes gyűrűben a nemnulla elemekkel egyszerűsíteni
+          lehet:
+        </p>
+        \[ ac = bc \implies a = b \quad (\text{ha } c \neq 0) \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          \(ac = bc \implies ac - bc = 0 \implies (a-b)c = 0\) (a
+          disztributivitás miatt). Mivel a gyűrű nullosztómentes, és
+          \(c \neq 0\), a szorzat \((a-b)c = 0\)-ból \(a-b=0\) következik
+          (a nullosztómentesség definíciója szerint \(a-b=0\) vagy
+          \(c=0\), és \(c \neq 0\) a feltétel szerint). Tehát \(a=b\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

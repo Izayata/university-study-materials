@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Oszthatóság, prím- és irreducibilis elemek főideálgyűrűben | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Osztó, asszociáltság, irreducibilis és prím elem definíciója, és a teljes bizonyítás arra, hogy főideálgyűrűben a kettő ekvivalens (a 16. jegyzet maximális ideál tételére visszavezetve), az UFD-tulajdonsággal — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet18/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 18 of 20 — see part 1's head comment for the shape rationale.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-23; flagged
+  here and in the PR description): the full two-direction proof that
+  irreducible ⟺ prime in a PID — the source states only one direction,
+  without proof. The egyértelmű faktorizáció (UFD) tétel is stated
+  without proof and left that way on purpose: proving existence and
+  uniqueness of factorization needs Noetherian/ACC-style induction well
+  beyond this item's scope, the same kind of call already made for the
+  finite abelian structure theorem (9. jegyzet).
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 18. jegyzet</p>
+
+      <h1>Oszthatóság, prím- és irreducibilis elemek főideálgyűrűben</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        Ez a jegyzet az oszthatóság alapfogalmait (osztó, asszociáltság)
+        vezeti be integritási tartományban, majd az irreducibilis és a
+        prím elem két, első ránézésre különböző fogalmát hozza
+        kapcsolatba: főideálgyűrűben a kettő ekvivalens — a bizonyítás a
+        17. jegyzet \(\mathbb{Z}[x]\)-példájának ellenpontja, itt a 16.
+        jegyzet maximális ideál tételét használjuk fel.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Osztó, asszociáltság</li>
+        <li>Irreducibilis és prím elem</li>
+        <li>Irreducibilis \(\iff\) prím főideálgyűrűben</li>
+        <li>Egyértelmű faktorizáció (UFD) — kimondva, bizonyítás nélkül</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Oszthatóság és asszociáltság</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Osztó és asszociáltság</span>
+        <p>
+          Legyen \(R\) integritási tartomány és \(a, b \in R\). Azt
+          mondjuk, hogy \(a\) <strong>osztja</strong> \(b\)-t
+          (\(a \mid b\)), ha létezik \(c \in R\), hogy \(b = ac\). Az
+          \(a\) és \(b\) elemek <strong>asszociáltak</strong>, ha
+          \(a = bu\), ahol \(u \in R^*\) egység (invertálható elem).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Irreducibilis és prím elemek</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Irreducibilis és prím elem</span>
+        <p>
+          Legyen \(R\) integritási tartomány és \(p \in R \setminus (R^* \cup \{0\})\).
+        </p>
+        <ol>
+          <li>\(p\) <strong>irreducibilis</strong>, ha nem egység, és minden \(p = ab\) alakú felbontásában \(a\) vagy \(b\) egység.</li>
+          <li>\(p\) <strong>prím elem</strong>, ha minden \(a, b \in R\) esetén \(p \mid ab \implies p \mid a\) vagy \(p \mid b\).</li>
+        </ol>
+      </div>
+
+      <h2>Irreducibilis és prím elem kapcsolata főideálgyűrűben</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Kapcsolat PID-ben</span>
+        <p>
+          Főideálgyűrűben minden irreducibilis elem prím elem (és
+          fordítva, minden prím elem irreducibilis — ez utóbbi minden
+          integritási tartományban igaz), és érvényes az egyértelmű
+          faktorizáció tétele (UFD tulajdonság).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — prím \(\implies\) irreducibilis (tetszőleges integritási tartományban)</span>
+        <p>
+          Legyen \(p\) prím, és \(p = ab\) egy felbontása. Mivel
+          \(p = ab\), \(p \mid ab\) (triviálisan, hiszen \(p \mid p\)).
+          A prímség szerint \(p \mid a\) vagy \(p \mid b\); legyen
+          mondjuk \(p \mid a\), azaz \(a = pc\) valamely \(c \in R\)-re.
+          Ekkor \(p = ab = pcb\), azaz \(p(1-cb) = 0\). Mivel \(R\)
+          integritási tartomány és \(p \neq 0\), ebből \(1-cb=0\), azaz
+          \(cb=1\): \(b\) egység (\(c\) az inverze). Tehát \(p\)
+          irreducibilis.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — irreducibilis \(\implies\) prím főideálgyűrűben</span>
+        <p>
+          Legyen \(R\) főideálgyűrű és \(p\) irreducibilis.
+        </p>
+        <p>
+          <strong>\((p)\) maximális ideál.</strong> Legyen \(J\) ideál,
+          \((p) \subseteq J \subseteq R\). Mivel \(R\) PID, \(J = (d)\)
+          valamely \(d \in R\)-re. Ekkor \(p \in (d)\), azaz \(p = dk\)
+          valamely \(k \in R\)-re. Mivel \(p\) irreducibilis, \(d\) vagy
+          \(k\) egység.
+        </p>
+        <ul>
+          <li>Ha \(d\) egység, akkor \((d) = R\), tehát \(J = R\).</li>
+          <li>
+            Ha \(k\) egység, akkor \(d = p k^{-1}\), tehát \(d\) és \(p\)
+            asszociáltak, amiből \((d) = (p)\) (ha \(d=pu\), \(u\) egység,
+            akkor minden \(d\)-többszörös \(p\)-többszörös is, és
+            fordítva \(p = du^{-1}\) miatt fordítva is), tehát \(J = (p)\).
+          </li>
+        </ul>
+        <p>
+          Tehát \((p)\) és \(R\) közt nincs valódi ideál — mivel \(p\) nem
+          egység, \((p) \neq R\) is teljesül —, azaz \((p)\) maximális
+          ideál.
+        </p>
+        <p>
+          <strong>Befejezés.</strong> A 16. jegyzet tétele szerint
+          \((p)\) maximális \(\implies R/(p)\) test. Minden test
+          integritási tartomány is, tehát (ismét a 16. jegyzet tétele)
+          \((p)\) prímideál: \(ab \in (p) \implies a \in (p)\) vagy
+          \(b \in (p)\), azaz \(p \mid ab \implies p \mid a\) vagy
+          \(p \mid b\). Ez pontosan azt jelenti, hogy \(p\) prím elem.
+        </p>
+      </div>
+
+      <p>
+        Az egyértelmű faktorizáció tételének (minden nemnulla, nem egység
+        elem felírható irreducibilis elemek szorzataként, a sorrendtől és
+        asszociáltságtól eltekintve egyértelműen) bizonyítása a
+        főideálgyűrűk Noether-tulajdonságán (minden ideállánc stabilizálódik)
+        alapuló indukciós érvet igényel, ami jóval túlmutat ennek a
+        jegyzetsorozatnak a keretein — ezért itt bizonyítás nélkül,
+        ismert eredményként szerepel, ugyanúgy, ahogy a véges Abel-csoportok
+        alaptétele is bizonyítás nélkül szerepelt a 9. jegyzetben.
+      </p>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

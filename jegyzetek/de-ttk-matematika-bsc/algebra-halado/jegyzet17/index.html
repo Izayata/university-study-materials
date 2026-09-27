@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Euklideszi gyűrűk és főideálgyűrűk | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Euklideszi gyűrű és főideálgyűrű (PID) definíciója, és a teljes bizonyítás arra, hogy ℤ[x] nem főideálgyűrű, mert a (2,x) ideál nem generálható egyetlen elemmel — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet17/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 17 of 20 — see part 1's head comment for the shape rationale.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-23; flagged
+  here and in the PR description): the full proof that ℤ[x] is not a
+  PID — the source states the example ("a (2,x) ideál nem generálható
+  egyetlen elemmel") without proof.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 17. jegyzet</p>
+
+      <h1>Euklideszi gyűrűk és főideálgyűrűk</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        Ez a jegyzet két, az oszthatóságra épülő gyűrűosztályt vezet be:
+        az euklideszi gyűrűt (ahol van maradékos osztás) és a
+        főideálgyűrűt (ahol minden ideál egyetlen elemmel generálható).
+        Konkrét ellenpéldán keresztül megmutatjuk, hogy \(\mathbb{Z}[x]\)
+        nem főideálgyűrű.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Euklideszi gyűrű</li>
+        <li>Főideálgyűrű (PID)</li>
+        <li>Példa: \(\mathbb{Z}[x]\) nem főideálgyűrű</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Euklideszi gyűrűk</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Euklideszi gyűrű</span>
+        <p>
+          Egy \(R\) integritási tartományt <strong>euklideszi gyűrűnek</strong>
+          nevezzük, ha létezik egy \(v : R \setminus \{0\} \to \mathbb{N}_0\)
+          normafüggvény, amelyre teljesül a maradékos osztás tulajdonsága:
+          minden \(a, b \in R\) (\(b \neq 0\)) esetén léteznek
+          \(q, r \in R\) elemek, hogy:
+        </p>
+        \[ a = bq + r \quad \text{ahol } r = 0 \text{ vagy } v(r) < v(b) \]
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Főideálgyűrűk (PID)</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Főideálgyűrű (PID)</span>
+        <p>
+          Egy \(R\) integritási tartományt <strong>főideálgyűrűnek</strong>
+          nevezzük, ha minden ideálja generált főideál, azaz minden
+          \(I \trianglelefteq R\) ideálhoz létezik olyan \(r \in R\), hogy
+          \(I = (r)\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — Példa nem főideálgyűrűre</span>
+        <p>
+          \(\mathbb{Z}[x]\) nem főideálgyűrű, mert a \((2, x)\) ideál nem
+          generálható egyetlen elemmel.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Legyen \(I = (2, x) = \{2f(x) + xg(x) \mid f, g \in \mathbb{Z}[x]\}\).
+          Tegyük fel indirekt, hogy \(I = (h)\) valamely
+          \(h \in \mathbb{Z}[x]\)-re.
+        </p>
+        <p>
+          <strong>\(h\) szükségképpen konstans, és osztója \(2\)-nek
+          \(\mathbb{Z}\)-ben.</strong> Mivel \(2 \in I = (h)\), léteznek
+          olyan \(k \in \mathbb{Z}[x]\), hogy \(2 = hk\). A fokszámokra
+          \(\deg h + \deg k = \deg 2 = 0\), és mindkét fokszám nemnegatív
+          egész, tehát \(\deg h = \deg k = 0\): \(h\) és \(k\) konstans
+          egész számok, amelyekre \(hk=2\) — ugyanaz az egyenlet, mint
+          \(\mathbb{Z}\)-ben, tehát \(h\) osztója \(2\)-nek \(\mathbb{Z}\)-ben,
+          azaz \(h \in \{1, -1, 2, -2\}\).
+        </p>
+        <p>
+          <strong>\(I\) minden elemének konstans tagja páros.</strong> Egy
+          \(2f(x) + xg(x)\) alakú elem konstans tagja
+          \(2 \cdot f(0) + 0 \cdot g(0) = 2f(0)\) (hiszen \(xg(x)\)
+          konstans tagja mindig \(0\)), ami páros. Speciálisan
+          \(1 \notin I\) (a \(2\) miatti \(2 = 2\cdot 1 + x \cdot 0\)
+          alakúak, viszont az \(1\) konstans tagja \(1\), páratlan).
+        </p>
+        <p>
+          <strong>\(h \neq \pm 1\).</strong> Ha \(h\) egység volna
+          (\(h=\pm 1\)), akkor \((h) = \mathbb{Z}[x]\) (minden elem
+          felírható \(h\)-szorosként), de \(1 \notin I\), tehát
+          \(I \neq \mathbb{Z}[x]\) — ellentmondás.
+        </p>
+        <p>
+          <strong>\(h \neq \pm 2\).</strong> Ha \(h = \pm 2\), akkor
+          \((h) = (2) = \{2p(x) \mid p \in \mathbb{Z}[x]\}\), vagyis azok a
+          polinomok, amelyeknek <em>minden</em> együtthatója páros. De
+          \(x = 2\cdot 0 + x \cdot 1 \in I\), és \(x\) főegyütthatója
+          \(1\), páratlan, tehát \(x \notin (2)\) — ellentmondás azzal,
+          hogy \(I = (h) = (2)\)-nek tartalmaznia kellene \(x\)-et.
+        </p>
+        <p>
+          Mind a négy lehetséges \(h\) érték ellentmondásra vezet, tehát
+          nincs olyan \(h\), amelyre \(I = (h)\): az \(I = (2,x)\) ideál
+          nem főideál. \(\mathbb{Z}[x]\) tehát nem főideálgyűrű.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

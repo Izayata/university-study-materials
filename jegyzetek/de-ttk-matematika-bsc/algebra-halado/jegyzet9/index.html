@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Homomorfizmus képe és magja; véges Abel-csoportok alaptétele | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Egy csoport-homomorfizmus képe és magja mint részcsoportok bizonyítással, és a véges Abel-csoportok alaptétele egy 72 elemű példával — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet9/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 9 of 20 — see part 1's head comment for the shape rationale.
+
+  Source note: the homomorphism definition here repeats item 3's
+  (dropped, not repeated — the definition is identical, just the two-
+  variable names differ). The finite abelian structure theorem is
+  stated without proof and left that way on purpose: it genuinely needs
+  primary-decomposition machinery well beyond this source's level (the
+  same call already made for the general Minkowski inequality and the
+  sin/cos-periodicity gap in other series on this site). The worked
+  order-72 example is the source's own, kept as-is.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-23; flagged
+  here and in the PR description): the two basic homomorphism facts
+  phi(e)=e and phi(g^-1)=phi(g)^-1, and the proofs that Im phi and ker
+  phi are genuinely subgroups — the source's definitions just assert
+  "≤ H" / "≤ G" without showing it.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 9. jegyzet</p>
+
+      <h1>Homomorfizmus képe és magja; véges Abel-csoportok alaptétele</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        Ez a jegyzet egy homomorfizmushoz két kitüntetett részcsoportot
+        rendel: a képet és a magot. Végül kimondja (bizonyítás nélkül) a
+        véges Abel-csoportok szerkezetét leíró alaptételt, egy konkrét
+        példával.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Homomorfizmus képe (\(\operatorname{Im} \varphi\))</li>
+        <li>Homomorfizmus magja (\(\ker \varphi\))</li>
+        <li>Véges Abel-csoportok alaptétele</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Homomorfizmus képe és magja</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Lemma — Két alapvető tulajdonság (kiegészítés)</span>
+        <p>
+          Ha \(\varphi : G \to H\) homomorfizmus, akkor \(\varphi(e_G) = e_H\),
+          és minden \(g \in G\)-re \(\varphi(g^{-1}) = \varphi(g)^{-1}\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          \(\varphi(e_G) \cdot \varphi(e_G) = \varphi(e_G \cdot e_G) = \varphi(e_G)\);
+          mindkét oldalt \(\varphi(e_G)^{-1}\)-gyel szorozva (jobbról)
+          \(\varphi(e_G) = e_H\). Ebből
+          \(\varphi(g) \cdot \varphi(g^{-1}) = \varphi(g \cdot g^{-1}) = \varphi(e_G) = e_H\),
+          tehát \(\varphi(g^{-1})\) a \(\varphi(g)\) inverze, azaz
+          \(\varphi(g^{-1}) = \varphi(g)^{-1}\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Képtér (\(\operatorname{Im} \varphi\))</span>
+        <p>
+          A \(\varphi\) leképezés <strong>képe</strong> a \(H\)-beli
+          elemek azon halmaza, amelyeket valamilyen \(G\)-beli elem elért:
+        </p>
+        \[ \operatorname{Im} \varphi = \{\varphi(g) \mid g \in G\} \le H \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Mag (\(\ker \varphi\))</span>
+        <p>
+          A \(\varphi\) homomorfizmus <strong>magja</strong> (kernelje)
+          azoknak a \(G\)-beli elemeknek a halmaza, amelyek a \(H\)
+          neutrális elemébe (\(e_H\)) képződnek:
+        </p>
+        \[ \ker \varphi = \{g \in G \mid \varphi(g) = e_H\} \le G \]
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — Im φ és ker φ valóban részcsoportok</span>
+        <p>
+          Mindkét halmazt a 7. jegyzet részcsoport-tesztjével ellenőrizzük.
+        </p>
+        <p>
+          <strong>\(\operatorname{Im} \varphi \le H\).</strong> Nem üres,
+          mert \(e_H = \varphi(e_G) \in \operatorname{Im} \varphi\). Zárt a
+          műveletre: ha \(\varphi(g_1), \varphi(g_2) \in \operatorname{Im} \varphi\),
+          akkor \(\varphi(g_1)\varphi(g_2) = \varphi(g_1 g_2) \in \operatorname{Im} \varphi\)
+          (mert \(g_1 g_2 \in G\)). Zárt az inverzre: a lemma szerint
+          \(\varphi(g)^{-1} = \varphi(g^{-1}) \in \operatorname{Im} \varphi\).
+        </p>
+        <p>
+          <strong>\(\ker \varphi \le G\).</strong> Nem üres, mert
+          \(\varphi(e_G) = e_H\), tehát \(e_G \in \ker \varphi\). Zárt a
+          műveletre: ha \(g_1, g_2 \in \ker \varphi\), akkor
+          \(\varphi(g_1 g_2) = \varphi(g_1)\varphi(g_2) = e_H e_H = e_H\),
+          tehát \(g_1 g_2 \in \ker \varphi\). Zárt az inverzre: ha
+          \(g \in \ker \varphi\), a lemma szerint
+          \(\varphi(g^{-1}) = \varphi(g)^{-1} = e_H^{-1} = e_H\), tehát
+          \(g^{-1} \in \ker \varphi\).
+        </p>
+      </div>
+
+      <h2>Véges Abel-csoportok alaptétele (főtétel)</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Véges Abel-csoportok alaptétele</span>
+        <p>
+          Minden véges Abel-csoport felírható prímhatvány rendű ciklikus
+          csoportok direkt szorzataként, ahol a tényezők sorrendjétől
+          eltekintve egyértelműek.
+        </p>
+      </div>
+
+      <p>
+        Ennek a tételnek a bizonyítása a véges Abel-csoportok primér
+        felbontásán és az invariáns tényezők egyértelműségén alapul, ami
+        jóval túlmutat ennek a jegyzetsorozatnak a keretein — ezért itt
+        bizonyítás nélkül, ismert eredményként szerepel.
+      </p>
+
+      <div class="note-box">
+        <span class="note-box__label">Példa — 72 elemű Abel-csoportok</span>
+        <p>
+          Ha egy Abel-csoport rendje \(|G| = 72 = 2^3 \cdot 3^2\), akkor a
+          lehetséges nem izomorf csoportok szerkezete (a
+          prímhatvány-felbontások alapján):
+        </p>
+        <ul>
+          <li>\((\mathbb{Z}_8, +) \times (\mathbb{Z}_9, +)\)</li>
+          <li>\((\mathbb{Z}_4, +) \times (\mathbb{Z}_2, +) \times (\mathbb{Z}_9, +)\)</li>
+          <li>\((\mathbb{Z}_2, +) \times (\mathbb{Z}_2, +) \times (\mathbb{Z}_2, +) \times (\mathbb{Z}_9, +)\)</li>
+          <li>\((\mathbb{Z}_8, +) \times (\mathbb{Z}_3, +) \times (\mathbb{Z}_3, +)\)</li>
+          <li>\((\mathbb{Z}_4, +) \times (\mathbb{Z}_2, +) \times (\mathbb{Z}_3, +) \times (\mathbb{Z}_3, +)\)</li>
+          <li>\((\mathbb{Z}_2, +) \times (\mathbb{Z}_2, +) \times (\mathbb{Z}_2, +) \times (\mathbb{Z}_3, +) \times (\mathbb{Z}_3, +)\)</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

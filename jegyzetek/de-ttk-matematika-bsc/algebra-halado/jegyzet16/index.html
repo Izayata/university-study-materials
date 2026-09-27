@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Maximális ideálok és testek | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Maximális ideál, prímideál, a faktorgyűrű mint test/integritási tartomány tétele mindkét irányban bizonyítva, és a ℝ[x]/(x²+1) ≅ ℂ izomorfizmus a behelyettesítési homomorfizmuson keresztül — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet16/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 16 of 20 — see part 1's head comment for the shape rationale.
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-23; flagged
+  here and in the PR description): the definition of a prime ideal (used
+  in the source's theorem but never defined there); the full two-
+  direction proof of both parts of the "faktorgyűrű mint test/integritási
+  tartomány" theorem — the source states it without proof; a lemma on
+  division with remainder by a monic polynomial, needed to compute
+  ker φ = (x²+1) below and not otherwise in the source; and the full
+  worked construction of ℝ[x]/(x²+1) ≅ ℂ via the evaluation homomorphism
+  and item 14's ring-homomorphism theorem — the source states the
+  isomorphism as a fact, with no construction.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 16. jegyzet</p>
+
+      <h1>Maximális ideálok és testek</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        Ez a jegyzet megmutatja, hogy egy \(R/I\) faktorgyűrű (14.
+        jegyzet) mikor test, illetve mikor integritási tartomány — a
+        válasz az \(I\) ideál egy-egy tulajdonságán (maximalitás, illetve
+        prímideál) múlik. Zárásképp a 14. jegyzet homomorfizmus-tételét
+        felhasználva megkonstruáljuk a \(\mathbb{R}[x]/(x^2+1) \cong \mathbb{C}\)
+        izomorfizmust.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Maximális ideál, prímideál</li>
+        <li>Faktorgyűrű mint test / integritási tartomány</li>
+        <li>Példa: \(\mathbb{R}[x]/(x^2+1) \cong \mathbb{C}\)</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Maximális ideálok és prímideálok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Maximális ideál</span>
+        <p>
+          Azt mondjuk, hogy az \(I \trianglelefteq R\) ideál
+          <strong>maximális ideál</strong>, ha \(I \neq R\), és nincs
+          olyan \(J\) ideál, amelyre \(I \subsetneq J \subsetneq R\)
+          teljesülne.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Prímideál (kiegészítés)</span>
+        <p>
+          Legyen \(R\) kommutatív gyűrű. Az \(I \trianglelefteq R\) ideált
+          <strong>prímideálnak</strong> nevezzük, ha \(I \neq R\), és
+          minden \(a, b \in R\)-re:
+        </p>
+        \[ ab \in I \implies a \in I \text{ vagy } b \in I \]
+        <p>
+          (A forrás a tétel kimondásához használja a prímideál fogalmát,
+          de sosem definiálja — ez a definíció a hiányzó fogalom.)
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Faktorgyűrű mint test vagy integritási tartomány</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Faktorgyűrű mint test</span>
+        <p>
+          Legyen \(R\) kommutatív egységelemes gyűrű és
+          \(I \trianglelefteq R\) egy ideál. Ekkor:
+        </p>
+        <ol>
+          <li>\(I\) maximális ideál \(\iff R/I\) test.</li>
+          <li>\(I\) prímideál \(\iff R/I\) integritási tartomány.</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — 1. pont</span>
+        <p>
+          Mindkét irányban felhasználjuk, hogy \(R/I\) kommutatív,
+          egységelemes gyűrű (14. jegyzet), és hogy \(I \neq R \iff 1 \notin I \iff 1+I \neq I\)
+          (az \(R/I\) neutrális eleme az összeadásra, \(0_{R/I}\), nem
+          egyenlő az egységelemmel).
+        </p>
+        <p>
+          <strong>(\(\Rightarrow\)).</strong> Legyen \(I\) maximális, és
+          \(r + I \neq I\) az \(R/I\) egy nemnulla eleme (azaz
+          \(r \notin I\)). Tekintsük a \(J = I + (r) = \{i + sr \mid i \in I, s \in R\}\)
+          halmazt — ez ideál (az \(I\) és \((r) = \{sr \mid s \in R\}\)
+          ideálok összege könnyen ellenőrizhetően ideál), \(I \subseteq J\)
+          (az \(s=0\) választással), és \(r = 0 + 1 \cdot r \in J\), de
+          \(r \notin I\), tehát \(I \subsetneq J\). Az \(I\)
+          maximalitása miatt nincs ilyen \(J\), hacsak \(J \neq R\) is
+          teljesülne — tehát \(J = R\). Így \(1 \in J\), azaz
+          \(1 = i + sr\) valamely \(i \in I\), \(s \in R\)-re, amiből
+          \(sr - 1 = -i \in I\), azaz \((s+I)(r+I) = sr+I = 1+I\).
+          Tehát \(r+I\)-nek van inverze \(R/I\)-ben: \(R/I\) test.
+        </p>
+        <p>
+          <strong>(\(\Leftarrow\)).</strong> Legyen \(R/I\) test (tehát
+          \(I \neq R\), mert \(1+I \neq 0+I\)). Legyen \(J\) ideál,
+          \(I \subsetneq J \subseteq R\); megmutatjuk, hogy \(J = R\).
+          Válasszunk \(r \in J \setminus I\)-t. Ekkor \(r+I \neq I\)
+          nemnulla eleme \(R/I\)-nek, tehát van inverze:
+          \((r+I)(s+I) = 1+I\) valamely \(s \in R\)-re, azaz
+          \(rs - 1 \in I \subseteq J\). Mivel \(r \in J\) és \(J\) ideál,
+          \(rs \in J\); mivel \(rs - 1 \in J\) is, a kettő különbsége
+          \(1 = rs - (rs-1) \in J\). Ha \(1 \in J\), akkor minden
+          \(x \in R\)-re \(x = x \cdot 1 \in J\) (az ideál elnyelő
+          tulajdonsága), tehát \(J = R\). Így nincs \(I\) és \(R\) közötti
+          valódi ideál: \(I\) maximális.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — 2. pont</span>
+        <p>
+          <strong>(\(\Rightarrow\)).</strong> Legyen \(I\) prímideál
+          (tehát \(I \neq R\), azaz \(1+I \neq 0\) az \(R/I\)-ben).
+          Tegyük fel, hogy \((a+I)(b+I) = 0\) \(R/I\)-ben, azaz
+          \(ab + I = I\), azaz \(ab \in I\). Mivel \(I\) prímideál,
+          \(a \in I\) vagy \(b \in I\), azaz \(a+I=0\) vagy \(b+I=0\)
+          \(R/I\)-ben. Tehát \(R/I\)-ben nincs nullosztó: \(R/I\)
+          integritási tartomány (kommutatív és egységelemes, mert \(R\)
+          az, ezt a 14. jegyzet faktorgyűrű-definíciója örökíti).
+        </p>
+        <p>
+          <strong>(\(\Leftarrow\)).</strong> Legyen \(R/I\) integritási
+          tartomány (tehát \(I \neq R\), mert \(1+I \neq 0\)). Tegyük fel,
+          hogy \(ab \in I\). Ekkor \((a+I)(b+I) = ab+I = I = 0\) \(R/I\)-ben.
+          Mivel \(R/I\)-ben nincs nullosztó, \(a+I=0\) vagy \(b+I=0\), azaz
+          \(a \in I\) vagy \(b \in I\). Tehát \(I\) prímideál.
+        </p>
+        <p>
+          <strong>Megjegyzés (kiegészítés).</strong> Mivel minden test
+          integritási tartomány, a két pontból közvetlenül adódik, hogy
+          minden maximális ideál egyben prímideál is.
+        </p>
+      </div>
+
+      <h2>Példa: \(\mathbb{R}[x]/(x^2+1) \cong \mathbb{C}\)</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — Példa testre faktorgyűrűvel</span>
+        <p>
+          A valós együtthatós polinomok gyűrűjében az \((x^2+1)\) ideál
+          szerinti faktorgyűrű izomorf a komplex számok testével:
+        </p>
+        \[ \mathbb{R}[x]/(x^2+1) \cong \mathbb{C} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Lemma — Osztás maradékkal monic polinommal (kiegészítés)</span>
+        <p>
+          Legyen \(R\) kommutatív egységelemes gyűrű, és
+          \(h(x) \in R[x]\) egy <strong>monic</strong> (\(1\)
+          főegyütthatójú) polinom, \(\deg h = d \ge 1\). Ekkor minden
+          \(f(x) \in R[x]\)-hez léteznek \(q(x), r(x) \in R[x]\), hogy
+        </p>
+        \[ f(x) = h(x) q(x) + r(x), \qquad r = 0 \text{ vagy } \deg r &lt; d \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Teljes indukcióval \(\deg f\) szerint. Ha \(f = 0\) vagy
+          \(\deg f &lt; d\), akkor \(q=0\), \(r=f\) megfelel. Ha
+          \(n = \deg f \ge d\), legyen \(f\) főegyütthatója \(a\), tehát
+          \(f(x) = a x^n + (\text{alacsonyabb fokú tagok})\). Mivel \(h\)
+          monic, \(h(x) = x^d + (\text{alacsonyabb fokú tagok})\), így az
+          \(a x^{n-d} h(x)\) szorzat főtagja szintén \(a x^n\). Legyen:
+        </p>
+        \[ f_1(x) = f(x) - a x^{n-d} h(x) \]
+        <p>
+          Ebben az \(x^n\)-es tagok kiejtik egymást, tehát \(f_1 = 0\)
+          vagy \(\deg f_1 &lt; n\). Az indukciós feltevés szerint
+          \(f_1(x) = h(x) q_1(x) + r(x)\), \(r=0\) vagy \(\deg r &lt; d\).
+          Ekkor:
+        </p>
+        \[ f(x) = f_1(x) + a x^{n-d} h(x) = h(x)\bigl(q_1(x) + a x^{n-d}\bigr) + r(x) \]
+        <p>
+          tehát \(q(x) = q_1(x) + a x^{n-d}\) és \(r(x)\) megfelelnek. (A
+          bizonyítás lényege, hogy \(h\) monic volta miatt \(a x^{n-d}\)
+          együtthatója mindig egyértelműen számolható — nem kell \(R\)-ben
+          osztani.)
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — a konstrukció</span>
+        <p>
+          Definiáljuk a \(\varphi : \mathbb{R}[x] \to \mathbb{C}\)
+          <strong>behelyettesítési homomorfizmust</strong>:
+          \(\varphi(f(x)) = f(i)\) (ahol \(i \in \mathbb{C}\) a képzetes
+          egység, \(i^2 = -1\)). Ez valóban gyűrű-homomorfizmus: az
+          összeadás és a szorzás is tagonkénti behelyettesítéssel
+          számolható, tehát \(\varphi(f+g) = \varphi(f)+\varphi(g)\) és
+          \(\varphi(fg) = \varphi(f)\varphi(g)\).
+        </p>
+        <p>
+          <strong>Szürjektív.</strong> Tetszőleges \(a+bi \in \mathbb{C}\)-re
+          a \(g(x) = bx+a \in \mathbb{R}[x]\) polinomra
+          \(\varphi(g) = bi+a = a+bi\). Tehát \(\operatorname{Im} \varphi = \mathbb{C}\).
+        </p>
+        <p>
+          <strong>\(\ker \varphi = (x^2+1)\).</strong> Az
+          \((x^2+1) \subseteq \ker \varphi\) tartalmazás világos, mert
+          \(\varphi(x^2+1) = i^2+1 = 0\), és minden \((x^2+1)\)-beli elem
+          \((x^2+1)q(x)\) alakú, amire
+          \(\varphi\bigl((x^2+1)q(x)\bigr) = 0 \cdot \varphi(q) = 0\).
+        </p>
+        <p>
+          A fordított tartalmazáshoz legyen \(f \in \ker \varphi\), azaz
+          \(f(i) = 0\). Mivel \(x^2+1\) monic, fokszáma \(2\), a fenti
+          lemma szerint \(f(x) = (x^2+1)q(x) + r(x)\), ahol \(r=0\) vagy
+          \(\deg r &lt; 2\), azaz \(r(x) = cx+d\) valamely
+          \(c, d \in \mathbb{R}\)-re. Ekkor:
+        </p>
+        \[ 0 = \varphi(f) = (i^2+1)\varphi(q) + ci+d = 0 + ci + d = d + ci \]
+        <p>
+          Mivel \(c, d\) valósak, egy komplex szám valós és képzetes
+          része külön-külön \(0\), tehát \(c=0\) és \(d=0\), azaz
+          \(r=0\). Így \(f(x) = (x^2+1)q(x) \in (x^2+1)\). Tehát
+          \(\ker \varphi = (x^2+1)\).
+        </p>
+        <p>
+          A 14. jegyzet gyűrű-homomorfizmus tétele szerint
+          \(\mathbb{R}[x]/\ker \varphi \cong \operatorname{Im} \varphi\),
+          azaz \(\mathbb{R}[x]/(x^2+1) \cong \mathbb{C}\).
+        </p>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

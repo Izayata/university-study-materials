@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>p-csoportok és a Cauchy-tétel | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="p-csoport, és Cauchy tétele — ha p prím osztja |G|-t, akkor G-ben van p rendű elem — McKay bizonyításával, a ℤ/pℤ ciklikus eltolásos hatásán keresztül — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet13/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 13 of 20 — see part 1's head comment for the shape rationale.
+
+  Source fix here: "ahgy p prím" is "ahol p prím" (typo).
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-23; flagged
+  here and in the PR description): the full proof of Cauchy's theorem —
+  the source states it without proof. McKay's proof is used: it only
+  needs elementary counting and the same "period divides the shift
+  length" reasoning already used for an element's order in item 5, not
+  a general group-action / orbit-stabilizer framework the source never
+  sets up.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 13. jegyzet</p>
+
+      <h1>p-csoportok és a Cauchy-tétel</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        Ez a jegyzet a Lagrange-tétel egyfajta megfordítását bizonyítja:
+        míg a Lagrange-tétel szerint egy részcsoport mérete mindig osztója
+        a csoport méretének, a Cauchy-tétel szerint minden \(|G|\)-t osztó
+        \(p\) prímhez <em>van</em> is \(p\) rendű elem — méghozzá egy
+        meglepően rövid, ötletes leszámlálásos bizonyítással (McKay).
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>p-csoport</li>
+        <li>Cauchy tétele</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>p-csoportok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — p-csoport</span>
+        <p>
+          Egy \(G\) csoportot \(p\)-<strong>csoportnak</strong> nevezünk
+          (ahol \(p\) prím), ha a csoport minden elemének rendje \(p\)
+          valamely hatványa. Véges csoport esetén ez azzal ekvivalens,
+          hogy \(|G| = p^n\) valamilyen \(n \ge 1\)-re.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Cauchy tétele</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Cauchy tétele</span>
+        <p>
+          Ha \(G\) véges csoport, és \(p \mid |G|\) (ahol \(p\) prím),
+          akkor \(G\)-ben létezik \(p\) rendű elem (azaz van \(p\) rendű
+          részcsoportja is).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés, McKay bizonyítása)</span>
+        <p>Tekintsük a következő halmazt:</p>
+        \[ X = \{(g_1, \dots, g_p) \in G^p \mid g_1 g_2 \cdots g_p = e\} \]
+        <p>
+          <strong>\(|X| = |G|^{p-1}\).</strong> A \(g_1, \dots, g_{p-1}\)
+          komponensek szabadon választhatók (\(|G|^{p-1}\) lehetőség), és
+          ekkor \(g_p = (g_1 \cdots g_{p-1})^{-1}\) az egyetlen választás,
+          amely a szorzatot \(e\)-vé teszi. Mivel \(p \mid |G|\), és
+          \(p - 1 \ge 1\), \(|G|\) osztja \(|G|^{p-1}\)-et is, tehát
+          \(p \mid |X|\).
+        </p>
+        <p>
+          <strong>Ciklikus eltolás.</strong> Definiáljuk a
+          \(\sigma : X \to X\) leképezést:
+          \(\sigma(g_1, g_2, \dots, g_p) = (g_2, \dots, g_p, g_1)\). Ez
+          valóban \(X\)-be képez: ha \(g_1 \cdots g_p = e\), akkor
+          \(g_2 \cdots g_p = g_1^{-1}\), tehát
+          \(g_2 \cdots g_p \cdot g_1 = g_1^{-1} g_1 = e\).
+        </p>
+        <p>
+          <strong>Minden pálya mérete \(1\) vagy \(p\).</strong> Egy
+          \(x \in X\)-re legyen \(d\) a legkisebb pozitív egész, amelyre
+          \(\sigma^d(x) = x\) (ilyen \(d\) van, mert
+          \(\sigma^p(x) = x\) mindig teljesül: \(p\) eltolás a \(p\)-est
+          önmagába viszi). Ugyanúgy, ahogy az 5. jegyzetben egy elem
+          rendjére: ha \(p = qd + r\), \(0 \le r &lt; d\) maradékos
+          osztással, akkor \(\sigma^d(x) = x\)-ből \(\sigma^{qd}(x) = x\) is
+          következik (\(q\)-szor alkalmazva), tehát
+          \(\sigma^p(x) = \sigma^{qd+r}(x) = \sigma^r(\sigma^{qd}(x)) = \sigma^r(x)\).
+          Mivel \(\sigma^p(x) = x\) mindig, \(\sigma^r(x) = x\); \(d\)
+          minimalitása miatt \(r = 0\), azaz \(d \mid p\). Mivel \(p\)
+          prím, \(d \in \{1, p\}\): az \(x\) pályája (a \(\sigma^0(x), \dots, \sigma^{d-1}(x)\)
+          elemek) pontosan \(d\) elemű, tehát \(1\) vagy \(p\) méretű.
+        </p>
+        <p>
+          <strong>A fixpontok száma osztható \(p\)-vel.</strong> Legyen
+          \(F\) a \(d=1\) méretű pályák (fixpontok) száma — ezek pontosan
+          az \((g, g, \dots, g)\) alakú tuple-ök, amelyekre \(g^p = e\).
+          Mivel \(X\) a pályák diszjunkt uniója, és minden pálya \(1\)
+          vagy \(p\) elemű:
+        </p>
+        \[ |X| = F + p \cdot (\text{a } p \text{ méretű pályák száma}) \implies |X| \equiv F \pmod{p} \]
+        <p>
+          Mivel \(p \mid |X|\), ebből \(p \mid F\) következik.
+        </p>
+        <p>
+          <strong>Befejezés.</strong> Az \((e, e, \dots, e)\) tuple mindig
+          eleme \(X\)-nek és fixpont, tehát \(F \ge 1\). Mivel
+          \(p \mid F\) és \(F \ge 1\), a legkisebb ilyen \(F\) éppen
+          \(p\), tehát \(F \ge p \ge 2\). Van tehát legalább két
+          \(g \in G\), amelyre \(g^p = e\) — az egyik \(e\), a másik,
+          mondjuk \(g_0 \neq e\). Az 5. jegyzet szerint \(o(g_0) \mid p\),
+          és mivel \(p\) prím, \(o(g_0) \in \{1, p\}\); \(g_0 \neq e\)
+          miatt \(o(g_0) \neq 1\), tehát \(o(g_0) = p\). Ez a keresett
+          \(p\) rendű elem, és \(\langle g_0 \rangle \le G\) egy \(p\)
+          rendű részcsoport.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

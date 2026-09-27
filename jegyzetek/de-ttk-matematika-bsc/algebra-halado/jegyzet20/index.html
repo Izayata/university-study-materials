@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Szerkeszthető számok, szabályos sokszögek és bevezetés a Galois-elméletbe | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Szerkeszthető szám algebrai jellemzése mindkét irányban bizonyítva, a szerkeszthető elem fokszáma 2-hatvány, Gauss tétele a szabályos sokszögekről, és bevezetés a gyöktest, Galois-csoport és oldható csoport fogalmába — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet20/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 20 of 20, the last item — see part 1's head comment for the shape
+  rationale.
+
+  Source fix: "$2-hatvány}$" (stray closing brace, broken LaTeX) is
+  "2-hatvány" (plain Unicode, no math delimiters needed for this phrase).
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-23; flagged
+  here and in the PR description): the full two-direction proof of the
+  szerkeszthetőségi tétel; a short lemma that [K(α):K] = deg m_α (needed
+  for the fokszám corollary, not otherwise in the source); the full
+  proof of the fokszám corollary via the szorzótétel; and the
+  definitions of gyöktest, Galois-csoport and oldható csoport (all three
+  used by the source's "Oldhatóság gyökjelekkel" definition, but never
+  defined there). Left deliberately unproved, stated plainly: Gauss
+  tétele a szabályos sokszögekről (needs ciklotomikus testek, well
+  beyond this item's scope) and that \(S_5\)/\(A_5\) is not oldható
+  (a standalone combinatorial argument about \(A_5\)'s simplicity) — the
+  same kind of call already made for the finite abelian structure
+  tétel (9. jegyzet) and the UFD tétel (18. jegyzet).
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 20. jegyzet</p>
+
+      <h1>Szerkeszthető számok, szabályos sokszögek és bevezetés a Galois-elméletbe</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        A sorozat záró jegyzete a 19. jegyzet testbővítés-elméletét egy
+        klasszikus geometriai kérdésre alkalmazza: mely valós számok
+        szerkeszthetők körzővel és vonalzóval? Végül, a teljesség kedvéért,
+        röviden bevezeti a Galois-elmélet alapfogalmait, amelyekkel az
+        "5-öd fokú egyenlet gyökjelekkel megoldhatatlan" híres tény
+        kimondható.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Szerkeszthető szám, szerkeszthetőség algebrai feltétele</li>
+        <li>Szerkeszthető elem fokszáma</li>
+        <li>Gauss tétele a szabályos sokszögekről</li>
+        <li>Gyöktest, Galois-csoport, oldható csoport</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Szerkeszthető számok</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Szerkeszthető szám</span>
+        <p>
+          Egy \(a \in \mathbb{R}\) számot <strong>szerkeszthetőnek</strong>
+          nevezünk, ha a síkon megadott \((0,0)\) és \((1,0)\) pontokból
+          indulva körző és vonalzó segítségével véges sok lépésben
+          megszerkeszthető az \(a\) koordinátájú pont.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Szerkeszthetőség algebrai feltétele</span>
+        <p>
+          Egy \(a \in \mathbb{R}\) szám pontosan akkor szerkeszthető, ha
+          létezik olyan
+        </p>
+        \[ \mathbb{Q} = K_0 \subseteq K_1 \subseteq K_2 \subseteq \dots \subseteq K_m \subseteq \mathbb{R} \]
+        <p>
+          testbővítési lánc, amelyre \(a \in K_m\), és minden \(i\)-re
+          \([K_i : K_{i-1}] = 2\) (azaz másodfokú bővítések sorozata).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — szerkeszthető \(\implies\) van ilyen lánc</span>
+        <p>
+          Minden szerkesztési lépés egy már megszerkesztett ponthalmazból
+          von le egyenest két ponton át, vagy rajzol kört egy középponttal
+          és egy már ismert sugárral, majd ezek metszéspontjait veszi. Ha
+          \(K\) az addig megszerkesztett pontok koordinátái által
+          generált test, három eset lehetséges:
+        </p>
+        <ul>
+          <li><strong>Egyenes–egyenes.</strong> Két, \(K\)-beli együtthatós lineáris egyenlet metszéspontja lineáris egyenletrendszer megoldása — a megoldás \(K\)-ban van (a test zárt az összeadásra, szorzásra, osztásra). Nincs bővítés.</li>
+          <li><strong>Egyenes–kör.</strong> A kör egyenlete \((x-x_0)^2+(y-y_0)^2=r^2\), ahol \(x_0,y_0,r^2 \in K\) (\(r^2\) két \(K\)-beli pont távolságnégyzete, tehát \(K\)-beli koordináták négyzetösszege). Az egyenes egyenletéből \(y\)-t (vagy \(x\)-et) kifejezve és behelyettesítve egy másodfokú egyenletet kapunk \(x\)-re, \(K\)-beli együtthatókkal. Ennek gyökei \(K(\sqrt{D})\)-ban vannak, ahol \(D\) a diszkrimináns — ez \(K\) felett fokszám \(1\) vagy \(2\) bővítés.</li>
+          <li><strong>Kör–kör.</strong> Két kör egyenletét kivonva egymásból az \(x^2,y^2\) tagok kiesnek, egy lineáris egyenlet marad (a "radikális tengely"), \(K\)-beli együtthatókkal. Ezt az egyenest metszve az egyik körrel, az előző esetre vezetjük vissza — ismét fokszám \(1\) vagy \(2\).
+          </li>
+        </ul>
+        <p>
+          Tehát minden lépésben az új pont koordinátái vagy a jelenlegi
+          \(K\)-ban maradnak, vagy \(K\) egy fokszám \(2\) bővítésébe
+          kerülnek. A kezdő test \(K_0 = \mathbb{Q}\) (hiszen \((0,0)\) és
+          \((1,0)\) koordinátái racionálisak). A fokszám-\(1\) lépéseket
+          kihagyva (ezek nem bővítik a testet), a ténylegesen bővítő
+          lépések egy \(\mathbb{Q}=K_0 \subsetneq K_1 \subsetneq \dots \subsetneq K_m\)
+          láncot adnak, minden lépés fokszáma pontosan \(2\), és — mivel
+          véges sok szerkesztési lépés történt — \(a \in K_m\) valamely
+          véges \(m\)-re.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — van ilyen lánc \(\implies\) szerkeszthető</span>
+        <p>
+          Két segédtényt használunk, mindkettő klasszikus körző-vonalzó
+          szerkesztés:
+        </p>
+        <ul>
+          <li><strong>A. lemma:</strong> a szerkeszthető számok halmaza a \(\mathbb{Q}\)-t tartalmazó résztest \(\mathbb{R}\)-ben (a racionális számok szerkeszthetők az egységszakasz ismételt felmérésével és a párhuzamos szelők tétele szerinti osztással; két szerkeszthető szám összege, különbsége, szorzata és hányadosa szerkeszthető, hasonló háromszögek szerkesztésével).</li>
+          <li><strong>B. lemma:</strong> ha \(c \ge 0\) szerkeszthető, akkor \(\sqrt{c}\) is az (a \(c+1\) hosszú szakasz fölé rajzolt Thálész-féle félkörben a \(c\) és \(1\) hosszú részekre osztó pontból állított merőleges hossza \(\sqrt{c}\), a magasságtétel szerint).</li>
+        </ul>
+        <p>
+          Ezekkel teljes indukcióval megmutatjuk, hogy \(K_i\) minden
+          eleme szerkeszthető. \(K_0 = \mathbb{Q}\) szerkeszthető (A.
+          lemma). Tegyük fel, hogy \(K_{i-1}\) minden eleme szerkeszthető.
+          Mivel \([K_i:K_{i-1}]=2\), \(K_i = K_{i-1}(\beta_i)\) valamely
+          \(\beta_i\)-re, amelynek minimálpolinomja másodfokú
+          \(K_{i-1}\) felett: \(\beta_i^2+p\beta_i+q=0\),
+          \(p,q \in K_{i-1}\). A megoldóképlet szerint
+          \(\beta_i = \frac{-p \pm \sqrt{p^2-4q}}{2}\). Mivel
+          \(\beta_i \in K_i \subseteq \mathbb{R}\) valós, a diszkrimináns
+          \(p^2-4q \ge 0\) (egy valós gyökű másodfokú egyenletnek nem
+          lehet negatív a diszkriminánsa). Az indukciós feltevés szerint
+          \(p, q\) szerkeszthetők, az A. lemma szerint \(p^2-4q\) is az,
+          a B. lemma szerint \(\sqrt{p^2-4q}\) is az, végül az A. lemma
+          szerint \(\beta_i\) (a fentiek összege/szorzata/hányadosa) is
+          szerkeszthető. Mivel \(K_i = \{x+y\beta_i \mid x,y \in K_{i-1}\}\)
+          (\(\beta_i\) fokszáma \(2\)), és \(K_{i-1}\) elemei és
+          \(\beta_i\) is szerkeszthetők, az A. lemma szerint \(K_i\)
+          minden eleme szerkeszthető. Az indukció \(i=m\)-ig folytatva:
+          \(K_m\), így \(a \in K_m\) is szerkeszthető.
+        </p>
+      </div>
+
+      <h2>Szerkeszthető elem fokszáma</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Következmény (kiegészítés) — \([K(\alpha):K] = \deg m_\alpha\)</span>
+        <p>
+          A 19. jegyzet szerint \(K(\alpha) \cong K[x]/(m_\alpha)\), mint
+          gyűrűk — de ez izomorfizmus \(K\)-vektorterekként is, hiszen a
+          16. jegyzet osztási lemmája szerint \(K[x]/(m_\alpha)\) minden
+          mellékosztályának egyértelmű \(\deg r &lt; \deg m_\alpha\) fokú
+          reprezentánsa van, tehát \(\{1,x,\dots,x^{d-1}\}\)
+          (\(d=\deg m_\alpha\)) egy \(K\)-bázisa \(K[x]/(m_\alpha)\)-nak.
+          Ezért \([K(\alpha):K] = d = \deg m_\alpha\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás — Szerkeszthető elem fokszáma</span>
+        <p>
+          Ha \(a \in \mathbb{R}\) szerkeszthető szám, akkor a \(\mathbb{Q}\)
+          feletti minimálpolinomjának fokszáma \(2\)-hatvány, azaz
+          \(\deg m_a = 2^k\).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A szerkeszthetőségi tétel szerint van
+          \(\mathbb{Q}=K_0 \subseteq \dots \subseteq K_m\) lánc,
+          \([K_i:K_{i-1}]=2\), \(a \in K_m\). A 19. jegyzet szorzótételét
+          ismételten alkalmazva:
+        </p>
+        \[ [K_m:\mathbb{Q}] = [K_m:K_{m-1}] \cdots [K_1:K_0] = \underbrace{2 \cdot 2 \cdots 2}_{m} = 2^m \]
+        <p>
+          Mivel \(a \in K_m\), \(\mathbb{Q}(a) \subseteq K_m\) (a legkisebb
+          \(a\)-t tartalmazó résztest). A szorzótétel szerint
+          \([K_m:\mathbb{Q}] = [K_m:\mathbb{Q}(a)] \cdot [\mathbb{Q}(a):\mathbb{Q}]\),
+          tehát \([\mathbb{Q}(a):\mathbb{Q}]\) osztója \(2^m\)-nek — egy
+          \(2^m\) pozitív osztója pedig mindig \(2\)-hatvány. A fenti
+          Következmény szerint \([\mathbb{Q}(a):\mathbb{Q}] = \deg m_a\),
+          tehát \(\deg m_a = 2^k\) valamely \(0 \le k \le m\)-re.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Szabályos sokszögek szerkeszthetősége</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Gauss tétele a szabályos sokszögekről</span>
+        <p>
+          A szabályos \(n\)-szög pontosan akkor szerkeszthető körzővel és
+          vonalzóval, ha a \(\varphi(n)\) Euler-féle phi-függvény értéke
+          \(2\)-hatvány, azaz:
+        </p>
+        \[ n = 2^k p_1 p_2 \dots p_s \]
+        <p>
+          ahol \(k \ge 0\) egész, és a \(p_i\)-k egymástól különböző
+          <strong>Fermat-prímek</strong> (\(p_i = 2^{2^j} + 1\)).
+        </p>
+      </div>
+
+      <p>
+        Ennek a tételnek a bizonyítása a fenti fokszám-feltétel mellett a
+        körosztási (ciklotomikus) testek Galois-elméletét is igényli —
+        ez messze túlmutat ennek a jegyzetsorozatnak a keretein, ezért itt
+        bizonyítás nélkül, ismert eredményként szerepel, ugyanúgy, ahogy a
+        véges Abel-csoportok alaptétele (9. jegyzet) és az egyértelmű
+        faktorizáció tétele (18. jegyzet) is bizonyítás nélkül szerepelt.
+      </p>
+
+      <h2>Bevezetés a Galois-elméletbe</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Gyöktest (kiegészítés)</span>
+        <p>
+          Legyen \(K\) test és \(f \in K[x]\) nemkonstans polinom. Az
+          \(f\) <strong>gyöktestje</strong> (felbontási teste) \(K\)
+          felett a legkisebb \(L \supseteq K\) testbővítés, amelyben
+          \(f\) lineáris tényezők szorzatára bomlik (az összes gyöke
+          \(L\)-ben van), és amelyet \(K\) és \(f\) gyökei generálnak.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Galois-csoport (kiegészítés)</span>
+        <p>
+          Legyen \(L/K\) testbővítés. A \(\operatorname{Gal}(L/K)\)
+          <strong>Galois-csoport</strong> az \(L\) azon testautomorfizmusainak
+          csoportja (a leképezések kompozíciójával), amelyek \(K\) minden
+          elemét fixen hagyják.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Oldható csoport (kiegészítés)</span>
+        <p>
+          Egy \(G\) csoportot <strong>oldhatónak</strong> nevezünk, ha
+          létezik egy
+        </p>
+        \[ \{e\} = G_0 \unlhd G_1 \unlhd \dots \unlhd G_n = G \]
+        <p>
+          részcsoportlánc, amelyben minden \(G_i\) normálosztó
+          \(G_{i+1}\)-ben, és minden \(G_{i+1}/G_i\) faktorcsoport Abel-csoport.
+          (Minden Abel-csoport triviálisan oldható, a
+          \(\{e\} \unlhd G\) lánccal. Az \(S_3\) is oldható:
+          \(\{e\} \unlhd A_3 \unlhd S_3\), a faktorok \(\mathbb{Z}_3\) és
+          \(\mathbb{Z}_2\), mindkettő Abel.)
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Oldhatóság gyökjelekkel</span>
+        <p>
+          Egy \(f \in \mathbb{Q}[x]\) polinomot <strong>gyökjelekkel
+          oldhatónak</strong> nevezünk, ha a gyöktestjének Galois-csoportja
+          oldható csoport.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — Az \(S_5\) szimmetrikus csoport</span>
+        <p>
+          Mivel az \(S_5\) szimmetrikus csoport nem oldható csoport
+          (ugyanúgy, mint az \(S_5\) altartományai vagy az \(A_5\)
+          váltakozó csoport), ezért az 5-öd- és magasabb fokú általános
+          algebrai egyenletek nem oldhatók meg gyökjelekkel
+          (Ruffini–Abel-tétel).
+        </p>
+      </div>
+
+      <p>
+        Az \(A_5\) egyszerűségének (nincs valódi nemtriviális
+        normálosztója, tehát nem lehet a fenti értelemben oldható) a
+        bizonyítása egy önálló, kombinatorikus jellegű érv, amely nem
+        épül a jegyzetsorozat korábbi tételeire — ezért itt is
+        bizonyítás nélkül, hivatkozott tényként szerepel.
+      </p>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

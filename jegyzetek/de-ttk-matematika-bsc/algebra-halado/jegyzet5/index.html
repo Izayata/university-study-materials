@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Elem rendje csoportban | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Egy csoportelem rendjének két definíciója és ekvivalenciájuk, a gᵏ=e⟺n∣k összefüggés, és egy permutáció rendje a diszjunkt ciklusok hosszainak legkisebb közös többszöröseként, bizonyítással — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet5/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 5 of 20 — see part 1's head comment for the shape rationale.
+
+  Source fix here: the source gives two different definitions of an
+  element's order — "Elem rendje" defines it as |{g^k : k in Z}| (the
+  size of the cyclic subgroup it generates), then "Véges és Végtelen
+  rend" separately defines it as the least positive n with g^n=e. These
+  are not restated as two competing definitions; the second is kept as
+  the working definition, and a supplied proof shows it agrees with the
+  first (so the source's own two boxes are reconciled, not duplicated).
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-23; flagged
+  here and in the PR description): the proof that the two order-
+  definitions agree, the proof of "g^k=e iff n|k", and the proof that a
+  permutation's order is the lcm of its disjoint cycle lengths (which
+  the source states without proof).
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 5. jegyzet</p>
+
+      <h1>Elem rendje csoportban</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        Ez a jegyzet egy csoportelem rendjét vizsgálja: két, első ránézésre
+        különböző definícióját egyezteti össze, megmutatja, mikor tűnik el
+        egy elem egy adott kitevőjű hatványa, és a permutációk esetére
+        konkrét képletet ad a rendre a ciklusszerkezetből.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Elem rendje: két definíció és ekvivalenciájuk</li>
+        <li>\(g^k = e \iff n \mid k\)</li>
+        <li>Ciklusok rendje és hatványozása</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Elem rendje csoportban</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Elem rendje</span>
+        <p>
+          Legyen \((G, \cdot)\) egy csoport, és \(g \in G\). A \(g\) elem
+          <strong>rendje</strong> (\(o(g)\)) a \(g\) különböző hatványainak
+          száma:
+        </p>
+        \[ o(g) = |\{g^k \mid k \in \mathbb{Z}\}| \]
+      </div>
+
+      <h3>Példák elemek rendjére</h3>
+      <ul>
+        <li>\((\mathbb{Z}, +)\)-ban a \(0\) elem rendje \(o(0) = 1\) (mivel \(0 \cdot k = 0\)).</li>
+        <li>\((\mathbb{Z}_7^*, \cdot)\)-ban a \(3\) elem rendje \(o(3) = 6\), mert a hatványai: \(3^1=3, 3^2=2, 3^3=6, 3^4=4, 3^5=5, 3^6=1\).</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Véges és végtelen rend</span>
+        <p>Legyen \(G\) csoport, \(g \in G\).</p>
+        <ul>
+          <li>Ha létezik olyan legkisebb pozitív \(n\) egész szám, amelyre \(g^n = e\), akkor \(g\) rendje \(n\) (\(o(g) = n\)).</li>
+          <li>Ha ilyen pozitív egész nem létezik, akkor azt mondjuk, hogy \(g\) <strong>végtelen rendű</strong> (\(o(g) = \infty\)).</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés) — a két definíció megegyezik</span>
+        <p>
+          Ha a \(\{g^k : k \in \mathbb{Z}\}\) halmaz végtelen, akkor
+          nincs olyan pozitív \(n\), hogy \(g^n = e\) (ha volna, a
+          hatványok \(n\) szerint periodikusak lennének, lásd alább, és a
+          halmaz véges lenne), tehát mindkét definíció szerint \(g\)
+          végtelen rendű.
+        </p>
+        <p>
+          Ha a halmaz véges, akkor a \(k \mapsto g^k\) leképezés
+          \(\mathbb{Z}\)-ről egy véges halmazba nem lehet injektív, így
+          van olyan \(i &lt; j\), hogy \(g^i = g^j\), azaz
+          \(g^{j-i} = e\) valamely pozitív \(j - i\)-re. Legyen \(n\) a
+          legkisebb ilyen pozitív kitevő (létezik a jólrendezési elv
+          szerint). Ha \(0 \le a &lt; b &lt; n\) és \(g^a = g^b\) volna,
+          akkor \(g^{b-a} = e\) egy \(0 &lt; b-a &lt; n\) kitevővel,
+          ellentmondva \(n\) minimalitásának; tehát
+          \(e, g, g^2, \dots, g^{n-1}\) mind különbözők, \(n\) elem.
+          Másrészt tetszőleges \(k \in \mathbb{Z}\)-re a maradékos osztással
+          \(k = qn + r\), \(0 \le r &lt; n\), és \(g^k = (g^n)^q g^r = g^r\),
+          tehát \(\{g^k : k \in \mathbb{Z}\} = \{e, g, \dots, g^{n-1}\}\),
+          pontosan \(n\) elemű. Így a két definíció szerinti rend
+          megegyezik.
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Állítás</span>
+        <p>
+          Ha \(o(g) = n\) véges, akkor \(g^k = e \iff n \mid k\) (vagyis a
+          hatvány kitevője osztható a renddel).
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          Ha \(n \mid k\), azaz \(k = mn\), akkor
+          \(g^k = (g^n)^m = e^m = e\). Fordítva, ha \(g^k = e\), írjuk
+          \(k = qn + r\)-et, \(0 \le r &lt; n\) maradékos osztással. Ekkor
+          \(e = g^k = (g^n)^q g^r = g^r\), és mivel \(n\) a legkisebb
+          pozitív kitevő, amire \(g\) hatványa \(e\), \(0 \le r &lt; n\) és
+          \(g^r = e\) csak \(r = 0\)-ra lehetséges. Tehát \(k = qn\), azaz
+          \(n \mid k\).
+        </p>
+      </div>
+
+      <h3>Ciklusok rendje és hatványozása</h3>
+      <p>Ha egy permutáció diszjunkt ciklusok szorzatára van bontva:</p>
+      \[ \sigma = (c_1)(c_2)\dots(c_r) \]
+      <p>
+        akkor a \(\sigma\) rendje az egyes diszjunkt ciklusok hosszának
+        <strong>legkisebb közös többszöröse (lkkt)</strong>:
+      </p>
+      \[ o(\sigma) = \text{lkkt}(o(c_1), o(c_2), \dots, o(c_r)) \]
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          A diszjunkt ciklusok felcserélhetők (különböző elemeken hatnak),
+          ezért minden \(N\)-re \(\sigma^N = c_1^N c_2^N \cdots c_r^N\), és
+          mivel a \(c_i^N\) is diszjunkt tartójú permutációk, \(\sigma^N = \mathrm{id}\)
+          pontosan akkor, ha \(c_i^N = \mathrm{id}\) minden \(i\)-re
+          (egy diszjunkt szorzat csak akkor identikus, ha minden tényezője
+          az). Egy \(\ell\)-hosszú ciklus rendje \(\ell\) (az előző állítás
+          speciális esete: \(c^N = \mathrm{id} \iff \ell \mid N\)). Tehát
+          \(\sigma^N = \mathrm{id} \iff o(c_i) \mid N\) minden \(i\)-re
+          \(\iff \text{lkkt}(o(c_1), \dots, o(c_r)) \mid N\). A legkisebb
+          pozitív ilyen \(N\) éppen az lkkt, tehát \(o(\sigma) = \text{lkkt}(o(c_1), \dots, o(c_r))\).
+        </p>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

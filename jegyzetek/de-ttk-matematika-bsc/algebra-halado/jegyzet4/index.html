@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Permutációk előjele és paritása | Órai jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="Transzpozíció, ciklusfelbontás, a permutáció paritásának jóldefiniáltsága, a ciklusszerkezettel való kapcsolat és az előjel (sgn) bizonyítással — DE TTK Matematika BSc 2023/2025, Algebra haladó.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/jegyzetek/de-ttk-matematika-bsc/algebra-halado/jegyzet4/">
+
+  <!-- GOOGLE ADSENSE: paste your verification / auto-ads tag here (see index.html) -->
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: see the setup comment in jegyzet-template.html -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Part 4 of 20 — see part 1's head comment for the shape rationale.
+
+  Source fix here: the source's "Definíció [Transzpozíció és Paritás]"
+  states, as if it were a definition, both that any factorization of a
+  permutation into transpositions has the same parity (a genuine, non-
+  trivial theorem — this is NOT automatic and needs a real proof) and the
+  n-k cycle formula. This is restructured into a Tétel (existence of a
+  transposition factorization, its well-definedness, and the n-k
+  formula) with a full proof; the "Definíció [Permutáció előjele]" that
+  follows in the source is kept as the actual definition of sgn, now
+  built on the theorem above it. The worked example "σ=(12345):
+  sgn=+1 (páros ciklus, hossz: 5, ...)" mislabels a 5-cycle (an
+  odd-length cycle) as an "even cycle" — cycles are usually called odd
+  or even by their length, while what matters for sgn is the parity of
+  the PERMUTATION; clarified in the example, using the correct general
+  rule already stated right after it in the source ("páratlan hosszú
+  ciklusok páros permutációk").
+
+  SUPPLIED FROM GENERAL KNOWLEDGE, NOT TRANSCRIBED (the owner asked for
+  missing definitions and proofs to be filled in, 2026-09-23; flagged
+  here and in the PR description): the definitions of a transposition
+  and of a (disjoint) cycle, which the source uses without ever giving;
+  the existence of a transposition factorization (via disjoint cycle
+  decomposition and a cycle-to-transpositions identity); and the full
+  proof that the parity of the number of transpositions is well-defined,
+  via the number of inversions.
+-->
+<body data-nav-key="jegyzetek">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/jegyzetek/">Órai jegyzetek</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/jegyzetek/de-ttk-matematika-bsc/algebra-halado/">Algebra haladó</a> / 4. jegyzet</p>
+
+      <h1>Permutációk előjele és paritása</h1>
+      <p class="item-meta">DE TTK Matematika BSc 2023/2025 · Frissítve: 2026-09-23</p>
+
+      <p>
+        Ez a jegyzet megmutatja, hogy minden permutáció felbontható
+        transzpozíciók szorzatára, és hogy egy ilyen felbontásban a
+        tényezők száma paritása (páros vagy páratlan volta) nem függ a
+        felbontás választásától — ez teszi lehetővé, hogy a permutáció
+        előjelét (\(\operatorname{sgn}\)) egyáltalán jóldefiniált módon
+        bevezessük.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Transzpozíció, ciklus, diszjunkt ciklusfelbontás</li>
+        <li>Minden permutáció transzpozíciók szorzata</li>
+        <li>A paritás jóldefiniáltsága, kapcsolat a ciklusszerkezettel</li>
+        <li>Permutáció előjele (\(\operatorname{sgn}\))</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Transzpozíciók, ciklusok és a paritás jóldefiniáltsága</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Transzpozíció, ciklus (kiegészítés)</span>
+        <p>
+          Egy \(\sigma \in S_n\) permutáció <strong>transzpozíció</strong>,
+          ha pontosan két elemet felcserél, a többit fixen hagyja; jelölése
+          \((a\ b)\), ha \(a\)-t és \(b\)-t cseréli fel. Egy
+          \(\sigma \in S_n\) permutáció <strong>ciklus</strong>
+          (\(\ell\)-ciklus), ha van olyan \(a_1, \dots, a_\ell\) (páronként
+          különböző) elemhalmaz, hogy
+          \(\sigma(a_1) = a_2, \sigma(a_2) = a_3, \dots, \sigma(a_\ell) = a_1\),
+          és \(\sigma\) minden más elemet fixen hagy; jelölése
+          \((a_1\ a_2\ \dots\ a_\ell)\). Két ciklus <strong>diszjunkt</strong>,
+          ha nincs közös elemük.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Megjegyzés — Diszjunkt ciklusfelbontás (kiegészítés)</span>
+        <p>
+          Minden \(\sigma \in S_n\) permutáció egyértelműen (a sorrendtől
+          eltekintve) felírható páronként diszjunkt ciklusok szorzataként,
+          ha a fixpontokat is \(1\)-hosszú ciklusnak tekintjük: a
+          \(\{1, \dots, n\}\) halmazt a \(\sigma\) hatványaival (a
+          \(\langle \sigma \rangle\) ciklikus csoport, lásd a 6. jegyzetet,
+          hatásával) vett pályákra bontva minden pálya véges, és \(\sigma\)
+          a saját pályáján éppen egy ciklusként hat.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel — Transzpozíció-felbontás és a paritás jóldefiniáltsága (pontosítva)</span>
+        <ol type="i">
+          <li>Bármely \(\sigma \in S_n\) permutáció felírható transzpozíciók (két elemet felcserélő permutációk) szorzataként.</li>
+          <li>A felírásban szereplő transzpozíciók száma vagy mindig páros, vagy mindig páratlan; ezt nevezzük a permutáció <strong>paritásának</strong>.</li>
+          <li>Ha \(\sigma \in S_n\) összesen \(k\) darab diszjunkt ciklusból áll (a fixpontokat is beleértve), akkor a paritása az \(n - k\) szám paritásával egyezik meg.</li>
+        </ol>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás (kiegészítés)</span>
+        <p>
+          <strong>(i) Létezés.</strong> Egy \(\ell\)-hosszú
+          \((a_1\ a_2\ \dots\ a_\ell)\) ciklus felírható \(\ell - 1\)
+          transzpozíció szorzataként:
+        </p>
+        \[
+        (a_1\ a_2\ \dots\ a_\ell) = (a_1\ a_\ell) \circ (a_1\ a_{\ell-1}) \circ \dots \circ (a_1\ a_2)
+        \]
+        <p>
+          (közvetlenül ellenőrizhető: a jobb oldalt jobbról balra
+          alkalmazva \(a_i \mapsto a_{i+1}\) minden \(i &lt; \ell\)-re, és
+          \(a_\ell \mapsto a_1\)). Mivel a diszjunkt ciklusok felcserélhetők
+          és \(\sigma\) a diszjunkt ciklusfelbontása szerinti ciklusok
+          szorzata, \(\sigma\) az egyes ciklusok transzpozíció-felbontásainak
+          egymás mellé írásával transzpozíciók szorzata lesz (az \(1\)-hosszú
+          ciklusok, a fixpontok, \(0\) transzpozíciót adnak).
+        </p>
+        <p>
+          <strong>(ii) Jóldefiniáltság.</strong> Egy \(\sigma \in S_n\)
+          <strong>inverziójának</strong> nevezünk egy \((i, j)\) párt, ha
+          \(i &lt; j\), de \(\sigma(i) &gt; \sigma(j)\); az inverziók számát
+          \(\operatorname{inv}(\sigma)\)-val jelöljük.
+        </p>
+        <p>
+          <em>Lemma 1.</em> Ha \(\tau = (k\ k{+}1)\) szomszédos transzpozíció,
+          akkor \(\operatorname{inv}(\sigma \circ \tau)\) pontosan
+          \(1\)-gyel tér el \(\operatorname{inv}(\sigma)\)-tól. Valóban, a
+          \(\sigma \circ \tau\) sorozata a \(\sigma\) sorozatából a \(k\).
+          és \((k{+}1)\). helyen álló érték felcserélésével adódik. Egy
+          \((i,j)\) pár, amelyre \(\{i,j\} \cap \{k, k{+}1\} = \emptyset\),
+          érintetlen marad. A \((k, k{+}1)\) pár inverzió-állapota pontosan
+          megfordul. Egy \(i &lt; k\)-ra a \(\{(i,k), (i,k{+}1)\}\)
+          párpár (és hasonlóan \(j &gt; k{+}1\)-re a
+          \(\{(k,j),(k{+}1,j)\}\) párpár) inverzió-állapotai a csere után
+          egymással felcserélődnek, így a párpáron belüli inverziók száma
+          (\(0\), \(1\) vagy \(2\)) nem változik. Tehát csak a \((k,k{+}1)\)
+          pár változtat, \(\operatorname{inv}\) pontosan \(1\)-gyel változik.
+        </p>
+        <p>
+          <em>Lemma 2.</em> Minden \((a\ b)\) transzpozíció (\(a &lt; b\))
+          felírható páratlan sok szomszédos transzpozíció szorzataként.
+          Indukció \(b - a\) szerint: ha \(b = a+1\), már szomszédos (\(1\)
+          tényező). Ha \(b &gt; a+1\), akkor
+        </p>
+        \[
+        (a\ b) = (a\ a{+}1) \circ (a{+}1\ b) \circ (a\ a{+}1)
+        \]
+        <p>
+          (közvetlen ellenőrzéssel), és az indukciós feltevés szerint
+          \((a{+}1\ b)\) páratlan sok (mondjuk \(2m{-}1\)) szomszédos
+          transzpozíció szorzata, így \((a\ b)\) ennek \(1 + (2m{-}1) + 1 = 2m{+}1\),
+          ismét páratlan sok szomszédos transzpozíció szorzata.
+        </p>
+        <p>
+          A Lemma 1 és Lemma 2 együtt adják: <strong>bármely egyetlen
+          transzpozícióval való szorzás megváltoztatja
+          \(\operatorname{inv}\) paritását</strong> (páratlan sok
+          szomszédos transzpozíció, mindegyik \(1\)-gyel változtatva
+          \(\operatorname{inv}\)-et, összesen páratlan sokszor változtatja
+          a paritást). Ha tehát \(\sigma = \tau_1 \circ \tau_2 \circ \dots \circ \tau_m\)
+          transzpozíciók szorzata, az identitásból (\(\operatorname{inv}(\text{id})=0\))
+          kiindulva \(m\) lépésben, egyenként egy transzpozícióval szorozva
+          jutunk el \(\sigma\)-hoz, és minden lépés megfordítja
+          \(\operatorname{inv}\) paritását. Ezért
+          \(\operatorname{inv}(\sigma) \equiv m \pmod 2\) — ami \(m\)-től,
+          azaz a konkrét felbontástól függetlenül, csak \(\sigma\)-tól függ.
+          Tehát bármely két transzpozíció-felbontásban a tényezők száma
+          ugyanolyan paritású.
+        </p>
+        <p>
+          <strong>(iii) Kapcsolat a ciklusszerkezettel.</strong> Ha \(\sigma\)
+          diszjunkt ciklusokra bomlik, \(\ell_1, \dots, \ell_k\)
+          hosszakkal (\(\sum \ell_i = n\), a fixpontok \(\ell_i=1\)-gyel
+          számítva), akkor az (i) pontban adott felbontás
+          \(\sum_i (\ell_i - 1) = n - k\) transzpozíciót használ. Mivel ez
+          is egy transzpozíció-felbontás, a (ii) pont szerint a paritása
+          megegyezik \(\sigma\) paritásával, tehát \(\sigma\) paritása az
+          \(n-k\) szám paritásával egyezik meg.
+        </p>
+      </div>
+
+      <h2>Permutáció előjele</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Definíció — Permutáció előjele (\(\operatorname{sgn}\))</span>
+        <p>Legyen \(\sigma \in S_n\) tetszőleges permutáció. A \(\sigma\) <strong>előjele</strong>:</p>
+        \[ \operatorname{sgn}(\sigma) = \begin{cases} +1, & \text{ha } \sigma \text{ páros permutáció} \\ -1, & \text{ha } \sigma \text{ páratlan permutáció} \end{cases} \]
+        <p>Megfigyelhető, hogy \(\operatorname{sgn}(\sigma) = (-1)^{n-k}\).</p>
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Példa — Permutációk előjele (pontosítva)</span>
+        <ul>
+          <li>\(\sigma = (1\ 2\ 3\ 4\ 5) \in S_5 \implies \operatorname{sgn}(\sigma) = +1\) (\(5\)-ciklus, azaz páratlan hosszú ciklus, \(n=5, k=1 \implies 5-1=4\) páros — az \(5\)-ciklus tehát páros permutáció).</li>
+          <li>\(\sigma = (1\ 2\ 3\ 4\ 5)(6) \in S_6 \implies \operatorname{sgn}(\sigma) = +1\).</li>
+          <li>Általában: páratlan hosszú ciklusok páros permutációk, páros hosszú ciklusok páratlan permutációk.</li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
