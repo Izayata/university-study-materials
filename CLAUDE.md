@@ -77,7 +77,7 @@ not a bug.
 
 | Section (Hungarian) | Landing page | Item template | Filled example |
 |---|---|---|---|
-| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/de-ttk-matematika-bsc/jegyzet1/` (added 2026-09-17, see the math-note exception below) and the `kombinatorika-es-grafelmelet/`, `linearis-algebrai-alapozas/` (10 items each), `algebra-es-szamelmelet-alapok/` (7 items), `linearis-algebra-halado/` (12 items) and `mely-bevezetes-az-analizisbe/` (16 items) topic-landing pages (added 2026-09-17, 2026-09-20 and, the last three, 2026-09-21, see the topic-nesting exception below); see also the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
+| Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/de-ttk-matematika-bsc/jegyzet1/` (added 2026-09-17, see the math-note exception below) and the `kombinatorika-es-grafelmelet/`, `linearis-algebrai-alapozas/` (10 items each), `algebra-es-szamelmelet-alapok/` (7 items), `linearis-algebra-halado/` (12 items) `mely-bevezetes-az-analizisbe/` (16 items) and `algebra-halado/` (20 items) topic-landing pages (added 2026-09-17, 2026-09-20, 2026-09-21 for the next three and 2026-09-23 for the last, see the topic-nesting exception below); see also the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | none currently — empty since `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) |
 | Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | `/oktatoi/inbpm0315-21/jegyzet1/` (moved here 2026-09-16, renamed from `java-alapok` the same day) `jegyzet2/` (added 2026-09-16, new content) and every later lesson (`jegyzet3/`, `jegyzet4/`, ... — added one per message since 2026-09-19, new content) — all keep the class-session shape, see below, not the template's default |
@@ -1243,6 +1243,17 @@ paragraphs stating the task, optionally a `"Példa: ..."` usage example
 and/or a `"Segítség:"` hint or reflective question for harder ones. No
 Puffer section — this is take-home work, not a scheduled class.
 
+**Correction, found 2026-09-29:** like `jegyzet-template.html`,
+`gyakorlat-template.html` has drifted from the paragraph above, which
+was derived from `gyakorlat1` (removed 2026-09-16). The live template
+has one exercise per page instead: `N. Gyakorlat — [Cím]` H1, a
+`Becsült idő: X perc · Nehézség: ... · Frissítve: date` item-meta, a
+short intro → Feladat leírása → Elvárt kimenet → Tippek → Beadás
+módja. No live `gyakorlas/` item uses either shape yet. Follow the
+jegyzet precedent and copy the actual template file for a new
+gyakorlat item, unless the site owner asks for the older
+multi-exercise shape.
+
 **Tétel**: short intro paragraph → "A tétel szövege" (`<h2>` +
 `<blockquote>` containing the literal official exam question, phrased
 as a formal imperative — `"Mutassa be..."`) → "Kidolgozás" (`<h2>`,
@@ -1320,7 +1331,9 @@ design, not per-item drift:**
   above for why (not a session, so no session label fits).
 - Gyakorlat: `Course · Frissítve: date` (2 parts, no session label) —
   no currently-live `gyakorlas/` example as of 2026-09-16, same
-  caveat.
+  caveat. `gyakorlat-template.html` itself uses a different line,
+  `Becsült idő: X perc · Nehézség: ... · Frissítve: date` — see the
+  gyakorlat correction note above.
 - Tétel: `Frissítve: date` only (1 part — no course name at all) — e.g.
   `"Frissítve: 2026-09-05"`.
 - Oktatói jegyzet: `Course · Frissítve: date` (2 parts, same shape as
