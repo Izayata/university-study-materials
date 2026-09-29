@@ -1108,6 +1108,18 @@ for it.
   `adsbygoogle.js?client=ca-pub-9764757420384346` right before
   `style.css`. New pages copied from a template inherit it; a page built
   by hand must include it too.
+- **Empty pages hidden for the AdSense review (2026-09-29).** Google
+  rejects sites with "under construction" pages, so the two empty
+  areas are hidden, not deleted: `/gyakorlas/` (no content) and the
+  whole `jegyzetek/deik-mernokinformatikus-bsc-2017/` subtree (6
+  "Hamarosan." félév pages). Their links in `nav.html`, the home-page
+  category card and the `jegyzetek/index.html` course card are
+  commented out (marked "Hidden while empty"), their URLs are out of
+  `sitemap.xml`, and each of those 8 pages carries
+  `<meta name="robots" content="noindex">`. The pages still exist at
+  their URLs. When real content is published in either area, undo all
+  three for it (uncomment the links, re-add the sitemap entries, drop
+  the noindex tag).
 - `about.html` and `privacy-policy.html` now have real content (bio,
   course scope/non-affiliation note, contact email, GDPR data-transfer
   and user-rights sections with a NAIH complaint link) instead of
