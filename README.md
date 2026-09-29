@@ -43,7 +43,8 @@ python -m http.server 8000
 
 1. Replace every `YOUR-DOMAIN.hu` placeholder (in `<link rel="canonical">`,
    `robots.txt`, `sitemap.xml`, `ads.txt`) with your real domain.
-2. Replace `pub-XXXXXXXXXXXXXXXX` in `ads.txt` with your AdSense publisher ID.
+2. ~~Replace the placeholder in `ads.txt` with your AdSense publisher ID.~~
+   Done: `ads.txt` and every page's `<head>` use `ca-pub-9764757420384346`.
 3. Fill in `about.html` and `privacy-policy.html` with real content —
    AdSense reviewers check for both, and a missing/thin privacy policy is
    one of the most common rejection reasons.

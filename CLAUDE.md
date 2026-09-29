@@ -1101,9 +1101,13 @@ for it.
   why it renders unstyled/without nav.
 - `ads.txt`, `robots.txt`, `sitemap.xml`, and every page's
   `<link rel="canonical">` now point at `fulesjegyzetek.hu` (the
-  `YOUR-DOMAIN.hu` placeholder is gone). `ads.txt` still has the
-  `pub-XXXXXXXXXXXXXXXX` placeholder — needs the real AdSense publisher
-  ID once an AdSense account exists.
+  `YOUR-DOMAIN.hu` placeholder is gone). `ads.txt` carries the real
+  AdSense publisher ID (`pub-9764757420384346`, AdSense account created
+  2026-09-29), and every page's `<head>` (templates included, `nav.html`
+  excepted since it's a fragment) loads the AdSense tag
+  `adsbygoogle.js?client=ca-pub-9764757420384346` right before
+  `style.css`. New pages copied from a template inherit it; a page built
+  by hand must include it too.
 - `about.html` and `privacy-policy.html` now have real content (bio,
   course scope/non-affiliation note, contact email, GDPR data-transfer
   and user-rights sections with a NAIH complaint link) instead of
