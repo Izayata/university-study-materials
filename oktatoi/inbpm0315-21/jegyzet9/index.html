@@ -21,10 +21,11 @@
   appended "Házi feladat" section absorbing its practice-tasks
   sibling — unlike oktatoi-jegyzet-template.html's default freeform,
   no-session shape. Genuinely new content, kept in this shape because
-  the source material is itself a real class session's agenda. Unlike
-  jegyzet5–8, this lesson's source has no worked solutions, so there is
-  no "Megoldások" section. See CLAUDE.md's Content model section for
-  the rationale.
+  the source material is itself a real class session's agenda. Like
+  jegyzet5–8, this lesson's source also carries worked solutions to the
+  in-class exercises (added in the 2026-09-30 update): they sit in a
+  "Megoldások" section between Gyakorlat and Házi feladat. See
+  CLAUDE.md's Content model section for the rationale.
 -->
 <body data-nav-key="oktatoi">
   <div id="site-header"></div>
@@ -35,7 +36,7 @@
       <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/oktatoi/">Oktatói jegyzetek</a> / <a href="/oktatoi/inbpm0315-21/">Magas szintű programozási nyelvek 2 (INBPM0315-21)</a> / 9. jegyzet</p>
 
       <h1>I/O, állománykezelés</h1>
-      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 9. labor gyakorlat · Frissítve: 2026-09-19</p>
+      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 9. labor gyakorlat · Frissítve: 2026-09-30</p>
 
       <h2>Tematika</h2>
       <ul>
@@ -275,8 +276,80 @@ Files.deleteIfExists(path);</code></pre>
         <li>Mentsétek ki a <code>students</code> listátokat (6. óra) <code>Files.write</code>-tal egy <code>students.txt</code> fájlba, majd olvassátok vissza <code>loadStudents</code>-szel, és ellenőrizzétek, hogy ugyanazokat az adatokat kaptátok vissza.</li>
         <li>Töröljétek a fájlt <code>Files.deleteIfExists</code>-szel, majd <code>Files.exists</code>-szel ellenőrizzétek, hogy tényleg eltűnt.</li>
         <li>Rontsatok el kézzel egy sort a fájlban (pl. írjatok bele egy 6-os jegyet), és futtassátok újra a betöltést — figyeljétek meg, hogy az <code>InvalidGradeException</code> ágon keresztül kapunk értelmes hibaüzenetet, nem egy nyers <code>NumberFormatException</code>-t vagy összeomlást.</li>
-        <li>Alakítsátok át a klasszikus (nem try-with-resources-es) írási metódust úgy, hogy a <code>finally</code>-ben lévő <code>close()</code> hívást szándékosan kihagyjátok — debuggerrel (2. óra!) figyeljétek meg, hogy a program lefut, de a fájl esetenként nem íródik ki teljesen, mielőtt a program véget érne.</li>
+        <li>Alakítsátok át a klasszikus (nem try-with-resources-es) írási metódust úgy, hogy a <code>finally</code>-ben lévő <code>close()</code> hívást szándékosan kihagyjátok — futtassátok le, majd nyissátok meg a <code>students.txt</code>-t: figyeljétek meg, hogy a program hiba nélkül lefut, a fájl létrejön, mégis <strong>üres</strong> marad.</li>
       </ol>
+
+      <h2>Megoldások</h2>
+
+      <h3>1. feladat</h3>
+
+      <pre><code>List&lt;Student&gt; students = new ArrayList&lt;&gt;();
+students.add(new Student("Nagy Béla", "XYZ789", new int[]{3, 4, 2}));
+students.add(new GraduateStudent("Kiss Réka", "GHI789", new int[]{5, 5, 4},
+        "Dr. Nagy Péter", "Gépi tanulás alkalmazásai"));
+students.add(new Student("Kovács Anna", "ABC123", new int[]{5, 4, 5}));
+
+List&lt;String&gt; lines = new ArrayList&lt;&gt;();
+for (Student s : students) {
+    lines.add(toLine(s));
+}
+Files.write(Path.of("students.txt"), lines);
+
+try {
+    List&lt;Student&gt; loaded = loadStudents("students.txt");
+    for (Student s : loaded) {
+        System.out.println(s.getReportLine());
+    }
+} catch (IOException | InvalidGradeException e) {
+    System.out.println("Hiba a betöltés közben: " + e.getMessage());
+}</code></pre>
+
+      <p>
+        A kiírt és a visszaolvasott lista tartalmának meg kell egyeznie —
+        ez ellenőrzi, hogy a <code>toLine</code>/<code>loadStudents</code>
+        pár konzisztensen (oda-vissza hibamentesen) alakítja a
+        <code>Student</code> objektumokat szöveggé és vissza.
+      </p>
+
+      <h3>2. feladat</h3>
+
+      <pre><code>Path path = Path.of("students.txt");
+
+Files.deleteIfExists(path);
+
+System.out.println(Files.exists(path));   // false</code></pre>
+
+      <h3>3. feladat</h3>
+      <p>
+        Ez a feladat nem ad új kódot, hanem egy manuális kísérletet kér:
+        nyissátok meg a <code>students.txt</code> fájlt egy
+        szövegszerkesztőben, és írjatok át egy jegyet érvénytelenre (pl.
+        <code>5,4,5</code> helyett <code>5,4,6</code>), majd futtassátok
+        újra a betöltést.
+      </p>
+      <p>
+        Az eredmény: a <code>loadStudents</code> a hibás sor feldolgozásakor
+        a <code>new Student(...)</code> hívásnál
+        <code>InvalidGradeException</code>-t dob (8. óra), amit a hívó kód
+        <code>catch (InvalidGradeException e)</code> ága kezel,
+        <strong>értelmes</strong> üzenettel ("Hibás jegy a fájlban: ...").
+        Ez pontosan azért működik, mert a <code>loadStudents</code> a
+        <code>Student</code> <strong>konstruktorán</strong> keresztül építi
+        fel az objektumokat — a konstruktor validációja (8. óra)
+        <strong>automatikusan</strong> érvényesül a fájlból betöltött
+        adatokra is, nem csak a kódban kézzel megadott értékekre.
+      </p>
+
+      <h3>4. feladat</h3>
+      <p>Ez a feladat egy megfigyelés, nincs önálló "megoldó" kód:</p>
+      <ul>
+        <li>Vegyétek ki a <code>saveStudentsClassic</code> <code>finally</code> blokkjából a <code>writer.close()</code> hívást (vagy kommenteljétek ki), és futtassátok le a mentést.</li>
+        <li>A ciklus lefut, a <code>writer.write(...)</code>/<wbr><code>writer.newLine()</code> hívások megtörténnek, a program hiba nélkül véget ér — a <code>students.txt</code> mégis <strong>üres</strong> (0 bájt). A fájlt a <code>FileWriter</code> már a megnyitáskor létrehozza, de tartalom nem kerül bele.</li>
+        <li>Az ok: a <code>BufferedWriter</code> <strong>pufferel</strong> — a kiírt szöveget egy belső memóriaterületen (alapból kb. 8 KB-os pufferben) gyűjti, és csak akkor írja ténylegesen lemezre, ha a puffer megtelik, vagy ha <code>flush()</code>-t/<code>close()</code>-t hívunk. A program leállásakor a Java <strong>nem</strong> üríti ki automatikusan a puffert. A mi pár soros fájlunk bőven belefér a pufferbe, ezért <strong>semmi</strong> nem íródik ki. (Sok adatnál — több ezer sornál — a fájl <strong>részleges</strong> lenne: a megtelt pufferek tartalma kiíródik, csak a legutolsó, félig telt rész veszik el.)</li>
+        <li>Opcionális kísérlet: a <code>close()</code> helyére írjatok <code>writer.flush()</code>-t — a fájl tartalma megjelenik. A <code>flush()</code> azonban <strong>nem</strong> helyettesíti a <code>close()</code>-t: a fájl ettől még nyitva marad (erőforrás-szivárgás).</li>
+        <li>Ez konkrétan megmutatja, miért <strong>nem elég</strong> csak a <code>write</code>-ot meghívni — a <code>close()</code> (vagy a <code>try-with-resources</code> automatikus bezárása) nélkül a puffer tartalma nem kerül ténylegesen a lemezre.</li>
+        <li>(Ha a debuggerrel is megnéznétek: tegyetek breakpointot a metódus végére — ezen a ponton a <code>write</code> hívások már "lefutottak", de a fájl a lemezen még üres.)</li>
+      </ul>
 
       <h2>Házi feladat</h2>
       <p>

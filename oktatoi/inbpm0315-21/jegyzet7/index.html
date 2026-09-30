@@ -35,7 +35,7 @@
       <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/oktatoi/">Oktatói jegyzetek</a> / <a href="/oktatoi/inbpm0315-21/">Magas szintű programozási nyelvek 2 (INBPM0315-21)</a> / 7. jegyzet</p>
 
       <h1>Unit test, Java documentation</h1>
-      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 7. labor gyakorlat · Frissítve: 2026-09-19</p>
+      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 7. labor gyakorlat · Frissítve: 2026-09-30</p>
 
       <h2>Tematika</h2>
       <ul>
@@ -154,6 +154,22 @@ void differentStudentsAreNotEqual() {
         <li>A második teszt azt biztosítja, hogy a <code>equals()</code> <strong>ne</strong> mondjon mindenre igent — egy hibásan megírt <code>equals()</code> (pl. <code>return true;</code>) ezen elbukna.</li>
       </ul>
 
+      <p>
+        <strong>Próbáljuk ki — miért kell a <code>hashCode()</code>
+        ellenőrzés is?</strong> Kommenteljétek ki a <code>Student</code>
+        osztályban a teljes <code>hashCode()</code> metódust, és
+        futtassátok újra az <code>equalStudentsAreEqual</code> tesztet:
+      </p>
+      <ul>
+        <li>Az <code>assertEquals(s1, s2)</code> sor még <strong>átmegy</strong> — az <code>equals()</code>-t nem bántottuk.</li>
+        <li>Az <code>assertEquals(s1.hashCode(), s2.hashCode())</code> sor viszont <strong>elbukik</strong>: felülírás nélkül az <code>Object</code> osztály <code>hashCode()</code>-ja fut, ami két külön objektumra (szinte mindig) különböző értéket ad — pontosan ez okozta a múlt órán, hogy a <code>HashSet</code> két "egyenlő" hallgatót is eltárolt.</li>
+      </ul>
+      <p>
+        A teszt tehát magától kiszúrja a múlt órai hibát, ha valaki
+        véletlenül kitörölné a <code>hashCode()</code>-ot. Ellenőrzés után
+        tegyétek vissza a metódust, és a teszt újra zöld lesz.
+      </p>
+
       <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
       <div class="ad-slot ad-slot--rectangle">
         <span class="ad-slot__label">Hirdetés</span>
@@ -235,7 +251,7 @@ public class Student {
         <li>Írjatok egy tesztet a <code>GraduateStudent</code> (vagy <code>ExchangeStudent</code>) <code>getSpecialRequirement()</code> metódusára — ellenőrizzétek, hogy a visszaadott szöveg tartalmazza a megadott témát/országot.</li>
         <li>Módosítsatok egy <code>assertEquals</code>-t szándékosan hibás elvárt értékre, futtassátok le, és olvassátok el a piros hibaüzenetet — majd javítsátok vissza.</li>
         <li>Írjatok Javadocot a <code>Student.equals()</code> és <code>hashCode()</code> metódusokhoz, elmagyarázva, miért tartoznak össze.</li>
-        <li>Írjatok egy tesztet, amely ellenőrzi, hogy egy <code>Student</code> és egy <code>GraduateStudent</code> (azonos alap-adatokkal) <strong>nem</strong> egyenlő az <code>equals()</code> szerint (segítség: gondoljátok át, mit ellenőriz az <code>instanceof</code> a 3. órai <code>equals()</code>-ban — kizárja-e a leszármazottakat is?).</li>
+        <li>Írjatok egy tesztet, amely ellenőrzi, hogy egy <code>Student</code> és egy <code>GraduateStudent</code> (azonos alap-adatokkal) <strong>nem</strong> egyenlő az <code>equals()</code> szerint. Futtassátok le: átmegy a teszt? Ha nem, nézzétek meg, mit csinál pontosan a 3. órai <code>equals()</code>-ban lévő <code>instanceof</code> ellenőrzés egy <code>GraduateStudent</code> esetén, és javítsátok az <code>equals()</code>-t.</li>
       </ol>
 
       <h2>Megoldások</h2>
@@ -365,6 +381,23 @@ public boolean equals(Object obj) {
         különböznek, még akkor is, ha <code>g</code> egyébként
         <code>instanceof Student</code>.
       </p>
+
+      <p>
+        <strong>Ne felejtsük el a Javadocot is frissíteni!</strong> A 3.
+        feladatban írt Javadoc ("ha mindkettő <code>Student</code>") az
+        <code>instanceof</code>-os változatot írta le — a javítás után már
+        nem igaz, hiszen egy <code>GraduateStudent</code> is
+        <code>Student</code>. A dokumentációnak mindig követnie kell a kód
+        változását:
+      </p>
+
+      <pre><code>/**
+ * Két objektumot akkor tekint egyenlőnek, ha pontosan ugyanahhoz az osztályhoz
+ * tartoznak, és megegyezik a nevük és a Neptun-kódjuk.
+ *
+ * @param obj az összehasonlítandó objektum
+ * @return {@code true}, ha a két objektum egyenlő
+ */</code></pre>
 
       <h2>Házi feladat</h2>
       <p>

@@ -35,7 +35,7 @@
       <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/oktatoi/">Oktatói jegyzetek</a> / <a href="/oktatoi/inbpm0315-21/">Magas szintű programozási nyelvek 2 (INBPM0315-21)</a> / 6. jegyzet</p>
 
       <h1>Kollekciók: lista és rendezése, set, map</h1>
-      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 6. labor gyakorlat · Frissítve: 2026-09-19</p>
+      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 6. labor gyakorlat · Frissítve: 2026-09-30</p>
 
       <h2>Tematika</h2>
       <ul>
@@ -54,6 +54,28 @@
         és zsugorodni</strong> tudnak. Három fő fajtájukat nézzük meg:
         <code>List</code>, <code>Set</code>, <code>Map</code>.
       </p>
+
+      <p>
+        Mielőtt belevágnánk, nézzük meg egyben, hogyan épül fel a
+        kollekciók hierarchiája. Bal oldalon az <strong>interfészek</strong>
+        állnak (a "mit tud" szerződés), a <code>──</code> után pedig néhány
+        <strong>konkrét megvalósításuk</strong> (osztályok, amelyeket
+        példányosítani tudunk):
+      </p>
+
+      <pre><code>Iterable
+ └─ Collection
+     ├─ List   ── ArrayList, LinkedList
+     ├─ Set    ── HashSet, LinkedHashSet, TreeSet
+     └─ Queue  ── ArrayDeque, PriorityQueue
+
+Map (külön hierarchia!) ── HashMap, LinkedHashMap, TreeMap</code></pre>
+
+      <ul>
+        <li>Ma a kiemelt megvalósításokat használjuk: <code>ArrayList</code>, <code>HashSet</code>, <code>HashMap</code> — a többi ugyanazt az interfészt valósítja meg, csak más belső működéssel (pl. a <code>TreeSet</code> rendezetten tárolja az elemeit).</li>
+        <li>A <strong><code>Map</code> nem <code>Collection</code></strong>: kulcs–érték párokat tárol, nem egyszerű elemeket, ezért külön hierarchiája van — ez gyakori tévhit.</li>
+        <li>A változót jellemzően az <strong>interfész</strong> típusával deklaráljuk, a konkrét osztályt csak a <code>new</code> után írjuk ki: <code>List&lt;Student&gt; students = new ArrayList&lt;&gt;();</code> — így később egyetlen helyen cserélhető a megvalósítás.</li>
+      </ul>
 
       <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
       <div class="ad-slot ad-slot--banner">
