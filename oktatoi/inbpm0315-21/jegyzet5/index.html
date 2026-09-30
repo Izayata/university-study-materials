@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#0d1117">
 
-  <title>Absztrakt osztály, interfész, Comparable, Comparator (5. labor gyakorlat) | Oktatói jegyzetek | Füles Jegyzetek</title>
+  <title>Absztrakt osztály, absztrakt metódus, interfész, Comparable, Comparator, tömb rendezése (5. labor gyakorlat) | Oktatói jegyzetek | Füles Jegyzetek</title>
   <meta name="description" content="Absztrakt osztály és absztrakt metódus, interfész, a Comparable és a Comparator, valamint tömbök rendezése Arrays.sort-tal, megoldásokkal, gyakorló és házi feladatokkal — Magas szintű programozási nyelvek 2 (INBPM0315-21).">
   <link rel="canonical" href="https://fulesjegyzetek.hu/oktatoi/inbpm0315-21/jegyzet5/">
 
@@ -34,8 +34,8 @@
 
       <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/oktatoi/">Oktatói jegyzetek</a> / <a href="/oktatoi/inbpm0315-21/">Magas szintű programozási nyelvek 2 (INBPM0315-21)</a> / 5. jegyzet</p>
 
-      <h1>Absztrakt osztály, interfész, Comparable, Comparator</h1>
-      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 5. labor gyakorlat · Frissítve: 2026-09-19</p>
+      <h1>Absztrakt osztály, absztrakt metódus, interfész, Comparable, Comparator, tömb rendezése</h1>
+      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 5. labor gyakorlat · Frissítve: 2026-09-30</p>
 
       <h2>Tematika</h2>
       <ul>
@@ -167,8 +167,9 @@
         <strong>Interfész:</strong> Egy interfész egy
         <strong>szerződés/kontraktus</strong>, amely megmondja, milyen
         metódusokat kell megvalósítania egy osztálynak — de az
-        interfésznek <strong>semmilyen saját állapota</strong> (mezője) és
-        jellemzően semmilyen implementációja nincs. Egy osztály
+        interfésznek <strong>nincs saját állapota</strong> (példánymezője),
+        és a metódusai jellemzően implementáció nélküliek (absztraktak).
+        Egy osztály
         <strong>egyszerre több</strong> interfészt is megvalósíthat
         (<code>implements</code>), szemben az öröklődéssel, ahol csak
         <strong>egy</strong> szülőosztály lehet.
@@ -190,11 +191,41 @@
 }</code></pre>
 
       <p>
+        <strong>Mi lehet még egy interfészben?</strong> Az absztrakt
+        metódusokon kívül (Java 8 óta) néhány további elem is állhat egy
+        interfészben — ma nem fogjuk őket sokat használni, de érdemes tudni
+        róluk, mert a beépített interfészekben (pl. a lentebb jövő
+        <code>Comparator</code>-ban) gyakran találkozunk velük:
+      </p>
+      <ul>
+        <li><strong>Konstans:</strong> az interfészben deklarált mező automatikusan <code>public static final</code> — tehát nem példányállapot, hanem egyetlen, megváltoztathatatlan érték.</li>
+        <li><strong><code>default</code> metódus (Java 8):</strong> kész implementációval rendelkező metódus, amelyet a megvalósító osztály automatikusan megkap — de felül is írhatja.</li>
+        <li><strong><code>static</code> metódus (Java 8):</strong> az interfész nevén keresztül hívható segédmetódus (pl. <code>Reportable.valami()</code>), nem öröklődik a megvalósító osztályokba.</li>
+        <li><strong><code>private</code> metódus (Java 9):</strong> belső segédmetódus a <code>default</code>/<code>static</code> metódusok számára, kívülről nem látszik.</li>
+      </ul>
+
+      <pre><code>public interface Reportable {
+    int MAX_GRADE = 5;                     // konstans: automatikusan public static final
+
+    String getReportLine();                // absztrakt metódus — ezt kötelező megvalósítani
+
+    default void printReport() {           // default metódus — a Student "ingyen" megkapja
+        System.out.println(getReportLine());
+    }
+}</code></pre>
+
+      <p>
+        Ezután a <code>Student</code> osztályon <strong>módosítás
+        nélkül</strong> hívható <code>anna.printReport()</code>, és bárhol
+        elérhető a <code>Reportable.MAX_GRADE</code> konstans.
+      </p>
+
+      <p>
         <strong>Absztrakt osztály vs. interfész — a lényegi különbség:</strong>
       </p>
       <ul>
         <li>Az absztrakt osztálytól <strong>örökölünk</strong> (<code>extends</code>) — csak egyet lehet, és megkapjuk a közös <strong>mezőket és implementált metódusokat</strong> is (pl. a <code>SpecialStudent</code> konstruktorát).</li>
-        <li>Az interfészt <strong>megvalósítjuk</strong> (<code>implements</code>) — többet is lehet egyszerre, de az interfész önmagában nem ad se mezőt, se kész implementációt, csak a "mit kell tudnod" listát.</li>
+        <li>Az interfészt <strong>megvalósítjuk</strong> (<code>implements</code>) — többet is lehet egyszerre, de az interfésznek nincs se példánymezője (állapota), se konstruktora; elsősorban a "mit kell tudnod" listát adja meg (legfeljebb néhány <code>default</code> metódussal kiegészítve).</li>
       </ul>
 
       <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
@@ -260,6 +291,7 @@ public class AverageGradeComparator implements Comparator&lt;Student&gt; {
       <ul>
         <li><code>Double.compare(x, y)</code> ugyanazt a negatív/0/pozitív konvenciót követi, mint korábban a <code>compareTo</code>, csak <code>double</code> értékekre.</li>
         <li>Ezt a <code>Comparator</code>-t <strong>külön, tetszőleges számban</strong> írhatjuk meg (pl. egy másikat név szerint csökkenő sorrendhez), a <code>Student</code> osztály érintetlen marad.</li>
+        <li>A <code>Comparator</code> jó példa a <code>default</code> metódusokra: bár mi csak a <code>compare</code>-t írtuk meg, a <code>new AverageGradeComparator()<wbr>.reversed()</code> hívással "ingyen" kapunk egy <strong>fordított</strong> (csökkenő) sorrendű comparatort — ezt a 10. órán fogjuk kihasználni.</li>
       </ul>
 
       <h2>Tömb rendezése</h2>

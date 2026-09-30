@@ -22,9 +22,10 @@
   sibling — unlike oktatoi-jegyzet-template.html's default freeform,
   no-session shape. Genuinely new content, kept in this shape because
   the source material is itself a real class session's agenda. Unlike
-  jegyzet5–8, this lesson's source has no worked solutions, so there is
-  no "Megoldások" section. See CLAUDE.md's Content model section for
-  the rationale.
+  jegyzet5–8, this page has no "Megoldások" section: the 2026-09-30
+  revision of the source added worked solutions, but the site owner
+  asked for them not to be published. See CLAUDE.md's Content model
+  section for the rationale.
 -->
 <body data-nav-key="oktatoi">
   <div id="site-header"></div>
@@ -35,7 +36,7 @@
       <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/oktatoi/">Oktatói jegyzetek</a> / <a href="/oktatoi/inbpm0315-21/">Magas szintű programozási nyelvek 2 (INBPM0315-21)</a> / 9. jegyzet</p>
 
       <h1>I/O, állománykezelés</h1>
-      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 9. labor gyakorlat · Frissítve: 2026-09-19</p>
+      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 9. labor gyakorlat · Frissítve: 2026-09-30</p>
 
       <h2>Tematika</h2>
       <ul>
@@ -275,7 +276,7 @@ Files.deleteIfExists(path);</code></pre>
         <li>Mentsétek ki a <code>students</code> listátokat (6. óra) <code>Files.write</code>-tal egy <code>students.txt</code> fájlba, majd olvassátok vissza <code>loadStudents</code>-szel, és ellenőrizzétek, hogy ugyanazokat az adatokat kaptátok vissza.</li>
         <li>Töröljétek a fájlt <code>Files.deleteIfExists</code>-szel, majd <code>Files.exists</code>-szel ellenőrizzétek, hogy tényleg eltűnt.</li>
         <li>Rontsatok el kézzel egy sort a fájlban (pl. írjatok bele egy 6-os jegyet), és futtassátok újra a betöltést — figyeljétek meg, hogy az <code>InvalidGradeException</code> ágon keresztül kapunk értelmes hibaüzenetet, nem egy nyers <code>NumberFormatException</code>-t vagy összeomlást.</li>
-        <li>Alakítsátok át a klasszikus (nem try-with-resources-es) írási metódust úgy, hogy a <code>finally</code>-ben lévő <code>close()</code> hívást szándékosan kihagyjátok — debuggerrel (2. óra!) figyeljétek meg, hogy a program lefut, de a fájl esetenként nem íródik ki teljesen, mielőtt a program véget érne.</li>
+        <li>Alakítsátok át a klasszikus (nem try-with-resources-es) írási metódust úgy, hogy a <code>finally</code>-ben lévő <code>close()</code> hívást szándékosan kihagyjátok — futtassátok le, majd nyissátok meg a <code>students.txt</code>-t: figyeljétek meg, hogy a program hiba nélkül lefut, a fájl létrejön, mégis <strong>üres</strong> marad.</li>
       </ol>
 
       <h2>Házi feladat</h2>

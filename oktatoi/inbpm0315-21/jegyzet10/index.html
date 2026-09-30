@@ -35,7 +35,7 @@
       <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/oktatoi/">Oktatói jegyzetek</a> / <a href="/oktatoi/inbpm0315-21/">Magas szintű programozási nyelvek 2 (INBPM0315-21)</a> / 10. jegyzet</p>
 
       <h1>Lambda kifejezések, stream-ek</h1>
-      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 10. labor gyakorlat · Frissítve: 2026-09-19</p>
+      <p class="item-meta">Magas szintű programozási nyelvek 2 (INBPM0315-21) · 10. labor gyakorlat · Frissítve: 2026-09-30</p>
 
       <h2>Tematika</h2>
       <ul>
@@ -70,7 +70,13 @@
         <code>Comparator&lt;T&gt;</code> (egyetlen absztrakt metódusa:
         <code>compare</code>) és a JUnit <code>Executable</code> (egyetlen
         absztrakt metódusa: <code>execute</code>) is ilyenek — csak eddig
-        nem neveztük meg ezt a tulajdonságukat.
+        nem neveztük meg ezt a tulajdonságukat. A szabály csak az
+        <strong>absztrakt</strong> metódusokra vonatkozik:
+        <code>default</code> és <code>static</code> metódusa (5. óra) akár
+        több is lehet. A <code>Comparator</code> például tartalmazza a
+        <code>reversed()</code> és a <code>thenComparing()</code>
+        <code>default</code> metódusokat is, mégis funkcionális interfész,
+        mert absztrakt metódusa csak egy van (<code>compare</code>).
       </p>
 
       <p>
@@ -93,8 +99,20 @@ greeting.run();   // kiírja: Szia!</code></pre>
       <ul>
         <li>A <code>()</code> a paraméterlista (itt nincs paraméter).</li>
         <li>A <code>-&gt;</code> választja el a paramétereket a törzstől.</li>
-        <li>Ha a törzs egyetlen kifejezés, nem kell <code>{}</code> és <code>return</code> — ha több utasításból áll, akkor igen: <code>() -&gt; { ...; return ...; }</code>.</li>
+        <li>Ha a törzs egyetlen kifejezés, nem kell <code>{}</code> és <code>return</code>.</li>
+        <li>Ha a törzs több utasításból áll, <code>{}</code> kell köré. <code>return</code> csak akkor kell bele, ha a lambda <strong>értéket ad vissza</strong> — egy <code>void</code> metódust (pl. <code>Runnable.run()</code>) megvalósító lambdában nincs <code>return</code>:</li>
       </ul>
+
+      <pre><code>Runnable twoLines = () -&gt; {
+    System.out.println("Szia!");
+    System.out.println("Viszlát!");
+};
+
+Comparator&lt;Student&gt; byAverage = (a, b) -&gt; {
+    double avgA = a.getAverage();
+    double avgB = b.getAverage();
+    return Double.compare(avgA, avgB);       // értéket ad vissza, ezért kell a return
+};</code></pre>
 
       <h2>Reveal: AverageGradeComparator lambdává alakítása</h2>
       <p>Emlékezzünk vissza az 5. órára — egy teljes, külön osztályt írtunk:</p>
@@ -240,6 +258,7 @@ int totalGradeCount = students.stream()
 
       <ul>
         <li><strong><code>Comparator.comparing(keyExtractor)</code>:</strong> egy beépített segédmetódus, amely egy metódusreferenciából (vagy lambdából) készít egy teljes <code>Comparator</code>-t — még rövidebb, mint amit korábban kézzel írtunk.</li>
+        <li>Csökkenő sorrendhez nem kell új comparatort írni — a <code>Comparator</code> <code>default</code> metódusa, a <code>reversed()</code> megfordítja a meglévőt: <code>Comparator.<wbr>comparing(Student::getAverage)<wbr>.reversed()</code> (legjobb átlag elöl).</li>
       </ul>
 
       <h2>Gyakorlat</h2>
