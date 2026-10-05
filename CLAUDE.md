@@ -865,7 +865,12 @@ found — wrong or incomplete statements, missing proofs, undefined terms
 decide. So unlike the third to sixth topic series above, **no
 "(kiegészítés)" or "(pontosítva)" content was added here**; don't add
 any silently, and don't present the pages as reviewed by a
-mathematician. Reordering: the source is page-based and a few parts sit
+mathematician. The owner has since asked for individual problems to be
+fixed; so far one, 2026-10-05: tétel 8's "if G or H is infinite, G × H
+isn't cyclic" (false: ℤ × {0} ≅ ℤ) was removed and the
+cyclic-product theorem now says "G and H finite", which is what its
+lnko(|G|, |H|) already presupposed. The remaining problems from the
+pull request stay as written until the owner asks. Reordering: the source is page-based and a few parts sit
 out of order; moved to where they belong: the homomorphism-preserves-
 identity/inverse lemmas to tétel 2, the minimal-polynomial theorem (its
 statement and the first part of the proof were three pages apart) to
