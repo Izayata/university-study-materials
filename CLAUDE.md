@@ -79,7 +79,7 @@ not a bug.
 |---|---|---|---|
 | Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/de-ttk-matematika-bsc/jegyzet1/` (added 2026-09-17, see the math-note exception below) and the `kombinatorika-es-grafelmelet/`, `linearis-algebrai-alapozas/` (10 items each), `algebra-es-szamelmelet-alapok/` (7 items), `linearis-algebra-halado/` (12 items) and `mely-bevezetes-az-analizisbe/` (16 items) topic-landing pages (added 2026-09-17, 2026-09-20 and, the last three, 2026-09-21, see the topic-nesting exception below); see also the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | none currently — empty since `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
-| Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) |
+| Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) and `/tetelek/de-ttk-matematika-bsc/algebra/tetel1/` (1 of 25 — the interactive, flashcard-style Algebra series added 2026-10-05, see the "Algebra tételek" exception below) |
 | Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | `/oktatoi/inbpm0315-21/jegyzet1/` (moved here 2026-09-16, renamed from `java-alapok` the same day) `jegyzet2/` (added 2026-09-16, new content) and every later lesson (`jegyzet3/`, `jegyzet4/`, ... — added one per message since 2026-09-19, new content) — all keep the class-session shape, see below, not the template's default |
 
 `Oktatói jegyzetek` (added 2026-09-16) is the site owner's own
@@ -785,6 +785,97 @@ cyclotomic field theory); and that \(S_5\)/\(A_5\) is not oldható (item
 20, a standalone combinatorial argument about \(A_5\)'s simplicity, cited
 once "oldható csoport" is defined).
 
+### Deliberate exception: Algebra tételek under `tetelek/de-ttk-matematika-bsc/algebra/` are interactive and have composed questions
+
+Added 2026-10-05. The first `tetelek/` course outside
+`deik-mernokinformatikus-bsc-2017`, and the first with its own folder
+level: `/tetelek/de-ttk-matematika-bsc/` (course landing, one card per
+subject — more subjects are expected, each as its own subfolder) →
+`algebra/` (topic landing) → `tetel1/`–`tetel25/`. The course slug is the
+same one `jegyzetek/` uses, per the reuse-the-slug convention. Only the
+algebra subject exists so far.
+
+**Source and what's composed.** The owner supplied one LaTeX file with only
+the worked answers ("algebra tételek", ~21 page-based sections, terse
+class-note style). **The tétel questions don't exist in it: the
+assistant composed all 25** as formal imperative exam questions, like the
+DEIK ones. By the owner's choice they are shown with no label saying so,
+so don't describe them as official exam questions in a PR, report or
+page; if the owner later supplies the real wording, replace them. The
+owner's `\author` line, date and title page aren't published, as in
+every other series.
+
+**The 25-way split** (the owner chose the fine split over 14 larger
+tételek; it follows the source's order, with the moves listed below): 1
+csoport, alaptulajdonságok, Cayley-táblázat · 2 homomorfizmus,
+izomorfizmus · 3 permutációk, paritás, előjel · 4 elem rendje · 5
+ciklikus csoportok · 6 részcsoportok, mellékosztályok, Lagrange ·
+7 ciklikus csoportok részcsoportjai · 8 generált részcsoport,
+direkt szorzat · 9 homomorfizmus képe és magja · 10 csoporthatás,
+orbit-stabilizátor, Cayley · 11 normálosztó, faktorcsoport,
+homomorfizmustétel · 12 konjugálás, centrum · 13
+izomorfizmus-tételek · 14 p-csoportok, Cauchy · 15 gyűrűk, részgyűrűk · 16
+ideálok, faktorgyűrű · 17 polinomgyűrűk, gyökök, derivált · 18
+testek, egyszerű gyűrűk, maximális ideál · 19 euklideszi gyűrűk,
+főideálgyűrűk · 20 prím, irreducibilis, alaptételes gyűrű · 21
+testbővítés, minimálpolinom · 22 egyszerű bővítés · 23 fok,
+szorzástétel, algebrai elemek · 24 szerkeszthető számok, klasszikus
+problémák · 25 szabályos sokszögek, Galois. The landing groups them as
+Csoportelmélet (1–14), Gyűrűelmélet (15–20), Testelmélet (21–25).
+
+**Page shape** (copy `algebra/tetel1/index.html`, not a `*-template.html`;
+there is no template for this): breadcrumb with the extra "Algebra"
+segment → `<h1>N. Tétel — Cím</h1>` (the DEIK tétel convention, numbered)
+→ `item-meta` with `Frissítve` only → intro paragraph → ad slot 1 → "A
+tétel kérdése" `<h2>` + `<blockquote class="tetel-question">` → one
+`<div class="tetel-answer" id="tetel-kidolgozas">` holding the "Kidolgozás"
+`<h2>`, the `<h3>` sections, `.note-box`es (Definíció, Állítás, Tétel,
+Következmény, Lemma, Megjegyzés) and, in the middle, ad slot 2 → previous /
+next links (`.tetel-nav`) → ad slot 3 → Ko-fi callout → the
+`source-note`. Unlike the DEIK series there's no "Témák" outline (the
+intro paragraph says what's covered) and no "A tétel szövege" label.
+MathJax is on every page, with the rules from the math notation section
+(no formulas inside a heading, `&lt;` in formulas).
+
+**Interactivity** is progressive enhancement, in `/study-tools.js`
+(loaded only on these pages, never from `script.js`) plus the "Study
+tools" section of `style.css`. Without JavaScript the pages are plain,
+fully visible articles. An inline `<head>` script puts `js` on `<html>`,
+and only then does the CSS hide `.tetel-answer` and the not-yet-shown
+proof steps; `onerror` on the `study-tools.js` tag removes the class
+again if the file can't load, so a failed load can never leave the
+answer hidden. The hidden text stays in the DOM (crawlers, Ctrl+F, the
+table of contents). What it adds: a "Kidolgozás megjelenítése" toggle; a
+"Következő lépés / Az összes lépés / Újrakezdés" control on every
+`<div class="proof-steps" data-steps><ol>…</ol></div>`; a "Tudom /
+Gyakorolnom kell" rating at the end of the answer, kept in
+`localStorage` under `fj-algebra-progress` (per browser, nothing sent
+anywhere); and on the Algebra landing page status badges on the cards,
+a progress line and a "Véletlen tétel" button. A table-of-contents link
+or `#hash` that points into the closed answer opens it first. For a
+new tétel, mark a proof as stepwise with the `proof-steps` wrapper;
+nothing else needs wiring. Don't put anything that matters only in the
+JS-built controls, and don't add `.js`-gated hiding to other content.
+
+**Text policy for these pages (the owner's choice: "elírások javítása,
+a többit jelzem").** The owner's mathematics is kept as written. Only
+clear typos and broken markup were fixed, and every other problem
+found — wrong or incomplete statements, missing proofs, undefined terms
+— was left in and listed per page in the pull request for the owner to
+decide. So unlike the third to sixth topic series above, **no
+"(kiegészítés)" or "(pontosítva)" content was added here**; don't add
+any silently, and don't present the pages as reviewed by a
+mathematician. Reordering: the source is page-based and a few parts sit
+out of order; moved to where they belong: the homomorphism-preserves-
+identity/inverse lemmas to tétel 2, the minimal-polynomial theorem (its
+statement and the first part of the proof were three pages apart) to
+tétel 21, the two halves of the product-subgroup lemma to tétel 13.
+Parts that were duplicated, such as a repeated "10." section heading,
+simply became part of the tétel they belong to.
+
+The pages were generated once from the LaTeX by a throwaway script
+that isn't in the repo; edit the HTML directly from now on.
+
 ### Deliberate exception: `jegyzetek/de-ttk-matematika-bsc/jegyzet1` skips Tematika/Gyakorlat/Puffer
 
 Added 2026-09-17. "Analízis alapjai" was converted from a LaTeX source
@@ -819,7 +910,13 @@ still look like a class session — copy the shape
 
 ### Source/attribution note on every `de-ttk-matematika-bsc` content page
 
-Added 2026-09-18. Every content item under `jegyzetek/de-ttk-matematika-bsc/`
+Added 2026-09-18, extended 2026-10-05: the 25 pages under
+`tetelek/de-ttk-matematika-bsc/algebra/` carry the same element, same
+text and placement (the owner's standing instruction was that anything
+later published in the "Matematika BSc" folders gets it automatically);
+their two landing pages don't, same as the jegyzetek landings.
+
+Every content item under `jegyzetek/de-ttk-matematika-bsc/`
 (currently: `jegyzet1`, and `kombinatorika-es-grafelmelet/jegyzet1`–
 `jegyzet10`, `linearis-algebrai-alapozas/jegyzet1`–`jegyzet10`,
 `algebra-es-szamelmelet-alapok/jegyzet1`–`jegyzet7`,
