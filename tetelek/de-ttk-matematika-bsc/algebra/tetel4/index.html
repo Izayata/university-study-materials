@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>4. Tétel — Elem rendje | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="A csoportelem rendje, a jó kitevők tulajdonságai, az o(g^k) = o(g)/(o(g), k) összefüggés és a permutációk rendje a ciklusok hosszából, bizonyítással — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel4/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="4">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 4. tétel</p>
+
+      <h1>4. Tétel — Elem rendje</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a csoportelem rendjét vizsgálja. Megmutatja, hogy a rend a legkisebb pozitív jó kitevő, kiszámolja egy hatvány rendjét, és a diszjunkt ciklusok hosszából meghatározza egy permutáció rendjét.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Értelmezze egy csoportelem rendjét! Bizonyítsa be, hogy az elem rendje a legkisebb pozitív jó kitevő, hogy o(gᵏ) = o(g) / (o(g), k), és határozza meg egy permutáció rendjét a diszjunkt ciklusai hosszából!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>A rend és a jó kitevők</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \(G\) csoport és \(g \in G\). A \(g\) <strong>rendje</strong> a \(g\) különböző hatványainak száma:
+      \[ o(g) = \left| \{ g^k \mid k \in \mathbb{Z} \} \right|. \]</p>
+      <p>A \(q\) egész szám <strong>jó kitevő</strong>, ha \(g^q = e\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(k\) és \(l\) jó kitevői \(g\)-nek, akkor \(\operatorname{lnko}(k, l)\) is az.</p>
+      <p><strong>Bizonyítás:</strong> az euklideszi algoritmus szerint \(\operatorname{lnko}(k, l) = \alpha k + \beta l\) alkalmas egészekkel, így
+      \[ g^{\operatorname{lnko}(k,l)} = g^{\alpha k + \beta l} = (g^k)^{\alpha} \cdot (g^l)^{\beta} = e^{\alpha} \cdot e^{\beta} = e. \]</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(g^k = g^l\), akkor \(g^{k-l} = e\), tehát \(k - l\) is jó kitevő.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(n\) jó kitevő, akkor \(g\) hatványai \(n\)-esével ismétlődnek.</p>
+      <p><strong>Bizonyítás:</strong> \(g^{k+n} = g^k \cdot g^n = g^k \cdot e = g^k\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>\(o(g) \le\) a legkisebb pozitív jó kitevő.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha van \(0\)-tól különböző jó kitevő, és \(n\) a legkisebb pozitív jó kitevő, akkor \(0 \le k &lt; l \le n - 1\) esetén \(g^k \neq g^l\).</p>
+      <p><strong>Bizonyítás:</strong> \(l - k &lt; n\), ezért ha \(g^k = g^l\) lenne, akkor \(l - k\) egy \(n\)-nél kisebb pozitív jó kitevő volna, ami ellentmondás.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>\(o(g)\) = a legkisebb pozitív jó kitevő. Ha \(o(g)\) véges, akkor minden jó kitevő az \(o(g)\) többszöröse.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha a \(0\) az egyetlen jó kitevő, akkor \(o(g) = \infty\), azaz \(g\) bármely két hatványa különböző.</p>
+      <p><strong>Bizonyítás:</strong> ha csak a \(0\) jó kitevő, akkor \(g^k = g^l\) csak úgy lehet, ha \(k - l = 0\), azaz \(k = l\). Tehát \(g\) bármely két hatványa különböző, így \(o(g) = \infty\).</p>
+      <p>Fordítva: ha \(o(g) = \infty\), és lenne a \(0\)-tól különböző jó kitevő, akkor az felülről becsülné \(o(g)\)-t, így az nem lehetne végtelen.</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>Egy hatvány rendje</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(o(g)\) véges, akkor \(o(g^k) = \dfrac{o(g)}{(o(g),\, k)}\).</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>\(o(g^k)\) a legkisebb pozitív \(m\) szám, amelyre \((g^k)^m = e\), vagyis \(g^{k \cdot m} = e\).</li>
+        <li>Legyen \(o(g) = n\). Ekkor \(g^{km} = e \iff n \mid k \cdot m\).</li>
+        <li>Így a keresett legkisebb \(m\) az a legkisebb szám, amelyre \(n \mid m \cdot k\), ez pedig \(\dfrac{n}{\operatorname{lnko}(n,k)} = \dfrac{o(g)}{(o(g),\, k)}\).</li>
+        <li>Lemma: a legkisebb \(m\), amelyre \(n \mid m \cdot k\), az \(m = \dfrac{n}{\operatorname{lnko}(n,k)}\), mert
+          \[ n \mid m \cdot k \iff \left(\frac{n}{\operatorname{lnko}(n,k)}\right) \Bigm| \left(m \cdot \frac{k}{\operatorname{lnko}(n,k)}\right). \]</li>
+      </ol></div>
+      </div>
+
+      <h3>Ciklus és permutáció rendje</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Egy \(k\) hosszú ciklus rendje \(k\).</p>
+      <p><strong>Bizonyítás:</strong> hatványozva a ciklus körbeér.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(a \cdot b = b \cdot a\), akkor \((a \cdot b)^n = a^n \cdot b^n\).</p>
+      <p><strong>Bizonyítás:</strong> diszjunkt ciklusok felcserélhetők.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha a \(\sigma\) permutáció diszjunkt ciklusainak hossza \(l_1, l_2, \dots, l_r\), akkor \(\sigma\) rendje \(\operatorname{lkkt}(l_1, l_2, \dots, l_r)\).</p>
+      <p><strong>Bizonyítás:</strong> ha \(\sigma = (\dots)(\dots)(\dots)\), akkor \(\sigma^n = (\dots)^n (\dots)^n \dots (\dots)^n\). Tehát \(\sigma\) rendje az a legkisebb pozitív \(n\), amelyet az összes ciklus rendje osztja (mind egyszerre körbeér).</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel3/">← 3. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel5/">5. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

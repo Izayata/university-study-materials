@@ -497,3 +497,99 @@ blockquote {
   justify-content: center;
   flex-wrap: wrap;
 }
+
+/* ---------- Study tools (kidolgozott tételek, de-ttk-matematika-bsc/algebra) ----------
+   Progressive enhancement for the flashcard-style Algebra tételek: with no
+   JavaScript every page is a plain, fully visible article. /study-tools.js
+   (loaded only on those pages) adds the "Kidolgozás megjelenítése" toggle,
+   the stepwise proofs and the "Tudom / Gyakorolnom kell" self-rating, and an
+   inline <head> script puts the .js class on <html> first, so the answer is
+   hidden from the very first paint instead of flashing open.
+   No new colors: everything reads from the existing tokens. */
+
+.js .tetel-answer:not(.is-open) { display: none; }
+.js .proof-steps__step:not(.is-shown) { display: none; }
+
+.study-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1.25rem 0;
+}
+
+.study-btn {
+  font: inherit;
+  font-size: 0.9rem;
+  line-height: 1.3;
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-bg-alt);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.study-btn:hover { border-color: var(--color-accent); }
+.study-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+.study-btn[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+.study-btn--primary {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font-weight: 600;
+}
+.study-btn--primary:hover { border-color: var(--color-text); }
+.study-btn[disabled] { opacity: 0.45; cursor: default; }
+
+.study-status {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.proof-steps { margin: 0.5rem 0; }
+.proof-steps .study-controls { margin: 0.75rem 0 0; }
+
+.study-rate {
+  margin: 2rem 0 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+.study-rate p { margin: 0 0 0.5rem; color: var(--color-text-muted); }
+
+.study-badge {
+  display: inline-block;
+  margin-top: 0.6rem;
+  padding: 0.1rem 0.55rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+.study-badge--known {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* Previous / next tétel links under the answer. */
+.tetel-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 2rem 0;
+  font-size: 0.95rem;
+}
+
+.tetel-question { color: var(--color-text); }
+
+/* A long Hungarian compound in a title ("Csoporthomomorfizmus") would
+   otherwise push the page sideways on a narrow phone. */
+body[data-tetel] .content h1,
+.item-card[data-tetel] h3 {
+  overflow-wrap: anywhere;
+}

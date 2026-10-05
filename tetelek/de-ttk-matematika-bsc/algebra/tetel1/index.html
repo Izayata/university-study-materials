@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>1. Tétel — Csoport, alaptulajdonságok, Cayley-táblázat | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="A csoport fogalma, az egységelem és az inverz egyértelműsége, és a Cayley-táblázat sor- és oszloptulajdonsága bizonyítással — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel1/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="1">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 1. tétel</p>
+
+      <h1>1. Tétel — Csoport, alaptulajdonságok, Cayley-táblázat</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a csoport fogalmával kezdi az algebrát: a definícióból közvetlenül következő tulajdonságokat — az egységelem és az inverz egyértelműségét — bizonyítja, majd megmutatja, hogy a Cayley-táblázat minden sorában és oszlopában minden elem pontosan egyszer szerepel.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a csoport fogalmát, és bizonyítsa be az egységelem és az inverz egyértelműségét! Igazolja, hogy a Cayley-táblázat minden sorában és oszlopában minden elem pontosan egyszer szerepel!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>A csoport fogalma</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Egy \((G, *)\) struktúra <strong>csoport</strong>, ha</p>
+      <ul>
+        <li>a művelet asszociatív (félcsoport),</li>
+        <li>van benne neutrális elem (egységelem),</li>
+        <li>minden elemnek van inverze.</li>
+      </ul>
+      </div>
+
+      <h3>Az egységelem és az inverz egyértelműsége</h3>
+      <p>Mindkét tulajdonság közvetlenül következik a definícióból.</p>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Egy csoportban legfeljebb egy egységelem van.</p>
+      <p><strong>Bizonyítás:</strong> ha \(e\) és \(f\) is egységelem, akkor
+      \[ e = e * f = f. \]</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Egy csoportban minden elemnek legfeljebb egy inverze van.</p>
+      <p><strong>Bizonyítás:</strong> ha \(b\) és \(c\) is inverze az \(a\) elemnek, akkor
+      \[ c = (b * a) * c = b * (a * c) = b. \]</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>A Cayley-táblázat</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>A Cayley-táblázat minden sorában és minden oszlopában minden elem pontosan egyszer szerepel.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li><strong>Egy sorban legfeljebb egyszer.</strong> Ha az \(a\) sorában \(a * b = a * c\), akkor \(a^{-1}\)-gyel szorozva \(b = c\). Tehát két különböző oszlopban nem állhat ugyanaz az elem.</li>
+        <li><strong>Egy oszlopban legfeljebb egyszer.</strong> Ha az \(a\) oszlopában \(b * a = c * a\), akkor \(a^{-1}\)-gyel szorozva \(b = c\).</li>
+        <li><strong>Egy sorban legalább egyszer.</strong> A \(b\) elem szerepel az \(a\) sorában, a \(c = a^{-1} * b\) oszlopban, mert \(a * c = a * a^{-1} * b = b\).</li>
+        <li><strong>Egy oszlopban legalább egyszer.</strong> A \(b\) elem szerepel az \(a\) oszlopában, a \(c = b * a^{-1}\) sorban, mert \(c * a = b * a^{-1} * a = b\).</li>
+      </ol></div>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <span></span>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel2/">2. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

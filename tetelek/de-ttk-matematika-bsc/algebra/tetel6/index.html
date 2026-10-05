@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>6. Tétel — Részcsoportok, mellékosztályok, Lagrange-tétel | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="A részcsoport és a részcsoport-kritérium, a mellékosztályok, a Lagrange-tétel, az Euler–Fermat-tétel levezetése és a nem triviális valódi részcsoport nélküli csoportok jellemzése bizonyítással — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel6/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="6">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 6. tétel</p>
+
+      <h1>6. Tétel — Részcsoportok, mellékosztályok, Lagrange-tétel</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a részcsoportokról szól: megadja a részcsoport-kritériumot, bevezeti a mellékosztályokat, bizonyítja a Lagrange-tételt, abból levezeti az Euler–Fermat-tételt, végül jellemzi azokat a csoportokat, amelyeknek nincs nem triviális valódi részcsoportjuk.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a részcsoportot, és adja meg a részcsoport-kritériumot! Mutassa be a mellékosztályokat, mondja ki és bizonyítsa be a Lagrange-tételt, és vezesse le belőle az Euler–Fermat-tételt! Mely csoportoknak nincs nem triviális valódi részcsoportjuk?</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>Részcsoport és a részcsoport-kritérium</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \((G, *)\) csoport és \(H \subseteq G\). Ha \((H, *)\) is csoport, akkor \(H\) a \(G\) <strong>részcsoportja</strong>, jele \(H \le G\).</p>
+      <p>Példák: \((\mathbb{Z}, +) \le (\mathbb{Q}, +) \le (\mathbb{R}, +) \le (\mathbb{C}, +)\), \(\ \mathbb{Z}^{\times} \le \mathbb{Q}^{\times} \le \mathbb{R}^{\times} \le \mathbb{C}^{\times}\), \(\ A_n \le S_n\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — részcsoport-kritérium</span>
+      <p>Legyen \(G\) csoport és \(H \subseteq G\). Ekkor \(H \le G\) pontosan akkor, ha</p>
+      <ol>
+        <li>\(H \neq \emptyset\),</li>
+        <li>\(a \cdot b \in H\) minden \(a, b \in H\) esetén (műveletre zárt),</li>
+        <li>\(a^{-1} \in H\) minden \(a \in H\) esetén (invertálásra zárt).</li>
+      </ol>
+      <p><strong>Bizonyítás.</strong></p>
+      <ul>
+        <li>\((\Rightarrow)\) Ha \(H \le G\), akkor \(H \neq \emptyset\), mert \(e \in H\); a műveletre zártság és az inverz létezése pedig a csoportaxiómákból adódik.</li>
+        <li>\((\Leftarrow)\) A \(G\)-beli művelet \(H\)-ra való megszorításánál az asszociativitás öröklődik \(G\)-ből; (1) miatt van \(e \in H\), (3) miatt pedig van \(a^{-1} \in H\).</li>
+      </ul>
+      </div>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \(G\) csoport és \(X, Y \subseteq G\). Az \(X\) és \(Y\) <strong>komplexusszorzata</strong>: \(X \cdot Y = \{ x \cdot y \mid x \in X,\ y \in Y \}\). Az \(X\) <strong>komplexusinverze</strong>: \(X^{-1} = \{ x^{-1} \mid x \in X \}\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(H \le G\), akkor \(H \neq \emptyset\), \(H \cdot H \subseteq H\) és \(H^{-1} \subseteq H\).</p>
+      </div>
+
+      <h3>Mellékosztályok</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \(g \in G\) és \(H \le G\). A \(H\) <strong>baloldali mellékosztálya</strong> a \(g\) szerint: \(g \cdot H = \{ g \cdot h \mid h \in H \}\). A <strong>jobboldali</strong> mellékosztály: \(H \cdot g = \{ h \cdot g \mid h \in H \}\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>\(a \cdot H \cap b \cdot H = \emptyset\) vagy \(a \cdot H = b \cdot H\), azaz két mellékosztály diszjunkt vagy egybeesik.</p>
+      <p><strong>Bizonyítás:</strong> ha \(c \in a \cdot H \cap b \cdot H\), akkor van \(h_1, h_2 \in H\), hogy \(c = a \cdot h_1 = b \cdot h_2\). Ebből
+      \[ b^{-1} \cdot a = h_2 \cdot h_1^{-1} \in H \ \Longrightarrow\ b^{-1} \cdot a \cdot H = H \ \Longrightarrow\ a \cdot H = b \cdot H. \]</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>\(|a \cdot H| = |H|\).</p>
+      <p><strong>Bizonyítás:</strong> az \(f : H \to a \cdot H\), \(f(h) = a \cdot h\) leképezés bijekció. Szürjektív a definíció miatt; injektív, mert \(a \cdot h_1 = a \cdot h_2 \Rightarrow h_1 = h_2\).</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>A Lagrange-tétel és az Euler–Fermat-tétel</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — Lagrange</span>
+      <p>Ha \(|G|\) véges és \(H \le G\), akkor \(|H| \mid |G|\).</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>A \(H\) mellékosztályai lefedik \(G\)-t, és páronként diszjunktak.</li>
+        <li>Minden mellékosztályban \(|H|\) darab elem van.</li>
+        <li>Ha \(n\) darab mellékosztály van, akkor \(|G| = n \cdot |H|\), vagyis \(|H| \mid |G|\).</li>
+      </ol></div>
+      </div>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Egy \(G\) csoport egy \(H\) részcsoportja esetén az \(a \cdot H\) különböző mellékosztályainak száma a \(H\) <strong>indexe</strong> \(G\)-ben, jele \(|G : H| = \dfrac{|G|}{|H|}\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \(g \in G\). A \(g\) által <strong>generált részcsoport</strong> \(G\)-ben: \(\langle g \rangle = \{ g^k \mid k \in \mathbb{Z} \}\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>A Lagrange-tétel miatt, ha \(G\) véges, akkor \(o(g) = |\langle g \rangle|\) osztja \(|G|\)-t. Ezért \(g^{|G|} = e\) jó kitevő minden \(g \in G\)-re.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — Euler–Fermat</span>
+      <p>Ha \((a, m) = 1\), akkor \(a^{\varphi(m)} \equiv 1 \pmod m\).</p>
+      <p><strong>Bizonyítás:</strong> legyen \(G = \mathbb{Z}_m^{\times}\). Ekkor \(|G| = \varphi(m)\), és \(a \in G \iff (a, m) = 1\). A fenti következmény szerint \(a^{|G|} = 1\), azaz \(a^{\varphi(m)} = 1\).</p>
+      </div>
+
+      <h3>Nem triviális valódi részcsoport nélküli csoportok</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Az \(\{e\} \le G\) a <strong>triviális</strong> részcsoport, a \(G \le G\) pedig a nem valódi részcsoport.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>\(G\)-nek pontosan akkor nincs nem triviális valódi részcsoportja, ha \(G \cong (\mathbb{Z}_p, +)\), ahol \(p\) prím.</p>
+      <p><strong>Bizonyítás.</strong></p>
+      <ul>
+        <li>\((\Leftarrow)\) Ha \(G \cong (\mathbb{Z}_p, +)\), akkor \(|G| = p\). Ha \(H \le G\), akkor \(|H| \mid |G|\), vagyis \(|H| = 1\), azaz \(H = \{e_G\}\), vagy \(|H| = p\), azaz \(H = G\).</li>
+        <li>\((\Rightarrow)\) Legyen \(e \neq g \in G\). Ekkor \(\langle g \rangle\) nem triviális részcsoport \(G\)-ben, tehát \(\langle g \rangle = G\), vagyis \(G\) ciklikus. Így \(G \cong (\mathbb{Z}, +)\) vagy \(G \cong (\mathbb{Z}_n, +)\).
+          <ul>
+            <li>Ha \(G \cong (\mathbb{Z}, +) \cong (2\mathbb{Z}, +)\), akkor van nem triviális valódi részcsoportja, így \(G \not\cong (\mathbb{Z}, +)\).</li>
+            <li>Ha \(G \cong (\mathbb{Z}_n, +)\) és \(n\) összetett, például \(n = m \cdot k\), akkor \(\{0, m, 2m, \dots, (k-1)m\}\) nem triviális valódi részcsoport, így \(n\) csak prím lehet.</li>
+          </ul>
+        </li>
+      </ul>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel5/">← 5. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel7/">7. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

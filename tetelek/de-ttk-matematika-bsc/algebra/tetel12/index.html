@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>12. Tétel — Konjugálás, centrum, a normálosztók jellemzése | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="A normálosztó ekvivalens jellemzései, a konjugálás mint csoporthatás, a konjugált osztály, a centralizátor és a centrum tulajdonságai bizonyítással — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel12/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="12">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 12. tétel</p>
+
+      <h1>12. Tétel — Konjugálás, centrum, a normálosztók jellemzése</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a normálosztó három egyenértékű jellemzését adja, majd a konjugálást csoporthatásként vizsgálja. Bevezeti a konjugált osztályt, a centralizátort és a centrumot, és bizonyítja, hogy a konjugálás megőrzi az elem rendjét.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Adja meg a normálosztó ekvivalens jellemzéseit, és bizonyítsa be őket! Definiálja a konjugálást mint csoporthatást, a konjugált osztályt, a centralizátort és a centrumot, és bizonyítsa be, hogy a konjugálás megőrzi az elem rendjét, a centrum pedig kommutatív normálosztó!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>A normálosztó jellemzései</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Legyen \(N \le G\). Ekkor az alábbiak ekvivalensek:</p>
+      <ol>
+        <li>\(g \cdot N = N \cdot g\) minden \(g \in G\)-re (\(N \trianglelefteq G\)),</li>
+        <li>az \(N\) baloldali és jobboldali mellékosztályai \(G\)-nek ugyanazt a particionálását adják,</li>
+        <li>\(g \cdot n \cdot g^{-1} \in N\) minden \(g \in G\), \(n \in N\) esetén (\(N\) zárt a konjugálásra).</li>
+      </ol>
+      <div class="proof-steps" data-steps><ol>
+        <li>\(1 \Rightarrow 2\): triviális.</li>
+        <li>\(2 \Rightarrow 1\): tegyük fel, hogy a \(g \cdot N\) baloldali mellékosztály megegyezik egy \(N \cdot h\) jobboldali mellékosztállyal: \(g \cdot N = N \cdot h\). Mivel \(e \in N\), ezért \(g \in g \cdot N = N \cdot h\), így \(g \in N \cdot h \cap N \cdot g\), vagyis a metszet nem üres. Ezért \(N \cdot h = N \cdot g\), azaz \(g \cdot N = N \cdot h = N \cdot g\) minden \(g \in G\)-re.</li>
+        <li>\(1 \Rightarrow 3\): ha \(g \cdot N = N \cdot g\), akkor \(g \cdot N \cdot g^{-1} = N\), tehát \(g \cdot n \cdot g^{-1} \in N\) minden \(g \in G\), \(n \in N\) esetén.</li>
+        <li>\(3 \Rightarrow 1\): a \(g \cdot n \cdot g^{-1} \in N\) feltétel azt jelenti, hogy \(g \cdot N \cdot g^{-1} \subseteq N\), azaz \(g \cdot N \subseteq N \cdot g\). Ugyanez \(g^{-1}\)-re: \(g^{-1} \cdot N \cdot g \subseteq N\), vagyis \(N \cdot g \subseteq g \cdot N\). Tehát \(g \cdot N = N \cdot g\).</li>
+      </ol></div>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>Ha \(N \le G\) és \(|G : N| = 2\), akkor \(N \trianglelefteq G\).</p>
+      <p><strong>Bizonyítás:</strong> a 2. jellemzés miatt: az \(N\) baloldali mellékosztályai \(N\) és \(G \setminus N\), a jobboldaliak szintén \(N\) és \(G \setminus N\).</p>
+      </div>
+
+      <h3>A konjugálás mint hatás</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>A <strong>konjugálás</strong> hatás: legyen \(X = G\) és \(\varphi : G \to S_X\), ahol \(\varphi(g)(h) = g \cdot h \cdot g^{-1}\).</p>
+      <p>Ez tényleg hatás, mert homomorfizmus:
+      \[ \varphi(a \cdot b)(h) = a \cdot b \cdot h \cdot (a \cdot b)^{-1} = a \cdot b \cdot h \cdot b^{-1} \cdot a^{-1} = a \cdot \varphi(b)(h) \cdot a^{-1} = \big(\varphi(a) \circ \varphi(b)\big)(h). \]
+      Tehát \(G\) hat önmagán a konjugálással.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>A konjugálás hatás orbitjait <strong>konjugált osztályoknak</strong> nevezzük. Egy \(g \in G\) elem stabilizátora a <strong>centralizátora</strong>:
+      \[ C_G(g) = \{ h \in G \mid h \cdot g \cdot h^{-1} = g \}, \]
+      azok a \(G\)-beli elemek, amelyek felcserélhetők \(g\)-vel.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>\(N \le G\) normálosztó \(\iff\) \(N\) zárt a konjugálásra \(\iff\) \(N\) konjugált osztályok uniója.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
+      <p>\(C_G(g) \le G\), mivel a stabilizátor részcsoport, és az orbit-stabilizátor-tétel alapján \(g\) konjugált osztályának mérete \(|G : C_G(g)|\).</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>A konjugálás tartja a rendet.</p>
+      <p><strong>Bizonyítás:</strong> ha \(o(h) = n\), akkor \(\varphi_g(h) = g \cdot h \cdot g^{-1}\) rendje az a legkisebb pozitív \(r\), amelyre
+      \[ (g \cdot h \cdot g^{-1})^r = e. \]
+      Mivel
+      \[ (g \cdot h \cdot g^{-1})^r = g \cdot h \cdot g^{-1} \cdot g \cdot h \cdot g^{-1} \cdots g \cdot h \cdot g^{-1} = g \cdot h^r \cdot g^{-1}, \]
+      és \(g \cdot h^r \cdot g^{-1} = e \iff h^r = g^{-1} \cdot e \cdot g = e\), ezért \(n \mid r\). Így \(n = r\) a legkisebb ilyen pozitív szám, tehát \(o(g \cdot h \cdot g^{-1}) = n\).</p>
+      </div>
+
+      <h3>A centrum</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>A \(G\) csoport <strong>centruma</strong>:
+      \[ Z(G) = \{ g \in G \mid g \cdot h = h \cdot g \quad \forall h \in G \}, \]
+      azok az elemek, amelyek mindenkivel felcserélhetők.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>\(h \in Z(G) \iff\) \(h\) konjugált osztálya 1 elemű.</p>
+      <p><strong>Bizonyítás:</strong> ha \(h \in Z(G)\), akkor \(h\) mindenkivel felcserélhető, így \(C_G(h) = G\) (mert \(Z(G) = \bigcap_{g \in G} C_G(g)\)). Konjugált osztályának mérete \(|G : C_G(h)| = |G : G| = 1\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>\(Z(G)\) és annak minden részcsoportja kommutatív normálosztó \(G\)-ben.</p>
+      <p><strong>Bizonyítás:</strong> \(Z(G)\) kommutatív a definíció miatt, és \(Z(G)\) az 1 elemű konjugált osztályok uniója, így \(Z(G)\) és annak minden részcsoportja normálosztó \(G\)-ben.</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel11/">← 11. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel13/">13. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

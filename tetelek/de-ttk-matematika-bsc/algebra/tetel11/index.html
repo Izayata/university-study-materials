@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>11. Tétel — Normálosztó, faktorcsoport, homomorfizmustétel | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="A normálosztó és a faktorcsoport fogalma, a homomorfizmus magjának normalitása, és a csoportokra vonatkozó homomorfizmustétel bizonyítással — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel11/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="11">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 11. tétel</p>
+
+      <h1>11. Tétel — Normálosztó, faktorcsoport, homomorfizmustétel</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a normálosztóval és a faktorcsoporttal foglalkozik. Megmutatja, hogy a homomorfizmus magja normálosztó, hogy a faktorcsoport csoport, hogy minden normálosztó egy homomorfizmus magja, és bizonyítja a homomorfizmustételt.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a normálosztót és a faktorcsoportot! Bizonyítsa be, hogy a homomorfizmus magja normálosztó, hogy a faktorcsoport valóban csoport, és hogy minden normálosztó egy alkalmas homomorfizmus magja! Mondja ki és bizonyítsa be a homomorfizmustételt!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>A homomorfizmus magja és a normálosztó</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(\varphi : G \to H\) homomorfizmus, akkor \(g \cdot \operatorname{Ker} \varphi = \operatorname{Ker} \varphi \cdot g\) minden \(g \in G\) esetén.</p>
+      <p><strong>Bizonyítás:</strong>
+      \[ \varphi(g) = \varphi(h) \iff \varphi(g)^{-1} \cdot \varphi(h) = e_H \iff \varphi(g^{-1} \cdot h) = e_H \implies g^{-1} \cdot h \in \operatorname{Ker} \varphi \implies g \in h \cdot \operatorname{Ker} \varphi. \]
+      Fordítva: \(\varphi(g \cdot h^{-1}) = e_H \Rightarrow g \cdot h^{-1} \in \operatorname{Ker} \varphi \Rightarrow g \in \operatorname{Ker} \varphi \cdot h\). Így \(h \cdot \operatorname{Ker} \varphi = \operatorname{Ker} \varphi \cdot h\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Az \(N \le G\) részcsoport <strong>normálosztó</strong> (normális részcsoport), jele \(N \trianglelefteq G\), ha \(g \cdot N = N \cdot g\) minden \(g \in G\)-re, vagyis a bal és a jobb oldali mellékosztályok megegyeznek.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>A \(G\)-ből induló homomorfizmus magja normálosztó \(G\)-ben.</p>
+      </div>
+
+      <h3>A faktorcsoport</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \(N \trianglelefteq G\). Ekkor a
+      \[ G/N = \{ g \cdot N \mid g \in G \} = \{ N \text{ összes mellékosztálya} \} \]
+      halmaz a komplexusszorzás műveletével csoportot alkot. Ez a \(G\) csoport \(N\) szerinti <strong>faktorcsoportja</strong>.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>\(G/N\) tényleg csoport a komplexusszorzással.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li><strong>Művelet.</strong> Legyen \(a \cdot N\) és \(b \cdot N\) az \(N\) két mellékosztálya. Ekkor
+          \[ (a \cdot N)(b \cdot N) = a \cdot (N \cdot b) \cdot N \overset{N \trianglelefteq G}{=} a \cdot b \cdot N \cdot N = \underbrace{a \cdot b \cdot N}_{\in\, G/N}. \]</li>
+        <li><strong>Asszociativitás.</strong> \((a \cdot N \cdot b \cdot N) \cdot c \cdot N = a \cdot b \cdot N \cdot c \cdot N = a \cdot b \cdot c \cdot N\), és \(a \cdot N \cdot (b \cdot N \cdot c \cdot N) = a \cdot N \cdot b \cdot c \cdot N = a \cdot b \cdot c \cdot N\).</li>
+        <li><strong>Neutrális elem:</strong> \(N\), mert \(a \cdot N \cdot N = a \cdot N\) és \(N \cdot a \cdot N = e \cdot N \cdot a \cdot N = a \cdot N\).</li>
+        <li><strong>Inverz.</strong> Az \(a \cdot N\) mellékosztály inverze \(a^{-1} \cdot N\).</li>
+      </ol></div>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>Minden normálosztó egy homomorfizmus magja</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Tetszőleges normálosztó \(G\)-ben egy alkalmas homomorfizmus magja.</p>
+      <p><strong>Bizonyítás:</strong> legyen \(\varphi\) a természetes homomorfizmus, \(N \trianglelefteq G\), \(\varphi : G \to G/N\), \(\varphi(g) = g \cdot N\).</p>
+      <ul>
+        <li>A homomorfizmus művelettartó: \(\varphi(a \cdot b) = a \cdot b \cdot N = a \cdot N \cdot b \cdot N = \varphi(a) \cdot \varphi(b)\).</li>
+        <li>\(\operatorname{Ker} \varphi = \{ g \in G \mid \varphi(g) = N \} = N\), mivel \(g \cdot N = N \iff g \in N\).</li>
+      </ul>
+      </div>
+
+      <h3>A homomorfizmustétel</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — homomorfizmustétel</span>
+      <p>Legyenek \(G, H\) csoportok és \(\varphi : G \to H\) homomorfizmus. Ekkor
+      \[ \operatorname{Im} \varphi \cong G / \operatorname{Ker} \varphi, \]
+      vagyis a mag szerinti mellékosztályok csoportja izomorf a képpel.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>Legyen \(\psi : \operatorname{Im} \varphi \to G / \operatorname{Ker} \varphi\), \(\psi(\varphi(g)) = g \cdot \operatorname{Ker} \varphi\).</li>
+        <li>\(\psi\) jól definiált: \(\varphi(a) = \varphi(b) \iff a \cdot \operatorname{Ker} \varphi = b \cdot \operatorname{Ker} \varphi\).</li>
+        <li>\(\psi\) injektív: ugyanez az ekvivalencia a másik irányban.</li>
+        <li>\(\psi\) szürjektív: a \(g \cdot \operatorname{Ker} \varphi\) mellékosztály egy ősképe például \(\varphi(g) \in \operatorname{Im} \varphi\).</li>
+        <li>\(\psi\) homomorfizmus:
+          \[ \psi\big(\varphi(a) \cdot \varphi(b)\big) = \psi\big(\varphi(a \cdot b)\big) = a \cdot b \cdot \operatorname{Ker} \varphi = a \cdot \operatorname{Ker} \varphi \cdot b \cdot \operatorname{Ker} \varphi = \psi(\varphi(a)) \cdot \psi(\varphi(b)). \]</li>
+        <li>Tehát \(\psi\) izomorfizmus, így \(\operatorname{Im} \varphi \cong G / \operatorname{Ker} \varphi\).</li>
+      </ol></div>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel10/">← 10. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel12/">12. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

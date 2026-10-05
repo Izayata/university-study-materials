@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>8. Tétel — Generált részcsoport, direkt szorzat | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="Egy halmaz által generált részcsoport, részcsoportok metszete, a direkt szorzat és ciklikusságának feltétele, valamint a véges Abel-csoportok alaptétele — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel8/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="8">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 8. tétel</p>
+
+      <h1>8. Tétel — Generált részcsoport, direkt szorzat</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel egy halmaz által generált részcsoportot és a csoportok direkt szorzatát tárgyalja. Megmutatja, hogy részcsoportok metszete részcsoport, hogy a generált részcsoport létezik és egyértelmű, és hogy a direkt szorzat mikor ciklikus; végül kimondja a véges Abel-csoportok alaptételét.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja egy halmaz által generált részcsoportot! Bizonyítsa be, hogy részcsoportok metszete részcsoport, és hogy ⟨X⟩ létezik és egyértelmű! Definiálja a direkt szorzatot, és bizonyítsa be, hogy G × H pontosan akkor ciklikus, ha G és H ciklikus és |G|, |H| relatív prímek! Mondja ki a véges Abel-csoportok alaptételét!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>A generált részcsoport</h3>
+      <p>Egyetlen elem által generált részcsoport: \(\langle g \rangle = \{ g^k \mid k \in \mathbb{Z} \}\).</p>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \(G\) csoport és \(X \subseteq G\). Az \(X\) által <strong>generált részcsoport</strong> az a legszűkebb részcsoport, amely tartalmazza \(X\)-et; jele \(\langle X \rangle\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Részcsoportok metszete is részcsoport.</p>
+      <p><strong>Bizonyítás:</strong> legyen \(H, K \le G\). Ekkor</p>
+      <ol>
+        <li>\(e \in H\) és \(e \in K\), így \(e \in H \cap K \neq \emptyset\);</li>
+        <li>ha \(g_1, g_2 \in H \cap K\), akkor \(g_1, g_2 \in H\) és \(g_1, g_2 \in K\), tehát \(g_1 \cdot g_2 \in H\) és \(g_1 \cdot g_2 \in K\), vagyis \(g_1 \cdot g_2 \in H \cap K\);</li>
+        <li>ha \(g \in H \cap K\), akkor \(g \in H\) és \(g \in K\), tehát \(g^{-1} \in H\) és \(g^{-1} \in K\), vagyis \(g^{-1} \in H \cap K\).</li>
+      </ol>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>\(\langle X \rangle\) létezik és egyértelmű.</p>
+      <p><strong>Bizonyítás:</strong> legyen \(K = \displaystyle\bigcap_{X \subseteq H \le G} H\). Ez részcsoport, mert részcsoportok metszete, és a metszet miatt a legszűkebb ilyen. Tehát \(K = \langle X \rangle\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \((G, +)\) Abel-csoport és \(X = \{ g_1, g_2, \dots, g_k \} \subseteq G\), akkor
+      \[ \langle X \rangle = \{ m_1 \cdot g_1 + \dots + m_k \cdot g_k \mid m_i \in \mathbb{Z} \}. \]</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(G\) nem kommutatív, akkor \(\langle X \rangle\) az \(X \cup X^{-1}\) betűkből alkotott összes szó.</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>Direkt szorzat</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyenek \(G_1, G_2, \dots, G_n\) csoportok. Ekkor
+      \[ G_1 \times G_2 \times \dots \times G_n = \{ (g_1, g_2, \dots, g_n) \mid g_i \in G_i \}, \]
+      és a szorzatot komponensenként értelmezzük:
+      \[ (g_1, \dots, g_n) \cdot (h_1, \dots, h_n) = (g_1 \cdot h_1, \dots, g_n \cdot h_n). \]</p>
+      <ul>
+        <li>ez asszociatív,</li>
+        <li>egységelem: \((e_1, e_2, \dots, e_n)\),</li>
+        <li>inverz: \((g_1, \dots, g_n)^{-1} = (g_1^{-1}, \dots, g_n^{-1})\).</li>
+      </ul>
+      <p>Tehát \(G_1 \times \dots \times G_n\) egy új csoport.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>\(G \times H\) ciklikus \(\iff\) \(G\) és \(H\) is ciklikus és \(\operatorname{lnko}(|G|, |H|) = 1\).</p>
+      <p><strong>Bizonyítás.</strong></p>
+      <ul>
+        <li>\((\Rightarrow)\) Ha \(G\) vagy \(H\) végtelen, akkor \(G \times H\) nem lehet ciklikus. Egyébként legyen \(G \times H = \langle (g, h) \rangle\). Ekkor \(o(g) \mid |G|\) és \(o(h) \mid |H|\), így \(o(g, h) = \operatorname{lkkt}(o(g), o(h))\) osztja \(\operatorname{lkkt}(|G|, |H|)\)-t. Mivel \((g, h)\) generálja \(G \times H\)-t, \(o(g, h) = |G \times H| = |G| \cdot |H|\), ezért
+          \[ |G| \cdot |H| = o(g, h) \mid \operatorname{lkkt}(|G|, |H|) \le |G| \cdot |H|. \]
+          Innen \(\operatorname{lkkt}(|G|, |H|) = |G| \cdot |H|\), vagyis \(\operatorname{lnko}(|G|, |H|) = 1\), és \(o(g) = |G|\), \(o(h) = |H|\). Tehát \(G = \langle g \rangle\) és \(H = \langle h \rangle\) is ciklikus, és \(\operatorname{lnko}(|G|, |H|) = 1\).</li>
+        <li>\((\Leftarrow)\) Ha \(G = \langle g \rangle\), \(H = \langle h \rangle\) és \(\operatorname{lnko}(|G|, |H|) = 1\), akkor \(o(g) = |G|\) és \(o(h) = |H|\), így
+          \[ o((g, h)) = \operatorname{lkkt}(o(g), o(h)) = \operatorname{lkkt}(|G|, |H|) = \frac{|G| \cdot |H|}{\operatorname{lnko}(|G|, |H|)} = |G| \cdot |H| = |G \times H|. \]
+          Tehát \((g, h)\) generálja \(G \times H\)-t, vagyis az ciklikus.</li>
+      </ul>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>\((\mathbb{Z}_{nk}, +) \cong (\mathbb{Z}_n, +) \times (\mathbb{Z}_k, +) \iff (n, k) = 1\).</p>
+      <p><strong>Bizonyítás:</strong> \((\mathbb{Z}_n, +) \times (\mathbb{Z}_k, +)\) ciklikus \(\iff \operatorname{lnko}(n, k) = 1\).</p>
+      </div>
+
+      <h3>A véges Abel-csoportok alaptétele</h3>
+      <div class="note-box"><span class="note-box__label">Tétel</span>
+      <p>Minden véges Abel-csoport felírható prímhatvány rendű ciklikus csoportok direkt szorzataként, ami a tényezők sorrendjétől eltekintve egyértelmű.</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel7/">← 7. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel9/">9. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

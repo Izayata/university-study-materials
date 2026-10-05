@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>16. Tétel — Ideálok, faktorgyűrű, homomorfizmustételek | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="A gyűrűhomomorfizmus, az ideál és a főideál, az ideálok műveletei, a faktorgyűrű, valamint a gyűrűkre vonatkozó I. és II. homomorfizmustétel — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel16/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="16">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 16. tétel</p>
+
+      <h1>16. Tétel — Ideálok, faktorgyűrű, homomorfizmustételek</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a csoportelmélet fogalmait vezeti át a gyűrűkre. Bevezeti a gyűrűhomomorfizmust, az ideált és a faktorgyűrűt, megmutatja, hogy a homomorfizmus magja ideál, és kimondja a gyűrűkre vonatkozó homomorfizmustételeket.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a gyűrűhomomorfizmust, az ideált és a faktorgyűrűt! Mutassa meg, hogy a gyűrűhomomorfizmus magja ideál, ismertesse az ideálok generálását és műveleteit, és mondja ki az I. és II. homomorfizmustételt gyűrűkre!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>Gyűrűhomomorfizmus, kép, mag</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>A \(\varphi : R \to S\) <strong>gyűrűhomomorfizmus</strong>, ha
+      \[ \varphi(r_1 + r_2) = \varphi(r_1) + \varphi(r_2) \quad \text{és} \quad \varphi(r_1 \cdot r_2) = \varphi(r_1) \cdot \varphi(r_2). \]
+      Ha \(\varphi\) bijekció, akkor \(\varphi\) <strong>izomorfizmus</strong> \(R\) és \(S\) között.</p>
+      <p>Egy \(\varphi : R \to S\) homomorfizmus esetén a <strong>kép</strong>: \(\operatorname{Im} \varphi = \{ \varphi(r) \mid r \in R \} \le S\), a <strong>mag</strong>: \(\operatorname{Ker} \varphi = \{ r \in R \mid \varphi(r) = 0 \} \le R\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
+      <p>\(\operatorname{Ker} \varphi \trianglelefteq (R, +)\). Ha \(r \in \operatorname{Ker} \varphi\) és \(t \in R\), akkor
+      \[ \varphi(r \cdot t) = \varphi(r) \cdot \varphi(t) = 0 \cdot \varphi(t) = 0, \]
+      tehát \(r \cdot t \in \operatorname{Ker} \varphi\), és ugyanígy \(t \cdot r \in \operatorname{Ker} \varphi\). Vagyis \(\operatorname{Ker} \varphi\) tartalmazza az összes elemének az összes többszörösét.</p>
+      </div>
+
+      <h3>Ideál</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \(R\) gyűrű. Az \(I \subseteq R\) <strong>ideál</strong>, ha \((I, +) \le (R, +)\), és \(r \cdot a \in I\), \(a \cdot r \in I\) minden \(r \in R\), \(a \in I\) esetén. Jele: \(I \trianglelefteq R\) (mint a normálosztó jele).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>Ha \(\varphi : R \to S\) homomorfizmus, akkor \(\operatorname{Ker} \varphi\) ideál \(R\)-ben: \(\operatorname{Ker} \varphi \trianglelefteq R\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \(1 \in R\) kommutatív gyűrű és \(r \in R\). Az \((r) = \{ s \cdot r \mid s \in R \}\), az \(r\) összes többszöröse az \(r\) által generált <strong>főideál</strong> \(R\)-ben.</p>
+      <p>Legyen \(X \subseteq R\). Az \(X\) által <strong>generált ideál</strong> \(R\)-ben az a legszűkebb ideál, amely tartalmazza \(X\)-et, jele \((X)\):
+      \[ (X) = \bigcap_{X \subseteq I \trianglelefteq R} I. \]</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(1 \in R\) kommutatív és \(X = \{ r_1, r_2, \dots, r_n \}\), akkor \((X) = \{ r_1 \cdot z_1 + r_2 \cdot z_2 + \dots + r_n \cdot z_n \mid z_i \in R \}\).</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>Az ideálok összege és szorzata</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \(A, B \subseteq R\). Ekkor
+      \[ A + B = \{ a + b \mid a \in A,\ b \in B \}, \]
+      \[ A \cdot B = \{ a_1 \cdot b_1 + a_2 \cdot b_2 + \dots + a_n \cdot b_n \mid a_i \in A,\ b_i \in B,\ n \in \mathbb{N} \}. \]</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>Ha \(A, B \le R\), akkor \(A + B \le R\) és \(A \cdot B \le R\). Sőt, ha \(A, B \trianglelefteq R\), akkor \(A + B \trianglelefteq R\) és \(A \cdot B \trianglelefteq R\).</p>
+      </div>
+
+      <h3>Faktorgyűrű</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \(I \trianglelefteq R\). Az \(R / I = \{ r + I \mid r \in R \}\) az \(I\) mellékosztályai az összeadásra nézve.</p>
+      <ul>
+        <li>Összeadás: \((r_1 + I) + (r_2 + I) = r_1 + r_2 + I\); nullelem: \(0 + I = I\); ellentett: \(-(r + I) = -r + I\). Tehát \((R / I, +)\) Abel-csoport.</li>
+        <li>Szorzás: \((r_1 + I)(r_2 + I) = r_1 \cdot r_2 + I\). Tehát \((R / I, \cdot)\) félcsoport.</li>
+      </ul>
+      <p>Így \(R / I\) gyűrű, az \(R\) gyűrű \(I\)-vel vett <strong>faktorgyűrűje</strong>.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
+      <p>A \(\varphi : R \to R / I\), \(\varphi(r) = r + I\) leképezés homomorfizmus, a magja \(I = \operatorname{Ker} \varphi\). Vagyis \(I\) egy alkalmas homomorfizmus magja.</p>
+      </div>
+
+      <h3>A homomorfizmustételek</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — I. homomorfizmustétel</span>
+      <p>Ha \(\varphi : R \to S\) homomorfizmus, akkor \(\operatorname{Im} \varphi \cong R / \operatorname{Ker} \varphi\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — II. homomorfizmustétel</span>
+      <p>Legyen \(\varphi : R \to S\) szürjektív homomorfizmus. Ekkor</p>
+      <ol>
+        <li>ha \(T \le R\), akkor \(\varphi(T) \le S\) és \(\varphi^{-1}(\varphi(T)) = T + \operatorname{Ker} \varphi\),</li>
+        <li>\(R\)-nek a \(\operatorname{Ker} \varphi\)-t tartalmazó részcsoportjai / ideáljai kölcsönösen egyértelmű megfeleltetésben állnak az \(S\) részcsoportjaival / ideáljaival.</li>
+      </ol>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel15/">← 15. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel17/">17. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

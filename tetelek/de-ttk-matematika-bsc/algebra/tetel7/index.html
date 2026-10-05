@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>7. Tétel — Ciklikus csoportok részcsoportjai | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="A ciklikus csoportok részcsoportjainak szerkezete: minden részcsoport ciklikus, a véges ciklikus csoportnak minden osztóhoz egy adott elemszámú részcsoportja van, bizonyítással — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel7/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="7">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 7. tétel</p>
+
+      <h1>7. Tétel — Ciklikus csoportok részcsoportjai</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a ciklikus csoportok részcsoportjait írja le. Megmutatja, hogy ciklikus csoport minden részcsoportja ciklikus, a végtelen ciklikus csoport részcsoportjait és az n elemű ciklikus csoport összes részcsoportját pedig az n osztóival adja meg.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Írja le a ciklikus csoportok részcsoportjainak szerkezetét! Bizonyítsa be, hogy ciklikus csoport minden részcsoportja ciklikus, és hogy egy n elemű ciklikus csoportnak minden d | n esetén egyetlen d elemű részcsoportja van!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>Ciklikus csoport részcsoportjai ciklikusak</h3>
+      <div class="note-box"><span class="note-box__label">Tétel</span>
+      <p>Ciklikus csoport minden részcsoportja ciklikus.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>Legyen \(G = \langle g \rangle\) és \(H \le G\). Ha \(g^k \in H\), akkor \(g^{-k} \in H\) is, mert \(H\) részcsoport.</li>
+        <li>Legyen \(k\) a legkisebb pozitív egész, amelyre \(g^k \in H\).</li>
+        <li>Megmutatjuk, hogy \(H = \langle g^k \rangle\), azaz ha \(g^m \in H\), akkor \(g^m = (g^k)^q\), vagyis \(k \mid m\).</li>
+        <li>Osszuk el \(m\)-et \(k\)-val maradékosan: \(m = k \cdot q + r\), ahol \(0 \le r &lt; k\). Ekkor
+          \[ g^r = g^{m - k \cdot q} = g^m \cdot (g^k)^{-q} \in H. \]</li>
+        <li>Mivel \(k\) a legkisebb ilyen pozitív kitevő, \(r = 0\), tehát \(k \mid m\).</li>
+      </ol></div>
+      </div>
+
+      <h3>A részcsoportok felsorolása</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(G = \langle g \rangle\) végtelen ciklikus csoport, akkor a részcsoportjai \(\langle g^k \rangle\) alakúak, ahol \(k \in \mathbb{N} \cup \{0\}\).</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(G = \langle g \rangle\) és \(|G| = n\), akkor \(G\) részcsoportjai a \(H_d = \langle g^{n/d} \rangle\) alakú részcsoportok minden \(d \mid n\)-re.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>Ha \(H \le G\), akkor a Lagrange-tétel miatt \(|H| \mid |G|\), tehát \(H\) \(d\) elemű valamilyen \(d \mid n\)-re.</li>
+        <li>\(o(g^{n/d}) = \dfrac{n}{(n, \frac{n}{d})} = \dfrac{n}{\frac{n}{d}} = d\), így \(|H_d| = d\).</li>
+        <li>\(d\) rendű elemből \(\varphi(d)\) darab van; ezek \(g^{\frac{n}{d} \cdot r}\) alakúak, ahol \((r, d) = 1\). Mindegyik \(H_d\)-ben van, és így mindegyik generálja \(H_d\)-t.</li>
+        <li>Ha \(K \le G\) és \(|K| = d\), akkor \(K\) ciklikus, tehát egy \(d\) rendű elem generálja. Ezek az elemek viszont \(H_d\)-t generálják, így \(H_d = K\).</li>
+      </ol></div>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel6/">← 6. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel8/">8. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

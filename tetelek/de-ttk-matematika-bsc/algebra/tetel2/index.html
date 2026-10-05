@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>2. Tétel — Csoporthomomorfizmus és izomorfizmus | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="A csoportok közötti művelettartó leképezések: homomorfizmus, izomorfizmus, a kételemű csoportok izomorfiája és a homomorfizmus alaptulajdonságai bizonyítással — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel2/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="2">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 2. tétel</p>
+
+      <h1>2. Tétel — Csoporthomomorfizmus és izomorfizmus</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a csoportok közötti művelettartó leképezésekről szól: bevezeti a homomorfizmust és az izomorfizmust, megmutatja, hogy bármely két kételemű csoport izomorf, és bizonyítja, hogy a homomorfizmus az egységelemet egységelemre, az inverzet pedig inverzre képezi.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a csoportok közötti homomorfizmust és izomorfizmust! Bizonyítsa be, hogy bármely két kételemű csoport izomorf, és hogy a homomorfizmus az egységelemet egységelemre, az inverzet pedig inverzre képezi!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>Homomorfizmus és izomorfizmus</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \((G, \circ)\) és \((H, *)\) két csoport. Egy \(\varphi : G \to H\) leképezést <strong>homomorfizmusnak</strong> nevezünk, ha művelettartó, azaz
+      \[ \varphi(a \circ b) = \varphi(a) * \varphi(b) \qquad \text{minden } a, b \in G \text{ esetén.} \]</p>
+      <p>Ha \(\varphi\) ráadásul bijektív, akkor <strong>izomorfizmus</strong>. Ekkor a két csoport izomorf: \(H \cong G\).</p>
+      </div>
+
+      <h3>A kételemű csoportok izomorfiája</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Bármely két kételemű csoport izomorf.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>Legyen \(H = \{e, a\}\) és \(G = \{u, b\}\), ahol \(e\) és \(u\) az egységelem.</li>
+        <li>Mivel \(a \neq e\), ezért \(a^{-1} \neq e\), vagyis \(a^{-1} = a\). Ugyanígy \(b^{-1} = b\).</li>
+        <li>Ezért a két Cayley-táblázat azonos szerkezetű:
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th>\(*\)</th><th>\(e\)</th><th>\(a\)</th></tr></thead>
+              <tbody>
+                <tr><th>\(e\)</th><td>\(e\)</td><td>\(a\)</td></tr>
+                <tr><th>\(a\)</th><td>\(a\)</td><td>\(e\)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th>\(\circ\)</th><th>\(u\)</th><th>\(b\)</th></tr></thead>
+              <tbody>
+                <tr><th>\(u\)</th><td>\(u\)</td><td>\(b\)</td></tr>
+                <tr><th>\(b\)</th><td>\(b\)</td><td>\(u\)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>A \(\varphi : H \to G\), \(\varphi(e) = u\) (és \(\varphi(a) = b\)) leképezés bijektív és művelettartó, tehát izomorfizmus.</li>
+      </ol></div>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>A homomorfizmus alaptulajdonságai</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(\varphi : G \to H\) homomorfizmus, akkor \(\varphi(e_G) = e_H\).</p>
+      <p><strong>Bizonyítás:</strong>
+      \[ \varphi(e_G) = \varphi(e_G \cdot e_G) = \varphi(e_G) \cdot \varphi(e_G). \]
+      Mindkét oldalt \(\varphi(e_G)^{-1}\)-gyel szorozva \(e_H = \varphi(e_G)\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(\varphi : G \to H\) homomorfizmus, akkor \(\varphi(g^{-1}) = \varphi(g)^{-1}\) minden \(g \in G\) esetén.</p>
+      <p><strong>Bizonyítás:</strong> az előző állítás szerint \(\varphi(e_G) = e_H\), ezért
+      \[ \varphi(g) \cdot \varphi(g^{-1}) = \varphi(g \cdot g^{-1}) = \varphi(e_G) = e_H, \]
+      vagyis \(\varphi(g)^{-1} = \varphi(g^{-1})\).</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel1/">← 1. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel3/">3. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

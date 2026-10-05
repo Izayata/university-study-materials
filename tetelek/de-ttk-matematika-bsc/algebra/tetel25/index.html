@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>25. Tétel — Szabályos sokszögek szerkeszthetősége, Galois-elmélet bevezetése | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="A szögek és a szabályos sokszögek szerkeszthetősége, a körosztási polinom, a cos(2π/n) foka, a Fermat-prímek, a szögek n-edelése és Galois tétele a gyökjelekkel való megoldhatóságról — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel25/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="25">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 25. tétel</p>
+
+      <h1>25. Tétel — Szabályos sokszögek szerkeszthetősége, Galois-elmélet bevezetése</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel az euklideszi szerkeszthetőség elméletét fejezi be. Megmutatja, mely szabályos sokszögek szerkeszthetők, mikor lehet egy szöget n egyenlő részre osztani, végül kimondja Galois tételét arról, mikor fejezhetők ki egy polinom gyökei gyökjelekkel.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Határozza meg a cos(2π/n) fokát ℚ felett, és mondja ki, mely n-re szerkeszthető a szabályos n-szög! Mit mondhatunk a szögek n-edeléséről? Mondja ki Galois tételét a polinomok gyökeinek gyökjelekkel való kifejezhetőségéről!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>Szögek és szabályos sokszögek szerkesztése</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Egy \(\alpha\) szög szerkeszthető \(\iff\) \(\cos \alpha \in \mathbb{R}\) szerkeszthető.</p>
+      <p>A szabályos \(n\)-szög szerkesztése \(\iff\) \(\cos \dfrac{2\pi}{n}\) szerkeszthető.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \(\varepsilon_n = \cos \dfrac{2\pi}{n} + i \sin \dfrac{2\pi}{n}\) az \(n\)-edik primitív egységgyök. Minimálpolinomja a \(\Phi_n(x)\) <strong>\(n\)-edik körosztási polinom</strong>, amelynek foka \(\varphi(n)\):
+      \[ \Phi_n(x) = \frac{x^n - 1}{\prod_{\substack{d \mid n \\ d \neq n}} \Phi_d(x)}. \]</p>
+      </div>
+
+      <h3>A cos(2π/n) foka</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>\([\mathbb{Q}(\cos \frac{2\pi}{n}) : \mathbb{Q}] = \dfrac{\varphi(n)}{2}\).</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>\(\dfrac{\varepsilon_n + \varepsilon_n^{-1}}{2} = \cos \dfrac{2\pi}{n} \in \mathbb{Q}(\varepsilon_n)\), tehát \(\mathbb{Q} \subseteq \mathbb{Q}\left(\cos \frac{2\pi}{n}\right) \subseteq \mathbb{Q}(\varepsilon_n)\).</li>
+        <li>A \(\mathbb{Q}(\varepsilon_n)\) foka \(\varphi(n)\).</li>
+        <li>\((x - \varepsilon_n)(x - \bar{\varepsilon}_n) = x^2 - (\varepsilon_n + \bar{\varepsilon}_n)x + \varepsilon_n \cdot \bar{\varepsilon}_n = x^2 - 2 \cos \dfrac{2\pi}{n} \cdot x + 1 \in \mathbb{Q}\left(\cos \frac{2\pi}{n}\right)[x]\).</li>
+        <li>Ennek a polinomnak \(\varepsilon_n\) gyöke, tehát \(\mathbb{Q}(\varepsilon_n)\) a \(\mathbb{Q}\left(\cos \frac{2\pi}{n}\right)\) másodfokú bővítése.</li>
+        <li>A szorzástételből \([\mathbb{Q}(\cos \frac{2\pi}{n}) : \mathbb{Q}] = \dfrac{\varphi(n)}{2}\).</li>
+      </ol></div>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>A szabályos n-szög szerkeszthetősége</h3>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>\(\cos \dfrac{2\pi}{n}\) szerkeszthető \(\iff\) \(\varphi(n)\) \(2\)-hatvány.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>A szabályos \(n\)-szög szerkeszthető \(\iff\) \(n = 2^k \cdot p_1 \cdot p_2 \cdots p_r\), ahol \(p_1, \dots, p_r\) különböző Fermat-prímek.</p>
+      <p><strong>Bizonyítás:</strong> legyen \(\varphi(n)\) \(2\)-hatvány, \(n = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_r^{\alpha_r}\). Ekkor
+      \[ \varphi(n) = p_1^{\alpha_1 - 1}(p_1 - 1)\, p_2^{\alpha_2 - 1}(p_2 - 1) \cdots p_r^{\alpha_r - 1}(p_r - 1). \]
+      Ez csak úgy lehet \(2\)-hatvány, ha a páratlan prímek kitevője \(1\), és a \(p_i - 1\) is \(2\)-hatvány. Fermat-prím: \(p = 2^{2^t} + 1\); ez \(t = 0, 1, 2, 3, 4\) esetén prím, a többire nem tudjuk.</p>
+      </div>
+
+      <h3>Szögek n-edelése</h3>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>Tetszőleges szöget lehet \(n\)-edelni pontosan akkor, ha \(n\) \(2\)-hatvány.</p>
+      <p><strong>Bizonyítás.</strong></p>
+      <ul>
+        <li>\((\Leftarrow)\) Felezni lehet, így \(2\)-hatványodni is.</li>
+        <li>\((\Rightarrow)\) Ha lehetne \(n\)-edelni, akkor újra \(n\)-edelve lehetne \(n^2\)-edelni is. Így a \(360^\circ\)-ot lehetne \(n^2\)-edelni, vagyis lehetne \(n^2\) oldalú szabályos sokszöget szerkeszteni, tehát \(n\)-ben nem lehet páratlan prím. Vagyis \(n\) \(2\)-hatvány.</li>
+      </ul>
+      </div>
+
+      <h3>Galois tétele</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — Galois</span>
+      <p>Egy \(f \in \mathbb{Q}[x]\) polinom gyökei kifejezhetők a \(+, -, \cdot, /, \sqrt[n]{\ }\) műveletek segítségével \(\iff\) a polinom Galois-csoportja feloldható, azaz van olyan
+      \[ \{e\} = H_0 \trianglelefteq H_1 \trianglelefteq H_2 \trianglelefteq \dots \trianglelefteq H_n = G \]
+      lánc, hogy a \(H_{i+1} / H_i\) faktorcsoportok kommutatívak.</p>
+      </div>
+      <p>A legkisebb nem feloldható csoport az \(A_5\). Ha egy polinom Galois-csoportja \(A_5\) vagy \(S_5\), akkor a polinom nem megoldható gyökjelekkel.</p>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel24/">← 24. tétel</a>
+
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>
