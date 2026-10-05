@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>19. Tétel — Teljes metrikus terek, kontrakció | Analízis | Füles Jegyzetek</title>
+  <meta name="description" content="A Cauchy-sorozat és a teljes metrikus tér, az egymásba foglalt gömbökre vonatkozó tétel, a teljes burok és a kontrakció fogalma, bizonyítással — DE TTK Matematika BSc analízis tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/analizis/tetel19/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a Cauchy-sorozat és a teljes tér definíciója; az egymásba foglalt gömbök tétele (a forrás bizonyítás nélkül mondta ki; itt mindkét irány teljes bizonyítása); a teljes burok tétele (az egyértelműség mellett a létezés is, a forrás csak az egyértelműséget mondta ki; mindkettő bizonyítás nélkül, ismert tétel)
+  - Kiegészítés: konvergens sorozat Cauchy-sorozat, és Cauchy-sorozat konvergens részsorozattal konvergens; ℝ és ℂ teljes; a kontrakció folytonos
+  - Bizonyítás nélkül közölt (ismert tétel): a teljes burok létezése és egyértelműsége
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
+<body data-nav-key="tetelek" data-tetel="19">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/analizis/">Analízis</a> / 19. tétel</p>
+
+      <h1>19. Tétel — Teljes metrikus terek, kontrakció</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a Cauchy-féle konvergenciakritériumot metrikus terekre viszi át. Definiálja a teljes teret, bizonyítja az egymásba foglalt gömbökre vonatkozó jellemzését, kimondja a teljes burokra vonatkozó tételt, és bevezeti a kontrakciót.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a Cauchy-sorozatot és a teljes metrikus teret! Mondja ki és bizonyítsa be az egymásba foglalt zárt gömbökre vonatkozó tételt! Definiálja a metrikus tér teljes burkát, és mondja ki az egyértelműségét! Definiálja a kontrakciót!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>Cauchy-sorozatok és a teljes tér</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Legyen \((X, \rho)\) metrikus tér. Az \((x_n)_{n \in \mathbb{N}}\) sorozat <strong>Cauchy-sorozat</strong>, ha bármely \(\varepsilon &gt; 0\)-hoz van olyan \(N &gt; 0\), hogy minden \(n, m &gt; N\) esetén \(\rho(x_n, x_m) &lt; \varepsilon\). Az \((X, \rho)\) metrikus tér <strong>teljes</strong>, ha benne minden Cauchy-sorozat konvergens is.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Lemma (kiegészítés)</span>
+      <p>(a) Konvergens sorozat Cauchy-sorozat. (b) Ha egy Cauchy-sorozatnak van \(x\)-hez konvergáló részsorozata, akkor a sorozat is \(x\)-hez konvergál. (c) \(\mathbb{R}\) és \(\mathbb{C}\) az abszolút érték metrikájával teljes.</p>
+      <p><strong>Bizonyítás:</strong> (a) Ha \(x_n \to x\), akkor az \(\frac{\varepsilon}{2}\)-höz van \(N\), hogy \(n &gt; N\) esetén \(\rho(x_n, x) &lt; \frac{\varepsilon}{2}\), így \(\rho(x_n, x_m) \le \rho(x_n, x) + \rho(x, x_m) &lt; \varepsilon\). (b) Legyen \(\varepsilon &gt; 0\), \(N_1\) a Cauchy-tulajdonsághoz az \(\frac{\varepsilon}{2}\)-re, és a részsorozat \(x_{k_\ell} \to x\) miatt van \(\ell\), hogy \(k_\ell &gt; N_1\) és \(\rho(x_{k_\ell}, x) &lt; \frac{\varepsilon}{2}\). Ekkor \(n &gt; N_1\) esetén \(\rho(x_n, x) \le \rho(x_n, x_{k_\ell}) + \rho(x_{k_\ell}, x) &lt; \varepsilon\). (c) A 3. és a 7. tétel (Cauchy-féle konvergenciakritérium).</p>
+      </div>
+
+      <h3>Az egymásba foglalt gömbökre vonatkozó tétel</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — egymásba foglalt gömbök (pontosítva)</span>
+      <p>Az \((X, \rho)\) metrikus tér pontosan akkor teljes, ha az \(X\)-ben egymásba foglalt zárt gömbök minden olyan \(B[x_1, r_1] \supseteq B[x_2, r_2] \supseteq \dots\) sorozatának, amelynek sugara nullsorozat (\(r_n \to 0\)), van közös nemüres része.</p>
+      <p><strong>Bizonyítás.</strong></p>
+      <ul>
+        <li>\((\Rightarrow)\) Legyen \(X\) teljes és \(B[x_n, r_n]\) ilyen gömbsorozat. Ha \(m \ge n\), akkor \(x_m \in B[x_m, r_m] \subseteq B[x_n, r_n]\), tehát \(\rho(x_n, x_m) \le r_n\). Mivel \(r_n \to 0\), \((x_n)\) Cauchy-sorozat, így konvergál egy \(x\)-hez. Rögzített \(n\)-re és \(m \ge n\)-re \(\rho(x_n, x) \le \rho(x_n, x_m) + \rho(x_m, x) \le r_n + \rho(x_m, x)\); \(m \to \infty\) esetén \(\rho(x_n, x) \le r_n\), vagyis \(x \in B[x_n, r_n]\) minden \(n\)-re. A metszet tehát nemüres.</li>
+        <li>\((\Leftarrow)\) Legyen \((x_n)\) Cauchy-sorozat. Válasszunk \(n_1 &lt; n_2 &lt; \dots\) indexeket úgy, hogy \(p, q \ge n_k\) esetén \(\rho(x_p, x_q) &lt; 2^{-(k+1)}\). Legyen \(B_k = B[x_{n_k}, 2^{-k}]\).
+          <div class="proof-steps" data-steps><ol>
+            <li>A gömbök egymásba foglaltak: ha \(y \in B_{k+1}\), akkor \(\rho(y, x_{n_k}) \le \rho(y, x_{n_{k+1}}) + \rho(x_{n_{k+1}}, x_{n_k}) &lt; 2^{-(k+1)} + 2^{-(k+1)} = 2^{-k}\), tehát \(y \in B_k\).</li>
+            <li>A sugaruk \(2^{-k} \to 0\), így van közös \(x \in \bigcap B_k\).</li>
+            <li>Ekkor \(\rho(x, x_{n_k}) \le 2^{-k} \to 0\), vagyis az \((x_{n_k})\) részsorozat \(x\)-hez konvergál.</li>
+            <li>A Lemma (b) szerint az egész \((x_n)\) sorozat \(x\)-hez konvergál. Tehát \(X\) teljes.</li>
+          </ol></div>
+        </li>
+      </ul>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>A teljes burok</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Legyen \((X, \rho)\) metrikus tér. Az \((\widetilde{X}, \widetilde{\rho})\) teljes metrikus teret az \((X, \rho)\) <strong>teljes burkának</strong> nevezzük, ha</p>
+      <ul>
+        <li>\((X, \rho)\) az \((\widetilde{X}, \widetilde{\rho})\) altere (\(X \subseteq \widetilde{X}\) és \(\widetilde{\rho}\) az \(X\)-en \(\rho\)),</li>
+        <li>\(X\) mindenütt sűrű az \((\widetilde{X}, \widetilde{\rho})\) metrikus térben.</li>
+      </ul>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — a teljes burok (bizonyítás nélkül)</span>
+      <p>Minden metrikus térnek van teljes burka, és az az \(X\) pontjait fixen hagyó izometriától eltekintve egyértelműen meghatározott.</p>
+      <p>Ez a teljes burok ismert tétele (a konstrukció a Cauchy-sorozatok osztályaira épül); a bizonyítását nem közöljük.</p>
+      </div>
+
+      <h3>Kontrakció</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Legyen \((X, \rho)\) metrikus tér. Az \(A : X \to X\) leképezés <strong>kontrakció</strong>, ha van olyan \(\alpha \in [0, 1[\), hogy \(\rho(A(x), A(y)) \le \alpha \cdot \rho(x, y)\) minden \(x, y \in X\)-re.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Megjegyzés (kiegészítés)</span>
+      <p>Minden kontrakció folytonos: \(\delta = \varepsilon\) jó, mert \(\rho(x, y) &lt; \varepsilon\) esetén \(\rho(A(x), A(y)) \le \alpha \rho(x, y) &lt; \varepsilon\).</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel18/">← 18. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel20/">20. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 /* Study tools for the kidolgozott tételek under
-   /tetelek/de-ttk-matematika-bsc/algebra/ — loaded only on those pages, never
-   site-wide (script.js stays as it is).
+   /tetelek/de-ttk-matematika-bsc/<subject>/ (algebra, analizis) — loaded only
+   on those pages, never site-wide (script.js stays as it is).
 
    Progressive enhancement: every page is a complete article without this
    file. The inline <head> script on those pages adds the "js" class to
@@ -13,12 +13,16 @@
    - stepwise proofs: .proof-steps[data-steps] > ol > li, revealed one by one
    - a "Tudom / Gyakorolnom kell" self-rating at the end of the answer,
      kept in localStorage (per browser, nothing is sent anywhere)
-   - on the Algebra landing page: status badges on the cards, a progress
+   - on a subject's landing page: status badges on the cards, a progress
      summary and a "Véletlen tétel" button */
 (function () {
   "use strict";
 
-  var STORAGE_KEY = "fj-algebra-progress";
+  /* One progress record per subject folder under /tetelek/de-ttk-matematika-bsc/
+     (algebra, analizis, ...), so the subjects don't mix. Algebra keeps the key
+     it was published with, which readers already have saved progress under. */
+  var subject = (window.location.pathname.match(/\/tetelek\/de-ttk-matematika-bsc\/([^\/]+)\//) || [])[1] || "algebra";
+  var STORAGE_KEY = subject === "algebra" ? "fj-algebra-progress" : "fj-" + subject + "-progress";
 
   function readProgress() {
     try {

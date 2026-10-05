@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>2. Tétel — Monotonitás, monoton részsorozat | Analízis | Füles Jegyzetek</title>
+  <meta name="description" content="A monoton sorozat határértéke a szuprémum, illetve az infimum, és annak bizonyítása, hogy minden valós számsorozatnak van monoton részsorozata (csúcsválasztással) — DE TTK Matematika BSc analízis tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/analizis/tetel2/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a monotonitás szigorú és nem szigorú változata; a monoton sorozat határértékének bizonyítása (a környezet, a "c nem felső korlát" lépés és a +∞ eset kifejtve); a monoton részsorozat létezése: a második esetben a kiválasztott részsorozat monoton növő (nem szigorúan), mert csak x_{k_{n+1}} ≥ x_{k_n} biztosított (a forrás szigorúan monoton növőt állított, ami nem következik)
+  - Kiegészítés: a bizonyításból adódó következmények (korlátos monoton sorozat konvergens, minden valós sorozatnak van ℝ̄-ben konvergens részsorozata)
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
+<body data-nav-key="tetelek" data-tetel="2">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/analizis/">Analízis</a> / 2. tétel</p>
+
+      <h1>2. Tétel — Monotonitás, monoton részsorozat</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a monoton sorozatokról szól. Bizonyítja, hogy a monoton növő sorozat határértéke a tagjai halmazának szuprémuma, a csökkenőé az infimuma, majd csúcsok választásával megmutatja, hogy minden valós számsorozatnak van monoton részsorozata.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a monoton sorozatot! Bizonyítsa be, hogy a monoton növő sorozat határértéke a sorozatelemek halmazának szuprémuma (a monoton csökkenőé az infimuma), és hogy minden valós számsorozatnak létezik monoton részsorozata!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>Monoton sorozatok</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Az \((x_n)\) sorozat <strong>monoton növő</strong>, ha minden \(n, m \in \mathbb{N}\), \(n &lt; m\) esetén \(x_n \le x_m\); <strong>monoton csökkenő</strong>, ha \(n &lt; m\) esetén \(x_n \ge x_m\). A <strong>szigorúan</strong> monoton változatban \(x_n &lt; x_m\), illetve \(x_n &gt; x_m\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — monoton sorozat határértéke (pontosítva)</span>
+      <ul>
+        <li>Ha \((x_n)\) monoton növő, akkor \(\displaystyle\lim_{n \to \infty} x_n = \sup \{ x_n \mid n \in \mathbb{N} \} \in \mathbb{R} \cup \{+\infty\}\).</li>
+        <li>Ha \((x_n)\) monoton csökkenő, akkor \(\displaystyle\lim_{n \to \infty} x_n = \inf \{ x_n \mid n \in \mathbb{N} \} \in \mathbb{R} \cup \{-\infty\}\).</li>
+      </ul>
+      <div class="proof-steps" data-steps><ol>
+        <li>Legyen \((x_n)\) monoton növő és \(x = \sup \{ x_n \mid n \in \mathbb{N} \}\) (\(x = +\infty\), ha a halmaz felülről nem korlátos). Ekkor \(x_n \le x\) minden \(n\)-re.</li>
+        <li>Legyen \(U\) az \(x\) tetszőleges környezete. Mindkét esetben van olyan \(c \in \mathbb{R}\), \(c &lt; x\), hogy minden \(y\), amelyre \(c &lt; y \le x\), az \(U\)-ban van (ha \(x \in \mathbb{R}\), akkor \(c = x - \varepsilon\) az \(]x - \varepsilon, x + \varepsilon[ \subseteq U\) intervallumból; ha \(x = +\infty\), akkor \(c = K\) a \(]K, +\infty[ \subseteq U\) intervallumból).</li>
+        <li>Mivel \(c &lt; x = \sup\), a \(c\) nem felső korlátja a sorozatelemekből álló halmaznak, tehát van \(n_0 \in \mathbb{N}\), hogy \(c &lt; x_{n_0}\).</li>
+        <li>Ha \(n &gt; n_0\), akkor a monotonitás miatt \(c &lt; x_{n_0} \le x_n \le x\), tehát \(x_n \in U\). Ez minden \(U\)-ra igaz, vagyis \(x_n \to x\).</li>
+        <li>Ha \((x_n)\) monoton csökkenő, akkor az \(y_n = -x_n\) sorozat monoton növő, így \(y_n \to \sup \{ -x_n \} = -\inf \{ x_n \}\), azaz \(x_n \to \inf \{ x_n \}\).</li>
+      </ol></div>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény (kiegészítés)</span>
+      <p>Egy monoton és korlátos sorozat konvergens; egy felülről nem korlátos, monoton növő sorozat \(+\infty\)-hez tart.</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>Monoton részsorozat</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Az \((x_n)\) sorozat \(k\) indexe <strong>csúcs</strong>, ha minden \(n &gt; k\) esetén \(x_n &lt; x_k\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <p>Minden valós számsorozatnak létezik monoton részsorozata.</p>
+      <p><strong>Bizonyítás:</strong> a csúcsok halmazának számossága szerint két eset van.</p>
+      <ol>
+        <li><em>1. eset:</em> a csúcsok halmaza végtelen. Legyenek a csúcsok \(k_1 &lt; k_2 &lt; \dots\). Mivel \(k_j\) csúcs és \(k_{j+1} &gt; k_j\), \(x_{k_{j+1}} &lt; x_{k_j}\). Tehát \((x_{k_j})\) szigorúan monoton csökkenő részsorozat.</li>
+        <li><em>2. eset:</em> csak véges sok csúcs van. Legyen \(m\) nagyobb minden csúcsnál. Legyen \(k_1 &gt; m\); ez nem csúcs, így van olyan \(k_2 &gt; k_1\), amelyre \(x_{k_2} \ge x_{k_1}\) (a csúcs tagadása). Ha \(k_n &gt; m\)-et már kiválasztottuk, akkor \(k_n\) nem csúcs, így van olyan \(k_{n+1} &gt; k_n\), amelyre \(x_{k_{n+1}} \ge x_{k_n}\), és \(k_{n+1} &gt; m\) is teljesül. Az \((x_{k_n})\) monoton növő (nem szigorúan) részsorozat.</li>
+      </ol>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény (kiegészítés)</span>
+      <p>Minden valós számsorozatnak van olyan részsorozata, amelynek van határértéke \(\overline{\mathbb{R}}\)-ben (egy monoton részsorozat, a fenti tétel szerint). Ezt használja a 3. és a 6. tétel.</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel1/">← 1. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel3/">3. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

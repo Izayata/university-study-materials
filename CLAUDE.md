@@ -79,7 +79,7 @@ not a bug.
 |---|---|---|---|
 | Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/de-ttk-matematika-bsc/jegyzet1/` (added 2026-09-17, see the math-note exception below) and the `kombinatorika-es-grafelmelet/`, `linearis-algebrai-alapozas/` (10 items each), `algebra-es-szamelmelet-alapok/` (7 items), `linearis-algebra-halado/` (12 items) and `mely-bevezetes-az-analizisbe/` (16 items) topic-landing pages (added 2026-09-17, 2026-09-20 and, the last three, 2026-09-21, see the topic-nesting exception below); see also the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | none currently — empty since `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
-| Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) and `/tetelek/de-ttk-matematika-bsc/algebra/tetel1/` (1 of 25 — the interactive, flashcard-style Algebra series added 2026-10-05, see the "Algebra tételek" exception below) |
+| Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) and `/tetelek/de-ttk-matematika-bsc/algebra/tetel1/` (1 of 25 — the interactive, flashcard-style Algebra series added 2026-10-05, see the "Algebra tételek" exception below) and `/tetelek/de-ttk-matematika-bsc/analizis/tetel1/` (1 of 22 — the Analízis series, same shape, added 2026-10-05, see the "Analízis tételek" subsection below) |
 | Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | `/oktatoi/inbpm0315-21/jegyzet1/` (moved here 2026-09-16, renamed from `java-alapok` the same day) `jegyzet2/` (added 2026-09-16, new content) and every later lesson (`jegyzet3/`, `jegyzet4/`, ... — added one per message since 2026-09-19, new content) — all keep the class-session shape, see below, not the template's default |
 
 `Oktatói jegyzetek` (added 2026-09-16) is the site owner's own
@@ -792,8 +792,9 @@ Added 2026-10-05. The first `tetelek/` course outside
 level: `/tetelek/de-ttk-matematika-bsc/` (course landing, one card per
 subject — more subjects are expected, each as its own subfolder) →
 `algebra/` (topic landing) → `tetel1/`–`tetel25/`. The course slug is the
-same one `jegyzetek/` uses, per the reuse-the-slug convention. Only the
-algebra subject exists so far.
+same one `jegyzetek/` uses, per the reuse-the-slug convention. Two subjects
+exist so far: algebra (this section) and `analizis/` (see the "Analízis
+tételek" subsection below, which reuses everything here).
 
 **Source and what's composed.** The owner supplied one LaTeX file with only
 the worked answers ("algebra tételek", ~21 page-based sections, terse
@@ -850,7 +851,9 @@ table of contents). What it adds: a "Kidolgozás megjelenítése" toggle; a
 `<div class="proof-steps" data-steps><ol>…</ol></div>`; a "Tudom /
 Gyakorolnom kell" rating at the end of the answer, kept in
 `localStorage` under `fj-algebra-progress` (per browser, nothing sent
-anywhere); and on the Algebra landing page status badges on the cards,
+anywhere; the key is derived from the subject folder in the URL, so
+`analizis` uses `fj-analizis-progress` and the subjects' progress never
+mix); and on a subject's landing page status badges on the cards,
 a progress line and a "Véletlen tétel" button. A table-of-contents link
 or `#hash` that points into the closed answer opens it first. For a
 new tétel, mark a proof as stepwise with the `proof-steps` wrapper;
@@ -904,6 +907,89 @@ simply became part of the tétel they belong to.
 The pages were generated once from the LaTeX by a throwaway script
 that isn't in the repo; edit the HTML directly from now on.
 
+#### Analízis tételek under `tetelek/de-ttk-matematika-bsc/analizis/`
+
+Added 2026-10-05, the second subject folder of the course, built as a
+copy of the Algebra series' shape: same page shape, same interactivity
+(`study-tools.js`, progress under `fj-analizis-progress`), same landing
+(`data-study-landing` controls, status badges, "Véletlen tétel"), same
+source-note, and — the owner's instruction was "mindenben az algebra
+mappa tartalma adja a vázat" — the Algebra series' *final* text policy
+(the second one above), chosen explicitly when the series was started:
+mistakes are corrected and gaps filled, with every changed box labelled.
+The course landing now has two cards, and `tetelek/index.html`'s course
+card reads "Algebra: 25 tétel. Analízis: 22 tétel."
+
+**Source and what's composed.** One LaTeX file ("analízis tételek", with
+`[cite: N]` markers, which are not published), answers only. As with
+Algebra, **the assistant composed all 22 questions** (formal imperative
+wording, shown with no label); don't call them official exam questions,
+and replace them if the owner supplies the real ones. The source numbers
+its parts, and the metric-space part starts at its "13." heading; that
+numbering is what the assistant assumed the part boundaries to be.
+
+**The 22-way split** (the owner chose the fine split; groups on the
+landing in brackets): Sorozatok (1–7) 1 határérték, részsorozat,
+korlátosság · 2 monotonitás, monoton részsorozat · 3
+Bolzano–Weierstrass, Cauchy-kritérium · 4 műveletek, rendezés, rendőr-elv ·
+5 nevezetes határértékek, geometriai sorozat, az Euler-szám · 6
+torlódási pont, limsup, liminf · 7 komplex számsorozatok; Sorok (8–13) 8
+Cauchy-kritérium, abszolút konvergencia · 9 műveletek, csoportosítás,
+átrendezés · 10 mértani sor, összehasonlító kritériumok · 11 gyök-,
+hányados-, ritkítási kritérium, p-sor · 12 Abel-átalakítás, Dirichlet,
+Leibniz, Abel · 13 sorok szorzása, Mertens; Függvénysorozatok és
+függvénysorok (14–16) 14 egyenletes konvergencia · 15 hatványsorok,
+Cauchy–Hadamard · 16 exp, hiperbolikus és trigonometrikus függvények;
+Metrikus terek (17–20) 17 metrikus tér, folytonosság, átviteli elv · 18
+érintkezési pont, nyílt és zárt halmazok · 19 teljes terek, kontrakció ·
+20 szeparábilis és kompakt terek, Hausdorff; Lineáris és normált terek
+(21–22) 21 vektorterek, alterek, bázis · 22 normált és Banach-terek. Moved
+for the order to need no forward references: the p-series
+`Σ 1/n^α` (with the harmonic series) is in 11, after the condensation
+test it uses, not earlier.
+
+**Labels.** Of the 143 boxes, 137 carry one: 33 "(kiegészítés)", 100
+"(pontosítva)", 4 "(bizonyítás nélkül)"; the other 6 are the owner's text
+unchanged. Each page's head comment lists what on it was changed. **Left
+unproved on purpose**, as standard deep results cited as such: Riemann's
+rearrangement theorem (9), Abel's theorem on the Cauchy product (13),
+existence and uniqueness of the completion of a metric space (19) and
+that a vector space has a basis and a well-defined dimension (21).
+**Left as the source has it:** powers are rational (`t^p = exp(p ln t)`
+needs the logarithm, which the series never introduces), so the p-series
+and `ρ_p` are stated for rational exponents; π is not defined, and
+`e^{iπ} = −1` uses `cos π = −1`, `sin π = 0` as known. Don't add either
+without a fresh ask, same as in `mely-bevezetes-az-analizisbe/`.
+
+**Source mistakes corrected** (not just completed; each is in its page's
+head comment): the condensation test's estimates (the source's
+`σ_{2^n} ≥ x_1 − 2x_2 + …` has a negative constant; now
+`s_{2^{m+1}−1} ≤ t_m` and `s_{2^m} ≥ (t_m + x_1)/2`); `n! ≥ (n/2)^{n/2}`
+holds only for even `n` (now the pairing `k(n+1−k) ≥ n`); the Dirichlet
+test needs the factor sequence to be a monotone null sequence, and the
+Abel block formula is `λ_m σ_m − λ_{n+1} σ_n`; the monotone subsequence
+in the peak lemma is non-strictly increasing; the neighbourhood of `−∞`
+(`]−∞, n[`); vector-space axioms missing commutativity of addition;
+`sin x = (e^{ix} − e^{−ix})/(2i)` (the source lacked the `2i`); a
+Cauchy–Hadamard theorem that said "otherwise divergent" (false on the
+circle) and was stated without proof; a sequential compactness ⟹
+compactness proof that was flawed (now a Lebesgue-number argument, and
+Heine–Borel is proved); the Mertens proof's decisive step. The Bernoulli
+inequality replaces the source's AM–GM steps for the Euler number.
+
+The supplied proofs were written by the assistant, not by the owner or
+the course; the assistant checked that each step cites only earlier
+tételek and that the formulas hold numerically (Bernoulli and the
+monotonicity of `(1 + 1/n)^n` in exact arithmetic, the condensation
+inequalities, the Abel and Dirichlet block bounds, the Cauchy-product
+partial sums, the identities of exp, cosh, sinh, cos and sin on complex
+arguments, the peak lemma on random sequences), which catches a wrong
+formula but not a bad proof. They have **not** been reviewed by a
+mathematician; don't present them as the owner's own notes, and don't
+add more supplied material silently. Like Algebra, the pages were
+generated once by a throwaway script that isn't in the repo; edit the
+HTML directly.
+
 ### Deliberate exception: `jegyzetek/de-ttk-matematika-bsc/jegyzet1` skips Tematika/Gyakorlat/Puffer
 
 Added 2026-09-17. "Analízis alapjai" was converted from a LaTeX source
@@ -939,10 +1025,12 @@ still look like a class session — copy the shape
 ### Source/attribution note on every `de-ttk-matematika-bsc` content page
 
 Added 2026-09-18, extended 2026-10-05: the 25 pages under
-`tetelek/de-ttk-matematika-bsc/algebra/` carry the same element, same
-text and placement (the owner's standing instruction was that anything
-later published in the "Matematika BSc" folders gets it automatically);
-their two landing pages don't, same as the jegyzetek landings.
+`tetelek/de-ttk-matematika-bsc/algebra/` and the 22 under `analizis/`
+carry the same element, same text and placement (the owner's standing
+instruction was that anything later published in the "Matematika BSc"
+folders gets it automatically); their three landing pages (the course
+landing and the two subject landings) don't, same as the jegyzetek
+landings.
 
 Every content item under `jegyzetek/de-ttk-matematika-bsc/`
 (currently: `jegyzet1`, and `kombinatorika-es-grafelmelet/jegyzet1`–

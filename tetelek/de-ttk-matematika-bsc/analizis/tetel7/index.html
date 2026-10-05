@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>7. Tétel — Komplex számsorozatok | Analízis | Füles Jegyzetek</title>
+  <meta name="description" content="A komplex számsorozat határértéke és korlátossága, a konvergencia a valós és a képzetes rész konvergenciájával, a Cauchy-kritérium, a Bolzano–Weierstrass-tétel és a műveletek komplex sorozatokra, bizonyítással — DE TTK Matematika BSc analízis tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/analizis/tetel7/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a határérték definíciója komplex sorozatra (a ℂ̄ = ℂ ∪ {∞} környezetei); "konvergens ⟺ a valós és képzetes rész konvergens" (a forrás csak az egyik irányt mondta ki, mindkettőt bizonyította); a Cauchy-sorozat definíciója (a forrás a valós és képzetes rész Cauchy voltával definiálta; itt |z_n − z_m| < ε, és az egyenértékűség bizonyítva); a Bolzano–Weierstrass-tétel (a részsorozat részsorozatának kiválasztása kimondva); a műveletek (összeg, szorzat, reciprok), a forrás jelölésének (v_n, w_n kétszer szerepelt) rendezésével
+  - Kiegészítés: |Re w|, |Im w| ≤ |w| ≤ |Re w| + |Im w|
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
+<body data-nav-key="tetelek" data-tetel="7">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/analizis/">Analízis</a> / 7. tétel</p>
+
+      <h1>7. Tétel — Komplex számsorozatok</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a valós sorozatok elméletét viszi át a komplex számokra. Megmutatja, hogy egy komplex sorozat pontosan akkor konvergens, ha a valós és a képzetes része az, és ebből levezeti a korlátosságra, a Cauchy-kritériumra, a Bolzano–Weierstrass-tételre és a műveletekre vonatkozó tételeket.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a komplex számsorozat határértékét és korlátosságát! Bizonyítsa be, hogy konvergens sorozat korlátos, hogy egy komplex sorozat pontosan akkor konvergens, ha a valós és a képzetes része az, és hogy a Cauchy-kritérium és a Bolzano–Weierstrass-tétel igaz komplex sorozatokra! Mutassa meg, hogyan viselkedik a határérték a komplex műveletekkel!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>A komplex sorozat határértéke</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>A komplex számsorozat \(z_n = x_n + y_n i\) (\(x_n = \operatorname{Re} z_n\), \(y_n = \operatorname{Im} z_n\) valós sorozatok). A \(\overline{\mathbb{C}} = \mathbb{C} \cup \{\infty\}\) pontjainak környezetei: \(U(z, \varepsilon) = \{ u \in \mathbb{C} \mid |z - u| &lt; \varepsilon \}\) (\(z \in \mathbb{C}\), \(\varepsilon &gt; 0\)), és \(U(\infty, \varepsilon) = \{ u \in \mathbb{C} \mid |u| &gt; \frac{1}{\varepsilon} \}\). A \(z_n\) sorozat határértéke \(z \in \overline{\mathbb{C}}\), ha a \(z\) minden \(U\) környezetére \(z_n \in U\) véges sok kivétellel. Véges \(z\)-re ez azt jelenti, hogy minden \(\varepsilon &gt; 0\)-hoz van \(N &gt; 0\), hogy \(n &gt; N\) esetén \(|z_n - z| &lt; \varepsilon\).</p>
+      <p>A sorozat <strong>korlátos</strong>, ha van \(R &gt; 0\), hogy \(|z_n| &lt; R\) minden \(n\)-re.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Lemma (kiegészítés)</span>
+      <p>Minden \(w = a + b i\) komplex számra \(|a|, |b| \le |w| \le |a| + |b|\).</p>
+      <p><strong>Bizonyítás:</strong> \(|a| = \sqrt{a^2} \le \sqrt{a^2 + b^2} = |w|\), ugyanígy \(|b| \le |w|\); és \((|a| + |b|)^2 = a^2 + b^2 + 2|ab| \ge a^2 + b^2 = |w|^2\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — konvergens sorozat korlátos (pontosítva)</span>
+      <p>Ha \(z_n \to z \in \mathbb{C}\), akkor \((z_n)\) korlátos.</p>
+      <p><strong>Bizonyítás:</strong> az \(U = U(z, 1)\) környezethez van \(N &gt; 0\), hogy \(n &gt; N\) esetén \(z_n \in U\), vagyis \(|z_n| &lt; |z| + 1\). Legyen \(\delta = \max\{ |z_n| \mid n \le N \}\) (véges halmaz maximuma; \(\delta = 0\), ha nincs ilyen \(n\)) és \(R = \max\{ \delta, |z| + 1 \} + 1\). Ekkor minden \(n\)-re \(|z_n| &lt; R\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — korlátosság és konvergencia a valós és képzetes részen (pontosítva)</span>
+      <p>(a) \((z_n)\) pontosan akkor korlátos, ha \((x_n)\) és \((y_n)\) korlátosak. (b) \((z_n)\) pontosan akkor konvergens, ha \((x_n)\) és \((y_n)\) konvergensek, és ekkor \(\lim z_n = \lim x_n + i \lim y_n\).</p>
+      <p><strong>Bizonyítás.</strong></p>
+      <ul>
+        <li>(a) \((\Rightarrow)\) Ha \(|z_n| &lt; K\), akkor a Lemma szerint \(|x_n| \le |z_n| &lt; K\) és \(|y_n| &lt; K\). \((\Leftarrow)\) Ha \(|x_n| &lt; K_1\) és \(|y_n| &lt; K_2\), akkor \(|z_n| \le |x_n| + |y_n| &lt; K_1 + K_2\).</li>
+        <li>(b) \((\Rightarrow)\) Legyen \(z_n \to z = x + yi\) és \(\varepsilon &gt; 0\). Van \(N\), hogy \(n &gt; N\) esetén \(|z_n - z| &lt; \varepsilon\); ekkor \(|x_n - x| \le |z_n - z| &lt; \varepsilon\) és \(|y_n - y| \le |z_n - z| &lt; \varepsilon\). \((\Leftarrow)\) Legyen \(x_n \to x\), \(y_n \to y\). Az \(\frac{\varepsilon}{2}\)-höz van \(N_1\), \(N_2\), hogy \(n &gt; N_1\) esetén \(|x_n - x| &lt; \frac{\varepsilon}{2}\), \(n &gt; N_2\) esetén \(|y_n - y| &lt; \frac{\varepsilon}{2}\). Ha \(n &gt; \max\{N_1, N_2\}\), akkor
+          \[ |z_n - (x + yi)| = |(x_n - x) + (y_n - y) i| \le |x_n - x| + |y_n - y| &lt; \varepsilon. \]</li>
+      </ul>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>Cauchy-sorozatok és a Bolzano–Weierstrass-tétel</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>A \((z_n)\) komplex sorozat <strong>Cauchy-sorozat</strong>, ha minden \(\varepsilon &gt; 0\)-hoz van \(N &gt; 0\), hogy \(n, m &gt; N\) esetén \(|z_n - z_m| &lt; \varepsilon\). Ez egyenértékű azzal, hogy \((x_n)\) és \((y_n)\) Cauchy-sorozatok \(\mathbb{R}\)-ben: a Lemma szerint \(|x_n - x_m|, |y_n - y_m| \le |z_n - z_m| \le |x_n - x_m| + |y_n - y_m|\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — Cauchy-féle konvergenciakritérium ℂ-ben (pontosítva)</span>
+      <p>Egy komplex számsorozat pontosan akkor konvergens, ha Cauchy-sorozat.</p>
+      <p><strong>Bizonyítás:</strong> \((z_n)\) konvergens \(\iff\) \((x_n)\) és \((y_n)\) konvergensek (az előző tétel) \(\iff\) \((x_n)\) és \((y_n)\) Cauchy-sorozatok (a valós Cauchy-kritérium, 3. tétel) \(\iff\) \((z_n)\) Cauchy-sorozat (az előző definíció).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — Bolzano–Weierstrass ℂ-ben (pontosítva)</span>
+      <p>Minden korlátos komplex számsorozatnak létezik konvergens részsorozata.</p>
+      <p><strong>Bizonyítás:</strong> az \((x_n)\) korlátos valós sorozat, ezért van konvergens \((x_{k_n})\) részsorozata. Az \((y_{k_n})\) is korlátos, ezért van konvergens részsorozata, \((y_{k_{\ell_n}})\). Az \((x_{k_{\ell_n}})\) a konvergens \((x_{k_n})\) részsorozata, tehát konvergens. Így \(z_{k_{\ell_n}} = x_{k_{\ell_n}} + y_{k_{\ell_n}} i\) valós és képzetes része is konvergens, vagyis az \((z_n)\) egy konvergens részsorozata.</p>
+      </div>
+
+      <h3>Műveletek komplex sorozatokkal</h3>
+      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <p>Legyen \(z_n \to z\) és \(w_n \to u\) (\(z, u \in \mathbb{C}\)). Ekkor \(z_n + w_n \to z + u\) és \(z_n \cdot w_n \to z \cdot u\). Ha \(z \neq 0\) és \(z_n \neq 0\) minden \(n\)-re, akkor \(\dfrac{1}{z_n} \to \dfrac{1}{z}\), és így \(\dfrac{w_n}{z_n} \to \dfrac{u}{z}\).</p>
+      <p><strong>Bizonyítás.</strong> Legyen \(z_n = a_n + b_n i\), \(w_n = c_n + d_n i\), \(z = a + bi\), \(u = c + di\); a valós és képzetes részek a feltétel szerint \(a_n \to a\), \(b_n \to b\), \(c_n \to c\), \(d_n \to d\).</p>
+      <ul>
+        <li><em>Összeg:</em> \(\operatorname{Re}(z_n + w_n) = a_n + c_n \to a + c\), \(\operatorname{Im}(z_n + w_n) = b_n + d_n \to b + d\) (4. tétel), tehát \(z_n + w_n \to (a + c) + (b + d) i = z + u\).</li>
+        <li><em>Szorzat:</em> \(z_n w_n = (a_n c_n - b_n d_n) + (a_n d_n + b_n c_n) i\), és a valós sorozatok műveleteiről szóló tétel szerint a valós rész \(\to ac - bd\), a képzetes rész \(\to ad + bc\); ez éppen \(z u\).</li>
+        <li><em>Reciprok:</em> \(\dfrac{1}{z_n} = \dfrac{\overline{z_n}}{|z_n|^2} = \dfrac{a_n}{a_n^2 + b_n^2} - \dfrac{b_n}{a_n^2 + b_n^2} i\). Mivel \(a_n^2 + b_n^2 \to a^2 + b^2 \neq 0\) és minden \(a_n^2 + b_n^2 \neq 0\), a valós hányadosok tételéből a valós rész \(\to \dfrac{a}{a^2 + b^2}\), a képzetes rész \(\to \dfrac{-b}{a^2 + b^2}\), vagyis \(\dfrac{1}{z_n} \to \dfrac{\overline{z}}{|z|^2} = \dfrac{1}{z}\). A hányadosra \(\dfrac{w_n}{z_n} = w_n \cdot \dfrac{1}{z_n}\) és a szorzatra vonatkozó rész.</li>
+      </ul>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel6/">← 6. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel8/">8. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

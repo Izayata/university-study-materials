@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>18. Tétel — Érintkezési pont, nyílt és zárt halmazok | Analízis | Füles Jegyzetek</title>
+  <meta name="description" content="Az érintkezési pont és a lezárás tulajdonságai, a torlódási és az izolált pont, a sűrű és a seholsem sűrű halmaz, a szeparábilis tér, a zárt és a nyílt halmaz és kapcsolatuk, bizonyítással — DE TTK Matematika BSc analízis tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/analizis/tetel18/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a lezárás tulajdonságai (a [[M]] ⊆ [M] bizonyításában a forrás B(x_1, r) ∩ M ≠ ∅-ból következtetett B(x, r) ∩ M ≠ ∅-ra, ami nem következik; itt az r_1 = r − ρ(x, x_1) sugarú gömb a háromszög-egyenlőtlenséggel az eredeti gömbben van); a seholsem sűrű halmaz két megfogalmazásának egyenértékűsége (a forrás "vagyis"-sal kötötte össze); a zárt halmazok metszete és uniója (közvetlenül a lezárás tulajdonságaiból, a forrás De Morgan-utalása helyett); a nyílt és zárt halmaz kapcsolata (bizonyítva)
+  - Kiegészítés: a nyílt gömb nyílt, a zárt gömb zárt; x ∈ [M] ⟺ ρ(x, M) = 0
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
+<body data-nav-key="tetelek" data-tetel="18">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/analizis/">Analízis</a> / 18. tétel</p>
+
+      <h1>18. Tétel — Érintkezési pont, nyílt és zárt halmazok</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a metrikus terek topológiai alapfogalmait tárgyalja. Bevezeti az érintkezési pontot és a lezárást, a torlódási és izolált pontot, a sűrű halmazt és a szeparábilis teret, majd a zárt és a nyílt halmazt, és bizonyítja, hogy egy halmaz pontosan akkor nyílt, ha a komplementere zárt.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja az érintkezési pontot, és bizonyítsa be a lezárás tulajdonságait! Definiálja a torlódási és az izolált pontot, a sűrű, a mindenütt sűrű és a seholsem sűrű halmazt és a szeparábilis teret! Definiálja a zárt és a nyílt halmazt, bizonyítsa be, hogy zárt halmazok metszete és véges sok zárt halmaz uniója zárt, és hogy egy halmaz pontosan akkor nyílt, ha a komplementere zárt!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>Érintkezési pont és lezárás</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Legyen \((X, \rho)\) metrikus tér, \(M \subseteq X\), \(x \in X\). Az \(x\) <strong>érintkezési pontja</strong> az \(M\)-nek, ha az \(x\) minden környezetében (azaz minden \(B(x, r)\) gömbben) van legalább egy \(M\)-beli elem. Az \(M\) érintkezési pontjainak halmaza az \(M\) <strong>lezárása</strong>, jele \([M]\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — a lezárás tulajdonságai (pontosítva)</span>
+      <ol>
+        <li>\(M \subseteq [M]\),</li>
+        <li>\([[M]] = [M]\),</li>
+        <li>ha \(M_1 \subseteq M_2\), akkor \([M_1] \subseteq [M_2]\),</li>
+        <li>\([M_1 \cup M_2] = [M_1] \cup [M_2]\).</li>
+      </ol>
+      <p><strong>Bizonyítás.</strong></p>
+      <ul>
+        <li>(1) Ha \(x \in M\) és \(r &gt; 0\), akkor \(x \in B(x, r) \cap M\), tehát \(x \in [M]\).</li>
+        <li>(2) A \([M] \subseteq [[M]]\) az (1) a \([M]\)-re alkalmazva. Fordítva, legyen \(x \in [[M]]\) és \(r &gt; 0\). A \(B(x, r) \cap [M] \neq \emptyset\), legyen \(x_1\) egy eleme, és \(r_1 = r - \rho(x, x_1) &gt; 0\). Ha \(z \in B(x_1, r_1)\), akkor \(\rho(z, x) \le \rho(z, x_1) + \rho(x_1, x) &lt; r_1 + \rho(x_1, x) = r\), tehát \(B(x_1, r_1) \subseteq B(x, r)\). Mivel \(x_1 \in [M]\), \(B(x_1, r_1) \cap M \neq \emptyset\), így \(B(x, r) \cap M \neq \emptyset\). Tehát \(x \in [M]\).</li>
+        <li>(3) Ha \(x \in [M_1]\) és \(r &gt; 0\), akkor \(B(x, r) \cap M_1 \neq \emptyset\), így \(B(x, r) \cap M_2 \neq \emptyset\), vagyis \(x \in [M_2]\).</li>
+        <li>(4) A (3) szerint \([M_1], [M_2] \subseteq [M_1 \cup M_2]\), tehát \([M_1] \cup [M_2] \subseteq [M_1 \cup M_2]\). Fordítva, ha \(x \in [M_1 \cup M_2]\), akkor minden \(r &gt; 0\)-ra \(B(x, r) \cap (M_1 \cup M_2) \neq \emptyset\), vagyis \(B(x, r) \cap M_1 \neq \emptyset\) vagy \(B(x, r) \cap M_2 \neq \emptyset\). Ha \(x \notin [M_1]\) és \(x \notin [M_2]\) volna, akkor volna \(r_1\), \(r_2\), hogy \(B(x, r_1) \cap M_1 = \emptyset\) és \(B(x, r_2) \cap M_2 = \emptyset\), és \(r = \min\{r_1, r_2\}\)-re \(B(x, r) \cap (M_1 \cup M_2) = \emptyset\), ellentmondás. Tehát \(x \in [M_1] \cup [M_2]\).</li>
+      </ul>
+      </div>
+
+      <h3>Torlódási és izolált pont, sűrű halmazok</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Az \(x \in X\) az \(M\) <strong>torlódási pontja</strong>, ha tetszőleges környezete végtelen sok \(M\)-beli elemet tartalmaz. Az \(x\) az \(M\) <strong>izolált pontja</strong>, ha van olyan \(\varepsilon &gt; 0\), hogy \(M \cap B(x, \varepsilon) = \{x\}\) (így \(x \in M\)).</p>
+      <p>Az \(A\) <strong>sűrű</strong> a \(B\) halmazban, ha \(B \subseteq [A]\); speciálisan, ha \(X = [A]\), akkor \(A\) <strong>mindenütt sűrű</strong>. Az \(A\) <strong>seholsem sűrű</strong>, ha egyetlen gömbben sem sűrű. Az \(X\) tér <strong>szeparábilis</strong>, ha van megszámlálható, mindenütt sűrű részhalmaza.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>Az \(A\) pontosan akkor seholsem sűrű, ha minden \(B\) gömbben van olyan \(\widetilde{B}\) gömb, amely az \(A\) egyetlen elemét sem tartalmazza.</p>
+      <p><strong>Bizonyítás:</strong> \((\Rightarrow)\) Legyen \(B = B(x_0, s)\). Mivel \(A\) nem sűrű \(B\)-ben, \(B \not\subseteq [A]\), van \(y \in B \setminus [A]\), és így \(r &gt; 0\), hogy \(B(y, r) \cap A = \emptyset\). Legyen \(r' = \min\{ r, s - \rho(y, x_0) \} &gt; 0\); ekkor \(\widetilde{B} = B(y, r') \subseteq B\) (háromszög-egyenlőtlenség), és \(\widetilde{B} \cap A = \emptyset\). \((\Leftarrow)\) Ha a \(B\) gömbben van az \(A\)-t nem tartalmazó \(\widetilde{B} = B(y, r)\) gömb, akkor \(y \in B\), de \(y \notin [A]\), tehát \(B \not\subseteq [A]\), \(A\) nem sűrű \(B\)-ben.</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>Zárt és nyílt halmazok</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Az \(M \subseteq X\) halmaz <strong>zárt</strong>, ha \(M = [M]\) (az (1) tulajdonság miatt ez \([M] \subseteq M\)). Az \(x\) az \(M\) <strong>belső pontja</strong>, ha van \(r &gt; 0\), hogy \(B(x, r) \subseteq M\). Az \(M\) <strong>nyílt</strong>, ha minden pontja belső pont.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — zárt halmazok metszete és uniója (pontosítva)</span>
+      <p>Tetszőlegesen sok zárt halmaz metszete és véges sok zárt halmaz uniója is zárt.</p>
+      <p><strong>Bizonyítás:</strong> legyen \(M_\alpha\) (\(\alpha \in I \neq \emptyset\)) zárt halmazok családja és \(D = \bigcap M_\alpha\). Ha \(x \in [D]\), akkor a (3) szerint \(x \in [M_\alpha] = M_\alpha\) minden \(\alpha\)-ra, így \(x \in D\); tehát \([D] \subseteq D\), \(D\) zárt. Két zárt halmaz uniójára a (4) szerint \([M_1 \cup M_2] = [M_1] \cup [M_2] = M_1 \cup M_2\); véges sokra indukcióval.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — nyílt és zárt halmaz (pontosítva)</span>
+      <p>Az \(M \subseteq X\) halmaz pontosan akkor nyílt, ha az \(X \setminus M\) halmaz zárt.</p>
+      <p><strong>Bizonyítás.</strong> \((\Rightarrow)\) Legyen \(M\) nyílt és \(x \in M\). Van \(r &gt; 0\), hogy \(B(x, r) \subseteq M\), vagyis \(B(x, r) \cap (X \setminus M) = \emptyset\), így \(x \notin [X \setminus M]\). Tehát \([X \setminus M] \subseteq X \setminus M\), azaz zárt. \((\Leftarrow)\) Legyen \(X \setminus M\) zárt és \(x \in M\). Ekkor \(x \notin X \setminus M = [X \setminus M]\), tehát van \(r &gt; 0\), hogy \(B(x, r) \cap (X \setminus M) = \emptyset\), vagyis \(B(x, r) \subseteq M\). Így \(x\) belső pont, \(M\) nyílt.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás (kiegészítés)</span>
+      <p>A nyílt gömb nyílt, a zárt gömb zárt.</p>
+      <p><strong>Bizonyítás:</strong> ha \(z \in B(x_0, r)\), akkor \(r' = r - \rho(z, x_0) &gt; 0\), és \(B(z, r') \subseteq B(x_0, r)\) (háromszög-egyenlőtlenség), tehát a nyílt gömb nyílt. A zárt \(B[x_0, r]\) komplementere nyílt: ha \(\rho(y, x_0) &gt; r\), akkor \(B(y, \rho(y, x_0) - r) \cap B[x_0, r] = \emptyset\), mert egy közös \(z\)-re \(\rho(y, x_0) \le \rho(y, z) + \rho(z, x_0) &lt; \rho(y, x_0) - r + r\) volna.</p>
+      </div>
+
+      <h3>Távolság</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Az \(x\) pont \(M\)-től mért távolsága \(\rho(x, M) = \inf_{a \in M} \rho(x, a)\); az \(A\) és \(B\) halmaz távolsága \(\rho(A, B) = \inf_{a \in A, b \in B} \rho(a, b)\) (\(M, A, B \neq \emptyset\)).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Megjegyzés (kiegészítés)</span>
+      <p>\(x \in [M] \iff \rho(x, M) = 0\): az \(x\) pontosan akkor érintkezési pont, ha minden \(r &gt; 0\)-ra van \(a \in M\), \(\rho(x, a) &lt; r\), vagyis ha az infimum \(0\).</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel17/">← 17. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel19/">19. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

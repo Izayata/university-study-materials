@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>14. Tétel — Függvénysorozatok és függvénysorok, egyenletes konvergencia | Analízis | Füles Jegyzetek</title>
+  <meta name="description" content="A függvénysorozat pontonkénti és egyenletes konvergenciája, a Cauchy-féle konvergenciakritérium függvénysorozatokra és függvénysorokra, valamint a Weierstrass-féle elégséges feltétel bizonyítással — DE TTK Matematika BSc analízis tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/analizis/tetel14/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: az egyenletes konvergencia definíciója (az indexküszöböt a forrás δ-val jelölte, itt N); a Cauchy-kritérium bizonyítása (az ⟸ irányban rögzített n mellett m → ∞ határátmenet, a forrás zavaros lim|f_n − f_n| sora helyett); a függvénysor és a függvénysorra vonatkozó Cauchy-kritérium (a függvénysorozat kritériumából levezetve); a Weierstrass-kritérium bizonyítása (a forrás bizonyítás nélkül mondta ki)
+  - Kiegészítés: az egyenletes konvergencia maga után vonja a pontonkénti konvergenciát, a megfordítás nem igaz (példa: x^n a [0, 1[ intervallumon)
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
+<body data-nav-key="tetelek" data-tetel="14">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/analizis/">Analízis</a> / 14. tétel</p>
+
+      <h1>14. Tétel — Függvénysorozatok és függvénysorok, egyenletes konvergencia</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a sorozatok és sorok elméletét függvényekre általánosítja. Megkülönbözteti a pontonkénti és az egyenletes konvergenciát, bizonyítja a Cauchy-féle konvergenciakritériumot függvénysorozatokra és függvénysorokra, és a Weierstrass-féle kritériummal egyszerű feltételt ad az egyenletes konvergenciára.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a függvénysorozat pontonkénti és egyenletes konvergenciáját! Mondja ki és bizonyítsa be a Cauchy-féle konvergenciakritériumot függvénysorozatok és függvénysorok egyenletes konvergenciájára, és bizonyítsa be a Weierstrass-féle elégséges feltételt!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>Pontonkénti és egyenletes konvergencia</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Legyen \(X \neq \emptyset\), és minden \(n \in \mathbb{N}\)-re \(f_n : X \to \mathbb{C}\) függvény (a valós értékű függvények a speciális eset). Az \((f_n)\) <strong>függvénysorozat</strong> az \(x \in X\) pontban konvergens, ha az \((f_n(x))\) számsorozat konvergens. Ha minden \(x \in H \subseteq X\) pontban konvergens, akkor a \(H\) halmazon <strong>pontonként konvergens</strong>, és az \((f_n)\) pontonként konvergál az \(f : H \to \mathbb{C}\) <strong>határfüggvényhez</strong>, ha \(\lim_{n \to \infty} f_n(x) = f(x)\) minden \(x \in H\)-ra.</p>
+      <p>Legyen \(\emptyset \neq H \subseteq X\). Az \((f_n)\) függvénysorozat a \(H\) halmazon <strong>egyenletesen konvergál</strong> az \(f : H \to \mathbb{C}\) függvényhez, ha minden \(\varepsilon &gt; 0\)-hoz van olyan \(N &gt; 0\), hogy ha \(n \in \mathbb{N}\), \(n &gt; N\), akkor \(|f_n(x) - f(x)| &lt; \varepsilon\) teljesül <em>minden</em> \(x \in H\) esetén.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Megjegyzés (kiegészítés)</span>
+      <p>Az egyenletes konvergencia maga után vonja a pontonkéntit (az \(N\) csak \(\varepsilon\)-tól függ, nem \(x\)-től). A megfordítás nem igaz: az \(f_n(x) = x^n\) függvények a \(H = [0, 1[\) halmazon pontonként \(0\)-hoz tartanak (5. tétel), de nem egyenletesen. Ugyanis az \(\varepsilon = \frac{1}{2}\)-hez bármely \(n\)-re az \(x_n = 2^{-1/n} \in [0, 1[\) pontban \(f_n(x_n) = \frac{1}{2}\), vagyis \(|f_n(x_n) - 0| \not&lt; \frac{1}{2}\).</p>
+      </div>
+
+      <h3>A Cauchy-féle konvergenciakritérium függvénysorozatokra</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — Cauchy-kritérium függvénysorozatokra (pontosítva)</span>
+      <p>Az \((f_n)\) függvénysorozat pontosan akkor konvergál egyenletesen a \(H\) halmazon (valamely határfüggvényhez), ha minden \(\varepsilon &gt; 0\)-hoz van olyan \(N &gt; 0\), hogy ha \(n, m \in \mathbb{N}\), \(n, m &gt; N\), akkor \(|f_n(x) - f_m(x)| &lt; \varepsilon\) minden \(x \in H\) esetén.</p>
+      <p><strong>Bizonyítás.</strong></p>
+      <ul>
+        <li>\((\Rightarrow)\) Legyen \(f_n \to f\) egyenletesen \(H\)-n és \(\varepsilon &gt; 0\). Az \(\frac{\varepsilon}{2}\)-höz van \(N\), hogy \(n &gt; N\) esetén \(|f_n(x) - f(x)| &lt; \frac{\varepsilon}{2}\) minden \(x \in H\)-ra. Ha \(n, m &gt; N\), akkor \(|f_n(x) - f_m(x)| \le |f_n(x) - f(x)| + |f(x) - f_m(x)| &lt; \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon\).</li>
+        <li>\((\Leftarrow)\) Rögzített \(x \in H\)-ra \((f_n(x))\) Cauchy-sorozat, tehát konvergens (7. tétel). Legyen \(f(x) = \lim_{n \to \infty} f_n(x)\). Legyen \(\varepsilon &gt; 0\), és \(N\) az \(\frac{\varepsilon}{2}\)-höz a feltételben. Rögzített \(n &gt; N\) és \(x \in H\) mellett \(|f_n(x) - f_m(x)| &lt; \frac{\varepsilon}{2}\) minden \(m &gt; N\)-re; \(m \to \infty\) esetén (4. tétel, konvergencia és rendezés) \(|f_n(x) - f(x)| \le \frac{\varepsilon}{2} &lt; \varepsilon\). Ez minden \(n &gt; N\)-re és \(x \in H\)-ra igaz, vagyis \(f_n \to f\) egyenletesen.</li>
+      </ul>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>Függvénysorok</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Legyen \(X \neq \emptyset\) és \(f_n : X \to \mathbb{C}\) függvények. A \(\sum_{n=1}^{\infty} f_n\) <strong>függvénysor</strong> a \(\sigma_n(x) = f_1(x) + \dots + f_n(x)\) részletösszeg-függvények sorozata; a sor pontonként, illetve egyenletesen konvergál (a \(H\) halmazon), ha a \((\sigma_n)\) függvénysorozat ilyen.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — Cauchy-kritérium függvénysorokra (pontosítva)</span>
+      <p>A \(\sum f_n\) függvénysor pontosan akkor konvergál egyenletesen a \(\emptyset \neq H \subseteq X\) halmazon, ha minden \(\varepsilon &gt; 0\)-hoz van olyan \(N &gt; 0\), hogy ha \(n, m \in \mathbb{N}\), \(m &gt; n &gt; N\), akkor
+      \[ \left| \sum_{k=n+1}^{m} f_k(x) \right| &lt; \varepsilon \quad \text{minden } x \in H \text{ esetén.} \]</p>
+      <p><strong>Bizonyítás:</strong> \(\sigma_m(x) - \sigma_n(x) = \sum_{k=n+1}^{m} f_k(x)\), így az állítás a \((\sigma_n)\) függvénysorozatra felírt Cauchy-kritérium (a szimmetria miatt elég \(m &gt; n\)-re).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — Weierstrass-féle elégséges feltétel (pontosítva)</span>
+      <p>Legyen \(X \neq \emptyset\), \(f_n : X \to \mathbb{C}\), \(\emptyset \neq H \subseteq X\), és \(\sum c_n\) konvergens nemnegatív tagú valós sor, amelyre \(|f_n(x)| \le c_n\) teljesül minden \(x \in H\), \(n \in \mathbb{N}\) esetén. Ekkor a \(\sum f_n\) függvénysor egyenletesen konvergens a \(H\) halmazon (és minden \(x \in H\)-ban abszolút konvergens).</p>
+      <p><strong>Bizonyítás:</strong> a \(\sum c_n\) konvergens, így a Cauchy-kritérium szerint minden \(\varepsilon &gt; 0\)-hoz van \(N\), hogy \(m &gt; n &gt; N\) esetén \(\sum_{k=n+1}^{m} c_k &lt; \varepsilon\). Ekkor minden \(x \in H\)-ra
+      \[ \left| \sum_{k=n+1}^{m} f_k(x) \right| \le \sum_{k=n+1}^{m} |f_k(x)| \le \sum_{k=n+1}^{m} c_k &lt; \varepsilon. \]
+      A függvénysorokra vonatkozó Cauchy-kritérium szerint a sor egyenletesen konvergens. Az abszolút konvergencia az összehasonlító kritériumból (10. tétel) adódik.</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel13/">← 13. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel15/">15. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

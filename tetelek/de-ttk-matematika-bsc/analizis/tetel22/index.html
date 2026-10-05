@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>22. Tétel — Normált terek, Banach-terek | Analízis | Füles Jegyzetek</title>
+  <meta name="description" content="A norma és a normált tér, a normából származó metrika, és a Banach-tér fogalma bizonyítással — DE TTK Matematika BSc analízis tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/analizis/tetel22/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a norma és a Banach-tér definíciója (a normából származó metrika megadása és ellenőrzése, mert a forrás hivatkozott rá, de nem adta meg)
+  - Kiegészítés: a normából származó metrika bizonyítása; példa: ℝ és ℂ az abszolút értékkel Banach-tér
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
+<body data-nav-key="tetelek" data-tetel="22">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/analizis/">Analízis</a> / 22. tétel</p>
+
+      <h1>22. Tétel — Normált terek, Banach-terek</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a lineáris terek és a metrikus terek elméletét kapcsolja össze. Definiálja a normát és a normált teret, megmutatja, hogy a norma metrikát határoz meg, és ezzel értelmezi a Banach-teret, a teljes normált teret.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a normát és a normált teret! Bizonyítsa be, hogy a norma metrikát határoz meg, és definiálja a Banach-teret! Mutasson példát Banach-térre!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>A norma és a normált tér</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Legyen \(X\) lineáris tér az \(\mathbb{F} \in \{ \mathbb{R}, \mathbb{C} \}\) test felett. A \(\|\cdot\| : X \to \mathbb{R}\) leképezést <strong>normának</strong> nevezzük, ha</p>
+      <ul>
+        <li>minden \(x \in X\) esetén \(\|x\| \ge 0\) és \(\|x\| = 0 \iff x = 0\),</li>
+        <li>tetszőleges \(x \in X\) és \(\lambda \in \mathbb{F}\) esetén \(\|\lambda \cdot x\| = |\lambda| \cdot \|x\|\),</li>
+        <li>minden \(x, y \in X\) esetén \(\|x + y\| \le \|x\| + \|y\|\).</li>
+      </ul>
+      <p>Az \(X\) lineáris teret <strong>normált térnek</strong> nevezzük, ha értelmezve van rajta egy norma.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás (kiegészítés)</span>
+      <p>Normált térben a \(\rho(x, y) = \|x - y\|\) metrika, vagyis a norma metrikát határoz meg.</p>
+      <p><strong>Bizonyítás:</strong> \(\rho(x, y) = \|x - y\| \ge 0\), és \(= 0 \iff x - y = 0 \iff x = y\). A szimmetria: \(\|y - x\| = \|(-1) \cdot (x - y)\| = |-1| \cdot \|x - y\| = \|x - y\|\). A háromszög-egyenlőtlenség: \(\rho(x, z) = \|(x - y) + (y - z)\| \le \|x - y\| + \|y - z\| = \rho(x, y) + \rho(y, z)\).</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>A Banach-tér</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Az \(X\) normált tér <strong>Banach-tér</strong>, ha teljes metrikus tér a normából származó \(\rho(x, y) = \|x - y\|\) metrikával, azaz minden Cauchy-sorozata konvergens (19. tétel).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Példa (kiegészítés)</span>
+      <p>Az \(\mathbb{R}\) (a \(\mathbb{R}\) test felett) és a \(\mathbb{C}\) (a \(\mathbb{C}\) test felett) az abszolút értékkel normált tér: \(|x| \ge 0\), \(|x| = 0 \iff x = 0\), \(|\lambda x| = |\lambda| |x|\), \(|x + y| \le |x| + |y|\). A normából származó metrika \(|x - y|\), és mindkét tér teljes (3. és 7. tétel). Tehát \(\mathbb{R}\) és \(\mathbb{C}\) Banach-tér.</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel21/">← 21. tétel</a>
+
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

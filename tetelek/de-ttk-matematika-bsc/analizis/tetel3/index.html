@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>3. Tétel — Bolzano–Weierstrass-tétel, Cauchy-kritérium | Analízis | Füles Jegyzetek</title>
+  <meta name="description" content="A Bolzano–Weierstrass-féle kiválasztási tétel, a Cauchy-sorozat és a Cauchy-féle konvergenciakritérium valós számsorozatokra, bizonyítással — DE TTK Matematika BSc analízis tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/analizis/tetel3/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a Bolzano–Weierstrass-tétel bizonyítása (a forrás csak kimondta, itt a 2. tételből levezetve: monoton részsorozat + korlátosság); a Cauchy-sorozat definíciója; a Cauchy-kritérium bizonyítása (a korlátosság lépése a forrás zavaros "n_0 a legkisebb…" sora helyett, a végső becslésnél egyetlen N elég)
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
+<body data-nav-key="tetelek" data-tetel="3">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/analizis/">Analízis</a> / 3. tétel</p>
+
+      <h1>3. Tétel — Bolzano–Weierstrass-tétel, Cauchy-kritérium</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel két alapvető eszközt ad a sorozatok konvergenciájának vizsgálatához. Kimondja és bizonyítja a Bolzano–Weierstrass-féle kiválasztási tételt, majd belőle levezeti a Cauchy-féle konvergenciakritériumot: egy valós számsorozat pontosan akkor konvergens, ha Cauchy-sorozat.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Mondja ki és bizonyítsa be a Bolzano–Weierstrass-féle kiválasztási tételt! Definiálja a Cauchy-sorozatot, és bizonyítsa be a Cauchy-féle konvergenciakritériumot: egy valós számsorozat pontosan akkor konvergens, ha Cauchy-sorozat!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>A Bolzano–Weierstrass-tétel</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — Bolzano–Weierstrass (pontosítva)</span>
+      <p>Minden korlátos valós számsorozatnak létezik konvergens részsorozata.</p>
+      <p><strong>Bizonyítás:</strong> a 2. tétel szerint az \((x_n)\) sorozatnak van monoton részsorozata. Ez is korlátos (a korlát az eredeti sorozaté), tehát monoton és korlátos, ezért konvergens (2. tétel következménye). \(\square\)</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>A Cauchy-féle konvergenciakritérium</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Az \((x_n)\) valós számsorozat <strong>Cauchy-sorozat</strong>, ha minden \(\varepsilon &gt; 0\)-hoz van olyan \(N &gt; 0\), hogy ha \(n, m \in \mathbb{N}\), \(n, m &gt; N\), akkor \(|x_n - x_m| &lt; \varepsilon\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — Cauchy-féle konvergenciakritérium (pontosítva)</span>
+      <p>Egy valós számsorozat pontosan akkor konvergens, ha Cauchy-sorozat.</p>
+      <p><strong>Bizonyítás.</strong></p>
+      <ul>
+        <li>\((\Rightarrow)\) Legyen \(x_n \to x\) és \(\varepsilon &gt; 0\) tetszőleges. Az \(\frac{\varepsilon}{2}\)-höz van olyan \(N &gt; 0\), hogy \(n &gt; N\) esetén \(|x_n - x| &lt; \frac{\varepsilon}{2}\). Ha \(n, m &gt; N\), akkor
+          \[ |x_n - x_m| = |(x_n - x) + (x - x_m)| \le |x_n - x| + |x - x_m| &lt; \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon. \]
+          Tehát \((x_n)\) Cauchy-sorozat.</li>
+        <li>\((\Leftarrow)\) Legyen \((x_n)\) Cauchy-sorozat.
+          <div class="proof-steps" data-steps><ol>
+            <li><strong>Korlátos.</strong> Az \(\varepsilon = 1\)-hez van \(N &gt; 0\), hogy \(n, m &gt; N\) esetén \(|x_n - x_m| &lt; 1\). Legyen \(n_0 &gt; N\) egy tetszőleges index; ekkor minden \(n &gt; N\)-re \(x_n \in ]x_{n_0} - 1, x_{n_0} + 1[\). Így \(\{ x_n \mid n \in \mathbb{N} \} \subseteq \{ x_n \mid n \le N \} \cup ]x_{n_0} - 1, x_{n_0} + 1[\), egy véges és egy korlátos halmaz uniója, tehát korlátos.</li>
+            <li><strong>Konvergens részsorozat.</strong> A Bolzano–Weierstrass-tétel szerint van olyan \((x_{k_\ell})_{\ell \in \mathbb{N}}\) részsorozat, hogy \(x_{k_\ell} \to x \in \mathbb{R}\).</li>
+            <li><strong>A teljes sorozat is \(x\)-hez tart.</strong> Legyen \(\varepsilon &gt; 0\). Az \(\frac{\varepsilon}{2}\)-höz van olyan \(N_1 &gt; 0\), hogy \(n, m &gt; N_1\) esetén \(|x_n - x_m| &lt; \frac{\varepsilon}{2}\). A részsorozat konvergenciája és \(k_\ell \ge \ell\) miatt van olyan \(\ell\), hogy \(k_\ell &gt; N_1\) és \(|x_{k_\ell} - x| &lt; \frac{\varepsilon}{2}\).</li>
+            <li>Ekkor minden \(n &gt; N_1\)-re
+              \[ |x_n - x| = |(x_n - x_{k_\ell}) + (x_{k_\ell} - x)| \le |x_n - x_{k_\ell}| + |x_{k_\ell} - x| &lt; \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon. \]
+              Tehát \(x_n \to x\), a sorozat konvergens.</li>
+          </ol></div>
+        </li>
+      </ul>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel2/">← 2. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel4/">4. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>
