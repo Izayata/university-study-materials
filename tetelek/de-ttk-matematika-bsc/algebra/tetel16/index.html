@@ -28,6 +28,12 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 </head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a kép és a mag részgyűrű, a mag ideál (bizonyítással); az ideál definíciója (a forrás ∀t jelölését r-re javítva); az ideálok összege és szorzata (a forrás "A, B ≤ R ⟹ A + B ≤ R, A·B ≤ R" állítása részgyűrűkre hamis, például ℚ[x, y]-ban ℚ[x] és ℚ[y] összege nem zárt a szorzásra; additív részcsoportokra és ideálokra mondjuk ki és bizonyítjuk); a faktorgyűrű (a szorzás jóldefiniáltsága és a gyűrűaxiómák); az I. és a II. homomorfizmustétel bizonyítása (a "részcsoportjai" helyett részgyűrűi és ideáljai)
+  - Kiegészítés: a főideál ideál; az ideálok metszete ideál; a generált ideál leírása bizonyítással; a mag normalitása additív csoportként
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
 <body data-nav-key="tetelek" data-tetel="16">
   <div id="site-header"></div>
 
@@ -40,7 +46,7 @@
       <p class="item-meta">Frissítve: 2026-10-05</p>
 
       <p>
-        Ez a tétel a csoportelmélet fogalmait vezeti át a gyűrűkre. Bevezeti a gyűrűhomomorfizmust, az ideált és a faktorgyűrűt, megmutatja, hogy a homomorfizmus magja ideál, és kimondja a gyűrűkre vonatkozó homomorfizmustételeket.
+        Ez a tétel a csoportelmélet fogalmait vezeti át a gyűrűkre. Bevezeti a gyűrűhomomorfizmust, az ideált és a faktorgyűrűt, megmutatja, hogy a homomorfizmus magja ideál, és bizonyítja a gyűrűkre vonatkozó homomorfizmustételeket.
       </p>
 
       <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
@@ -50,39 +56,45 @@
 
       <h2>A tétel kérdése</h2>
       <blockquote class="tetel-question">
-        <p>Definiálja a gyűrűhomomorfizmust, az ideált és a faktorgyűrűt! Mutassa meg, hogy a gyűrűhomomorfizmus magja ideál, ismertesse az ideálok generálását és műveleteit, és mondja ki az I. és II. homomorfizmustételt gyűrűkre!</p>
+        <p>Definiálja a gyűrűhomomorfizmust, az ideált és a faktorgyűrűt! Mutassa meg, hogy a gyűrűhomomorfizmus magja ideál, ismertesse az ideálok generálását és műveleteit, és mondja ki és bizonyítsa be az I. és II. homomorfizmustételt gyűrűkre!</p>
       </blockquote>
 
       <div class="tetel-answer" id="tetel-kidolgozas">
       <h2>Kidolgozás</h2>
 
       <h3>Gyűrűhomomorfizmus, kép, mag</h3>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
       <p>A \(\varphi : R \to S\) <strong>gyűrűhomomorfizmus</strong>, ha
       \[ \varphi(r_1 + r_2) = \varphi(r_1) + \varphi(r_2) \quad \text{és} \quad \varphi(r_1 \cdot r_2) = \varphi(r_1) \cdot \varphi(r_2). \]
-      Ha \(\varphi\) bijekció, akkor \(\varphi\) <strong>izomorfizmus</strong> \(R\) és \(S\) között.</p>
-      <p>Egy \(\varphi : R \to S\) homomorfizmus esetén a <strong>kép</strong>: \(\operatorname{Im} \varphi = \{ \varphi(r) \mid r \in R \} \le S\), a <strong>mag</strong>: \(\operatorname{Ker} \varphi = \{ r \in R \mid \varphi(r) = 0 \} \le R\).</p>
+      Ha \(\varphi\) bijekció, akkor \(\varphi\) <strong>izomorfizmus</strong> \(R\) és \(S\) között (\(R \cong S\)).</p>
+      <p>Egy \(\varphi : R \to S\) homomorfizmus esetén a <strong>kép</strong>: \(\operatorname{Im} \varphi = \{ \varphi(r) \mid r \in R \}\), a <strong>mag</strong>: \(\operatorname{Ker} \varphi = \{ r \in R \mid \varphi(r) = 0 \}\). Az összeadásra \(\varphi\) csoporthomomorfizmus, ezért \(\varphi(0) = 0\), \(\varphi(-r) = -\varphi(r)\) (2. tétel).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
-      <p>\(\operatorname{Ker} \varphi \trianglelefteq (R, +)\). Ha \(r \in \operatorname{Ker} \varphi\) és \(t \in R\), akkor
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>\(\operatorname{Im} \varphi \le S\) (részgyűrű), és \(\operatorname{Ker} \varphi \le R\) (részgyűrű); továbbá ha \(r \in \operatorname{Ker} \varphi\) és \(t \in R\), akkor \(r \cdot t, t \cdot r \in \operatorname{Ker} \varphi\).</p>
+      <p><strong>Bizonyítás:</strong> a kép: \(\varphi(a) + \varphi(b) = \varphi(a + b)\), \(-\varphi(a) = \varphi(-a)\), \(\varphi(a) \cdot \varphi(b) = \varphi(a \cdot b)\) mind a képhez tartozik, és \(0 = \varphi(0)\) is. A mag: \(0 \in \operatorname{Ker} \varphi\); ha \(r, r' \in \operatorname{Ker} \varphi\), akkor \(\varphi(r + r') = 0\), \(\varphi(-r) = 0\). Ha \(r \in \operatorname{Ker} \varphi\), \(t \in R\), akkor
       \[ \varphi(r \cdot t) = \varphi(r) \cdot \varphi(t) = 0 \cdot \varphi(t) = 0, \]
-      tehát \(r \cdot t \in \operatorname{Ker} \varphi\), és ugyanígy \(t \cdot r \in \operatorname{Ker} \varphi\). Vagyis \(\operatorname{Ker} \varphi\) tartalmazza az összes elemének az összes többszörösét.</p>
+      tehát \(r \cdot t \in \operatorname{Ker} \varphi\), és ugyanígy \(t \cdot r \in \operatorname{Ker} \varphi\) (a 15. tétel (1) szabálya szerint). Speciálisan a mag zárt a szorzásra, tehát részgyűrű. Vagyis \(\operatorname{Ker} \varphi\) tartalmazza az összes elemének az összes többszörösét.</p>
       </div>
 
       <h3>Ideál</h3>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
       <p>Legyen \(R\) gyűrű. Az \(I \subseteq R\) <strong>ideál</strong>, ha \((I, +) \le (R, +)\), és \(r \cdot a \in I\), \(a \cdot r \in I\) minden \(r \in R\), \(a \in I\) esetén. Jele: \(I \trianglelefteq R\) (mint a normálosztó jele).</p>
       </div>
       <div class="note-box"><span class="note-box__label">Következmény</span>
-      <p>Ha \(\varphi : R \to S\) homomorfizmus, akkor \(\operatorname{Ker} \varphi\) ideál \(R\)-ben: \(\operatorname{Ker} \varphi \trianglelefteq R\).</p>
+      <p>Ha \(\varphi : R \to S\) homomorfizmus, akkor \(\operatorname{Ker} \varphi\) ideál \(R\)-ben: \(\operatorname{Ker} \varphi \trianglelefteq R\) (az előző állítás szerint).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
-      <p>Legyen \(1 \in R\) kommutatív gyűrű és \(r \in R\). Az \((r) = \{ s \cdot r \mid s \in R \}\), az \(r\) összes többszöröse az \(r\) által generált <strong>főideál</strong> \(R\)-ben.</p>
+      <div class="note-box"><span class="note-box__label">Állítás (kiegészítés)</span>
+      <p>Ideálok tetszőleges nemüres családjának metszete ideál.</p>
+      <p><strong>Bizonyítás:</strong> az additív részcsoport a 8. tétel szerint; ha \(a\) minden \(I_j\)-ben benne van, akkor \(r \cdot a\) és \(a \cdot r\) is minden \(I_j\)-ben benne van.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Legyen \(1 \in R\) kommutatív gyűrű és \(r \in R\). Az \((r) = \{ s \cdot r \mid s \in R \}\), az \(r\) összes többszöröse az \(r\) által generált <strong>főideál</strong> \(R\)-ben. Ez ideál: \(s r + s' r = (s + s') r\), \(-(s r) = (-s) r\), és \(t \cdot (s r) = (t s) r\); tartalmazza \(r = 1 \cdot r\)-t.</p>
       <p>Legyen \(X \subseteq R\). Az \(X\) által <strong>generált ideál</strong> \(R\)-ben az a legszűkebb ideál, amely tartalmazza \(X\)-et, jele \((X)\):
       \[ (X) = \bigcap_{X \subseteq I \trianglelefteq R} I. \]</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
       <p>Ha \(1 \in R\) kommutatív és \(X = \{ r_1, r_2, \dots, r_n \}\), akkor \((X) = \{ r_1 \cdot z_1 + r_2 \cdot z_2 + \dots + r_n \cdot z_n \mid z_i \in R \}\).</p>
+      <p><strong>Bizonyítás:</strong> jelölje \(S\) a jobb oldalt. Zárt az összeadásra és az ellentettre, és \(t \cdot (r_1 z_1 + \dots + r_n z_n) = r_1 (t z_1) + \dots + r_n (t z_n) \in S\), tehát \(S\) ideál (a szorzás kommutatív). Tartalmazza \(X\)-et (\(r_i = r_i \cdot 1\)). Minden \(X\)-et tartalmazó ideál tartalmazza az \(r_i z_i\) elemeket és azok összegét, tehát \(S\)-t. Így \(S = (X)\).</p>
       </div>
 
       <div class="ad-slot ad-slot--rectangle">
@@ -95,33 +107,41 @@
       \[ A + B = \{ a + b \mid a \in A,\ b \in B \}, \]
       \[ A \cdot B = \{ a_1 \cdot b_1 + a_2 \cdot b_2 + \dots + a_n \cdot b_n \mid a_i \in A,\ b_i \in B,\ n \in \mathbb{N} \}. \]</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Következmény</span>
-      <p>Ha \(A, B \le R\), akkor \(A + B \le R\) és \(A \cdot B \le R\). Sőt, ha \(A, B \trianglelefteq R\), akkor \(A + B \trianglelefteq R\) és \(A \cdot B \trianglelefteq R\).</p>
+      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
+      <p>Ha \(A, B\) az \((R, +)\) additív részcsoportjai, akkor \(A + B\) és \(A \cdot B\) is additív részcsoport. Sőt, ha \(A, B \trianglelefteq R\), akkor \(A + B \trianglelefteq R\) és \(A \cdot B \trianglelefteq R\).</p>
+      <p><strong>Bizonyítás:</strong> az \(A + B\) additív részcsoport, mert \((a + b) + (a' + b') = (a + a') + (b + b')\) és \(-(a + b) = (-a) + (-b)\). Az \(A \cdot B\) definíció szerint zárt az összeadásra, és \(-(\sum a_i b_i) = \sum (-a_i) b_i\). Ha \(A, B\) ideálok és \(r \in R\), akkor \(r \cdot (a + b) = r a + r b \in A + B\) (és ugyanígy jobbról), továbbá \(r \cdot \sum a_i b_i = \sum (r a_i) b_i\) és \((\sum a_i b_i) \cdot r = \sum a_i (b_i r)\), ahol \(r a_i \in A\), \(b_i r \in B\). (Figyelem: két <em>részgyűrű</em> összege általában nem részgyűrű, például \(\mathbb{Q}[x, y]\)-ban \(\mathbb{Q}[x] + \mathbb{Q}[y]\) nem tartalmazza az \(x y\) szorzatot.)</p>
       </div>
 
       <h3>Faktorgyűrű</h3>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
       <p>Legyen \(I \trianglelefteq R\). Az \(R / I = \{ r + I \mid r \in R \}\) az \(I\) mellékosztályai az összeadásra nézve.</p>
       <ul>
-        <li>Összeadás: \((r_1 + I) + (r_2 + I) = r_1 + r_2 + I\); nullelem: \(0 + I = I\); ellentett: \(-(r + I) = -r + I\). Tehát \((R / I, +)\) Abel-csoport.</li>
-        <li>Szorzás: \((r_1 + I)(r_2 + I) = r_1 \cdot r_2 + I\). Tehát \((R / I, \cdot)\) félcsoport.</li>
+        <li>Összeadás: \((r_1 + I) + (r_2 + I) = r_1 + r_2 + I\); nullelem: \(0 + I = I\); ellentett: \(-(r + I) = -r + I\). Tehát \((R / I, +)\) Abel-csoport (a faktorcsoport, 11. tétel).</li>
+        <li>Szorzás: \((r_1 + I)(r_2 + I) = r_1 \cdot r_2 + I\). Ez jóldefiniált: ha \(r_1' = r_1 + i\), \(r_2' = r_2 + j\) (\(i, j \in I\)), akkor \(r_1' r_2' = r_1 r_2 + (r_1 j + i r_2 + i j) \in r_1 r_2 + I\), mert \(I\) ideál.</li>
       </ul>
-      <p>Így \(R / I\) gyűrű, az \(R\) gyűrű \(I\)-vel vett <strong>faktorgyűrűje</strong>.</p>
+      <p>A szorzás asszociativitása és a disztributivitás a reprezentánsokon kiszámolva \(R\)-ből öröklődik, így \(R / I\) gyűrű, az \(R\) gyűrű \(I\)-vel vett <strong>faktorgyűrűje</strong>. Ha \(R\) kommutatív, akkor \(R / I\) is; ha \(1 \in R\), akkor \(1 + I\) az egységeleme.</p>
       </div>
       <div class="note-box"><span class="note-box__label">Megjegyzés</span>
-      <p>A \(\varphi : R \to R / I\), \(\varphi(r) = r + I\) leképezés homomorfizmus, a magja \(I = \operatorname{Ker} \varphi\). Vagyis \(I\) egy alkalmas homomorfizmus magja.</p>
+      <p>A \(\varphi : R \to R / I\), \(\varphi(r) = r + I\) leképezés szürjektív homomorfizmus, a magja \(I = \operatorname{Ker} \varphi\). Vagyis \(I\) egy alkalmas homomorfizmus magja.</p>
       </div>
 
       <h3>A homomorfizmustételek</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — I. homomorfizmustétel</span>
+      <div class="note-box"><span class="note-box__label">Tétel — I. homomorfizmustétel (pontosítva)</span>
       <p>Ha \(\varphi : R \to S\) homomorfizmus, akkor \(\operatorname{Im} \varphi \cong R / \operatorname{Ker} \varphi\).</p>
+      <p><strong>Bizonyítás:</strong> az összeadásra a csoportok homomorfizmustétele (11. tétel) szerint a \(\psi : R / \operatorname{Ker} \varphi \to \operatorname{Im} \varphi\), \(\psi(r + \operatorname{Ker} \varphi) = \varphi(r)\) leképezés jóldefiniált és additív bijekció. A szorzásra \(\psi\big((r_1 + \operatorname{Ker} \varphi)(r_2 + \operatorname{Ker} \varphi)\big) = \psi(r_1 r_2 + \operatorname{Ker} \varphi) = \varphi(r_1 r_2) = \varphi(r_1) \varphi(r_2)\). Tehát \(\psi\) gyűrűizomorfizmus.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel — II. homomorfizmustétel</span>
-      <p>Legyen \(\varphi : R \to S\) szürjektív homomorfizmus. Ekkor</p>
+      <div class="note-box"><span class="note-box__label">Tétel — II. homomorfizmustétel (pontosítva)</span>
+      <p>Legyen \(\varphi : R \to S\) szürjektív homomorfizmus, \(N = \operatorname{Ker} \varphi\). Ekkor</p>
       <ol>
-        <li>ha \(T \le R\), akkor \(\varphi(T) \le S\) és \(\varphi^{-1}(\varphi(T)) = T + \operatorname{Ker} \varphi\),</li>
-        <li>\(R\)-nek a \(\operatorname{Ker} \varphi\)-t tartalmazó részcsoportjai / ideáljai kölcsönösen egyértelmű megfeleltetésben állnak az \(S\) részcsoportjaival / ideáljaival.</li>
+        <li>ha \(T \le R\) részgyűrű, akkor \(\varphi(T) \le S\) és \(\varphi^{-1}(\varphi(T)) = T + N\),</li>
+        <li>a \(K \mapsto \varphi(K)\) és az \(L \mapsto \varphi^{-1}(L)\) egymás inverz bijekciói \(R\)-nek az \(N\)-et tartalmazó részgyűrűi (illetve ideáljai) és \(S\) részgyűrűi (illetve ideáljai) között.</li>
       </ol>
+      <p><strong>Bizonyítás.</strong> Az összeadásra a csoportokra vonatkozó megfeleltetési tétel (13. tétel) additív megfelelője érvényes: \(\varphi^{-1}(\varphi(S')) = S' + N\) tetszőleges \(S' \subseteq R\)-re, ugyanazzal az érveléssel (a \(\varphi(x) = \varphi(s) \iff x - s \in N\) alapján).</p>
+      <ul>
+        <li>(1) \(\varphi(T)\) részgyűrű (a kép részgyűrű, a \(\varphi|_T\) képe), és \(\varphi^{-1}(\varphi(T)) = T + N\).</li>
+        <li>(2) Részgyűrűk: ha \(L \le S\) részgyűrű, akkor \(\varphi^{-1}(L)\) is részgyűrű, mert \(\varphi(a + b), \varphi(-a), \varphi(a b) \in L\) minden \(a, b\)-re a \(\varphi^{-1}(L)\)-ből; és \(N \subseteq \varphi^{-1}(L)\). Ideálok: ha \(L \trianglelefteq S\), akkor \(r \in R\), \(a \in \varphi^{-1}(L)\) esetén \(\varphi(r a) = \varphi(r) \varphi(a) \in L\), tehát \(\varphi^{-1}(L)\) ideál. Ha \(N \subseteq K\) ideál, akkor \(\varphi(K)\) ideál: egy \(s \in S\)-hez van \(r\) (szürjektivitás), és \(s \cdot \varphi(a) = \varphi(r a) \in \varphi(K)\).</li>
+        <li>Inverz bijekciók: \(\varphi(\varphi^{-1}(L)) = L\) a szürjektivitás miatt, és ha \(N \subseteq K\), akkor \(\varphi^{-1}(\varphi(K)) = K + N = K\).</li>
+      </ul>
       </div>
 
       </div>

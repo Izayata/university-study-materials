@@ -28,6 +28,12 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 </head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a fok és az elem foka definíciója (deg_K α); a véges bővítés minden eleme algebrai (a forrás bizonyítás nélkül állította); az egyszerű bővítés foka (a végtelen esetben a hatványok lineáris függetlensége); a szorzástétel bizonyítása (a szorzatbázis generálása és lineáris függetlensége, valamint a végtelen eset); az elem fokának csökkenése nagyobb test felett; az algebrai elemek összege, szorzata, hányadosa (a K(α)(β) torony felhasználásával); az algebrai elemek teste; az algebrai számok bővítésének végtelen fokú voltának bizonyítása
+  - Kiegészítés: az Eisenstein-kritériumra való hivatkozás (ismert tétel, bizonyítás nélkül)
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
 <body data-nav-key="tetelek" data-tetel="23">
   <div id="site-header"></div>
 
@@ -57,30 +63,37 @@
       <h2>Kidolgozás</h2>
 
       <h3>A bővítés foka</h3>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
-      <p>Legyen \(K \subseteq L\) testbővítés. Ekkor \(L\) vektortér \(K\) felett. Az \(L\) dimenzióját \(K\) felett az \(L\) <strong>fokának</strong> nevezzük, jele \([L : K]\).</p>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Legyen \(K \subseteq L\) testbővítés. Ekkor \(L\) vektortér \(K\) felett. Az \(L\) dimenzióját \(K\) felett az \(L\) <strong>fokának</strong> nevezzük, jele: \([L : K] \in \mathbb{N} \cup \{\infty\}\); a bővítés <strong>véges</strong>, ha \([L : K] &lt; \infty\). Az \(\alpha \in L\) <strong>foka</strong> \(K\) felett: \(\deg_K \alpha = [K(\alpha) : K]\), ami algebrai \(\alpha\)-ra az \(m_{\alpha}\) minimálpolinom foka (lásd lent), transzcendensre \(\infty\).</p>
       </div>
-      <p>Ha a bővítés véges (\([L : K] &lt; \infty\)), akkor minden \(\alpha \in L\) algebrai.</p>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Legyen \(K \subseteq L\) testbővítés és \(\alpha \in L\). Ekkor</p>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>Véges bővítésben minden \(\alpha \in L\) algebrai \(K\) felett.</p>
+      <p><strong>Bizonyítás:</strong> ha \([L : K] = n\), akkor az \(1, \alpha, \dots, \alpha^n\) \(n + 1\) elem lineárisan összefüggő, azaz van nem triviális \(\sum_{i \le n} c_i \alpha^i = 0\) (\(c_i \in K\)). Ekkor \(\alpha\) gyöke a nem nulla \(\sum c_i x^i \in K[x]\) polinomnak.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>Legyen \(K \subseteq L\) testbővítés, \(\alpha \in L\). Ekkor</p>
       <ol>
         <li>ha \(\alpha\) algebrai \(K\) felett, akkor \([K(\alpha) : K] = \deg m_{\alpha}(x)\) (a dimenzió a minimálpolinom foka \(K\) felett),</li>
         <li>ha \(\alpha\) transzcendens \(K\) felett, akkor \([K(\alpha) : K] = \infty\).</li>
       </ol>
       <p><strong>Bizonyítás.</strong></p>
       <ul>
-        <li>(1) \(1, \alpha, \dots, \alpha^{n-1}\) bázis \(K(\alpha)\)-ban \(K\) felett, ahol \(n = \deg m_{\alpha}(x)\), így a dimenzió \(\deg m_{\alpha}(x)\).</li>
-        <li>(2) Kell végtelen sok lineárisan független elem. Ha lenne közöttük lineárisan függő rész, akkor \(c_0 + c_1 \alpha^{i_1} + c_2 \alpha^{i_2} + \dots + c_k \alpha^{i_k} = 0\), vagyis \(\alpha\) gyöke a \(c_0 + c_1 x^{i_1} + \dots + c_k x^{i_k}\) polinomnak. De \(\alpha\) transzcendens, így a \(0\) polinomon kívül senkinek sem gyöke.</li>
+        <li>(1) \(1, \alpha, \dots, \alpha^{n-1}\) bázis \(K(\alpha)\)-ban \(K\) felett, ahol \(n = \deg m_{\alpha}(x)\) (22. tétel), így a dimenzió \(\deg m_{\alpha}(x)\).</li>
+        <li>(2) Az \(1, \alpha, \alpha^2, \dots\) elemek végtelen sok, lineárisan független rendszert alkotnak: ha \(\sum_{i \le N} c_i \alpha^i = 0\) nem triviális lineáris kombináció lenne, akkor \(\alpha\) gyöke volna a nem nulla \(\sum c_i x^i\) polinomnak, de \(\alpha\) transzcendens. Így a dimenzió végtelen.</li>
       </ul>
       </div>
 
       <h3>A szorzástétel</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — szorzástétel</span>
+      <div class="note-box"><span class="note-box__label">Tétel — szorzástétel (pontosítva)</span>
       <p>Legyenek \(K \subseteq L \subseteq M\) testbővítések. Ekkor \([M : K] &lt; \infty\) pontosan akkor, ha \([M : L]\) és \([L : K]\) végesek, és ekkor
-      \[ [M : K] = [M : L] \cdot [L : K]. \]</p>
-      <p><strong>Bizonyítás:</strong> ha \(u_1, u_2, \dots, u_m\) bázis \(M\)-ben \(L\) felett, és \(v_1, v_2, \dots, v_n\) bázis \(L\)-ben \(K\) felett, akkor
-      \[ u_1 v_1, \dots, u_1 v_n,\ u_2 v_1, \dots, u_2 v_n,\ \dots,\ u_m v_1, \dots, u_m v_n \]
-      bázis \(M\)-ben \(K\) felett.</p>
+      \[ [M : K] = [M : L] \cdot [L : K]. \]
+      (Végtelen esetben is érvényes, ha a szorzatban a \(\infty\) a \(\infty\)-t adja.)</p>
+      <p><strong>Bizonyítás.</strong> Legyen \((u_i)_{i \in I}\) bázis \(M\)-ben \(L\) felett, és \((v_j)_{j \in J}\) bázis \(L\)-ben \(K\) felett. Megmutatjuk, hogy az \((u_i v_j)_{(i,j) \in I \times J}\) rendszer bázis \(M\)-ben \(K\) felett.</p>
+      <ul>
+        <li><em>Generálás:</em> ha \(x \in M\), akkor \(x = \sum_i l_i u_i\) (véges összeg, \(l_i \in L\)), és \(l_i = \sum_j k_{ij} v_j\) (\(k_{ij} \in K\)), így \(x = \sum_{i,j} k_{ij}\, u_i v_j\).</li>
+        <li><em>Lineáris függetlenség:</em> ha \(\sum_{i,j} k_{ij}\, u_i v_j = 0\) (véges összeg), akkor \(\sum_i \big( \sum_j k_{ij} v_j \big) u_i = 0\), ahol a zárójelek \(L\)-beli együtthatók; az \(u_i\) függetlensége \(L\) felett miatt mindegyik \(\sum_j k_{ij} v_j = 0\), és a \(v_j\) függetlensége \(K\) felett miatt minden \(k_{ij} = 0\). Ebből az is következik, hogy a különböző \((i, j)\) párokhoz különböző elemek tartoznak.</li>
+      </ul>
+      <p>Tehát \([M : K] = |I \times J| = [M : L] \cdot [L : K]\). Ha \([M : K] &lt; \infty\), akkor \(L\) a \(K\) feletti \(M\) vektortér altere, így \([L : K] \le [M : K]\), és egy \(K\)-feletti \(M\)-bázis \(L\) felett is generál, így \([M : L] \le [M : K]\); mindkettő véges. A fordított irány a szorzat képletből adódik.</p>
       </div>
 
       <div class="ad-slot ad-slot--rectangle">
@@ -88,27 +101,29 @@
             </div>
 
       <h3>Következmények</h3>
-      <div class="note-box"><span class="note-box__label">Következmény</span>
-      <p>Ha \(K \subseteq L\) véges bővítés és \(\alpha \in L\), akkor \(\deg m_{\alpha}(x)\) osztja \([L : K]\)-t (a minimálpolinom foka \(K\) felett).</p>
-      <p><strong>Bizonyítás:</strong> tekintsük a \(K \subseteq K(\alpha) \subseteq L\) bővítésláncot. A szorzástétel miatt \([L : K] = [L : K(\alpha)] \cdot [K(\alpha) : K]\).</p>
+      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
+      <p>Ha \(K \subseteq L\) véges bővítés, \(\alpha \in L\), akkor \(\alpha\) algebrai, és \(\deg m_{\alpha}(x)\) osztja \([L : K]\)-t (a minimálpolinom foka \(K\) felett).</p>
+      <p><strong>Bizonyítás:</strong> az algebraiság az előző állításból adódik. Tekintsük a \(K \subseteq K(\alpha) \subseteq L\) bővítésláncot. A szorzástétel miatt \([L : K] = [L : K(\alpha)] \cdot [K(\alpha) : K]\), és \([K(\alpha) : K] = \deg m_{\alpha}\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Ha \(K \subseteq L \subseteq M\) testbővítések és \(\alpha \in M\), akkor \(\deg_K \alpha \ge \deg_L \alpha\), azaz az elem foka nagyobb test felett nem nőhet.</p>
-      <p><strong>Bizonyítás:</strong> legyen \(k_{\alpha}(x)\) az \(\alpha\) minimálpolinomja \(K\) felett, és \(\ell_{\alpha}(x)\) az \(\alpha\) minimálpolinomja \(L\) felett. Mivel \(K \subseteq L\), \(K[x] \subseteq L[x]\), így \(k_{\alpha}(x) \in K[x] \subseteq L[x]\), vagyis \(k_{\alpha}(x)\) egy olyan polinom \(L[x]\)-ben, amelynek gyöke \(\alpha\). A minimálpolinom tulajdonságai miatt az \(\alpha\) \(L\) feletti minimálpolinomja osztja minden olyan \(L[x]\)-beli polinomot, amelynek \(\alpha\) gyöke. Tehát \(\ell_{\alpha}(x) \mid k_{\alpha}(x)\), vagyis \(\deg_L(\alpha) \le \deg_K(\alpha)\).</p>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>Ha \(K \subseteq L \subseteq M\) testbővítések, \(\alpha \in M\) algebrai \(K\) felett, akkor \(\alpha\) algebrai \(L\) felett is, és \(\deg_K \alpha \ge \deg_L \alpha\), azaz az elem foka nagyobb test felett nem nőhet.</p>
+      <p><strong>Bizonyítás:</strong> legyen \(k_{\alpha}(x)\) az \(\alpha\) minimálpolinomja \(K\) felett, és \(\ell_{\alpha}(x)\) az \(\alpha\) minimálpolinomja \(L\) felett. Mivel \(K \subseteq L\), \(K[x] \subseteq L[x]\), így \(k_{\alpha}(x) \in K[x] \subseteq L[x]\), vagyis \(k_{\alpha}(x)\) egy olyan polinom \(L[x]\)-ben, amelynek gyöke \(\alpha\) (ezért \(\alpha\) algebrai \(L\) felett is). A minimálpolinom tulajdonságai (21. tétel) miatt az \(\alpha\) \(L\) feletti minimálpolinomja osztja minden olyan \(L[x]\)-beli polinomot, aminek \(\alpha\) gyöke. Tehát \(\ell_{\alpha}(x) \mid k_{\alpha}(x)\), vagyis \(\deg_L(\alpha) \le \deg_K(\alpha)\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
       <p>Ha \(\alpha, \beta \in L\) algebraiak \(K\) felett, akkor \(\alpha \pm \beta\), \(\alpha \cdot \beta\), \(\dfrac{\alpha}{\beta}\) (\(\beta \neq 0\)) mind algebraiak \(K\) felett, és fokuk legfeljebb \(\deg_K \alpha \cdot \deg_K \beta\).</p>
-      <p><strong>Bizonyítás:</strong> a felsorolt elemek mindegyike benne van a \(K(\alpha, \beta)\) testben, amelynek foka \(K\) felett
-      \[ [K(\alpha, \beta) : K] = [K(\alpha, \beta) : K(\alpha)] \cdot [K(\alpha) : K] \le \deg_K \alpha \cdot \deg_K \beta. \]</p>
+      <p><strong>Bizonyítás:</strong> \(K(\alpha, \beta) = K(\alpha)(\beta)\) (22. tétel). Az előző állítás szerint \(\beta\) algebrai \(K(\alpha)\) felett, és \(\deg_{K(\alpha)} \beta \le \deg_K \beta\). A szorzástételből
+      \[ [K(\alpha, \beta) : K] = [K(\alpha)(\beta) : K(\alpha)] \cdot [K(\alpha) : K] = \deg_{K(\alpha)} \beta \cdot \deg_K \alpha \le \deg_K \beta \cdot \deg_K \alpha. \]
+      A felsorolt elemek mindegyike benne van a \(K(\alpha, \beta)\) testben, ami véges bővítése \(K\)-nak, ezért algebraiak, és \(K\) feletti fokuk (az előző következmény szerint) osztja \([K(\alpha, \beta) : K]\)-t, így legfeljebb \(\deg_K \alpha \cdot \deg_K \beta\).</p>
       </div>
 
       <h3>Az algebrai elemek teste</h3>
-      <p>Ha egy elem foka véges, akkor nem lehet transzcendens, tehát algebrai.</p>
-      <div class="note-box"><span class="note-box__label">Következmény</span>
-      <p>Ha \(K \subseteq L\) testbővítés, akkor az \(L\)-beli, \(K\) felett algebrai elemek testet alkotnak.</p>
+      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
+      <p>Ha \(K \subseteq L\) testbővítés, akkor az \(L\)-beli, \(K\) felett algebrai elemek testet alkotnak (és \(K\)-t tartalmazzák).</p>
+      <p><strong>Bizonyítás:</strong> minden \(a \in K\) algebrai (gyöke az \(x - a\)-nak). Az előző állítás szerint két algebrai elem összege, különbsége, szorzata és (nem nulla osztóval) hányadosa algebrai. Tehát a halmaz zárt a testműveletekre, így résztest.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Legyen \(\mathbb{A}\) a \(\mathbb{Q}\) felett algebrai elemek halmaza, azaz az összes racionális együtthatós polinom összes gyöke. Ekkor \(\mathbb{Q} \subseteq \mathbb{A} \subseteq \mathbb{C}\) és \([\mathbb{A} : \mathbb{Q}] = \infty\): a bővítés végtelen fokú, de algebrai.</p>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>Legyen \(\mathbb{A}\) a \(\mathbb{Q}\) felett algebrai komplex számok halmaza, azaz az összes racionális együtthatós nem nulla polinom összes gyöke. Ekkor \(\mathbb{Q} \subseteq \mathbb{A} \subseteq \mathbb{C}\) test, és \([\mathbb{A} : \mathbb{Q}] = \infty\): a bővítés végtelen fokú, de algebrai.</p>
+      <p><strong>Bizonyítás:</strong> az előző következmény szerint \(\mathbb{A}\) test, és minden eleme definíció szerint algebrai. Minden \(n \ge 1\)-re az \(x^n - 2\) irreducibilis \(\mathbb{Q}\) felett az Eisenstein-kritérium miatt (\(p = 2\); ismert tétel, a bizonyítását nem közöljük). Ezért a \(\sqrt[n]{2} \in \mathbb{A}\) minimálpolinomja \(x^n - 2\), és \([\mathbb{Q}(\sqrt[n]{2}) : \mathbb{Q}] = n\). Mivel \(\mathbb{Q}(\sqrt[n]{2}) \subseteq \mathbb{A}\) altér, \([\mathbb{A} : \mathbb{Q}] \ge n\) minden \(n\)-re, tehát végtelen.</p>
       </div>
 
       </div>

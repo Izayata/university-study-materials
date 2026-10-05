@@ -28,6 +28,13 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 </head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a véges eset az osztályozási tételben (jóldefiniáltság, művelettartás, bijektivitás); a generátorok és az adott rendű elemek számának bizonyítása (a k = (n/d)r alak indoklása); a Σφ(d) = n következmény bizonyítása; a primitív gyök definíciója
+  - Kiegészítés: a ℤ_m^× csoport (a maradékosztályok egységcsoportja) és csoport voltának bizonyítása
+  - Bizonyítás nélkül közölt (ismert tétel): a primitív gyök létezésének feltétele
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
 <body data-nav-key="tetelek" data-tetel="5">
   <div id="site-header"></div>
 
@@ -50,7 +57,7 @@
 
       <h2>A tétel kérdése</h2>
       <blockquote class="tetel-question">
-        <p>Definiálja a ciklikus csoportot! Bizonyítsa be, hogy minden ciklikus csoport izomorf a (ℤ, +) csoporttal vagy valamelyik (ℤₙ, +) csoporttal, és határozza meg az n elemű ciklikus csoport generátorainak és a d rendű elemeinek számát! Definiálja a primitív gyököt, és mondja ki, mely n modulusra létezik!</p>
+        <p>Definiálja a ciklikus csoportot! Bizonyítsa be, hogy minden ciklikus csoport izomorf a (ℤ, +) csoporttal vagy valamelyik (ℤₙ, +) csoporttal, és határozza meg az n elemű ciklikus csoport generátorainak és a d rendű elemeinek számát! Definiálja a primitív gyököt, és mondja ki, mely m modulusra létezik!</p>
       </blockquote>
 
       <div class="tetel-answer" id="tetel-kidolgozas">
@@ -60,22 +67,28 @@
       <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Egy csoport <strong>ciklikus</strong>, ha valamely elemének hatványaiból áll:
       \[ G = \{ g^k \mid k \in \mathbb{Z} \}. \]
-      Ekkor \(g\) a csoport <strong>generátora</strong>.</p>
+      Ekkor \(g\) a csoport <strong>generátora</strong>. (Additív jelöléssel a hatványok a \(kg\) többszörösök.) A \(g\) elem hatványainak halmazát \(\langle g \rangle\)-vel jelöljük; ez részcsoport (lásd a 6. tételt), és \(|\langle g \rangle| = o(g)\).</p>
       </div>
 
       <h3>A ciklikus csoportok osztályozása</h3>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Ha \(G\) ciklikus, akkor \(G \cong (\mathbb{Z}, +)\) vagy \(G \cong (\mathbb{Z}_n, +)\).</p>
+      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <p>Ha \(G\) ciklikus, akkor \(G \cong (\mathbb{Z}, +)\) vagy \(G \cong (\mathbb{Z}_n, +)\) alkalmas \(n \ge 1\)-re.</p>
       <p><strong>Bizonyítás:</strong> legyen \(g\) a \(G\) generátora.</p>
       <ul>
         <li>Ha \(o(g) = \infty\), akkor a \(\psi : (\mathbb{Z}, +) \to G\), \(\psi(k) = g^k\) leképezés izomorfizmus.
           <ul>
             <li>Szürjektív, mert \(g\) generátor.</li>
-            <li>Injektív, mert ha \(o(g) = \infty\), akkor \(k \neq l \Rightarrow g^k \neq g^l \Rightarrow \psi(k) \neq \psi(l)\).</li>
+            <li>Injektív, mert ha \(o(g) = \infty\), akkor \(k \neq l \Rightarrow g^k \neq g^l \Rightarrow \psi(k) \neq \psi(l)\) (4. tétel).</li>
             <li>Művelettartó: \(\psi(k + l) = g^{k+l} = g^k \cdot g^l = \psi(k) \cdot \psi(l)\).</li>
           </ul>
         </li>
-        <li>Ha \(o(g) = n &lt; \infty\), akkor a \(\psi : (\mathbb{Z}_n, +) \to G\), \(\psi(k) = g^k\) leképezés az izomorfizmus.</li>
+        <li>Ha \(o(g) = n &lt; \infty\), akkor a \(\psi : (\mathbb{Z}_n, +) \to G\), \(\psi([k]) = g^k\) leképezés izomorfizmus.
+          <ul>
+            <li>Jóldefiniált: ha \([k] = [l]\), azaz \(n \mid k - l\), akkor \(k - l\) jó kitevő, így \(g^k = g^l\) (4. tétel).</li>
+            <li>Művelettartó: \(\psi([k] + [l]) = g^{k+l} = g^k \cdot g^l\).</li>
+            <li>Szürjektív, mert \(g\) generátor; injektív, mert ha \(g^k = g^l\), akkor \(k - l\) jó kitevő, vagyis \(n \mid k - l\), azaz \([k] = [l]\). \(\square\)</li>
+          </ul>
+        </li>
       </ul>
       </div>
 
@@ -84,7 +97,7 @@
             </div>
 
       <h3>Generátorok és adott rendű elemek száma</h3>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
       <p>Ha \(|G| = n &lt; \infty\) és \(G\) ciklikus, akkor</p>
       <ul>
         <li>a generátorok száma \(\varphi(n)\),</li>
@@ -92,22 +105,28 @@
         <li>minden \(d \mid n\)-re pontosan \(\varphi(d)\) darab \(d\) rendű elem van.</li>
       </ul>
       <div class="proof-steps" data-steps><ol>
-        <li>\(G = \{ g^k \mid k \in \mathbb{Z} \} = \{ g^k \mid k = 0, 1, \dots, n-1 \}\), és \(o(g) = n\).</li>
-        <li>Ezért \(o(g^k) = \dfrac{n}{\operatorname{lnko}(n, k)}\), ami osztja \(n\)-et.</li>
-        <li>\(o(g^k) = n \iff \operatorname{lnko}(n, k) = 1\), és ilyen \(k\)-ból \(\varphi(n)\) darab van.</li>
-        <li>\(o(g^k) = d \mid n \iff \operatorname{lnko}(n, k) = \dfrac{n}{d}\), vagyis \(k = \dfrac{n}{d} \cdot r\), ahol \((r, d) = 1\). Ilyen \(\varphi(d)\) darab van.</li>
+        <li>Legyen \(G = \langle g \rangle\). Ekkor \(o(g) = |\langle g \rangle| = n\), tehát \(G = \{ g^k \mid k = 0, 1, \dots, n-1 \}\), és ezek az elemek különbözők (4. tétel).</li>
+        <li>A 4. tétel szerint \(o(g^k) = \dfrac{n}{\operatorname{lnko}(n, k)}\), ami osztja \(n\)-et. Ez igazolja a második állítást.</li>
+        <li>A \(g^k\) pontosan akkor generátor, ha \(\langle g^k \rangle = G\), azaz (mivel \(\langle g^k \rangle\) a véges \(G\) része, és \(|\langle g^k \rangle| = o(g^k)\)) ha \(o(g^k) = n\), vagyis \(\operatorname{lnko}(n, k) = 1\). A \(0 \le k &lt; n\) számok közül ilyen \(\varphi(n)\) darab van.</li>
+        <li>Legyen \(d \mid n\). Ekkor \(o(g^k) = d \iff \operatorname{lnko}(n, k) = \dfrac{n}{d}\). Ilyenkor \(\dfrac{n}{d} \mid k\), vagyis \(k = \dfrac{n}{d} r\) egy \(0 \le r &lt; d\) számmal, és \(\operatorname{lnko}(n, k) = \dfrac{n}{d} \cdot \operatorname{lnko}(d, r)\), tehát \(\operatorname{lnko}(d, r) = 1\).</li>
+        <li>Megfordítva, minden \(0 \le r &lt; d\), \(\operatorname{lnko}(d, r) = 1\) esetén a \(k = \frac{n}{d} r\) kielégíti \(\operatorname{lnko}(n, k) = \frac{n}{d}\). Ilyen \(r\) pontosan \(\varphi(d)\) darab van.</li>
       </ol></div>
       </div>
-      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
       <p>\[ \sum_{d \mid n} \varphi(d) = n. \]</p>
+      <p><strong>Bizonyítás:</strong> a \((\mathbb{Z}_n, +)\) ciklikus, \(n\) elemű. Elemeit a rendjük szerint osztályozva (minden rend osztja \(n\)-et) a fenti tétel szerint a \(d\) rendű elemek száma \(\varphi(d)\), az összes elem száma pedig \(n\).</p>
       </div>
 
       <h3>Primitív gyök</h3>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
-      <p>A \(g\) szám <strong>primitív gyök</strong> mod \(n\), ha \(g\) generálja a \(\mathbb{Z}_n^{\times}\) csoportot.</p>
+      <div class="note-box"><span class="note-box__label">Definíció (kiegészítés)</span>
+      <p>A \(\mathbb{Z}_m^{\times}\) a \(\mathbb{Z}_m\) azon maradékosztályainak halmaza, amelyek relatív prímek \(m\)-hez (\(\operatorname{lnko}(a, m) = 1\)), a szorzás műveletével. Ez csoport, \(\varphi(m)\) eleme van. Ugyanis: két ilyen osztály szorzata relatív prím \(m\)-hez; az egységelem \([1]\); és ha \(\operatorname{lnko}(a, m) = 1\), akkor \(a a' + m t = 1\) alkalmas egészekkel (euklideszi algoritmus), így \([a'] \) az \([a]\) inverze; az asszociativitás \(\mathbb{Z}_m\)-ből öröklődik.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Van primitív gyök mod \(n\) \(\iff\) \(n = 1, 2, 4, p^k\) vagy \(2p^k\), ahol \(p\) páratlan prím.</p>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Az \(m\)-hez relatív prím \(g\) egész szám <strong>primitív gyök</strong> mod \(m\), ha a \([g]\) osztály generálja a \(\mathbb{Z}_m^{\times}\) csoportot, azaz a \(\mathbb{Z}_m^{\times}\) minden elemét megkapjuk a \(g\) hatványaiként.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel (bizonyítás nélkül)</span>
+      <p>Van primitív gyök mod \(m\) \(\iff\) \(m = 1, 2, 4, p^k\) vagy \(2p^k\), ahol \(p\) páratlan prím és \(k \ge 1\).</p>
+      <p>Ez Gauss ismert tétele; a bizonyítását nem közöljük.</p>
       </div>
 
       </div>

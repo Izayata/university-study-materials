@@ -28,6 +28,12 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 </head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a jó kitevők és a rend kapcsolata egyetlen tételbe foglalva, mindkét irányban és a végtelen rend esetére is bizonyítva (a forrás "fordítva" vázlatát és a rend/legkisebb pozitív jó kitevő egyenlőségét teljessé téve); az o(g^k) képlet bizonyítása (a relatív prímség felhasználása kimondva, a k = 0 eset is); a ciklus rendje; a hatványozási azonosság kommutáló elemekre indoklással (a forrás itt a diszjunkt ciklusok felcserélhetőségére hivatkozott); a permutáció rendjének bizonyítása
+  - Kiegészítés: a hatványozás és a hatványozási azonosságok; a diszjunkt ciklusok felcserélhetősége
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
 <body data-nav-key="tetelek" data-tetel="4">
   <div id="site-header"></div>
 
@@ -56,38 +62,34 @@
       <div class="tetel-answer" id="tetel-kidolgozas">
       <h2>Kidolgozás</h2>
 
-      <h3>A rend és a jó kitevők</h3>
+      <h3>Hatványok, rend, jó kitevők</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (kiegészítés)</span>
+      <p>Legyen \(G\) csoport és \(g \in G\). A hatványok: \(g^0 = e\), \(g^{k+1} = g^k \cdot g\) (\(k \ge 0\)), \(g^{-k} = (g^{-1})^k\). Érvényesek a \(g^{k+l} = g^k \cdot g^l\) és \((g^k)^l = g^{kl}\) azonosságok minden \(k, l \in \mathbb{Z}\)-re (a szokásos módon, teljes indukcióval).</p>
+      </div>
       <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \(G\) csoport és \(g \in G\). A \(g\) <strong>rendje</strong> a \(g\) különböző hatványainak száma:
-      \[ o(g) = \left| \{ g^k \mid k \in \mathbb{Z} \} \right|. \]</p>
-      <p>A \(q\) egész szám <strong>jó kitevő</strong>, ha \(g^q = e\).</p>
+      \[ o(g) = \left| \{ g^k \mid k \in \mathbb{Z} \} \right| \in \mathbb{N} \cup \{\infty\}. \]</p>
+      <p>A \(q \in \mathbb{Z}\) szám <strong>jó kitevő</strong>, ha \(g^q = e\). A jó kitevők halmazát \(I_g\)-vel jelöljük.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Ha \(k\) és \(l\) jó kitevői \(g\)-nek, akkor \(\operatorname{lnko}(k, l)\) is az.</p>
-      <p><strong>Bizonyítás:</strong> az euklideszi algoritmus szerint \(\operatorname{lnko}(k, l) = \alpha k + \beta l\) alkalmas egészekkel, így
-      \[ g^{\operatorname{lnko}(k,l)} = g^{\alpha k + \beta l} = (g^k)^{\alpha} \cdot (g^l)^{\beta} = e^{\alpha} \cdot e^{\beta} = e. \]</p>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>(a) Ha \(k, l \in I_g\), akkor \(\operatorname{lnko}(k, l) \in I_g\) (és \(k \pm l \in I_g\)).</p>
+      <p>(b) \(g^k = g^l \iff k - l \in I_g\).</p>
+      <p>(c) Ha \(n \in I_g\), akkor \(g^{k+n} = g^k\) minden \(k\)-ra: a hatványok \(n\)-esével ismétlődnek.</p>
+      <p><strong>Bizonyítás.</strong> (a) Az euklideszi algoritmus szerint \(\operatorname{lnko}(k, l) = \alpha k + \beta l\) alkalmas egészekkel, így
+      \[ g^{\operatorname{lnko}(k,l)} = g^{\alpha k + \beta l} = (g^k)^{\alpha} \cdot (g^l)^{\beta} = e^{\alpha} \cdot e^{\beta} = e. \]
+      (b) \(g^k = g^l\) pontosan akkor, ha \(g^{k-l} = g^k \cdot (g^l)^{-1} = e\). (c) \(g^{k+n} = g^k \cdot g^n = g^k\). \(\square\)</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Ha \(g^k = g^l\), akkor \(g^{k-l} = e\), tehát \(k - l\) is jó kitevő.</p>
-      </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Ha \(n\) jó kitevő, akkor \(g\) hatványai \(n\)-esével ismétlődnek.</p>
-      <p><strong>Bizonyítás:</strong> \(g^{k+n} = g^k \cdot g^n = g^k \cdot e = g^k\).</p>
-      </div>
-      <div class="note-box"><span class="note-box__label">Következmény</span>
-      <p>\(o(g) \le\) a legkisebb pozitív jó kitevő.</p>
-      </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Ha van \(0\)-tól különböző jó kitevő, és \(n\) a legkisebb pozitív jó kitevő, akkor \(0 \le k &lt; l \le n - 1\) esetén \(g^k \neq g^l\).</p>
-      <p><strong>Bizonyítás:</strong> \(l - k &lt; n\), ezért ha \(g^k = g^l\) lenne, akkor \(l - k\) egy \(n\)-nél kisebb pozitív jó kitevő volna, ami ellentmondás.</p>
-      </div>
-      <div class="note-box"><span class="note-box__label">Következmény</span>
-      <p>\(o(g)\) = a legkisebb pozitív jó kitevő. Ha \(o(g)\) véges, akkor minden jó kitevő az \(o(g)\) többszöröse.</p>
-      </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Ha a \(0\) az egyetlen jó kitevő, akkor \(o(g) = \infty\), azaz \(g\) bármely két hatványa különböző.</p>
-      <p><strong>Bizonyítás:</strong> ha csak a \(0\) jó kitevő, akkor \(g^k = g^l\) csak úgy lehet, ha \(k - l = 0\), azaz \(k = l\). Tehát \(g\) bármely két hatványa különböző, így \(o(g) = \infty\).</p>
-      <p>Fordítva: ha \(o(g) = \infty\), és lenne a \(0\)-tól különböző jó kitevő, akkor az felülről becsülné \(o(g)\)-t, így az nem lehetne végtelen.</p>
+      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <p>(1) Ha a \(0\) az egyetlen jó kitevő (\(I_g = \{0\}\)), akkor \(o(g) = \infty\), vagyis \(g\) bármely két hatványa különböző.</p>
+      <p>(2) Ha van \(0\)-tól különböző jó kitevő, és \(n\) a legkisebb pozitív jó kitevő, akkor \(e = g^0, g^1, \dots, g^{n-1}\) páronként különbözők, \(g\) minden hatványa közöttük van, tehát \(o(g) = n\). A jó kitevők pontosan az \(n\) többszörösei: \(I_g = n\mathbb{Z}\).</p>
+      <p>(3) Ennek következtében \(o(g) = \infty \iff I_g = \{0\}\), és ha \(o(g)\) véges, akkor \(o(g)\) a legkisebb pozitív jó kitevő, a jó kitevők pedig az \(o(g)\) többszörösei.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>(1) Ha \(g^k = g^l\), akkor (b) szerint \(k - l \in I_g = \{0\}\), vagyis \(k = l\). Tehát a hatványok páronként különbözők, \(o(g) = \infty\).</li>
+        <li>(2) Ha \(k \in I_g\), akkor \(-k \in I_g\) is, ezért van pozitív jó kitevő; legyen \(n\) a legkisebb. Ha \(0 \le k &lt; l \le n - 1\) és \(g^k = g^l\), akkor (b) szerint \(l - k\) pozitív jó kitevő lenne, és \(l - k &lt; n\), ami ellentmond \(n\) minimalitásának. Tehát \(g^0, \dots, g^{n-1}\) különbözők.</li>
+        <li>Bármely \(m\)-re \(m = qn + r\), \(0 \le r &lt; n\) mellett \(g^m = (g^n)^q \cdot g^r = g^r\), így minden hatvány a \(g^0, \dots, g^{n-1}\) között van, tehát \(o(g) = n\).</li>
+        <li>Ha \(q \in I_g\) és \(q = tn + r\), \(0 \le r &lt; n\), akkor \(g^r = g^q \cdot (g^n)^{-t} = e\), tehát \(r\) jó kitevő, és \(r &lt; n\) miatt \(r = 0\). Így \(n \mid q\). Fordítva, \(n\) minden többszöröse jó kitevő.</li>
+        <li>(3) Ha \(I_g \neq \{0\}\), akkor (2) szerint \(o(g)\) véges. Ha \(I_g = \{0\}\), akkor (1) szerint \(o(g) = \infty\). Ebből a megfordítás is következik.</li>
+      </ol></div>
       </div>
 
       <div class="ad-slot ad-slot--rectangle">
@@ -95,29 +97,33 @@
             </div>
 
       <h3>Egy hatvány rendje</h3>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Ha \(o(g)\) véges, akkor \(o(g^k) = \dfrac{o(g)}{(o(g),\, k)}\).</p>
+      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <p>Ha \(o(g) = n\) véges és \(k \in \mathbb{Z}\), akkor \(o(g^k) = \dfrac{n}{\operatorname{lnko}(n, k)}\) (és \(\operatorname{lnko}(n, 0) = n\)).</p>
       <div class="proof-steps" data-steps><ol>
-        <li>\(o(g^k)\) a legkisebb pozitív \(m\) szám, amelyre \((g^k)^m = e\), vagyis \(g^{k \cdot m} = e\).</li>
-        <li>Legyen \(o(g) = n\). Ekkor \(g^{km} = e \iff n \mid k \cdot m\).</li>
-        <li>Így a keresett legkisebb \(m\) az a legkisebb szám, amelyre \(n \mid m \cdot k\), ez pedig \(\dfrac{n}{\operatorname{lnko}(n,k)} = \dfrac{o(g)}{(o(g),\, k)}\).</li>
-        <li>Lemma: a legkisebb \(m\), amelyre \(n \mid m \cdot k\), az \(m = \dfrac{n}{\operatorname{lnko}(n,k)}\), mert
-          \[ n \mid m \cdot k \iff \left(\frac{n}{\operatorname{lnko}(n,k)}\right) \Bigm| \left(m \cdot \frac{k}{\operatorname{lnko}(n,k)}\right). \]</li>
+        <li>A \(g^k\) hatványai a \(g\) hatványai, ezért \(o(g^k)\) véges, és a (3) szerint a legkisebb pozitív \(m\), amelyre \((g^k)^m = e\).</li>
+        <li>\((g^k)^m = g^{km} = e \iff n \mid km\), mert a \(g\) jó kitevői az \(n\) többszörösei.</li>
+        <li>Legyen \(d = \operatorname{lnko}(n, k)\), \(n = d n'\), \(k = d k'\), ahol \(\operatorname{lnko}(n', k') = 1\). Ekkor \(n \mid km \iff n' \mid k' m \iff n' \mid m\), mert \(n'\) és \(k'\) relatív prímek.</li>
+        <li>Tehát a \(g^k\) jó kitevői az \(n'\) többszörösei, a legkisebb pozitív \(n' = n / d\). Így \(o(g^k) = \dfrac{n}{\operatorname{lnko}(n, k)}\).</li>
       </ol></div>
       </div>
 
       <h3>Ciklus és permutáció rendje</h3>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <div class="note-box"><span class="note-box__label">Lemma (kiegészítés)</span>
+      <p>(a) Diszjunkt ciklusok felcserélhetők. (b) Ha \(a \cdot b = b \cdot a\), akkor \((a \cdot b)^m = a^m \cdot b^m\) minden \(m \ge 0\)-ra.</p>
+      <p><strong>Bizonyítás.</strong> (a) Legyen \(c_1\) és \(c_2\) két diszjunkt ciklus, \(S_1\), \(S_2\) az elemeik halmaza. Ha \(x \in S_1\), akkor \(c_2(x) = x\), és \(c_1(x) \in S_1\), így \(c_2(c_1(x)) = c_1(x) = c_1(c_2(x))\). Ha \(x \in S_2\), ugyanígy. Egyébként mindkettő helyben hagyja \(x\)-et. (b) \(m\) szerinti indukcióval: \((ab)^{m+1} = (ab)^m \cdot ab = a^m b^m \cdot a b = a^m \cdot a b^m \cdot b = a^{m+1} b^{m+1}\), ahol felhasználtuk, hogy \(b^m a = a b^m\) (mert \(a\) és \(b\) felcserélhető). \(\square\)</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
       <p>Egy \(k\) hosszú ciklus rendje \(k\).</p>
-      <p><strong>Bizonyítás:</strong> hatványozva a ciklus körbeér.</p>
+      <p><strong>Bizonyítás:</strong> legyen \(c = (a_1\ \dots\ a_k)\). Indukcióval \(c^t(a_i) = a_{i+t}\) (az indexeket \(k\)-val vett maradékként értve). Így \(c^t(a_1) = a_1 \iff k \mid t\); ha \(k \mid t\), akkor \(c^t\) minden \(a_i\)-t, és a többi elemet is helyben hagyja, tehát \(c^t = \mathrm{id}\). A jó kitevők tehát a \(k\) többszörösei, és a (3) szerint \(o(c) = k\). \(\square\)</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Ha \(a \cdot b = b \cdot a\), akkor \((a \cdot b)^n = a^n \cdot b^n\).</p>
-      <p><strong>Bizonyítás:</strong> diszjunkt ciklusok felcserélhetők.</p>
-      </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
       <p>Ha a \(\sigma\) permutáció diszjunkt ciklusainak hossza \(l_1, l_2, \dots, l_r\), akkor \(\sigma\) rendje \(\operatorname{lkkt}(l_1, l_2, \dots, l_r)\).</p>
-      <p><strong>Bizonyítás:</strong> ha \(\sigma = (\dots)(\dots)(\dots)\), akkor \(\sigma^n = (\dots)^n (\dots)^n \dots (\dots)^n\). Tehát \(\sigma\) rendje az a legkisebb pozitív \(n\), amelyet az összes ciklus rendje osztja (mind egyszerre körbeér).</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>Legyen \(\sigma = c_1 \cdots c_r\) diszjunkt ciklusok szorzata. A ciklusok páronként felcserélhetők, ezért a Lemma (b) pontja szerint \(\sigma^n = c_1^n \cdots c_r^n\).</li>
+        <li>A \(c_i^n\) csak a \(c_i\) elemeit mozgathatja, és a \(c_i\) elemeinek halmazát önmagára képezi. Ezért egy \(c_i\)-beli \(x\) képe a szorzatban \(c_i^n(x)\), mivel a többi tényező ezt helyben hagyja.</li>
+        <li>Így \(\sigma^n = \mathrm{id} \iff c_i^n = \mathrm{id}\) minden \(i\)-re \(\iff l_i \mid n\) minden \(i\)-re \(\iff \operatorname{lkkt}(l_1, \dots, l_r) \mid n\), az előző állítás szerint.</li>
+        <li>A jó kitevők tehát az \(\operatorname{lkkt}(l_1, \dots, l_r)\) többszörösei, így \(o(\sigma) = \operatorname{lkkt}(l_1, \dots, l_r)\) (egyelemű ciklusokat nem kell számolni, mert \(l = 1\) nem változtat az \(\operatorname{lkkt}\)-n).</li>
+      </ol></div>
       </div>
 
       </div>

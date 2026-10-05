@@ -28,6 +28,12 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 </head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a csoport definíciója (a neutrális elem és az inverz kifejtve); az inverz egyértelműségének bizonyítása (a hiányzó lépések kiírva, a jelölés egységesítve)
+  - Kiegészítés: a Cayley-táblázat definíciója és a bizonyítás kimondott formája (a sor és az oszlop bijektivitása)
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
 <body data-nav-key="tetelek" data-tetel="1">
   <div id="site-header"></div>
 
@@ -57,26 +63,27 @@
       <h2>Kidolgozás</h2>
 
       <h3>A csoport fogalma</h3>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
-      <p>Egy \((G, *)\) struktúra <strong>csoport</strong>, ha</p>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Egy \(G\) halmaz a \(\cdot\) kétváltozós műveletre nézve <strong>csoport</strong>, ha</p>
       <ul>
-        <li>a művelet asszociatív (félcsoport),</li>
-        <li>van benne neutrális elem (egységelem),</li>
-        <li>minden elemnek van inverze.</li>
+        <li>a művelet asszociatív: \((a \cdot b) \cdot c = a \cdot (b \cdot c)\) minden \(a, b, c \in G\)-re (ezt a struktúrát nevezzük félcsoportnak),</li>
+        <li>van neutrális elem (egységelem), azaz olyan \(e \in G\), amelyre \(e \cdot a = a \cdot e = a\) minden \(a \in G\)-re,</li>
+        <li>minden \(a \in G\)-nek van inverze, azaz olyan \(b \in G\), amelyre \(a \cdot b = b \cdot a = e\).</li>
       </ul>
+      <p>Az \(a\) inverzét \(a^{-1}\)-gyel jelöljük (az egyértelműséget lent bizonyítjuk).</p>
       </div>
 
       <h3>Az egységelem és az inverz egyértelműsége</h3>
       <p>Mindkét tulajdonság közvetlenül következik a definícióból.</p>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
       <p>Egy csoportban legfeljebb egy egységelem van.</p>
-      <p><strong>Bizonyítás:</strong> ha \(e\) és \(f\) is egységelem, akkor
-      \[ e = e * f = f. \]</p>
+      <p><strong>Bizonyítás:</strong> ha \(e\) és \(f\) is egységelem, akkor \(e \cdot f = f\), mert \(e\) egységelem, és \(e \cdot f = e\), mert \(f\) egységelem. Tehát
+      \[ e = e \cdot f = f. \]</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
       <p>Egy csoportban minden elemnek legfeljebb egy inverze van.</p>
-      <p><strong>Bizonyítás:</strong> ha \(b\) és \(c\) is inverze az \(a\) elemnek, akkor
-      \[ c = (b * a) * c = b * (a * c) = b. \]</p>
+      <p><strong>Bizonyítás:</strong> ha \(b\) és \(c\) is inverze az \(a\) elemnek, akkor \(b \cdot a = e\) és \(a \cdot c = e\), ezért
+      \[ c = e \cdot c = (b \cdot a) \cdot c = b \cdot (a \cdot c) = b \cdot e = b. \]</p>
       </div>
 
       <div class="ad-slot ad-slot--rectangle">
@@ -84,13 +91,16 @@
             </div>
 
       <h3>A Cayley-táblázat</h3>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>A Cayley-táblázat minden sorában és minden oszlopában minden elem pontosan egyszer szerepel.</p>
+      <div class="note-box"><span class="note-box__label">Definíció (kiegészítés)</span>
+      <p>Egy véges \(G = \{g_1, \dots, g_n\}\) csoport <strong>Cayley-táblázata</strong> az az \(n \times n\)-es táblázat, amelynek a \(g_i\) sorában és a \(g_j\) oszlopában a \(g_i \cdot g_j\) elem áll.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>A Cayley-táblázat minden sorában és minden oszlopában minden elem pontosan egyszer szerepel. Másképp: minden \(a \in G\)-re az \(x \mapsto a \cdot x\) és az \(x \mapsto x \cdot a\) leképezés bijekció \(G\)-n.</p>
       <div class="proof-steps" data-steps><ol>
-        <li><strong>Egy sorban legfeljebb egyszer.</strong> Ha az \(a\) sorában \(a * b = a * c\), akkor \(a^{-1}\)-gyel szorozva \(b = c\). Tehát két különböző oszlopban nem állhat ugyanaz az elem.</li>
-        <li><strong>Egy oszlopban legfeljebb egyszer.</strong> Ha az \(a\) oszlopában \(b * a = c * a\), akkor \(a^{-1}\)-gyel szorozva \(b = c\).</li>
-        <li><strong>Egy sorban legalább egyszer.</strong> A \(b\) elem szerepel az \(a\) sorában, a \(c = a^{-1} * b\) oszlopban, mert \(a * c = a * a^{-1} * b = b\).</li>
-        <li><strong>Egy oszlopban legalább egyszer.</strong> A \(b\) elem szerepel az \(a\) oszlopában, a \(c = b * a^{-1}\) sorban, mert \(c * a = b * a^{-1} * a = b\).</li>
+        <li><strong>Egy sorban legfeljebb egyszer.</strong> Ha az \(a\) sorában \(a \cdot b = a \cdot c\), akkor \(a^{-1}\)-gyel balról szorozva \(b = (a^{-1} \cdot a) \cdot b = (a^{-1} \cdot a) \cdot c = c\). Tehát két különböző oszlopban nem állhat ugyanaz az elem.</li>
+        <li><strong>Egy oszlopban legfeljebb egyszer.</strong> Ha az \(a\) oszlopában \(b \cdot a = c \cdot a\), akkor \(a^{-1}\)-gyel jobbról szorozva \(b = c\).</li>
+        <li><strong>Egy sorban legalább egyszer.</strong> A \(b\) elem szerepel az \(a\) sorában, a \(c = a^{-1} \cdot b\) oszlopban, mert \(a \cdot c = (a \cdot a^{-1}) \cdot b = b\).</li>
+        <li><strong>Egy oszlopban legalább egyszer.</strong> A \(b\) elem szerepel az \(a\) oszlopában, a \(c = b \cdot a^{-1}\) sorban, mert \(c \cdot a = b \cdot (a^{-1} \cdot a) = b\).</li>
       </ol></div>
       </div>
 

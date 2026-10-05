@@ -28,6 +28,13 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 </head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a szögek és a szabályos sokszögek szerkeszthetőségének fogalma; a körosztási polinom definíciója és a rekurzió; a cos(2π/n) foka (n ≥ 3, a ℚ(ε_n)/ℚ(cos) másodfokúságának bizonyítása: ε_n nem valós); a szabályos n-szög szerkeszthetősége (a "szükséges" irány teljes bizonyítása; a forrás a "φ(n) 2-hatvány ⟹ szerkeszthető" irányt a szerkeszthetőség algebrai feltételéből levezethetőnek tekintette, de ez a ℚ(cos) fokából önmagában nem következik, ehhez Galois-elmélet kell, ezért ezt az irányt ismert tételként, bizonyítás nélkül mondjuk ki); a Fermat-prím alak (p − 1 2-hatványa esetén a kitevő is 2-hatvány, bizonyítással); a szögek n-edelése (a ⇐/⇒ jelölés a forrásban fel volt cserélve; a bizonyítás a szükséges irányra épül); Galois tétele és a feloldható csoport
+  - Kiegészítés: a Galois-csoport és a feloldható csoport definíciója; A_5 és S_5 nem feloldható (bizonyítás az A_5 egyszerűségéből)
+  - Bizonyítás nélkül közölt (ismert tételek): a körosztási polinom irreducibilitása; a Gauss–Wantzel-tétel megfordítása; Galois tétele; A_5 egyszerű és a legkisebb nem feloldható csoport
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
 <body data-nav-key="tetelek" data-tetel="25">
   <div id="site-header"></div>
 
@@ -57,24 +64,31 @@
       <h2>Kidolgozás</h2>
 
       <h3>Szögek és szabályos sokszögek szerkesztése</h3>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Egy \(\alpha\) szög szerkeszthető \(\iff\) \(\cos \alpha \in \mathbb{R}\) szerkeszthető.</p>
-      <p>A szabályos \(n\)-szög szerkesztése \(\iff\) \(\cos \dfrac{2\pi}{n}\) szerkeszthető.</p>
+      <div class="note-box"><span class="note-box__label">Definíció (kiegészítés)</span>
+      <p>Az \(\alpha\) szög <strong>szerkeszthető</strong>, ha az \((\cos \alpha, \sin \alpha)\) pont szerkeszthető. A szabályos \(n\)-szög (\(n \ge 3\)) szerkeszthető, ha a csúcsai szerkeszthetők az egységkörön, azaz ha az \((\cos \frac{2\pi}{n}, \sin \frac{2\pi}{n})\) pont szerkeszthető (a többi csúcs ebből az \(O\) körüli, azonos hosszú húrok felmérésével adódik).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
-      <p>Legyen \(\varepsilon_n = \cos \dfrac{2\pi}{n} + i \sin \dfrac{2\pi}{n}\) az \(n\)-edik primitív egységgyök. Minimálpolinomja a \(\Phi_n(x)\) <strong>\(n\)-edik körosztási polinom</strong>, amelynek foka \(\varphi(n)\):
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>Egy \(\alpha\) szög szerkeszthető \(\iff\) \(\cos \alpha \in \mathbb{R}\) szerkeszthető szám.</p>
+      <p>A szabályos \(n\)-szög szerkesztése \(\iff\) \(\cos \dfrac{2\pi}{n}\) szerkeszthető.</p>
+      <p><strong>Bizonyítás:</strong> egy pont pontosan akkor szerkeszthető, ha mindkét koordinátája szerkeszthető szám (24. tétel). Ha \(\cos \alpha\) szerkeszthető, akkor \(\sin \alpha = \pm \sqrt{1 - \cos^2 \alpha}\) is (a szerkeszthető számok teste zárt a négyzetgyökvonásra, és az előjel tükrözéssel kapható), tehát az \((\cos \alpha, \sin \alpha)\) pont szerkeszthető. Fordítva a koordináta szerkeszthető. A második állítás az elsőből \(\alpha = \frac{2\pi}{n}\)-nel.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Legyen \(n \ge 1\) és \(\varepsilon_n = \cos \dfrac{2\pi}{n} + i \sin \dfrac{2\pi}{n}\) az \(n\)-edik primitív egységgyök. Az \(n\)-edik <strong>körosztási polinom</strong> az \(n\)-edik primitív egységgyökök szorzata: \(\Phi_n(x) = \prod (x - \zeta)\) (\(\zeta\) az \(n\) rendű komplex egységgyökökön fut), foka \(\varphi(n)\). Mivel az \(n\)-edik egységgyökök a \(d \mid n\) rendű primitív egységgyökök uniója, \(x^n - 1 = \prod_{d \mid n} \Phi_d(x)\), vagyis
       \[ \Phi_n(x) = \frac{x^n - 1}{\prod_{\substack{d \mid n \\ d \neq n}} \Phi_d(x)}. \]</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel (bizonyítás nélkül)</span>
+      <p>A \(\Phi_n(x)\) egész együtthatós, és irreducibilis \(\mathbb{Q}\) felett. Így \(\Phi_n\) az \(\varepsilon_n\) minimálpolinomja, és \([\mathbb{Q}(\varepsilon_n) : \mathbb{Q}] = \varphi(n)\).</p>
+      <p>Ez a körosztási polinomok ismert (Gauss-féle) tétele; a bizonyítását nem közöljük.</p>
       </div>
 
       <h3>A cos(2π/n) foka</h3>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>\([\mathbb{Q}(\cos \frac{2\pi}{n}) : \mathbb{Q}] = \dfrac{\varphi(n)}{2}\).</p>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>Ha \(n \ge 3\), akkor \([\mathbb{Q}(\cos \frac{2\pi}{n}) : \mathbb{Q}] = \dfrac{\varphi(n)}{2}\).</p>
       <div class="proof-steps" data-steps><ol>
-        <li>\(\dfrac{\varepsilon_n + \varepsilon_n^{-1}}{2} = \cos \dfrac{2\pi}{n} \in \mathbb{Q}(\varepsilon_n)\), tehát \(\mathbb{Q} \subseteq \mathbb{Q}\left(\cos \frac{2\pi}{n}\right) \subseteq \mathbb{Q}(\varepsilon_n)\).</li>
-        <li>A \(\mathbb{Q}(\varepsilon_n)\) foka \(\varphi(n)\).</li>
-        <li>\((x - \varepsilon_n)(x - \bar{\varepsilon}_n) = x^2 - (\varepsilon_n + \bar{\varepsilon}_n)x + \varepsilon_n \cdot \bar{\varepsilon}_n = x^2 - 2 \cos \dfrac{2\pi}{n} \cdot x + 1 \in \mathbb{Q}\left(\cos \frac{2\pi}{n}\right)[x]\).</li>
-        <li>Ennek a polinomnak \(\varepsilon_n\) gyöke, tehát \(\mathbb{Q}(\varepsilon_n)\) a \(\mathbb{Q}\left(\cos \frac{2\pi}{n}\right)\) másodfokú bővítése.</li>
-        <li>A szorzástételből \([\mathbb{Q}(\cos \frac{2\pi}{n}) : \mathbb{Q}] = \dfrac{\varphi(n)}{2}\).</li>
+        <li>Legyen \(c = \cos \frac{2\pi}{n}\). Mivel \(\varepsilon_n^{-1} = \bar{\varepsilon}_n\), \(\dfrac{\varepsilon_n + \varepsilon_n^{-1}}{2} = c \in \mathbb{Q}(\varepsilon_n)\), tehát \(\mathbb{Q} \subseteq \mathbb{Q}(c) \subseteq \mathbb{Q}(\varepsilon_n)\).</li>
+        <li>\((x - \varepsilon_n)(x - \bar{\varepsilon}_n) = x^2 - (\varepsilon_n + \bar{\varepsilon}_n)x + \varepsilon_n \cdot \bar{\varepsilon}_n = x^2 - 2c \cdot x + 1 \in \mathbb{Q}(c)[x]\).</li>
+        <li>Ennek a polinomnak \(\varepsilon_n\) gyöke, tehát \(\varepsilon_n\) algebrai \(\mathbb{Q}(c)\) felett, és \(\deg_{\mathbb{Q}(c)} \varepsilon_n \le 2\). Mivel \(n \ge 3\), \(\varepsilon_n\) nem valós, így nincs \(\mathbb{Q}(c) \subseteq \mathbb{R}\)-ben, tehát \([\mathbb{Q}(\varepsilon_n) : \mathbb{Q}(c)] = 2\).</li>
+        <li>A szorzástétel (23. tétel) és \([\mathbb{Q}(\varepsilon_n) : \mathbb{Q}] = \varphi(n)\) szerint \(\varphi(n) = 2 \cdot [\mathbb{Q}(c) : \mathbb{Q}]\), vagyis \([\mathbb{Q}(c) : \mathbb{Q}] = \dfrac{\varphi(n)}{2}\).</li>
       </ol></div>
       </div>
 
@@ -83,33 +97,47 @@
             </div>
 
       <h3>A szabályos n-szög szerkeszthetősége</h3>
-      <div class="note-box"><span class="note-box__label">Következmény</span>
-      <p>\(\cos \dfrac{2\pi}{n}\) szerkeszthető \(\iff\) \(\varphi(n)\) \(2\)-hatvány.</p>
+      <div class="note-box"><span class="note-box__label">Tétel — Gauss–Wantzel (pontosítva)</span>
+      <p>Legyen \(n \ge 3\). A szabályos \(n\)-szög szerkeszthető \(\iff\) \(n = 2^k \cdot p_1 \cdot p_2 \cdots p_r\), ahol \(k \ge 0\), \(r \ge 0\), és \(p_1, \dots, p_r\) különböző Fermat-prímek (\(p = 2^{2^t} + 1\) alakú prímek).</p>
+      <p><strong>Bizonyítás.</strong> \((\Rightarrow)\) Ha a szabályos \(n\)-szög szerkeszthető, akkor \(\cos \frac{2\pi}{n}\) szerkeszthető, így a foka 2-hatvány (24. tétel), és az előző állítás szerint \(\frac{\varphi(n)}{2}\) \(2\)-hatvány, tehát \(\varphi(n)\) is \(2\)-hatvány. Legyen \(n = 2^k p_1^{\alpha_1} \cdots p_r^{\alpha_r}\) (a \(p_i\) különböző páratlan prímek). Ekkor
+      \[ \varphi(n) = 2^{k-1} \cdot p_1^{\alpha_1 - 1}(p_1 - 1) \cdots p_r^{\alpha_r - 1}(p_r - 1) \quad (k \ge 1), \]
+      ha \(k = 0\), akkor a \(2^{k-1}\) tényező elmarad. Ez csak úgy lehet \(2\)-hatvány, ha \(\alpha_i = 1\) (különben a páratlan \(p_i\) osztaná \(\varphi(n)\)-et), és minden \(p_i - 1\) \(2\)-hatvány: \(p_i = 2^s + 1\). Ilyenkor \(s\) is \(2\)-hatvány: ha \(s = u \cdot v\) páratlan \(u &gt; 1\)-gyel, akkor \(2^v + 1\) osztaná \(2^s + 1\)-et (\(a + 1 \mid a^u + 1\) páratlan \(u\)-ra), és \(1 &lt; 2^v + 1 &lt; 2^s + 1\), így \(p_i\) nem lehetne prím. Tehát \(p_i = 2^{2^t} + 1\) Fermat-prím.</p>
+      <p>\((\Leftarrow)\) Ez a Gauss–Wantzel-tétel megfordítása; a bizonyításához Galois-elmélet kell (a \(\mathbb{Q}(\varepsilon_n)\) Galois-csoportja \(\mathbb{Z}_n^{\times}\), egy \(2\)-hatványrendű csoportnak van \(2\) indexű részcsoportok lánca, ami másodfokú bővítések láncát adja). Ismert tétel, bizonyítás nélkül közöljük.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Következmény</span>
-      <p>A szabályos \(n\)-szög szerkeszthető \(\iff\) \(n = 2^k \cdot p_1 \cdot p_2 \cdots p_r\), ahol \(p_1, \dots, p_r\) különböző Fermat-prímek.</p>
-      <p><strong>Bizonyítás:</strong> legyen \(\varphi(n)\) \(2\)-hatvány, \(n = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_r^{\alpha_r}\). Ekkor
-      \[ \varphi(n) = p_1^{\alpha_1 - 1}(p_1 - 1)\, p_2^{\alpha_2 - 1}(p_2 - 1) \cdots p_r^{\alpha_r - 1}(p_r - 1). \]
-      Ez csak úgy lehet \(2\)-hatvány, ha a páratlan prímek kitevője \(1\), és a \(p_i - 1\) is \(2\)-hatvány. Fermat-prím: \(p = 2^{2^t} + 1\); ez \(t = 0, 1, 2, 3, 4\) esetén prím, a többire nem tudjuk.</p>
+      <div class="note-box"><span class="note-box__label">Megjegyzés (pontosítva)</span>
+      <p>Fermat-prímek: a \(t = 0, 1, 2, 3, 4\) esetén \(2^{2^t} + 1\) prím (\(3, 5, 17, 257, 65537\)); más Fermat-prímet nem ismerünk.</p>
       </div>
 
       <h3>Szögek n-edelése</h3>
-      <div class="note-box"><span class="note-box__label">Következmény</span>
-      <p>Tetszőleges szöget lehet \(n\)-edelni pontosan akkor, ha \(n\) \(2\)-hatvány.</p>
+      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
+      <p>Tetszőleges szög pontosan akkor osztható meg szerkesztéssel \(n\) egyenlő részre, ha \(n\) \(2\)-hatvány (\(n \ge 1\)). (Azaz minden szerkeszthető \(\alpha\) szögre az \(\frac{\alpha}{n}\) is szerkeszthető.)</p>
       <p><strong>Bizonyítás.</strong></p>
       <ul>
-        <li>\((\Leftarrow)\) Felezni lehet, így \(2\)-hatványodni is.</li>
-        <li>\((\Rightarrow)\) Ha lehetne \(n\)-edelni, akkor újra \(n\)-edelve lehetne \(n^2\)-edelni is. Így a \(360^\circ\)-ot lehetne \(n^2\)-edelni, vagyis lehetne \(n^2\) oldalú szabályos sokszöget szerkeszteni, tehát \(n\)-ben nem lehet páratlan prím. Vagyis \(n\) \(2\)-hatvány.</li>
+        <li>\((\Leftarrow)\) Szöget felezni lehet (a szögfelező szerkeszthető), így \(2^s\)-edelni is: \(s\)-szeri felezéssel.</li>
+        <li>\((\Rightarrow)\) Ha minden szög \(n\)-edelhető, akkor egy szög \(n\)-edelését megismételve \(n^2\)-edelni is lehet. A \(2\pi\) szög szerkeszthető (\(\cos 2\pi = 1\)), így a \(\frac{2\pi}{n^2}\) is, vagyis a szabályos \(n^2\)-szög szerkeszthető (\(n \ge 2\) esetén \(n^2 \ge 4\)). A Gauss–Wantzel-tétel szükséges iránya szerint \(n^2 = 2^k p_1 \cdots p_r\) különböző Fermat-prímekkel, de \(n^2\)-ben minden páratlan prím kitevője páros, tehát nincs páratlan prímtényező. Vagyis \(n\) \(2\)-hatvány.</li>
       </ul>
       </div>
 
       <h3>Galois tétele</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — Galois</span>
-      <p>Egy \(f \in \mathbb{Q}[x]\) polinom gyökei kifejezhetők a \(+, -, \cdot, /, \sqrt[n]{\ }\) műveletek segítségével \(\iff\) a polinom Galois-csoportja feloldható, azaz van olyan
+      <div class="note-box"><span class="note-box__label">Definíció (kiegészítés)</span>
+      <p>Egy \(f \in \mathbb{Q}[x]\) polinom <strong>Galois-csoportja</strong> a felbontási testének (a legszűkebb olyan \(\mathbb{Q}\)-t tartalmazó test, amelyben \(f\) elsőfokú tényezők szorzata) \(\mathbb{Q}\)-t fixáló automorfizmusainak csoportja. Egy \(G\) csoport <strong>feloldható</strong>, ha van olyan
       \[ \{e\} = H_0 \trianglelefteq H_1 \trianglelefteq H_2 \trianglelefteq \dots \trianglelefteq H_n = G \]
-      lánc, hogy a \(H_{i+1} / H_i\) faktorcsoportok kommutatívak.</p>
+      lánc (az egyes \(H_i \trianglelefteq H_{i+1}\), nem feltétlenül \(G\)-ben normálisak), hogy a \(H_{i+1} / H_i\) faktorcsoportok kommutatívak.</p>
       </div>
-      <p>A legkisebb nem feloldható csoport az \(A_5\). Ha egy polinom Galois-csoportja \(A_5\) vagy \(S_5\), akkor a polinom nem megoldható gyökjelekkel.</p>
+      <div class="note-box"><span class="note-box__label">Tétel — Galois (bizonyítás nélkül)</span>
+      <p>Egy \(f \in \mathbb{Q}[x]\) polinom gyökei kifejezhetők a \(+, -, \cdot, /, \sqrt[n]{\ }\) műveletek segítségével (gyökjelekkel) \(\iff\) a polinom Galois-csoportja feloldható.</p>
+      <p>Ez Galois ismert tétele; a bizonyítását nem közöljük.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>Az \(A_5\) nem feloldható, és az \(S_5\) sem. Ezért ha egy polinom Galois-csoportja \(A_5\) vagy \(S_5\), akkor a polinom gyökei nem fejezhetők ki gyökjelekkel.</p>
+      <p><strong>Bizonyítás</strong> (az \(A_5\) egyszerű, nem kommutatív csoport voltát ismert tényként használva; a legkisebb nem feloldható csoport az \(A_5\), ez is ismert):</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>Tegyük fel, hogy az \(A_5\) feloldható, a lánc \(\{e\} = H_0 \trianglelefteq \dots \trianglelefteq H_n = A_5\), ahol az ismétlődéseket elhagytuk (\(H_i \neq H_{i+1}\)), és \(n \ge 1\).</li>
+        <li>\(H_{n-1} \trianglelefteq A_5\) és \(A_5 / H_{n-1}\) kommutatív. Az \(A_5\) egyszerű, így \(H_{n-1} = \{e\}\) vagy \(H_{n-1} = A_5\); az utóbbit kizártuk. Tehát \(H_{n-1} = \{e\}\), \(n = 1\), és \(A_5 \cong A_5 / \{e\}\) kommutatív volna, ami hamis.</li>
+        <li>Az \(S_5\)-re: ha \(S_5\) feloldható volna a \(\{H_i\}\) lánccal, akkor a \(K_i = H_i \cap A_5\) láncra \(K_i \trianglelefteq K_{i+1}\), és a I. izomorfizmus-tétel szerint \(K_{i+1} / K_i = K_{i+1} / (K_{i+1} \cap H_i) \cong K_{i+1} H_i / H_i \le H_{i+1} / H_i\), ami kommutatív, így \(K_{i+1} / K_i\) is. Tehát \(A_5 = K_n\) feloldható volna, ellentmondás.</li>
+        <li>Galois tétele szerint tehát az ilyen polinom gyökei nem fejezhetők ki gyökjelekkel.</li>
+      </ol></div>
+      </div>
 
       </div>
 

@@ -28,6 +28,12 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 </head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a példák jelölése (ℤ^×, A_n); a részcsoport-kritérium bizonyítása (a részcsoport egységeleme és inverze megegyezik a csoportéval); a mellékosztályok közös elemére vonatkozó bizonyítás részletei; az index definíciója (mellékosztályok száma, véges esetben |G|/|H|); a Lagrange-tétel bizonyítása; a nem triviális valódi részcsoport nélküli csoportok jellemzése (a triviális csoport kizárva, a ℤ és a ℤ_n eset indoklása)
+  - Kiegészítés: a bal és jobb oldali mellékosztályok száma megegyezik; ⟨g⟩ részcsoport; a ℤ_m^× csoport az 5. tételből
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
 <body data-nav-key="tetelek" data-tetel="6">
   <div id="site-header"></div>
 
@@ -50,16 +56,16 @@
 
       <h2>A tétel kérdése</h2>
       <blockquote class="tetel-question">
-        <p>Definiálja a részcsoportot, és adja meg a részcsoport-kritériumot! Mutassa be a mellékosztályokat, mondja ki és bizonyítsa be a Lagrange-tételt, és vezesse le belőle az Euler–Fermat-tételt! Mely csoportoknak nincs nem triviális valódi részcsoportjuk?</p>
+        <p>Definiálja a részcsoportot, és adja meg a részcsoport-kritériumot! Mutassa be a mellékosztályokat, mondja ki és bizonyítsa be a Lagrange-tételt, és vezesse le belőle az Euler–Fermat-tételt! Mely nem triviális csoportoknak nincs nem triviális valódi részcsoportjuk?</p>
       </blockquote>
 
       <div class="tetel-answer" id="tetel-kidolgozas">
       <h2>Kidolgozás</h2>
 
       <h3>Részcsoport és a részcsoport-kritérium</h3>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
-      <p>Legyen \((G, *)\) csoport és \(H \subseteq G\). Ha \((H, *)\) is csoport, akkor \(H\) a \(G\) <strong>részcsoportja</strong>, jele \(H \le G\).</p>
-      <p>Példák: \((\mathbb{Z}, +) \le (\mathbb{Q}, +) \le (\mathbb{R}, +) \le (\mathbb{C}, +)\), \(\ \mathbb{Z}^{\times} \le \mathbb{Q}^{\times} \le \mathbb{R}^{\times} \le \mathbb{C}^{\times}\), \(\ A_n \le S_n\).</p>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Legyen \((G, \cdot)\) csoport és \(H \subseteq G\). Ha \((H, \cdot)\) is csoport (a \(G\) művelete \(H\)-ra megszorítva), akkor \(H\) a \(G\) <strong>részcsoportja</strong>, jele \(H \le G\).</p>
+      <p>Példák: \((\mathbb{Z}, +) \le (\mathbb{Q}, +) \le (\mathbb{R}, +) \le (\mathbb{C}, +)\); \(\{1, -1\} \le \mathbb{Q}^{\times} \le \mathbb{R}^{\times} \le \mathbb{C}^{\times}\) (ahol \(\mathbb{Q}^{\times}\), \(\mathbb{R}^{\times}\), \(\mathbb{C}^{\times}\) a nem nulla elemek szorzási csoportja, és \(\{1, -1\}\) az egész számok egységei, jelölése \(\mathbb{Z}^{\times}\)); \(A_n \le S_n\), ahol \(A_n\) a páros permutációk halmaza (az előjel magja, 3. és 9. tétel).</p>
       </div>
       <div class="note-box"><span class="note-box__label">Tétel — részcsoport-kritérium</span>
       <p>Legyen \(G\) csoport és \(H \subseteq G\). Ekkor \(H \le G\) pontosan akkor, ha</p>
@@ -70,29 +76,38 @@
       </ol>
       <p><strong>Bizonyítás.</strong></p>
       <ul>
-        <li>\((\Rightarrow)\) Ha \(H \le G\), akkor \(H \neq \emptyset\), mert \(e \in H\); a műveletre zártság és az inverz létezése pedig a csoportaxiómákból adódik.</li>
-        <li>\((\Leftarrow)\) A \(G\)-beli művelet \(H\)-ra való megszorításánál az asszociativitás öröklődik \(G\)-ből; (1) miatt van \(e \in H\), (3) miatt pedig van \(a^{-1} \in H\).</li>
+        <li>\((\Rightarrow)\) Legyen \(H \le G\). A (2) a műveletre való zártság. Az \(e_H\) a \(H\) egységeleme: \(e_H \cdot e_H = e_H\), ezt \(G\)-ben \(e_H^{-1}\)-gyel szorozva \(e_H = e_G\). Ezért \(e_G \in H\), így (1) teljesül, és ha \(a \in H\), akkor a \(H\)-beli inverze \(b\)-re \(a \cdot b = e_H = e_G\), vagyis \(b = a^{-1}\) (az inverz egyértelmű), így (3) is teljesül.</li>
+        <li>\((\Leftarrow)\) A (2) szerint a \(G\)-beli művelet megszorítása \(H\)-n művelet; az asszociativitás öröklődik \(G\)-ből. Egy \(a \in H\) létezik (1) miatt, és \(a^{-1} \in H\) (3), így \(e = a \cdot a^{-1} \in H\) (2); \(e\) egységelem \(H\)-ban is. Minden \(a \in H\)-nak \(a^{-1} \in H\) (3) az inverze.</li>
       </ul>
       </div>
       <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \(G\) csoport és \(X, Y \subseteq G\). Az \(X\) és \(Y\) <strong>komplexusszorzata</strong>: \(X \cdot Y = \{ x \cdot y \mid x \in X,\ y \in Y \}\). Az \(X\) <strong>komplexusinverze</strong>: \(X^{-1} = \{ x^{-1} \mid x \in X \}\).</p>
       </div>
       <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Ha \(H \le G\), akkor \(H \neq \emptyset\), \(H \cdot H \subseteq H\) és \(H^{-1} \subseteq H\).</p>
+      <p>Ha \(H \le G\), akkor \(H \neq \emptyset\), \(H \cdot H \subseteq H\) és \(H^{-1} \subseteq H\) (valójában \(H \cdot H = H\) és \(H^{-1} = H\)).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás (kiegészítés)</span>
+      <p>Ha \(g \in G\), akkor \(\langle g \rangle = \{ g^k \mid k \in \mathbb{Z} \}\) részcsoport, és \(|\langle g \rangle| = o(g)\).</p>
+      <p><strong>Bizonyítás:</strong> nemüres (\(e = g^0\)); \(g^k \cdot g^l = g^{k+l}\); \((g^k)^{-1} = g^{-k}\). A részcsoport-kritérium szerint részcsoport. A rend definíciója szerint \(o(g)\) éppen az elemszáma.</p>
       </div>
 
       <h3>Mellékosztályok</h3>
       <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \(g \in G\) és \(H \le G\). A \(H\) <strong>baloldali mellékosztálya</strong> a \(g\) szerint: \(g \cdot H = \{ g \cdot h \mid h \in H \}\). A <strong>jobboldali</strong> mellékosztály: \(H \cdot g = \{ h \cdot g \mid h \in H \}\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>\(a \cdot H \cap b \cdot H = \emptyset\) vagy \(a \cdot H = b \cdot H\), azaz két mellékosztály diszjunkt vagy egybeesik.</p>
-      <p><strong>Bizonyítás:</strong> ha \(c \in a \cdot H \cap b \cdot H\), akkor van \(h_1, h_2 \in H\), hogy \(c = a \cdot h_1 = b \cdot h_2\). Ebből
-      \[ b^{-1} \cdot a = h_2 \cdot h_1^{-1} \in H \ \Longrightarrow\ b^{-1} \cdot a \cdot H = H \ \Longrightarrow\ a \cdot H = b \cdot H. \]</p>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>(a) \(g \in g \cdot H\); (b) \(a \cdot H \cap b \cdot H = \emptyset\) vagy \(a \cdot H = b \cdot H\), azaz két mellékosztály diszjunkt vagy egybeesik; (c) \(|a \cdot H| = |H|\); (d) \(a \cdot H = b \cdot H \iff b^{-1} \cdot a \in H\), és \(H \cdot a = H \cdot b \iff a \cdot b^{-1} \in H\).</p>
+      <p><strong>Bizonyítás.</strong> (a) \(g = g \cdot e \in g \cdot H\). Tehát a mellékosztályok lefedik \(G\)-t.</p>
+      <p>(b) Ha \(c \in a \cdot H \cap b \cdot H\), akkor van \(h_1, h_2 \in H\), hogy \(c = a \cdot h_1 = b \cdot h_2\). Ebből \(b^{-1} \cdot a = h_2 \cdot h_1^{-1} \in H\). Egy \(x \in H\)-ra \(x \cdot H = H\) (a részcsoport zártsága miatt \(x \cdot H \subseteq H\), és \(h = x \cdot (x^{-1} h)\) minden \(h \in H\)-ra). Ezért
+      \[ a \cdot H = b \cdot (b^{-1} \cdot a) \cdot H = b \cdot H. \]</p>
+      <p>(c) Az \(f : H \to a \cdot H\), \(f(h) = a \cdot h\) leképezés bijekció: szürjektív a definíció miatt, injektív, mert \(a \cdot h_1 = a \cdot h_2 \Rightarrow h_1 = h_2\).</p>
+      <p>(d) Ha \(a \cdot H = b \cdot H\), akkor \(a \in a \cdot H = b \cdot H\), így \(a = b \cdot h\) egy \(h \in H\)-val, és \(b^{-1} \cdot a = h \in H\). Fordítva, ha \(b^{-1} \cdot a = h \in H\), akkor \(a \cdot H = b \cdot h \cdot H = b \cdot H\). A jobboldali mellékosztályokra ugyanígy: \(H \cdot a = H \cdot b\) esetén \(a = h \cdot b\), tehát \(a \cdot b^{-1} = h \in H\); fordítva \(a = h b\) esetén \(H \cdot a = H \cdot h \cdot b = H \cdot b\). \(\square\)</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>\(|a \cdot H| = |H|\).</p>
-      <p><strong>Bizonyítás:</strong> az \(f : H \to a \cdot H\), \(f(h) = a \cdot h\) leképezés bijekció. Szürjektív a definíció miatt; injektív, mert \(a \cdot h_1 = a \cdot h_2 \Rightarrow h_1 = h_2\).</p>
+      <div class="note-box"><span class="note-box__label">Állítás (kiegészítés)</span>
+      <p>A \(g \cdot H \mapsto H \cdot g^{-1}\) jóldefiniált bijekció a baloldali és a jobboldali mellékosztályok halmaza között, tehát a két fajta mellékosztályból ugyanannyi van.</p>
+      <p><strong>Bizonyítás:</strong> a (d) szerint
+      \[ a \cdot H = b \cdot H \iff b^{-1} \cdot a \in H \iff (b^{-1} \cdot a)^{-1} = a^{-1} \cdot b \in H \iff H \cdot a^{-1} = H \cdot b^{-1}. \]
+      (Az utolsó ekvivalencia a (d) jobboldali változata az \(a^{-1}\), \(b^{-1}\) elemekre.) Az ekvivalencia mindkét iránya miatt a leképezés jóldefiniált és injektív; szürjektív, mert a \(H \cdot g\) jobboldali mellékosztály a \(g^{-1} \cdot H\) képe.</p>
       </div>
 
       <div class="ad-slot ad-slot--rectangle">
@@ -101,40 +116,38 @@
 
       <h3>A Lagrange-tétel és az Euler–Fermat-tétel</h3>
       <div class="note-box"><span class="note-box__label">Tétel — Lagrange</span>
-      <p>Ha \(|G|\) véges és \(H \le G\), akkor \(|H| \mid |G|\).</p>
+      <p>Ha \(G\) véges és \(H \le G\), akkor \(|H| \mid |G|\).</p>
       <div class="proof-steps" data-steps><ol>
-        <li>A \(H\) mellékosztályai lefedik \(G\)-t, és páronként diszjunktak.</li>
+        <li>A \(H\) baloldali mellékosztályai lefedik \(G\)-t (\(g \in g \cdot H\)), és páronként diszjunktak vagy egybeesnek.</li>
         <li>Minden mellékosztályban \(|H|\) darab elem van.</li>
-        <li>Ha \(n\) darab mellékosztály van, akkor \(|G| = n \cdot |H|\), vagyis \(|H| \mid |G|\).</li>
+        <li>Ha \(n\) különböző mellékosztály van, akkor \(|G| = n \cdot |H|\), vagyis \(|H| \mid |G|\).</li>
       </ol></div>
       </div>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
-      <p>Egy \(G\) csoport egy \(H\) részcsoportja esetén az \(a \cdot H\) különböző mellékosztályainak száma a \(H\) <strong>indexe</strong> \(G\)-ben, jele \(|G : H| = \dfrac{|G|}{|H|}\).</p>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Egy \(G\) csoport egy \(H\) részcsoportja esetén a \(H\) különböző baloldali mellékosztályainak száma a \(H\) <strong>indexe</strong> \(G\)-ben, jele \(|G : H|\). Az előző állítás szerint ugyanennyi a jobboldali mellékosztályok száma. A Lagrange-tétel bizonyításából véges \(G\)-re \(|G : H| = \dfrac{|G|}{|H|}\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
-      <p>Legyen \(g \in G\). A \(g\) által <strong>generált részcsoport</strong> \(G\)-ben: \(\langle g \rangle = \{ g^k \mid k \in \mathbb{Z} \}\).</p>
-      </div>
-      <div class="note-box"><span class="note-box__label">Következmény</span>
-      <p>A Lagrange-tétel miatt, ha \(G\) véges, akkor \(o(g) = |\langle g \rangle|\) osztja \(|G|\)-t. Ezért \(g^{|G|} = e\) jó kitevő minden \(g \in G\)-re.</p>
+      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
+      <p>Ha \(G\) véges, akkor \(o(g) = |\langle g \rangle|\) osztja \(|G|\)-t. Ezért \(g^{|G|} = e\) minden \(g \in G\)-re.</p>
+      <p><strong>Bizonyítás:</strong> \(\langle g \rangle \le G\), a Lagrange-tétel szerint \(o(g) \mid |G|\). A 4. tétel szerint \(g^{o(g)} = e\), így \(g^{|G|} = (g^{o(g)})^{|G| / o(g)} = e\).</p>
       </div>
       <div class="note-box"><span class="note-box__label">Tétel — Euler–Fermat</span>
-      <p>Ha \((a, m) = 1\), akkor \(a^{\varphi(m)} \equiv 1 \pmod m\).</p>
-      <p><strong>Bizonyítás:</strong> legyen \(G = \mathbb{Z}_m^{\times}\). Ekkor \(|G| = \varphi(m)\), és \(a \in G \iff (a, m) = 1\). A fenti következmény szerint \(a^{|G|} = 1\), azaz \(a^{\varphi(m)} = 1\).</p>
+      <p>Ha \(m \ge 1\) és \((a, m) = 1\), akkor \(a^{\varphi(m)} \equiv 1 \pmod m\).</p>
+      <p><strong>Bizonyítás:</strong> legyen \(G = \mathbb{Z}_m^{\times}\) (az 5. tételben bevezetett csoport). Ekkor \(|G| = \varphi(m)\), és \([a] \in G \iff (a, m) = 1\). A fenti következmény szerint \([a]^{|G|} = [1]\), azaz \(a^{\varphi(m)} \equiv 1 \pmod m\).</p>
       </div>
 
       <h3>Nem triviális valódi részcsoport nélküli csoportok</h3>
       <div class="note-box"><span class="note-box__label">Definíció</span>
-      <p>Az \(\{e\} \le G\) a <strong>triviális</strong> részcsoport, a \(G \le G\) pedig a nem valódi részcsoport.</p>
+      <p>Az \(\{e\} \le G\) a <strong>triviális</strong> részcsoport, a \(G \le G\) pedig a <strong>nem valódi</strong> részcsoport. A nem triviális valódi részcsoport tehát olyan \(H \le G\), amelyre \(H \neq \{e\}\) és \(H \neq G\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>\(G\)-nek pontosan akkor nincs nem triviális valódi részcsoportja, ha \(G \cong (\mathbb{Z}_p, +)\), ahol \(p\) prím.</p>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>Egy \(G \neq \{e\}\) csoportnak pontosan akkor nincs nem triviális valódi részcsoportja, ha \(G \cong (\mathbb{Z}_p, +)\), ahol \(p\) prím.</p>
       <p><strong>Bizonyítás.</strong></p>
       <ul>
-        <li>\((\Leftarrow)\) Ha \(G \cong (\mathbb{Z}_p, +)\), akkor \(|G| = p\). Ha \(H \le G\), akkor \(|H| \mid |G|\), vagyis \(|H| = 1\), azaz \(H = \{e_G\}\), vagy \(|H| = p\), azaz \(H = G\).</li>
-        <li>\((\Rightarrow)\) Legyen \(e \neq g \in G\). Ekkor \(\langle g \rangle\) nem triviális részcsoport \(G\)-ben, tehát \(\langle g \rangle = G\), vagyis \(G\) ciklikus. Így \(G \cong (\mathbb{Z}, +)\) vagy \(G \cong (\mathbb{Z}_n, +)\).
+        <li>\((\Leftarrow)\) Ha \(G \cong (\mathbb{Z}_p, +)\), akkor \(|G| = p\). Ha \(H \le G\), akkor \(|H| \mid p\) (Lagrange), vagyis \(|H| = 1\), azaz \(H = \{e_G\}\), vagy \(|H| = p\), azaz \(H = G\).</li>
+        <li>\((\Rightarrow)\) Legyen \(e \neq g \in G\). Ekkor \(\langle g \rangle\) nem triviális részcsoport, tehát \(\langle g \rangle = G\), vagyis \(G\) ciklikus. Az 5. tétel szerint \(G \cong (\mathbb{Z}, +)\) vagy \(G \cong (\mathbb{Z}_n, +)\) (\(n \ge 2\), mert \(G \neq \{e\}\)).
           <ul>
-            <li>Ha \(G \cong (\mathbb{Z}, +) \cong (2\mathbb{Z}, +)\), akkor van nem triviális valódi részcsoportja, így \(G \not\cong (\mathbb{Z}, +)\).</li>
-            <li>Ha \(G \cong (\mathbb{Z}_n, +)\) és \(n\) összetett, például \(n = m \cdot k\), akkor \(\{0, m, 2m, \dots, (k-1)m\}\) nem triviális valódi részcsoport, így \(n\) csak prím lehet.</li>
+            <li>Ha \(o(g) = \infty\), akkor \(\langle g^2 \rangle\) részcsoport, nem triviális (\(g^2 \neq e\)), és valódi, mert \(g \notin \langle g^2 \rangle\): \(g = g^{2t}\) esetén \(g^{2t-1} = e\) volna, de \(2t - 1 \neq 0\) és \(I_g = \{0\}\). Ez ellentmond a feltevésnek.</li>
+            <li>Ha \(o(g) = n &lt; \infty\) és \(n\) összetett, \(n = m \cdot k\) (\(1 &lt; m, k &lt; n\)), akkor a 4. tétel szerint \(o(g^m) = \dfrac{n}{\operatorname{lnko}(n, m)} = k\), tehát \(\langle g^m \rangle\) olyan részcsoport, amelynek elemszáma \(1 &lt; k &lt; n\): nem triviális és valódi. Ez is ellentmond a feltevésnek, így \(n\) prím.</li>
           </ul>
         </li>
       </ul>

@@ -28,6 +28,12 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 </head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a nullosztómentesség definíciója (csak az egyik irány tartalmi); az integritási tartomány és a ferdetest definíciója (1 ≠ 0, illetve R ≠ {0}); a számolási szabályok bizonyítása (mind az öt szabály, a forrás számozási tévedése kijavítva, a (3) a (2)-re építve); a részgyűrű-kritérium bizonyítása; a generált részgyűrű leírása (a konstans tag kérdése: a részgyűrűtől nem követeljük az egységelem tartalmazását, ekkor a polinomoknak nincs konstans tagjuk)
+  - Kiegészítés: a metszet részgyűrű; a generált részgyűrű létezése
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
 <body data-nav-key="tetelek" data-tetel="15">
   <div id="site-header"></div>
 
@@ -57,42 +63,45 @@
       <h2>Kidolgozás</h2>
 
       <h3>A gyűrű és fajtái</h3>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
       <p>Az \((R, +, \cdot)\) <strong>gyűrű</strong>, ha</p>
       <ul>
-        <li>\((R, +)\) Abel-csoport,</li>
-        <li>\((R, \cdot)\) félcsoport,</li>
+        <li>\((R, +)\) Abel-csoport (nullelem \(0\), az \(r\) ellentettje \(-r\)),</li>
+        <li>\((R, \cdot)\) félcsoport (a szorzás asszociatív),</li>
         <li>a szorzás disztributív az összeadásra nézve:
           \[ a \cdot (b + c) = a \cdot b + a \cdot c, \qquad (a + b) \cdot c = a \cdot c + b \cdot c. \]</li>
       </ul>
       <p>A gyűrű</p>
       <ul>
-        <li><strong>egységelemes</strong>, ha a \(\cdot\)-ra nézve van neutrális elem,</li>
+        <li><strong>egységelemes</strong>, ha a \(\cdot\)-ra nézve van neutrális elem (jele \(1\)),</li>
         <li><strong>kommutatív</strong>, ha a \(\cdot\) művelet kommutatív,</li>
-        <li><strong>nullosztómentes</strong>, ha \(a \cdot b = 0 \iff a = 0\) vagy \(b = 0\).</li>
+        <li><strong>nullosztómentes</strong>, ha \(a \cdot b = 0 \Rightarrow a = 0\) vagy \(b = 0\) (a megfordítás minden gyűrűben igaz, lásd lent).</li>
       </ul>
       </div>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
-      <p><strong>Integritási tartomány</strong>: egységelemes, kommutatív, nullosztómentes gyűrű.</p>
-      <p>Ha \((R \setminus \{0\}, \cdot)\) is csoport, akkor \((R, +, \cdot)\) <strong>ferdetest</strong>. Ha ez még kommutatív is, akkor \((R, +, \cdot)\) <strong>test</strong>.</p>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p><strong>Integritási tartomány</strong>: egységelemes, kommutatív, nullosztómentes gyűrű, amelyben \(1 \neq 0\).</p>
+      <p>Ha \(R\) gyűrű, és \((R \setminus \{0\}, \cdot)\) csoport (ennek a szorzásra zártnak kell lennie, és \(R \neq \{0\}\)), akkor \((R, +, \cdot)\) <strong>ferdetest</strong>. Ha ez még kommutatív is, akkor \((R, +, \cdot)\) <strong>test</strong>.</p>
       </div>
 
       <h3>Számolási szabályok gyűrűben</h3>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
       <p>Legyen \(R\) gyűrű, \(r, s \in R\). Ekkor</p>
       <ol>
         <li>\(0 \cdot r = r \cdot 0 = 0\),</li>
         <li>\((-r) \cdot s = r \cdot (-s) = -(r \cdot s)\),</li>
         <li>\((-r) \cdot (-s) = r \cdot s\),</li>
         <li>ha \(R\) egységelemes (\(1 \in R\)), akkor az egységelem egyértelmű,</li>
-        <li>\(-r = (-1) \cdot r\).</li>
+        <li>ha \(R\) egységelemes, akkor \(-r = (-1) \cdot r\).</li>
       </ol>
       <p><strong>Bizonyítás.</strong></p>
       <ul>
-        <li>(1) \((0 + 0) \cdot r = 0 \cdot r + 0 \cdot r\), mindkét oldalból kivonva \(0 \cdot r\)-t: \(0 = 0 \cdot r\).</li>
-        <li>(2) \(r \cdot s + (-r) \cdot s = (r - r) \cdot s = 0 \cdot s = 0\), tehát \((-r) \cdot s\) és \(r \cdot s\) additív inverzek.</li>
-        <li>(3) \((-r)(-s) = r \cdot (-(-s)) = r \cdot s\).</li>
+        <li>(1) \((0 + 0) \cdot r = 0 \cdot r + 0 \cdot r\), vagyis \(0 \cdot r = 0 \cdot r + 0 \cdot r\), és mindkét oldalból kivonva \(0 \cdot r\)-t: \(0 = 0 \cdot r\). Ugyanígy \(r \cdot 0 = 0\).</li>
+        <li>(2) \(r \cdot s + (-r) \cdot s = (r + (-r)) \cdot s = 0 \cdot s = 0\), tehát \((-r) \cdot s\) az \(r \cdot s\) additív inverze, vagyis \((-r) \cdot s = -(r \cdot s)\). Ugyanígy \(r \cdot (-s) = -(r \cdot s)\).</li>
+        <li>(3) (2) szerint \((-r) \cdot (-s) = -(r \cdot (-s)) = -(-(r \cdot s)) = r \cdot s\).</li>
+        <li>(4) Ha \(1\) és \(1'\) is egységelem, akkor \(1 = 1 \cdot 1' = 1'\) (az 1. tételbeli érveléssel).</li>
+        <li>(5) (2) szerint \((-1) \cdot r = -(1 \cdot r) = -r\).</li>
       </ul>
+      <p>Következmény: \(a = 0\) vagy \(b = 0\) esetén \(a \cdot b = 0\) (az (1) miatt), tehát a nullosztómentesség definíciójában a megfordítás mindig igaz.</p>
       </div>
 
       <div class="ad-slot ad-slot--rectangle">
@@ -100,10 +109,10 @@
             </div>
 
       <h3>Részgyűrű</h3>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
-      <p>Az \(S \le R\) <strong>részgyűrű</strong>, ha \(S\) is gyűrű az \(R\)-beli műveletekkel.</p>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Az \(S \le R\) <strong>részgyűrű</strong>, ha \(S \subseteq R\), és \(S\) is gyűrű az \(R\)-beli műveletekkel. (Nem követeljük meg, hogy \(S\) tartalmazza \(R\) egységelemét.)</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
       <p>\(S \subseteq R\) részgyűrű \(\iff\)</p>
       <ol>
         <li>\(S \neq \emptyset\),</li>
@@ -111,16 +120,20 @@
         <li>\(-S \subseteq S\),</li>
         <li>\(S \cdot S \subseteq S\).</li>
       </ol>
+      <p><strong>Bizonyítás.</strong> \((\Rightarrow)\) Ha \(S\) részgyűrű, akkor \((S, +)\) részcsoportja \((R, +)\)-nak (a 6. tételbeli érveléssel), így (1)–(3) teljesül, és a (4) a szorzás zártsága. \((\Leftarrow)\) Az (1)–(3) szerint \((S, +) \le (R, +)\) a részcsoport-kritérium miatt, tehát Abel-csoport; a (4) szerint a szorzás művelet \(S\)-en; az asszociativitás és a disztributivitás \(R\)-ből öröklődik.</p>
       </div>
 
       <h3>Generált részgyűrű</h3>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
       <p>Legyen \(X \subseteq R\) egy halmaz. Az \(X\) által <strong>generált részgyűrű</strong> az \(X\)-et tartalmazó legszűkebb részgyűrű \(R\)-ben, jele \(\langle X \rangle\):
-      \[ \langle X \rangle = \bigcap_{X \subseteq S \le R} S. \]</p>
+      \[ \langle X \rangle = \bigcap_{X \subseteq S \le R} S. \]
+      Ez valóban részgyűrű: az \(X\)-et tartalmazó részgyűrűk családja nemüres (\(R\) maga ilyen), és részgyűrűk metszete is részgyűrű (a kritérium négy feltétele a metszetre közvetlenül ellenőrizhető, mint a részcsoportok metszeténél).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
+      <div class="note-box"><span class="note-box__label">Megjegyzés (pontosítva)</span>
       <p>Ha \(R\) kommutatív és \(X = \{ r_1, \dots, r_n \}\), akkor
-      \[ \langle X \rangle = \{ p(r_1, r_2, \dots, r_n) \mid p \in \mathbb{Z}[x_1, \dots, x_n] \}. \]</p>
+      \[ \langle X \rangle = \{ p(r_1, r_2, \dots, r_n) \mid p \in \mathbb{Z}[x_1, \dots, x_n],\ p \text{ konstans tagja } 0 \}. \]
+      Ha a részgyűrűtől megköveteljük az egységelem (\(1 \in R\)) tartalmazását is, akkor az \(X\)-szel és az \(1\)-gyel generált részgyűrű minden \(p \in \mathbb{Z}[x_1, \dots, x_n]\)-ra megkapható.</p>
+      <p><strong>Bizonyítás:</strong> jelölje \(T\) a jobb oldali halmazt (egész együtthatós, konstans tag nélküli polinomok értékei). Két ilyen érték összege, ellentettje és szorzata is ilyen alakú, tehát \(T\) részgyűrű (a kritérium alapján), és \(r_i = p(r_1, \dots, r_n)\) a \(p = x_i\) polinommal, így \(X \subseteq T\). Egy \(X\)-et tartalmazó részgyűrű zárt az összeadásra, az ellentettre és a szorzásra, ezért tartalmazza az összes ilyen polinomértéket, vagyis \(T\)-t. Tehát \(T = \langle X \rangle\).</p>
       </div>
 
       </div>
