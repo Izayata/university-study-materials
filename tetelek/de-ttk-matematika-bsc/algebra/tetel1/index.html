@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: a csoport definíciója (a neutrális elem és az inverz kifejtve); az inverz egyértelműségének bizonyítása (a hiányzó lépések kiírva, a jelölés egységesítve)
   - Kiegészítés: a Cayley-táblázat definíciója és a bizonyítás kimondott formája (a sor és az oszlop bijektivitása)
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="1">
   <div id="site-header"></div>
@@ -63,7 +63,7 @@
       <h2>Kidolgozás</h2>
 
       <h3>A csoport fogalma</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Egy \(G\) halmaz a \(\cdot\) kétváltozós műveletre nézve <strong>csoport</strong>, ha</p>
       <ul>
         <li>a művelet asszociatív: \((a \cdot b) \cdot c = a \cdot (b \cdot c)\) minden \(a, b, c \in G\)-re (ezt a struktúrát nevezzük félcsoportnak),</li>
@@ -75,12 +75,12 @@
 
       <h3>Az egységelem és az inverz egyértelműsége</h3>
       <p>Mindkét tulajdonság közvetlenül következik a definícióból.</p>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Egy csoportban legfeljebb egy egységelem van.</p>
       <p><strong>Bizonyítás:</strong> ha \(e\) és \(f\) is egységelem, akkor \(e \cdot f = f\), mert \(e\) egységelem, és \(e \cdot f = e\), mert \(f\) egységelem. Tehát
       \[ e = e \cdot f = f. \]</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Egy csoportban minden elemnek legfeljebb egy inverze van.</p>
       <p><strong>Bizonyítás:</strong> ha \(b\) és \(c\) is inverze az \(a\) elemnek, akkor \(b \cdot a = e\) és \(a \cdot c = e\), ezért
       \[ c = e \cdot c = (b \cdot a) \cdot c = b \cdot (a \cdot c) = b \cdot e = b. \]</p>
@@ -91,10 +91,10 @@
             </div>
 
       <h3>A Cayley-táblázat</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Egy véges \(G = \{g_1, \dots, g_n\}\) csoport <strong>Cayley-táblázata</strong> az az \(n \times n\)-es táblázat, amelynek a \(g_i\) sorában és a \(g_j\) oszlopában a \(g_i \cdot g_j\) elem áll.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>A Cayley-táblázat minden sorában és minden oszlopában minden elem pontosan egyszer szerepel. Másképp: minden \(a \in G\)-re az \(x \mapsto a \cdot x\) és az \(x \mapsto x \cdot a\) leképezés bijekció \(G\)-n.</p>
       <div class="proof-steps" data-steps><ol>
         <li><strong>Egy sorban legfeljebb egyszer.</strong> Ha az \(a\) sorában \(a \cdot b = a \cdot c\), akkor \(a^{-1}\)-gyel balról szorozva \(b = (a^{-1} \cdot a) \cdot b = (a^{-1} \cdot a) \cdot c = c\). Tehát két különböző oszlopban nem állhat ugyanaz az elem.</li>

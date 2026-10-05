@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: a gyökkritérium (a divergens ág a limsup > 1 feltétellel, ami a forrás liminf > 1 feltételét is tartalmazza, és a nulladik tag nullsorozat-ellenpéldáját adja); a hányadoskritérium (a forrás bizonyítása a gyökkritériumra vezette vissza, itt közvetlen összehasonlítás a mértani sorral; x_n ≠ 0 feltétel); a ritkítási kritérium (a forrás becslései hibásak voltak, például az x_1 − 2x_2 + … alsó becslés negatív konstanssal; most a 2^n ≤ k < 2^(n+1), illetve 2^(n−1) < k ≤ 2^n tartományokra bontott helyes becslések); a harmonikus sor (a forrás a 8. tétel elején, a ritkítási kritérium előtt használta; itt a kritérium után áll; α racionális, mert valós hatványhoz a logaritmus kellene)
   - Kiegészítés: a limsup/liminf-lemma használata
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="11">
   <div id="site-header"></div>
@@ -63,7 +63,7 @@
       <h2>Kidolgozás</h2>
 
       <h3>A Cauchy-féle gyökkritérium</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — gyökkritérium (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — gyökkritérium</span>
       <p>Legyen \(\sum x_n\) komplex sor.</p>
       <ol>
         <li>Ha \(\limsup_{n \to \infty} \sqrt[n]{|x_n|} &lt; 1\), akkor a sor abszolút konvergens.</li>
@@ -77,7 +77,7 @@
       </div>
 
       <h3>A d'Alembert-féle hányadoskritérium</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — hányadoskritérium (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — hányadoskritérium</span>
       <p>Legyen \(\sum x_n\) komplex sor, amelynek minden tagja nullától különböző.</p>
       <ol>
         <li>Ha \(\limsup \dfrac{|x_{n+1}|}{|x_n|} &lt; 1\), akkor a sor abszolút konvergens.</li>
@@ -97,7 +97,7 @@
             </div>
 
       <h3>A Cauchy-féle ritkítási kritérium</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — ritkítási kritérium (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — ritkítási kritérium</span>
       <p>Legyen \((x_n)\) nemnegatív tagú, monoton csökkenő valós számsorozat. Ekkor a \(\sum_{n=1}^{\infty} x_n\) sor pontosan akkor konvergens, ha a \(\sum_{n=0}^{\infty} 2^n x_{2^n}\) sor konvergens.</p>
       <div class="proof-steps" data-steps><ol>
         <li>Legyen \(s_N = \sum_{k=1}^{N} x_k\) és \(t_m = \sum_{n=0}^{m} 2^n x_{2^n}\). Mindkét sorozat monoton növő (a tagok nemnegatívak).</li>
@@ -109,11 +109,11 @@
       </div>
 
       <h3>A harmonikus sor</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — harmonikus sor (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — harmonikus sor</span>
       <p>Legyen \(\alpha \in \mathbb{Q}\), \(\alpha &gt; 0\). A \(\sum_{n=1}^{\infty} \dfrac{1}{n^{\alpha}}\) sor konvergens, ha \(\alpha &gt; 1\), és divergens, ha \(\alpha \le 1\).</p>
       <p><strong>Bizonyítás:</strong> az \(x_n = n^{-\alpha}\) nemnegatív és monoton csökkenő, így a ritkítási kritérium alkalmazható. A \(2^n x_{2^n} = 2^n \cdot (2^n)^{-\alpha} = \left( 2^{1 - \alpha} \right)^n\) tagú sor mértani sor \(q = 2^{1-\alpha} &gt; 0\) hányadossal. Ez pontosan akkor konvergens, ha \(q &lt; 1\) (10. tétel), vagyis ha \(2^{1-\alpha} &lt; 1\), ami \(1 - \alpha &lt; 0\), azaz \(\alpha &gt; 1\) esetén áll.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Megjegyzés (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
       <p>Az \(\alpha = 1\) esetben a \(\sum \frac{1}{n}\) harmonikus sor divergens, pedig \(\frac{1}{n} \to 0\): a nullsorozat feltétel (8. tétel) szükséges, de nem elégséges.</p>
       </div>
 

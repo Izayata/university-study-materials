@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: a jó kitevők és a rend kapcsolata egyetlen tételbe foglalva, mindkét irányban és a végtelen rend esetére is bizonyítva (a forrás "fordítva" vázlatát és a rend/legkisebb pozitív jó kitevő egyenlőségét teljessé téve); az o(g^k) képlet bizonyítása (a relatív prímség felhasználása kimondva, a k = 0 eset is); a ciklus rendje; a hatványozási azonosság kommutáló elemekre indoklással (a forrás itt a diszjunkt ciklusok felcserélhetőségére hivatkozott); a permutáció rendjének bizonyítása
   - Kiegészítés: a hatványozás és a hatványozási azonosságok; a diszjunkt ciklusok felcserélhetősége
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="4">
   <div id="site-header"></div>
@@ -63,7 +63,7 @@
       <h2>Kidolgozás</h2>
 
       <h3>Hatványok, rend, jó kitevők</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \(G\) csoport és \(g \in G\). A hatványok: \(g^0 = e\), \(g^{k+1} = g^k \cdot g\) (\(k \ge 0\)), \(g^{-k} = (g^{-1})^k\). Érvényesek a \(g^{k+l} = g^k \cdot g^l\) és \((g^k)^l = g^{kl}\) azonosságok minden \(k, l \in \mathbb{Z}\)-re (a szokásos módon, teljes indukcióval).</p>
       </div>
       <div class="note-box"><span class="note-box__label">Definíció</span>
@@ -71,7 +71,7 @@
       \[ o(g) = \left| \{ g^k \mid k \in \mathbb{Z} \} \right| \in \mathbb{N} \cup \{\infty\}. \]</p>
       <p>A \(q \in \mathbb{Z}\) szám <strong>jó kitevő</strong>, ha \(g^q = e\). A jó kitevők halmazát \(I_g\)-vel jelöljük.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>(a) Ha \(k, l \in I_g\), akkor \(\operatorname{lnko}(k, l) \in I_g\) (és \(k \pm l \in I_g\)).</p>
       <p>(b) \(g^k = g^l \iff k - l \in I_g\).</p>
       <p>(c) Ha \(n \in I_g\), akkor \(g^{k+n} = g^k\) minden \(k\)-ra: a hatványok \(n\)-esével ismétlődnek.</p>
@@ -79,7 +79,7 @@
       \[ g^{\operatorname{lnko}(k,l)} = g^{\alpha k + \beta l} = (g^k)^{\alpha} \cdot (g^l)^{\beta} = e^{\alpha} \cdot e^{\beta} = e. \]
       (b) \(g^k = g^l\) pontosan akkor, ha \(g^{k-l} = g^k \cdot (g^l)^{-1} = e\). (c) \(g^{k+n} = g^k \cdot g^n = g^k\). \(\square\)</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel</span>
       <p>(1) Ha a \(0\) az egyetlen jó kitevő (\(I_g = \{0\}\)), akkor \(o(g) = \infty\), vagyis \(g\) bármely két hatványa különböző.</p>
       <p>(2) Ha van \(0\)-tól különböző jó kitevő, és \(n\) a legkisebb pozitív jó kitevő, akkor \(e = g^0, g^1, \dots, g^{n-1}\) páronként különbözők, \(g\) minden hatványa közöttük van, tehát \(o(g) = n\). A jó kitevők pontosan az \(n\) többszörösei: \(I_g = n\mathbb{Z}\).</p>
       <p>(3) Ennek következtében \(o(g) = \infty \iff I_g = \{0\}\), és ha \(o(g)\) véges, akkor \(o(g)\) a legkisebb pozitív jó kitevő, a jó kitevők pedig az \(o(g)\) többszörösei.</p>
@@ -97,7 +97,7 @@
             </div>
 
       <h3>Egy hatvány rendje</h3>
-      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel</span>
       <p>Ha \(o(g) = n\) véges és \(k \in \mathbb{Z}\), akkor \(o(g^k) = \dfrac{n}{\operatorname{lnko}(n, k)}\) (és \(\operatorname{lnko}(n, 0) = n\)).</p>
       <div class="proof-steps" data-steps><ol>
         <li>A \(g^k\) hatványai a \(g\) hatványai, ezért \(o(g^k)\) véges, és a (3) szerint a legkisebb pozitív \(m\), amelyre \((g^k)^m = e\).</li>
@@ -108,15 +108,15 @@
       </div>
 
       <h3>Ciklus és permutáció rendje</h3>
-      <div class="note-box"><span class="note-box__label">Lemma (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Lemma</span>
       <p>(a) Diszjunkt ciklusok felcserélhetők. (b) Ha \(a \cdot b = b \cdot a\), akkor \((a \cdot b)^m = a^m \cdot b^m\) minden \(m \ge 0\)-ra.</p>
       <p><strong>Bizonyítás.</strong> (a) Legyen \(c_1\) és \(c_2\) két diszjunkt ciklus, \(S_1\), \(S_2\) az elemeik halmaza. Ha \(x \in S_1\), akkor \(c_2(x) = x\), és \(c_1(x) \in S_1\), így \(c_2(c_1(x)) = c_1(x) = c_1(c_2(x))\). Ha \(x \in S_2\), ugyanígy. Egyébként mindkettő helyben hagyja \(x\)-et. (b) \(m\) szerinti indukcióval: \((ab)^{m+1} = (ab)^m \cdot ab = a^m b^m \cdot a b = a^m \cdot a b^m \cdot b = a^{m+1} b^{m+1}\), ahol felhasználtuk, hogy \(b^m a = a b^m\) (mert \(a\) és \(b\) felcserélhető). \(\square\)</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Egy \(k\) hosszú ciklus rendje \(k\).</p>
       <p><strong>Bizonyítás:</strong> legyen \(c = (a_1\ \dots\ a_k)\). Indukcióval \(c^t(a_i) = a_{i+t}\) (az indexeket \(k\)-val vett maradékként értve). Így \(c^t(a_1) = a_1 \iff k \mid t\); ha \(k \mid t\), akkor \(c^t\) minden \(a_i\)-t, és a többi elemet is helyben hagyja, tehát \(c^t = \mathrm{id}\). A jó kitevők tehát a \(k\) többszörösei, és a (3) szerint \(o(c) = k\). \(\square\)</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel</span>
       <p>Ha a \(\sigma\) permutáció diszjunkt ciklusainak hossza \(l_1, l_2, \dots, l_r\), akkor \(\sigma\) rendje \(\operatorname{lkkt}(l_1, l_2, \dots, l_r)\).</p>
       <div class="proof-steps" data-steps><ol>
         <li>Legyen \(\sigma = c_1 \cdots c_r\) diszjunkt ciklusok szorzata. A ciklusok páronként felcserélhetők, ezért a Lemma (b) pontja szerint \(\sigma^n = c_1^n \cdots c_r^n\).</li>

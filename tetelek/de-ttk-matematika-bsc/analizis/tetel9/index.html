@@ -33,7 +33,7 @@
   - Pontosítva: a háromszög-egyenlőtlenség sorokra (abszolút konvergens sorra mondva ki, a bizonyítás a határértékek és a rendezés tételére épül, a forrás zavaros jelölése helyett); a csoportosított sor (k_0 = 0, szigorúan növő k_n, a részletösszegek a részsorozat); az átrendezés tétele (a forrás bizonyítása zavaros volt, itt teljes: előbb a sor abszolút konvergenciája a korlátos részletösszegekkel, majd az összeg egyenlősége a farokrész becslésével); Riemann tétele (valós sorra)
   - Kiegészítés: a csoportosítás megfordítása nem igaz (példa)
   - Bizonyítás nélkül közölt (ismert tétel): Riemann átrendezési tétele
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="9">
   <div id="site-header"></div>
@@ -64,7 +64,7 @@
       <h2>Kidolgozás</h2>
 
       <h3>Műveletek konvergens sorokkal</h3>
-      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel</span>
       <p>Legyen \(\sum x_n\) és \(\sum y_n\) konvergens sor, \(\lambda\) szám. Ekkor</p>
       <ol>
         <li>\(\sum (x_n + y_n)\) konvergens, és \(\sum_{n=1}^{\infty} (x_n + y_n) = \sum_{n=1}^{\infty} x_n + \sum_{n=1}^{\infty} y_n\);</li>
@@ -80,15 +80,15 @@
       </div>
 
       <h3>Csoportosítás</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \((k_n)_{n \ge 0}\) szigorúan monoton növő egész sorozat, \(k_0 = 0\). A \(\sum x_n\) sor <strong>csoportosított sora</strong>:
       \[ \sum_{n=1}^{\infty} \left( \sum_{\ell = k_{n-1} + 1}^{k_n} x_\ell \right) = (x_1 + \dots + x_{k_1}) + (x_{k_1 + 1} + \dots + x_{k_2}) + \dots \]</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel</span>
       <p>Egy konvergens sor bármely csoportosított sora is konvergens, és összege megegyezik az eredeti sor összegével.</p>
       <p><strong>Bizonyítás:</strong> a csoportosított sor \(n\)-edik részletösszege \(\sum_{m=1}^{n} \sum_{\ell = k_{m-1}+1}^{k_m} x_\ell = \sum_{\ell = 1}^{k_n} x_\ell = s_{k_n}\), vagyis az \((s_n)\) részsorozata. A konvergens \((s_n)\) minden részsorozata ugyanahhoz a határértékhez tart (1. tétel).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Megjegyzés (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
       <p>A megfordítás nem igaz: az \(1 - 1 + 1 - 1 + \dots\) sor részletösszegei \(1, 0, 1, 0, \dots\), divergens, de a \((1 - 1) + (1 - 1) + \dots\) csoportosított sor tagjai \(0\), konvergens.</p>
       </div>
 
@@ -100,7 +100,7 @@
       <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Ha \(\varphi : \mathbb{N} \to \mathbb{N}\) bijekció, akkor a \(\sum_{n=1}^{\infty} x_{\varphi(n)}\) sort a \(\sum x_n\) <strong>átrendezésének</strong> nevezzük.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel</span>
       <p>Abszolút konvergens sor bármely átrendezése is abszolút konvergens, és az átrendezett sor összege ugyannyi, mint az eredeti sor összege.</p>
       <div class="proof-steps" data-steps><ol>
         <li>Legyen \(\sum x_n\) abszolút konvergens, \(A = \sum |x_n|\), \(s = \sum x_n\), és \(\varphi\) egy bijekció.</li>

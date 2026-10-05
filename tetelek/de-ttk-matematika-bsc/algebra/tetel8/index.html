@@ -33,7 +33,7 @@
   - Pontosítva: a metszet-állítás tetszőleges (nem csak két részcsoportból álló) családra; a generált részcsoport definíciója (a legszűkebb jelentése); a direkt szorzat csoport voltának ellenőrzése; a direkt szorzat ciklikusságának bizonyítása (egyetlen, egyenlőtlenség-láncos érvelés); a ℤ_nk ≅ ℤ_n × ℤ_k következmény bizonyítása (a forrás félbemaradt, és lkkt-t írt lnko helyett); a nem kommutatív eset szóhalmaza minden csoportra kimondva
   - Kiegészítés: az Abel-csoportbeli generált részcsoport és a szavakból álló alak bizonyítása; a véges Abel-csoportok alaptételének pontos megfogalmazása
   - Bizonyítás nélkül közölt (ismert tétel): a véges Abel-csoportok alaptétele
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="8">
   <div id="site-header"></div>
@@ -65,10 +65,10 @@
 
       <h3>A generált részcsoport</h3>
       <p>Egyetlen elem által generált részcsoport: \(\langle g \rangle = \{ g^k \mid k \in \mathbb{Z} \}\) (6. tétel).</p>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \(G\) csoport és \(X \subseteq G\). Az \(X\) által <strong>generált részcsoport</strong> az \(X\)-et tartalmazó legszűkebb részcsoport, vagyis az a \(\langle X \rangle \le G\), amelyre \(X \subseteq \langle X \rangle\), és minden \(X\)-et tartalmazó \(H \le G\)-re \(\langle X \rangle \subseteq H\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Részcsoportok tetszőleges nemüres családjának metszete is részcsoport.</p>
       <p><strong>Bizonyítás:</strong> legyenek \(H_i \le G\) (\(i \in I \neq \emptyset\)) és \(D = \bigcap_{i \in I} H_i\). Ekkor</p>
       <ol>
@@ -78,17 +78,17 @@
       </ol>
       <p>A részcsoport-kritérium szerint \(D \le G\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>\(\langle X \rangle\) létezik és egyértelmű.</p>
       <p><strong>Bizonyítás:</strong> az \(X\)-et tartalmazó részcsoportok családja nemüres (a \(G\) maga ilyen). Legyen \(K = \displaystyle\bigcap_{X \subseteq H \le G} H\). Ez részcsoport az előző állítás szerint, tartalmazza \(X\)-et, és minden \(X\)-et tartalmazó részcsoportnak része, tehát a legszűkebb. Ha \(K'\) is ilyen volna, akkor \(K \subseteq K'\) és \(K' \subseteq K\), azaz \(K = K'\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Ha \((G, +)\) Abel-csoport és \(X = \{ g_1, g_2, \dots, g_k \} \subseteq G\), akkor
       \[ \langle X \rangle = \{ m_1 \cdot g_1 + \dots + m_k \cdot g_k \mid m_i \in \mathbb{Z} \} \]
       (\(X = \emptyset\) esetén \(\langle X \rangle = \{0\}\)).</p>
       <p><strong>Bizonyítás:</strong> jelölje \(S\) a jobb oldali halmazt. Nemüres (\(0 \in S\)), két elem összege és egy elem ellentettje is \(S\)-beli (az együtthatókat összeadjuk, illetve negáljuk), tehát \(S \le G\). Tartalmazza \(X\)-et (\(g_i = 1 \cdot g_i\)). Ha \(H \le G\) tartalmazza \(X\)-et, akkor tartalmazza az összes \(m_1 g_1 + \dots + m_k g_k\) elemet is, tehát \(S \subseteq H\). Így \(S = \langle X \rangle\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Bármely \(G\) csoportban \(\langle X \rangle\) az \(X \cup X^{-1}\) betűkből alkotott összes szó, azaz az \(x_1 \cdot x_2 \cdots x_n\) szorzatok, ahol \(n \ge 0\) és \(x_i \in X \cup X^{-1}\) (az üres szorzat \(e\)). Kommutatív csoportban ez az előző állítás alakjára egyszerűsödik.</p>
       <p><strong>Bizonyítás:</strong> jelölje \(W\) az ilyen szorzatok halmazát. Két szó szorzata szó; az \(x_1 \cdots x_n\) szó inverze az \(x_n^{-1} \cdots x_1^{-1}\) szó, és \(x_i^{-1} \in X \cup X^{-1}\); \(e \in W\). Tehát \(W \le G\), és tartalmazza \(X\)-et. Minden \(X\)-et tartalmazó részcsoport tartalmazza \(X^{-1}\)-et és a szorzatokat is, tehát \(W\)-t. Így \(W = \langle X \rangle\).</p>
       </div>
@@ -98,7 +98,7 @@
             </div>
 
       <h3>Direkt szorzat</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyenek \(G_1, G_2, \dots, G_n\) csoportok. Ekkor
       \[ G_1 \times G_2 \times \dots \times G_n = \{ (g_1, g_2, \dots, g_n) \mid g_i \in G_i \}, \]
       és a szorzatot komponensenként értelmezzük:
@@ -110,7 +110,7 @@
       </ul>
       <p>Tehát \(G_1 \times \dots \times G_n\) egy új csoport; ha az \(G_i\)-k végesek, elemszáma \(|G_1| \cdots |G_n|\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Legyen \(G\) és \(H\) véges csoport. Ekkor \(G \times H\) ciklikus \(\iff\) \(G\) és \(H\) is ciklikus és \(\operatorname{lnko}(|G|, |H|) = 1\).</p>
       <p><strong>Bizonyítás.</strong> Előbb: \((g, h)^m = (g^m, h^m)\), ezért \((g, h)^m = (e, e) \iff g^m = e\) és \(h^m = e\) \(\iff o(g) \mid m\) és \(o(h) \mid m\) \(\iff \operatorname{lkkt}(o(g), o(h)) \mid m\). A 4. tétel szerint így
       \[ o((g, h)) = \operatorname{lkkt}(o(g), o(h)). \]</p>
@@ -123,7 +123,7 @@
           A \(\langle (g, h) \rangle\) tehát a \(G \times H\) egy \(|G \times H|\) elemű részhalmaza, vagyis az egész csoport. Így \(G \times H\) ciklikus.</li>
       </ul>
       </div>
-      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
       <p>Ha \(n, k \ge 1\), akkor \((\mathbb{Z}_{nk}, +) \cong (\mathbb{Z}_n, +) \times (\mathbb{Z}_k, +) \iff \operatorname{lnko}(n, k) = 1\).</p>
       <p><strong>Bizonyítás.</strong> \((\Leftarrow)\) A \(\mathbb{Z}_n\) és a \(\mathbb{Z}_k\) ciklikus, \(n\), illetve \(k\) elemű, és \(\operatorname{lnko}(n, k) = 1\), ezért az előző állítás szerint a \(\mathbb{Z}_n \times \mathbb{Z}_k\) ciklikus, \(nk\) elemű. Az 5. tétel szerint egy \(nk\) elemű ciklikus csoport izomorf a \(\mathbb{Z}_{nk}\)-val. \((\Rightarrow)\) Ha a két csoport izomorf, akkor \(\mathbb{Z}_n \times \mathbb{Z}_k\) ciklikus (a \(\mathbb{Z}_{nk}\) az), így az előző állítás szerint \(\operatorname{lnko}(n, k) = \operatorname{lnko}(|\mathbb{Z}_n|, |\mathbb{Z}_k|) = 1\).</p>
       </div>

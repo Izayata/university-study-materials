@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: az egyenletes konvergencia definíciója (az indexküszöböt a forrás δ-val jelölte, itt N); a Cauchy-kritérium bizonyítása (az ⟸ irányban rögzített n mellett m → ∞ határátmenet, a forrás zavaros lim|f_n − f_n| sora helyett); a függvénysor és a függvénysorra vonatkozó Cauchy-kritérium (a függvénysorozat kritériumából levezetve); a Weierstrass-kritérium bizonyítása (a forrás bizonyítás nélkül mondta ki)
   - Kiegészítés: az egyenletes konvergencia maga után vonja a pontonkénti konvergenciát, a megfordítás nem igaz (példa: x^n a [0, 1[ intervallumon)
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="14">
   <div id="site-header"></div>
@@ -63,16 +63,16 @@
       <h2>Kidolgozás</h2>
 
       <h3>Pontonkénti és egyenletes konvergencia</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \(X \neq \emptyset\), és minden \(n \in \mathbb{N}\)-re \(f_n : X \to \mathbb{C}\) függvény (a valós értékű függvények a speciális eset). Az \((f_n)\) <strong>függvénysorozat</strong> az \(x \in X\) pontban konvergens, ha az \((f_n(x))\) számsorozat konvergens. Ha minden \(x \in H \subseteq X\) pontban konvergens, akkor a \(H\) halmazon <strong>pontonként konvergens</strong>, és az \((f_n)\) pontonként konvergál az \(f : H \to \mathbb{C}\) <strong>határfüggvényhez</strong>, ha \(\lim_{n \to \infty} f_n(x) = f(x)\) minden \(x \in H\)-ra.</p>
       <p>Legyen \(\emptyset \neq H \subseteq X\). Az \((f_n)\) függvénysorozat a \(H\) halmazon <strong>egyenletesen konvergál</strong> az \(f : H \to \mathbb{C}\) függvényhez, ha minden \(\varepsilon &gt; 0\)-hoz van olyan \(N &gt; 0\), hogy ha \(n \in \mathbb{N}\), \(n &gt; N\), akkor \(|f_n(x) - f(x)| &lt; \varepsilon\) teljesül <em>minden</em> \(x \in H\) esetén.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Megjegyzés (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
       <p>Az egyenletes konvergencia maga után vonja a pontonkéntit (az \(N\) csak \(\varepsilon\)-tól függ, nem \(x\)-től). A megfordítás nem igaz: az \(f_n(x) = x^n\) függvények a \(H = [0, 1[\) halmazon pontonként \(0\)-hoz tartanak (5. tétel), de nem egyenletesen. Ugyanis az \(\varepsilon = \frac{1}{2}\)-hez bármely \(n\)-re az \(x_n = 2^{-1/n} \in [0, 1[\) pontban \(f_n(x_n) = \frac{1}{2}\), vagyis \(|f_n(x_n) - 0| \not&lt; \frac{1}{2}\).</p>
       </div>
 
       <h3>A Cauchy-féle konvergenciakritérium függvénysorozatokra</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — Cauchy-kritérium függvénysorozatokra (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — Cauchy-kritérium függvénysorozatokra</span>
       <p>Az \((f_n)\) függvénysorozat pontosan akkor konvergál egyenletesen a \(H\) halmazon (valamely határfüggvényhez), ha minden \(\varepsilon &gt; 0\)-hoz van olyan \(N &gt; 0\), hogy ha \(n, m \in \mathbb{N}\), \(n, m &gt; N\), akkor \(|f_n(x) - f_m(x)| &lt; \varepsilon\) minden \(x \in H\) esetén.</p>
       <p><strong>Bizonyítás.</strong></p>
       <ul>
@@ -86,15 +86,15 @@
             </div>
 
       <h3>Függvénysorok</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \(X \neq \emptyset\) és \(f_n : X \to \mathbb{C}\) függvények. A \(\sum_{n=1}^{\infty} f_n\) <strong>függvénysor</strong> a \(\sigma_n(x) = f_1(x) + \dots + f_n(x)\) részletösszeg-függvények sorozata; a sor pontonként, illetve egyenletesen konvergál (a \(H\) halmazon), ha a \((\sigma_n)\) függvénysorozat ilyen.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel — Cauchy-kritérium függvénysorokra (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — Cauchy-kritérium függvénysorokra</span>
       <p>A \(\sum f_n\) függvénysor pontosan akkor konvergál egyenletesen a \(\emptyset \neq H \subseteq X\) halmazon, ha minden \(\varepsilon &gt; 0\)-hoz van olyan \(N &gt; 0\), hogy ha \(n, m \in \mathbb{N}\), \(m &gt; n &gt; N\), akkor
       \[ \left| \sum_{k=n+1}^{m} f_k(x) \right| &lt; \varepsilon \quad \text{minden } x \in H \text{ esetén.} \]</p>
       <p><strong>Bizonyítás:</strong> \(\sigma_m(x) - \sigma_n(x) = \sum_{k=n+1}^{m} f_k(x)\), így az állítás a \((\sigma_n)\) függvénysorozatra felírt Cauchy-kritérium (a szimmetria miatt elég \(m &gt; n\)-re).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel — Weierstrass-féle elégséges feltétel (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — Weierstrass-féle elégséges feltétel</span>
       <p>Legyen \(X \neq \emptyset\), \(f_n : X \to \mathbb{C}\), \(\emptyset \neq H \subseteq X\), és \(\sum c_n\) konvergens nemnegatív tagú valós sor, amelyre \(|f_n(x)| \le c_n\) teljesül minden \(x \in H\), \(n \in \mathbb{N}\) esetén. Ekkor a \(\sum f_n\) függvénysor egyenletesen konvergens a \(H\) halmazon (és minden \(x \in H\)-ban abszolút konvergens).</p>
       <p><strong>Bizonyítás:</strong> a \(\sum c_n\) konvergens, így a Cauchy-kritérium szerint minden \(\varepsilon &gt; 0\)-hoz van \(N\), hogy \(m &gt; n &gt; N\) esetén \(\sum_{k=n+1}^{m} c_k &lt; \varepsilon\). Ekkor minden \(x \in H\)-ra
       \[ \left| \sum_{k=n+1}^{m} f_k(x) \right| \le \sum_{k=n+1}^{m} |f_k(x)| \le \sum_{k=n+1}^{m} c_k &lt; \varepsilon. \]

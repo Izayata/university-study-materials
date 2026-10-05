@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: az egyszerű csoport definíciója (nem triviális csoport, különben a ℤ_p-s jellemzés hamis lenne); a p-csoportok jellemzése véges csoportra; a Cauchy-tétel bizonyítása (az eltolás X-ben marad, az orbitok és a fixpontok számlálása kifejtve); a p-csoport centrumának bizonyítása (osztályegyenlet, n ≥ 1); a G/Z(G) ciklikus ⟹ G Abel-csoport tétel bizonyítása (tetszőleges hatványokkal, a következtetés kimondva); a p² rendű csoportok osztályozása
   - Kiegészítés: a p² rendű Abel-csoportok osztályozásának közvetlen bizonyítása (nem támaszkodik a véges Abel-csoportok alaptételére); a prím rendű csoport ciklikus
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="14">
   <div id="site-header"></div>
@@ -63,10 +63,10 @@
       <h2>Kidolgozás</h2>
 
       <h3>Egyszerű csoportok</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Egy \(G\) csoportot <strong>egyszerűnek</strong> nevezünk, ha \(G \neq \{e\}\), és az \(\{e\}\)-n és a \(G\)-n kívül (ezek a nem valódi normálosztók) nincs normálosztója.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Ha \(G\) Abel-csoport, akkor \(G\) egyszerű \(\iff\) \(G \cong (\mathbb{Z}_p, +)\), ahol \(p\) prím.</p>
       <p><strong>Bizonyítás:</strong> ha \(G\) kommutatív, akkor minden részcsoport normálosztó (\(g \cdot H = H \cdot g\)), így \(G\) egyszerű \(\iff\) \(G \neq \{e\}\), és \(G\)-ben nincs nem triviális valódi részcsoport \(\iff\) \(G \cong (\mathbb{Z}_p, +)\) (6. tétel).</p>
       </div>
@@ -86,7 +86,7 @@
         <li>Ekkor \(o(g) \mid p\) (4. tétel) és \(o(g) \neq 1\), így \(o(g) = p\).</li>
       </ol></div>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Egy véges \(G\) csoport \(p\)-csoport \(\iff\) \(|G| = p^n\) valamilyen \(n \ge 0\)-ra.</p>
       <p><strong>Bizonyítás.</strong></p>
       <ul>
@@ -100,17 +100,17 @@
             </div>
 
       <h3>A p-csoport centruma</h3>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Ha \(|G| = p^n\) és \(n \ge 1\), akkor \(Z(G) \neq \{e\}\).</p>
       <p><strong>Bizonyítás:</strong> tekintsük a konjugálás hatást (12. tétel). Az orbitok a konjugált osztályok; ezek partíciót alkotnak \(G\)-n, és az orbit-stabilizátor-tétel alapján méretük \(|G : C_G(g)|\), ami osztja \(p^n\)-t, tehát \(p\)-hatvány. Az 1 elemű osztályok pontosan a \(Z(G)\) elemei (12. tétel). Ha \(K_1, \dots, K_r\) a legalább 2 elemű konjugált osztályok, akkor
       \[ |G| = |Z(G)| + |K_1| + \dots + |K_r|. \]
       Minden \(|K_i|\) \(p\)-hatvány és nagyobb \(1\)-nél, tehát osztható \(p\)-vel. Mivel \(p \mid |G|\) (\(n \ge 1\)), ebből \(p \mid |Z(G)|\). Mivel \(e \in Z(G)\), \(|Z(G)| \ge 1\), tehát \(|Z(G)| \ge p\), így \(Z(G) \neq \{e\}\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
       <p>Ha \(G\) véges \(p\)-csoport és \(G \neq \{e\}\), akkor \(G\) egyszerű \(\iff\) \(G \cong (\mathbb{Z}_p, +)\).</p>
       <p><strong>Bizonyítás:</strong> \((\Leftarrow)\) A \(\mathbb{Z}_p\) egyszerű (az előző állítás). \((\Rightarrow)\) Ha \(|G| = p^n\), \(n \ge 1\), akkor \(Z(G) \neq \{e\}\), és mivel \(Z(G) \trianglelefteq G\), egyszerűség esetén \(Z(G) = G\), azaz \(G\) kommutatív. A kommutatív egyszerű csoportok a \((\mathbb{Z}_p, +)\) csoportok.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Ha \(G / Z(G)\) ciklikus, akkor \(G\) kommutatív. Másképp: ha \(G\) nem kommutatív, akkor \(G / Z(G)\) nem lehet ciklikus.</p>
       <p><strong>Bizonyítás:</strong> legyen \(G / Z(G) = \langle g \cdot Z(G) \rangle\). Ekkor a mellékosztályok \(g^r \cdot Z(G)\) alakúak (\(r \in \mathbb{Z}\)), így \(G\) minden eleme \(g^r \cdot z\) alakú valamilyen \(r \in \mathbb{Z}\) és \(z \in Z(G)\) mellett. Két ilyen elemre
       \[ g^{r_1} z_1 \cdot g^{r_2} z_2 = g^{r_1} g^{r_2} z_1 z_2 = g^{r_2} g^{r_1} z_2 z_1 = g^{r_2} z_2 \cdot g^{r_1} z_1, \]
@@ -118,7 +118,7 @@
       </div>
 
       <h3>A p² rendű csoportok</h3>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Ha \(|G| = p^2\), akkor \(G\) kommutatív, és \(G \cong (\mathbb{Z}_{p^2}, +)\) vagy \(G \cong (\mathbb{Z}_p, +) \times (\mathbb{Z}_p, +)\).</p>
       <div class="proof-steps" data-steps><ol>
         <li>Az előző állítás szerint \(Z(G) \neq \{e\}\), tehát \(|Z(G)| = p\) vagy \(p^2\) (Lagrange).</li>

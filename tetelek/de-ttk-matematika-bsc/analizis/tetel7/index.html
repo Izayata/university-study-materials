@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: a határérték definíciója komplex sorozatra (a ℂ̄ = ℂ ∪ {∞} környezetei); "konvergens ⟺ a valós és képzetes rész konvergens" (a forrás csak az egyik irányt mondta ki, mindkettőt bizonyította); a Cauchy-sorozat definíciója (a forrás a valós és képzetes rész Cauchy voltával definiálta; itt |z_n − z_m| < ε, és az egyenértékűség bizonyítva); a Bolzano–Weierstrass-tétel (a részsorozat részsorozatának kiválasztása kimondva); a műveletek (összeg, szorzat, reciprok), a forrás jelölésének (v_n, w_n kétszer szerepelt) rendezésével
   - Kiegészítés: |Re w|, |Im w| ≤ |w| ≤ |Re w| + |Im w|
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="7">
   <div id="site-header"></div>
@@ -63,19 +63,19 @@
       <h2>Kidolgozás</h2>
 
       <h3>A komplex sorozat határértéke</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>A komplex számsorozat \(z_n = x_n + y_n i\) (\(x_n = \operatorname{Re} z_n\), \(y_n = \operatorname{Im} z_n\) valós sorozatok). A \(\overline{\mathbb{C}} = \mathbb{C} \cup \{\infty\}\) pontjainak környezetei: \(U(z, \varepsilon) = \{ u \in \mathbb{C} \mid |z - u| &lt; \varepsilon \}\) (\(z \in \mathbb{C}\), \(\varepsilon &gt; 0\)), és \(U(\infty, \varepsilon) = \{ u \in \mathbb{C} \mid |u| &gt; \frac{1}{\varepsilon} \}\). A \(z_n\) sorozat határértéke \(z \in \overline{\mathbb{C}}\), ha a \(z\) minden \(U\) környezetére \(z_n \in U\) véges sok kivétellel. Véges \(z\)-re ez azt jelenti, hogy minden \(\varepsilon &gt; 0\)-hoz van \(N &gt; 0\), hogy \(n &gt; N\) esetén \(|z_n - z| &lt; \varepsilon\).</p>
       <p>A sorozat <strong>korlátos</strong>, ha van \(R &gt; 0\), hogy \(|z_n| &lt; R\) minden \(n\)-re.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Lemma (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Lemma</span>
       <p>Minden \(w = a + b i\) komplex számra \(|a|, |b| \le |w| \le |a| + |b|\).</p>
       <p><strong>Bizonyítás:</strong> \(|a| = \sqrt{a^2} \le \sqrt{a^2 + b^2} = |w|\), ugyanígy \(|b| \le |w|\); és \((|a| + |b|)^2 = a^2 + b^2 + 2|ab| \ge a^2 + b^2 = |w|^2\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel — konvergens sorozat korlátos (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — konvergens sorozat korlátos</span>
       <p>Ha \(z_n \to z \in \mathbb{C}\), akkor \((z_n)\) korlátos.</p>
       <p><strong>Bizonyítás:</strong> az \(U = U(z, 1)\) környezethez van \(N &gt; 0\), hogy \(n &gt; N\) esetén \(z_n \in U\), vagyis \(|z_n| &lt; |z| + 1\). Legyen \(\delta = \max\{ |z_n| \mid n \le N \}\) (véges halmaz maximuma; \(\delta = 0\), ha nincs ilyen \(n\)) és \(R = \max\{ \delta, |z| + 1 \} + 1\). Ekkor minden \(n\)-re \(|z_n| &lt; R\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel — korlátosság és konvergencia a valós és képzetes részen (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — korlátosság és konvergencia a valós és képzetes részen</span>
       <p>(a) \((z_n)\) pontosan akkor korlátos, ha \((x_n)\) és \((y_n)\) korlátosak. (b) \((z_n)\) pontosan akkor konvergens, ha \((x_n)\) és \((y_n)\) konvergensek, és ekkor \(\lim z_n = \lim x_n + i \lim y_n\).</p>
       <p><strong>Bizonyítás.</strong></p>
       <ul>
@@ -90,20 +90,20 @@
             </div>
 
       <h3>Cauchy-sorozatok és a Bolzano–Weierstrass-tétel</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>A \((z_n)\) komplex sorozat <strong>Cauchy-sorozat</strong>, ha minden \(\varepsilon &gt; 0\)-hoz van \(N &gt; 0\), hogy \(n, m &gt; N\) esetén \(|z_n - z_m| &lt; \varepsilon\). Ez egyenértékű azzal, hogy \((x_n)\) és \((y_n)\) Cauchy-sorozatok \(\mathbb{R}\)-ben: a Lemma szerint \(|x_n - x_m|, |y_n - y_m| \le |z_n - z_m| \le |x_n - x_m| + |y_n - y_m|\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel — Cauchy-féle konvergenciakritérium ℂ-ben (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — Cauchy-féle konvergenciakritérium ℂ-ben</span>
       <p>Egy komplex számsorozat pontosan akkor konvergens, ha Cauchy-sorozat.</p>
       <p><strong>Bizonyítás:</strong> \((z_n)\) konvergens \(\iff\) \((x_n)\) és \((y_n)\) konvergensek (az előző tétel) \(\iff\) \((x_n)\) és \((y_n)\) Cauchy-sorozatok (a valós Cauchy-kritérium, 3. tétel) \(\iff\) \((z_n)\) Cauchy-sorozat (az előző definíció).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel — Bolzano–Weierstrass ℂ-ben (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — Bolzano–Weierstrass ℂ-ben</span>
       <p>Minden korlátos komplex számsorozatnak létezik konvergens részsorozata.</p>
       <p><strong>Bizonyítás:</strong> az \((x_n)\) korlátos valós sorozat, ezért van konvergens \((x_{k_n})\) részsorozata. Az \((y_{k_n})\) is korlátos, ezért van konvergens részsorozata, \((y_{k_{\ell_n}})\). Az \((x_{k_{\ell_n}})\) a konvergens \((x_{k_n})\) részsorozata, tehát konvergens. Így \(z_{k_{\ell_n}} = x_{k_{\ell_n}} + y_{k_{\ell_n}} i\) valós és képzetes része is konvergens, vagyis az \((z_n)\) egy konvergens részsorozata.</p>
       </div>
 
       <h3>Műveletek komplex sorozatokkal</h3>
-      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel</span>
       <p>Legyen \(z_n \to z\) és \(w_n \to u\) (\(z, u \in \mathbb{C}\)). Ekkor \(z_n + w_n \to z + u\) és \(z_n \cdot w_n \to z \cdot u\). Ha \(z \neq 0\) és \(z_n \neq 0\) minden \(n\)-re, akkor \(\dfrac{1}{z_n} \to \dfrac{1}{z}\), és így \(\dfrac{w_n}{z_n} \to \dfrac{u}{z}\).</p>
       <p><strong>Bizonyítás.</strong> Legyen \(z_n = a_n + b_n i\), \(w_n = c_n + d_n i\), \(z = a + bi\), \(u = c + di\); a valós és képzetes részek a feltétel szerint \(a_n \to a\), \(b_n \to b\), \(c_n \to c\), \(d_n \to d\).</p>
       <ul>

@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: a prím és az irreducibilis elem definíciója (nem nulla, nem egység); a relatív prímség és az lnko értelmezése (asszociáltság erejéig); a prím ⟹ irreducibilis bizonyítása; az egyértelműség bizonyítása (indukcióval, egységszorzókkal); az "alaptételes, ha ① és ②" tétel iránya és bizonyítása (a létezés a maximumfeltételből; a forrás "ha" állítása csak az egyik irány)
   - Kiegészítés: az irreducibilis elem egyenértékű jellemzése (egy tényező egység); főideálgyűrűben minden irreducibilis elem prím (a forrás bizonyítása félbemaradt); a főideálgyűrűben az lnko létezése és a Bézout-azonosság; a főideálgyűrű maximumfeltétele (láncok uniója ideál)
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="20">
   <div id="site-header"></div>
@@ -63,7 +63,7 @@
       <h2>Kidolgozás</h2>
 
       <h3>Oszthatósági fogalmak</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \(R\) integritási tartomány.</p>
       <ul>
         <li>\(r, s \in R\) esetén \(r \mid s\), ha \(\exists t \in R : s = r \cdot t\).</li>
@@ -77,10 +77,10 @@
         <li>Az \(R\) <strong>alaptételes gyűrű</strong>, ha \(R\) minden \(0\)-tól és egységektől különböző eleme felírható irreducibilis elemek szorzataként, és ez a felírás az egységektől és a sorrendtől eltekintve egyértelmű.</li>
       </ul>
       </div>
-      <div class="note-box"><span class="note-box__label">Megjegyzés (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
       <p>Az \(r = a \cdot b\) felbontás pontosan akkor triviális, ha \(a\) vagy \(b\) egység. Ugyanis ha \(r \sim a\), akkor \(a = r \cdot c\), így \(r = r \cdot c \cdot b\), és \(r \neq 0\) miatt \(c \cdot b = 1\), vagyis \(b\) egység; fordítva, ha \(b\) egység, akkor \(a = r \cdot b^{-1}\), így \(r \mid a\), és \(a \mid r\), tehát \(r \sim a\). Ezért az \(r\) irreducibilis \(\iff\) \(0 \neq r\) nem egység, és minden \(r = a \cdot b\) felbontásban \(a\) vagy \(b\) egység. Továbbá, ha \(p\) irreducibilis és \(p = a \cdot c\), akkor \(a\) egység vagy \(c\) egység.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Minden prím irreducibilis.</p>
       <p><strong>Bizonyítás:</strong> legyen \(p\) prím és \(p = a \cdot b\). Ekkor \(p \mid a \cdot b\), tehát \(p \mid a\) vagy \(p \mid b\).</p>
       <ul>
@@ -91,7 +91,7 @@
       </div>
 
       <h3>A felbontás egyértelműsége</h3>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Ha minden irreducibilis elem prím, akkor igaz az alaptétel egyértelműségi része.</p>
       <p><strong>Bizonyítás:</strong> megmutatjuk indukcióval \(k\) szerint: ha \(p_1 \cdots p_k = u \cdot q_1 \cdots q_l\), ahol a \(p_i\), \(q_j\) irreducibilisek (tehát prímek) és \(u\) egység, akkor \(k = l\), és a \(q_j\)-k átszámozásával \(p_i \sim q_i\).</p>
       <ul>
@@ -100,7 +100,7 @@
         <li>Egyszerűsítve \(p_1\)-gyel (integritási tartomány): \(p_2 \cdots p_k = (u c) \cdot q_2 \cdots q_l\). Itt \(u c\) egység, így az indukciós feltevés szerint \(k - 1 = l - 1\) és \(p_i \sim q_i\) átszámozás után. \(\square\)</li>
       </ul>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Főideálgyűrűben (a) bármely két elemnek van lnko-ja, \((a, b) = (d)\) esetén \(d\) az lnko, és \(d = a x + b y\) alkalmas \(x, y\)-nal; (b) minden irreducibilis elem prím. Ennek következtében főideálgyűrűben igaz az alaptétel egyértelműségi része.</p>
       <p><strong>Bizonyítás.</strong> (a) Az \((a, b) = \{ a x + b y \}\) ideál, tehát \((a, b) = (d)\) valamilyen \(d\)-vel, és \(d = a x + b y\). Mivel \(a, b \in (d)\), \(d \mid a\) és \(d \mid b\). Ha \(c \mid a\) és \(c \mid b\), akkor \(a, b \in (c)\), így \((a, b) \subseteq (c)\), \(d \in (c)\), vagyis \(c \mid d\).</p>
       <p>(b) Legyen \(p\) irreducibilis, \(p \mid a \cdot b\) és \(p \nmid a\). Legyen \((p, a) = (d)\). Ekkor \(d \mid p\), azaz \(p = d \cdot c\), és a megjegyzés szerint \(d\) vagy \(c\) egység. Ha \(c\) egység, akkor \((d) = (p)\), így \(a \in (p)\), vagyis \(p \mid a\), ellentmondás. Tehát \(d\) egység, \(1 = p x + a y\), és \(b = p b x + a b y\), ahol \(p \mid p b x\) és \(p \mid a b\), így \(p \mid b\). Tehát \(p\) prím.</p>
@@ -122,11 +122,11 @@
         <li>\((\Leftarrow)\) Ha \((s) \subseteq (r)\), akkor \(s \in (r)\), vagyis \(s\) az \(r\) többszöröse, így \(r \mid s\).</li>
       </ul>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel</span>
       <p>Legyen \(R\) integritási tartomány, amelyben (1) minden irreducibilis elem prím, és (2) a főideálokra teljesül a maximumfeltétel. Ekkor \(R\) alaptételes.</p>
       <p><strong>Bizonyítás.</strong> Az egyértelműség az előző állítás. A létezéshez tegyük fel, hogy van olyan \(0\)-tól és egységtől különböző \(r\), ami nem irreducibilis elemek szorzata. Ekkor \(r\) nem irreducibilis, tehát \(r = a \cdot b\) úgy, hogy sem \(a\), sem \(b\) nem egység (és nem \(0\)); ha mindkettő irreducibilisek szorzata volna, \(r\) is az lenne, tehát az egyik, mondjuk \(a\), nem az. Ekkor \((r) \subseteq (a)\), és \((r) \neq (a)\): különben \(r \sim a\), és a megjegyzés szerint \(b\) egység volna. Az \(a\)-ra ugyanezt ismételve szigorúan növő \((r) \subsetneq (a) \subsetneq (a') \subsetneq \dots\) végtelen főideál-láncot kapunk, ami ellentmond a (2)-nek.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Főideálgyűrűben teljesül a maximumfeltétel, így a főideálgyűrű alaptételes.</p>
       <div class="proof-steps" data-steps><ol>
         <li>Legyen \(I_1 \subseteq I_2 \subseteq I_3 \subseteq \dots\) ideálok egy lánca.</li>

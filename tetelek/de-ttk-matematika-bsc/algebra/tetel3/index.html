@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: a ciklusok számának változása transzpozícióval szorzáskor (a jelölés egyértelművé téve, a két eset bizonyítással); az előjel homomorfizmus-tulajdonságának bizonyítása (a forrás három esetet tárgyalt a négyből, és nem indokolta, hogy a paritások összeadódnak)
   - Kiegészítés: a permutáció, a ciklus és a szorzat értelmezése; a diszjunkt ciklusokra bontás létezése és egyértelműsége; a ciklus mint transzpozíciók szorzata; a paritás jóldefiniáltsága (n − k paritása); a fixpontok egyelemű ciklusnak számítanak
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="3">
   <div id="site-header"></div>
@@ -63,20 +63,20 @@
       <h2>Kidolgozás</h2>
 
       <h3>Permutációk és ciklusfelbontás</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Az \(S_n\) az \(\{1, 2, \dots, n\}\) halmaz permutációinak (bijekcióinak) csoportja, a szorzás a leképezések összetétele: \((\sigma \cdot \tau)(x) = \sigma(\tau(x))\). Az \(f \in S_n\) permutációt a képeivel adjuk meg: ha \(f(k) = i_k\), akkor
       \[ f = \begin{pmatrix} 1 &amp; 2 &amp; \dots &amp; n \\ i_1 &amp; i_2 &amp; \dots &amp; i_n \end{pmatrix}. \]</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Definíció (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Az \((a_1\ a_2\ \dots\ a_r)\) <strong>ciklus</strong> (\(r \ge 1\), az \(a_i\) különböző elemek) az a permutáció, amely \(a_1 \mapsto a_2 \mapsto \dots \mapsto a_r \mapsto a_1\), a többi elemet pedig helyben hagyja; \(r\) a ciklus hossza. A kételemű ciklus a <strong>transzpozíció</strong> (csere). Két ciklus <strong>diszjunkt</strong>, ha nincs közös elemük.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Minden permutáció diszjunkt ciklusok szorzata (a fixpontokat egyelemű ciklusnak tekintve), és ez a felbontás a ciklusok sorrendjétől eltekintve egyértelmű.</p>
       <p><strong>Bizonyítás:</strong> az \(i \sim j \iff \exists t \in \mathbb{Z} : j = \sigma^t(i)\) ekvivalenciareláció \(\{1, \dots, n\}\)-en. Egy \(C\) osztályon az \(i \in C\) elemre \(i, \sigma(i), \sigma^2(i), \dots\) között a véges \(C\) miatt van ismétlődés; legyen \(r \ge 1\) a legkisebb, amelyre \(\sigma^r(i) = i\). Ekkor \(C = \{i, \sigma(i), \dots, \sigma^{r-1}(i)\}\), és \(\sigma\) a \(C\)-n az \((i\ \sigma(i)\ \dots\ \sigma^{r-1}(i))\) ciklus. A ciklusok tehát az osztályoknak felelnek meg, ami az egyértelműséget is adja. \(\square\)</p>
       </div>
       <p>A \(\sigma\) permutáció ciklusainak (a fixpontokat is számolva) számát \(k(\sigma)\)-val jelöljük. Az identitásra \(k = n\).</p>
       <p>Azt, hogy egy transzpozícióval (cserével) való szorzás hogyan változtatja a ciklusok számát, az alábbi állítás írja le.</p>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Ha \(\sigma \in S_n\) és \(i \neq j\), akkor \(k(\sigma \cdot (i\ j)) = k(\sigma) \pm 1\), pontosabban</p>
       <ul>
         <li>ha \(i\) és \(j\) különböző ciklusban van, \(k(\sigma \cdot (i\ j)) = k(\sigma) - 1\) (a két ciklus összeolvad),</li>
@@ -90,13 +90,13 @@
       </div>
 
       <h3>Paritás és előjel</h3>
-      <div class="note-box"><span class="note-box__label">Tétel (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Tétel</span>
       <p>(a) Minden permutáció felírható transzpozíciók szorzataként.</p>
       <p>(b) Ha \(\sigma = \tau_1 \cdot \tau_2 \cdots \tau_m\) transzpozíciók szorzata, akkor \(m \equiv n - k(\sigma) \pmod 2\).</p>
       <p><strong>Bizonyítás.</strong> (a) Elég a ciklusokra: \((a_1\ a_2\ \dots\ a_r) = (a_1\ a_2)(a_2\ a_3) \cdots (a_{r-1}\ a_r)\), ami \(r - 1\) transzpozíció (a szorzatot jobbról balra olvasva az \(a_r\) rendre \(a_{r-1}, a_{r-2}, \dots, a_1\)-be kerül, az \(a_i\) (\(i &lt; r\)) pedig csak az \((a_i\ a_{i+1})\) cserében mozdul, az \(a_{i+1}\)-be). Az identitás az üres szorzat.</p>
       <p>(b) Legyen \(\sigma_t = \tau_1 \cdots \tau_t\). Ekkor \(\sigma_0 = \mathrm{id}\), \(k(\sigma_0) = n\), és az előző állítás szerint \(k(\sigma_t) = k(\sigma_{t-1}) \pm 1\). Így \(k(\sigma_m) \equiv n + m \pmod 2\), vagyis \(m \equiv n - k(\sigma) \pmod 2\). \(\square\)</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Egy permutáció <strong>páros</strong>, ha páros sok, <strong>páratlan</strong>, ha páratlan sok transzpozíció szorzata. A (b) pont miatt ez jól definiált, és egyenértékű azzal, hogy \(n - k(\sigma)\) páros, illetve páratlan, ahol \(k(\sigma)\) a ciklusok száma (a fixpontokat egyelemű ciklusnak számolva).</p>
       <p>A permutáció <strong>előjele</strong>:
       \[ \operatorname{sgn}(\sigma) = \begin{cases} +1, &amp; \text{ha } \sigma \text{ páros,} \\ -1, &amp; \text{ha } \sigma \text{ páratlan,} \end{cases} \qquad \text{vagyis} \qquad \operatorname{sgn}(\sigma) = (-1)^{n - k(\sigma)} = (-1)^m. \]</p>
@@ -112,7 +112,7 @@
             </div>
 
       <h3>Az előjel homomorfizmus</h3>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Az \(\operatorname{sgn} : S_n \to (\{1, -1\}, \cdot)\) leképezés homomorfizmus.</p>
       <div class="proof-steps" data-steps><ol>
         <li>Legyen \(\sigma = \tau_1 \cdots \tau_m\) és \(\rho = \tau_1' \cdots \tau_{m'}'\) transzpozíciók szorzata. Ekkor \(\operatorname{sgn}(\sigma) = (-1)^m\) és \(\operatorname{sgn}(\rho) = (-1)^{m'}\).</li>

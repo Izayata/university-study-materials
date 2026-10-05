@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: a teljesen korlátos tér szeparábilis (a forrás bizonyítása teljes, kisebb egyszerűsítésekkel); a sorozatkompakt tér teljesen korlátos (az ε-távoli sorozatnak nincs konvergens részsorozata, mert az Cauchy lenne; a forrás a "torlódási pont" nyelvét használta); Hausdorff tétele (a forrás "sorozatkompakt ⟹ kompakt" bizonyítása hibás volt, mert a választott G_n halmazok nem szükségképpen tartalmazzák a részsorozat határértékét; itt Lebesgue-szám lemmával és a teljes korlátossággal; a "kompakt ⟹ sorozatkompakt" irányt a forrás csak "korábbi állításra" hivatkozva mondta, itt bizonyítva; a diagonális érvelés teljes); az egyenletes folytonosság definíciója; a Heine–Borel-tétel bizonyítása (a forrás bizonyítás nélkül mondta ki, itt Hausdorff tételéből, ℝⁿ teljességéből és a korlátos halmaz teljes korlátosságából)
   - Kiegészítés: az ε-háló, a kompakt és sorozatkompakt tér definíciója
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="20">
   <div id="site-header"></div>
@@ -63,10 +63,10 @@
       <h2>Kidolgozás</h2>
 
       <h3>Teljesen korlátos és szeparábilis terek</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \((X, \rho)\) metrikus tér, \(\varepsilon &gt; 0\). Az \(M \subseteq X\) halmaz <strong>\(\varepsilon\)-háló</strong>, ha minden \(x \in X\)-hez van \(m \in M\), hogy \(\rho(x, m) &lt; \varepsilon\). Az \(X\) <strong>teljesen korlátos</strong>, ha minden \(\varepsilon &gt; 0\)-ra van véges \(\varepsilon\)-hálója.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Ha egy metrikus tér teljesen korlátos, akkor szeparábilis.</p>
       <div class="proof-steps" data-steps><ol>
         <li>Minden \(n \in \mathbb{N}\)-re legyen \(M_n\) az \(X\) egy véges \(\frac{1}{n}\)-hálója: minden \(x \in X\)-re van \(m \in M_n\), \(\rho(x, m) &lt; \frac{1}{n}\).</li>
@@ -77,15 +77,15 @@
       </div>
 
       <h3>Kompakt és sorozatkompakt terek</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Az \(X\) metrikus tér <strong>kompakt</strong>, ha minden nyílt lefedéséből kiválasztható véges lefedés (azaz ha \(G_\gamma\) (\(\gamma \in \Gamma\)) nyílt halmazok, \(X \subseteq \bigcup G_\gamma\), akkor van véges \(\Gamma_0 \subseteq \Gamma\), hogy \(X \subseteq \bigcup_{\gamma \in \Gamma_0} G_\gamma\)). Az \(X\) <strong>sorozatkompakt</strong>, ha minden sorozatának van \(X\)-beli ponthoz konvergáló részsorozata.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>(a) Sorozatkompakt metrikus tér teljesen korlátos. (b) Sorozatkompakt metrikus tér teljes.</p>
       <p><strong>Bizonyítás.</strong> (a) Indirekt: legyen \(X\) sorozatkompakt, de nem teljesen korlátos, azaz van olyan \(\varepsilon &gt; 0\), hogy \(X\)-nek nincs véges \(\varepsilon\)-hálója. Legyen \(x_1 \in X\) tetszőleges. Ha \(x_1, \dots, x_k\)-t már választottuk, akkor az \(\{x_1, \dots, x_k\}\) nem \(\varepsilon\)-háló, tehát van \(x_{k+1} \in X\), amelyre \(\rho(x_{k+1}, x_i) \ge \varepsilon\) minden \(i \le k\)-ra. Így \(\rho(x_i, x_j) \ge \varepsilon\) minden \(i \neq j\)-re. Az \((x_n)\)-nek volna konvergens részsorozata, ami Cauchy-sorozat (19. tétel, Lemma (a)), így \(\rho(x_{k_a}, x_{k_b}) &lt; \varepsilon\) elég nagy különböző indexekre, ellentmondás.</p>
       <p>(b) Legyen \((x_n)\) Cauchy-sorozat \(X\)-ben. A sorozatkompaktság miatt van konvergens részsorozata, így a 19. tétel Lemma (b) pontja szerint az egész sorozat konvergens. \(\square\)</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Ha az \(X\) metrikus tér teljes és teljesen korlátos, akkor sorozatkompakt.</p>
       <div class="proof-steps" data-steps><ol>
         <li>Legyen \((x_n)\) tetszőleges sorozat \(X\)-ben; kiválasztunk egy Cauchy-részsorozatot. Legyen \(S_0 = (x_n)\).</li>
@@ -100,16 +100,16 @@
               <span class="ad-slot__label">Hirdetés</span>
             </div>
 
-      <div class="note-box"><span class="note-box__label">Lemma — Lebesgue-szám (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Lemma — Lebesgue-szám</span>
       <p>Ha \(X\) sorozatkompakt metrikus tér és \(\{G_\gamma\}\) nyílt lefedése, akkor van olyan \(\delta &gt; 0\), hogy minden \(B(x, \delta)\) gömb benne van valamelyik \(G_\gamma\)-ban.</p>
       <p><strong>Bizonyítás:</strong> indirekt: minden \(n\)-re van olyan \(x_n\), hogy \(B(x_n, \frac{1}{n})\) egyetlen \(G_\gamma\)-ban sincs benne. A sorozatkompaktság miatt van \(x_{n_k} \to x \in X\). Az \(x\) benne van valamelyik \(G_\gamma\)-ban, ami nyílt, így van \(r &gt; 0\), hogy \(B(x, r) \subseteq G_\gamma\). Elég nagy \(k\)-ra \(\rho(x_{n_k}, x) &lt; \frac{r}{2}\) és \(\frac{1}{n_k} &lt; \frac{r}{2}\); ekkor \(z \in B(x_{n_k}, \frac{1}{n_k})\) esetén \(\rho(z, x) &lt; \frac{1}{n_k} + \frac{r}{2} &lt; r\), tehát \(B(x_{n_k}, \frac{1}{n_k}) \subseteq B(x, r) \subseteq G_\gamma\), ellentmondás.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>(a) Sorozatkompakt metrikus tér kompakt. (b) Kompakt metrikus tér sorozatkompakt.</p>
       <p><strong>Bizonyítás.</strong> (a) Legyen \(\{G_\gamma\}\) nyílt lefedés, és \(\delta\) a Lebesgue-szám. Az \(X\) teljesen korlátos (az előző állítás (a) pontja), így van véges \(\delta\)-hálója, \(c_1, \dots, c_m\); a \(B(c_i, \delta)\) gömbök lefedik \(X\)-et, és mindegyik benne van valamely \(G_{\gamma_i}\)-ban. Így \(X \subseteq G_{\gamma_1} \cup \dots \cup G_{\gamma_m}\): véges lefedés.</p>
       <p>(b) Legyen \(X\) kompakt és \((x_n)\) sorozat, amelynek nincs konvergens részsorozata. Ekkor minden \(x \in X\)-hez van \(r_x &gt; 0\), hogy a \(B(x, r_x)\) gömbben az \((x_n)\)-nek csak véges sok tagja (indexe) van: különben minden \(k\)-ra \(B(x, \frac{1}{k})\) végtelen sok indexű tagot tartalmazna, és indexek szigorú növelésével olyan \(n_1 &lt; n_2 &lt; \dots\) választható, hogy \(x_{n_k} \in B(x, \frac{1}{k})\), vagyis \(x_{n_k} \to x\) volna. A \(B(x, r_x)\) nyílt gömbök (18. tétel) lefedik \(X\)-et, így véges sok, \(B(z_1, r_1), \dots, B(z_m, r_m)\) is. Ekkor \(\mathbb{N}\) véges sok véges halmaz uniója lenne, ellentmondás.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel — Hausdorff (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — Hausdorff</span>
       <p>Legyen \((X, \rho)\) metrikus tér. Az alábbi állítások ekvivalensek:</p>
       <ol>
         <li>\(X\) kompakt,</li>
@@ -124,7 +124,7 @@
       <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \((X, \rho)\), \((Y, \sigma)\) metrikus tér. Az \(f : X \to Y\) leképezés <strong>egyenletesen folytonos</strong>, ha minden \(\varepsilon &gt; 0\)-ra van \(\delta &gt; 0\), hogy ha \(x, y \in X\), \(\rho(x, y) &lt; \delta\), akkor \(\sigma(f(x), f(y)) &lt; \varepsilon\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel — Heine–Borel (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — Heine–Borel</span>
       <p>Az \((\mathbb{R}^n, \rho)\) metrikus tér (\(\rho\) az euklideszi távolság) egy \(K\) részhalmazára az alábbiak ekvivalensek (a \(K\)-t az indukált metrikával vett metrikus térnek tekintjük):</p>
       <ul>
         <li>\(K\) kompakt,</li>

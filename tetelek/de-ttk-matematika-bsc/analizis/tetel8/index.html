@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: a sor, a részletösszeg-sorozat, az összeg, az abszolút és a feltételes konvergencia definíciója (valós és komplex tagokra); a Cauchy-kritérium (m > n kimondva); "konvergens sor tagjai nullsorozat" bizonyítása (x_n = s_n − s_{n−1}); az abszolút konvergencia bizonyítása (a forrás egy ismétlődő egyenlőségét elhagyva)
   - Kiegészítés: véges sok tag elhagyása nem változtatja a konvergenciát; a megfordítások nem igazak (megjegyzés)
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="8">
   <div id="site-header"></div>
@@ -63,17 +63,17 @@
       <h2>Kidolgozás</h2>
 
       <h3>A sor és az összege</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \((x_n)_{n \in \mathbb{N}}\) valós vagy komplex számsorozat. A \(\sum_{n=1}^{\infty} x_n\) <strong>sor</strong> részletösszeg-sorozata \(s_n = \sum_{k=1}^{n} x_k\). A sor <strong>konvergens</strong>, ha az \((s_n)\) sorozat konvergens, és ekkor a sor <strong>összege</strong> \(\sum_{n=1}^{\infty} x_n = \lim_{n \to \infty} s_n\).</p>
       <p>A sor <strong>abszolút konvergens</strong>, ha a \(\sum_{n=1}^{\infty} |x_n|\) sor konvergens. A sor <strong>feltételesen konvergens</strong>, ha konvergens, de nem abszolút konvergens.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Lemma (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Lemma</span>
       <p>Bármely rögzített \(n_0\)-ra a \(\sum x_n\) sor pontosan akkor konvergens, ha a \(\sum_{n &gt; n_0} x_n\) sor konvergens: véges sok tag elhagyása vagy megváltoztatása a konvergenciát nem érinti (az összeg persze változik).</p>
       <p><strong>Bizonyítás:</strong> a két sor részletösszeg-sorozata egy rögzített számban, \(s_{n_0}\)-ban különbözik, és konstanssal eltolt sorozat konvergenciája a 4. tétel szerint ekvivalens.</p>
       </div>
 
       <h3>A Cauchy-féle konvergenciakritérium</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — Cauchy-féle konvergenciakritérium (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — Cauchy-féle konvergenciakritérium</span>
       <p>A \(\sum_{n=1}^{\infty} x_n\) sor pontosan akkor konvergens, ha minden \(\varepsilon &gt; 0\)-hoz van olyan \(N &gt; 0\), hogy ha \(n, m \in \mathbb{N}\), \(m &gt; n &gt; N\), akkor
       \[ \left| \sum_{k=n+1}^{m} x_k \right| &lt; \varepsilon. \]</p>
       <p><strong>Bizonyítás:</strong> a sor konvergens \(\iff\) az \((s_n)\) sorozat konvergens \(\iff\) \((s_n)\) Cauchy-sorozat (3. tétel valós, 7. tétel komplex tagokra) \(\iff\) minden \(\varepsilon &gt; 0\)-ra van \(N\), hogy \(m &gt; n &gt; N\) esetén \(|s_m - s_n| &lt; \varepsilon\). Mivel
@@ -82,7 +82,7 @@
       </div>
 
       <h3>Abszolút konvergencia és nullsorozat</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — abszolút konvergens sor konvergens (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — abszolút konvergens sor konvergens</span>
       <p>Ha a \(\sum_{n=1}^{\infty} x_n\) sor abszolút konvergens, akkor konvergens.</p>
       <p><strong>Bizonyítás:</strong> a \(\sum |x_n|\) konvergens, így a Cauchy-kritérium szerint minden \(\varepsilon &gt; 0\)-hoz van \(N\), hogy \(m &gt; n &gt; N\) esetén \(\sum_{k=n+1}^{m} |x_k| &lt; \varepsilon\). A háromszög-egyenlőtlenség miatt
       \[ \left| \sum_{k=n+1}^{m} x_k \right| \le \sum_{k=n+1}^{m} |x_k| &lt; \varepsilon. \]
@@ -93,11 +93,11 @@
               <span class="ad-slot__label">Hirdetés</span>
             </div>
 
-      <div class="note-box"><span class="note-box__label">Tétel — a tagok nullsorozatot alkotnak (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — a tagok nullsorozatot alkotnak</span>
       <p>Ha a \(\sum_{n=1}^{\infty} x_n\) sor konvergens, akkor \(\lim_{n \to \infty} x_n = 0\), vagyis \((x_n)\) nullsorozat. Ezért ha \((x_n)\) nem nullsorozat, akkor a sor divergens.</p>
       <p><strong>Bizonyítás:</strong> legyen \(s_n \to s\). Ekkor \(s_{n-1} \to s\) is (az \((s_{n-1})_{n \ge 2}\) az \((s_n)\) eltoltja), így \(x_n = s_n - s_{n-1} \to s - s = 0\) (4. tétel).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Megjegyzés (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
       <p>A megfordítások nem igazak: az \(x_n \to 0\) nem elég a konvergenciához (a harmonikus sor, 11. tétel), és a konvergens sor nem feltétlenül abszolút konvergens (az \(\sum (-1)^n \frac{1}{n}\) sor feltételesen konvergens, 12. tétel).</p>
       </div>
 

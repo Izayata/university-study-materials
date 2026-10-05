@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: a mértani sor (a részletösszeg zárt alakja q(1 − q^n)/(1 − q); a forrás számítása zavaros volt, és |q| < 1 esetén a tagok nullsorozatát is használja; |q| ≥ 1 esetén a divergencia indoklása); az összehasonlító kritérium I. (a monotonitás és a korlát kifejtve); az összehasonlító kritérium II. (a forrás bizonyítás nélkül mondta, és csak "pozitív" határértéket kívánt; a határértéknek véges és pozitívnak kell lennie, mert +∞ határértékre a tétel hamis)
   - Kiegészítés: nemnegatív tagú sorok konvergenciájának jellemzése a részletösszegekkel; a harmonikus sor a 11. tételben szerepel (a ritkítási kritériumra épül)
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="10">
   <div id="site-header"></div>
@@ -63,13 +63,13 @@
       <h2>Kidolgozás</h2>
 
       <h3>Nemnegatív tagú sorok</h3>
-      <div class="note-box"><span class="note-box__label">Állítás (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Ha \(x_n \ge 0\) minden \(n\)-re, akkor az \((s_n)\) részletösszeg-sorozat monoton növő, ezért a \(\sum x_n\) sor pontosan akkor konvergens, ha \((s_n)\) felülről korlátos; különben \(s_n \to +\infty\) (a sor \(+\infty\)-hez divergál).</p>
       <p><strong>Bizonyítás:</strong> \(s_{n+1} = s_n + x_{n+1} \ge s_n\); a monoton sorozat határértéke a szuprémum (2. tétel), ami véges pontosan akkor, ha \((s_n)\) felülről korlátos.</p>
       </div>
 
       <h3>A mértani sor</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — mértani sor (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — mértani sor</span>
       <p>Legyen \(q \in \mathbb{C}\). Ha \(|q| &lt; 1\), akkor a \(\sum_{n=1}^{\infty} q^n\) sor konvergens, és \(\displaystyle\sum_{n=1}^{\infty} q^n = \frac{q}{1 - q}\). Ha \(|q| \ge 1\), a sor divergens.</p>
       <div class="proof-steps" data-steps><ol>
         <li>Legyen \(|q| &lt; 1\). A részletösszegre \((1 - q) s_n = (q + q^2 + \dots + q^n) - (q^2 + \dots + q^{n+1}) = q - q^{n+1}\), így \(s_n = \dfrac{q (1 - q^n)}{1 - q}\) (\(q \neq 1\)).</li>
@@ -83,7 +83,7 @@
             </div>
 
       <h3>Az összehasonlító kritérium I.</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — összehasonlító kritérium I. (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — összehasonlító kritérium I.</span>
       <p>Legyen \(\sum x_n\) és \(\sum y_n\) olyan sor, hogy \(0 \le x_n \le y_n\) minden \(n \in \mathbb{N}\) esetén (vagy egy \(n_0\)-tól kezdve). Ekkor</p>
       <ol>
         <li>ha \(\sum y_n\) konvergens, akkor \(\sum x_n\) is konvergens;</li>
@@ -93,13 +93,13 @@
       </div>
 
       <h3>Az összehasonlító kritérium II.</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — összehasonlító kritérium II. (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — összehasonlító kritérium II.</span>
       <p>Legyen \(\sum x_n\) és \(\sum y_n\) pozitív tagú sor, amelyre a \(\lim_{n \to \infty} \dfrac{x_n}{y_n} = c\) határérték létezik, véges és pozitív (\(0 &lt; c &lt; +\infty\)). Ekkor a két sor egyszerre konvergens vagy divergens.</p>
       <p><strong>Bizonyítás:</strong> az \(\varepsilon = \frac{c}{2}\)-höz van \(N\), hogy \(n &gt; N\) esetén \(\frac{c}{2} &lt; \frac{x_n}{y_n} &lt; \frac{3c}{2}\), azaz
       \[ \frac{c}{2} y_n &lt; x_n &lt; \frac{3c}{2} y_n . \]
       Ha \(\sum y_n\) konvergens, akkor \(\sum \frac{3c}{2} y_n\) is (9. tétel), és az összehasonlító kritérium I. szerint a \(\sum_{n &gt; N} x_n\), tehát \(\sum x_n\) is konvergens. Ha \(\sum x_n\) konvergens, akkor \(y_n &lt; \frac{2}{c} x_n\) alapján ugyanígy \(\sum y_n\) is konvergens. A két sor tehát egyszerre konvergens, így egyszerre divergens is.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Megjegyzés (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
       <p>A \(c = +\infty\) vagy \(c = 0\) esetben a tétel nem igaz: például \(x_n = \frac{1}{n}\), \(y_n = \frac{1}{n^2}\)-re \(\frac{x_n}{y_n} = n \to +\infty\), a \(\sum y_n\) konvergens (11. tétel), de a \(\sum x_n\) divergens.</p>
       </div>
 

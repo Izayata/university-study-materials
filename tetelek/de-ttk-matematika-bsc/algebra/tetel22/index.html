@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: az izomorfia bizonyítása (a homomorfizmustétel alkalmazása, a K(α) = K[α] egyenlőség a két tartalmazásból; a forrás "φ̄_α: K[x]/Ker φ_α ≅ K[x]/(m_α)" jelölése helyett Im φ_α ≅ K[x]/(m_α)); az elemek egyértelmű alakja (a bázis bizonyítása: generálás és lineáris függetlenség); a transzcendens elemmel való bővítés bizonyítása; a több elemmel való bővítésre vonatkozó három egyenlőség mindegyike bizonyítva (a forrás egyet, részlegesen); az algebraiság feltétele elhagyható volt
   - Kiegészítés: a K[x]-beli irreducibilis elem által generált ideál maximális (a forrás hivatkozott rá, de sehol nem bizonyította)
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="22">
   <div id="site-header"></div>
@@ -63,11 +63,11 @@
       <h2>Kidolgozás</h2>
 
       <h3>Az egyszerű bővítés szerkezete</h3>
-      <div class="note-box"><span class="note-box__label">Lemma (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Lemma</span>
       <p>Ha \(K\) test és \(m \in K[x]\) irreducibilis, akkor \((m)\) maximális ideál \(K[x]\)-ben, tehát \(K[x] / (m)\) test.</p>
       <p><strong>Bizonyítás:</strong> \((m) \neq K[x]\), mert \(m\) nem egység. Ha \((m) \subseteq J \trianglelefteq K[x]\), akkor \(J = (d)\) (főideálgyűrű, 19. tétel), és \(d \mid m\), azaz \(m = d \cdot c\). Mivel \(m\) irreducibilis, \(d\) vagy \(c\) egység (20. tétel). Ha \(d\) egység, \(J = K[x]\); ha \(c\) egység, \(J = (d) = (m)\). Tehát \((m)\) maximális, és \(K[x] / (m)\) test (18. tétel).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel</span>
       <p>Ha \(\alpha\) algebrai \(K\) felett, akkor
       \[ K(\alpha) \cong K[x] / (m_{\alpha}(x)). \]</p>
       <div class="proof-steps" data-steps><ol>
@@ -78,7 +78,7 @@
         <li>Így \(K(\alpha) = K[\alpha] = \operatorname{Im} \varphi_{\alpha} \cong K[x] / (m_{\alpha}(x))\).</li>
       </ol></div>
       </div>
-      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
       <p>Ha \(K \subseteq L\) testbővítés, \(\alpha \in L\) algebrai \(K\) felett és \(\deg m_{\alpha}(x) = n\), akkor
       \[ K(\alpha) = \{ a_0 + a_1 \alpha + \dots + a_{n-1} \alpha^{n-1} \mid a_i \in K \}, \]
       azaz \((1, \alpha, \dots, \alpha^{n-1})\) bázisa \(K(\alpha)\)-nak \(K\) felett. Ilyen alakban az elemek felírása egyértelmű.</p>
@@ -92,7 +92,7 @@
             </div>
 
       <h3>Transzcendens elemmel való bővítés</h3>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Legyen \(K \subseteq L\) testbővítés, \(\alpha \in L\) transzcendens \(K\) felett. Ekkor
       \[ K(\alpha) = \left\{ \frac{f(\alpha)}{g(\alpha)} \ \middle|\ f, g \in K[x],\ g \neq 0 \right\}. \]</p>
       <p><strong>Bizonyítás:</strong> transzcendens \(\alpha\)-ra \(g \neq 0\) esetén \(g(\alpha) \neq 0\), így a hányados értelmes. Jelölje \(Q\) a jobb oldalt. \(Q\) zárt az összeadásra, ellentettre, szorzásra, és ha \(f(\alpha) / g(\alpha) \neq 0\), akkor \(f \neq 0\), és az inverze \(g(\alpha) / f(\alpha) \in Q\); tartalmazza \(K\)-t és \(\alpha\)-t. Tehát \(Q\) résztest, és \(K(\alpha) \subseteq Q\). Fordítva, minden \(K\)-t és \(\alpha\)-t tartalmazó résztest tartalmazza az \(f(\alpha)\) és \(g(\alpha)\) elemeket és azok hányadosát, tehát \(Q\)-t. Így \(K(\alpha) = Q\).</p>
@@ -103,7 +103,7 @@
       <p>Legyen \(K \subseteq L\) testbővítés és \(\alpha, \beta, \dots \in L\). Ekkor \(K(\alpha, \beta, \dots)\) az a legszűkebb részteste \(L\)-nek, amely tartalmazza \(K\)-t és az \(\alpha, \beta, \dots\) elemek mindegyikét:
       \[ K(\alpha, \beta, \dots) = \bigcap_{\substack{K \subseteq T \subseteq L \\ \alpha, \beta, \dots \in T}} T. \]</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Legyen \(K \subseteq L\) testbővítés és \(\alpha, \beta \in L\). Ekkor</p>
       <ol>
         <li>\(K(\alpha, \beta) = K(\alpha)(\beta) = K(\beta)(\alpha)\),</li>

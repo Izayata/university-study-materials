@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: a torlódási pont jellemzése (végtelen sok indexű tagról van szó, nem különböző értékről: egy konstans sorozat tagjai csak egy értéket vesznek fel; a −∞ környezetei ]−∞, −n[ (a forrás ]−∞, n[-t írt, ami nem szűkülő); a részsorozat kiválasztása indexek szigorú növelésével); a limsup és liminf definíciója; a konvergens sorozatra vonatkozó tétel (x maga torlódási pont, mert a sorozat önmaga részsorozata)
   - Kiegészítés: a torlódási pontok halmaza nem üres; a limsup és a liminf környezetes tulajdonságai (Lemma), amelyeket a 11. és a 15. tétel használ
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="6">
   <div id="site-header"></div>
@@ -66,7 +66,7 @@
       <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Az \(x \in \overline{\mathbb{R}}\) az \((x_n)\) sorozat <strong>torlódási pontja</strong>, ha van olyan \((x_{k_n})_{n \in \mathbb{N}}\) részsorozat, amelyre \(\lim_{n \to \infty} x_{k_n} = x\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel</span>
       <p>Az \(x \in \overline{\mathbb{R}}\) pontosan akkor torlódási pontja az \((x_n)\) sorozatnak, ha az \(x\) minden \(U\) környezetére az \(\{ n \mid x_n \in U \}\) halmaz végtelen.</p>
       <p><strong>Bizonyítás.</strong></p>
       <ul>
@@ -82,13 +82,13 @@
       </div>
 
       <h3>Limes superior és limes inferior</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Jelölje \(T \subseteq \overline{\mathbb{R}}\) az \((x_n)\) torlódási pontjainak halmazát. A \(T\) pontos alsó korlátja a <strong>\(\liminf\)</strong> (limes inferior), pontos felső korlátja a <strong>\(\limsup\)</strong> (limes superior): \(\liminf_{n \to \infty} x_n = \inf T\), \(\limsup_{n \to \infty} x_n = \sup T\) (\(\overline{\mathbb{R}}\)-ben).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Megjegyzés (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
       <p>A \(T\) nem üres: a 2. tétel következménye szerint minden valós számsorozatnak van \(\overline{\mathbb{R}}\)-ben konvergens részsorozata. Így \(\liminf\) és \(\limsup\) mindig létezik. Továbbá \(T(-x_n) = -T(x_n)\), ezért \(\liminf x_n = -\limsup (-x_n)\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel</span>
       <p>Ha \(\lim_{n \to \infty} x_n = x \in \overline{\mathbb{R}}\), akkor \(\liminf x_n = \limsup x_n = \lim x_n = x\).</p>
       <p><strong>Bizonyítás:</strong> az \((x_n)\) minden részsorozata \(x\)-hez tart (1. tétel), vagyis \(T \subseteq \{x\}\); másrészt maga a sorozat is részsorozata önmagának, így \(x \in T\). Tehát \(T = \{x\}\), és \(\sup \{x\} = \inf \{x\} = x\).</p>
       </div>
@@ -97,7 +97,7 @@
               <span class="ad-slot__label">Hirdetés</span>
             </div>
 
-      <div class="note-box"><span class="note-box__label">Lemma (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Lemma</span>
       <p>Legyen \((y_n)\) valós sorozat és \(q \in \mathbb{R}\).</p>
       <ol>
         <li>Ha \(\limsup y_n &lt; q\), akkor \(y_n &lt; q\) véges sok kivétellel.</li>

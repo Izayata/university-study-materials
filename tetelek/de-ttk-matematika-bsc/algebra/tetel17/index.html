@@ -33,7 +33,7 @@
   - Pontosítva: a gyöktényező kiemelése (a Horner-séma helyett az x^i − α^i = (x − α)(…) azonossággal, a hányados explicit alakban); a k-szoros gyök definíciója (nem nulla polinomra, integritási tartományban, hogy a maximum létezzen); a gyökök számának korlátja (indukcióval, nem nulla polinomra); a polinomok azonossági tétele; a formális derivált szabályai (a forrás definícióként sorolta fel, itt tételként, bizonyítással); a deriváltra vonatkozó multiplicitás-állítás (f' ≠ 0 feltétellel); a karakterisztika (a 0 karakterisztika is); a maradékos osztás (a forrás bizonyítás nélkül mondta)
   - Kiegészítés: az x^i − α^i szorzattá bontása; a karakterisztika és az egységelem additív rendje; a maradékos osztás létezése és egyértelműsége bizonyítással
   - Elhagyva: a forrás kérdéses, félbemaradt "⟹ többi gyök" töredéke
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="17">
   <div id="site-header"></div>
@@ -64,25 +64,25 @@
       <h2>Kidolgozás</h2>
 
       <h3>A polinomgyűrű és a gyökök</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \(1 \in R\) kommutatív gyűrű. Az
       \[ R[x] = \{ r_0 + r_1 x + \dots + r_n x^n \mid r_i \in R,\ n \in \mathbb{N} \} \]
       halmaz a szokásos \((+, \cdot)\) műveletekkel (a szorzat \(x^k\)-beli együtthatója \(\sum_{i+j=k} r_i s_j\)) kommutatív, egységelemes gyűrűt alkot, ezt nevezzük az \(R\) feletti <strong>polinomgyűrűnek</strong>. Egy \(f \neq 0\) polinom foka \(\deg f\) a legnagyobb \(n\), amelyre \(r_n \neq 0\) (\(r_n\) a főegyüttható).</p>
       <p>Egy \(f \in R[x]\) polinomhoz hozzárendelhető egy \(f^* : R \to R\) függvény: ha \(f = r_0 + r_1 x + \dots + r_n x^n\), akkor \(f^*(\alpha) = r_0 + r_1 \alpha + \dots + r_n \alpha^n \in R\). Mivel \(R\) kommutatív, \((f + g)^*(\alpha) = f^*(\alpha) + g^*(\alpha)\) és \((f g)^*(\alpha) = f^*(\alpha)\, g^*(\alpha)\).</p>
       <p>Az \(\alpha\) <strong>gyöke</strong> az \(f \in R[x]\) polinomnak, ha \(f^*(\alpha) = 0 \in R\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás — gyöktényező (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás — gyöktényező</span>
       <p>Ha \(\alpha \in R\) gyöke az \(f \in R[x]\) polinomnak, akkor \(f = (x - \alpha) \cdot g\) valamilyen \(g \in R[x]\) polinommal.</p>
       <p><strong>Bizonyítás:</strong> minden \(i \ge 1\)-re \(x^i - \alpha^i = (x - \alpha)(x^{i-1} + x^{i-2} \alpha + \dots + \alpha^{i-1})\) (a szorzás kifejtésekor a közbülső tagok kiesnek). Ezért az \(f = \sum r_i x^i\) polinomra
       \[ f - f^*(\alpha) = \sum_{i \ge 1} r_i (x^i - \alpha^i) = (x - \alpha) \cdot g, \qquad g = \sum_{i \ge 1} r_i \sum_{j=0}^{i-1} x^{i-1-j} \alpha^j. \]
       Ha \(f^*(\alpha) = 0\), akkor \(f = (x - \alpha) \cdot g\). (A \(g\) együtthatói éppen a Horner-séma számai: az \(x^k\) együtthatója \(\sum_{i &gt; k} r_i \alpha^{i-k-1}\).)</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \(R\) integritási tartomány és \(0 \neq f \in R[x]\). Az \(\alpha \in R\) az \(f\)-nek <strong>\(k\)-szoros gyöke</strong>, ha \(k\) a legnagyobb olyan egész, amelyhez létezik \(g \in R[x]\) úgy, hogy \(f = (x - \alpha)^k \cdot g\). (Ilyen legnagyobb \(k\) létezik, mert \(\deg f = k + \deg g\), így \(k \le \deg f\).)</p>
       </div>
 
       <h3>A gyökök száma</h3>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Ha \(1 \in R\) kommutatív gyűrű nullosztómentes, és \(0 \neq f \in R[x]\), akkor \(f\)-nek legfeljebb \(\deg f\) gyöke van \(R\)-ben.</p>
       <div class="proof-steps" data-steps><ol>
         <li>Indukció \(n = \deg f\) szerint. Ha \(n = 0\), akkor \(f\) nem nulla konstans, aminek nincs gyöke.</li>
@@ -91,11 +91,11 @@
         <li>Tehát \(f\) gyökei az \(\alpha\) és a \(g\) gyökei közül kerülnek ki. Az indukciós feltevés szerint \(g\)-nek legfeljebb \(n - 1\) gyöke van, így \(f\)-nek legfeljebb \(n\).</li>
       </ol></div>
       </div>
-      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
       <p>Ha integritási tartomány felett két legfeljebb \(n\)-ed fokú polinom függvénye \(n + 1\) különböző helyen megegyezik, akkor a két polinom is megegyezik.</p>
       <p><strong>Bizonyítás:</strong> legyen \(f, g \in R[x]\), \(\deg f, \deg g \le n\), és tegyük fel, hogy \(f^*(\alpha_i) = g^*(\alpha_i)\), \(i = 1, \dots, n + 1\) (az \(\alpha_i\) különbözők). Ekkor az \(f - g\) polinomnak \(\alpha_1, \dots, \alpha_{n+1}\) mind gyöke, de ha \(f - g \neq 0\), akkor \(\deg(f - g) \le n\), és legfeljebb \(n\) gyöke lehetne. Tehát \(f - g = 0\), azaz \(f = g\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Következmény — a polinomok azonossági tétele (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Következmény — a polinomok azonossági tétele</span>
       <p>Ha \(R\) végtelen integritási tartomány, akkor \(f = g \iff f^* = g^*\) (\(f, g \in R[x]\)).</p>
       <p><strong>Bizonyítás:</strong> az \(\Rightarrow\) irány nyilvánvaló. Ha \(f^* = g^*\), akkor \(f\) és \(g\) minden \(\alpha \in R\)-ben megegyezik, ez végtelen sok hely, így \(n = \max(\deg f, \deg g)\)-re \(n + 1\) különböző helyen megegyezik, tehát az előző következmény szerint \(f = g\).</p>
       </div>
@@ -105,33 +105,33 @@
             </div>
 
       <h3>Formális derivált, többszörös gyökök</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Az \(f = \sum r_i x^i\) polinom <strong>formális deriváltja</strong> \(f' = \sum_{i \ge 1} i\, r_i x^{i-1}\) (itt \(i \cdot r_i = r_i + \dots + r_i\), \(i\) tagú összeg).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel — a derivált szabályai (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — a derivált szabályai</span>
       <p>Minden \(f, g \in R[x]\)-re \((f \pm g)' = f' \pm g'\), \((f \cdot g)' = f' \cdot g + f \cdot g'\), és \((f \circ g)' = (f' \circ g) \cdot g'\), ahol \(f \circ g = \sum r_i g^i\) a behelyettesítés.</p>
       <p><strong>Bizonyítás:</strong> az összeg szabálya közvetlen. A szorzatszabály mindkét változóban additív, ezért elég az \(f = x^i\), \(g = x^j\) esetben: \((x^{i+j})' = (i + j) x^{i+j-1} = i x^{i-1} x^j + x^i \cdot j x^{j-1}\). Az összetett függvény szabálya \(f\)-ben additív, elég \(f = x^i\)-re: \((g^i)' = i\, g^{i-1} g'\) az \(i\) szerinti indukcióval, a szorzatszabállyal (\((g^{i+1})' = (g^i \cdot g)' = i g^{i-1} g' g + g^i g' = (i+1) g^i g'\)), és \((x^i)' \circ g = i\, g^{i-1}\). \(\square\)</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Legyen \(R\) integritási tartomány, \(0 \neq f \in R[x]\), és \(\alpha\) az \(f\)-nek \(k\)-szoros gyöke (\(k \ge 1\)). Ekkor \(f' = (x - \alpha)^{k-1} \cdot h\) valamilyen \(h \in R[x]\)-re, vagyis ha \(f' \neq 0\), akkor \(\alpha\) az \(f'\)-nek legalább \((k-1)\)-szeres gyöke.</p>
       <p><strong>Bizonyítás:</strong> \(f = (x - \alpha)^k \cdot g\), így a szorzatszabály szerint
       \[ f' = k \cdot (x - \alpha)^{k-1} \cdot g + (x - \alpha)^k \cdot g' = (x - \alpha)^{k-1} \cdot \big( k \cdot g + (x - \alpha) \cdot g' \big). \]
       Ha \(f' \neq 0\), akkor ez azt jelenti, hogy \(\alpha\) legalább \((k-1)\)-szeres gyök. \(\square\)</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Megjegyzés (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
       <p>Ha \(\alpha\) legalább kétszeres gyöke \(f\)-nek, akkor \(f\)-nek és \(f'\)-nek is gyöke (az előző állításban \(k - 1 \ge 1\)).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Egy \(R\) gyűrű <strong>karakterisztikája</strong> az a legkisebb pozitív egész \(m\), amelyre \(m \cdot r = r + r + \dots + r = 0\) minden \(r \in R\) esetén; ha nincs ilyen \(m\), a karakterisztika \(0\). Egységelemes \(R\)-ben ez az \(1\) additív rendje (ha véges, különben \(0\)): \(m \cdot r = (m \cdot 1) \cdot r\), így \(m \cdot r = 0\) minden \(r\)-re \(\iff m \cdot 1 = 0\).</p>
       </div>
 
       <h3>Maradékos osztás</h3>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Legyen \(1 \in R\) kommutatív gyűrű, \(g \in R[x]\), \(g \neq 0\), és a \(g\) főegyütthatója invertálható \(R\)-ben. Ekkor minden \(f \in R[x]\)-hez egyértelműen léteznek \(q, r \in R[x]\), hogy \(f = q \cdot g + r\), és \(r = 0\) vagy \(\deg r &lt; \deg g\).</p>
       <p><strong>Bizonyítás.</strong> <em>Létezés</em> \(\deg f\) szerinti indukcióval. Ha \(f = 0\) vagy \(\deg f &lt; \deg g\), akkor \(q = 0\), \(r = f\). Egyébként legyen \(a\) az \(f\), \(b\) a \(g\) főegyütthatója, \(d = \deg f - \deg g \ge 0\), és \(f_1 = f - a b^{-1} x^d g\). Ennek a \(\deg f\)-edfokú együtthatója \(a - a b^{-1} b = 0\), tehát \(f_1 = 0\) vagy \(\deg f_1 &lt; \deg f\); az indukció szerint \(f_1 = q_1 g + r\), és \(f = (a b^{-1} x^d + q_1) g + r\).</p>
       <p><em>Egyértelműség:</em> ha \(q g + r = q' g + r'\), akkor \((q - q') g = r' - r\). Ha \(q \neq q'\), akkor \(\deg((q - q') g) = \deg(q - q') + \deg g \ge \deg g\) (a \(g\) főegyütthatója egység, így a szorzat főegyütthatója nem nulla), de \(r' - r\) nulla vagy \(\deg g\)-nél alacsonyabb fokú, ellentmondás. Tehát \(q = q'\), és \(r = r'\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
       <p>Ha \(R\) test, akkor \(R[x]\)-ben bármely nem nulla polinommal lehet maradékosan osztani (a főegyüttható egység), tehát működik az euklideszi algoritmus, és két polinomnak van legnagyobb közös osztója (lásd a 19. tételt).</p>
       </div>
 
