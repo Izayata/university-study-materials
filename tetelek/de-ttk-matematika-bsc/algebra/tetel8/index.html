@@ -50,7 +50,7 @@
 
       <h2>A tétel kérdése</h2>
       <blockquote class="tetel-question">
-        <p>Definiálja egy halmaz által generált részcsoportot! Bizonyítsa be, hogy részcsoportok metszete részcsoport, és hogy ⟨X⟩ létezik és egyértelmű! Definiálja a direkt szorzatot, és bizonyítsa be, hogy G × H pontosan akkor ciklikus, ha G és H ciklikus és |G|, |H| relatív prímek! Mondja ki a véges Abel-csoportok alaptételét!</p>
+        <p>Definiálja egy halmaz által generált részcsoportot! Bizonyítsa be, hogy részcsoportok metszete részcsoport, és hogy ⟨X⟩ létezik és egyértelmű! Definiálja a direkt szorzatot, és bizonyítsa be, hogy véges G és H esetén G × H pontosan akkor ciklikus, ha G és H ciklikus és |G|, |H| relatív prímek! Mondja ki a véges Abel-csoportok alaptételét!</p>
       </blockquote>
 
       <div class="tetel-answer" id="tetel-kidolgozas">
@@ -100,10 +100,10 @@
       <p>Tehát \(G_1 \times \dots \times G_n\) egy új csoport.</p>
       </div>
       <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>\(G \times H\) ciklikus \(\iff\) \(G\) és \(H\) is ciklikus és \(\operatorname{lnko}(|G|, |H|) = 1\).</p>
+      <p>Legyen \(G\) és \(H\) véges csoport. Ekkor \(G \times H\) ciklikus \(\iff\) \(G\) és \(H\) is ciklikus és \(\operatorname{lnko}(|G|, |H|) = 1\).</p>
       <p><strong>Bizonyítás.</strong></p>
       <ul>
-        <li>\((\Rightarrow)\) Ha \(G\) vagy \(H\) végtelen, akkor \(G \times H\) nem lehet ciklikus. Egyébként legyen \(G \times H = \langle (g, h) \rangle\). Ekkor \(o(g) \mid |G|\) és \(o(h) \mid |H|\), így \(o(g, h) = \operatorname{lkkt}(o(g), o(h))\) osztja \(\operatorname{lkkt}(|G|, |H|)\)-t. Mivel \((g, h)\) generálja \(G \times H\)-t, \(o(g, h) = |G \times H| = |G| \cdot |H|\), ezért
+        <li>\((\Rightarrow)\) Legyen \(G \times H = \langle (g, h) \rangle\). Ekkor \(o(g) \mid |G|\) és \(o(h) \mid |H|\), így \(o(g, h) = \operatorname{lkkt}(o(g), o(h))\) osztja \(\operatorname{lkkt}(|G|, |H|)\)-t. Mivel \((g, h)\) generálja \(G \times H\)-t, \(o(g, h) = |G \times H| = |G| \cdot |H|\), ezért
           \[ |G| \cdot |H| = o(g, h) \mid \operatorname{lkkt}(|G|, |H|) \le |G| \cdot |H|. \]
           Innen \(\operatorname{lkkt}(|G|, |H|) = |G| \cdot |H|\), vagyis \(\operatorname{lnko}(|G|, |H|) = 1\), és \(o(g) = |G|\), \(o(h) = |H|\). Tehát \(G = \langle g \rangle\) és \(H = \langle h \rangle\) is ciklikus, és \(\operatorname{lnko}(|G|, |H|) = 1\).</li>
         <li>\((\Leftarrow)\) Ha \(G = \langle g \rangle\), \(H = \langle h \rangle\) és \(\operatorname{lnko}(|G|, |H|) = 1\), akkor \(o(g) = |G|\) és \(o(h) = |H|\), így
