@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>12. Tétel — Abel-átalakítás, Dirichlet-, Leibniz- és Abel-kritérium | Analízis | Füles Jegyzetek</title>
+  <meta name="description" content="Az Abel-féle átalakítás (parciális összegzés), a Dirichlet-kritérium, a Leibniz-kritérium alternáló sorokra és az Abel-kritérium, bizonyítással — DE TTK Matematika BSc analízis tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/analizis/tetel12/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: az Abel-átalakítás (egyetlen, blokk alakú bizonyítás, amelynek n = 0 esete a forrás képlete; a forrás indukciós lépése zavaros volt); a Dirichlet-kritérium (a λ_n → 0 feltétel kimondva: a forrás csak a monoton csökkenést kérte, ami nem elég, például λ_n = 1 és x_n = (−1)^n esetén a tételállítás hamis; a forrás becslése is rossz blokkformulát használt, a helyes a λ_m σ_m − λ_(n+1) σ_n, és a korlát 2Kλ_(n+1)); a Leibniz-kritérium (a forrás a Dirichlet-kritérium szerepeit felcserélve írta le); az Abel-kritérium (a monoton növő eset is)
+  - Kiegészítés: a (−1)^n/n sor feltételesen konvergens; a Dirichlet-kritérium feltételeinek szükségessége (ellenpélda)
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
+<body data-nav-key="tetelek" data-tetel="12">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/analizis/">Analízis</a> / 12. tétel</p>
+
+      <h1>12. Tétel — Abel-átalakítás, Dirichlet-, Leibniz- és Abel-kritérium</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel feltételesen konvergens sorok vizsgálatának eszközeit adja. Az Abel-féle átalakításból bizonyítja a Dirichlet-kritériumot, ebből a Leibniz-kritériumot az alternáló sorokra és az Abel-kritériumot.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Bizonyítsa be az Abel-féle átalakítást! Mondja ki és bizonyítsa be a Dirichlet-kritériumot, ebből levezetve a Leibniz-kritériumot alternáló sorokra és az Abel-kritériumot!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>Az Abel-féle átalakítás</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — Abel-féle átalakítás (pontosítva)</span>
+      <p>Legyen \((x_n)\) és \((\lambda_n)\) komplex sorozat, \(\sigma_n = \sum_{k=1}^{n} x_k\) (\(\sigma_0 = 0\)). Ekkor minden \(0 \le n &lt; m\)-re
+      \[ \sum_{k=n+1}^{m} \lambda_k x_k = \sum_{k=n+1}^{m-1} (\lambda_k - \lambda_{k+1}) \sigma_k + \lambda_m \sigma_m - \lambda_{n+1} \sigma_n. \]
+      Speciálisan \(n = 0\)-ra: \(\displaystyle\sum_{k=1}^{m} \lambda_k x_k = \sum_{k=1}^{m-1} (\lambda_k - \lambda_{k+1}) \sigma_k + \lambda_m \sigma_m\).</p>
+      <p><strong>Bizonyítás:</strong> \(x_k = \sigma_k - \sigma_{k-1}\), ezért
+      \[ \sum_{k=n+1}^{m} \lambda_k x_k = \sum_{k=n+1}^{m} \lambda_k \sigma_k - \sum_{k=n+1}^{m} \lambda_k \sigma_{k-1} = \sum_{k=n+1}^{m} \lambda_k \sigma_k - \sum_{k=n}^{m-1} \lambda_{k+1} \sigma_k. \]
+      A két összegben a \(k = n+1, \dots, m-1\) tagok összevonhatók, a maradék az első összeg \(k = m\)-beli és a második összeg \(k = n\)-beli tagja:
+      \[ = \sum_{k=n+1}^{m-1} (\lambda_k - \lambda_{k+1}) \sigma_k + \lambda_m \sigma_m - \lambda_{n+1} \sigma_n. \qquad \square \]</p>
+      </div>
+
+      <h3>A Dirichlet-kritérium</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — Dirichlet-kritérium (pontosítva)</span>
+      <p>Legyen \((\lambda_n)\) monoton csökkenő nullsorozat (valós számokból), \(\sum x_n\) pedig komplex sor, amelynek részletösszeg-sorozata korlátos. Ekkor a \(\sum \lambda_n x_n\) sor konvergens.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>Legyen \(|\sigma_n| \le K\) minden \(n\)-re. Mivel \((\lambda_n)\) monoton csökken és \(0\)-hoz tart, \(\lambda_n \ge 0\) és \(\lambda_k - \lambda_{k+1} \ge 0\).</li>
+        <li>Az Abel-féle átalakítás szerint, ha \(m &gt; n\):
+          \[ \left| \sum_{k=n+1}^{m} \lambda_k x_k \right| \le \sum_{k=n+1}^{m-1} (\lambda_k - \lambda_{k+1}) K + \lambda_m K + \lambda_{n+1} K = K (\lambda_{n+1} - \lambda_m) + K \lambda_m + K \lambda_{n+1} = 2K \lambda_{n+1}. \]</li>
+        <li>Mivel \(\lambda_{n+1} \to 0\), minden \(\varepsilon &gt; 0\)-hoz van \(N\), hogy \(n &gt; N\) esetén \(2K \lambda_{n+1} &lt; \varepsilon\). Így \(m &gt; n &gt; N\) esetén \(\left| \sum_{k=n+1}^{m} \lambda_k x_k \right| &lt; \varepsilon\), és a sor a Cauchy-kritérium (8. tétel) szerint konvergens.</li>
+      </ol></div>
+      </div>
+      <div class="note-box"><span class="note-box__label">Megjegyzés (kiegészítés)</span>
+      <p>A \(\lambda_n \to 0\) feltétel nem hagyható el: a \(\lambda_n = 1\) konstans és \(x_n = (-1)^n\) esetén a \(\sum x_n\) részletösszegei korlátosak (\(-1\) és \(0\)), de a \(\sum \lambda_n x_n = \sum (-1)^n\) sor divergens (a tagok nem nullsorozat).</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>A Leibniz-kritérium</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — Leibniz-kritérium (pontosítva)</span>
+      <p>Ha \((x_n)\) monoton nullsorozat, akkor a \(\sum_{n=1}^{\infty} (-1)^n x_n\) sor konvergens.</p>
+      <p><strong>Bizonyítás:</strong> ha \((x_n)\) monoton csökkenő, akkor a Dirichlet-kritériumot alkalmazzuk a \(\lambda_n = x_n\) sorozattal és a \(\sum (-1)^n\) sorral, aminek részletösszegei \(-1\) és \(0\), tehát korlátosak. Ha \((x_n)\) monoton növő, akkor \((-x_n)\) monoton csökkenő nullsorozat, és \(\sum (-1)^n x_n = -\sum (-1)^n (-x_n)\) konvergens.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Példa (kiegészítés)</span>
+      <p>A \(\sum_{n=1}^{\infty} \dfrac{(-1)^n}{n}\) sor konvergens a Leibniz-kritérium szerint, de nem abszolút konvergens, mert \(\sum \frac{1}{n}\) divergens (11. tétel). Tehát feltételesen konvergens.</p>
+      </div>
+
+      <h3>Az Abel-kritérium</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — Abel-kritérium (pontosítva)</span>
+      <p>Legyen \((\lambda_n)\) korlátos, monoton valós számsorozat, és \(\sum x_n\) konvergens komplex sor. Ekkor a \(\sum \lambda_n x_n\) sor konvergens.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>A \((\lambda_n)\) monoton és korlátos, ezért konvergens (2. tétel), \(\lambda_n \to \lambda\).</li>
+        <li>Ha \((\lambda_n)\) monoton csökkenő, akkor \((\lambda_n - \lambda)\) monoton csökkenő nullsorozat. A \(\sum x_n\) konvergens, így részletösszegei konvergensek, tehát korlátosak. A Dirichlet-kritérium szerint \(\sum (\lambda_n - \lambda) x_n\) konvergens.</li>
+        <li>Mivel \(\sum \lambda x_n = \lambda \sum x_n\) is konvergens, a két konvergens sor összege, \(\sum \lambda_n x_n = \sum (\lambda_n - \lambda) x_n + \sum \lambda x_n\) is konvergens (9. tétel).</li>
+        <li>Ha \((\lambda_n)\) monoton növő, akkor \((-\lambda_n)\) monoton csökkenő és korlátos, így \(\sum (-\lambda_n) x_n\), tehát \(\sum \lambda_n x_n\) is konvergens.</li>
+      </ol></div>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel11/">← 11. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel13/">13. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

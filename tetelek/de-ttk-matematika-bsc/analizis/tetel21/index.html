@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>21. Tétel — Vektorterek, alterek, bázis | Analízis | Füles Jegyzetek</title>
+  <meta name="description" content="A vektortér definíciója, az altérkritérium, alterek metszete, a lineáris burok, a lineáris függetlenség, a Hamel-bázis és az algebrai dimenzió, bizonyítással — DE TTK Matematika BSc analízis tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/analizis/tetel21/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a vektortér definíciója (a forrás az Abel-csoport axiómái közül a kommutativitást kihagyta, és a skalárműveletnél az F test helyett "ℝ"-et is írt); az altérkritérium (nemüres, a zártság F-beli skalárokra; a bizonyítás a forrás zavaros sorai helyett: a nullvektor 0·u, az ellentett (−1)·u); alterek metszete; a lineáris függetlenség és a Hamel-bázis (az üres halmaz és a végtelen halmaz kezelése); az algebrai dimenzió (a jóldefiniáltság feltétele kimondva)
+  - Kiegészítés: a lineáris kombináció definíciója (a forrásban üres volt); a lineáris burok az összes lineáris kombináció halmaza (bizonyítás); a Hamel-bázis létezésének és az elemszám egyértelműségének ismert tétele
+  - Bizonyítás nélkül közölt (ismert tétel): minden vektortérnek van Hamel-bázisa, és bármely két bázisa azonos számosságú
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
+<body data-nav-key="tetelek" data-tetel="21">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/analizis/">Analízis</a> / 21. tétel</p>
+
+      <h1>21. Tétel — Vektorterek, alterek, bázis</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a lineáris terek alapjait tárgyalja, amelyekre a normált terek épülnek. Definiálja a vektorteret, bizonyítja az altérkritériumot és azt, hogy alterek metszete altér, bevezeti a lineáris burkot, a lineáris függetlenséget és a Hamel-bázist, és értelmezi az algebrai dimenziót.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a vektorteret! Mondja ki és bizonyítsa be az altérkritériumot, és bizonyítsa be, hogy alterek metszete altér! Definiálja a lineáris burkot, a lineáris kombinációt, a lineáris függetlenséget, a Hamel-bázist és az algebrai dimenziót!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>A vektortér</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Legyen \(\mathbb{F}\) test. Az \(X\) nemüres halmaz <strong>vektortér</strong> (lineáris tér) az \(\mathbb{F}\) felett, ha adott egy \(+ : X \times X \to X\) művelet és egy \(\mathbb{F} \times X \to X\), \((\lambda, x) \mapsto \lambda \cdot x\) skalárszorzás, hogy</p>
+      <ul>
+        <li>\((X, +)\) Abel-csoport: a művelet asszociatív és kommutatív (\(x + y = y + x\)), van \(0 \in X\), amelyre \(x + 0 = x\) minden \(x\)-re, és minden \(x\)-hez van \(-x \in X\), amelyre \(x + (-x) = 0\);</li>
+        <li>minden \(x \in X\)-re \(1 \cdot x = x\);</li>
+        <li>tetszőleges \(\lambda, \mu \in \mathbb{F}\) és \(x \in X\) esetén \(\lambda \cdot (\mu \cdot x) = (\lambda \mu) \cdot x\);</li>
+        <li>tetszőleges \(\lambda, \mu \in \mathbb{F}\) és \(x, y \in X\) esetén \((\lambda + \mu) \cdot x = \lambda \cdot x + \mu \cdot x\) és \(\lambda \cdot (x + y) = \lambda \cdot x + \lambda \cdot y\).</li>
+      </ul>
+      </div>
+
+      <h3>Alterek</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — altérkritérium (pontosítva)</span>
+      <p>Az \(X\) vektortér egy \(Y\) nemüres részhalmaza pontosan akkor lineáris altere \(X\)-nek (azaz az \(X\) műveleteivel maga is vektortér), ha</p>
+      <ul>
+        <li>zárt az összeadásra: \(u, v \in Y \Rightarrow u + v \in Y\),</li>
+        <li>zárt a skalárral való szorzásra: \(u \in Y\), \(\lambda \in \mathbb{F} \Rightarrow \lambda \cdot u \in Y\).</li>
+      </ul>
+      <p><strong>Bizonyítás.</strong> \((\Rightarrow)\) Ha \(Y\) vektortér az \(X\) műveleteivel, akkor a műveletek \(Y\)-ban végezhetők, ez a két zártság. \((\Leftarrow)\) A két zártság miatt az \(X\) műveletei \(Y\)-on műveletek. Az asszociativitás, a kommutativitás, a disztributivitás és a skalárszorzás axiómái öröklődnek \(X\)-ből. Van \(u \in Y\) (\(Y \neq \emptyset\)), ezért \(0 = 0 \cdot u \in Y\) (\(\lambda = 0\); itt \(0 \cdot u = 0\), mert \(0 \cdot u = (0 + 0) \cdot u = 0 \cdot u + 0 \cdot u\)), ez nullvektor \(Y\)-ban is; és minden \(u \in Y\)-ra \((-1) \cdot u \in Y\) (\(\lambda = -1\)), ami az \(u\) ellentettje, mert \(u + (-1) \cdot u = (1 + (-1)) \cdot u = 0 \cdot u = 0\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — alterek metszete (pontosítva)</span>
+      <p>Egy \(X\) lineáris tér tetszőleges alterei metszete is altér \(X\)-ben.</p>
+      <p><strong>Bizonyítás:</strong> legyen \(\{ Y_\alpha \}_{\alpha \in I}\) az \(X\) altereinek (nemüres) rendszere, és \(Y = \bigcap_{\alpha \in I} Y_\alpha\). Az altérkritériumot ellenőrizzük: \(0 \in Y_\alpha\) minden \(\alpha\)-ra, így \(0 \in Y\), \(Y \neq \emptyset\). Ha \(u, v \in Y\), akkor minden \(\alpha\)-ra \(u, v \in Y_\alpha\), tehát \(u + v \in Y_\alpha\), vagyis \(u + v \in Y\). Ha \(u \in Y\) és \(\lambda \in \mathbb{F}\), akkor minden \(\alpha\)-ra \(\lambda u \in Y_\alpha\), így \(\lambda u \in Y\).</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>Lineáris burok és lineáris függetlenség</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Egy \(X\) lineáris tér egy \(A\) részhalmazát tartalmazó összes alterek metszetét az \(A\) <strong>lineáris burkának</strong> nevezzük és \(\operatorname{lin}(A)\)-val jelöljük.</p>
+      <p>Az \(x_1, \dots, x_n \in X\) vektorok <strong>lineáris kombinációja</strong> egy \(\lambda_1 x_1 + \dots + \lambda_n x_n\) vektor (\(\lambda_i \in \mathbb{F}\)); az üres kombináció a \(0\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás (kiegészítés)</span>
+      <p>Az \(\operatorname{lin}(A)\) az \(A\) elemeinek összes (véges) lineáris kombinációjából álló halmaz.</p>
+      <p><strong>Bizonyítás:</strong> jelölje \(S\) az \(A\)-beli vektorok lineáris kombinációinak halmazát. \(S\) altér (két kombináció összege és skalárszorosa is kombináció, \(0 \in S\)), és tartalmazza \(A\)-t (\(a = 1 \cdot a\)), így \(\operatorname{lin}(A) \subseteq S\). Fordítva, minden \(A\)-t tartalmazó altér zárt az összeadásra és a skalárszorzásra, tehát tartalmazza az \(A\)-beli vektorok minden lineáris kombinációját, vagyis \(S\)-t. Így \(\operatorname{lin}(A) = S\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Egy \(\{x_1, \dots, x_n\} \subseteq X\) halmaz <strong>lineárisan független</strong>, ha a \(\lambda_1 x_1 + \dots + \lambda_n x_n = 0\) csak \(\lambda_i = 0\) (\(i = 1, \dots, n\)) esetén teljesül. Egy \(S \subseteq X\) halmaz lineárisan független, ha minden véges részhalmaza az.</p>
+      <p>Az \(X\) egy \(B\) részhalmaza <strong>Hamel-bázis</strong>, ha lineárisan független, és \(\operatorname{lin}(B) = X\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — a dimenzió (bizonyítás nélkül)</span>
+      <p>Minden vektortérnek van Hamel-bázisa, és bármely két Hamel-bázisának ugyanannyi eleme van (azonos számosságúak). Ezért az \(X\) Hamel-bázisának elemszáma jóldefiniált: ez az \(X\) <strong>algebrai dimenziója</strong>.</p>
+      <p>Ez a lineáris algebra ismert tétele (végesdimenziós esetben a cseretételből, általában a Zorn-lemmából); a bizonyítását nem közöljük.</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel20/">← 20. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel22/">22. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

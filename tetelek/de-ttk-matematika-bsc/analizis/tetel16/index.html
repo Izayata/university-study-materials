@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>16. Tétel — Az exponenciális, a hiperbolikus és a trigonometrikus függvények | Analízis | Füles Jegyzetek</title>
+  <meta name="description" content="Az exp, cosh, sinh, cos és sin függvények értelmezése hatványsorral, az összeadási tétel, exp(1) = e, a hiperbolikus és trigonometrikus azonosságok és az Euler-formula bizonyítással — DE TTK Matematika BSc analízis tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/analizis/tetel16/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: az exp konvergenciája (abszolút konvergens az egész ℂ-n, egyenletes csak korlátos halmazokon; a forrás az egész komplex síkon állította az egyenletességet); az exp összeadási tétele (a Mertens-tétel felhasználása kimondva); exp(1) = e (a forrás csak vázolta, hogy a részletösszegek különbsége a (1 + 1/n)^n-nel nullához tart; itt a binomiális tétellel két irányú becslés); exp(r) = e^r racionális r-re (az exp valós értékeinek pozitivitása a gyökvonáshoz); a cosh és sinh exp-formulája (a forrás a sinh-ra bizonyítás nélkül mondta); az összeadási tételek (a forrás csak cosh(x+y)-t és cos(x+y)-t bizonyította; sinh, sin és a paritások is bizonyítva); a tanh és coth definíció, nem tétel (nevező ≠ 0); az Euler-formula: sin x = (e^(ix) − e^(−ix))/(2i) (a forrásban az i-vel való osztás elmaradt); e^(iπ) = −1 (a cos π = −1, sin π = 0 értékeket a forráshoz hasonlóan ismertnek vesszük, a π értelmezését és ezeket az értékeket itt nem vezetjük le)
+  - Kiegészítés: a hiperbolikus és trigonometrikus sorok konvergenciája; a sin(ix) = i sinh x és cos(ix) = cosh x azonosságok levezetése mindkét irányból
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
+<body data-nav-key="tetelek" data-tetel="16">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/analizis/">Analízis</a> / 16. tétel</p>
+
+      <h1>16. Tétel — Az exponenciális, a hiperbolikus és a trigonometrikus függvények</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a hatványsorokra épül: az exponenciális függvényt a ∑ xⁿ/n! sorral értelmezi, bizonyítja az összeadási tételt és hogy exp(1) = e, majd a hiperbolikus és a trigonometrikus függvényeket is hatványsorként definiálja, és ezek összes alapazonosságát az exponenciális függvényre vezeti vissza.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja az exponenciális függvényt hatványsorral, és bizonyítsa be az alaptulajdonságait! Mutassa meg, hogy exp(1) = e és exp(r) = eʳ minden racionális r-re! Definiálja a hiperbolikus és a trigonometrikus függvényeket, és vezesse le az azonosságaikat és az Euler-formulát!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>Az exponenciális függvény</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Az exponenciális függvény \(\exp(x) = \sum_{n=0}^{\infty} \dfrac{x^n}{n!} = \sum_{n=0}^{\infty} \dfrac{1}{n!} (x - 0)^n\), \(x \in \mathbb{C}\), hatványsor.</p>
+      <p>A Cauchy–Hadamard-tétel (15. tétel) szerint: \(\sqrt[n]{|a_n|} = \dfrac{1}{\sqrt[n]{n!}} \to 0\) (5. tétel és a reciprok lemmája, 4. tétel), így \(r = +\infty\): a sor az egész komplex síkon abszolút konvergens. (A konvergencia egyenletes minden korlátos halmazon, a Weierstrass-kritérium szerint: \(|x| \le R\) esetén \(\left| \frac{x^n}{n!} \right| \le \frac{R^n}{n!}\), és \(\sum \frac{R^n}{n!}\) konvergens.)</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — az exp alaptulajdonságai (pontosítva)</span>
+      <ol>
+        <li>\(\exp(0) = 1\).</li>
+        <li>\(\exp(x + y) = \exp(x) \cdot \exp(y)\) minden \(x, y \in \mathbb{C}\)-re.</li>
+        <li>\(\exp(x) \neq 0\) és \(\exp(-x) = \dfrac{1}{\exp(x)}\).</li>
+      </ol>
+      <p><strong>Bizonyítás.</strong> (1) \(\exp(0) = \dfrac{0^0}{0!} + \sum_{n \ge 1} \dfrac{0^n}{n!} = 1 + 0 = 1\).</p>
+      <p>(2) Mindkét sor abszolút konvergens, ezért Mertens tétele (13. tétel) szerint a Cauchy-szorzatuk összege a szorzatuk. A Cauchy-szorzat \(n\)-edik tagja a binomiális tétel szerint
+      \[ z_n = \sum_{k=0}^{n} \frac{x^k}{k!} \cdot \frac{y^{n-k}}{(n-k)!} = \frac{1}{n!} \sum_{k=0}^{n} \binom{n}{k} x^k y^{n-k} = \frac{(x + y)^n}{n!}, \]
+      tehát \(\exp(x) \exp(y) = \sum z_n = \exp(x + y)\).</p>
+      <p>(3) (1) és (2) szerint \(1 = \exp(0) = \exp(x + (-x)) = \exp(x) \cdot \exp(-x)\), ezért \(\exp(x) \neq 0\) és \(\exp(-x) = \frac{1}{\exp(x)}\).</p>
+      </div>
+
+      <h3>Az exp és az e szám</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — \(\exp(1) = e\) (pontosítva)</span>
+      <p>\(\exp(1) = \sum_{k=0}^{\infty} \dfrac{1}{k!} = \lim_{n \to \infty} \left( 1 + \dfrac{1}{n} \right)^n = e\).</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>Legyen \(e_n = \left(1 + \frac{1}{n}\right)^n\) és \(S_n = \sum_{k=0}^{n} \frac{1}{k!}\). A binomiális tétel szerint
+          \[ e_n = \sum_{k=0}^{n} \binom{n}{k} \frac{1}{n^k} = \sum_{k=0}^{n} \frac{1}{k!} \prod_{j=0}^{k-1} \left( 1 - \frac{j}{n} \right). \]</li>
+        <li><strong>\(e \le \exp(1)\).</strong> Minden tényező \(0\) és \(1\) között van, ezért \(e_n \le S_n \le \exp(1)\) (az \(S_n\) a monoton növő részletösszegek, határértékük a szuprémumuk). A határérték és a rendezés tétele szerint \(e = \lim e_n \le \exp(1)\).</li>
+        <li><strong>\(e \ge \exp(1)\).</strong> Rögzített \(m\)-re és \(n \ge m\)-re a \(k &gt; m\) tagokat (amelyek nemnegatívak) elhagyva \(e_n \ge \sum_{k=0}^{m} \frac{1}{k!} \prod_{j=0}^{k-1} \left( 1 - \frac{j}{n} \right)\). Ennek a jobb oldalnak a határértéke \(n \to \infty\) esetén \(\sum_{k=0}^{m} \frac{1}{k!} = S_m\) (véges összeg, minden tényező \(\to 1\)). Tehát \(e \ge S_m\) minden \(m\)-re, így \(e \ge \sup S_m = \exp(1)\).</li>
+      </ol></div>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — \(\exp(r) = e^r\) racionális \(r\)-re (pontosítva)</span>
+      <p>Minden \(r \in \mathbb{Q}\)-ra \(\exp(r) = e^r\).</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>\(\exp(n x) = (\exp(x))^n\) minden \(n \in \mathbb{N}\)-re, teljes indukcióval: \(n = 1\)-re igaz; ha igaz \(n\)-re, akkor \(\exp((n+1)x) = \exp(nx) \exp(x) = (\exp(x))^{n+1}\).</li>
+        <li>Így \(\exp(n) = (\exp(1))^n = e^n\) (\(n \in \mathbb{N}\)), és \(\exp(-n) = \frac{1}{\exp(n)} = \frac{1}{e^n} = e^{-n}\). Tehát \(\exp(k) = e^k\) minden \(k \in \mathbb{Z}\)-re (\(\exp(0) = 1\)).</li>
+        <li>Valós \(t\)-re \(\exp(t)\) valós (valós tagú sor határértéke), és \(\exp(t) = \exp\left(\frac{t}{2}\right)^2 \ge 0\), \(\exp(t) \neq 0\), tehát \(\exp(t) &gt; 0\).</li>
+        <li>Legyen \(r = \frac{k}{l}\), \(k \in \mathbb{Z}\), \(l \in \mathbb{N}\). Ekkor \((\exp(r))^l = \exp(l r) = \exp(k) = e^k\), és \(\exp(r) &gt; 0\), ezért \(\exp(r)\) az \(e^k\) pozitív \(l\)-edik gyöke, vagyis \(\exp(r) = e^{k/l} = e^r\).</li>
+      </ol></div>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>A hiperbolikus függvények</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>\(\displaystyle\cosh(x) = \sum_{n=0}^{\infty} \frac{x^{2n}}{(2n)!}\), \(\displaystyle\sinh(x) = \sum_{n=0}^{\infty} \frac{x^{2n+1}}{(2n+1)!}\), \(x \in \mathbb{C}\). Mindkét sor abszolút konvergens, mert a tagok abszolút értékeiből álló sor részsora az \(\sum \frac{|x|^k}{k!}\) konvergens sornak (összehasonlító kritérium, 10. tétel).</p>
+      <p>A \(\tanh(x) = \dfrac{\sinh(x)}{\cosh(x)}\) és \(\coth(x) = \dfrac{\cosh(x)}{\sinh(x)}\) függvényeket ott értelmezzük, ahol a nevező nem nulla.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — a hiperbolikus függvények és az exp (pontosítva)</span>
+      <ol>
+        <li>\(\cosh(x) = \dfrac{\exp(x) + \exp(-x)}{2}\) és \(\sinh(x) = \dfrac{\exp(x) - \exp(-x)}{2}\).</li>
+        <li>\(\exp(x) = \sinh(x) + \cosh(x)\).</li>
+        <li>\(\cosh(0) = 1\), \(\sinh(0) = 0\); \(\cosh(-x) = \cosh(x)\), \(\sinh(-x) = -\sinh(x)\).</li>
+        <li>\(\cosh(x + y) = \cosh(x)\cosh(y) + \sinh(x)\sinh(y)\) és \(\sinh(x + y) = \sinh(x)\cosh(y) + \cosh(x)\sinh(y)\).</li>
+        <li>\(\cosh^2(x) - \sinh^2(x) = 1\).</li>
+      </ol>
+      <p><strong>Bizonyítás.</strong> (1) A 9. tétel szerint
+      \[ \frac{\exp(x) + \exp(-x)}{2} = \frac{1}{2} \sum_{n=0}^{\infty} \left( 1 + (-1)^n \right) \frac{x^n}{n!}. \]
+      A páratlan \(n\) tagjai nullák, a páros \(n = 2m\) tagja \(\frac{x^{2m}}{(2m)!}\); a nullák beszúrása a konvergenciát és az összeget nem változtatja, így ez \(\cosh(x)\). A \(\sinh\)-ra ugyanígy: \(\frac{\exp(x) - \exp(-x)}{2} = \frac{1}{2} \sum \left( 1 - (-1)^n \right) \frac{x^n}{n!}\), ahol csak a páratlan indexű tagok maradnak.</p>
+      <p>(2) Az (1) két egyenletének összege. (3) A sorokból közvetlenül: a \(\cosh\) csak páros, a \(\sinh\) csak páratlan hatványokat tartalmaz, és az \(x = 0\) behelyettesítés \(1\), illetve \(0\).</p>
+      <p>(4) Az (1) szerint
+      \[ \cosh(x)\cosh(y) + \sinh(x)\sinh(y) = \frac{(e^x + e^{-x})(e^y + e^{-y}) + (e^x - e^{-x})(e^y - e^{-y})}{4} = \frac{2 e^{x+y} + 2 e^{-(x+y)}}{4} = \cosh(x + y), \]
+      \[ \sinh(x)\cosh(y) + \cosh(x)\sinh(y) = \frac{(e^x - e^{-x})(e^y + e^{-y}) + (e^x + e^{-x})(e^y - e^{-y})}{4} = \frac{2 e^{x+y} - 2 e^{-(x+y)}}{4} = \sinh(x + y), \]
+      ahol \(e^x\) az \(\exp(x)\) rövidítése és \(\exp(x)\exp(y) = \exp(x + y)\).</p>
+      <p>(5) \(\cosh^2(x) - \sinh^2(x) = \dfrac{(e^x + e^{-x})^2 - (e^x - e^{-x})^2}{4} = e^x e^{-x} = \exp(0) = 1\).</p>
+      </div>
+
+      <h3>A trigonometrikus függvények</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>\(\displaystyle\cos(x) = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n}}{(2n)!}\), \(\displaystyle\sin(x) = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n+1}}{(2n+1)!}\), \(x \in \mathbb{C}\) (a konvergencia a hiperbolikus függvényekhez hasonlóan abszolút).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — kapcsolat a hiperbolikus függvényekkel (pontosítva)</span>
+      <p>Minden \(x \in \mathbb{C}\)-re \(\cosh(ix) = \cos(x)\), \(\sinh(ix) = i \sin(x)\), \(\cos(ix) = \cosh(x)\) és \(\sin(ix) = i \sinh(x)\).</p>
+      <p><strong>Bizonyítás:</strong> \((ix)^{2n} = i^{2n} x^{2n} = (-1)^n x^{2n}\) és \((ix)^{2n+1} = i \cdot (-1)^n x^{2n+1}\), ezért \(\cosh(ix) = \sum (-1)^n \frac{x^{2n}}{(2n)!} = \cos(x)\) és \(\sinh(ix) = i \sum (-1)^n \frac{x^{2n+1}}{(2n+1)!} = i \sin(x)\). Az első két egyenlőséget \(ix\)-re alkalmazva: \(\cosh(i \cdot ix) = \cos(ix)\), azaz \(\cosh(-x) = \cos(ix)\), tehát \(\cos(ix) = \cosh(x)\); és \(\sinh(i \cdot ix) = i \sin(ix)\), azaz \(-\sinh(x) = i \sin(ix)\), tehát \(\sin(ix) = \dfrac{-\sinh(x)}{i} = i \sinh(x)\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — a trigonometrikus azonosságok (pontosítva)</span>
+      <ol>
+        <li>\(\cos(0) = 1\), \(\sin(0) = 0\); \(\cos(-x) = \cos(x)\), \(\sin(-x) = -\sin(x)\).</li>
+        <li>\(\cos(x + y) = \cos(x)\cos(y) - \sin(x)\sin(y)\) és \(\sin(x + y) = \sin(x)\cos(y) + \cos(x)\sin(y)\).</li>
+        <li>\(\sin^2(x) + \cos^2(x) = 1\).</li>
+      </ol>
+      <p><strong>Bizonyítás.</strong> (1) A sorokból közvetlenül (a \(\cos\) páros, a \(\sin\) páratlan hatványokat tartalmaz). (2) \(\sin(x) = \frac{\sinh(ix)}{i}\) és \(\cos(x) = \cosh(ix)\), így a hiperbolikus összeadási tételből:
+      \[ \cos(x + y) = \cosh(ix + iy) = \cosh(ix)\cosh(iy) + \sinh(ix)\sinh(iy) = \cos(x)\cos(y) + (i \sin x)(i \sin y) = \cos x \cos y - \sin x \sin y, \]
+      \[ \sin(x + y) = \frac{\sinh(ix + iy)}{i} = \frac{\sinh(ix)\cosh(iy) + \cosh(ix)\sinh(iy)}{i} = \frac{i \sin x \cos y + \cos x \cdot i \sin y}{i} = \sin x \cos y + \cos x \sin y. \]
+      (3) \(\sin^2(x) + \cos^2(x) = \left( \dfrac{\sinh(ix)}{i} \right)^2 + \cosh^2(ix) = -\sinh^2(ix) + \cosh^2(ix) = 1\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — Euler-formula (pontosítva)</span>
+      <p>Minden \(x \in \mathbb{C}\)-re \(\exp(ix) = \cos(x) + i \sin(x)\), és
+      \[ \cos(x) = \frac{\exp(ix) + \exp(-ix)}{2}, \qquad \sin(x) = \frac{\exp(ix) - \exp(-ix)}{2i}. \]
+      Továbbá \(e^{i\pi} = -1\).</p>
+      <p><strong>Bizonyítás:</strong> \(\exp(ix) = \cosh(ix) + \sinh(ix) = \cos(x) + i \sin(x)\) (a hiperbolikus tétel (2) pontja és az előző tétel). A \(\cos(x) = \cosh(ix)\) és az (1) pont szerint \(\cos(x) = \frac{\exp(ix) + \exp(-ix)}{2}\); a \(\sin(x) = \frac{\sinh(ix)}{i} = \frac{\exp(ix) - \exp(-ix)}{2i}\). Végül \(\exp(i\pi) = \cos(\pi) + i \sin(\pi) = -1 + 0 = -1\). (Itt a \(\pi\)-nek a szokásos értelmezését és a \(\cos \pi = -1\), \(\sin \pi = 0\) értékeket ismertnek vesszük; ezek levezetése nem része ennek a tételnek.)</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel15/">← 15. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel17/">17. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

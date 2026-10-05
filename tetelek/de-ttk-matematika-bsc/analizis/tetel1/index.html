@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>1. Tétel — Határérték, részsorozat, korlátosság | Analízis | Füles Jegyzetek</title>
+  <meta name="description" content="A valós számsorozat határértéke, a határérték egyértelműsége, a részsorozatok és a korlátosság, valamint az, hogy konvergens sorozat korlátos, bizonyítással — DE TTK Matematika BSc analízis tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/analizis/tetel1/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a határérték definíciója (ℕ = {1, 2, …}), a +∞ és −∞ határértéke egyetlen alakban; a határérték egyértelműsége (a forrás vázlata teljes bizonyítássá téve, az ℝ̄-beli diszjunkt környezetek létezésével együtt); a részsorozat definíciója (szigorúan monoton növő indexleképezés, a φ injektivitása a bizonyításban kimondva); a korlátosság definíciója (a forrás "x_n < K (x_n > K)" jelölése helyett); a konvergens sorozat korlátossága (ε helyett konkrétan 1)
+  - Kiegészítés: a környezet és a határérték általános (ℝ̄-beli) megfogalmazása; a diszjunkt környezetek lemmája; a (−1)^n nem konvergens voltának bizonyítása
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
+<body data-nav-key="tetelek" data-tetel="1">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/analizis/">Analízis</a> / 1. tétel</p>
+
+      <h1>1. Tétel — Határérték, részsorozat, korlátosság</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a sorozatok alapfogalmait tárgyalja: a határértéket (véges és végtelen), annak egyértelműségét, a részsorozatokat és a korlátosságot. Bizonyítja, hogy a konvergens sorozat részsorozatai ugyanahhoz a határértékhez tartanak, és hogy minden konvergens sorozat korlátos.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a valós számsorozat határértékét, a +∞-hez való divergálást és a korlátosságot! Bizonyítsa be, hogy a határérték egyértelmű, hogy konvergens sorozat minden részsorozata ugyanahhoz a határértékhez konvergál, és hogy minden konvergens sorozat korlátos! Mutasson példát korlátos, de nem konvergens sorozatra!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>A határérték</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Legyen \(\mathbb{N} = \{1, 2, 3, \dots\}\) és \((x_n)_{n \in \mathbb{N}}\) valós számsorozat. A sorozat <strong>határértéke</strong> \(x \in \mathbb{R}\), ha bármely \(\varepsilon &gt; 0\) számhoz van olyan \(N &gt; 0\) szám, hogy ha \(n \in \mathbb{N}\) és \(n &gt; N\), akkor \(|x_n - x| &lt; \varepsilon\). Jelölés: \(\lim_{n \to \infty} x_n = x\), vagy \(x_n \to x\). A sorozat <strong>konvergens</strong>, ha van valós határértéke.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Példa</span>
+      <p>Van konvergens sorozat: az \(x_n = c\) konstans sorozat.</p>
+      <p><strong>Bizonyítás:</strong> legyen \(\varepsilon &gt; 0\) tetszőleges, és \(N = 1\) (bármely \(N &gt; 0\) jó). Ha \(n \in \mathbb{N}\), \(n &gt; N\), akkor \(|x_n - c| = |c - c| = 0 &lt; \varepsilon\). Tehát \(x_n \to c\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>A sorozat <strong>\(+\infty\)-hez divergál</strong> (\(x_n \to +\infty\)), ha minden \(K \in \mathbb{R}\)-hez van olyan \(N &gt; 0\), hogy ha \(n \in \mathbb{N}\), \(n &gt; N\), akkor \(x_n &gt; K\). Hasonlóan <strong>\(-\infty\)-hez divergál</strong>, ha minden \(K \in \mathbb{R}\)-hez van olyan \(N &gt; 0\), hogy \(n &gt; N\) esetén \(x_n &lt; K\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Definíció (kiegészítés)</span>
+      <p>A \(\overline{\mathbb{R}} = \mathbb{R} \cup \{-\infty, +\infty\}\) egy pontjának <strong>környezete</strong> egy olyan halmaz, amely tartalmaz egy ilyen intervallumot: az \(x \in \mathbb{R}\) pont esetén \(]x - \varepsilon, x + \varepsilon[\) (\(\varepsilon &gt; 0\)), a \(+\infty\) esetén \(]K, +\infty[\), a \(-\infty\) esetén \(]-\infty, K[\) (\(K \in \mathbb{R}\)).</p>
+      <p>A fenti három definíció együtt azt mondja, hogy \(x_n \to x\) (\(x \in \overline{\mathbb{R}}\)) pontosan akkor, ha az \(x\) <em>minden</em> \(U\) környezetéhez van olyan \(N &gt; 0\), hogy \(n &gt; N\) esetén \(x_n \in U\); másképp: az \(\{ n \mid x_n \notin U \}\) halmaz véges (véges halmaz felülről korlátos az \(\mathbb{N}\)-ben, így a két megfogalmazás ugyanaz). A következőkben ezt használjuk.</p>
+      </div>
+
+      <h3>A határérték egyértelmű</h3>
+      <div class="note-box"><span class="note-box__label">Lemma (kiegészítés)</span>
+      <p>Ha \(x, y \in \overline{\mathbb{R}}\), \(x \neq y\), akkor van \(x\)-nek és \(y\)-nak diszjunkt környezete.</p>
+      <p><strong>Bizonyítás:</strong> feltehető, hogy \(x &lt; y\). Válasszunk egy \(a \in \mathbb{R}\) számot, amelyre \(x &lt; a &lt; y\) (például \(a = \frac{x+y}{2}\), ha mindkettő valós; \(a = y - 1\), ha \(x = -\infty\), \(y \in \mathbb{R}\); \(a = x + 1\), ha \(x \in \mathbb{R}\), \(y = +\infty\); \(a = 0\), ha \(x = -\infty\), \(y = +\infty\)). Ekkor \(U = ]-\infty, a[\) környezete \(x\)-nek, \(V = ]a, +\infty[\) környezete \(y\)-nak, és \(U \cap V = \emptyset\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — a határérték egyértelmű (pontosítva)</span>
+      <p>Egy sorozatnak legfeljebb egy határértéke van \(\overline{\mathbb{R}}\)-ben.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>Indirekt: tegyük fel, hogy \(x_n \to x\) és \(x_n \to y\) valamilyen \(x \neq y\) határértékekkel.</li>
+        <li>A Lemma szerint van \(x\)-nek és \(y\)-nak diszjunkt \(U\), \(V\) környezete.</li>
+        <li>Az \(\{ n \mid x_n \notin U \}\) és az \(\{ n \mid x_n \notin V \}\) halmaz véges, ezért az uniójuk is az. Mivel \(\mathbb{N}\) végtelen, van olyan \(n\), amely egyikben sincs, vagyis \(x_n \in U\) és \(x_n \in V\).</li>
+        <li>Ez ellentmond annak, hogy \(U \cap V = \emptyset\). Tehát a határérték egyértelmű.</li>
+      </ol></div>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>Részsorozatok</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Az \((y_n)_{n \in \mathbb{N}}\) az \((x_n)_{n \in \mathbb{N}}\) <strong>részsorozata</strong>, ha van olyan \(\varphi : \mathbb{N} \to \mathbb{N}\) szigorúan monoton növő leképezés, hogy \(y_n = x_{\varphi(n)}\) minden \(n\)-re.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — konvergens sorozat részsorozata (pontosítva)</span>
+      <p>Ha \(x_n \to x\) (\(x \in \overline{\mathbb{R}}\)), akkor az \((x_n)\) minden részsorozata is \(x\)-hez tart. Konvergens sorozat minden részsorozata tehát konvergens, és a határérték megegyezik.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>Legyen \((y_n) = (x_{\varphi(n)})\) részsorozat, és \(U\) az \(x\) tetszőleges környezete. Legyen \(A = \{ n \mid x_n \notin U \}\); ez véges a határérték definíciója miatt.</li>
+        <li>\(B = \{ n \mid y_n \notin U \} = \{ n \mid x_{\varphi(n)} \notin U \} = \{ n \mid \varphi(n) \in A \} = \varphi^{-1}(A)\).</li>
+        <li>A \(\varphi\) szigorúan monoton növő, tehát injektív, ezért a véges \(A\) ősképe, \(\varphi^{-1}(A)\), legfeljebb \(|A|\) elemű, vagyis véges.</li>
+        <li>Így az \(\{ n \mid y_n \notin U \}\) halmaz véges minden \(U\)-ra, azaz \(y_n \to x\).</li>
+      </ol></div>
+      </div>
+
+      <h3>Korlátosság</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Az \((x_n)\) sorozat <strong>felülről korlátos</strong>, ha van \(K \in \mathbb{R}\), hogy \(x_n &lt; K\) minden \(n\)-re; <strong>alulról korlátos</strong>, ha van \(K \in \mathbb{R}\), hogy \(x_n &gt; K\) minden \(n\)-re; <strong>korlátos</strong>, ha mindkettő, azaz ha van olyan \(K\), hogy \(|x_n| &lt; K\) minden \(n\)-re.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <p>Bármely konvergens valós számsorozat korlátos.</p>
+      <p><strong>Bizonyítás:</strong> legyen \(x_n \to x \in \mathbb{R}\), és \(U = ]x - 1, x + 1[\) az \(x\) egy környezete. Van \(N &gt; 0\), hogy \(n &gt; N\) esetén \(x_n \in U\). Ekkor
+      \[ \{ x_n \mid n \in \mathbb{N} \} = \{ x_n \mid n \le N \} \cup \{ x_n \mid n &gt; N \} \subseteq \{ x_n \mid n \le N \} \cup ]x - 1, x + 1[. \]
+      Az első halmaz véges, tehát korlátos; a második egy korlátos intervallum; két korlátos halmaz uniója korlátos. \(\square\)</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Megjegyzés (pontosítva)</span>
+      <p>Visszafelé nem igaz: az \(x_n = (-1)^n\) sorozat korlátos, de nem konvergens.</p>
+      <p><strong>Bizonyítás:</strong> \(|x_n| = 1 &lt; 2\). Ha konvergens volna, a részsorozatainak határértéke megegyezne vele (az előző tétel). A páros indexűek részsorozata az \(1\) konstans sorozat, \(\to 1\); a páratlan indexűeké a \(-1\) konstans, \(\to -1\). Két különböző határérték pedig ellentmond az egyértelműségnek.</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <span></span>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel2/">2. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

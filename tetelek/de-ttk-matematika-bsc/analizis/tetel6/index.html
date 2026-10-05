@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>6. Tétel — Torlódási pont, limsup, liminf | Analízis | Füles Jegyzetek</title>
+  <meta name="description" content="A sorozat torlódási pontja, a torlódási pont jellemzése a környezeteivel, a limes superior és a limes inferior, és ezek kapcsolata a határértékkel, bizonyítással — DE TTK Matematika BSc analízis tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/analizis/tetel6/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a torlódási pont jellemzése (végtelen sok indexű tagról van szó, nem különböző értékről: egy konstans sorozat tagjai csak egy értéket vesznek fel; a −∞ környezetei ]−∞, −n[ (a forrás ]−∞, n[-t írt, ami nem szűkülő); a részsorozat kiválasztása indexek szigorú növelésével); a limsup és liminf definíciója; a konvergens sorozatra vonatkozó tétel (x maga torlódási pont, mert a sorozat önmaga részsorozata)
+  - Kiegészítés: a torlódási pontok halmaza nem üres; a limsup és a liminf környezetes tulajdonságai (Lemma), amelyeket a 11. és a 15. tétel használ
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
+<body data-nav-key="tetelek" data-tetel="6">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/analizis/">Analízis</a> / 6. tétel</p>
+
+      <h1>6. Tétel — Torlódási pont, limsup, liminf</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a sorozat torlódási pontjait vizsgálja. Megmutatja, hogy egy pont pontosan akkor torlódási pont, ha minden környezetében végtelen sok indexű tag van, bevezeti a limes superiort és a limes inferiort, és megadja azokat a tulajdonságaikat, amelyeket a sorok konvergenciakritériumai használnak.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a sorozat torlódási pontját! Bizonyítsa be, hogy x pontosan akkor torlódási pont, ha az x minden környezetében végtelen sok indexű sorozattag van! Definiálja a limes superiort és a limes inferiort, és bizonyítsa be, hogy konvergens sorozatra mindkettő a határértékkel egyenlő!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>A torlódási pont</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Az \(x \in \overline{\mathbb{R}}\) az \((x_n)\) sorozat <strong>torlódási pontja</strong>, ha van olyan \((x_{k_n})_{n \in \mathbb{N}}\) részsorozat, amelyre \(\lim_{n \to \infty} x_{k_n} = x\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <p>Az \(x \in \overline{\mathbb{R}}\) pontosan akkor torlódási pontja az \((x_n)\) sorozatnak, ha az \(x\) minden \(U\) környezetére az \(\{ n \mid x_n \in U \}\) halmaz végtelen.</p>
+      <p><strong>Bizonyítás.</strong></p>
+      <ul>
+        <li>\((\Rightarrow)\) A definíció szerint van olyan \((x_{k_n})\) részsorozat, hogy \(x_{k_n} \to x\). Ekkor az \(\{ \ell \mid x_{k_\ell} \notin U \}\) halmaz véges, így az \(\{ \ell \mid x_{k_\ell} \in U \}\) halmaz végtelen. Mivel a \(k_\ell\) indexek különbözők, az \(\{ n \mid x_n \in U \}\) is végtelen.</li>
+        <li>\((\Leftarrow)\) Legyen \(U_n = ]x - \frac{1}{n}, x + \frac{1}{n}[\), ha \(x \in \mathbb{R}\); \(U_n = ]n, +\infty[\), ha \(x = +\infty\); \(U_n = ]-\infty, -n[\), ha \(x = -\infty\). Ezek az \(x\) környezetei, \(U_{n+1} \subseteq U_n\), és az \(x\) minden \(U\) környezete tartalmaz egy \(U_{n_0}\)-t.
+          <div class="proof-steps" data-steps><ol>
+            <li>Mivel \(\{ n \mid x_n \in U_1 \}\) végtelen, van \(k_1\), hogy \(x_{k_1} \in U_1\).</li>
+            <li>Ha \(k_n\)-et már kiválasztottuk, akkor az \(\{ n \mid x_n \in U_{n+1} \}\) végtelen halmazból választhatunk \(k_{n+1} &gt; k_n\) indexet, amelyre \(x_{k_{n+1}} \in U_{n+1}\).</li>
+            <li>Az így kapott \((x_{k_n})\) részsorozatra \(x_{k_n} \in U_n\). Ha \(U\) az \(x\) tetszőleges környezete, és \(U_{n_0} \subseteq U\), akkor \(n \ge n_0\) esetén \(x_{k_n} \in U_n \subseteq U_{n_0} \subseteq U\). Tehát \(x_{k_n} \to x\), vagyis \(x\) torlódási pont.</li>
+          </ol></div>
+        </li>
+      </ul>
+      </div>
+
+      <h3>Limes superior és limes inferior</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Jelölje \(T \subseteq \overline{\mathbb{R}}\) az \((x_n)\) torlódási pontjainak halmazát. A \(T\) pontos alsó korlátja a <strong>\(\liminf\)</strong> (limes inferior), pontos felső korlátja a <strong>\(\limsup\)</strong> (limes superior): \(\liminf_{n \to \infty} x_n = \inf T\), \(\limsup_{n \to \infty} x_n = \sup T\) (\(\overline{\mathbb{R}}\)-ben).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Megjegyzés (kiegészítés)</span>
+      <p>A \(T\) nem üres: a 2. tétel következménye szerint minden valós számsorozatnak van \(\overline{\mathbb{R}}\)-ben konvergens részsorozata. Így \(\liminf\) és \(\limsup\) mindig létezik. Továbbá \(T(-x_n) = -T(x_n)\), ezért \(\liminf x_n = -\limsup (-x_n)\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <p>Ha \(\lim_{n \to \infty} x_n = x \in \overline{\mathbb{R}}\), akkor \(\liminf x_n = \limsup x_n = \lim x_n = x\).</p>
+      <p><strong>Bizonyítás:</strong> az \((x_n)\) minden részsorozata \(x\)-hez tart (1. tétel), vagyis \(T \subseteq \{x\}\); másrészt maga a sorozat is részsorozata önmagának, így \(x \in T\). Tehát \(T = \{x\}\), és \(\sup \{x\} = \inf \{x\} = x\).</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <div class="note-box"><span class="note-box__label">Lemma (kiegészítés)</span>
+      <p>Legyen \((y_n)\) valós sorozat és \(q \in \mathbb{R}\).</p>
+      <ol>
+        <li>Ha \(\limsup y_n &lt; q\), akkor \(y_n &lt; q\) véges sok kivétellel.</li>
+        <li>Ha \(\limsup y_n &gt; q\), akkor \(y_n &gt; q\) végtelen sok \(n\)-re.</li>
+        <li>Ha \(\liminf y_n &gt; q\), akkor \(y_n &gt; q\) véges sok kivétellel.</li>
+        <li>Ha \(\liminf y_n &lt; q\), akkor \(y_n &lt; q\) végtelen sok \(n\)-re.</li>
+      </ol>
+      <p><strong>Bizonyítás.</strong> (1) Indirekt: ha \(y_n \ge q\) végtelen sok \(n\)-re, akkor ezek az indexek egy részsorozatot adnak, aminek van \(\overline{\mathbb{R}}\)-ben konvergens részsorozata, mondjuk \(a\)-hoz. Ez az \(a\) torlódási pontja az \((y_n)\)-nek, és \(a \ge q\) (4. tétel: konvergencia és rendezés), így \(\limsup y_n \ge a \ge q\), ellentmondás.</p>
+      <p>(2) Mivel \(\sup T &gt; q\), van olyan \(a \in T\), hogy \(a &gt; q\). A \(]q, +\infty[\) halmaz az \(a\) környezete, ezért az előző tétel szerint \(y_n \in ]q, +\infty[\) végtelen sok \(n\)-re.</p>
+      <p>(3) és (4): az (1) és (2)-t a \(-y_n\) sorozatra alkalmazzuk, a \(\liminf y_n = -\limsup(-y_n)\) összefüggéssel. \(\square\)</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel5/">← 5. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel7/">7. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

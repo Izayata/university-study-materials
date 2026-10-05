@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>13. Tétel — Sorok szorzása, Mertens tétele | Analízis | Füles Jegyzetek</title>
+  <meta name="description" content="Két sor Cauchy-féle szorzatsora, Mertens tétele abszolút konvergens és konvergens sor szorzatáról, az abszolút konvergens sorok szorzata és Abel tétele — DE TTK Matematika BSc analízis tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/analizis/tetel13/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a Cauchy-szorzat definíciója és a részletösszegek képlete; Mertens tétele (a forrás bizonyítása a döntő lépést, hogy a Σ x_k (σ_(n−k) − τ) összeg nullához tart, nem indokolta; itt teljes, az abszolút konvergencia és a nullához tartó tagok felhasználásával); az abszolút konvergens sorok szorzatának abszolút konvergenciája (a forrás bizonyítás nélkül mondta); Abel tétele (az állítás pontos megfogalmazása)
+  - Bizonyítás nélkül közölt (ismert tétel): Abel szorzattétele
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
+<body data-nav-key="tetelek" data-tetel="13">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/analizis/">Analízis</a> / 13. tétel</p>
+
+      <h1>13. Tétel — Sorok szorzása, Mertens tétele</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel azt vizsgálja, mikor szorozhatunk meg két végtelen sort tagonként. Definiálja a Cauchy-szorzatot, bizonyítja Mertens tételét (egy abszolút konvergens és egy konvergens sor szorzata az összegek szorzatához konvergál), és kimondja Abel tételét.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja két sor Cauchy-féle szorzatsorát! Mondja ki és bizonyítsa be Mertens tételét, és mutassa meg, hogy két abszolút konvergens sor Cauchy-szorzata abszolút konvergens! Mondja ki Abel tételét a Cauchy-szorzatról!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>A Cauchy-féle szorzatsor</h3>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Legyen \((x_n)_{n \ge 0}\) és \((y_n)_{n \ge 0}\) komplex számsorozat. A \((z_n)_{n \ge 0}\) sorozat, ahol
+      \[ z_n = \sum_{k=0}^{n} x_k y_{n-k}, \]
+      a két sorozat <strong>Cauchy-féle szorzata</strong>, a \(\sum_{n=0}^{\infty} z_n\) sor pedig a \(\sum x_n\) és a \(\sum y_n\) sor <strong>Cauchy-féle szorzatsora</strong>.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Lemma (kiegészítés)</span>
+      <p>Ha \(\sigma_m = \sum_{i=0}^{m} y_i\), akkor \(\displaystyle\sum_{j=0}^{n} z_j = \sum_{k=0}^{n} x_k \, \sigma_{n-k}\).</p>
+      <p><strong>Bizonyítás:</strong> \(\sum_{j=0}^{n} z_j = \sum_{j=0}^{n} \sum_{k=0}^{j} x_k y_{j-k}\) az összes \((k, i)\) párra összegez, ahol \(k + i \le n\) (\(i = j - k\)). Ezeket \(k\) szerint csoportosítva \(\sum_{k=0}^{n} x_k \sum_{i=0}^{n-k} y_i = \sum_{k=0}^{n} x_k \sigma_{n-k}\).</p>
+      </div>
+
+      <h3>Mertens tétele</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — Mertens (pontosítva)</span>
+      <p>Ha a \(\sum x_n\) sor abszolút konvergens, és a \(\sum y_n\) sor konvergens, akkor a Cauchy-szorzatsoruk konvergens, és összege a két sor összegének szorzata: \(\sum_{n=0}^{\infty} z_n = \left( \sum x_n \right) \left( \sum y_n \right)\). Ha mindkét sor abszolút konvergens, akkor a Cauchy-szorzatsoruk is abszolút konvergens.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>Legyen \(s_n = \sum_{k=0}^{n} x_k \to s\), \(\sigma_n = \sum_{k=0}^{n} y_k \to \tau\), \(A = \sum_{k=0}^{\infty} |x_k|\), és \(\rho_m = \sigma_m - \tau\). Ekkor \(\rho_m \to 0\), így \((\rho_m)\) korlátos: \(|\rho_m| \le M\) minden \(m\)-re.</li>
+        <li>A Lemma szerint \(\zeta_n = \sum_{j=0}^{n} z_j = \sum_{k=0}^{n} x_k (\tau + \rho_{n-k}) = \tau s_n + c_n\), ahol \(c_n = \sum_{k=0}^{n} x_k \rho_{n-k}\).</li>
+        <li>Megmutatjuk, hogy \(c_n \to 0\). Legyen \(\varepsilon &gt; 0\), és \(N\) egész, hogy \(m &gt; N\) esetén \(|\rho_m| &lt; \varepsilon\). Ha \(n &gt; N\), akkor a \(k \le n - N - 1\) tagokra \(n - k &gt; N\), így
+          \[ |c_n| \le \sum_{k=0}^{n-N-1} |x_k| \cdot \varepsilon + \sum_{k=n-N}^{n} |x_k| \cdot M \le \varepsilon A + M \sum_{k=n-N}^{n} |x_k|. \]
+          Az utolsó összeg \(N + 1\) tagú, és minden tagja nullához tart (abszolút konvergens sor tagjai nullsorozat, 8. tétel), tehát az összeg \(n \to \infty\) esetén \(0\)-hoz tart. Így \(\limsup |c_n| \le \varepsilon A\) minden \(\varepsilon &gt; 0\)-ra, vagyis \(c_n \to 0\).</li>
+        <li>Ezért \(\zeta_n = \tau s_n + c_n \to \tau s\), vagyis \(\sum z_n\) konvergens, és összege \(s \tau\).</li>
+        <li>Ha mindkét sor abszolút konvergens (\(B = \sum |y_i|\)), akkor
+          \[ \sum_{j=0}^{n} |z_j| \le \sum_{j=0}^{n} \sum_{k=0}^{j} |x_k| |y_{j-k}| = \sum_{k=0}^{n} |x_k| \sum_{i=0}^{n-k} |y_i| \le A \cdot B. \]
+          A \(\sum |z_j|\) részletösszegei monoton növők és korlátosak, így konvergensek.</li>
+      </ol></div>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>Abel tétele</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — Abel (bizonyítás nélkül)</span>
+      <p>Ha a \(\sum x_n\) és a \(\sum y_n\) sor konvergens, és a Cauchy-szorzatsoruk, \(\sum z_n\), is konvergens, akkor \(\sum_{n=0}^{\infty} z_n = \left( \sum_{n=0}^{\infty} x_n \right) \left( \sum_{n=0}^{\infty} y_n \right)\).</p>
+      <p>Ez Abel ismert tétele; a bizonyítását nem közöljük (a hatványsorok Abel-féle határértéktételére épül).</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel12/">← 12. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel14/">14. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>5. Tétel — Nevezetes határértékek, geometriai sorozat | Analízis | Füles Jegyzetek</title>
+  <meta name="description" content="A nevezetes sorozatok határértéke (hatvány, polinom, n-edik gyök, n!), az e szám mint (1 + 1/n)^n határértéke és a q^n geometriai sorozat viselkedése minden q-ra, bizonyítással — DE TTK Matematika BSc analízis tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/analizis/tetel5/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a hatványkitevő racionális (a valós hatványhoz a logaritmus kellene, ami itt nincs); a polinom határértéke (fokszám ≥ 1, főegyüttható ≠ 0, a forrás bizonyítás nélkül mondta); ⁿ√n → 1 és ⁿ√a → 1 (a forrás a számtani–mértani közép egyenlőtlenségét használta bizonyítás nélkül; helyét a bizonyított Bernoulli-egyenlőtlenség veszi át, a becslés 1 + (a − 1)/n megmarad); ⁿ√(n!) → +∞ (a forrás (n/2)^(n/2) ≤ n! becslése csak páros n-re igaz; helyette a k(n + 1 − k) ≥ n párosítás, ami (n!)² ≥ n^n-t ad); az e szám (a forrás számítása zavaros volt: ott "= 1 + 1" állt; most a monotonitás mindkét sorozatra Bernoulli-val bizonyítva); a geometriai sorozat esetei (a 3. és a 4. eset indoklása)
+  - Kiegészítés: a Bernoulli-egyenlőtlenség bizonyítása; a reciprok és a +∞ lemmája a 4. tételből
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
+<body data-nav-key="tetelek" data-tetel="5">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/analizis/">Analízis</a> / 5. tétel</p>
+
+      <h1>5. Tétel — Nevezetes határértékek, geometriai sorozat</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a legfontosabb konkrét sorozatok határértékét számolja ki: a hatványokét, a polinomokét, az n-edik gyökökét és az n!-ét. Értelmezi az e számot a (1 + 1/n)^n sorozat határértékeként, és minden q-ra eldönti, hogyan viselkedik a q^n geometriai sorozat.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Bizonyítsa be a nevezetes határértékeket: 1/nʳ → 0, nʳ → +∞, a polinom határértéke, ⁿ√a → 1, ⁿ√n → 1 és ⁿ√n! → +∞! Mutassa meg, hogy az (1 + 1/n)ⁿ sorozat konvergens, és vizsgálja meg a qⁿ geometriai sorozat viselkedését minden q-ra!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>A Bernoulli-egyenlőtlenség</h3>
+      <div class="note-box"><span class="note-box__label">Lemma — Bernoulli-egyenlőtlenség (kiegészítés)</span>
+      <p>Ha \(h \ge -1\) és \(n \in \mathbb{N}\), akkor \((1 + h)^n \ge 1 + n h\).</p>
+      <p><strong>Bizonyítás:</strong> \(n\) szerinti indukcióval. \(n = 1\)-re egyenlőség áll. Ha \((1 + h)^n \ge 1 + nh\), akkor, mivel \(1 + h \ge 0\),
+      \[ (1 + h)^{n+1} = (1 + h)^n (1 + h) \ge (1 + nh)(1 + h) = 1 + (n+1) h + n h^2 \ge 1 + (n+1) h. \]</p>
+      </div>
+
+      <h3>Hatványok, polinomok, gyökök</h3>
+      <div class="note-box"><span class="note-box__label">Állítás — hatványok (pontosítva)</span>
+      <p>Legyen \(r \in \mathbb{Q}\), \(r &gt; 0\). Ekkor \(\displaystyle\lim_{n \to \infty} \frac{1}{n^r} = 0\) és \(\displaystyle\lim_{n \to \infty} n^r = +\infty\).</p>
+      <p><strong>Bizonyítás.</strong> Legyen \(\varepsilon &gt; 0\) és \(N = \sqrt[r]{\frac{1}{\varepsilon}} &gt; 0\). Ha \(n &gt; N\), akkor \(n^r &gt; \frac{1}{\varepsilon}\), így \(\left| \frac{1}{n^r} - 0 \right| = \frac{1}{n^r} &lt; \varepsilon\). A másodikhoz legyen \(K \in \mathbb{R}\). Ha \(K \le 0\), akkor \(N = \frac{1}{2}\) jó, mert \(n^r &gt; 0 \ge K\). Ha \(K &gt; 0\), akkor \(N = \sqrt[r]{K} &gt; 0\), és \(n &gt; N\) esetén \(n^r &gt; N^r = K\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás — polinom határértéke (pontosítva)</span>
+      <p>Ha \(p(n) = a_r n^r + a_{r-1} n^{r-1} + \dots + a_1 n + a_0\), \(r \ge 1\), \(a_r \neq 0\), akkor
+      \[ \lim_{n \to \infty} p(n) = \begin{cases} +\infty, &amp; \text{ha } a_r &gt; 0, \\ -\infty, &amp; \text{ha } a_r &lt; 0. \end{cases} \]</p>
+      <p><strong>Bizonyítás:</strong> \(p(n) = n^r \cdot b_n\), ahol \(b_n = a_r + \frac{a_{r-1}}{n} + \dots + \frac{a_0}{n^r} \to a_r\) (a hatványok és a műveletek szerint, 4. tétel). Ha \(a_r &gt; 0\), akkor van \(N\), hogy \(n &gt; N\) esetén \(b_n &gt; \frac{a_r}{2}\), így \(p(n) &gt; \frac{a_r}{2} n^r \to +\infty\), tehát \(p(n) \to +\infty\) (4. tétel, Lemma (c)). Ha \(a_r &lt; 0\), a \(-p\)-re alkalmazzuk.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás — n-edik gyök (pontosítva)</span>
+      <p>Ha \(a &gt; 0\), akkor \(\sqrt[n]{a} \to 1\). Továbbá \(\sqrt[n]{n} \to 1\) és \(\sqrt[n]{n!} \to +\infty\).</p>
+      <div class="proof-steps" data-steps><ol>
+        <li><strong>\(a &gt; 1\).</strong> Legyen \(h_n = \sqrt[n]{a} - 1 &gt; 0\). A Bernoulli-egyenlőtlenség szerint \(a = (1 + h_n)^n \ge 1 + n h_n\), így \(1 \le \sqrt[n]{a} \le 1 + \dfrac{a - 1}{n}\). A rendőrelv szerint \(\sqrt[n]{a} \to 1\).</li>
+        <li><strong>\(0 &lt; a \le 1\).</strong> \(a = 1\) esetén a sorozat konstans. Ha \(0 &lt; a &lt; 1\), akkor \(\frac{1}{a} &gt; 1\), így \(\sqrt[n]{\frac{1}{a}} \to 1\), és \(\sqrt[n]{a} = \dfrac{1}{\sqrt[n]{1/a}} \to \dfrac{1}{1} = 1\) (4. tétel).</li>
+        <li><strong>\(\sqrt[n]{n} \to 1\).</strong> Legyen \(h_n = \sqrt[n]{\sqrt{n}} - 1 \ge 0\). A Bernoulli-egyenlőtlenség szerint \(\sqrt{n} = (1 + h_n)^n \ge 1 + n h_n\), tehát \(h_n \le \dfrac{\sqrt{n} - 1}{n} &lt; \dfrac{1}{\sqrt{n}}\). Mivel \(\sqrt[n]{n} = \big( \sqrt[n]{\sqrt{n}} \big)^2 = (1 + h_n)^2\),
+          \[ 1 \le \sqrt[n]{n} \le \left( 1 + \frac{1}{\sqrt{n}} \right)^2 = 1 + \frac{2}{\sqrt{n}} + \frac{1}{n} \to 1, \]
+          így a rendőrelv szerint \(\sqrt[n]{n} \to 1\).</li>
+        <li><strong>\(\sqrt[n]{n!} \to +\infty\).</strong> Minden \(1 \le k \le n\)-re \(k (n + 1 - k) - n = (k - 1)(n - k) \ge 0\), vagyis \(k(n + 1 - k) \ge n\). Ezért
+          \[ (n!)^2 = \prod_{k=1}^{n} k \cdot \prod_{k=1}^{n} (n + 1 - k) = \prod_{k=1}^{n} k (n + 1 - k) \ge n^n, \]
+          így \(\sqrt[n]{n!} \ge \sqrt{n} \to +\infty\), és a 4. tétel Lemma (c) pontja szerint \(\sqrt[n]{n!} \to +\infty\).</li>
+      </ol></div>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>Az e szám</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — az \((1 + 1/n)^n\) határértéke (pontosítva)</span>
+      <p>Legyen \(e_n = \left(1 + \frac{1}{n}\right)^n\) és \(f_n = \left(1 + \frac{1}{n}\right)^{n+1}\). Ekkor \((e_n)\) monoton növő, \((f_n)\) monoton csökkenő, \(e_n &lt; f_m\) minden \(n, m\)-re, és \(\lim e_n = \lim f_n =: e\). Az \(e\) szám a \(2 \le e \le 4\) egyenlőtlenséget teljesíti.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li><strong>\(e_n\) monoton növő.</strong> \(\dfrac{1 + \frac{1}{n+1}}{1 + \frac{1}{n}} = \dfrac{n(n+2)}{(n+1)^2} = 1 - \dfrac{1}{(n+1)^2}\), ezért
+          \[ \frac{e_{n+1}}{e_n} = \frac{n+1}{n} \left( 1 - \frac{1}{(n+1)^2} \right)^{n+1} \ge \frac{n+1}{n} \left( 1 - \frac{n+1}{(n+1)^2} \right) = \frac{n+1}{n} \cdot \frac{n}{n+1} = 1, \]
+          ahol a Bernoulli-egyenlőtlenséget használtuk \(h = -\frac{1}{(n+1)^2}\)-re.</li>
+        <li><strong>\(f_n\) monoton csökkenő.</strong> \(\dfrac{f_n}{f_{n+1}} = \left( \dfrac{(n+1)^2}{n(n+2)} \right)^{n+1} \cdot \dfrac{n+1}{n+2} = \left( 1 + \dfrac{1}{n(n+2)} \right)^{n+1} \cdot \dfrac{n+1}{n+2}\). A Bernoulli-egyenlőtlenség szerint ez legalább \(\left( 1 + \dfrac{n+1}{n(n+2)} \right) \dfrac{n+1}{n+2} = \dfrac{n^3 + 4n^2 + 4n + 1}{n (n+2)^2} = 1 + \dfrac{1}{n(n+2)^2} &gt; 1\).</li>
+        <li><strong>\(e_n &lt; f_m\).</strong> Mivel \(e_n = f_n \cdot \frac{n}{n+1} &lt; f_n\), a \(k = \max\{n, m\}\) választással \(e_n \le e_k &lt; f_k \le f_m\).</li>
+        <li><strong>Konvergencia.</strong> \((e_n)\) monoton növő és felülről korlátos (\(e_n &lt; f_1 = 4\)), \((f_n)\) monoton csökkenő és alulról korlátos (\(f_n &gt; e_1 = 2\)), tehát mindkettő konvergens (2. tétel). Mivel \(f_n = e_n \cdot \left( 1 + \frac{1}{n} \right)\), \(\lim f_n = \lim e_n \cdot 1 = \lim e_n\). Az \(e_1 = 2\) és \(e_n &lt; f_1 = 4\) miatt \(2 \le e \le 4\).</li>
+      </ol></div>
+      </div>
+
+      <h3>A geometriai sorozat</h3>
+      <div class="note-box"><span class="note-box__label">Állítás — a \(q^n\) sorozat (pontosítva)</span>
+      <p>Az \(x_n = q^n\) sorozat viselkedése:</p>
+      <ul>
+        <li>\(q &gt; 1\): \(q^n \to +\infty\);</li>
+        <li>\(q = 1\): \(q^n \to 1\); \(q = 0\): \(q^n \to 0\);</li>
+        <li>\(|q| &lt; 1\): \(q^n \to 0\);</li>
+        <li>\(q = -1\): korlátos és divergens;</li>
+        <li>\(q &lt; -1\): nincs határértéke (a páros indexű tagok \(+\infty\)-hez, a páratlan indexűek \(-\infty\)-hez tartanak).</li>
+      </ul>
+      <p><strong>Bizonyítás.</strong></p>
+      <ol>
+        <li><em>\(q &gt; 1\):</em> a Bernoulli-egyenlőtlenség szerint \(q^n = (1 + (q - 1))^n \ge 1 + n (q - 1) \to +\infty\), így \(q^n \to +\infty\) (4. tétel, Lemma (c)).</li>
+        <li><em>\(0 &lt; q &lt; 1\):</em> \(\frac{1}{q} &gt; 1\), így \(\left(\frac{1}{q}\right)^n \to +\infty\), és \(q^n = \dfrac{1}{(1/q)^n} \to 0\) (4. tétel, Lemma (d)).</li>
+        <li><em>\(-1 &lt; q &lt; 0\):</em> \(|q^n| = |q|^n \to 0\) az előző eset szerint, tehát \(q^n \to 0\) (4. tétel, Lemma (a)).</li>
+        <li><em>\(q = 0\) és \(q = 1\):</em> a sorozat konstans (\(0^n = 0\), \(1^n = 1\)) a \(0\), illetve az \(1\) értékkel.</li>
+        <li><em>\(q = -1\):</em> \(x_n = (-1)^n\), korlátos, és nem konvergens (1. tétel).</li>
+        <li><em>\(q &lt; -1\):</em> \(q^{2k} = |q|^{2k} \to +\infty\) és \(q^{2k+1} = -|q|^{2k+1} \to -\infty\) az 1. eset szerint. Ha a sorozatnak volna határértéke \(\overline{\mathbb{R}}\)-ben, akkor minden részsorozatának ugyanaz volna (1. tétel), ami nem teljesül.</li>
+      </ol>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel4/">← 4. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/analizis/tetel6/">6. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>
