@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: a konvergenciasugár definíciója (a három eset, a határesetek konvenciói); a Cauchy–Hadamard-tétel bizonyítása (a forrás bizonyítás nélkül mondta ki; most a 11. tétel gyökkritériumából, a limsup (c·y_n) = c·limsup y_n lemmával, az x = x_0 eset külön kezelve; a divergens ág a limsup > 1 alakú gyökkritériumot használja); az állítás a konvergenciakör pereméről nem mond semmit (megjegyzés példákkal)
   - Kiegészítés: a limsup skálázási lemmája; példák a peremre (Σ x^n, Σ x^n/n²)
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="15">
   <div id="site-header"></div>
@@ -63,7 +63,7 @@
       <h2>Kidolgozás</h2>
 
       <h3>A hatványsor és a konvergenciasugár</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \(x, x_0 \in \mathbb{C}\) és \((a_n)_{n \ge 0}\) komplex számsorozat. A \(\sum_{n=0}^{\infty} a_n (x - x_0)^n\) sort <strong>hatványsornak</strong> nevezzük, <strong>konvergenciatartománya</strong> az olyan \(x \in \mathbb{C}\) pontok halmaza, ahol a sor konvergens.</p>
       <p>Legyen \(L = \limsup_{n \to \infty} \sqrt[n]{|a_n|} \in [0, +\infty]\). A hatványsor <strong>konvergenciasugara</strong>:</p>
       <ul>
@@ -72,13 +72,13 @@
         <li>\(r = +\infty\), ha \(L = 0\).</li>
       </ul>
       </div>
-      <div class="note-box"><span class="note-box__label">Lemma (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Lemma</span>
       <p>Ha \((y_n)\) nemnegatív valós sorozat és \(c &gt; 0\), akkor \(\limsup (c \cdot y_n) = c \cdot \limsup y_n\) (\(c \cdot (+\infty) = +\infty\) megállapodással).</p>
       <p><strong>Bizonyítás:</strong> \(y_{k_n} \to a\) pontosan akkor, ha \(c\, y_{k_n} \to c\, a\) (\(c &gt; 0\)), tehát a \((c\, y_n)\) torlódási pontjainak halmaza a \((y_n)\)-ének \(c\)-szerese; a szuprémum is \(c\)-szeres.</p>
       </div>
 
       <h3>A Cauchy–Hadamard-tétel</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — Cauchy–Hadamard (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — Cauchy–Hadamard</span>
       <p>Legyen \(r\) a \(\sum_{n=0}^{\infty} a_n (x - x_0)^n\) hatványsor konvergenciasugara. Ekkor</p>
       <ul>
         <li>ha \(|x - x_0| &lt; r\), akkor a sor abszolút konvergens (tehát konvergens),</li>
@@ -96,7 +96,7 @@
               <span class="ad-slot__label">Hirdetés</span>
             </div>
 
-      <div class="note-box"><span class="note-box__label">Megjegyzés (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
       <p>A tétel a \(|x - x_0| = r\) körről nem mond semmit, és ott mindkét eset előfordul. A \(\sum x^n\) sor konvergenciasugara \(1\) (\(\sqrt[n]{1} = 1\)), és az \(|x| = 1\) körön a tagok abszolút értéke \(1\), tehát a sor divergens (10. tétel). A \(\sum \frac{x^n}{n^2}\) sor konvergenciasugara szintén \(1\) (\(\sqrt[n]{1/n^2} = \left( \sqrt[n]{n} \right)^{-2} \to 1\), 5. tétel), és az \(|x| = 1\) körön abszolút konvergens, mert \(\sum \frac{1}{n^2}\) konvergens (11. tétel).</p>
       </div>
 

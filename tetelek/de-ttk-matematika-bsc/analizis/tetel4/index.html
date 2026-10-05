@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: a számszoros (a λ = 0 eset); a szorzat (a K_2 = |y| + 1 választással, hogy a nevező ne lehessen nulla; a forrásban a K_1, K_2 és az ε/(2K) hozzárendelések fel voltak cserélve); a hányados (a nevező alulról becslése, a forrás "< ε/K" sora helyett teljes bizonyítás); a konvergencia és rendezés tétele ℝ̄-ben, a diszjunkt környezetek explicit megadásával (a forrás záró sora zavaros volt); a rendőrelv (intervallum-környezetekkel, véges sok kivétellel)
   - Kiegészítés: segédállítások (|x_n| → 0, korlátos × nullsorozat, +∞-hez tartó sorozat alulról becslése, reciprok)
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="4">
   <div id="site-header"></div>
@@ -63,7 +63,7 @@
       <h2>Kidolgozás</h2>
 
       <h3>Műveletek konvergens sorozatokkal</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — a határérték és a műveletek (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — a határérték és a műveletek</span>
       <p>Legyen \(x_n \to x\) és \(y_n \to y\) (\(x, y \in \mathbb{R}\)), és \(\lambda \in \mathbb{R}\). Ekkor</p>
       <ol>
         <li>\(x_n + y_n \to x + y\),</li>
@@ -84,13 +84,13 @@
           Az \(\frac{\varepsilon |y|^2}{2}\)-hez van \(N_1\), hogy \(n &gt; N_1\) esetén \(|y_n - y| &lt; \frac{\varepsilon |y|^2}{2}\). Ha \(n &gt; \max\{N_0, N_1\}\), akkor \(\left| \frac{1}{y_n} - \frac{1}{y} \right| &lt; \varepsilon\).</li>
       </ul>
       </div>
-      <div class="note-box"><span class="note-box__label">Lemma (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Lemma</span>
       <p>(a) \(x_n \to 0 \iff |x_n| \to 0\). (b) Ha \((b_n)\) korlátos és \(x_n \to 0\), akkor \(b_n x_n \to 0\). (c) Ha \(x_n \ge y_n\) véges sok kivétellel és \(y_n \to +\infty\), akkor \(x_n \to +\infty\). (d) Ha minden \(x_n &gt; 0\), akkor \(x_n \to +\infty \iff \frac{1}{x_n} \to 0\).</p>
       <p><strong>Bizonyítás:</strong> (a) \(\big| |x_n| - 0 \big| = |x_n - 0|\). (b) Ha \(|b_n| &lt; K\) (\(K &gt; 0\)), akkor \(|b_n x_n| &lt; K |x_n| &lt; \varepsilon\), ha \(|x_n| &lt; \frac{\varepsilon}{K}\). (c) Adott \(K\)-hoz van \(N\), hogy \(n &gt; N\) esetén \(y_n &gt; K\) és \(x_n \ge y_n\), így \(x_n &gt; K\). (d) \((\Rightarrow)\) Adott \(\varepsilon &gt; 0\)-hoz \(K = \frac{1}{\varepsilon}\)-ra van \(N\), hogy \(n &gt; N\) esetén \(x_n &gt; \frac{1}{\varepsilon}\), vagyis \(0 &lt; \frac{1}{x_n} &lt; \varepsilon\). \((\Leftarrow)\) Adott \(K &gt; 0\)-hoz az \(\varepsilon = \frac{1}{K}\)-ra van \(N\), hogy \(n &gt; N\) esetén \(0 &lt; \frac{1}{x_n} &lt; \frac{1}{K}\), vagyis \(x_n &gt; K\); a \(K \le 0\) esetben \(x_n &gt; 0 \ge K\) mindig igaz.</p>
       </div>
 
       <h3>Konvergencia és rendezés</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — konvergencia és rendezés (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — konvergencia és rendezés</span>
       <p>Ha \(x_n \to x\) és \(y_n \to y\) (\(x, y \in \overline{\mathbb{R}}\)), és \(x_n \le y_n\) teljesül legfeljebb véges sok \(n\) kivételével, akkor \(x \le y\).</p>
       <div class="proof-steps" data-steps><ol>
         <li>Indirekt tegyük fel, hogy \(x &gt; y\).</li>
@@ -106,7 +106,7 @@
             </div>
 
       <h3>A rendőrelv</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — rendőrelv (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — rendőrelv</span>
       <p>Ha \(x_n \to x\) és \(y_n \to x\) (\(x \in \overline{\mathbb{R}}\)), és \(x_n \le z_n \le y_n\) teljesül legfeljebb véges sok \(n\) kivételével, akkor \(z_n \to x\).</p>
       <p><strong>Bizonyítás:</strong> legyen \(U\) az \(x\) tetszőleges környezete; ez tartalmaz egy \(V\) intervallum-környezetet (\(]x - \varepsilon, x + \varepsilon[\), \(]K, +\infty[\) vagy \(]-\infty, K[\)). Van \(N_1\), hogy \(n &gt; N_1\) esetén \(x_n \in V\), és \(N_2\), hogy \(n &gt; N_2\) esetén \(y_n \in V\), továbbá \(N_3\), hogy \(n &gt; N_3\) esetén \(x_n \le z_n \le y_n\). Ha \(n &gt; \max\{N_1, N_2, N_3\}\), akkor \(x_n, y_n \in V\), és \(V\) intervallum, ezért \([x_n, y_n] \subseteq V\), így \(z_n \in [x_n, y_n] \subseteq V \subseteq U\). Tehát \(z_n \to x\).</p>
       </div>

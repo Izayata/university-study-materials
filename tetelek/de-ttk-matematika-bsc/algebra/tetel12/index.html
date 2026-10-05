@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: a normálosztó jellemzéseinek bizonyítása (a 2 ⟹ 1 lépés a forrás zavaros sora helyett, a 3 ⟹ 1 lépés kifejtve); az index 2 következmény (a bal és jobb oldali mellékosztályok száma megegyezik, 6. tétel); a konjugálás hatás (a φ(g) bijekció voltának bizonyítása); a "normálosztó konjugált osztályok uniója" állítás részcsoportra kimondva; a rendtartás bizonyítása (a jó kitevők egybeesése, a végtelen rend esetét is lefedve); a centrum jellemzése konjugált osztályokkal mindkét irányban
   - Kiegészítés: Z(G) részcsoport voltának bizonyítása; Z(G) minden részcsoportja normálosztó (közvetlen bizonyítás)
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="12">
   <div id="site-header"></div>
@@ -63,7 +63,7 @@
       <h2>Kidolgozás</h2>
 
       <h3>A normálosztó jellemzései</h3>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Legyen \(N \le G\). Ekkor az alábbiak ekvivalensek:</p>
       <ol>
         <li>\(g \cdot N = N \cdot g\) minden \(g \in G\)-re (\(N \trianglelefteq G\)),</li>
@@ -77,13 +77,13 @@
         <li>\(3 \Rightarrow 1\): a 3. azt jelenti, hogy \(g \cdot N \cdot g^{-1} \subseteq N\), azaz \(g \cdot N \subseteq N \cdot g\) minden \(g\)-re. Ezt \(g^{-1}\)-re alkalmazva: \(g^{-1} \cdot N \subseteq N \cdot g^{-1}\), amiből \(g\)-vel balról és jobbról szorozva \(N \cdot g \subseteq g \cdot N\). Tehát \(g \cdot N = N \cdot g\).</li>
       </ol></div>
       </div>
-      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
       <p>Ha \(N \le G\) és \(|G : N| = 2\), akkor \(N \trianglelefteq G\).</p>
       <p><strong>Bizonyítás:</strong> az \(N\) baloldali mellékosztályai a \(G\) partícióját alkotják, számuk \(2\), és az egyik maga \(N = e \cdot N\), így a másik \(G \setminus N\). A jobboldali mellékosztályok száma is \(2\) (6. tétel), és az egyik \(N = N \cdot e\), tehát a másik \(G \setminus N\). A két partíció megegyezik, ezért a 2. jellemzés miatt \(N \trianglelefteq G\).</p>
       </div>
 
       <h3>A konjugálás mint hatás</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>A <strong>konjugálás</strong> hatás: legyen \(X = G\) és \(\varphi : G \to S_G\), ahol \(\varphi(g)(h) = g \cdot h \cdot g^{-1}\).</p>
       <p>Ez tényleg hatás. A \(\varphi(g)\) bijekció, mert az inverze \(\varphi(g^{-1})\) (\(\varphi(g^{-1})(\varphi(g)(h)) = g^{-1} g h g^{-1} g = h\), és fordítva). Továbbá homomorfizmus:
       \[ \varphi(a \cdot b)(h) = a \cdot b \cdot h \cdot (a \cdot b)^{-1} = a \cdot b \cdot h \cdot b^{-1} \cdot a^{-1} = a \cdot \varphi(b)(h) \cdot a^{-1} = \big(\varphi(a) \circ \varphi(b)\big)(h). \]
@@ -97,7 +97,7 @@
       <div class="note-box"><span class="note-box__label">Megjegyzés</span>
       <p>\(C_G(g) \le G\), mivel a stabilizátor részcsoport, és az orbit-stabilizátor-tétel (10. tétel) alapján \(g\) konjugált osztályának mérete \(|G : C_G(g)|\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
       <p>Legyen \(N \le G\). Ekkor \(N\) normálosztó \(\iff\) \(N\) zárt a konjugálásra \(\iff\) \(N\) konjugált osztályok uniója.</p>
       <p><strong>Bizonyítás:</strong> az első ekvivalencia az előző állítás 1. és 3. pontja. Ha \(N\) zárt a konjugálásra, akkor minden \(n \in N\)-re az \(n\) konjugált osztálya \(N\)-ben van, tehát \(N\) az elemei konjugált osztályainak uniója. Fordítva, ha \(N\) konjugált osztályok uniója, akkor \(g \in G\) és \(n \in N\) esetén \(g \cdot n \cdot g^{-1}\) az \(n\) konjugált osztályában, tehát \(N\)-ben van.</p>
       </div>
@@ -106,7 +106,7 @@
               <span class="ad-slot__label">Hirdetés</span>
             </div>
 
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>A konjugálás tartja a rendet: \(o(g \cdot h \cdot g^{-1}) = o(h)\).</p>
       <p><strong>Bizonyítás:</strong> indukcióval \((g \cdot h \cdot g^{-1})^r = g \cdot h^r \cdot g^{-1}\) minden \(r \ge 0\)-ra (és a \(g \cdot h^{-1} \cdot g^{-1}\) a \(g h g^{-1}\) inverze, így ez minden \(r \in \mathbb{Z}\)-re igaz). Ezért
       \[ (g \cdot h \cdot g^{-1})^r = e \iff g \cdot h^r \cdot g^{-1} = e \iff h^r = g^{-1} \cdot e \cdot g = e. \]
@@ -119,12 +119,12 @@
       \[ Z(G) = \{ g \in G \mid g \cdot h = h \cdot g \quad \forall h \in G \}, \]
       azok az elemek, amelyek mindenkivel felcserélhetők.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>(a) \(Z(G) \le G\) és \(Z(G)\) kommutatív. (b) \(h \in Z(G) \iff\) \(h\) konjugált osztálya 1 elemű.</p>
       <p><strong>Bizonyítás.</strong> (a) \(e \in Z(G)\); ha \(g_1, g_2 \in Z(G)\) és \(h \in G\), akkor \(g_1 g_2 h = g_1 h g_2 = h g_1 g_2\), és \(g_1 h = h g_1\)-ből \(h g_1^{-1} = g_1^{-1} h\), így \(g_1^{-1} \in Z(G)\). A \(Z(G)\) elemei mindenkivel, így egymással is felcserélhetők.</p>
       <p>(b) \((\Rightarrow)\) Ha \(h \in Z(G)\), akkor \(g \cdot h \cdot g^{-1} = h\) minden \(g\)-re, tehát a konjugált osztály \(\{h\}\) (egyébként \(C_G(h) = G\), és a méret \(|G : G| = 1\)). \((\Leftarrow)\) Ha a konjugált osztály egyelemű, akkor \(g \cdot h \cdot g^{-1} = h\) minden \(g\)-re, vagyis \(g \cdot h = h \cdot g\), tehát \(h \in Z(G)\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>\(Z(G)\) és annak minden részcsoportja kommutatív normálosztó \(G\)-ben.</p>
       <p><strong>Bizonyítás:</strong> a kommutativitás az előző állításból adódik. Ha \(K \le Z(G)\), akkor \(g \cdot k \cdot g^{-1} = k \in K\) minden \(g \in G\), \(k \in K\) esetén, mert \(k\) mindenkivel felcserélhető. A 3. jellemzés szerint \(K \trianglelefteq G\); ez \(K = Z(G)\)-re is érvényes. (Másképp: \(Z(G)\) és részcsoportjai az 1 elemű konjugált osztályok uniói.)</p>
       </div>

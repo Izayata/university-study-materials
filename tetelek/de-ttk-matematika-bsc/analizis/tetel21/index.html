@@ -33,7 +33,7 @@
   - Pontosítva: a vektortér definíciója (a forrás az Abel-csoport axiómái közül a kommutativitást kihagyta, és a skalárműveletnél az F test helyett "ℝ"-et is írt); az altérkritérium (nemüres, a zártság F-beli skalárokra; a bizonyítás a forrás zavaros sorai helyett: a nullvektor 0·u, az ellentett (−1)·u); alterek metszete; a lineáris függetlenség és a Hamel-bázis (az üres halmaz és a végtelen halmaz kezelése); az algebrai dimenzió (a jóldefiniáltság feltétele kimondva)
   - Kiegészítés: a lineáris kombináció definíciója (a forrásban üres volt); a lineáris burok az összes lineáris kombináció halmaza (bizonyítás); a Hamel-bázis létezésének és az elemszám egyértelműségének ismert tétele
   - Bizonyítás nélkül közölt (ismert tétel): minden vektortérnek van Hamel-bázisa, és bármely két bázisa azonos számosságú
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="21">
   <div id="site-header"></div>
@@ -64,7 +64,7 @@
       <h2>Kidolgozás</h2>
 
       <h3>A vektortér</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \(\mathbb{F}\) test. Az \(X\) nemüres halmaz <strong>vektortér</strong> (lineáris tér) az \(\mathbb{F}\) felett, ha adott egy \(+ : X \times X \to X\) művelet és egy \(\mathbb{F} \times X \to X\), \((\lambda, x) \mapsto \lambda \cdot x\) skalárszorzás, hogy</p>
       <ul>
         <li>\((X, +)\) Abel-csoport: a művelet asszociatív és kommutatív (\(x + y = y + x\)), van \(0 \in X\), amelyre \(x + 0 = x\) minden \(x\)-re, és minden \(x\)-hez van \(-x \in X\), amelyre \(x + (-x) = 0\);</li>
@@ -75,7 +75,7 @@
       </div>
 
       <h3>Alterek</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — altérkritérium (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — altérkritérium</span>
       <p>Az \(X\) vektortér egy \(Y\) nemüres részhalmaza pontosan akkor lineáris altere \(X\)-nek (azaz az \(X\) műveleteivel maga is vektortér), ha</p>
       <ul>
         <li>zárt az összeadásra: \(u, v \in Y \Rightarrow u + v \in Y\),</li>
@@ -83,7 +83,7 @@
       </ul>
       <p><strong>Bizonyítás.</strong> \((\Rightarrow)\) Ha \(Y\) vektortér az \(X\) műveleteivel, akkor a műveletek \(Y\)-ban végezhetők, ez a két zártság. \((\Leftarrow)\) A két zártság miatt az \(X\) műveletei \(Y\)-on műveletek. Az asszociativitás, a kommutativitás, a disztributivitás és a skalárszorzás axiómái öröklődnek \(X\)-ből. Van \(u \in Y\) (\(Y \neq \emptyset\)), ezért \(0 = 0 \cdot u \in Y\) (\(\lambda = 0\); itt \(0 \cdot u = 0\), mert \(0 \cdot u = (0 + 0) \cdot u = 0 \cdot u + 0 \cdot u\)), ez nullvektor \(Y\)-ban is; és minden \(u \in Y\)-ra \((-1) \cdot u \in Y\) (\(\lambda = -1\)), ami az \(u\) ellentettje, mert \(u + (-1) \cdot u = (1 + (-1)) \cdot u = 0 \cdot u = 0\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel — alterek metszete (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — alterek metszete</span>
       <p>Egy \(X\) lineáris tér tetszőleges alterei metszete is altér \(X\)-ben.</p>
       <p><strong>Bizonyítás:</strong> legyen \(\{ Y_\alpha \}_{\alpha \in I}\) az \(X\) altereinek (nemüres) rendszere, és \(Y = \bigcap_{\alpha \in I} Y_\alpha\). Az altérkritériumot ellenőrizzük: \(0 \in Y_\alpha\) minden \(\alpha\)-ra, így \(0 \in Y\), \(Y \neq \emptyset\). Ha \(u, v \in Y\), akkor minden \(\alpha\)-ra \(u, v \in Y_\alpha\), tehát \(u + v \in Y_\alpha\), vagyis \(u + v \in Y\). Ha \(u \in Y\) és \(\lambda \in \mathbb{F}\), akkor minden \(\alpha\)-ra \(\lambda u \in Y_\alpha\), így \(\lambda u \in Y\).</p>
       </div>
@@ -93,15 +93,15 @@
             </div>
 
       <h3>Lineáris burok és lineáris függetlenség</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Egy \(X\) lineáris tér egy \(A\) részhalmazát tartalmazó összes alterek metszetét az \(A\) <strong>lineáris burkának</strong> nevezzük és \(\operatorname{lin}(A)\)-val jelöljük.</p>
       <p>Az \(x_1, \dots, x_n \in X\) vektorok <strong>lineáris kombinációja</strong> egy \(\lambda_1 x_1 + \dots + \lambda_n x_n\) vektor (\(\lambda_i \in \mathbb{F}\)); az üres kombináció a \(0\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Az \(\operatorname{lin}(A)\) az \(A\) elemeinek összes (véges) lineáris kombinációjából álló halmaz.</p>
       <p><strong>Bizonyítás:</strong> jelölje \(S\) az \(A\)-beli vektorok lineáris kombinációinak halmazát. \(S\) altér (két kombináció összege és skalárszorosa is kombináció, \(0 \in S\)), és tartalmazza \(A\)-t (\(a = 1 \cdot a\)), így \(\operatorname{lin}(A) \subseteq S\). Fordítva, minden \(A\)-t tartalmazó altér zárt az összeadásra és a skalárszorzásra, tehát tartalmazza az \(A\)-beli vektorok minden lineáris kombinációját, vagyis \(S\)-t. Így \(\operatorname{lin}(A) = S\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Egy \(\{x_1, \dots, x_n\} \subseteq X\) halmaz <strong>lineárisan független</strong>, ha a \(\lambda_1 x_1 + \dots + \lambda_n x_n = 0\) csak \(\lambda_i = 0\) (\(i = 1, \dots, n\)) esetén teljesül. Egy \(S \subseteq X\) halmaz lineárisan független, ha minden véges részhalmaza az.</p>
       <p>Az \(X\) egy \(B\) részhalmaza <strong>Hamel-bázis</strong>, ha lineárisan független, és \(\operatorname{lin}(B) = X\).</p>
       </div>

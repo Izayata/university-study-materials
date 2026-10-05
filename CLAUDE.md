@@ -904,6 +904,26 @@ tétel 21, the two halves of the product-subgroup lemma to tétel 13.
 Parts that were duplicated, such as a repeated "10." section heading,
 simply became part of the tétel they belong to.
 
+**Visible labels removed again, 2026-10-05 (the owner's request, the
+same day).** The owner asked for the "(kiegészítés)" and "(pontosítva)"
+suffixes to come off every box of the Algebra and the Analízis tételek —
+the corrected and supplied content stays, only the markers go (290 labels:
+157 in `algebra/`, 133 in `analizis/`). So **the box labels above are
+history, not the current state: don't re-add "(kiegészítés)" or
+"(pontosítva)" to a tétel box** without a fresh ask. Two things deliberately
+stay: the "(bizonyítás nélkül)" labels (8: 4 in each subject) — they say
+that a standard theorem is stated and not proved, which is mathematical
+content, not a marker of who changed what — and each page's HTML head
+comment, the maintainers' record of what differs from the owner's LaTeX
+(its last line now says the changes appear unmarked on the page, at the
+owner's request; it still says no mathematician reviewed them). This
+applies to the two tétel subjects only: the third to sixth `jegyzetek/`
+series (`algebra-es-szamelmelet-alapok`, `linearis-algebra-halado`,
+`mely-bevezetes-az-analizisbe`, `algebra-halado`) keep their labels. The
+rest of this paragraph's caveats still hold: the supplied proofs are the
+assistant's, not the owner's or the course's, and a PR or report must not
+present them as the owner's own notes.
+
 The pages were generated once from the LaTeX by a throwaway script
 that isn't in the repo; edit the HTML directly from now on.
 
@@ -916,7 +936,9 @@ copy of the Algebra series' shape: same page shape, same interactivity
 source-note, and — the owner's instruction was "mindenben az algebra
 mappa tartalma adja a vázat" — the Algebra series' *final* text policy
 (the second one above), chosen explicitly when the series was started:
-mistakes are corrected and gaps filled, with every changed box labelled.
+mistakes are corrected and gaps filled (the changed boxes were first
+labelled, then unlabelled again the same day, see "Visible labels removed
+again" above — that applies here too).
 The course landing now has two cards, and `tetelek/index.html`'s course
 card reads "Algebra: 25 tétel. Analízis: 22 tétel."
 
@@ -948,9 +970,12 @@ for the order to need no forward references: the p-series
 `Σ 1/n^α` (with the harmonic series) is in 11, after the condensation
 test it uses, not earlier.
 
-**Labels.** Of the 143 boxes, 137 carry one: 33 "(kiegészítés)", 100
-"(pontosítva)", 4 "(bizonyítás nélkül)"; the other 6 are the owner's text
-unchanged. Each page's head comment lists what on it was changed. **Left
+**Labels (first published with them, 2026-10-05; the "(kiegészítés)" and
+"(pontosítva)" ones were removed the same day).** Of the 143 boxes, 137
+carried one: 33 "(kiegészítés)", 100 "(pontosítva)", 4 "(bizonyítás
+nélkül)"; the other 6 are the owner's text unchanged. Only the 4
+"(bizonyítás nélkül)" labels remain. Each page's head comment lists what
+on it was changed. **Left
 unproved on purpose**, as standard deep results cited as such: Riemann's
 rearrangement theorem (9), Abel's theorem on the Cauchy product (13),
 existence and uniqueness of the completion of a metric space (19) and

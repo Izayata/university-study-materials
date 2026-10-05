@@ -33,7 +33,7 @@
   - Pontosítva: a Cauchy-sorozat és a teljes tér definíciója; az egymásba foglalt gömbök tétele (a forrás bizonyítás nélkül mondta ki; itt mindkét irány teljes bizonyítása); a teljes burok tétele (az egyértelműség mellett a létezés is, a forrás csak az egyértelműséget mondta ki; mindkettő bizonyítás nélkül, ismert tétel)
   - Kiegészítés: konvergens sorozat Cauchy-sorozat, és Cauchy-sorozat konvergens részsorozattal konvergens; ℝ és ℂ teljes; a kontrakció folytonos
   - Bizonyítás nélkül közölt (ismert tétel): a teljes burok létezése és egyértelműsége
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="19">
   <div id="site-header"></div>
@@ -64,16 +64,16 @@
       <h2>Kidolgozás</h2>
 
       <h3>Cauchy-sorozatok és a teljes tér</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \((X, \rho)\) metrikus tér. Az \((x_n)_{n \in \mathbb{N}}\) sorozat <strong>Cauchy-sorozat</strong>, ha bármely \(\varepsilon &gt; 0\)-hoz van olyan \(N &gt; 0\), hogy minden \(n, m &gt; N\) esetén \(\rho(x_n, x_m) &lt; \varepsilon\). Az \((X, \rho)\) metrikus tér <strong>teljes</strong>, ha benne minden Cauchy-sorozat konvergens is.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Lemma (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Lemma</span>
       <p>(a) Konvergens sorozat Cauchy-sorozat. (b) Ha egy Cauchy-sorozatnak van \(x\)-hez konvergáló részsorozata, akkor a sorozat is \(x\)-hez konvergál. (c) \(\mathbb{R}\) és \(\mathbb{C}\) az abszolút érték metrikájával teljes.</p>
       <p><strong>Bizonyítás:</strong> (a) Ha \(x_n \to x\), akkor az \(\frac{\varepsilon}{2}\)-höz van \(N\), hogy \(n &gt; N\) esetén \(\rho(x_n, x) &lt; \frac{\varepsilon}{2}\), így \(\rho(x_n, x_m) \le \rho(x_n, x) + \rho(x, x_m) &lt; \varepsilon\). (b) Legyen \(\varepsilon &gt; 0\), \(N_1\) a Cauchy-tulajdonsághoz az \(\frac{\varepsilon}{2}\)-re, és a részsorozat \(x_{k_\ell} \to x\) miatt van \(\ell\), hogy \(k_\ell &gt; N_1\) és \(\rho(x_{k_\ell}, x) &lt; \frac{\varepsilon}{2}\). Ekkor \(n &gt; N_1\) esetén \(\rho(x_n, x) \le \rho(x_n, x_{k_\ell}) + \rho(x_{k_\ell}, x) &lt; \varepsilon\). (c) A 3. és a 7. tétel (Cauchy-féle konvergenciakritérium).</p>
       </div>
 
       <h3>Az egymásba foglalt gömbökre vonatkozó tétel</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — egymásba foglalt gömbök (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — egymásba foglalt gömbök</span>
       <p>Az \((X, \rho)\) metrikus tér pontosan akkor teljes, ha az \(X\)-ben egymásba foglalt zárt gömbök minden olyan \(B[x_1, r_1] \supseteq B[x_2, r_2] \supseteq \dots\) sorozatának, amelynek sugara nullsorozat (\(r_n \to 0\)), van közös nemüres része.</p>
       <p><strong>Bizonyítás.</strong></p>
       <ul>
@@ -94,7 +94,7 @@
             </div>
 
       <h3>A teljes burok</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \((X, \rho)\) metrikus tér. Az \((\widetilde{X}, \widetilde{\rho})\) teljes metrikus teret az \((X, \rho)\) <strong>teljes burkának</strong> nevezzük, ha</p>
       <ul>
         <li>\((X, \rho)\) az \((\widetilde{X}, \widetilde{\rho})\) altere (\(X \subseteq \widetilde{X}\) és \(\widetilde{\rho}\) az \(X\)-en \(\rho\)),</li>
@@ -107,10 +107,10 @@
       </div>
 
       <h3>Kontrakció</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \((X, \rho)\) metrikus tér. Az \(A : X \to X\) leképezés <strong>kontrakció</strong>, ha van olyan \(\alpha \in [0, 1[\), hogy \(\rho(A(x), A(y)) \le \alpha \cdot \rho(x, y)\) minden \(x, y \in X\)-re.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Megjegyzés (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
       <p>Minden kontrakció folytonos: \(\delta = \varepsilon\) jó, mert \(\rho(x, y) &lt; \varepsilon\) esetén \(\rho(A(x), A(y)) \le \alpha \rho(x, y) &lt; \varepsilon\).</p>
       </div>
 

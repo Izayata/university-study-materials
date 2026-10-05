@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: a lezárás tulajdonságai (a [[M]] ⊆ [M] bizonyításában a forrás B(x_1, r) ∩ M ≠ ∅-ból következtetett B(x, r) ∩ M ≠ ∅-ra, ami nem következik; itt az r_1 = r − ρ(x, x_1) sugarú gömb a háromszög-egyenlőtlenséggel az eredeti gömbben van); a seholsem sűrű halmaz két megfogalmazásának egyenértékűsége (a forrás "vagyis"-sal kötötte össze); a zárt halmazok metszete és uniója (közvetlenül a lezárás tulajdonságaiból, a forrás De Morgan-utalása helyett); a nyílt és zárt halmaz kapcsolata (bizonyítva)
   - Kiegészítés: a nyílt gömb nyílt, a zárt gömb zárt; x ∈ [M] ⟺ ρ(x, M) = 0
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="18">
   <div id="site-header"></div>
@@ -63,10 +63,10 @@
       <h2>Kidolgozás</h2>
 
       <h3>Érintkezési pont és lezárás</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \((X, \rho)\) metrikus tér, \(M \subseteq X\), \(x \in X\). Az \(x\) <strong>érintkezési pontja</strong> az \(M\)-nek, ha az \(x\) minden környezetében (azaz minden \(B(x, r)\) gömbben) van legalább egy \(M\)-beli elem. Az \(M\) érintkezési pontjainak halmaza az \(M\) <strong>lezárása</strong>, jele \([M]\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel — a lezárás tulajdonságai (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — a lezárás tulajdonságai</span>
       <ol>
         <li>\(M \subseteq [M]\),</li>
         <li>\([[M]] = [M]\),</li>
@@ -83,11 +83,11 @@
       </div>
 
       <h3>Torlódási és izolált pont, sűrű halmazok</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Az \(x \in X\) az \(M\) <strong>torlódási pontja</strong>, ha tetszőleges környezete végtelen sok \(M\)-beli elemet tartalmaz. Az \(x\) az \(M\) <strong>izolált pontja</strong>, ha van olyan \(\varepsilon &gt; 0\), hogy \(M \cap B(x, \varepsilon) = \{x\}\) (így \(x \in M\)).</p>
       <p>Az \(A\) <strong>sűrű</strong> a \(B\) halmazban, ha \(B \subseteq [A]\); speciálisan, ha \(X = [A]\), akkor \(A\) <strong>mindenütt sűrű</strong>. Az \(A\) <strong>seholsem sűrű</strong>, ha egyetlen gömbben sem sűrű. Az \(X\) tér <strong>szeparábilis</strong>, ha van megszámlálható, mindenütt sűrű részhalmaza.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Az \(A\) pontosan akkor seholsem sűrű, ha minden \(B\) gömbben van olyan \(\widetilde{B}\) gömb, amely az \(A\) egyetlen elemét sem tartalmazza.</p>
       <p><strong>Bizonyítás:</strong> \((\Rightarrow)\) Legyen \(B = B(x_0, s)\). Mivel \(A\) nem sűrű \(B\)-ben, \(B \not\subseteq [A]\), van \(y \in B \setminus [A]\), és így \(r &gt; 0\), hogy \(B(y, r) \cap A = \emptyset\). Legyen \(r' = \min\{ r, s - \rho(y, x_0) \} &gt; 0\); ekkor \(\widetilde{B} = B(y, r') \subseteq B\) (háromszög-egyenlőtlenség), és \(\widetilde{B} \cap A = \emptyset\). \((\Leftarrow)\) Ha a \(B\) gömbben van az \(A\)-t nem tartalmazó \(\widetilde{B} = B(y, r)\) gömb, akkor \(y \in B\), de \(y \notin [A]\), tehát \(B \not\subseteq [A]\), \(A\) nem sűrű \(B\)-ben.</p>
       </div>
@@ -100,15 +100,15 @@
       <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Az \(M \subseteq X\) halmaz <strong>zárt</strong>, ha \(M = [M]\) (az (1) tulajdonság miatt ez \([M] \subseteq M\)). Az \(x\) az \(M\) <strong>belső pontja</strong>, ha van \(r &gt; 0\), hogy \(B(x, r) \subseteq M\). Az \(M\) <strong>nyílt</strong>, ha minden pontja belső pont.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel — zárt halmazok metszete és uniója (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — zárt halmazok metszete és uniója</span>
       <p>Tetszőlegesen sok zárt halmaz metszete és véges sok zárt halmaz uniója is zárt.</p>
       <p><strong>Bizonyítás:</strong> legyen \(M_\alpha\) (\(\alpha \in I \neq \emptyset\)) zárt halmazok családja és \(D = \bigcap M_\alpha\). Ha \(x \in [D]\), akkor a (3) szerint \(x \in [M_\alpha] = M_\alpha\) minden \(\alpha\)-ra, így \(x \in D\); tehát \([D] \subseteq D\), \(D\) zárt. Két zárt halmaz uniójára a (4) szerint \([M_1 \cup M_2] = [M_1] \cup [M_2] = M_1 \cup M_2\); véges sokra indukcióval.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel — nyílt és zárt halmaz (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — nyílt és zárt halmaz</span>
       <p>Az \(M \subseteq X\) halmaz pontosan akkor nyílt, ha az \(X \setminus M\) halmaz zárt.</p>
       <p><strong>Bizonyítás.</strong> \((\Rightarrow)\) Legyen \(M\) nyílt és \(x \in M\). Van \(r &gt; 0\), hogy \(B(x, r) \subseteq M\), vagyis \(B(x, r) \cap (X \setminus M) = \emptyset\), így \(x \notin [X \setminus M]\). Tehát \([X \setminus M] \subseteq X \setminus M\), azaz zárt. \((\Leftarrow)\) Legyen \(X \setminus M\) zárt és \(x \in M\). Ekkor \(x \notin X \setminus M = [X \setminus M]\), tehát van \(r &gt; 0\), hogy \(B(x, r) \cap (X \setminus M) = \emptyset\), vagyis \(B(x, r) \subseteq M\). Így \(x\) belső pont, \(M\) nyílt.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>A nyílt gömb nyílt, a zárt gömb zárt.</p>
       <p><strong>Bizonyítás:</strong> ha \(z \in B(x_0, r)\), akkor \(r' = r - \rho(z, x_0) &gt; 0\), és \(B(z, r') \subseteq B(x_0, r)\) (háromszög-egyenlőtlenség), tehát a nyílt gömb nyílt. A zárt \(B[x_0, r]\) komplementere nyílt: ha \(\rho(y, x_0) &gt; r\), akkor \(B(y, \rho(y, x_0) - r) \cap B[x_0, r] = \emptyset\), mert egy közös \(z\)-re \(\rho(y, x_0) \le \rho(y, z) + \rho(z, x_0) &lt; \rho(y, x_0) - r + r\) volna.</p>
       </div>
@@ -117,7 +117,7 @@
       <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Az \(x\) pont \(M\)-től mért távolsága \(\rho(x, M) = \inf_{a \in M} \rho(x, a)\); az \(A\) és \(B\) halmaz távolsága \(\rho(A, B) = \inf_{a \in A, b \in B} \rho(a, b)\) (\(M, A, B \neq \emptyset\)).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Megjegyzés (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
       <p>\(x \in [M] \iff \rho(x, M) = 0\): az \(x\) pontosan akkor érintkezési pont, ha minden \(r &gt; 0\)-ra van \(a \in M\), \(\rho(x, a) &lt; r\), vagyis ha az infimum \(0\).</p>
       </div>
 

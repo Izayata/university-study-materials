@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: a metrika definíciója; a határérték egyértelműsége (a gömbök diszjunkt voltának indoklása a háromszög-egyenlőtlenséggel); az átviteli elv bizonyítása (a "ii) ⟹ i)" irányban a forrás "i) miatt"-ot írt, ahol a ii) feltevést kell használni; a σ > ε helyett ≥ ε)
   - Kiegészítés: példák (ℝ és ℂ az abszolút érték metrikájával: a korábbi tételek határértéke ennek speciális esete); az izometria injektív és folytonos
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="17">
   <div id="site-header"></div>
@@ -63,7 +63,7 @@
       <h2>Kidolgozás</h2>
 
       <h3>A metrikus tér</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \(X \neq \emptyset\). A \(\rho : X \times X \to \mathbb{R}\) leképezés <strong>metrika</strong>, ha</p>
       <ul>
         <li>minden \(x, y \in X\) esetén \(\rho(x, y) \ge 0\), és \(\rho(x, y) = 0 \iff x = y\),</li>
@@ -72,18 +72,18 @@
       </ul>
       <p>Ekkor \((X, \rho)\) <strong>metrikus tér</strong>.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Példa (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Példa</span>
       <p>\(\mathbb{R}\) a \(\rho(x, y) = |x - y|\) metrikával és \(\mathbb{C}\) a \(\rho(z, w) = |z - w|\) metrikával metrikus tér (a háromszög-egyenlőtlenség az abszolút érték háromszög-egyenlőtlensége). Ezekben a terekben az alábbi konvergencia éppen az 1. és a 7. tételbeli konvergencia.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \((X, \rho)\) metrikus tér, \(x_0 \in X\), \(r &gt; 0\). A \(B(x_0, r) = \{ x \in X \mid \rho(x, x_0) &lt; r \}\) <strong>nyílt gömb</strong>, a \(B[x_0, r] = \{ x \in X \mid \rho(x, x_0) \le r \}\) <strong>zárt gömb</strong>. Az \(M \subseteq X\) halmaz <strong>korlátos</strong>, ha része valamely gömbnek.</p>
       </div>
 
       <h3>Konvergencia és az egyértelműség</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Az \((x_n)_{n \in \mathbb{N}}\) sorozat <strong>konvergál</strong> az \(x \in X\) ponthoz, ha minden \(\varepsilon &gt; 0\)-hoz van olyan \(N &gt; 0\), hogy ha \(n \in \mathbb{N}\), \(n &gt; N\), akkor \(\rho(x, x_n) &lt; \varepsilon\). Jelölés: \(\lim_{n \to \infty} x_n = x\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Tétel — a határérték egyértelmű (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — a határérték egyértelmű</span>
       <p>Metrikus térben egy sorozatnak legfeljebb egy határértéke van.</p>
       <div class="proof-steps" data-steps><ol>
         <li>Indirekt: legyen \(x_n \to x\) és \(x_n \to y\), \(x \neq y\). Ekkor \(\rho(x, y) &gt; 0\).</li>
@@ -94,11 +94,11 @@
       </div>
 
       <h3>Folytonosság</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \((X, \rho)\) és \((Y, \sigma)\) metrikus tér, \(f : X \to Y\) függvény. Az \(f\) <strong>folytonos</strong> az \(x_0 \in X\) pontban, ha bármely \(\varepsilon &gt; 0\) esetén van olyan \(\delta &gt; 0\), hogy ha \(x \in X\), \(\rho(x, x_0) &lt; \delta\), akkor \(\sigma(f(x), f(x_0)) &lt; \varepsilon\). Az \(f\) folytonos, ha minden pontban az.</p>
       <p>Ha \(f : X \to Y\) bijekció, akkor van \(f^{-1} : Y \to X\). Ha \(f\) és \(f^{-1}\) is folytonos, akkor \(f\) <strong>homeomorf leképezés</strong> (homeomorfizmus). Az \(f\) <strong>izometria</strong>, ha minden \(x, y \in X\)-re \(\rho(x, y) = \sigma(f(x), f(y))\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Megjegyzés (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
       <p>Minden izometria injektív és folytonos: \(f(x) = f(y) \Rightarrow \rho(x, y) = \sigma(f(x), f(y)) = 0 \Rightarrow x = y\); és \(\delta = \varepsilon\) jó a folytonosság definíciójában.</p>
       </div>
 
@@ -107,7 +107,7 @@
             </div>
 
       <h3>Az átviteli elv</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — átviteli elv (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — átviteli elv</span>
       <p>Legyen \((X, \rho)\), \((Y, \sigma)\) metrikus tér, \(f : X \to Y\) függvény és \(x_0 \in X\). A következő két állítás ekvivalens:</p>
       <ol>
         <li>az \(f\) folytonos az \(x_0\) pontban;</li>

@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: a példák jelölése (ℤ^×, A_n); a részcsoport-kritérium bizonyítása (a részcsoport egységeleme és inverze megegyezik a csoportéval); a mellékosztályok közös elemére vonatkozó bizonyítás részletei; az index definíciója (mellékosztályok száma, véges esetben |G|/|H|); a Lagrange-tétel bizonyítása; a nem triviális valódi részcsoport nélküli csoportok jellemzése (a triviális csoport kizárva, a ℤ és a ℤ_n eset indoklása)
   - Kiegészítés: a bal és jobb oldali mellékosztályok száma megegyezik; ⟨g⟩ részcsoport; a ℤ_m^× csoport az 5. tételből
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="6">
   <div id="site-header"></div>
@@ -63,7 +63,7 @@
       <h2>Kidolgozás</h2>
 
       <h3>Részcsoport és a részcsoport-kritérium</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \((G, \cdot)\) csoport és \(H \subseteq G\). Ha \((H, \cdot)\) is csoport (a \(G\) művelete \(H\)-ra megszorítva), akkor \(H\) a \(G\) <strong>részcsoportja</strong>, jele \(H \le G\).</p>
       <p>Példák: \((\mathbb{Z}, +) \le (\mathbb{Q}, +) \le (\mathbb{R}, +) \le (\mathbb{C}, +)\); \(\{1, -1\} \le \mathbb{Q}^{\times} \le \mathbb{R}^{\times} \le \mathbb{C}^{\times}\) (ahol \(\mathbb{Q}^{\times}\), \(\mathbb{R}^{\times}\), \(\mathbb{C}^{\times}\) a nem nulla elemek szorzási csoportja, és \(\{1, -1\}\) az egész számok egységei, jelölése \(\mathbb{Z}^{\times}\)); \(A_n \le S_n\), ahol \(A_n\) a páros permutációk halmaza (az előjel magja, 3. és 9. tétel).</p>
       </div>
@@ -86,7 +86,7 @@
       <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Ha \(H \le G\), akkor \(H \neq \emptyset\), \(H \cdot H \subseteq H\) és \(H^{-1} \subseteq H\) (valójában \(H \cdot H = H\) és \(H^{-1} = H\)).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Ha \(g \in G\), akkor \(\langle g \rangle = \{ g^k \mid k \in \mathbb{Z} \}\) részcsoport, és \(|\langle g \rangle| = o(g)\).</p>
       <p><strong>Bizonyítás:</strong> nemüres (\(e = g^0\)); \(g^k \cdot g^l = g^{k+l}\); \((g^k)^{-1} = g^{-k}\). A részcsoport-kritérium szerint részcsoport. A rend definíciója szerint \(o(g)\) éppen az elemszáma.</p>
       </div>
@@ -95,7 +95,7 @@
       <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \(g \in G\) és \(H \le G\). A \(H\) <strong>baloldali mellékosztálya</strong> a \(g\) szerint: \(g \cdot H = \{ g \cdot h \mid h \in H \}\). A <strong>jobboldali</strong> mellékosztály: \(H \cdot g = \{ h \cdot g \mid h \in H \}\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>(a) \(g \in g \cdot H\); (b) \(a \cdot H \cap b \cdot H = \emptyset\) vagy \(a \cdot H = b \cdot H\), azaz két mellékosztály diszjunkt vagy egybeesik; (c) \(|a \cdot H| = |H|\); (d) \(a \cdot H = b \cdot H \iff b^{-1} \cdot a \in H\), és \(H \cdot a = H \cdot b \iff a \cdot b^{-1} \in H\).</p>
       <p><strong>Bizonyítás.</strong> (a) \(g = g \cdot e \in g \cdot H\). Tehát a mellékosztályok lefedik \(G\)-t.</p>
       <p>(b) Ha \(c \in a \cdot H \cap b \cdot H\), akkor van \(h_1, h_2 \in H\), hogy \(c = a \cdot h_1 = b \cdot h_2\). Ebből \(b^{-1} \cdot a = h_2 \cdot h_1^{-1} \in H\). Egy \(x \in H\)-ra \(x \cdot H = H\) (a részcsoport zártsága miatt \(x \cdot H \subseteq H\), és \(h = x \cdot (x^{-1} h)\) minden \(h \in H\)-ra). Ezért
@@ -103,7 +103,7 @@
       <p>(c) Az \(f : H \to a \cdot H\), \(f(h) = a \cdot h\) leképezés bijekció: szürjektív a definíció miatt, injektív, mert \(a \cdot h_1 = a \cdot h_2 \Rightarrow h_1 = h_2\).</p>
       <p>(d) Ha \(a \cdot H = b \cdot H\), akkor \(a \in a \cdot H = b \cdot H\), így \(a = b \cdot h\) egy \(h \in H\)-val, és \(b^{-1} \cdot a = h \in H\). Fordítva, ha \(b^{-1} \cdot a = h \in H\), akkor \(a \cdot H = b \cdot h \cdot H = b \cdot H\). A jobboldali mellékosztályokra ugyanígy: \(H \cdot a = H \cdot b\) esetén \(a = h \cdot b\), tehát \(a \cdot b^{-1} = h \in H\); fordítva \(a = h b\) esetén \(H \cdot a = H \cdot h \cdot b = H \cdot b\). \(\square\)</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>A \(g \cdot H \mapsto H \cdot g^{-1}\) jóldefiniált bijekció a baloldali és a jobboldali mellékosztályok halmaza között, tehát a két fajta mellékosztályból ugyanannyi van.</p>
       <p><strong>Bizonyítás:</strong> a (d) szerint
       \[ a \cdot H = b \cdot H \iff b^{-1} \cdot a \in H \iff (b^{-1} \cdot a)^{-1} = a^{-1} \cdot b \in H \iff H \cdot a^{-1} = H \cdot b^{-1}. \]
@@ -123,10 +123,10 @@
         <li>Ha \(n\) különböző mellékosztály van, akkor \(|G| = n \cdot |H|\), vagyis \(|H| \mid |G|\).</li>
       </ol></div>
       </div>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Egy \(G\) csoport egy \(H\) részcsoportja esetén a \(H\) különböző baloldali mellékosztályainak száma a \(H\) <strong>indexe</strong> \(G\)-ben, jele \(|G : H|\). Az előző állítás szerint ugyanennyi a jobboldali mellékosztályok száma. A Lagrange-tétel bizonyításából véges \(G\)-re \(|G : H| = \dfrac{|G|}{|H|}\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
       <p>Ha \(G\) véges, akkor \(o(g) = |\langle g \rangle|\) osztja \(|G|\)-t. Ezért \(g^{|G|} = e\) minden \(g \in G\)-re.</p>
       <p><strong>Bizonyítás:</strong> \(\langle g \rangle \le G\), a Lagrange-tétel szerint \(o(g) \mid |G|\). A 4. tétel szerint \(g^{o(g)} = e\), így \(g^{|G|} = (g^{o(g)})^{|G| / o(g)} = e\).</p>
       </div>
@@ -139,7 +139,7 @@
       <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Az \(\{e\} \le G\) a <strong>triviális</strong> részcsoport, a \(G \le G\) pedig a <strong>nem valódi</strong> részcsoport. A nem triviális valódi részcsoport tehát olyan \(H \le G\), amelyre \(H \neq \{e\}\) és \(H \neq G\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Egy \(G \neq \{e\}\) csoportnak pontosan akkor nincs nem triviális valódi részcsoportja, ha \(G \cong (\mathbb{Z}_p, +)\), ahol \(p\) prím.</p>
       <p><strong>Bizonyítás.</strong></p>
       <ul>

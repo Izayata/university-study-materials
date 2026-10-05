@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: az Abel-átalakítás (egyetlen, blokk alakú bizonyítás, amelynek n = 0 esete a forrás képlete; a forrás indukciós lépése zavaros volt); a Dirichlet-kritérium (a λ_n → 0 feltétel kimondva: a forrás csak a monoton csökkenést kérte, ami nem elég, például λ_n = 1 és x_n = (−1)^n esetén a tételállítás hamis; a forrás becslése is rossz blokkformulát használt, a helyes a λ_m σ_m − λ_(n+1) σ_n, és a korlát 2Kλ_(n+1)); a Leibniz-kritérium (a forrás a Dirichlet-kritérium szerepeit felcserélve írta le); az Abel-kritérium (a monoton növő eset is)
   - Kiegészítés: a (−1)^n/n sor feltételesen konvergens; a Dirichlet-kritérium feltételeinek szükségessége (ellenpélda)
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="12">
   <div id="site-header"></div>
@@ -63,7 +63,7 @@
       <h2>Kidolgozás</h2>
 
       <h3>Az Abel-féle átalakítás</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — Abel-féle átalakítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — Abel-féle átalakítás</span>
       <p>Legyen \((x_n)\) és \((\lambda_n)\) komplex sorozat, \(\sigma_n = \sum_{k=1}^{n} x_k\) (\(\sigma_0 = 0\)). Ekkor minden \(0 \le n &lt; m\)-re
       \[ \sum_{k=n+1}^{m} \lambda_k x_k = \sum_{k=n+1}^{m-1} (\lambda_k - \lambda_{k+1}) \sigma_k + \lambda_m \sigma_m - \lambda_{n+1} \sigma_n. \]
       Speciálisan \(n = 0\)-ra: \(\displaystyle\sum_{k=1}^{m} \lambda_k x_k = \sum_{k=1}^{m-1} (\lambda_k - \lambda_{k+1}) \sigma_k + \lambda_m \sigma_m\).</p>
@@ -74,7 +74,7 @@
       </div>
 
       <h3>A Dirichlet-kritérium</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — Dirichlet-kritérium (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — Dirichlet-kritérium</span>
       <p>Legyen \((\lambda_n)\) monoton csökkenő nullsorozat (valós számokból), \(\sum x_n\) pedig komplex sor, amelynek részletösszeg-sorozata korlátos. Ekkor a \(\sum \lambda_n x_n\) sor konvergens.</p>
       <div class="proof-steps" data-steps><ol>
         <li>Legyen \(|\sigma_n| \le K\) minden \(n\)-re. Mivel \((\lambda_n)\) monoton csökken és \(0\)-hoz tart, \(\lambda_n \ge 0\) és \(\lambda_k - \lambda_{k+1} \ge 0\).</li>
@@ -83,7 +83,7 @@
         <li>Mivel \(\lambda_{n+1} \to 0\), minden \(\varepsilon &gt; 0\)-hoz van \(N\), hogy \(n &gt; N\) esetén \(2K \lambda_{n+1} &lt; \varepsilon\). Így \(m &gt; n &gt; N\) esetén \(\left| \sum_{k=n+1}^{m} \lambda_k x_k \right| &lt; \varepsilon\), és a sor a Cauchy-kritérium (8. tétel) szerint konvergens.</li>
       </ol></div>
       </div>
-      <div class="note-box"><span class="note-box__label">Megjegyzés (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
       <p>A \(\lambda_n \to 0\) feltétel nem hagyható el: a \(\lambda_n = 1\) konstans és \(x_n = (-1)^n\) esetén a \(\sum x_n\) részletösszegei korlátosak (\(-1\) és \(0\)), de a \(\sum \lambda_n x_n = \sum (-1)^n\) sor divergens (a tagok nem nullsorozat).</p>
       </div>
 
@@ -92,16 +92,16 @@
             </div>
 
       <h3>A Leibniz-kritérium</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — Leibniz-kritérium (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — Leibniz-kritérium</span>
       <p>Ha \((x_n)\) monoton nullsorozat, akkor a \(\sum_{n=1}^{\infty} (-1)^n x_n\) sor konvergens.</p>
       <p><strong>Bizonyítás:</strong> ha \((x_n)\) monoton csökkenő, akkor a Dirichlet-kritériumot alkalmazzuk a \(\lambda_n = x_n\) sorozattal és a \(\sum (-1)^n\) sorral, aminek részletösszegei \(-1\) és \(0\), tehát korlátosak. Ha \((x_n)\) monoton növő, akkor \((-x_n)\) monoton csökkenő nullsorozat, és \(\sum (-1)^n x_n = -\sum (-1)^n (-x_n)\) konvergens.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Példa (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Példa</span>
       <p>A \(\sum_{n=1}^{\infty} \dfrac{(-1)^n}{n}\) sor konvergens a Leibniz-kritérium szerint, de nem abszolút konvergens, mert \(\sum \frac{1}{n}\) divergens (11. tétel). Tehát feltételesen konvergens.</p>
       </div>
 
       <h3>Az Abel-kritérium</h3>
-      <div class="note-box"><span class="note-box__label">Tétel — Abel-kritérium (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Tétel — Abel-kritérium</span>
       <p>Legyen \((\lambda_n)\) korlátos, monoton valós számsorozat, és \(\sum x_n\) konvergens komplex sor. Ekkor a \(\sum \lambda_n x_n\) sor konvergens.</p>
       <div class="proof-steps" data-steps><ol>
         <li>A \((\lambda_n)\) monoton és korlátos, ezért konvergens (2. tétel), \(\lambda_n \to \lambda\).</li>

@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: a norma és a Banach-tér definíciója (a normából származó metrika megadása és ellenőrzése, mert a forrás hivatkozott rá, de nem adta meg)
   - Kiegészítés: a normából származó metrika bizonyítása; példa: ℝ és ℂ az abszolút értékkel Banach-tér
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="22">
   <div id="site-header"></div>
@@ -63,7 +63,7 @@
       <h2>Kidolgozás</h2>
 
       <h3>A norma és a normált tér</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \(X\) lineáris tér az \(\mathbb{F} \in \{ \mathbb{R}, \mathbb{C} \}\) test felett. A \(\|\cdot\| : X \to \mathbb{R}\) leképezést <strong>normának</strong> nevezzük, ha</p>
       <ul>
         <li>minden \(x \in X\) esetén \(\|x\| \ge 0\) és \(\|x\| = 0 \iff x = 0\),</li>
@@ -72,7 +72,7 @@
       </ul>
       <p>Az \(X\) lineáris teret <strong>normált térnek</strong> nevezzük, ha értelmezve van rajta egy norma.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Normált térben a \(\rho(x, y) = \|x - y\|\) metrika, vagyis a norma metrikát határoz meg.</p>
       <p><strong>Bizonyítás:</strong> \(\rho(x, y) = \|x - y\| \ge 0\), és \(= 0 \iff x - y = 0 \iff x = y\). A szimmetria: \(\|y - x\| = \|(-1) \cdot (x - y)\| = |-1| \cdot \|x - y\| = \|x - y\|\). A háromszög-egyenlőtlenség: \(\rho(x, z) = \|(x - y) + (y - z)\| \le \|x - y\| + \|y - z\| = \rho(x, y) + \rho(y, z)\).</p>
       </div>
@@ -82,10 +82,10 @@
             </div>
 
       <h3>A Banach-tér</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Az \(X\) normált tér <strong>Banach-tér</strong>, ha teljes metrikus tér a normából származó \(\rho(x, y) = \|x - y\|\) metrikával, azaz minden Cauchy-sorozata konvergens (19. tétel).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Példa (kiegészítés)</span>
+      <div class="note-box"><span class="note-box__label">Példa</span>
       <p>Az \(\mathbb{R}\) (a \(\mathbb{R}\) test felett) és a \(\mathbb{C}\) (a \(\mathbb{C}\) test felett) az abszolút értékkel normált tér: \(|x| \ge 0\), \(|x| = 0 \iff x = 0\), \(|\lambda x| = |\lambda| |x|\), \(|x + y| \le |x| + |y|\). A normából származó metrika \(|x - y|\), és mindkét tér teljes (3. és 7. tétel). Tehát \(\mathbb{R}\) és \(\mathbb{C}\) Banach-tér.</p>
       </div>
 

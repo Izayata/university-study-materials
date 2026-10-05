@@ -32,7 +32,7 @@
   A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
   - Pontosítva: a pályák partíciója (a szimmetria és a tranzitivitás a homomorfizmus tulajdonságaiból levezetve); az orbit-stabilizátor-tétel bizonyítása (a leképezés szürjektivitása a pálya definíciójából, a jóldefiniáltság és az injektivitás egyetlen ekvivalenciából; a forrás "G_x összes mellékosztályában benne van G összes eleme" érvelése helyett); a reguláris hatás (a φ(g) permutáció voltának és a homomorfizmus voltának bizonyítása); a Cayley-tétel bizonyítása (a kép részcsoport, az izomorfia a 9. tétel következménye)
   - Kiegészítés: az S_X szimmetrikus csoport értelmezése
-  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+  Ezek a változtatások az oldalon külön jelölés nélkül szerepelnek (a tulajdonos kérésére, 2026-10-05); matematikus nem nézte át.
 -->
 <body data-nav-key="tetelek" data-tetel="10">
   <div id="site-header"></div>
@@ -63,14 +63,14 @@
       <h2>Kidolgozás</h2>
 
       <h3>Hatás, pálya, stabilizátor</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \(X\) egy halmaz, \(S_X\) az \(X\) bijekcióinak csoportja az összetétellel (szimmetrikus csoport), \(G\) egy csoport, \(\varphi\) pedig egy \(G \to S_X\) homomorfizmus. Ekkor azt mondjuk, hogy \(G\) <strong>hat</strong> \(X\)-en a \(\varphi\) szerint. Mivel \(\varphi(g) \in S_X\), a \(\varphi(g)(x) = y\) azt jelenti, hogy a \(g \in G\) elem elviszi az \(x\) pontot az \(y\)-ba. A homomorfizmus miatt \(\varphi(g_1 \cdot g_2) = \varphi(g_1) \circ \varphi(g_2)\), \(\varphi(e) = \mathrm{id}\) és \(\varphi(g^{-1}) = \varphi(g)^{-1}\) (2. tétel).</p>
       </div>
       <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Az \(x \in X\) pont <strong>pályája</strong> (orbitja): \(G(x) = \{ \varphi(g)(x) \mid g \in G \} \subseteq X\).</p>
       <p>Az \(x \in X\) pont <strong>stabilizátora</strong>: \(G_x = \{ g \in G \mid \varphi(g)(x) = x \} \subseteq G\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
       <p>Ha \(G\) hat \(X\)-en \(\varphi\) szerint, akkor az orbitok partíciót alkotnak \(X\)-en.</p>
       <p><strong>Bizonyítás:</strong> legyen \(\sim\) a következő reláció \(X\)-en: \(x \sim y \iff \exists g \in G : \varphi(g)(x) = y\). Megmutatjuk, hogy \(\sim\) ekvivalenciareláció, és osztályai az orbitok.</p>
       <ul>
@@ -103,7 +103,7 @@
             </div>
 
       <h3>A reguláris hatás és a Cayley-tétel</h3>
-      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
       <p>Legyen \(G\) csoport és \(X = G\) a \(G\)-beli elemek halmaza. A \(\varphi : G \to S_G\), \(\varphi(g)(k) = g \cdot k\) leképezés a <strong>reguláris hatás</strong>.</p>
       <p>Ez tényleg hatás. Először \(\varphi(g) \in S_G\), mert bijekció: az inverze a \(k \mapsto g^{-1} \cdot k\) (1. tétel, Cayley-táblázat). Másodszor homomorfizmus: minden \(k \in G\) esetén
       \[ \varphi(g_1 \cdot g_2)(k) = g_1 \cdot g_2 \cdot k = g_1 \cdot \big(\varphi(g_2)(k)\big) = \big(\varphi(g_1) \circ \varphi(g_2)\big)(k), \]
