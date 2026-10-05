@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Algebra — DE TTK Matematika BSc 2023/2025 | Kidolgozott tételek | Füles Jegyzetek</title>
+  <meta name="description" content="Az algebra tételei 25 részre bontva: csoportelmélet a Cayley-tételig és a Cauchy-tételig, gyűrű- és testelmélet, szerkeszthető számok és a Galois-elmélet bevezetése, bizonyításokkal.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/">
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<!--
+  The one tétel course organised as flashcards: each tétel page shows only its
+  question first and reveals the worked answer on request (see "Study tools" in
+  style.css and /study-tools.js, which is loaded only under this folder). The
+  question texts are composed for this series, the source notes only carry the
+  worked answers — see CLAUDE.md, "Content model".
+-->
+<body data-nav-key="tetelek">
+  <div id="site-header"></div>
+
+  <div class="page-shell">
+    <main class="content">
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / Algebra</p>
+
+      <h1>Algebra</h1>
+      <p>
+        Az algebra tételeit olvashatod 25 kisebb részre bontva: a
+        csoportelméletet a Cayley-táblázattól a Cauchy-tételig, a
+        gyűrűk elméletét az ideálokon át az alaptételes gyűrűkig, végül a
+        testbővítéseket a szerkeszthetőségig és a Galois-elmélet
+        bevezetéséig — a tételek bizonyításával.
+      </p>
+      <p>
+        Minden tételnél először csak a kérdés látszik: próbáld felidézni a
+        választ, aztán nyisd ki a kidolgozást. A bizonyításokat lépésenként
+        is végigjárhatod, a végén pedig megjelölheted, melyik tételt tudod
+        már.
+      </p>
+
+      <div class="study-controls" data-study-landing hidden></div>
+
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Csoportelmélet</h2>
+      <div class="card-grid">
+        <a class="item-card" data-tetel="1" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel1/">
+          <h3>1. Tétel — Csoport, alaptulajdonságok, Cayley-táblázat</h3>
+          <p>A csoport definíciója, az egységelem és az inverz egyértelműsége, a Cayley-táblázat sor- és oszloptulajdonsága.</p>
+        </a>
+        <a class="item-card" data-tetel="2" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel2/">
+          <h3>2. Tétel — Csoporthomomorfizmus és izomorfizmus</h3>
+          <p>A homomorfizmus és az izomorfizmus fogalma, a kételemű csoportok izomorfiája, a homomorfizmus egységelem- és inverztartása.</p>
+        </a>
+        <a class="item-card" data-tetel="3" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel3/">
+          <h3>3. Tétel — Permutációk: ciklusok, paritás, előjel</h3>
+          <p>A permutációk ciklusfelbontása, a paritás, az előjel és az előjel homomorfizmus-tulajdonsága.</p>
+        </a>
+        <a class="item-card" data-tetel="4" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel4/">
+          <h3>4. Tétel — Elem rendje</h3>
+          <p>A rend és a jó kitevők, egy hatvány rendje, a ciklus és a permutáció rendje.</p>
+        </a>
+        <a class="item-card" data-tetel="5" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel5/">
+          <h3>5. Tétel — Ciklikus csoportok</h3>
+          <p>A ciklikus csoport, az osztályozás, a generátorok és az adott rendű elemek száma, a primitív gyök.</p>
+        </a>
+        <a class="item-card" data-tetel="6" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel6/">
+          <h3>6. Tétel — Részcsoportok, mellékosztályok, Lagrange-tétel</h3>
+          <p>A részcsoport-kritérium, a mellékosztályok, a Lagrange-tétel, az Euler–Fermat-tétel, a nem triviális valódi részcsoport nélküli csoportok.</p>
+        </a>
+        <a class="item-card" data-tetel="7" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel7/">
+          <h3>7. Tétel — Ciklikus csoportok részcsoportjai</h3>
+          <p>Ciklikus csoport minden részcsoportja ciklikus; a végtelen és a véges ciklikus csoport részcsoportjai.</p>
+        </a>
+        <a class="item-card" data-tetel="8" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel8/">
+          <h3>8. Tétel — Generált részcsoport, direkt szorzat</h3>
+          <p>A generált részcsoport, a metszet, a direkt szorzat és ciklikussága, a véges Abel-csoportok alaptétele.</p>
+        </a>
+        <a class="item-card" data-tetel="9" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel9/">
+          <h3>9. Tétel — Homomorfizmus képe és magja</h3>
+          <p>A homomorfizmus képe és magja, mindkettő részcsoport, az injektivitás feltétele.</p>
+        </a>
+        <a class="item-card" data-tetel="10" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel10/">
+          <h3>10. Tétel — Csoporthatás, orbit-stabilizátor-tétel, Cayley-tétel</h3>
+          <p>A csoporthatás, a pálya és a stabilizátor, az orbit-stabilizátor-tétel, a reguláris hatás, a Cayley-tétel.</p>
+        </a>
+        <a class="item-card" data-tetel="11" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel11/">
+          <h3>11. Tétel — Normálosztó, faktorcsoport, homomorfizmustétel</h3>
+          <p>A normálosztó, a faktorcsoport, a mag normalitása és a homomorfizmustétel.</p>
+        </a>
+        <a class="item-card" data-tetel="12" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel12/">
+          <h3>12. Tétel — Konjugálás, centrum, a normálosztók jellemzése</h3>
+          <p>A normálosztó ekvivalens jellemzései, a konjugálás, a konjugált osztály, a centralizátor és a centrum.</p>
+        </a>
+        <a class="item-card" data-tetel="13" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel13/">
+          <h3>13. Tétel — Izomorfizmus-tételek</h3>
+          <p>A faktorcsoport elemeinek rendje, a részcsoportok és normálosztók megfeleltetése, az I. és a II. izomorfizmus-tétel.</p>
+        </a>
+        <a class="item-card" data-tetel="14" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel14/">
+          <h3>14. Tétel — p-csoportok, Cauchy-tétel</h3>
+          <p>Az egyszerű csoport, a p-csoport, a Cauchy-tétel, a p-csoport centruma, a p² rendű csoportok.</p>
+        </a>
+      </div>
+
+      <h2>Gyűrűelmélet</h2>
+      <div class="card-grid">
+        <a class="item-card" data-tetel="15" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel15/">
+          <h3>15. Tétel — Gyűrűk és részgyűrűk</h3>
+          <p>A gyűrű, az integritási tartomány, a ferdetest és a test, a számolási szabályok, a részgyűrű.</p>
+        </a>
+        <a class="item-card" data-tetel="16" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel16/">
+          <h3>16. Tétel — Ideálok, faktorgyűrű, homomorfizmustételek</h3>
+          <p>A gyűrűhomomorfizmus, az ideál és a főideál, a faktorgyűrű, az I. és a II. homomorfizmustétel.</p>
+        </a>
+        <a class="item-card" data-tetel="17" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel17/">
+          <h3>17. Tétel — Polinomgyűrűk, gyökök, derivált</h3>
+          <p>A polinomgyűrű, a gyöktényező, a gyökök száma, a polinomok azonossága, a formális derivált, a maradékos osztás.</p>
+        </a>
+        <a class="item-card" data-tetel="18" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel18/">
+          <h3>18. Tétel — Testek és egyszerű gyűrűk, maximális ideál</h3>
+          <p>A nullosztómentesség és a ferdetest, a ℤₙ testek, az egyszerű gyűrű, a maximális ideál.</p>
+        </a>
+        <a class="item-card" data-tetel="19" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel19/">
+          <h3>19. Tétel — Euklideszi gyűrűk és főideálgyűrűk</h3>
+          <p>Az euklideszi gyűrű, a főideálgyűrű, és hogy minden euklideszi gyűrű főideálgyűrű.</p>
+        </a>
+        <a class="item-card" data-tetel="20" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel20/">
+          <h3>20. Tétel — Prím és irreducibilis elem, alaptételes gyűrű</h3>
+          <p>Az oszthatóság, a prím és az irreducibilis elem, az alaptételes gyűrű, a maximumfeltétel, a főideálgyűrű alaptételessége.</p>
+        </a>
+      </div>
+
+      <h2>Testelmélet</h2>
+      <div class="card-grid">
+        <a class="item-card" data-tetel="21" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel21/">
+          <h3>21. Tétel — Testbővítés és minimálpolinom</h3>
+          <p>A testbővítés, az egyszerű bővítés, a minimálpolinom létezése, egyértelműsége és tulajdonságai.</p>
+        </a>
+        <a class="item-card" data-tetel="22" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel22/">
+          <h3>22. Tétel — Egyszerű bővítés</h3>
+          <p>A K(α) ≅ K[x]/(m_α) izomorfia, az elemek egyértelmű alakja, a transzcendens elem, a több elemmel való bővítés.</p>
+        </a>
+        <a class="item-card" data-tetel="23" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel23/">
+          <h3>23. Tétel — Testbővítés foka, szorzástétel, algebrai elemek</h3>
+          <p>A testbővítés foka, a szorzástétel, az algebrai elemek összege, szorzata és hányadosa, az algebrai számok.</p>
+        </a>
+        <a class="item-card" data-tetel="24" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel24/">
+          <h3>24. Tétel — Szerkeszthető számok, klasszikus szerkesztési problémák</h3>
+          <p>Az euklideszi szerkesztés, a szerkeszthető számok teste, az algebrai feltétel, a kockakettőzés és a körnégyszögesítés.</p>
+        </a>
+        <a class="item-card" data-tetel="25" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel25/">
+          <h3>25. Tétel — Szabályos sokszögek szerkeszthetősége, Galois-elmélet bevezetése</h3>
+          <p>A szabályos n-szög szerkeszthetősége, a körosztási polinom, a Fermat-prímek, a szögek n-edelése, Galois tétele.</p>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <div id="site-footer"></div>
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer></script>
+</body>
+</html>

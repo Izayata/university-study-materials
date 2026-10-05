@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>21. Tétel — Testbővítés és minimálpolinom | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="A testbővítés és az egyszerű bővítés fogalma, az algebrai elem minimálpolinomja, annak létezése, egyértelműsége, irreducibilitása és oszthatósági tulajdonsága bizonyítással — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel21/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="21">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 21. tétel</p>
+
+      <h1>21. Tétel — Testbővítés és minimálpolinom</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a testbővítések elméletébe vezet be. Definiálja a testbővítést és az egyszerű bővítést, majd egy algebrai elemhez megadja a minimálpolinomot, és bizonyítja, hogy az létezik, egyértelmű, irreducibilis, és osztja az elemet gyökként tartalmazó polinomokat.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a testbővítést és az egyszerű bővítést! Értelmezze egy elem minimálpolinomját, és bizonyítsa be annak létezését, egyértelműségét és irreducibilitását, valamint azt, hogy a minimálpolinom osztja az α-t gyökként tartalmazó polinomokat!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>Testbővítés, egyszerű bővítés</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Az \(L\) a \(K\) <strong>testbővítése</strong>, ha \(K \subseteq L\), azaz \(K\) részteste \(L\)-nek.</p>
+      <p>Legyen \(K \subseteq L\) testbővítés és \(\alpha \in L\). Ekkor \(K(\alpha)\) a legszűkebb olyan részteste \(L\)-nek, amely tartalmazza \(K\)-t és \(\alpha\)-t. Ezt a \(K\) <strong>egyszerű bővítésének</strong> nevezzük.</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>A minimálpolinom</h3>
+      <div class="note-box"><span class="note-box__label">Tétel</span>
+      <p>Legyen \(K \subseteq L\) testbővítés és \(\alpha \in L\) algebrai \(K\) felett. Ekkor</p>
+      <ol>
+        <li>az \(m_{\alpha}(x)\) létezik és egyértelmű,</li>
+        <li>ha \(f \in K[x]\) és \(f(\alpha) = 0\), akkor \(m_{\alpha} \mid f\),</li>
+        <li>\(m_{\alpha}(x)\) irreducibilis \(K\) felett,</li>
+        <li>ha \(f \in K[x]\), \(f\) főegyütthatója \(1\), \(f(\alpha) = 0\) és \(f\) irreducibilis, akkor \(f = m_{\alpha}\).</li>
+      </ol>
+      <p><strong>Bizonyítás.</strong></p>
+      <div class="proof-steps" data-steps><ol>
+        <li><strong>(1) Létezés.</strong> \(K\) test, így \(K[x]\) euklideszi gyűrű, tehát főideálgyűrű. Tekintsük a \(\varphi_{\alpha} : K[x] \to L\) behelyettesítés-homomorfizmust, \(\varphi_{\alpha}(p(x)) = p(\alpha) \in L\). A \(\varphi_{\alpha}\) magja azon \(K[x]\)-beli polinomok halmaza, amelyeknek \(\alpha\) gyöke. A homomorfizmus magja ideál \(K[x]\)-ben, így \(\operatorname{Ker} \varphi_{\alpha} = (m(x))\), ahol \(m(x)\) asszociáltság erejéig egyértelmű.</li>
+        <li><strong>Normálás.</strong> \(K[x]\) egységei a \(K \setminus \{0\}\) elemei, ezért felerősíthető, hogy \(m(x)\) főegyütthatója \(1\) legyen. Ekkor \(m(x) \in K[x]\), \(m(\alpha) = 0\), és \(m(x)\) főegyütthatója \(1\).</li>
+        <li><strong>(2) Oszthatóság.</strong> Ha \(f \in K[x]\) olyan, hogy \(f(\alpha) = 0\), akkor \(f(x) \in (m(x))\), tehát \(m(x) \mid f(x)\). Ezért \(\deg(m(x)) \le \deg(f(x))\), vagyis \(m(x)\) a legalacsonyabb fokú ilyen polinom: ez a minimálpolinom.</li>
+        <li><strong>(3) Irreducibilitás.</strong> Ha \(m_{\alpha}(x) = a(x) \cdot b(x)\), akkor \(0 = m_{\alpha}(\alpha) = a(\alpha) \cdot b(\alpha)\). Mivel \(K\) nullosztómentes, \(a(\alpha) = 0\) vagy \(b(\alpha) = 0\). Ha \(a(\alpha) = 0\), akkor \(m_{\alpha} \mid a\); ha \(b(\alpha) = 0\), akkor \(m_{\alpha} \mid b\).</li>
+        <li><strong>(4)</strong> Legyen \(f \in K[x]\) úgy, hogy \(f(\alpha) = 0\). Ekkor \(m_{\alpha}(x) \mid f(x)\), és ha \(f(x)\) irreducibilis, akkor \(m_{\alpha}(x) \sim f(x)\). Mivel \(f(x)\) főegyütthatója \(1\), \(m_{\alpha}(x) = 1 \cdot f(x) = f(x)\).</li>
+      </ol></div>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel20/">← 20. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel22/">22. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

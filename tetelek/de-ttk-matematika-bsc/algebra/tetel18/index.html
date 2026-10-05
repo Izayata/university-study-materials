@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>18. Tétel — Testek és egyszerű gyűrűk, maximális ideál | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="Az egyszerűsítés nullosztómentes gyűrűben, a ferdetest nullosztómentessége, a véges nullosztómentes gyűrű, a Zn testek jellemzése, az egyszerű gyűrű és a maximális ideál — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel18/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="18">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 18. tétel</p>
+
+      <h1>18. Tétel — Testek és egyszerű gyűrűk, maximális ideál</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel azt vizsgálja, mikor lesz egy gyűrű test. Megmutatja, hogy a ferdetest nullosztómentes, hogy a véges nullosztómentes gyűrű ferdetest, jellemzi a ℤₙ testeket, majd bevezeti az egyszerű gyűrűt és a maximális ideált.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Bizonyítsa be, hogy a ferdetest nullosztómentes, és hogy a véges nullosztómentes gyűrű ferdetest! Jellemezze azokat az n számokat, amelyekre ℤₙ test! Definiálja az egyszerű gyűrűt és a maximális ideált, és bizonyítsa be az ezekkel kapcsolatos tételeket!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>Nullosztómentesség és ferdetest</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Nullosztómentes gyűrűben lehet nem nulla elemmel egyszerűsíteni: ha \(a \cdot c = b \cdot c\) és \(c \neq 0\), akkor \(a = b\).</p>
+      <p><strong>Bizonyítás:</strong> \(a \cdot c = b \cdot c\), tehát \(a \cdot c - b \cdot c = 0\), azaz \((a - b) \cdot c = 0\). Mivel \(c \neq 0\), a nullosztómentesség miatt \(a - b = 0\), vagyis \(a = b\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel</span>
+      <p>Ha \(R\) ferdetest, akkor nullosztómentes.</p>
+      <p><strong>Bizonyítás:</strong> legyen \(z, w \in R\), úgy, hogy \(z \cdot w = 0\). Ha \(z \neq 0\), akkor van \(z^{-1}\), és \(z^{-1} \cdot z \cdot w = w = z^{-1} \cdot 0 = 0\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(R\) véges és nullosztómentes, akkor ferdetest.</p>
+      <p><strong>Bizonyítás</strong> (vázlat): legyen \(R = \{ a_1, a_2, \dots, a_k \}\) és \(0 \neq r \in R\).</p>
+      <ul>
+        <li>Az \(r \cdot a_1, r \cdot a_2, \dots, r \cdot a_k\) elemek különbözőek, mert \(r \cdot a_i = r \cdot a_j \Rightarrow a_i = a_j\). Tehát \(R\) minden elemét felveszik.</li>
+        <li>A szorzásnak van egységeleme: legyen \(r \cdot s = r\). Ekkor \(r \cdot s \cdot t = r \cdot t\), így \(s \cdot t = t\) (és az egységelem minden \(u \neq 0\)-ra \(u \cdot s = u\)).</li>
+        <li>\(r\)-nek van inverze: ha \(r \cdot b = e\), akkor \(r \cdot b \cdot r = e \cdot r = r \cdot 1\), amiből \(b \cdot r = e\), tehát \(b = r^{-1}\).</li>
+      </ul>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>Az alábbiak ekvivalensek:</p>
+      <ol>
+        <li>\(\mathbb{Z}_n\) nullosztómentes,</li>
+        <li>\(n\) prím szám,</li>
+        <li>\(\mathbb{Z}_n\) test.</li>
+      </ol>
+      <p><strong>Bizonyítás.</strong></p>
+      <ul>
+        <li>\(1 \Rightarrow 2\): \(\mathbb{Z}_n\)-ben a nullosztók az \(n\)-hez nem relatív prím számok, így \(\mathbb{Z}_n\) nullosztómentes \(\iff\) \(n\)-hez mindenki relatív prím \(\iff\) \(n\) prím.</li>
+        <li>\(1 \Rightarrow 3\): \(\mathbb{Z}_n\) ferdetest és kommutatív, így test.</li>
+        <li>\(3 \Rightarrow 1\): az előző tétel.</li>
+      </ul>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>Egyszerű gyűrűk</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \(I \trianglelefteq R\). Ha \(I = R\), akkor \(I\) nem valódi ideál; ha \(I = \{0\}\), akkor \(I\) triviális ideál. Ha \(R\)-ben nincs nem triviális valódi ideál, akkor \(R\) <strong>egyszerű gyűrű</strong>.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(R\) ferdetest, akkor \(R\) egyszerű.</p>
+      <p><strong>Bizonyítás:</strong> ha egy ideálban van invertálható elem, akkor minden elem benne van: ha \(r \in I \trianglelefteq R\), \(r \neq 0\) és \(r\) invertálható, akkor van \(r^{-1}\), és mivel \(I\) ideál, \(r \cdot r^{-1} = 1 \in I\). Így minden \(r \in R\)-re \(r \cdot 1 = r \in I\), tehát \(R = I\). Ha \(I \trianglelefteq R\) és \(I \neq \{0\}\), akkor \(I\)-ben van invertálható elem, tehát \(I = R\), vagyis \(R\) egyszerű.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(1 \in R\) kommutatív gyűrű, akkor \(R\) egyszerű pontosan akkor, ha \(R\) test.</p>
+      <p><strong>Bizonyítás.</strong> Ha \(R\) test, akkor egyszerű is. Fordítva, legyen \(R\) egyszerű és \(r \in R \setminus \{0\}\). Az \((r) = \{ r \cdot s \mid s \in R \}\) ideál \(R\)-ben, és mivel \(R\) egyszerű és \((r) \neq \{0\}\), ezért \((r) = R\). Így \(1 \in (r)\), azaz van \(s \in R\), amelyre \(r \cdot s = 1\).</p>
+      </div>
+
+      <h3>Maximális ideál</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Az \(I \trianglelefteq R\) <strong>maximális ideál</strong>, ha nincs \(I &lt; J &lt; R\) ideál \(R\)-ben.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>Legyen \(I \trianglelefteq R\). Ekkor \(R / I\) egyszerű \(\iff\) \(I\) maximális ideál \(R\)-ben.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>Ha \(1 \in R\) kommutatív és \(I \trianglelefteq R\), akkor \(R / I\) test \(\iff\) \(I\) maximális ideál.</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel17/">← 17. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel19/">19. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

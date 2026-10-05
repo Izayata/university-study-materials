@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>23. Tétel — Testbővítés foka, szorzástétel, algebrai elemek | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="A testbővítés foka, az egyszerű bővítés foka, a szorzástétel és következményei, az algebrai elemek teste és az algebrai számok — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel23/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="23">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 23. tétel</p>
+
+      <h1>23. Tétel — Testbővítés foka, szorzástétel, algebrai elemek</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a testbővítés fokával foglalkozik. Bizonyítja, hogy az egyszerű bővítés foka a minimálpolinom foka, kimondja és bizonyítja a szorzástételt, majd megmutatja, hogy az algebrai elemek testet alkotnak.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a testbővítés fokát! Bizonyítsa be a szorzástételt, és vezesse le a következményeit: az elem foka osztja a bővítés fokát, algebrai elemek összege, szorzata és hányadosa algebrai! Mondja meg, mit tudunk a ℚ felett algebrai számok bővítéséről!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>A bővítés foka</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \(K \subseteq L\) testbővítés. Ekkor \(L\) vektortér \(K\) felett. Az \(L\) dimenzióját \(K\) felett az \(L\) <strong>fokának</strong> nevezzük, jele \([L : K]\).</p>
+      </div>
+      <p>Ha a bővítés véges (\([L : K] &lt; \infty\)), akkor minden \(\alpha \in L\) algebrai.</p>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Legyen \(K \subseteq L\) testbővítés és \(\alpha \in L\). Ekkor</p>
+      <ol>
+        <li>ha \(\alpha\) algebrai \(K\) felett, akkor \([K(\alpha) : K] = \deg m_{\alpha}(x)\) (a dimenzió a minimálpolinom foka \(K\) felett),</li>
+        <li>ha \(\alpha\) transzcendens \(K\) felett, akkor \([K(\alpha) : K] = \infty\).</li>
+      </ol>
+      <p><strong>Bizonyítás.</strong></p>
+      <ul>
+        <li>(1) \(1, \alpha, \dots, \alpha^{n-1}\) bázis \(K(\alpha)\)-ban \(K\) felett, ahol \(n = \deg m_{\alpha}(x)\), így a dimenzió \(\deg m_{\alpha}(x)\).</li>
+        <li>(2) Kell végtelen sok lineárisan független elem. Ha lenne közöttük lineárisan függő rész, akkor \(c_0 + c_1 \alpha^{i_1} + c_2 \alpha^{i_2} + \dots + c_k \alpha^{i_k} = 0\), vagyis \(\alpha\) gyöke a \(c_0 + c_1 x^{i_1} + \dots + c_k x^{i_k}\) polinomnak. De \(\alpha\) transzcendens, így a \(0\) polinomon kívül senkinek sem gyöke.</li>
+      </ul>
+      </div>
+
+      <h3>A szorzástétel</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — szorzástétel</span>
+      <p>Legyenek \(K \subseteq L \subseteq M\) testbővítések. Ekkor \([M : K] &lt; \infty\) pontosan akkor, ha \([M : L]\) és \([L : K]\) végesek, és ekkor
+      \[ [M : K] = [M : L] \cdot [L : K]. \]</p>
+      <p><strong>Bizonyítás:</strong> ha \(u_1, u_2, \dots, u_m\) bázis \(M\)-ben \(L\) felett, és \(v_1, v_2, \dots, v_n\) bázis \(L\)-ben \(K\) felett, akkor
+      \[ u_1 v_1, \dots, u_1 v_n,\ u_2 v_1, \dots, u_2 v_n,\ \dots,\ u_m v_1, \dots, u_m v_n \]
+      bázis \(M\)-ben \(K\) felett.</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>Következmények</h3>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>Ha \(K \subseteq L\) véges bővítés és \(\alpha \in L\), akkor \(\deg m_{\alpha}(x)\) osztja \([L : K]\)-t (a minimálpolinom foka \(K\) felett).</p>
+      <p><strong>Bizonyítás:</strong> tekintsük a \(K \subseteq K(\alpha) \subseteq L\) bővítésláncot. A szorzástétel miatt \([L : K] = [L : K(\alpha)] \cdot [K(\alpha) : K]\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(K \subseteq L \subseteq M\) testbővítések és \(\alpha \in M\), akkor \(\deg_K \alpha \ge \deg_L \alpha\), azaz az elem foka nagyobb test felett nem nőhet.</p>
+      <p><strong>Bizonyítás:</strong> legyen \(k_{\alpha}(x)\) az \(\alpha\) minimálpolinomja \(K\) felett, és \(\ell_{\alpha}(x)\) az \(\alpha\) minimálpolinomja \(L\) felett. Mivel \(K \subseteq L\), \(K[x] \subseteq L[x]\), így \(k_{\alpha}(x) \in K[x] \subseteq L[x]\), vagyis \(k_{\alpha}(x)\) egy olyan polinom \(L[x]\)-ben, amelynek gyöke \(\alpha\). A minimálpolinom tulajdonságai miatt az \(\alpha\) \(L\) feletti minimálpolinomja osztja minden olyan \(L[x]\)-beli polinomot, amelynek \(\alpha\) gyöke. Tehát \(\ell_{\alpha}(x) \mid k_{\alpha}(x)\), vagyis \(\deg_L(\alpha) \le \deg_K(\alpha)\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(\alpha, \beta \in L\) algebraiak \(K\) felett, akkor \(\alpha \pm \beta\), \(\alpha \cdot \beta\), \(\dfrac{\alpha}{\beta}\) (\(\beta \neq 0\)) mind algebraiak \(K\) felett, és fokuk legfeljebb \(\deg_K \alpha \cdot \deg_K \beta\).</p>
+      <p><strong>Bizonyítás:</strong> a felsorolt elemek mindegyike benne van a \(K(\alpha, \beta)\) testben, amelynek foka \(K\) felett
+      \[ [K(\alpha, \beta) : K] = [K(\alpha, \beta) : K(\alpha)] \cdot [K(\alpha) : K] \le \deg_K \alpha \cdot \deg_K \beta. \]</p>
+      </div>
+
+      <h3>Az algebrai elemek teste</h3>
+      <p>Ha egy elem foka véges, akkor nem lehet transzcendens, tehát algebrai.</p>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>Ha \(K \subseteq L\) testbővítés, akkor az \(L\)-beli, \(K\) felett algebrai elemek testet alkotnak.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Legyen \(\mathbb{A}\) a \(\mathbb{Q}\) felett algebrai elemek halmaza, azaz az összes racionális együtthatós polinom összes gyöke. Ekkor \(\mathbb{Q} \subseteq \mathbb{A} \subseteq \mathbb{C}\) és \([\mathbb{A} : \mathbb{Q}] = \infty\): a bővítés végtelen fokú, de algebrai.</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel22/">← 22. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel24/">24. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

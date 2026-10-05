@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>20. Tétel — Prím és irreducibilis elem, alaptételes gyűrű | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="Az oszthatóság, az asszociáltság, az irreducibilis és a prím elem, az alaptételes gyűrű, a maximumfeltétel, és annak bizonyítása, hogy a főideálgyűrű alaptételes — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel20/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="20">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 20. tétel</p>
+
+      <h1>20. Tétel — Prím és irreducibilis elem, alaptételes gyűrű</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a számelmélet alaptételét általánosítja gyűrűkre. Bevezeti az oszthatósággal kapcsolatos fogalmakat, a prím és az irreducibilis elemet, az alaptételes gyűrűt és a maximumfeltételt, és megmutatja, hogy a főideálgyűrű alaptételes.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja az oszthatóságot, az egységet, az asszociáltságot, a kitüntetett közös osztót, az irreducibilis és a prím elemet, valamint az alaptételes gyűrűt! Bizonyítsa be, hogy minden prím irreducibilis, és hogy ha minden irreducibilis elem prím, akkor a felbontás egyértelmű! Mutassa meg, hogy főideálgyűrűben teljesül a maximumfeltétel, és ezért a főideálgyűrű alaptételes!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>Oszthatósági fogalmak</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \(R\) integritási tartomány.</p>
+      <ul>
+        <li>\(r, s \in R\) esetén \(r \mid s\), ha \(\exists t \in R : s = r \cdot t\).</li>
+        <li>Az \(r \in R\) elem <strong>egység</strong>, ha \(r \mid 1\), azaz van inverze.</li>
+        <li>\(r \sim s\) <strong>asszociált</strong>, ha \(r \mid s\) és \(s \mid r\).</li>
+        <li>A \(d\) az \(a, b \in R\) elemek <strong>kitüntetett közös osztója</strong>, ha (1) \(d \mid a\) és \(d \mid b\), és (2) \(c \mid a\) és \(c \mid b \Rightarrow c \mid d\).</li>
+        <li>Az \(a, b\) <strong>relatív prímek</strong>, ha \(\operatorname{lnko}(a, b) = 1\).</li>
+        <li>Egy \(0 \neq r \in R\) nem egységelem esetén az \(r = a \cdot b\) felbontás <strong>triviális</strong>, ha \(r\) asszociált \(a\)-val vagy \(r\) asszociált \(b\)-vel.</li>
+        <li>Az \(r\) <strong>irreducibilis</strong>, ha csak triviális felbontása van.</li>
+        <li>A \(p \in R\) <strong>prím</strong>, ha \(p \mid a \cdot b \Rightarrow p \mid a\) vagy \(p \mid b\).</li>
+        <li>Az \(R\) <strong>alaptételes gyűrű</strong>, ha \(R\) minden \(0\)-tól és egységektől különböző eleme egységektől és sorrendtől eltekintve egyértelműen felírható irreducibilis elemek szorzataként.</li>
+      </ul>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Minden prím irreducibilis.</p>
+      <p><strong>Bizonyítás:</strong> legyen \(p\) prím és \(p = a \cdot b\). Ekkor \(p \mid a \cdot b\), tehát \(p \mid a\) vagy \(p \mid b\).</p>
+      <ul>
+        <li>Ha \(p \mid a\), akkor \(a \mid p\) miatt \(a\) asszociált \(p\)-vel.</li>
+        <li>Ha \(p \mid b\), akkor \(b \mid p\) miatt \(b \sim p\).</li>
+      </ul>
+      <p>A felbontás mindkét esetben triviális.</p>
+      </div>
+
+      <h3>A felbontás egyértelműsége</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha minden irreducibilis elem prím, akkor igaz az alaptétel egyértelműségi része.</p>
+      <p><strong>Bizonyítás:</strong> legyen \(r = p_1 \cdot p_2 \cdots p_k = q_1 \cdot q_2 \cdots q_{\ell}\) két felbontás irreducibilis elemek szorzatára. A \(p_1\) prím, és \(p_1 \mid r = q_1 \cdots q_{\ell}\), de mivel \(p_1\) prím, \(p_1 \mid q_i\) valamelyik \(i\)-re, mondjuk \(q_i = q_1\). Mivel \(q_1\) irreducibilis, \(q_1 \sim p_1\). Ekkor \(r' = p_2 \cdots p_k \sim r'' = q_2 \cdots q_{\ell}\), és így tovább a többi \(p\)-vel.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Főideálgyűrűben minden irreducibilis elem prím, így igaz az alaptétel egyértelműsége.</p>
+      <p><strong>Bizonyítás:</strong> ha \(a, b \in R\), akkor \((a, b) = (d)\), és ilyenkor \(d = \operatorname{lnko}(a, b)\), azaz bármely két elemnek van lnko-ja.</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>A maximumfeltétel és az alaptételesség</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Egy \(R\) integritási tartomány ideáljai teljesítik a <strong>maximumfeltételt</strong>, ha nincs ideáloknak szigorúan növő végtelen lánca: \(I_1 \subsetneq I_2 \subsetneq I_3 \subsetneq \dots\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>\(r \mid s \iff (r) \supseteq (s)\).</p>
+      <p><strong>Bizonyítás.</strong></p>
+      <ul>
+        <li>\((\Rightarrow)\) Ha \(r \mid s\), akkor \(s \in (r)\), tehát \((s) \subseteq (r)\).</li>
+        <li>\((\Leftarrow)\) Ha \((s) \subseteq (r)\), akkor \(s \in (r)\), vagyis \(s\) az \(r\) többszöröse, így \(r \mid s\).</li>
+      </ul>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel</span>
+      <p>Az \(R\) integritási tartomány alaptételes, ha (1) minden irreducibilis elem prím (egyértelműség), és (2) \(R\) főideáljaira teljesül a maximumfeltétel (létezés).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Főideálgyűrűben teljesül a maximumfeltétel, így a főideálgyűrű alaptételes.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>Legyen \(I_1 \subseteq I_2 \subseteq I_3 \subseteq \dots\) ideálok egy lánca.</li>
+        <li>Az \(I = \bigcup_{j=1}^{\infty} I_j\) is ideál, tehát \(I = (r)\) valamilyen \(r\)-re.</li>
+        <li>Mivel \(r \in I\), ezért \(r \in I_k\) valamelyik \(k\)-ra, így \((r) \subseteq I_k \subseteq I = (r)\).</li>
+        <li>Ha \(\ell \ge k\), akkor \(I_{\ell} = I\): a lánc megáll.</li>
+      </ol></div>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel19/">← 19. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel21/">21. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

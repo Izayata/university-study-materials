@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>13. Tétel — Izomorfizmus-tételek | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="A faktorcsoport elemeinek rendje, a homomorfizmus által indukált részcsoport- és normálosztó-megfeleltetés, valamint az I. és a II. izomorfizmus-tétel bizonyítással — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel13/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="13">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 13. tétel</p>
+
+      <h1>13. Tétel — Izomorfizmus-tételek</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a homomorfizmustételből következő izomorfizmus-tételeket gyűjti össze. Előbb a faktorcsoport elemeinek rendjét és a részcsoportok közötti megfeleltetést tárgyalja, majd bizonyítja az I. és a II. izomorfizmus-tételt.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Mondja ki és bizonyítsa be az I. és a II. izomorfizmus-tételt! Mutassa be a homomorfizmus által a részcsoportok és a normálosztók között létrehozott megfeleltetést, és határozza meg a faktorcsoport elemeinek rendjét!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>A faktorcsoport elemeinek rendje</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Legyen \(N \trianglelefteq G\). Ekkor a \(g \cdot N \in G/N\) rendje az a legkisebb pozitív \(n\) szám, amelyre \(g^n \in N\).</p>
+      <p><strong>Bizonyítás:</strong> \((g \cdot N)^k = g \cdot N \cdot g \cdot N \cdots g \cdot N = g^k \cdot N\). Így \(o(g \cdot N)\) a \(g \cdot N\) legkisebb pozitív hatványkitevője, vagyis az az \(n\) szám, amelyre \(g^n \cdot N = N\). Ez pontosan akkor igaz, ha \(g^n \in N\).</p>
+      </div>
+
+      <h3>Teljes inverz kép, megszorítás</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \(\varphi : A \to B\) leképezés és \(D \subseteq B\). A \(D\) <strong>teljes inverz képe</strong>:
+      \[ \varphi^{-1}(D) = \{ a \in A \mid \varphi(a) \in D \}. \]
+      Ha \(C \subseteq A\), akkor a \(\varphi\) <strong>megszorítása</strong> \(C\)-re az a \(\varphi|_C : C \to B\) leképezés, amelyre \(\varphi|_C(c) = \varphi(c)\) minden \(c \in C\) esetén.</p>
+      </div>
+
+      <h3>A homomorfizmus által indukált megfeleltetés</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(\varphi : G \to H\) homomorfizmus és \(h = \varphi(g)\), akkor \(\varphi^{-1}(\{h\}) = g \cdot \operatorname{Ker} \varphi\).</p>
+      <p><strong>Bizonyítás:</strong> \(x \in \varphi^{-1}(\{\varphi(g)\}) \iff \varphi(x) = \varphi(g) \iff x \in g \cdot \operatorname{Ker} \varphi\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>Ha \(\varphi : G \to H\) homomorfizmus és \(K \le G\), akkor
+      \[ \varphi^{-1}(\varphi(K)) = \{ k \cdot \operatorname{Ker} \varphi \mid k \in K \} = K \cdot \operatorname{Ker} \varphi. \]</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(\varphi : G \to H\) szürjektív homomorfizmus és \(K \le G\), akkor \(\varphi(K) \le H\) és \(\varphi^{-1}(\varphi(K)) \le G\).</p>
+      <p><strong>Bizonyítás</strong> (\(\varphi(K) \le H\)):</p>
+      <ul>
+        <li>\(e_G \in K\), \(\varphi(e_G) \in \varphi(K)\), így \(\varphi(K) \neq \emptyset\).</li>
+        <li>\(\varphi(g_1), \varphi(g_2) \in \varphi(K) \Rightarrow \varphi(g_1) \cdot \varphi(g_2) = \varphi(g_1 \cdot g_2) \in \varphi(K)\).</li>
+        <li>\(\varphi(g) \in \varphi(K) \Rightarrow \varphi(g)^{-1} = \varphi(g^{-1}) \in \varphi(K)\).</li>
+      </ul>
+      </div>
+      <div class="note-box"><span class="note-box__label">Lemma</span>
+      <p>Ha \(A, B \le G\), akkor \(A \cdot B\) is részcsoport pontosan akkor, ha \(A \cdot B = B \cdot A\).</p>
+      <p><strong>Bizonyítás.</strong></p>
+      <ul>
+        <li>\((\Leftarrow)\) Ha \(A \cdot B = B \cdot A\): \(A \cdot B\) nemüres, például \(e_G \cdot e_G\) benne van. Továbbá \((A \cdot B)(A \cdot B) = A \cdot B \cdot A \cdot B = A \cdot A \cdot B \cdot B = A \cdot B\), és \((A \cdot B)^{-1} = B^{-1} \cdot A^{-1} = B \cdot A = A \cdot B\). Tehát \(A \cdot B \le G\).</li>
+        <li>\((\Rightarrow)\) Ha \(A \cdot B \le G\), akkor \(A \cdot B = (A \cdot B)^{-1} = B^{-1} \cdot A^{-1} = B \cdot A\).</li>
+      </ul>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <p>Mivel \(\operatorname{Ker} \varphi \trianglelefteq G\), ezért \(K \cdot \operatorname{Ker} \varphi = \operatorname{Ker} \varphi \cdot K\), és ebből \(K \cdot \operatorname{Ker} \varphi \le G\).</p>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>Ha \(\operatorname{Ker} \varphi \le K \le G\), akkor \(\varphi^{-1}(\varphi(K)) = K \cdot \operatorname{Ker} \varphi\). Így \(\varphi^{-1}\) egy bijekció a \(H\) részcsoportjai és a \(G\)-nek a \(\operatorname{Ker} \varphi\)-t tartalmazó részcsoportjai között.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(\operatorname{Ker} \varphi \le K \le G\) és \(L = \varphi(K)\) egymásnak megfelelő részcsoportok (\(\varphi^{-1}(L) = K\)), valamint \(g \in G\) és \(h = \varphi(g)\), akkor
+      \[ \varphi^{-1}(h \cdot L) = g \cdot K \qquad \text{és} \qquad \varphi^{-1}(L \cdot h) = K \cdot g. \]</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>\(L \trianglelefteq H \implies \operatorname{Ker} \varphi \le K \trianglelefteq G\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>\(\varphi^{-1}\) bijekció a \(H\) normálosztói és a \(G\)-nek a \(\operatorname{Ker} \varphi\)-t tartalmazó normálosztói között.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>\(H / L \cong G / K\), ha \(L\) és \(K\) egymásnak megfelelő normálosztók.</p>
+      </div>
+
+      <h3>I. izomorfizmus-tétel</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — I. izomorfizmus-tétel</span>
+      <p>Legyen \(N \trianglelefteq G\) és \(K \le G\). Ekkor</p>
+      <ul>
+        <li>\(K \cdot N \le G\),</li>
+        <li>\(K \cap N \trianglelefteq K\),</li>
+        <li>\(K \cdot N / N \cong K / K \cap N\).</li>
+      </ul>
+      <div class="proof-steps" data-steps><ol>
+        <li>Legyen \(\varphi : G \to G/N\) a természetes homomorfizmus, \(\varphi(g) = g \cdot N\), és tekintsük a \(\varphi|_K\) megszorítást.</li>
+        <li>\(\operatorname{Im} \varphi|_K = \{ k \cdot N \mid k \in K \} = K \cdot N / N\).</li>
+        <li>\(\operatorname{Ker} \varphi|_K = \{ k \in K \mid k \cdot N = N \} = K \cap N\).</li>
+        <li>A homomorfizmustételt a \(\varphi|_K\)-ra alkalmazva:
+          \[ K \cdot N / N = \operatorname{Im} \varphi|_K \cong K / \operatorname{Ker} \varphi|_K = K / K \cap N. \]</li>
+      </ol></div>
+      </div>
+
+      <h3>II. izomorfizmus-tétel</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — II. izomorfizmus-tétel</span>
+      <p>Legyen \(N, K \trianglelefteq G\) és \(N \le K\). Ekkor</p>
+      <ul>
+        <li>\(N \trianglelefteq K\),</li>
+        <li>\(K / N \trianglelefteq G / N\),</li>
+        <li>\((G / N) / (K / N) \cong G / K\).</li>
+      </ul>
+      <div class="proof-steps" data-steps><ol>
+        <li>Legyen \(\psi : G/N \to G/K\), \(\psi(g \cdot N) = g \cdot K\).</li>
+        <li>\(\psi\) jól definiált: ha \(g_1 \cdot N = g_2 \cdot N\), akkor \(g_2^{-1} \cdot g_1 \cdot N = N\), így \(g_2^{-1} \cdot g_1 \in N\), tehát \(g_2^{-1} \cdot g_1 \in K\), vagyis \(g_2^{-1} \cdot g_1 \cdot K = K\), azaz \(g_1 \cdot K = g_2 \cdot K\).</li>
+        <li>\(\psi\) homomorfizmus: \(\psi(g_1 \cdot N \cdot g_2 \cdot N) = \psi(g_1 \cdot g_2 \cdot N) = g_1 \cdot g_2 \cdot K = g_1 \cdot K \cdot g_2 \cdot K = \psi(g_1 \cdot N) \cdot \psi(g_2 \cdot N)\).</li>
+        <li>\(\operatorname{Im} \psi = G/K\), és \(\operatorname{Ker} \psi = \{ g \cdot N \in G/N \mid g \cdot K = K \} = K/N \trianglelefteq G/N\).</li>
+        <li>A homomorfizmustétel szerint \(G/K \cong (G/N) / (K/N)\).</li>
+      </ol></div>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel12/">← 12. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel14/">14. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

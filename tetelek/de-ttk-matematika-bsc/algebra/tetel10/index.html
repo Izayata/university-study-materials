@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>10. Tétel — Csoporthatás, orbit-stabilizátor-tétel, Cayley-tétel | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="A csoport hatása halmazon, a pálya és a stabilizátor, az orbit-stabilizátor-tétel, a reguláris hatás és a Cayley-tétel bizonyítással — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel10/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="10">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 10. tétel</p>
+
+      <h1>10. Tétel — Csoporthatás, orbit-stabilizátor-tétel, Cayley-tétel</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a csoportok halmazokon való hatását tárgyalja. Bevezeti a pályát és a stabilizátort, megmutatja, hogy a pályák partíciót alkotnak, bizonyítja az orbit-stabilizátor-tételt, majd a reguláris hatásból levezeti, hogy minden csoport egy szimmetrikus csoport részcsoportjával izomorf.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Mutassa be a csoportok hatását halmazokon! Definiálja a pályát és a stabilizátort, és bizonyítsa be, hogy a pályák partíciót alkotnak! Mondja ki és bizonyítsa be az orbit-stabilizátor-tételt, majd a reguláris hatás segítségével a Cayley-tételt!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>Hatás, pálya, stabilizátor</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \(X\) egy halmaz, \(S_X\) az \(X\)-en értelmezett szimmetrikus csoport, \(G\) egy csoport, \(\varphi\) pedig egy \(G \to S_X\) homomorfizmus. Ekkor azt mondjuk, hogy \(G\) <strong>hat</strong> \(X\)-en a \(\varphi\) szerint. Mivel \(\varphi(g) \in S_X\), a \(\varphi(g)(x) = y\) azt jelenti, hogy a \(g \in G\) elem elviszi az \(x\) pontot az \(y\)-ba.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Az \(x \in X\) pont <strong>pályája</strong> (orbitja): \(G(x) = \{ \varphi(g)(x) \mid g \in G \} \subseteq X\).</p>
+      <p>Az \(x \in X\) pont <strong>stabilizátora</strong>: \(G_x = \{ g \in G \mid \varphi(g)(x) = x \} \subseteq G\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(G\) hat \(X\)-en \(\varphi\) szerint, akkor az orbitok partíciót alkotnak \(X\)-en.</p>
+      <p><strong>Bizonyítás:</strong> legyen \(\sim\) a következő reláció \(X\)-en: \(x \sim y \iff \exists g \in G : \varphi(g)(x) = y\). Megmutatjuk, hogy \(\sim\) ekvivalenciareláció.</p>
+      <ul>
+        <li>Reflexív: \(\varphi(e_G) = \mathrm{id} \in S_X\), így \(\varphi(e_G)(x) = x\), azaz \(x \sim x\).</li>
+        <li>Szimmetrikus: ha \(x \sim y\), akkor van \(g \in G\), hogy \(\varphi(g)(x) = y\). Ekkor \(x = \varphi(g)^{-1}(y) = \varphi(g^{-1})(y)\), tehát \(y \sim x\).</li>
+        <li>Tranzitív: ha \(x \sim y\) és \(y \sim z\), azaz \(\varphi(g_1)(x) = y\) és \(\varphi(g_2)(y) = z\), akkor \(\varphi(g_2 \cdot g_1)(x) = \varphi(g_2)\big(\varphi(g_1)(x)\big) = z\), tehát \(x \sim z\).</li>
+      </ul>
+      <p>Az ekvivalenciaosztályok éppen az orbitok. Egy orbiton belül a pont minden másik pontba el tud mozdulni, de nem mászik ki az orbitból.</p>
+      </div>
+
+      <h3>Az orbit-stabilizátor-tétel</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — orbit-stabilizátor</span>
+      <p>Ha \(G\) hat \(X\)-en \(\varphi\) szerint, akkor \(|G(x)| = |G : G_x|\) bármely \(x \in X\) pont esetén.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>\(G_x \le G\), hiszen nemüres: \(\varphi(e_G)(x) = x\) miatt \(e_G \in G_x\).</li>
+        <li>Zárt a szorzásra: ha \(\varphi(g_1)(x) = x\) és \(\varphi(g_2)(x) = x\), akkor \(\varphi(g_1 \cdot g_2)(x) = \varphi(g_1)\big(\varphi(g_2)(x)\big) = x\), tehát \(g_1 \cdot g_2 \in G_x\).</li>
+        <li>Zárt az invertálásra: ha \(\varphi(g)(x) = x\), akkor \(\varphi(g^{-1})(x) = \varphi(g)^{-1}(x) = x\), tehát \(g^{-1} \in G_x\). Így \(|G : G_x|\) értelmes.</li>
+        <li>Megmutatjuk, hogy \(\varphi(g_1)(x) = \varphi(g_2)(x) \iff g_1 \cdot G_x = g_2 \cdot G_x\). Az \(\varphi(g_1)(x) = \varphi(g_2)(x)\) egyenlőségre alkalmazva a \(\varphi(g_2)^{-1}\)-et:
+          \[ \varphi(g_2)^{-1} \circ \varphi(g_1)(x) = \varphi(g_2)^{-1}\big(\varphi(g_2)(x)\big) = x, \]
+          \[ \varphi(g_2^{-1} \cdot g_1)(x) = x \iff g_2^{-1} \cdot g_1 \in G_x \iff g_1 \in g_2 \cdot G_x \iff g_1 \cdot G_x = g_2 \cdot G_x. \]</li>
+        <li>Legyen \(f : \{ G_x \text{ mellékosztályai} \} \to \{ x \text{ orbitja} \}\), \(f(g \cdot G_x) = \varphi(g)(x)\). Ez jól definiált, mert ha \(g_1\) és \(g_2\) egy mellékosztályban van, akkor \(\varphi(g_1)(x) = \varphi(g_2)(x)\).</li>
+        <li>\(f\) injektív: ha \(\varphi(g_1)(x) = \varphi(g_2)(x)\), akkor \(g_1 \cdot G_x = g_2 \cdot G_x\). \(f\) szürjektív: \(G_x\) összes mellékosztályában benne van \(G\) összes eleme.</li>
+        <li>Tehát \(f\) bijekció, így \(|G(x)| = |G : G_x|\).</li>
+      </ol></div>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>A reguláris hatás és a Cayley-tétel</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \(G\) csoport és \(X = G\) a \(G\)-beli elemek halmaza. A \(\varphi : G \to S_G\), \(\varphi(g)(k) = g \cdot k\) leképezés a <strong>reguláris hatás</strong>.</p>
+      <p>Ez tényleg hatás, mert homomorfizmus: minden \(k \in G\) esetén
+      \[ \varphi(g_1 \cdot g_2)(k) = g_1 \cdot g_2 \cdot k = g_1 \cdot \big(\varphi(g_2)(k)\big) = \big(\varphi(g_1) \circ \varphi(g_2)\big)(k), \]
+      vagyis \(\varphi(g_1 \cdot g_2) = \varphi(g_1) \circ \varphi(g_2)\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>A reguláris hatás injektív.</p>
+      <p><strong>Bizonyítás:</strong> ha \(g_1 \neq g_2\), akkor \(\varphi(g_1)(e_G) = g_1\) és \(\varphi(g_2)(e_G) = g_2\), így \(\varphi(g_1) \neq \varphi(g_2)\): különböző pontban különböző értéket vesznek fel, ezért a két permutáció nem ugyanaz.</p>
+      </div>
+      <p>A reguláris hatás szerint \(\varphi(g)\) pontosan az a permutációja \(G\) elemeinek, amely a \(g\) sorában áll a csoport Cayley-táblázatában.</p>
+      <div class="note-box"><span class="note-box__label">Tétel — Cayley</span>
+      <p>Minden csoport izomorf egy alkalmas szimmetrikus csoport egy részcsoportjával.</p>
+      <p><strong>Bizonyítás:</strong> legyen \(\varphi\) a reguláris hatás. Ekkor \(\operatorname{Im} \varphi \le S_G\), és \(\varphi\) izomorfizmus \(G\) és \(\operatorname{Im} \varphi\) között. Tehát a csoport elemeit egy-egy permutáció reprezentálja.</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel9/">← 9. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel11/">11. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

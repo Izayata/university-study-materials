@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>24. Tétel — Szerkeszthető számok, klasszikus szerkesztési problémák | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="Az euklideszi szerkesztés lépései, a szerkeszthető számok teste, a szerkeszthetőség algebrai feltétele, valamint a kockakettőzés és a körnégyszögesítés lehetetlensége — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel24/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="24">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 24. tétel</p>
+
+      <h1>24. Tétel — Szerkeszthető számok, klasszikus szerkesztési problémák</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel az euklideszi szerkesztések algebrai leírását adja. Megmutatja, hogy a szerkeszthető számok testet alkotnak, megadja a szerkeszthetőség algebrai feltételét, és ebből bizonyítja, hogy a kockakettőzés és a körnégyszögesítés körzővel és vonalzóval nem végezhető el.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a szerkeszthető számot és az euklideszi szerkesztés lépéseit! Bizonyítsa be, hogy a szerkeszthető számok testet alkotnak, és adja meg a szerkeszthetőség algebrai feltételét! Mutassa meg, hogy a kockakettőzés és a körnégyszögesítés nem végezhető el euklideszi szerkesztéssel!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>Az euklideszi szerkesztés</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Új pont szerkesztésének lehetőségei az euklideszi szerkesztésben:</p>
+      <ol>
+        <li>két már meglévő ponton átmenő egyenes metszéspontja,</li>
+        <li>két meglévő ponton átmenő egyenes és egy már meglévő középpontú, meglévő pontok által meghatározott sugarú kör metszéspontjai,</li>
+        <li>két már meglévő középpontú, meglévő pontok által meghatározott sugarú kör metszéspontjai.</li>
+      </ol>
+      <p>Az \(r \in \mathbb{R}\) szám <strong>szerkeszthető</strong>, ha a \((0, 0)\) és az \((1, 0)\) pontokból kiindulva véges sok lépésben megszerkeszthető az \((r, 0)\) pont.</p>
+      </div>
+
+      <h3>A szerkeszthető számok teste</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(a, b\) szerkeszthető, akkor \(a \pm b\), \(a \cdot b\), \(\dfrac{a}{b}\), \(\sqrt{a}\) is szerkeszthető.</p>
+      <p><strong>Bizonyítás:</strong> a párhuzamos szelők tételével (\(\frac{x}{y} = \frac{z}{v}\)) szerkeszthető \(a \cdot b\), \(\frac{1}{a} = \frac{b}{a \cdot b}\) és \(\frac{a}{b} = \frac{a}{b / 1}\); a \(\sqrt{a}\) a magasságtétellel: \(m = \sqrt{1 \cdot a}\), általában \(m = \sqrt{p \cdot q}\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>Minden \(\mathbb{Q}\)-beli szám szerkeszthető, ezért a szerkeszthető számok \(\mathbb{R}\)-nek egy \(\mathbb{Q}\)-t tartalmazó résztestét alkotják. Jele: \(\mathbb{S}\).</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>A szerkeszthetőség algebrai feltétele</h3>
+      <div class="note-box"><span class="note-box__label">Tétel — a szerkeszthetőség algebrai feltétele</span>
+      <p>Az \(r \in \mathbb{R}\) szám szerkeszthető \(\iff\) létezik olyan \(\mathbb{Q} \subseteq K_1 \subseteq K_2 \subseteq \dots \subseteq K_m \subseteq \mathbb{R}\) testlánc, hogy \(K_{i+1} = K_i(\sqrt{d_i})\), ahol \(d_i \in K_i\) pozitív szám és \(\sqrt{d_i} \notin K_i\) (másodfokú bővítés).</p>
+      <p><strong>Bizonyítás.</strong></p>
+      <ul>
+        <li>\((\Leftarrow)\) Mivel a \(+, -, \cdot, /, \sqrt{\ }\) műveletek mind szerkeszthetők, a \(K_m\) minden eleme szerkeszthető, így \(r \in K_m\) is szerkeszthető.</li>
+        <li>\((\Rightarrow)\) Egy metszéspont kiszámolásához a \(+, -, \cdot, /\) műveletek kellenek, a körökkel való metszéshez a \(\sqrt{\ }\) is. Az új pontok koordinátái a \(+, -, \cdot, /, \sqrt{\ }\) műveletekkel mindig kifejezhetők, ezért benne kell legyenek egy ilyen \(K_1 \subseteq \dots \subseteq K_m\) testlánccal kapott \(K_m\) testben.</li>
+      </ul>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>A szorzástétel miatt, ha \(\mathbb{Q} \subseteq K_1 \subseteq K_2 \subseteq \dots \subseteq K_m \subseteq \mathbb{R}\) (másodfokú bővítések), akkor \([K_m : \mathbb{Q}] = 2^m\). Ezért \(\deg \alpha \mid 2^m\), azaz csak \(2\)-hatvány fokú számok szerkeszthetők.</p>
+      </div>
+
+      <h3>Klasszikus szerkesztési problémák</h3>
+      <div class="note-box"><span class="note-box__label">Állítás — kockakettőzés</span>
+      <p>Az egységkocka térfogatának kétszeresével megegyező térfogatú kocka szerkesztése \(\iff\) \(\sqrt[3]{2}\) szerkesztése. Ez nem végezhető el.</p>
+      <p><strong>Bizonyítás:</strong> a \(\sqrt[3]{2}\) minimálpolinomja \(x^3 - 2\), ami az Eisenstein-kritérium miatt (\(p = 2\)) irreducibilis. Így \(\sqrt[3]{2}\) foka \(3 \neq 2^m\), tehát nem szerkeszthető.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás — körnégyszögesítés</span>
+      <p>Az egységkör területével megegyező területű négyzet szerkesztése \(\iff\) \(\sqrt{\pi}\) szerkesztése. Ez nem végezhető el.</p>
+      <p><strong>Bizonyítás:</strong> ha \(\sqrt{\pi}\) szerkeszthető, akkor \(\pi\) is szerkeszthető. De \(\pi\) transzcendens, tehát nem \(2\)-hatvány fokú, így nem szerkeszthető.</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel23/">← 23. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel25/">25. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

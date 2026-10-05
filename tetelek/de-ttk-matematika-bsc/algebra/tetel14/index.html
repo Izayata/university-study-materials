@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>14. Tétel — p-csoportok, Cauchy-tétel | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="Az egyszerű csoport és a p-csoport, a Cauchy-tétel, a p-csoport centrumának nem triviális volta és a p² rendű csoportok kommutativitása bizonyítással — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel14/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="14">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 14. tétel</p>
+
+      <h1>14. Tétel — p-csoportok, Cauchy-tétel</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel az egyszerű csoportokkal és a p-csoportokkal foglalkozik. Bizonyítja a Cauchy-tételt, megmutatja, hogy véges p-csoport centruma nem triviális, és ebből levezeti, hogy a p² rendű csoportok kommutatívak.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja az egyszerű csoportot és a p-csoportot! Bizonyítsa be a Cauchy-tételt, azt, hogy véges p-csoport centruma nem triviális, és hogy a p² rendű csoportok kommutatívak!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>Egyszerű csoportok</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Egy \(G\) csoportot <strong>egyszerűnek</strong> nevezünk, ha az \(\{e\}\)-n és a \(G\)-n kívül (ezek a nem valódi normálosztók) nincs normálosztója.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(G\) Abel-csoport, akkor \(G\) egyszerű \(\iff\) \(G \cong (\mathbb{Z}_p, +)\), ahol \(p\) prím.</p>
+      <p><strong>Bizonyítás:</strong> ha \(G\) kommutatív, akkor minden részcsoport normálosztó, így \(G\) egyszerű \(\iff\) \(G\)-ben nincs nem triviális valódi részcsoport \(\iff\) \(G \cong (\mathbb{Z}_p, +)\).</p>
+      </div>
+
+      <h3>p-csoportok és a Cauchy-tétel</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Egy \(G\) csoportot <strong>\(p\)-csoportnak</strong> nevezünk, ha minden elemének a rendje \(p\)-hatvány (\(p\) prím).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Egy véges \(G\) csoport \(p\)-csoport \(\iff\) \(|G| = p^n\).</p>
+      <p><strong>Bizonyítás.</strong></p>
+      <ul>
+        <li>\((\Leftarrow)\) A Lagrange-tétel következménye, hogy egy csoportelem rendje osztja a csoport elemszámát. Ha \(|G| = p^n\), akkor \(G\) minden elemének rendje osztja \(p^n\)-t.</li>
+        <li>\((\Rightarrow)\) A Cauchy-tétel szerint, ha \(p \mid |G|\), akkor \(G\)-ben van \(p\) rendű elem. Ha \(G\) \(p\)-csoport, akkor \(|G|\)-nek csak \(p\) lehet prímosztója, vagyis \(|G| = p^n\).</li>
+      </ul>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel — Cauchy</span>
+      <p>Ha \(p \mid |G|\), akkor \(G\)-ben van \(p\) rendű elem.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>Legyen \(X = \{ (g_1, g_2, \dots, g_p) \mid g_1 \cdot g_2 \cdots g_p = e \}\). Ekkor \(|X| = |G|^{p-1}\), tehát \(p \mid |X|\).</li>
+        <li>Hasson \((\mathbb{Z}_p, +)\) az \(X\)-en az eltolással: \(\varphi : (\mathbb{Z}_p, +) \to S_X\),
+          \[ \varphi(k)(g_1, g_2, \dots, g_p) = (g_{p-k+1}, \dots, g_p, g_1, \dots, g_{p-k}). \]</li>
+        <li>Az orbit-stabilizátor-tétel miatt az orbitok elemszáma osztja \(|(\mathbb{Z}_p, +)|\)-t, vagyis \(p\)-t. Tehát az orbit elemszáma \(1\) vagy \(p\).</li>
+        <li>Mivel \(p \mid |X|\), az \(\{(e, e, \dots, e)\}\)-n kívül kell még legyen egy \(1\) elemű orbit: ha az összes többi orbit \(p\) elemű lenne, akkor \(|X| \equiv 1 \pmod p\), ami ellentmondás.</li>
+        <li>Legyen ez az orbit \(\{(g, g, \dots, g)\} \subseteq X\), \(g \neq e\). Mivel ez \(X\)-beli, \(g \cdot g \cdots g = e\), azaz \(g^p = e\), tehát \(o(g) = p\).</li>
+      </ol></div>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>A p-csoport centruma</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(|G| = p^n\), akkor \(Z(G) \neq \{e\}\).</p>
+      <p><strong>Bizonyítás:</strong> tekintsük a konjugálás hatást, \(\varphi : G \to S_G\), \(\varphi(g)(h) = g \cdot h \cdot g^{-1}\). Az orbitok a konjugált osztályok, és az orbit-stabilizátor-tétel alapján elemszámuk osztja \(p^n\)-t. Van \(1\) elemű konjugált osztály: \(\{e\}\). Mivel
+      \[ p \mid |G| = |K_1| + |K_2| + \dots + |K_r| \]
+      (a \(K_i\)-k a konjugált osztályok), van még egy \(1\) elemű konjugált osztály. A \(Z(G)\) pedig pont az ilyenek uniója, így \(Z(G) \neq \{e\}\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>Ha \(G\) véges \(p\)-csoport, akkor \(G\) egyszerű \(\iff\) \(G \cong (\mathbb{Z}_p, +)\).</p>
+      <p><strong>Bizonyítás:</strong> ha \(|G| = p^n\), akkor \(Z(G) \neq \{e\}\), és mivel \(Z(G) \trianglelefteq G\), ezért \(G\) egyszerű esetén \(Z(G) = G\), azaz \(G\) kommutatív. A kommutatív egyszerű csoportok: \((\mathbb{Z}_p, +)\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(G\) nem kommutatív, akkor \(G / Z(G)\) nem lehet ciklikus.</p>
+      <p><strong>Bizonyítás:</strong> \(G\) nem kommutatív, így \(Z(G) \neq G\). Tegyük fel, hogy \(G / Z(G)\) ciklikus, azaz van \(\bar{g} \in G\), amelyre
+      \[ G / Z(G) = \{ Z(G),\ \bar{g} \cdot Z(G),\ \bar{g}^2 \cdot Z(G),\ \dots,\ \bar{g}^n \cdot Z(G) \}. \]
+      Ekkor \(G\) minden eleme \(\bar{g}^r \cdot z\) alakú valamilyen \(r \in \mathbb{Z}\) és a centrumbeli \(z \in Z(G)\) mellett, és
+      \[ g^{r_1} \cdot z_1 \cdot g^{r_2} \cdot z_2 = g^{r_1} \cdot g^{r_2} \cdot z_1 \cdot z_2 = g^{r_2} \cdot z_2 \cdot g^{r_1} \cdot z_1. \]
+      Tehát \(G\) kommutatív lenne, ami ellentmondás.</p>
+      </div>
+
+      <h3>A p² rendű csoportok</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(|G| = p^2\), akkor \(G \cong (\mathbb{Z}_{p^2}, +)\) vagy \(G \cong (\mathbb{Z}_p, +) \times (\mathbb{Z}_p, +)\). Speciálisan \(G\) kommutatív.</p>
+      <p><strong>Bizonyítás:</strong> mivel \(|G| = p^2\), \(|Z(G)| \neq 1\), azaz \(|Z(G)| = p\) vagy \(p^2\). Ha \(|Z(G)| = p\), vagyis \(G\) nem kommutatív, akkor
+      \[ |G / Z(G)| = \frac{|G|}{|Z(G)|} = \frac{p^2}{p} = p, \]
+      így \(G / Z(G) \cong (\mathbb{Z}_p, +)\) ciklikus, ami ellentmondás. Tehát \(|Z(G)| = p^2\), azaz \(Z(G) = G\), vagyis \(G\) kommutatív. A véges Abel-csoportok alaptétele alapján \(G \cong (\mathbb{Z}_{p^2}, +)\) vagy \(G \cong (\mathbb{Z}_p, +) \times (\mathbb{Z}_p, +)\).</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel13/">← 13. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel15/">15. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>17. Tétel — Polinomgyűrűk, gyökök, derivált | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="A polinomgyűrű, a gyöktényező kiemelése, a gyökök számának korlátja, a polinomok azonossági tétele, a formális derivált, a karakterisztika és a maradékos osztás — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel17/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="17">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 17. tétel</p>
+
+      <h1>17. Tétel — Polinomgyűrűk, gyökök, derivált</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a polinomgyűrűk alapjait tárgyalja. Bevezeti a polinomot és gyökeit, bizonyítja, hogy nullosztómentes gyűrű felett a gyökök száma legfeljebb a fokszám, megadja a formális deriváltat és a karakterisztikát, és kimondja a maradékos osztás feltételét.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a polinomgyűrűt, és bizonyítsa be a gyöktényező kiemelhetőségét! Bizonyítsa be, hogy nullosztómentes gyűrű feletti polinomnak legfeljebb annyi gyöke van, mint a foka, és mondja ki a polinomok azonossági tételét! Definiálja a formális deriváltat, a gyök multiplicitását és a karakterisztikát, és mondja ki a maradékos osztás feltételét!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>A polinomgyűrű és a gyökök</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Legyen \(1 \in R\) kommutatív gyűrű. Az
+      \[ R[x] = \{ r_0 + r_1 x + \dots + r_n x^n \mid r_i \in R,\ n \in \mathbb{N} \} \]
+      halmaz a \((+, \cdot)\) műveletekkel gyűrűt alkot, ezt nevezzük az \(R\) feletti <strong>polinomgyűrűnek</strong>.</p>
+      <p>Egy \(f \in R[x]\) polinomhoz hozzárendelhető egy \(f^* : R \to R\) függvény: ha \(f = r_0 + r_1 x + \dots + r_n x^n\), akkor \(f^*(\alpha) = r_0 + r_1 \alpha + \dots + r_n \alpha^n \in R\).</p>
+      <p>Az \(\alpha\) <strong>gyöke</strong> az \(f \in R[x]\) polinomnak, ha \(f^*(\alpha) = 0 \in R\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás — gyöktényező</span>
+      <p>Ha \(\alpha \in R\) gyöke az \(f \in R[x]\) polinomnak, akkor \(f = (x - \alpha) \cdot g\) valamilyen \(g \in R[x]\) polinommal.</p>
+      <p><strong>Bizonyítás:</strong> Horner-séma szerint \(g = s_{n-1} x^{n-1} + s_{n-2} x^{n-2} + \dots + s_2 x + s_1\) a keresett polinom.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Az \(\alpha \in R\) az \(f \in R[x]\) polinomnak <strong>\(k\)-szoros gyöke</strong>, ha \(k\) a legnagyobb olyan egész, amelyhez létezik \(g \in R[x]\) úgy, hogy \(f = (x - \alpha)^k \cdot g\).</p>
+      </div>
+
+      <h3>A gyökök száma</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(1 \in R\) kommutatív gyűrű nullosztómentes, akkor egy \(f \in R[x]\) polinomnak legfeljebb annyi gyöke van, mint a fokszáma.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>Legyen \(\alpha\) az \(f\) egy gyöke. Ekkor \(f = (x - \alpha) \cdot g\).</li>
+        <li>Legyen \(\beta \neq \alpha\) az \(f\) egy másik gyöke. Ekkor \(0 = f^*(\beta) = (\beta - \alpha) \cdot g^*(\beta) \in R\), és a nullosztómentesség miatt \(\beta - \alpha \neq 0\), tehát \(g^*(\beta) = 0\).</li>
+        <li>Így \(g = (x - \beta) \cdot h\), ahol \(h \in R[x]\).</li>
+        <li>Folytatva az \(f\)-ből a gyöktényezők egyszerre kiemelhetők: \(f = (x - \alpha)(x - \beta) \cdots h\), és \(\deg f = \text{a gyökök száma} + \deg h\).</li>
+      </ol></div>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>Ha integritási tartomány felett két legfeljebb \(n\)-ed fokú polinom függvénye \(n + 1\) különböző helyen megegyezik, akkor a két polinom is megegyezik.</p>
+      <p><strong>Bizonyítás:</strong> legyen \(f, g \in R[x]\), \(\deg f, \deg g \le n\), és tegyük fel, hogy \(f^*(\alpha_i) = g^*(\alpha_i)\), \(i = 1, \dots, n + 1\). Ekkor az \(f - g\) polinomnak \(\alpha_1, \dots, \alpha_{n+1}\) mind gyöke, de \(\deg(f - g) \le n\), így ez csak úgy teljesülhet, ha \(f - g\) a \(0\) polinom. Tehát \(f = g\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény — a polinomok azonossági tétele</span>
+      <p>Ha \(R\) végtelen integritási tartomány, akkor \(f = g \iff f^* = g^*\).</p>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>Formális derivált, többszörös gyökök</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>A <strong>formális derivált</strong> szabályai:
+      \[ (f \pm g)' = f' \pm g', \qquad (f \cdot g)' = f' \cdot g + f \cdot g', \qquad (f \circ g)' = f'(g(x)) \cdot g'. \]</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(R\) integritási tartomány és \(f \in R[x]\), akkor ha \(f\)-nek \(\alpha\) \(k\)-szoros gyöke, akkor \(f'\)-nek \(\alpha\) legalább \((k-1)\)-szeres gyöke.</p>
+      <p><strong>Bizonyítás:</strong> \(f = (x - \alpha)^k \cdot g\), így
+      \[ f' = k \cdot (x - \alpha)^{k-1} \cdot g + (x - \alpha)^k \cdot g' = (x - \alpha)^{k-1} \cdot \big( k \cdot g + (x - \alpha) \cdot g' \big). \]</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Megjegyzés</span>
+      <p>A többszörös gyökök az \(f\)-nek és az \(f'\)-nek is gyökei.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Egy \(R\) gyűrű <strong>karakterisztikája</strong> az a legkisebb pozitív egész \(m\), amelyre \(m \cdot r = r + r + \dots + r = 0\) minden \(r \in R\) esetén.</p>
+      </div>
+
+      <h3>Maradékos osztás</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(g\) főegyütthatója invertálható \(R\)-ben, akkor tetszőleges \(f\) polinomot lehet maradékosan osztani \(g\)-vel.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>Ha \(R\) test, akkor \(R[x]\)-ben bármely polinommal lehet maradékosan osztani, tehát van euklideszi algoritmus, és így lnko.</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel16/">← 16. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel18/">18. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

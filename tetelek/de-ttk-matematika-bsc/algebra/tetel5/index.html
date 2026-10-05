@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>5. Tétel — Ciklikus csoportok | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="A ciklikus csoport fogalma, a ciklikus csoportok osztályozása, a generátorok és az adott rendű elemek száma, valamint a primitív gyök bizonyítással — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel5/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="5">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 5. tétel</p>
+
+      <h1>5. Tétel — Ciklikus csoportok</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a ciklikus csoportokról szól: megmutatja, hogy minden ciklikus csoport izomorf az egész számok vagy a maradékosztályok additív csoportjával, megszámolja a generátorokat és az adott rendű elemeket, és bevezeti a primitív gyök fogalmát.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a ciklikus csoportot! Bizonyítsa be, hogy minden ciklikus csoport izomorf a (ℤ, +) csoporttal vagy valamelyik (ℤₙ, +) csoporttal, és határozza meg az n elemű ciklikus csoport generátorainak és a d rendű elemeinek számát! Definiálja a primitív gyököt, és mondja ki, mely n modulusra létezik!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>A ciklikus csoport fogalma</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Egy csoport <strong>ciklikus</strong>, ha valamely elemének hatványaiból áll:
+      \[ G = \{ g^k \mid k \in \mathbb{Z} \}. \]
+      Ekkor \(g\) a csoport <strong>generátora</strong>.</p>
+      </div>
+
+      <h3>A ciklikus csoportok osztályozása</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(G\) ciklikus, akkor \(G \cong (\mathbb{Z}, +)\) vagy \(G \cong (\mathbb{Z}_n, +)\).</p>
+      <p><strong>Bizonyítás:</strong> legyen \(g\) a \(G\) generátora.</p>
+      <ul>
+        <li>Ha \(o(g) = \infty\), akkor a \(\psi : (\mathbb{Z}, +) \to G\), \(\psi(k) = g^k\) leképezés izomorfizmus.
+          <ul>
+            <li>Szürjektív, mert \(g\) generátor.</li>
+            <li>Injektív, mert ha \(o(g) = \infty\), akkor \(k \neq l \Rightarrow g^k \neq g^l \Rightarrow \psi(k) \neq \psi(l)\).</li>
+            <li>Művelettartó: \(\psi(k + l) = g^{k+l} = g^k \cdot g^l = \psi(k) \cdot \psi(l)\).</li>
+          </ul>
+        </li>
+        <li>Ha \(o(g) = n &lt; \infty\), akkor a \(\psi : (\mathbb{Z}_n, +) \to G\), \(\psi(k) = g^k\) leképezés az izomorfizmus.</li>
+      </ul>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>Generátorok és adott rendű elemek száma</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha \(|G| = n &lt; \infty\) és \(G\) ciklikus, akkor</p>
+      <ul>
+        <li>a generátorok száma \(\varphi(n)\),</li>
+        <li>minden elem rendje osztja \(n\)-et,</li>
+        <li>minden \(d \mid n\)-re pontosan \(\varphi(d)\) darab \(d\) rendű elem van.</li>
+      </ul>
+      <div class="proof-steps" data-steps><ol>
+        <li>\(G = \{ g^k \mid k \in \mathbb{Z} \} = \{ g^k \mid k = 0, 1, \dots, n-1 \}\), és \(o(g) = n\).</li>
+        <li>Ezért \(o(g^k) = \dfrac{n}{\operatorname{lnko}(n, k)}\), ami osztja \(n\)-et.</li>
+        <li>\(o(g^k) = n \iff \operatorname{lnko}(n, k) = 1\), és ilyen \(k\)-ból \(\varphi(n)\) darab van.</li>
+        <li>\(o(g^k) = d \mid n \iff \operatorname{lnko}(n, k) = \dfrac{n}{d}\), vagyis \(k = \dfrac{n}{d} \cdot r\), ahol \((r, d) = 1\). Ilyen \(\varphi(d)\) darab van.</li>
+      </ol></div>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>\[ \sum_{d \mid n} \varphi(d) = n. \]</p>
+      </div>
+
+      <h3>Primitív gyök</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>A \(g\) szám <strong>primitív gyök</strong> mod \(n\), ha \(g\) generálja a \(\mathbb{Z}_n^{\times}\) csoportot.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Van primitív gyök mod \(n\) \(\iff\) \(n = 1, 2, 4, p^k\) vagy \(2p^k\), ahol \(p\) páratlan prím.</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel4/">← 4. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel6/">6. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

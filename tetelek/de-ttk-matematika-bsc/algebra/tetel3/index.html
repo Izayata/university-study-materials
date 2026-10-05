@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>3. Tétel — Permutációk: ciklusok, paritás, előjel | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="A permutációk ciklusfelbontása, a transzpozícióval való szorzás hatása a ciklusok számára, a paritás és az előjel, valamint az előjel homomorfizmus-tulajdonsága bizonyítással — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel3/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="3">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 3. tétel</p>
+
+      <h1>3. Tétel — Permutációk: ciklusok, paritás, előjel</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a szimmetrikus csoport elemeivel, a permutációkkal foglalkozik: a diszjunkt ciklusokra bontással, a paritással és az előjellel. Megmutatja, hogy az előjel homomorfizmus az \(S_n\) csoportból a \(\{1, -1\}\) csoportba.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Mutassa be a permutációk ciklusfelbontását és paritását! Definiálja a permutáció előjelét, és bizonyítsa be, hogy az előjel homomorfizmus az Sₙ szimmetrikus csoportból a ({1, −1}, ·) csoportba!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>Permutációk és ciklusfelbontás</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Az \(f \in S_n\) <strong>permutációt</strong> a képeivel adjuk meg: ha \(f(k) = i_k\), akkor
+      \[ f = \begin{pmatrix} 1 &amp; 2 &amp; \dots &amp; n \\ i_1 &amp; i_2 &amp; \dots &amp; i_n \end{pmatrix}. \]</p>
+      </div>
+      <p>Egy permutáció diszjunkt ciklusokra bomlik. Azt, hogy egy transzpozícióval (cserével) való szorzás hogyan változtatja a ciklusok számát, az alábbi állítás írja le.</p>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Ha a \(\sigma\) permutáció \(k\) diszjunkt ciklusra bomlik, akkor a \(\sigma \cdot (i\ j)\) szorzat</p>
+      <ul>
+        <li>\(k - 1\) diszjunkt ciklusra bomlik, ha \(i\) és \(j\) különböző ciklusban voltak:
+          \[ \sigma = (i_k \dots)(j_m \dots)(\dots) \quad \Longrightarrow \quad \sigma \cdot (i\ j) = (i_m \dots j_k \dots)(\dots) \]</li>
+        <li>\(k + 1\) diszjunkt ciklusra bomlik, ha \(i\) és \(j\) azonos ciklusban voltak:
+          \[ \sigma = (i_k \dots j_m \dots)(\dots) \quad \Longrightarrow \quad \sigma \cdot (i\ j) = (i_m \dots)(j_k \dots)(\dots) \]</li>
+      </ul>
+      </div>
+
+      <h3>Paritás és előjel</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>Egy permutáció <strong>paritása</strong> a felírásához szükséges transzpozíciók számának paritása. Ha \(\sigma\) \(k\) diszjunkt ciklusból áll, akkor a paritása \(n - k\).</p>
+      <p>A permutáció <strong>előjele</strong>:
+      \[ \operatorname{sgn}(\sigma) = \begin{cases} +1, &amp; \text{ha } \sigma \text{ páros,} \\ -1, &amp; \text{ha } \sigma \text{ páratlan,} \end{cases} \qquad \operatorname{sgn}(\sigma) = (-1)^{n-k}. \]</p>
+      </div>
+      <ul>
+        <li>páratlan hosszú ciklus \(\to\) páros permutáció,</li>
+        <li>páros hosszú ciklus \(\to\) páratlan permutáció,</li>
+        <li>a cserék előjele \((-1)\).</li>
+      </ul>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>Az előjel homomorfizmus</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>Az \(\operatorname{sgn} : S_n \to (\{1, -1\}, \cdot)\) leképezés homomorfizmus.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>Ha \(\sigma\) és \(\tau\) is páros permutáció, akkor \(\operatorname{sgn}(\sigma \circ \tau) = 1 = 1 \cdot 1 = \operatorname{sgn}(\sigma) \cdot \operatorname{sgn}(\tau)\).</li>
+        <li>Ha \(\sigma\) páros, \(\tau\) páratlan permutáció, akkor \(\operatorname{sgn}(\sigma \circ \tau) = -1 = 1 \cdot (-1) = \operatorname{sgn}(\sigma) \cdot \operatorname{sgn}(\tau)\).</li>
+        <li>Ha \(\sigma\) és \(\tau\) is páratlan permutáció, akkor \(\operatorname{sgn}(\sigma \circ \tau) = 1 = (-1) \cdot (-1) = \operatorname{sgn}(\sigma) \cdot \operatorname{sgn}(\tau)\).</li>
+      </ol></div>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel2/">← 2. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel4/">4. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

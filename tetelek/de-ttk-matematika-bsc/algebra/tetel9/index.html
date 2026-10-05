@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>9. Tétel — Homomorfizmus képe és magja | Algebra | Füles Jegyzetek</title>
+  <meta name="description" content="A csoporthomomorfizmus képe és magja részcsoport, és a homomorfizmus pontosan akkor injektív, ha a magja triviális, bizonyítással — DE TTK Matematika BSc algebra tétel.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/tetelek/de-ttk-matematika-bsc/algebra/tetel9/">
+
+  <!-- Hides the answer from the first paint (see "Study tools" in style.css);
+       study-tools.js's onerror below removes the class again if the file can't load. -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body data-nav-key="tetelek" data-tetel="9">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/tetelek/">Kidolgozott tételek</a> / <a href="/tetelek/de-ttk-matematika-bsc/">DE TTK Matematika BSc 2023/2025</a> / <a href="/tetelek/de-ttk-matematika-bsc/algebra/">Algebra</a> / 9. tétel</p>
+
+      <h1>9. Tétel — Homomorfizmus képe és magja</h1>
+      <p class="item-meta">Frissítve: 2026-10-05</p>
+
+      <p>
+        Ez a tétel a csoporthomomorfizmus két legfontosabb részcsoportját, a képet és a magot vizsgálja. Megmutatja, hogy mindkettő részcsoport, és hogy a homomorfizmus injektivitása a mag triviális voltával egyenértékű.
+      </p>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>A tétel kérdése</h2>
+      <blockquote class="tetel-question">
+        <p>Definiálja a csoporthomomorfizmus képét és magját! Bizonyítsa be, hogy a kép és a mag részcsoport, és hogy a homomorfizmus pontosan akkor injektív, ha a magja triviális!</p>
+      </blockquote>
+
+      <div class="tetel-answer" id="tetel-kidolgozas">
+      <h2>Kidolgozás</h2>
+
+      <h3>A kép</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>A \(\varphi : G \to H\) leképezés <strong>homomorfizmus</strong>, ha \(\varphi(g_1 \cdot g_2) = \varphi(g_1)\, \varphi(g_2)\). A \(\varphi\) <strong>képe</strong>:
+      \[ \operatorname{Im} \varphi = \{ \varphi(g) \mid g \in G \} \subseteq H. \]</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>\(\operatorname{Im} \varphi \le H\).</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>\(e_H = \varphi(e_G) \in \operatorname{Im} \varphi\), tehát \(\operatorname{Im} \varphi \neq \emptyset\).</li>
+        <li>Ha \(\varphi(g_1), \varphi(g_2) \in \operatorname{Im} \varphi\), akkor \(\varphi(g_1) \cdot \varphi(g_2) = \varphi(g_1 \cdot g_2) \in \operatorname{Im} \varphi\).</li>
+        <li>Ha \(\varphi(g) \in \operatorname{Im} \varphi\), akkor \(\varphi(g)^{-1} = \varphi(g^{-1}) \in \operatorname{Im} \varphi\).</li>
+      </ol></div>
+      </div>
+
+      <h3>A mag</h3>
+      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <p>A \(\varphi\) <strong>magja</strong>:
+      \[ \operatorname{Ker} \varphi = \{ g \in G \mid \varphi(g) = e_H \} \subseteq G. \]</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>\(\operatorname{Ker} \varphi \le G\).</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>\(\varphi(e_G) = e_H\), tehát \(e_G \in \operatorname{Ker} \varphi\), így \(\operatorname{Ker} \varphi \neq \emptyset\).</li>
+        <li>Ha \(g_1, g_2 \in \operatorname{Ker} \varphi\), akkor \(\varphi(g_1) = \varphi(g_2) = e_H\), tehát
+          \[ \varphi(g_1 \cdot g_2) = \underbrace{\varphi(g_1)}_{e_H} \cdot \underbrace{\varphi(g_2)}_{e_H} = e_H. \]</li>
+        <li>Ha \(g \in \operatorname{Ker} \varphi\), akkor \(\varphi(g^{-1}) = \varphi(g)^{-1} = e_H^{-1} = e_H\).</li>
+      </ol></div>
+      </div>
+
+      <div class="ad-slot ad-slot--rectangle">
+              <span class="ad-slot__label">Hirdetés</span>
+            </div>
+
+      <h3>Az injektivitás feltétele</h3>
+      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <p>\(\varphi : G \to H\) injektív \(\iff\) \(\operatorname{Ker} \varphi = \{ e_G \}\).</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>Először: \(\varphi(g_1) = \varphi(g_2) \iff \varphi(g_2)^{-1} \cdot \varphi(g_1) = e_H \iff \varphi(g_2^{-1} \cdot g_1) = e_H \iff g_2^{-1} \cdot g_1 \in \operatorname{Ker} \varphi\).</li>
+        <li>Ha \(\operatorname{Ker} \varphi = \{ e_G \}\), akkor \(\varphi(g_1) = \varphi(g_2) \iff g_2^{-1} \cdot g_1 = e_G\), amiből \(g_1 = g_2\). Tehát \(\varphi\) injektív.</li>
+        <li>Ha \(\operatorname{Ker} \varphi \neq \{ e_G \}\), például \(e_G \neq k \in \operatorname{Ker} \varphi\), akkor \(g \neq g \cdot k\), de \(\varphi(g \cdot k) = \varphi(g) \cdot \varphi(k) = \varphi(g) \cdot e_H = \varphi(g)\). Tehát \(\varphi\) nem injektív.</li>
+      </ol></div>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <p>Ha \(\varphi : G \to H\) homomorfizmus, akkor \(\varphi : G \to \operatorname{Im} \varphi\) szürjektív, így \(G \cong \operatorname{Im} \varphi \iff \operatorname{Ker} \varphi = \{ e_G \}\).</p>
+      </div>
+
+      </div>
+
+      <nav class="tetel-nav" aria-label="Tételek közti lépegetés">
+        <a class="tetel-nav__prev" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel8/">← 8. tétel</a>
+        <a class="tetel-nav__next" href="/tetelek/de-ttk-matematika-bsc/algebra/tetel10/">10. tétel →</a>
+      </nav>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a tételt?</h2>
+        <p>Ezek a kidolgozások minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+      <p class="source-note">A Debreceni Egyetem hallgatóiként az órai jegyzetre támaszkodva, saját megfigyelésekkel, és kiemelésekkel ellátott, általunk készített jegyzetet olvastál. Így az forrásként nagyban támaszkodik a Matematika BSc tantervi követelményeire, de teljesen nem egyezik azzal.</p>
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+  <script src="/study-tools.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>
