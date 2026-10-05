@@ -586,3 +586,10 @@ blockquote {
 }
 
 .tetel-question { color: var(--color-text); }
+
+/* A long Hungarian compound in a title ("Csoporthomomorfizmus") would
+   otherwise push the page sideways on a narrow phone. */
+body[data-tetel] .content h1,
+.item-card[data-tetel] h3 {
+  overflow-wrap: anywhere;
+}
