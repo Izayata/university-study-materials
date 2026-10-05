@@ -28,6 +28,12 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 </head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a minimálpolinom tételének teljes bizonyítása egyben (a forrás szétszórt részeit összeillesztve: a létezés a főideálgyűrűből, a normálás, az oszthatóság, az egyértelműség); az irreducibilitás bizonyítása (a forrás nem fejezte be, és "K nullosztómentes"-t írt: az a(α), b(α) az L testben vannak, így L nullosztómentességét kell használni; a fokszám-érvelés is kiegészítve); a (4) pont állítása (a forrás félbemaradt mondatát kiegészítve: f = m_α)
+  - Kiegészítés: az algebrai és transzcendens elem, a K(α) és a minimálpolinom definíciója; a K[x] egységei; a behelyettesítés homomorfizmus
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
 <body data-nav-key="tetelek" data-tetel="21">
   <div id="site-header"></div>
 
@@ -57,9 +63,13 @@
       <h2>Kidolgozás</h2>
 
       <h3>Testbővítés, egyszerű bővítés</h3>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
-      <p>Az \(L\) a \(K\) <strong>testbővítése</strong>, ha \(K \subseteq L\), azaz \(K\) részteste \(L\)-nek.</p>
-      <p>Legyen \(K \subseteq L\) testbővítés és \(\alpha \in L\). Ekkor \(K(\alpha)\) a legszűkebb olyan részteste \(L\)-nek, amely tartalmazza \(K\)-t és \(\alpha\)-t. Ezt a \(K\) <strong>egyszerű bővítésének</strong> nevezzük.</p>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Az \(L\) a \(K\) <strong>testbővítése</strong>, ha \(K \subseteq L\), azaz \(K\) részteste \(L\)-nek (a műveletek azonosak). Ekkor \(L\) vektortér \(K\) felett.</p>
+      <p>Legyen \(K \subseteq L\) testbővítés és \(\alpha \in L\). Ekkor \(K(\alpha)\) a legszűkebb olyan részteste \(L\)-nek, amely tartalmazza \(K\)-t és \(\alpha\)-t (részcsoportokhoz hasonlóan: az ilyen résztestek metszete). Ezt a \(K\) <strong>egyszerű bővítésének</strong> nevezzük.</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Definíció (kiegészítés)</span>
+      <p>Az \(\alpha \in L\) <strong>algebrai</strong> \(K\) felett, ha van olyan \(0 \neq f \in K[x]\), amelyre \(f(\alpha) = 0\); egyébként <strong>transzcendens</strong> \(K\) felett. Az algebrai \(\alpha\) <strong>minimálpolinomja</strong> az \(\alpha\)-t gyökként tartalmazó nem nulla, \(1\) főegyütthatójú (normált) \(K[x]\)-beli polinomok közül a legkisebb fokú, jele \(m_{\alpha}(x)\).</p>
+      <p>A \(K[x]\) egységei a nem nulla konstansok: \(\deg(f g) = \deg f + \deg g\) (test felett), és egy egység fokszáma \(0\). A behelyettesítés \(\varphi_{\alpha} : K[x] \to L\), \(\varphi_{\alpha}(p) = p(\alpha)\) gyűrűhomomorfizmus (17. tétel), amelynek magja \(\{ p \in K[x] \mid p(\alpha) = 0 \}\).</p>
       </div>
 
       <div class="ad-slot ad-slot--rectangle">
@@ -67,7 +77,7 @@
             </div>
 
       <h3>A minimálpolinom</h3>
-      <div class="note-box"><span class="note-box__label">Tétel</span>
+      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
       <p>Legyen \(K \subseteq L\) testbővítés és \(\alpha \in L\) algebrai \(K\) felett. Ekkor</p>
       <ol>
         <li>az \(m_{\alpha}(x)\) létezik és egyértelmű,</li>
@@ -77,11 +87,12 @@
       </ol>
       <p><strong>Bizonyítás.</strong></p>
       <div class="proof-steps" data-steps><ol>
-        <li><strong>(1) Létezés.</strong> \(K\) test, így \(K[x]\) euklideszi gyűrű, tehát főideálgyűrű. Tekintsük a \(\varphi_{\alpha} : K[x] \to L\) behelyettesítés-homomorfizmust, \(\varphi_{\alpha}(p(x)) = p(\alpha) \in L\). A \(\varphi_{\alpha}\) magja azon \(K[x]\)-beli polinomok halmaza, amelyeknek \(\alpha\) gyöke. A homomorfizmus magja ideál \(K[x]\)-ben, így \(\operatorname{Ker} \varphi_{\alpha} = (m(x))\), ahol \(m(x)\) asszociáltság erejéig egyértelmű.</li>
-        <li><strong>Normálás.</strong> \(K[x]\) egységei a \(K \setminus \{0\}\) elemei, ezért felerősíthető, hogy \(m(x)\) főegyütthatója \(1\) legyen. Ekkor \(m(x) \in K[x]\), \(m(\alpha) = 0\), és \(m(x)\) főegyütthatója \(1\).</li>
-        <li><strong>(2) Oszthatóság.</strong> Ha \(f \in K[x]\) olyan, hogy \(f(\alpha) = 0\), akkor \(f(x) \in (m(x))\), tehát \(m(x) \mid f(x)\). Ezért \(\deg(m(x)) \le \deg(f(x))\), vagyis \(m(x)\) a legalacsonyabb fokú ilyen polinom: ez a minimálpolinom.</li>
-        <li><strong>(3) Irreducibilitás.</strong> Ha \(m_{\alpha}(x) = a(x) \cdot b(x)\), akkor \(0 = m_{\alpha}(\alpha) = a(\alpha) \cdot b(\alpha)\). Mivel \(K\) nullosztómentes, \(a(\alpha) = 0\) vagy \(b(\alpha) = 0\). Ha \(a(\alpha) = 0\), akkor \(m_{\alpha} \mid a\); ha \(b(\alpha) = 0\), akkor \(m_{\alpha} \mid b\).</li>
-        <li><strong>(4)</strong> Legyen \(f \in K[x]\) úgy, hogy \(f(\alpha) = 0\). Ekkor \(m_{\alpha}(x) \mid f(x)\), és ha \(f(x)\) irreducibilis, akkor \(m_{\alpha}(x) \sim f(x)\). Mivel \(f(x)\) főegyütthatója \(1\), \(m_{\alpha}(x) = 1 \cdot f(x) = f(x)\).</li>
+        <li><strong>(1) Létezés.</strong> \(K\) test, így \(K[x]\) euklideszi gyűrű (17., 19. tétel), tehát főideálgyűrű. A \(\operatorname{Ker} \varphi_{\alpha}\) ideál \(K[x]\)-ben (16. tétel), ezért \(\operatorname{Ker} \varphi_{\alpha} = (m(x))\) valamilyen \(m\)-mel, és \(m \neq 0\), mert \(\alpha\) algebrai (a \(\operatorname{Ker} \varphi_{\alpha} \neq \{0\}\)). Itt \(m\) asszociáltság erejéig egyértelmű.</li>
+        <li><strong>Normálás.</strong> A \(K[x]\) egységei a \(K \setminus \{0\}\) elemei, ezért \(m\)-et a főegyütthatója inverzével szorozva elérhető, hogy \(m(x)\) főegyütthatója \(1\) legyen. Ekkor \(m \in K[x]\), \(m(\alpha) = 0\), és \(m\) normált; \(m\) nem konstans, mert egy nem nulla konstansnak nincs gyöke.</li>
+        <li><strong>(2) Oszthatóság.</strong> Ha \(f \in K[x]\) olyan, hogy \(f(\alpha) = 0\), akkor \(f \in \operatorname{Ker} \varphi_{\alpha} = (m)\), tehát \(m \mid f\).</li>
+        <li><strong>Minimális fokú, egyértelmű.</strong> Ha \(f \neq 0\) és \(f(\alpha) = 0\), akkor \(m \mid f\), így \(\deg m \le \deg f\); tehát \(m\) a legkisebb fokú nem nulla polinom, aminek \(\alpha\) gyöke. Ha \(m'\) is normált, \(m'(\alpha) = 0\) és \(\deg m' = \deg m\), akkor \(m \mid m'\), \(m' = c \cdot m\) konstans \(c\)-vel, és a főegyütthatók miatt \(c = 1\). Ez az \(m = m_{\alpha}\) létezése és egyértelműsége.</li>
+        <li><strong>(3) Irreducibilitás.</strong> Legyen \(m_{\alpha}(x) = a(x) \cdot b(x)\). Ekkor \(0 = m_{\alpha}(\alpha) = a(\alpha) \cdot b(\alpha)\), és \(L\) test, így nullosztómentes: \(a(\alpha) = 0\) vagy \(b(\alpha) = 0\). Ha \(a(\alpha) = 0\), akkor (2) szerint \(m_{\alpha} \mid a\), tehát \(\deg m_{\alpha} \le \deg a\), de \(a \mid m_{\alpha}\) miatt \(\deg a \le \deg m_{\alpha}\); így \(\deg a = \deg m_{\alpha}\), \(\deg b = 0\), és \(b\) egység. Ugyanígy, ha \(b(\alpha) = 0\), akkor \(a\) egység. Mivel \(m_{\alpha}\) nem konstans és nem egység, irreducibilis (a 20. tétel megjegyzése szerint).</li>
+        <li><strong>(4)</strong> Legyen \(f \in K[x]\) normált, irreducibilis, és \(f(\alpha) = 0\). Ekkor \(m_{\alpha} \mid f\), azaz \(f = m_{\alpha} \cdot c\), és \(f\) irreducibilis, \(m_{\alpha}\) nem egység, így \(c\) egység, vagyis nem nulla konstans. Mivel \(f\) és \(m_{\alpha}\) is normált, \(c = 1\), tehát \(f = m_{\alpha}\).</li>
       </ol></div>
       </div>
 

@@ -28,6 +28,12 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 </head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: az izomorfia bizonyítása (a homomorfizmustétel alkalmazása, a K(α) = K[α] egyenlőség a két tartalmazásból; a forrás "φ̄_α: K[x]/Ker φ_α ≅ K[x]/(m_α)" jelölése helyett Im φ_α ≅ K[x]/(m_α)); az elemek egyértelmű alakja (a bázis bizonyítása: generálás és lineáris függetlenség); a transzcendens elemmel való bővítés bizonyítása; a több elemmel való bővítésre vonatkozó három egyenlőség mindegyike bizonyítva (a forrás egyet, részlegesen); az algebraiság feltétele elhagyható volt
+  - Kiegészítés: a K[x]-beli irreducibilis elem által generált ideál maximális (a forrás hivatkozott rá, de sehol nem bizonyította)
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
 <body data-nav-key="tetelek" data-tetel="22">
   <div id="site-header"></div>
 
@@ -57,25 +63,28 @@
       <h2>Kidolgozás</h2>
 
       <h3>Az egyszerű bővítés szerkezete</h3>
-      <div class="note-box"><span class="note-box__label">Tétel</span>
+      <div class="note-box"><span class="note-box__label">Lemma (kiegészítés)</span>
+      <p>Ha \(K\) test és \(m \in K[x]\) irreducibilis, akkor \((m)\) maximális ideál \(K[x]\)-ben, tehát \(K[x] / (m)\) test.</p>
+      <p><strong>Bizonyítás:</strong> \((m) \neq K[x]\), mert \(m\) nem egység. Ha \((m) \subseteq J \trianglelefteq K[x]\), akkor \(J = (d)\) (főideálgyűrű, 19. tétel), és \(d \mid m\), azaz \(m = d \cdot c\). Mivel \(m\) irreducibilis, \(d\) vagy \(c\) egység (20. tétel). Ha \(d\) egység, \(J = K[x]\); ha \(c\) egység, \(J = (d) = (m)\). Tehát \((m)\) maximális, és \(K[x] / (m)\) test (18. tétel).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
       <p>Ha \(\alpha\) algebrai \(K\) felett, akkor
       \[ K(\alpha) \cong K[x] / (m_{\alpha}(x)). \]</p>
       <div class="proof-steps" data-steps><ol>
-        <li>Tekintsük a \(\varphi_{\alpha} : K[x] \to L\) behelyettesítés-homomorfizmust. A homomorfizmustétel szerint \(\operatorname{Im} \varphi_{\alpha} \cong K[x] / \operatorname{Ker} \varphi_{\alpha} = K[x] / (m_{\alpha}(x))\).</li>
-        <li>Mivel \(m_{\alpha}(x)\) irreducibilis, \((m_{\alpha}(x))\) maximális ideál, így \(K[x] / (m_{\alpha}(x))\) test. Tehát \(\operatorname{Im} \varphi_{\alpha}\) részteste \(L\)-nek.</li>
-        <li>\(\varphi_{\alpha}(x) = \alpha\), tehát \(\alpha \in \operatorname{Im} \varphi_{\alpha}\).</li>
-        <li>Ha \(k \in K\), akkor \(\varphi_{\alpha}(k) = k \in \operatorname{Im} \varphi_{\alpha}\), tehát \(K \subseteq \operatorname{Im} \varphi_{\alpha}\).</li>
-        <li>\(\varphi_{\alpha}(a_0 + a_1 x + a_2 x^2 + \dots + a_n x^n) = a_0 + a_1 \alpha + \dots + a_n \alpha^n \in K(\alpha)\), hiszen \(\alpha \in K(\alpha)\) és \(K \subseteq K(\alpha)\). Tehát \(\operatorname{Im} \varphi_{\alpha} \subseteq K(\alpha)\).</li>
-        <li>Így \(K(\alpha) = \operatorname{Im} \varphi_{\alpha} \cong K[x] / (m_{\alpha}(x))\).</li>
+        <li>Tekintsük a \(\varphi_{\alpha} : K[x] \to L\) behelyettesítés-homomorfizmust. Magja \((m_{\alpha})\) (21. tétel). Az I. homomorfizmustétel (16. tétel) szerint \(\operatorname{Im} \varphi_{\alpha} \cong K[x] / (m_{\alpha}(x))\).</li>
+        <li>Mivel \(m_{\alpha}(x)\) irreducibilis, a Lemma szerint \(K[x] / (m_{\alpha})\) test. Ezért \(\operatorname{Im} \varphi_{\alpha} = \{ p(\alpha) \mid p \in K[x] \}\) (jelölje \(K[\alpha]\)) az \(L\) részgyűrűje, ami test (egy test izomorf képe), tehát részteste \(L\)-nek.</li>
+        <li>\(\varphi_{\alpha}(x) = \alpha\), tehát \(\alpha \in K[\alpha]\); és ha \(k \in K\), akkor \(\varphi_{\alpha}(k) = k\), tehát \(K \subseteq K[\alpha]\). Ezért \(K[\alpha]\) egy \(K\)-t és \(\alpha\)-t tartalmazó résztest, így \(K(\alpha) \subseteq K[\alpha]\) (\(K(\alpha)\) a legszűkebb ilyen).</li>
+        <li>Fordítva, \(\varphi_{\alpha}(a_0 + a_1 x + \dots + a_n x^n) = a_0 + a_1 \alpha + \dots + a_n \alpha^n \in K(\alpha)\), hiszen \(\alpha \in K(\alpha)\), \(K \subseteq K(\alpha)\), és \(K(\alpha)\) test. Tehát \(K[\alpha] \subseteq K(\alpha)\).</li>
+        <li>Így \(K(\alpha) = K[\alpha] = \operatorname{Im} \varphi_{\alpha} \cong K[x] / (m_{\alpha}(x))\).</li>
       </ol></div>
       </div>
-      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
       <p>Ha \(K \subseteq L\) testbővítés, \(\alpha \in L\) algebrai \(K\) felett és \(\deg m_{\alpha}(x) = n\), akkor
       \[ K(\alpha) = \{ a_0 + a_1 \alpha + \dots + a_{n-1} \alpha^{n-1} \mid a_i \in K \}, \]
       azaz \((1, \alpha, \dots, \alpha^{n-1})\) bázisa \(K(\alpha)\)-nak \(K\) felett. Ilyen alakban az elemek felírása egyértelmű.</p>
-      <p><strong>Bizonyítás:</strong> \(K(\alpha) \cong K[x] / (m_{\alpha}(x))\). Ha \(f(x) \in K[x]\), akkor \(f(x) = m_{\alpha}(x) \cdot q(x) + r(x)\), ahol \(\deg r(x) &lt; n\). Ekkor
-      \[ \varphi_{\alpha}(f) = f(\alpha) = m_{\alpha}(\alpha) \cdot q(\alpha) + r(\alpha) = r(\alpha), \]
-      vagyis \(\varphi_{\alpha}(f) = \varphi_{\alpha}(r)\), és \(f(x) + (m_{\alpha}(x)) = r(x) + (m_{\alpha}(x))\). Tehát a \(K[x] / (m_{\alpha}(x))\) minden mellékosztálya egyértelműen reprezentálható egy legfeljebb \((n-1)\)-ed fokú polinommal, és így \(K(\alpha)\) minden eleme egyértelműen írható fel az \(\alpha\) legfeljebb \((n-1)\)-ed fokú polinomjaként.</p>
+      <p><strong>Bizonyítás.</strong> <em>Generálás:</em> \(K(\alpha) = K[\alpha]\) elemei \(f(\alpha)\) alakúak. Ha \(f(x) \in K[x]\), akkor \(f(x) = m_{\alpha}(x) \cdot q(x) + r(x)\), ahol \(r = 0\) vagy \(\deg r &lt; n\) (17. tétel). Ekkor
+      \[ f(\alpha) = m_{\alpha}(\alpha) \cdot q(\alpha) + r(\alpha) = r(\alpha), \]
+      és \(r(\alpha)\) az \(1, \alpha, \dots, \alpha^{n-1}\) \(K\)-beli lineáris kombinációja. <em>Lineáris függetlenség:</em> ha \(\sum_{i &lt; n} a_i \alpha^i = 0\), akkor az \(a(x) = \sum_{i &lt; n} a_i x^i\) polinomnak \(\alpha\) gyöke, így \(m_{\alpha} \mid a\), és \(\deg a &lt; n = \deg m_{\alpha}\) miatt \(a = 0\), azaz minden \(a_i = 0\). Ebből az alak egyértelműsége is következik.</p>
       </div>
 
       <div class="ad-slot ad-slot--rectangle">
@@ -83,9 +92,10 @@
             </div>
 
       <h3>Transzcendens elemmel való bővítés</h3>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
       <p>Legyen \(K \subseteq L\) testbővítés, \(\alpha \in L\) transzcendens \(K\) felett. Ekkor
       \[ K(\alpha) = \left\{ \frac{f(\alpha)}{g(\alpha)} \ \middle|\ f, g \in K[x],\ g \neq 0 \right\}. \]</p>
+      <p><strong>Bizonyítás:</strong> transzcendens \(\alpha\)-ra \(g \neq 0\) esetén \(g(\alpha) \neq 0\), így a hányados értelmes. Jelölje \(Q\) a jobb oldalt. \(Q\) zárt az összeadásra, ellentettre, szorzásra, és ha \(f(\alpha) / g(\alpha) \neq 0\), akkor \(f \neq 0\), és az inverze \(g(\alpha) / f(\alpha) \in Q\); tartalmazza \(K\)-t és \(\alpha\)-t. Tehát \(Q\) résztest, és \(K(\alpha) \subseteq Q\). Fordítva, minden \(K\)-t és \(\alpha\)-t tartalmazó résztest tartalmazza az \(f(\alpha)\) és \(g(\alpha)\) elemeket és azok hányadosát, tehát \(Q\)-t. Így \(K(\alpha) = Q\).</p>
       </div>
 
       <h3>Bővítés több elemmel</h3>
@@ -93,14 +103,19 @@
       <p>Legyen \(K \subseteq L\) testbővítés és \(\alpha, \beta, \dots \in L\). Ekkor \(K(\alpha, \beta, \dots)\) az a legszűkebb részteste \(L\)-nek, amely tartalmazza \(K\)-t és az \(\alpha, \beta, \dots\) elemek mindegyikét:
       \[ K(\alpha, \beta, \dots) = \bigcap_{\substack{K \subseteq T \subseteq L \\ \alpha, \beta, \dots \in T}} T. \]</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Legyen \(K \subseteq L\) testbővítés és \(\alpha, \beta \in L\) algebrai \(K\) felett. Ekkor</p>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>Legyen \(K \subseteq L\) testbővítés és \(\alpha, \beta \in L\). Ekkor</p>
       <ol>
         <li>\(K(\alpha, \beta) = K(\alpha)(\beta) = K(\beta)(\alpha)\),</li>
         <li>\(K(\alpha, \beta) = K(\alpha, \alpha + \beta)\),</li>
-        <li>\(K(\alpha, \beta) = K(\alpha, \alpha \cdot \beta)\) \((\alpha \neq 0)\).</li>
+        <li>\(K(\alpha, \beta) = K(\alpha, \alpha \cdot \beta)\), ha \(\alpha \neq 0\).</li>
       </ol>
-      <p><strong>Bizonyítás</strong> (a 2. állításhoz): \(\alpha, \beta \in K(\alpha, \alpha + \beta)\) és \(\alpha, \alpha + \beta \in K(\alpha, \beta)\).</p>
+      <p><strong>Bizonyítás.</strong></p>
+      <ul>
+        <li>(1) A \(K(\alpha)(\beta)\) résztest, tartalmazza \(K\)-t, \(\alpha\)-t és \(\beta\)-t, ezért \(K(\alpha, \beta) \subseteq K(\alpha)(\beta)\). Fordítva, a \(K(\alpha, \beta)\) résztest tartalmazza \(K(\alpha)\)-t és \(\beta\)-t (mert \(K\)-t és \(\alpha\)-t tartalmaz), ezért \(K(\alpha)(\beta) \subseteq K(\alpha, \beta)\). Az \(\alpha\) és \(\beta\) szerepét felcserélve \(K(\alpha, \beta) = K(\beta)(\alpha)\).</li>
+        <li>(2) \(\alpha\) és \(\alpha + \beta\) a \(K(\alpha, \beta)\) elemei, tehát \(K(\alpha, \alpha + \beta) \subseteq K(\alpha, \beta)\). Fordítva, \(\alpha, \beta = (\alpha + \beta) - \alpha\) a \(K(\alpha, \alpha + \beta)\) elemei, így \(K(\alpha, \beta) \subseteq K(\alpha, \alpha + \beta)\).</li>
+        <li>(3) \(\alpha\) és \(\alpha \beta\) a \(K(\alpha, \beta)\) elemei, tehát \(K(\alpha, \alpha \beta) \subseteq K(\alpha, \beta)\). Fordítva, \(\alpha \neq 0\) miatt \(\beta = (\alpha \beta) \cdot \alpha^{-1} \in K(\alpha, \alpha \beta)\), így \(K(\alpha, \beta) \subseteq K(\alpha, \alpha \beta)\).</li>
+      </ul>
       </div>
 
       </div>

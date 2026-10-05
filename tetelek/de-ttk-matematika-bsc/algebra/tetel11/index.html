@@ -28,6 +28,12 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 </head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a mag normalitása (mindkét irányú tartalmazás, a szál fogalmával; a forrás töredékes sorát elhagytuk); a faktorcsoport műveletének jóldefiniáltsága és csoport volta (a komplexusszorzat asszociativitása); a homomorfizmustétel bizonyítása (a jóldefiniáltság és az injektivitás egyetlen ekvivalenciából, a forrás hiányos "injektív: ⟹" sora helyett)
+  - Kiegészítés: a normálosztó definíciója részcsoportra kimondva; a szál (φ^{-1}({φ(g)})) = g·Ker φ = Ker φ·g
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
 <body data-nav-key="tetelek" data-tetel="11">
   <div id="site-header"></div>
 
@@ -57,33 +63,38 @@
       <h2>Kidolgozás</h2>
 
       <h3>A homomorfizmus magja és a normálosztó</h3>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Ha \(\varphi : G \to H\) homomorfizmus, akkor \(g \cdot \operatorname{Ker} \varphi = \operatorname{Ker} \varphi \cdot g\) minden \(g \in G\) esetén.</p>
-      <p><strong>Bizonyítás:</strong>
-      \[ \varphi(g) = \varphi(h) \iff \varphi(g)^{-1} \cdot \varphi(h) = e_H \iff \varphi(g^{-1} \cdot h) = e_H \implies g^{-1} \cdot h \in \operatorname{Ker} \varphi \implies g \in h \cdot \operatorname{Ker} \varphi. \]
-      Fordítva: \(\varphi(g \cdot h^{-1}) = e_H \Rightarrow g \cdot h^{-1} \in \operatorname{Ker} \varphi \Rightarrow g \in \operatorname{Ker} \varphi \cdot h\). Így \(h \cdot \operatorname{Ker} \varphi = \operatorname{Ker} \varphi \cdot h\).</p>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>Ha \(\varphi : G \to H\) homomorfizmus és \(g \in G\), akkor
+      \[ \varphi^{-1}\big(\{\varphi(g)\}\big) = g \cdot \operatorname{Ker} \varphi = \operatorname{Ker} \varphi \cdot g. \]
+      Következésképp \(g \cdot \operatorname{Ker} \varphi = \operatorname{Ker} \varphi \cdot g\) minden \(g \in G\) esetén.</p>
+      <p><strong>Bizonyítás:</strong> egy \(x \in G\)-re
+      \[ \varphi(x) = \varphi(g) \iff \varphi(g^{-1} \cdot x) = e_H \iff g^{-1} \cdot x \in \operatorname{Ker} \varphi \iff x \in g \cdot \operatorname{Ker} \varphi, \]
+      hiszen \(\varphi(g)^{-1} \cdot \varphi(x) = \varphi(g^{-1} \cdot x)\). Ugyanígy
+      \[ \varphi(x) = \varphi(g) \iff \varphi(x \cdot g^{-1}) = e_H \iff x \cdot g^{-1} \in \operatorname{Ker} \varphi \iff x \in \operatorname{Ker} \varphi \cdot g. \]
+      Mindkét halmaz tehát megegyezik a \(\varphi^{-1}(\{\varphi(g)\})\) halmazzal.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
       <p>Az \(N \le G\) részcsoport <strong>normálosztó</strong> (normális részcsoport), jele \(N \trianglelefteq G\), ha \(g \cdot N = N \cdot g\) minden \(g \in G\)-re, vagyis a bal és a jobb oldali mellékosztályok megegyeznek.</p>
       </div>
       <div class="note-box"><span class="note-box__label">Következmény</span>
-      <p>A \(G\)-ből induló homomorfizmus magja normálosztó \(G\)-ben.</p>
+      <p>A \(G\)-ből induló homomorfizmus magja normálosztó \(G\)-ben (az előző állítás és a 9. tétel szerint).</p>
       </div>
 
       <h3>A faktorcsoport</h3>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
       <p>Legyen \(N \trianglelefteq G\). Ekkor a
       \[ G/N = \{ g \cdot N \mid g \in G \} = \{ N \text{ összes mellékosztálya} \} \]
       halmaz a komplexusszorzás műveletével csoportot alkot. Ez a \(G\) csoport \(N\) szerinti <strong>faktorcsoportja</strong>.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
       <p>\(G/N\) tényleg csoport a komplexusszorzással.</p>
       <div class="proof-steps" data-steps><ol>
-        <li><strong>Művelet.</strong> Legyen \(a \cdot N\) és \(b \cdot N\) az \(N\) két mellékosztálya. Ekkor
-          \[ (a \cdot N)(b \cdot N) = a \cdot (N \cdot b) \cdot N \overset{N \trianglelefteq G}{=} a \cdot b \cdot N \cdot N = \underbrace{a \cdot b \cdot N}_{\in\, G/N}. \]</li>
-        <li><strong>Asszociativitás.</strong> \((a \cdot N \cdot b \cdot N) \cdot c \cdot N = a \cdot b \cdot N \cdot c \cdot N = a \cdot b \cdot c \cdot N\), és \(a \cdot N \cdot (b \cdot N \cdot c \cdot N) = a \cdot N \cdot b \cdot c \cdot N = a \cdot b \cdot c \cdot N\).</li>
-        <li><strong>Neutrális elem:</strong> \(N\), mert \(a \cdot N \cdot N = a \cdot N\) és \(N \cdot a \cdot N = e \cdot N \cdot a \cdot N = a \cdot N\).</li>
-        <li><strong>Inverz.</strong> Az \(a \cdot N\) mellékosztály inverze \(a^{-1} \cdot N\).</li>
+        <li><strong>Művelet.</strong> Legyen \(a \cdot N\) és \(b \cdot N\) az \(N\) két mellékosztálya. Ekkor, mivel \(N \cdot b = b \cdot N\) és \(N \cdot N = N\) (\(N\) részcsoport),
+          \[ (a \cdot N)(b \cdot N) = a \cdot (N \cdot b) \cdot N = a \cdot (b \cdot N) \cdot N = a \cdot b \cdot (N \cdot N) = \underbrace{a \cdot b \cdot N}_{\in\, G/N}. \]
+          Tehát a komplexusszorzás \(G/N\)-ben művelet, és a szorzat mellékosztálya \(a \cdot b \cdot N\).</li>
+        <li><strong>Asszociativitás.</strong> Részhalmazok komplexusszorzása asszociatív, mert \(G\) szorzása az; ezért \(G/N\)-ben is az. (Képlettel: \(((aN)(bN))(cN) = abN \cdot cN = abcN = aN \cdot bcN = (aN)((bN)(cN))\).)</li>
+        <li><strong>Neutrális elem:</strong> \(N = e \cdot N\), mert \(a \cdot N \cdot N = a \cdot N\) és \(N \cdot a \cdot N = a \cdot N \cdot N = a \cdot N\).</li>
+        <li><strong>Inverz.</strong> Az \(a \cdot N\) mellékosztály inverze \(a^{-1} \cdot N\), mert \((a \cdot N)(a^{-1} \cdot N) = a \cdot a^{-1} \cdot N = N\), és ugyanígy fordított sorrendben.</li>
       </ol></div>
       </div>
 
@@ -96,8 +107,8 @@
       <p>Tetszőleges normálosztó \(G\)-ben egy alkalmas homomorfizmus magja.</p>
       <p><strong>Bizonyítás:</strong> legyen \(\varphi\) a természetes homomorfizmus, \(N \trianglelefteq G\), \(\varphi : G \to G/N\), \(\varphi(g) = g \cdot N\).</p>
       <ul>
-        <li>A homomorfizmus művelettartó: \(\varphi(a \cdot b) = a \cdot b \cdot N = a \cdot N \cdot b \cdot N = \varphi(a) \cdot \varphi(b)\).</li>
-        <li>\(\operatorname{Ker} \varphi = \{ g \in G \mid \varphi(g) = N \} = N\), mivel \(g \cdot N = N \iff g \in N\).</li>
+        <li>A \(\varphi\) művelettartó: \(\varphi(a \cdot b) = a \cdot b \cdot N = a \cdot N \cdot b \cdot N = \varphi(a) \cdot \varphi(b)\).</li>
+        <li>\(\operatorname{Ker} \varphi = \{ g \in G \mid g \cdot N = N \} = N\), mivel \(g \cdot N = N \iff g \in N\) (6. tétel (d) pontja \(b = e\)-vel).</li>
       </ul>
       </div>
 
@@ -108,9 +119,10 @@
       vagyis a mag szerinti mellékosztályok csoportja izomorf a képpel.</p>
       <div class="proof-steps" data-steps><ol>
         <li>Legyen \(\psi : \operatorname{Im} \varphi \to G / \operatorname{Ker} \varphi\), \(\psi(\varphi(g)) = g \cdot \operatorname{Ker} \varphi\).</li>
-        <li>\(\psi\) jól definiált: \(\varphi(a) = \varphi(b) \iff a \cdot \operatorname{Ker} \varphi = b \cdot \operatorname{Ker} \varphi\).</li>
-        <li>\(\psi\) injektív: ugyanez az ekvivalencia a másik irányban.</li>
-        <li>\(\psi\) szürjektív: a \(g \cdot \operatorname{Ker} \varphi\) mellékosztály egy ősképe például \(\varphi(g) \in \operatorname{Im} \varphi\).</li>
+        <li>\(\psi\) jóldefiniált és injektív: bármely \(a, b \in G\)-re
+          \[ \varphi(a) = \varphi(b) \iff a^{-1} \cdot b \in \operatorname{Ker} \varphi \iff a \cdot \operatorname{Ker} \varphi = b \cdot \operatorname{Ker} \varphi \]
+          (az első ekvivalencia az előző állítás első láncából, a második a 6. tétel (d) pontja). Az \(\Rightarrow\) irány a jóldefiniáltságot (egy \(\varphi(a)\) érték nem függ a választott \(a\)-tól), a \(\Leftarrow\) irány az injektivitást adja.</li>
+        <li>\(\psi\) szürjektív: a \(g \cdot \operatorname{Ker} \varphi\) mellékosztály képe \(\psi(\varphi(g))\).</li>
         <li>\(\psi\) homomorfizmus:
           \[ \psi\big(\varphi(a) \cdot \varphi(b)\big) = \psi\big(\varphi(a \cdot b)\big) = a \cdot b \cdot \operatorname{Ker} \varphi = a \cdot \operatorname{Ker} \varphi \cdot b \cdot \operatorname{Ker} \varphi = \psi(\varphi(a)) \cdot \psi(\varphi(b)). \]</li>
         <li>Tehát \(\psi\) izomorfizmus, így \(\operatorname{Im} \varphi \cong G / \operatorname{Ker} \varphi\).</li>

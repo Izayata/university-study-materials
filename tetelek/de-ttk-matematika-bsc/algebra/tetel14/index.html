@@ -28,6 +28,12 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 </head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: az egyszerű csoport definíciója (nem triviális csoport, különben a ℤ_p-s jellemzés hamis lenne); a p-csoportok jellemzése véges csoportra; a Cauchy-tétel bizonyítása (az eltolás X-ben marad, az orbitok és a fixpontok számlálása kifejtve); a p-csoport centrumának bizonyítása (osztályegyenlet, n ≥ 1); a G/Z(G) ciklikus ⟹ G Abel-csoport tétel bizonyítása (tetszőleges hatványokkal, a következtetés kimondva); a p² rendű csoportok osztályozása
+  - Kiegészítés: a p² rendű Abel-csoportok osztályozásának közvetlen bizonyítása (nem támaszkodik a véges Abel-csoportok alaptételére); a prím rendű csoport ciklikus
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
 <body data-nav-key="tetelek" data-tetel="14">
   <div id="site-header"></div>
 
@@ -57,36 +63,36 @@
       <h2>Kidolgozás</h2>
 
       <h3>Egyszerű csoportok</h3>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
-      <p>Egy \(G\) csoportot <strong>egyszerűnek</strong> nevezünk, ha az \(\{e\}\)-n és a \(G\)-n kívül (ezek a nem valódi normálosztók) nincs normálosztója.</p>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Egy \(G\) csoportot <strong>egyszerűnek</strong> nevezünk, ha \(G \neq \{e\}\), és az \(\{e\}\)-n és a \(G\)-n kívül (ezek a nem valódi normálosztók) nincs normálosztója.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
       <p>Ha \(G\) Abel-csoport, akkor \(G\) egyszerű \(\iff\) \(G \cong (\mathbb{Z}_p, +)\), ahol \(p\) prím.</p>
-      <p><strong>Bizonyítás:</strong> ha \(G\) kommutatív, akkor minden részcsoport normálosztó, így \(G\) egyszerű \(\iff\) \(G\)-ben nincs nem triviális valódi részcsoport \(\iff\) \(G \cong (\mathbb{Z}_p, +)\).</p>
+      <p><strong>Bizonyítás:</strong> ha \(G\) kommutatív, akkor minden részcsoport normálosztó (\(g \cdot H = H \cdot g\)), így \(G\) egyszerű \(\iff\) \(G \neq \{e\}\), és \(G\)-ben nincs nem triviális valódi részcsoport \(\iff\) \(G \cong (\mathbb{Z}_p, +)\) (6. tétel).</p>
       </div>
 
       <h3>p-csoportok és a Cauchy-tétel</h3>
       <div class="note-box"><span class="note-box__label">Definíció</span>
-      <p>Egy \(G\) csoportot <strong>\(p\)-csoportnak</strong> nevezünk, ha minden elemének a rendje \(p\)-hatvány (\(p\) prím).</p>
-      </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Egy véges \(G\) csoport \(p\)-csoport \(\iff\) \(|G| = p^n\).</p>
-      <p><strong>Bizonyítás.</strong></p>
-      <ul>
-        <li>\((\Leftarrow)\) A Lagrange-tétel következménye, hogy egy csoportelem rendje osztja a csoport elemszámát. Ha \(|G| = p^n\), akkor \(G\) minden elemének rendje osztja \(p^n\)-t.</li>
-        <li>\((\Rightarrow)\) A Cauchy-tétel szerint, ha \(p \mid |G|\), akkor \(G\)-ben van \(p\) rendű elem. Ha \(G\) \(p\)-csoport, akkor \(|G|\)-nek csak \(p\) lehet prímosztója, vagyis \(|G| = p^n\).</li>
-      </ul>
+      <p>Egy \(G\) csoportot <strong>\(p\)-csoportnak</strong> nevezünk, ha minden elemének a rendje \(p\)-hatvány (\(p\) prím; \(p^0 = 1\) is hatvány).</p>
       </div>
       <div class="note-box"><span class="note-box__label">Tétel — Cauchy</span>
-      <p>Ha \(p \mid |G|\), akkor \(G\)-ben van \(p\) rendű elem.</p>
+      <p>Ha \(G\) véges és \(p\) prím, \(p \mid |G|\), akkor \(G\)-ben van \(p\) rendű elem.</p>
       <div class="proof-steps" data-steps><ol>
-        <li>Legyen \(X = \{ (g_1, g_2, \dots, g_p) \mid g_1 \cdot g_2 \cdots g_p = e \}\). Ekkor \(|X| = |G|^{p-1}\), tehát \(p \mid |X|\).</li>
-        <li>Hasson \((\mathbb{Z}_p, +)\) az \(X\)-en az eltolással: \(\varphi : (\mathbb{Z}_p, +) \to S_X\),
-          \[ \varphi(k)(g_1, g_2, \dots, g_p) = (g_{p-k+1}, \dots, g_p, g_1, \dots, g_{p-k}). \]</li>
-        <li>Az orbit-stabilizátor-tétel miatt az orbitok elemszáma osztja \(|(\mathbb{Z}_p, +)|\)-t, vagyis \(p\)-t. Tehát az orbit elemszáma \(1\) vagy \(p\).</li>
-        <li>Mivel \(p \mid |X|\), az \(\{(e, e, \dots, e)\}\)-n kívül kell még legyen egy \(1\) elemű orbit: ha az összes többi orbit \(p\) elemű lenne, akkor \(|X| \equiv 1 \pmod p\), ami ellentmondás.</li>
-        <li>Legyen ez az orbit \(\{(g, g, \dots, g)\} \subseteq X\), \(g \neq e\). Mivel ez \(X\)-beli, \(g \cdot g \cdots g = e\), azaz \(g^p = e\), tehát \(o(g) = p\).</li>
+        <li>Legyen \(X = \{ (g_1, g_2, \dots, g_p) \in G^p \mid g_1 \cdot g_2 \cdots g_p = e \}\). Az első \(p - 1\) koordináta szabadon választható, az utolsó ezekből egyértelműen adódik (\(g_p = (g_1 \cdots g_{p-1})^{-1}\)), tehát \(|X| = |G|^{p-1}\), és \(p \mid |X|\).</li>
+        <li>Az \(\sigma(g_1, g_2, \dots, g_p) = (g_2, \dots, g_p, g_1)\) eltolás \(X\)-ből \(X\)-be képez: \(g_2 \cdots g_p \cdot g_1 = g_1^{-1} (g_1 g_2 \cdots g_p) g_1 = g_1^{-1} e\, g_1 = e\). Továbbá \(\sigma^p = \mathrm{id}\), így \(\sigma\) permutációja \(X\)-nek, és \(\varphi : (\mathbb{Z}_p, +) \to S_X\), \(\varphi([k]) = \sigma^k\) jóldefiniált homomorfizmus. Tehát \(\mathbb{Z}_p\) hat \(X\)-en.</li>
+        <li>Az orbit-stabilizátor-tétel (10. tétel) szerint az orbitok elemszáma osztja \(|\mathbb{Z}_p| = p\)-t, tehát \(1\) vagy \(p\).</li>
+        <li>Az \(1\) elemű orbitok a fixpontok: \(\sigma(x) = x \iff g_1 = g_2 = \dots = g_p\), vagyis \(x = (g, g, \dots, g)\), ahol \(g^p = e\). Ha \(F\) a fixpontok száma, akkor \(|X| = F + p \cdot (\text{a } p \text{ elemű orbitok száma})\), és \(p \mid |X|\), ezért \(p \mid F\).</li>
+        <li>Az \((e, e, \dots, e)\) fixpont, így \(F \ge 1\), és \(p \mid F\) miatt \(F \ge p \ge 2\). Van tehát egy másik fixpont is: \((g, g, \dots, g)\) egy \(g \neq e\)-vel, amelyre \(g^p = e\).</li>
+        <li>Ekkor \(o(g) \mid p\) (4. tétel) és \(o(g) \neq 1\), így \(o(g) = p\).</li>
       </ol></div>
+      </div>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>Egy véges \(G\) csoport \(p\)-csoport \(\iff\) \(|G| = p^n\) valamilyen \(n \ge 0\)-ra.</p>
+      <p><strong>Bizonyítás.</strong></p>
+      <ul>
+        <li>\((\Leftarrow)\) A Lagrange-tétel következménye, hogy egy csoportelem rendje osztja a csoport elemszámát. Ha \(|G| = p^n\), akkor \(G\) minden elemének rendje osztja \(p^n\)-t, tehát \(p\)-hatvány.</li>
+        <li>\((\Rightarrow)\) Ha \(q \neq p\) prím osztaná \(|G|\)-t, akkor a Cauchy-tétel szerint lenne \(q\) rendű elem, ami nem \(p\)-hatvány. Tehát \(|G|\)-nek csak \(p\) lehet prímosztója, vagyis \(|G| = p^n\).</li>
+      </ul>
       </div>
 
       <div class="ad-slot ad-slot--rectangle">
@@ -94,31 +100,35 @@
             </div>
 
       <h3>A p-csoport centruma</h3>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Ha \(|G| = p^n\), akkor \(Z(G) \neq \{e\}\).</p>
-      <p><strong>Bizonyítás:</strong> tekintsük a konjugálás hatást, \(\varphi : G \to S_G\), \(\varphi(g)(h) = g \cdot h \cdot g^{-1}\). Az orbitok a konjugált osztályok, és az orbit-stabilizátor-tétel alapján elemszámuk osztja \(p^n\)-t. Van \(1\) elemű konjugált osztály: \(\{e\}\). Mivel
-      \[ p \mid |G| = |K_1| + |K_2| + \dots + |K_r| \]
-      (a \(K_i\)-k a konjugált osztályok), van még egy \(1\) elemű konjugált osztály. A \(Z(G)\) pedig pont az ilyenek uniója, így \(Z(G) \neq \{e\}\).</p>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>Ha \(|G| = p^n\) és \(n \ge 1\), akkor \(Z(G) \neq \{e\}\).</p>
+      <p><strong>Bizonyítás:</strong> tekintsük a konjugálás hatást (12. tétel). Az orbitok a konjugált osztályok; ezek partíciót alkotnak \(G\)-n, és az orbit-stabilizátor-tétel alapján méretük \(|G : C_G(g)|\), ami osztja \(p^n\)-t, tehát \(p\)-hatvány. Az 1 elemű osztályok pontosan a \(Z(G)\) elemei (12. tétel). Ha \(K_1, \dots, K_r\) a legalább 2 elemű konjugált osztályok, akkor
+      \[ |G| = |Z(G)| + |K_1| + \dots + |K_r|. \]
+      Minden \(|K_i|\) \(p\)-hatvány és nagyobb \(1\)-nél, tehát osztható \(p\)-vel. Mivel \(p \mid |G|\) (\(n \ge 1\)), ebből \(p \mid |Z(G)|\). Mivel \(e \in Z(G)\), \(|Z(G)| \ge 1\), tehát \(|Z(G)| \ge p\), így \(Z(G) \neq \{e\}\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Következmény</span>
-      <p>Ha \(G\) véges \(p\)-csoport, akkor \(G\) egyszerű \(\iff\) \(G \cong (\mathbb{Z}_p, +)\).</p>
-      <p><strong>Bizonyítás:</strong> ha \(|G| = p^n\), akkor \(Z(G) \neq \{e\}\), és mivel \(Z(G) \trianglelefteq G\), ezért \(G\) egyszerű esetén \(Z(G) = G\), azaz \(G\) kommutatív. A kommutatív egyszerű csoportok: \((\mathbb{Z}_p, +)\).</p>
+      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
+      <p>Ha \(G\) véges \(p\)-csoport és \(G \neq \{e\}\), akkor \(G\) egyszerű \(\iff\) \(G \cong (\mathbb{Z}_p, +)\).</p>
+      <p><strong>Bizonyítás:</strong> \((\Leftarrow)\) A \(\mathbb{Z}_p\) egyszerű (az előző állítás). \((\Rightarrow)\) Ha \(|G| = p^n\), \(n \ge 1\), akkor \(Z(G) \neq \{e\}\), és mivel \(Z(G) \trianglelefteq G\), egyszerűség esetén \(Z(G) = G\), azaz \(G\) kommutatív. A kommutatív egyszerű csoportok a \((\mathbb{Z}_p, +)\) csoportok.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Ha \(G\) nem kommutatív, akkor \(G / Z(G)\) nem lehet ciklikus.</p>
-      <p><strong>Bizonyítás:</strong> \(G\) nem kommutatív, így \(Z(G) \neq G\). Tegyük fel, hogy \(G / Z(G)\) ciklikus, azaz van \(\bar{g} \in G\), amelyre
-      \[ G / Z(G) = \{ Z(G),\ \bar{g} \cdot Z(G),\ \bar{g}^2 \cdot Z(G),\ \dots,\ \bar{g}^n \cdot Z(G) \}. \]
-      Ekkor \(G\) minden eleme \(\bar{g}^r \cdot z\) alakú valamilyen \(r \in \mathbb{Z}\) és a centrumbeli \(z \in Z(G)\) mellett, és
-      \[ g^{r_1} \cdot z_1 \cdot g^{r_2} \cdot z_2 = g^{r_1} \cdot g^{r_2} \cdot z_1 \cdot z_2 = g^{r_2} \cdot z_2 \cdot g^{r_1} \cdot z_1. \]
-      Tehát \(G\) kommutatív lenne, ami ellentmondás.</p>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>Ha \(G / Z(G)\) ciklikus, akkor \(G\) kommutatív. Másképp: ha \(G\) nem kommutatív, akkor \(G / Z(G)\) nem lehet ciklikus.</p>
+      <p><strong>Bizonyítás:</strong> legyen \(G / Z(G) = \langle g \cdot Z(G) \rangle\). Ekkor a mellékosztályok \(g^r \cdot Z(G)\) alakúak (\(r \in \mathbb{Z}\)), így \(G\) minden eleme \(g^r \cdot z\) alakú valamilyen \(r \in \mathbb{Z}\) és \(z \in Z(G)\) mellett. Két ilyen elemre
+      \[ g^{r_1} z_1 \cdot g^{r_2} z_2 = g^{r_1} g^{r_2} z_1 z_2 = g^{r_2} g^{r_1} z_2 z_1 = g^{r_2} z_2 \cdot g^{r_1} z_1, \]
+      mert a \(z_i\) mindenkivel felcserélhető, és a \(g\) hatványai egymással. Tehát \(G\) kommutatív.</p>
       </div>
 
       <h3>A p² rendű csoportok</h3>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Ha \(|G| = p^2\), akkor \(G \cong (\mathbb{Z}_{p^2}, +)\) vagy \(G \cong (\mathbb{Z}_p, +) \times (\mathbb{Z}_p, +)\). Speciálisan \(G\) kommutatív.</p>
-      <p><strong>Bizonyítás:</strong> mivel \(|G| = p^2\), \(|Z(G)| \neq 1\), azaz \(|Z(G)| = p\) vagy \(p^2\). Ha \(|Z(G)| = p\), vagyis \(G\) nem kommutatív, akkor
-      \[ |G / Z(G)| = \frac{|G|}{|Z(G)|} = \frac{p^2}{p} = p, \]
-      így \(G / Z(G) \cong (\mathbb{Z}_p, +)\) ciklikus, ami ellentmondás. Tehát \(|Z(G)| = p^2\), azaz \(Z(G) = G\), vagyis \(G\) kommutatív. A véges Abel-csoportok alaptétele alapján \(G \cong (\mathbb{Z}_{p^2}, +)\) vagy \(G \cong (\mathbb{Z}_p, +) \times (\mathbb{Z}_p, +)\).</p>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>Ha \(|G| = p^2\), akkor \(G\) kommutatív, és \(G \cong (\mathbb{Z}_{p^2}, +)\) vagy \(G \cong (\mathbb{Z}_p, +) \times (\mathbb{Z}_p, +)\).</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>Az előző állítás szerint \(Z(G) \neq \{e\}\), tehát \(|Z(G)| = p\) vagy \(p^2\) (Lagrange).</li>
+        <li>Ha \(|Z(G)| = p\), akkor \(|G / Z(G)| = \dfrac{|G|}{|Z(G)|} = \dfrac{p^2}{p} = p\). Egy prím rendű csoport ciklikus (egy \(e\)-től különböző elem rendje osztja \(p\)-t, tehát \(p\), és az elem generálja a csoportot), így \(G / Z(G)\) ciklikus, és \(G\) kommutatív, ami ellentmond \(Z(G) \neq G\)-nek.</li>
+        <li>Tehát \(|Z(G)| = p^2\), azaz \(Z(G) = G\), vagyis \(G\) kommutatív.</li>
+        <li>A kommutatív \(G\) elemeinek rendje osztja \(p^2\)-t (Lagrange), tehát \(1\), \(p\) vagy \(p^2\). Ha van \(p^2\) rendű elem, \(G\) ciklikus, és az 5. tétel szerint \(G \cong (\mathbb{Z}_{p^2}, +)\).</li>
+        <li>Egyébként minden \(e\)-től különböző elem rendje \(p\). Legyen \(g \neq e\), és \(h \notin \langle g \rangle\) (van ilyen, mert \(|\langle g \rangle| = p &lt; p^2\)). Az \(\alpha : \mathbb{Z}_p \times \mathbb{Z}_p \to G\), \(\alpha([a], [b]) = g^a h^b\) jóldefiniált (\(g^p = h^p = e\)) és \(G\) kommutativitása miatt homomorfizmus.</li>
+        <li>\(\alpha\) injektív: ha \(g^a h^b = e\), akkor \(h^b = g^{-a} \in \langle g \rangle\). Ha \(p \nmid b\), akkor \(b b' \equiv 1 \pmod p\) alkalmas \(b'\)-vel, és \(h = h^{b b'} = (h^b)^{b'} \in \langle g \rangle\) lenne, ellentmondás. Tehát \(p \mid b\), \(h^b = e\), így \(g^a = e\), \(p \mid a\).</li>
+        <li>Mivel \(|\mathbb{Z}_p \times \mathbb{Z}_p| = p^2 = |G|\), az injektív \(\alpha\) bijekció, tehát izomorfizmus: \(G \cong (\mathbb{Z}_p, +) \times (\mathbb{Z}_p, +)\). (Ez a véges Abel-csoportok alaptételének (8. tétel) egy speciális esete.)</li>
+      </ol></div>
       </div>
 
       </div>

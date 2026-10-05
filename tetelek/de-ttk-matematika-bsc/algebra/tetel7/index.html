@@ -28,6 +28,11 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 </head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a ciklikus csoport részcsoportjairól szóló tétel bizonyítása (a triviális részcsoport külön kezelve); a végtelen ciklikus csoport részcsoportjai (a forrás bizonyítás nélkül közölte; most a tételből következik, és különböző k-khoz különböző részcsoport tartozik); a véges ciklikus csoport részcsoportjainak bizonyítása (az egyértelműség a 4. tétel rendképletére épülő, egyszerűbb érveléssel)
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
 <body data-nav-key="tetelek" data-tetel="7">
   <div id="site-header"></div>
 
@@ -57,34 +62,36 @@
       <h2>Kidolgozás</h2>
 
       <h3>Ciklikus csoport részcsoportjai ciklikusak</h3>
-      <div class="note-box"><span class="note-box__label">Tétel</span>
-      <p>Ciklikus csoport minden részcsoportja ciklikus.</p>
+      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <p>Ciklikus csoport minden részcsoportja ciklikus. Pontosabban: ha \(G = \langle g \rangle\) és \(H \le G\), akkor \(H = \{e\} = \langle g^0 \rangle\), vagy \(H = \langle g^k \rangle\), ahol \(k\) a legkisebb pozitív egész, amelyre \(g^k \in H\).</p>
       <div class="proof-steps" data-steps><ol>
-        <li>Legyen \(G = \langle g \rangle\) és \(H \le G\). Ha \(g^k \in H\), akkor \(g^{-k} \in H\) is, mert \(H\) részcsoport.</li>
-        <li>Legyen \(k\) a legkisebb pozitív egész, amelyre \(g^k \in H\).</li>
-        <li>Megmutatjuk, hogy \(H = \langle g^k \rangle\), azaz ha \(g^m \in H\), akkor \(g^m = (g^k)^q\), vagyis \(k \mid m\).</li>
-        <li>Osszuk el \(m\)-et \(k\)-val maradékosan: \(m = k \cdot q + r\), ahol \(0 \le r &lt; k\). Ekkor
+        <li>Legyen \(G = \langle g \rangle\) és \(H \le G\). Ha \(H = \{e\}\), akkor \(H = \langle e \rangle\), ciklikus.</li>
+        <li>Egyébként van \(m \neq 0\), amelyre \(g^m \in H\) (mert \(H\) minden eleme a \(g\) hatványa, és \(H \neq \{e\}\), így a hatványkitevő nem lehet \(0\)). Ekkor \(g^{-m} \in H\) is, mert \(H\) részcsoport, tehát van pozitív kitevő. Legyen \(k\) a legkisebb pozitív egész, amelyre \(g^k \in H\).</li>
+        <li>\(\langle g^k \rangle \subseteq H\), mert \(H\) részcsoport, és tartalmazza \(g^k\)-t.</li>
+        <li>Fordítva, legyen \(g^m \in H\) tetszőleges. Osszuk el \(m\)-et \(k\)-val maradékosan: \(m = k \cdot q + r\), \(0 \le r &lt; k\). Ekkor
           \[ g^r = g^{m - k \cdot q} = g^m \cdot (g^k)^{-q} \in H. \]</li>
-        <li>Mivel \(k\) a legkisebb ilyen pozitív kitevő, \(r = 0\), tehát \(k \mid m\).</li>
+        <li>Mivel \(k\) a legkisebb pozitív kitevő, amelyre a hatvány \(H\)-ban van, \(r = 0\). Így \(g^m = (g^k)^q \in \langle g^k \rangle\), tehát \(H \subseteq \langle g^k \rangle\).</li>
       </ol></div>
       </div>
 
       <h3>A részcsoportok felsorolása</h3>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Ha \(G = \langle g \rangle\) végtelen ciklikus csoport, akkor a részcsoportjai \(\langle g^k \rangle\) alakúak, ahol \(k \in \mathbb{N} \cup \{0\}\).</p>
+      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
+      <p>Ha \(G = \langle g \rangle\) végtelen ciklikus csoport (\(o(g) = \infty\)), akkor a részcsoportjai a \(\langle g^k \rangle\) alakúak, ahol \(k \in \mathbb{N} \cup \{0\}\), és különböző \(k\)-khoz különböző részcsoportok tartoznak.</p>
+      <p><strong>Bizonyítás:</strong> a tétel szerint minden részcsoport \(\langle g^0 \rangle\) vagy \(\langle g^k \rangle\) (\(k \ge 1\)). Mivel \(o(g) = \infty\), \(g^m = g^{kt} \iff m = kt\), ezért \(g^m \in \langle g^k \rangle \iff k \mid m\). Így \(\langle g^k \rangle = \langle g^l \rangle\) esetén \(g^k \in \langle g^l \rangle\) és \(g^l \in \langle g^k \rangle\), vagyis \(l \mid k\) és \(k \mid l\), amiből \(k = l\) (nemnegatív egészekről van szó).</p>
       </div>
 
       <div class="ad-slot ad-slot--rectangle">
               <span class="ad-slot__label">Hirdetés</span>
             </div>
 
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Ha \(G = \langle g \rangle\) és \(|G| = n\), akkor \(G\) részcsoportjai a \(H_d = \langle g^{n/d} \rangle\) alakú részcsoportok minden \(d \mid n\)-re.</p>
+      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
+      <p>Ha \(G = \langle g \rangle\) és \(|G| = n\), akkor \(G\) részcsoportjai pontosan a \(H_d = \langle g^{n/d} \rangle\) részcsoportok, ahol \(d \mid n\), és \(H_d\) az egyetlen \(d\) elemű részcsoport.</p>
       <div class="proof-steps" data-steps><ol>
-        <li>Ha \(H \le G\), akkor a Lagrange-tétel miatt \(|H| \mid |G|\), tehát \(H\) \(d\) elemű valamilyen \(d \mid n\)-re.</li>
-        <li>\(o(g^{n/d}) = \dfrac{n}{(n, \frac{n}{d})} = \dfrac{n}{\frac{n}{d}} = d\), így \(|H_d| = d\).</li>
-        <li>\(d\) rendű elemből \(\varphi(d)\) darab van; ezek \(g^{\frac{n}{d} \cdot r}\) alakúak, ahol \((r, d) = 1\). Mindegyik \(H_d\)-ben van, és így mindegyik generálja \(H_d\)-t.</li>
-        <li>Ha \(K \le G\) és \(|K| = d\), akkor \(K\) ciklikus, tehát egy \(d\) rendű elem generálja. Ezek az elemek viszont \(H_d\)-t generálják, így \(H_d = K\).</li>
+        <li>\(|H_d| = o(g^{n/d}) = \dfrac{n}{\operatorname{lnko}(n, \frac{n}{d})} = \dfrac{n}{\frac{n}{d}} = d\) (4. tétel).</li>
+        <li>Legyen \(K \le G\) tetszőleges, \(|K| = d\). A Lagrange-tétel miatt \(d \mid n\). A \(K\) ciklikus az előző tétel szerint: \(K = \langle x \rangle\), \(x = g^t\), és \(o(x) = |K| = d\).</li>
+        <li>A 4. tétel szerint \(d = o(g^t) = \dfrac{n}{\operatorname{lnko}(n, t)}\), vagyis \(\operatorname{lnko}(n, t) = \dfrac{n}{d}\). Így \(\dfrac{n}{d} \mid t\), tehát \(x = g^t = (g^{n/d})^{t d / n} \in H_d\).</li>
+        <li>Ebből \(K = \langle x \rangle \subseteq H_d\), és mivel \(|K| = d = |H_d|\), \(K = H_d\).</li>
+        <li>Tehát minden részcsoport (az elemszámát \(d\)-vel jelölve) a \(H_d\), és minden \(d \mid n\)-re \(H_d\) valóban \(d\) elemű részcsoport.</li>
       </ol></div>
       </div>
 

@@ -28,6 +28,13 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 </head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a kételemű csoportok izomorfiájának bizonyítása (az inverzre vonatkozó lépés indoklása, mind a négy szorzat ellenőrzése); a homomorfizmus inverztartásának bizonyítása (mindkét oldali egyenlőség, az inverz egyértelműsége alapján)
+  - Kiegészítés: izomorfizmus inverze is izomorfizmus (megjegyzés bizonyítással)
+  - Egységesítés: a két csoport műveletét mindenhol · jelöli, az 1. tételhez igazodva
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
 <body data-nav-key="tetelek" data-tetel="2">
   <div id="site-header"></div>
 
@@ -57,22 +64,26 @@
       <h2>Kidolgozás</h2>
 
       <h3>Homomorfizmus és izomorfizmus</h3>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
-      <p>Legyen \((G, \circ)\) és \((H, *)\) két csoport. Egy \(\varphi : G \to H\) leképezést <strong>homomorfizmusnak</strong> nevezünk, ha művelettartó, azaz
-      \[ \varphi(a \circ b) = \varphi(a) * \varphi(b) \qquad \text{minden } a, b \in G \text{ esetén.} \]</p>
-      <p>Ha \(\varphi\) ráadásul bijektív, akkor <strong>izomorfizmus</strong>. Ekkor a két csoport izomorf: \(H \cong G\).</p>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Legyen \((G, \cdot)\) és \((H, \cdot)\) két csoport (a két \(\cdot\) a megfelelő csoport műveletét jelöli). Egy \(\varphi : G \to H\) leképezést <strong>homomorfizmusnak</strong> nevezünk, ha művelettartó, azaz
+      \[ \varphi(a \cdot b) = \varphi(a) \cdot \varphi(b) \qquad \text{minden } a, b \in G \text{ esetén.} \]</p>
+      <p>Ha \(\varphi\) ráadásul bijektív, akkor <strong>izomorfizmus</strong>. Ha van \(G\) és \(H\) között izomorfizmus, akkor a két csoport izomorf: \(G \cong H\).</p>
+      </div>
+      <div class="note-box"><span class="note-box__label">Megjegyzés (kiegészítés)</span>
+      <p>Izomorfizmus inverze is izomorfizmus, ezért az izomorfia szimmetrikus reláció.</p>
+      <p><strong>Bizonyítás:</strong> ha \(\varphi : G \to H\) izomorfizmus, akkor \(\varphi^{-1}\) bijekció. Legyen \(x, y \in H\) és \(a = \varphi^{-1}(x)\), \(b = \varphi^{-1}(y)\). Ekkor \(\varphi(a \cdot b) = \varphi(a) \cdot \varphi(b) = x \cdot y\), tehát \(\varphi^{-1}(x \cdot y) = a \cdot b = \varphi^{-1}(x) \cdot \varphi^{-1}(y)\).</p>
       </div>
 
       <h3>A kételemű csoportok izomorfiája</h3>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
       <p>Bármely két kételemű csoport izomorf.</p>
       <div class="proof-steps" data-steps><ol>
-        <li>Legyen \(H = \{e, a\}\) és \(G = \{u, b\}\), ahol \(e\) és \(u\) az egységelem.</li>
-        <li>Mivel \(a \neq e\), ezért \(a^{-1} \neq e\), vagyis \(a^{-1} = a\). Ugyanígy \(b^{-1} = b\).</li>
-        <li>Ezért a két Cayley-táblázat azonos szerkezetű:
+        <li>Legyen \(H = \{e, a\}\) és \(G = \{u, b\}\) két kételemű csoport, ahol \(e\) és \(u\) az egységelem, \(a \neq e\) és \(b \neq u\).</li>
+        <li>\(a^{-1} \neq e\): ha \(a^{-1} = e\) lenne, akkor \(e = a \cdot a^{-1} = a \cdot e = a\) volna. Mivel \(H\)-nak csak két eleme van, \(a^{-1} = a\), vagyis \(a \cdot a = e\). Ugyanígy \(b \cdot b = u\).</li>
+        <li>Ezzel mindkét csoport művelete teljesen meg van határozva (az egységelemmel való szorzás nem változtat az elemen):
           <div class="table-scroll">
             <table>
-              <thead><tr><th>\(*\)</th><th>\(e\)</th><th>\(a\)</th></tr></thead>
+              <thead><tr><th>\(\cdot\)</th><th>\(e\)</th><th>\(a\)</th></tr></thead>
               <tbody>
                 <tr><th>\(e\)</th><td>\(e\)</td><td>\(a\)</td></tr>
                 <tr><th>\(a\)</th><td>\(a\)</td><td>\(e\)</td></tr>
@@ -81,7 +92,7 @@
           </div>
           <div class="table-scroll">
             <table>
-              <thead><tr><th>\(\circ\)</th><th>\(u\)</th><th>\(b\)</th></tr></thead>
+              <thead><tr><th>\(\cdot\)</th><th>\(u\)</th><th>\(b\)</th></tr></thead>
               <tbody>
                 <tr><th>\(u\)</th><td>\(u\)</td><td>\(b\)</td></tr>
                 <tr><th>\(b\)</th><td>\(b\)</td><td>\(u\)</td></tr>
@@ -89,7 +100,9 @@
             </table>
           </div>
         </li>
-        <li>A \(\varphi : H \to G\), \(\varphi(e) = u\) (és \(\varphi(a) = b\)) leképezés bijektív és művelettartó, tehát izomorfizmus.</li>
+        <li>A \(\varphi : H \to G\), \(\varphi(e) = u\), \(\varphi(a) = b\) leképezés bijekció.</li>
+        <li>\(\varphi\) művelettartó, mert mind a négy szorzatra teljesül: \(\varphi(e \cdot e) = \varphi(e) = u = u \cdot u = \varphi(e) \cdot \varphi(e)\); \(\varphi(e \cdot a) = \varphi(a) = b = u \cdot b = \varphi(e) \cdot \varphi(a)\); \(\varphi(a \cdot e) = b = b \cdot u = \varphi(a) \cdot \varphi(e)\); \(\varphi(a \cdot a) = \varphi(e) = u = b \cdot b = \varphi(a) \cdot \varphi(a)\).</li>
+        <li>Tehát \(\varphi\) izomorfizmus, \(H \cong G\).</li>
       </ol></div>
       </div>
 
@@ -102,13 +115,13 @@
       <p>Ha \(\varphi : G \to H\) homomorfizmus, akkor \(\varphi(e_G) = e_H\).</p>
       <p><strong>Bizonyítás:</strong>
       \[ \varphi(e_G) = \varphi(e_G \cdot e_G) = \varphi(e_G) \cdot \varphi(e_G). \]
-      Mindkét oldalt \(\varphi(e_G)^{-1}\)-gyel szorozva \(e_H = \varphi(e_G)\).</p>
+      Mindkét oldalt \(\varphi(e_G)^{-1}\)-gyel (\(H\)-ban) szorozva \(e_H = \varphi(e_G)\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
       <p>Ha \(\varphi : G \to H\) homomorfizmus, akkor \(\varphi(g^{-1}) = \varphi(g)^{-1}\) minden \(g \in G\) esetén.</p>
-      <p><strong>Bizonyítás:</strong> az előző állítás szerint \(\varphi(e_G) = e_H\), ezért
-      \[ \varphi(g) \cdot \varphi(g^{-1}) = \varphi(g \cdot g^{-1}) = \varphi(e_G) = e_H, \]
-      vagyis \(\varphi(g)^{-1} = \varphi(g^{-1})\).</p>
+      <p><strong>Bizonyítás:</strong> az előző állítás szerint
+      \[ \varphi(g) \cdot \varphi(g^{-1}) = \varphi(g \cdot g^{-1}) = \varphi(e_G) = e_H, \qquad \varphi(g^{-1}) \cdot \varphi(g) = \varphi(g^{-1} \cdot g) = \varphi(e_G) = e_H. \]
+      Vagyis \(\varphi(g^{-1})\) inverze \(\varphi(g)\)-nek \(H\)-ban, és az inverz egyértelmű (1. tétel), tehát \(\varphi(g^{-1}) = \varphi(g)^{-1}\).</p>
       </div>
 
       </div>

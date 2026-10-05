@@ -28,6 +28,11 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 </head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a véges nullosztómentes gyűrű ferdetest voltának bizonyítása (a forrás töredékes, csak vázlat volt: most teljes, az egységelem létezésével és kétoldali voltával, az inverzzel); a ℤ_n jellemzése (n ≥ 2, az "n-hez nem relatív prím szám nullosztó" érvelés helyett a prím esetben a Euklidész-lemma, az összetett esetben közvetlen nullosztó); az egyszerű gyűrű definíciója (nem nulla gyűrű); a "kommutatív egységelemes gyűrű egyszerű ⟺ test" bizonyítása (a forrás ⟸/⟹ jelölése felcserélve volt); a maximális ideál definíciója (I ≠ R); a faktorgyűrű egyszerűsége és a maximális ideál kapcsolata (a forrás bizonyítás nélkül mondta, most a 16. tétel megfeleltetésével bizonyítva)
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
 <body data-nav-key="tetelek" data-tetel="18">
   <div id="site-header"></div>
 
@@ -50,32 +55,33 @@
 
       <h2>A tétel kérdése</h2>
       <blockquote class="tetel-question">
-        <p>Bizonyítsa be, hogy a ferdetest nullosztómentes, és hogy a véges nullosztómentes gyűrű ferdetest! Jellemezze azokat az n számokat, amelyekre ℤₙ test! Definiálja az egyszerű gyűrűt és a maximális ideált, és bizonyítsa be az ezekkel kapcsolatos tételeket!</p>
+        <p>Bizonyítsa be, hogy a ferdetest nullosztómentes, és hogy a legalább kételemű véges nullosztómentes gyűrű ferdetest! Jellemezze azokat az n ≥ 2 számokat, amelyekre ℤₙ test! Definiálja az egyszerű gyűrűt és a maximális ideált, és bizonyítsa be az ezekkel kapcsolatos tételeket!</p>
       </blockquote>
 
       <div class="tetel-answer" id="tetel-kidolgozas">
       <h2>Kidolgozás</h2>
 
       <h3>Nullosztómentesség és ferdetest</h3>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Nullosztómentes gyűrűben lehet nem nulla elemmel egyszerűsíteni: ha \(a \cdot c = b \cdot c\) és \(c \neq 0\), akkor \(a = b\).</p>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>Nullosztómentes gyűrűben lehet nem nulla elemmel egyszerűsíteni: ha \(a \cdot c = b \cdot c\) és \(c \neq 0\), akkor \(a = b\). (Ugyanígy balról: \(c \cdot a = c \cdot b \Rightarrow a = b\).)</p>
       <p><strong>Bizonyítás:</strong> \(a \cdot c = b \cdot c\), tehát \(a \cdot c - b \cdot c = 0\), azaz \((a - b) \cdot c = 0\). Mivel \(c \neq 0\), a nullosztómentesség miatt \(a - b = 0\), vagyis \(a = b\).</p>
       </div>
       <div class="note-box"><span class="note-box__label">Tétel</span>
       <p>Ha \(R\) ferdetest, akkor nullosztómentes.</p>
       <p><strong>Bizonyítás:</strong> legyen \(z, w \in R\), úgy, hogy \(z \cdot w = 0\). Ha \(z \neq 0\), akkor van \(z^{-1}\), és \(z^{-1} \cdot z \cdot w = w = z^{-1} \cdot 0 = 0\).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Ha \(R\) véges és nullosztómentes, akkor ferdetest.</p>
-      <p><strong>Bizonyítás</strong> (vázlat): legyen \(R = \{ a_1, a_2, \dots, a_k \}\) és \(0 \neq r \in R\).</p>
-      <ul>
-        <li>Az \(r \cdot a_1, r \cdot a_2, \dots, r \cdot a_k\) elemek különbözőek, mert \(r \cdot a_i = r \cdot a_j \Rightarrow a_i = a_j\). Tehát \(R\) minden elemét felveszik.</li>
-        <li>A szorzásnak van egységeleme: legyen \(r \cdot s = r\). Ekkor \(r \cdot s \cdot t = r \cdot t\), így \(s \cdot t = t\) (és az egységelem minden \(u \neq 0\)-ra \(u \cdot s = u\)).</li>
-        <li>\(r\)-nek van inverze: ha \(r \cdot b = e\), akkor \(r \cdot b \cdot r = e \cdot r = r \cdot 1\), amiből \(b \cdot r = e\), tehát \(b = r^{-1}\).</li>
-      </ul>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>Ha \(R\) legalább kételemű, véges és nullosztómentes gyűrű, akkor ferdetest.</p>
+      <div class="proof-steps" data-steps><ol>
+        <li>Legyen \(R = \{ a_1, a_2, \dots, a_k \}\) és \(0 \neq r \in R\). A \(\lambda_r : R \to R\), \(\lambda_r(x) = r \cdot x\) injektív, mert \(r \cdot a_i = r \cdot a_j \Rightarrow a_i = a_j\) (egyszerűsítés). Mivel \(R\) véges, \(\lambda_r\) bijekció, vagyis az \(r \cdot a_1, \dots, r \cdot a_k\) elemek \(R\) minden elemét felveszik.</li>
+        <li><strong>Van baloldali egységelem.</strong> Van \(s\), amelyre \(r \cdot s = r\). Ekkor minden \(t\)-re \(r \cdot (s \cdot t) = (r \cdot s) \cdot t = r \cdot t\), így \(r \cdot (s \cdot t - t) = 0\), és \(r \neq 0\) miatt \(s \cdot t = t\). Tehát \(s\) baloldali egységelem, és \(s \neq 0\) (mert \(r = r \cdot s\), \(r \neq 0\)).</li>
+        <li><strong>Az \(s\) jobboldali egységelem is.</strong> Minden \(u\)-ra \((u \cdot s - u) \cdot s = u \cdot s \cdot s - u \cdot s = u \cdot s - u \cdot s = 0\) (mert \(s \cdot s = s\)), és \(s \neq 0\) miatt \(u \cdot s = u\). Tehát \(s = 1\) egységelem.</li>
+        <li><strong>Inverz.</strong> A \(\lambda_r\) szürjektív, így van \(b\), amelyre \(r \cdot b = 1\). Ekkor \(r \cdot (b \cdot r - 1) = (r \cdot b) \cdot r - r = r - r = 0\), és \(r \neq 0\) miatt \(b \cdot r = 1\). Tehát \(b = r^{-1}\).</li>
+        <li>\(R \setminus \{0\}\) zárt a szorzásra (nullosztómentesség), asszociatív, van egységeleme és minden elemnek inverze, tehát csoport. Mivel \(|R| \ge 2\), \(R\) ferdetest.</li>
+      </ol></div>
       </div>
-      <div class="note-box"><span class="note-box__label">Következmény</span>
-      <p>Az alábbiak ekvivalensek:</p>
+      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
+      <p>Legyen \(n \ge 2\). Az alábbiak ekvivalensek:</p>
       <ol>
         <li>\(\mathbb{Z}_n\) nullosztómentes,</li>
         <li>\(n\) prím szám,</li>
@@ -83,9 +89,9 @@
       </ol>
       <p><strong>Bizonyítás.</strong></p>
       <ul>
-        <li>\(1 \Rightarrow 2\): \(\mathbb{Z}_n\)-ben a nullosztók az \(n\)-hez nem relatív prím számok, így \(\mathbb{Z}_n\) nullosztómentes \(\iff\) \(n\)-hez mindenki relatív prím \(\iff\) \(n\) prím.</li>
-        <li>\(1 \Rightarrow 3\): \(\mathbb{Z}_n\) ferdetest és kommutatív, így test.</li>
-        <li>\(3 \Rightarrow 1\): az előző tétel.</li>
+        <li>\(1 \Rightarrow 2\): ha \(n\) összetett, \(n = a \cdot b\) (\(1 &lt; a, b &lt; n\)), akkor \([a] \cdot [b] = [n] = 0\), de \([a], [b] \neq 0\), így \(\mathbb{Z}_n\) nem nullosztómentes. Tehát \(n\) prím.</li>
+        <li>\(2 \Rightarrow 3\): ha \(n = p\) prím és \([a] \cdot [b] = 0\), azaz \(p \mid a b\), akkor \(p \mid a\) vagy \(p \mid b\) (Euklidész-lemma), tehát \(\mathbb{Z}_p\) nullosztómentes. Véges, kommutatív, \(p \ge 2\) elemű, ezért az előző állítás szerint ferdetest, és kommutatív, vagyis test.</li>
+        <li>\(3 \Rightarrow 1\): test (ferdetest) nullosztómentes, az előző tétel szerint.</li>
       </ul>
       </div>
 
@@ -94,27 +100,29 @@
             </div>
 
       <h3>Egyszerű gyűrűk</h3>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
-      <p>Legyen \(I \trianglelefteq R\). Ha \(I = R\), akkor \(I\) nem valódi ideál; ha \(I = \{0\}\), akkor \(I\) triviális ideál. Ha \(R\)-ben nincs nem triviális valódi ideál, akkor \(R\) <strong>egyszerű gyűrű</strong>.</p>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Legyen \(I \trianglelefteq R\). Ha \(I = R\), akkor \(I\) nem valódi ideál; ha \(I = \{0\}\), akkor \(I\) triviális ideál. Az \(R \neq \{0\}\) gyűrű <strong>egyszerű</strong>, ha nincs nem triviális valódi ideálja (ideálon kétoldali ideált értünk).</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
       <p>Ha \(R\) ferdetest, akkor \(R\) egyszerű.</p>
-      <p><strong>Bizonyítás:</strong> ha egy ideálban van invertálható elem, akkor minden elem benne van: ha \(r \in I \trianglelefteq R\), \(r \neq 0\) és \(r\) invertálható, akkor van \(r^{-1}\), és mivel \(I\) ideál, \(r \cdot r^{-1} = 1 \in I\). Így minden \(r \in R\)-re \(r \cdot 1 = r \in I\), tehát \(R = I\). Ha \(I \trianglelefteq R\) és \(I \neq \{0\}\), akkor \(I\)-ben van invertálható elem, tehát \(I = R\), vagyis \(R\) egyszerű.</p>
+      <p><strong>Bizonyítás:</strong> ha egy ideálban van invertálható elem, akkor minden elem benne van: ha \(r \in I \trianglelefteq R\), \(r \neq 0\) és \(r\) invertálható, akkor van \(r^{-1}\), és mivel \(I\) ideál, \(1 = r^{-1} \cdot r \in I\). Így minden \(x \in R\)-re \(x = x \cdot 1 \in I\), tehát \(I = R\). Ha \(I \trianglelefteq R\) és \(I \neq \{0\}\), akkor \(I\)-ben van \(0\)-tól különböző elem, ami a ferdetestben invertálható, tehát \(I = R\). Így \(R\) egyszerű.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Állítás</span>
-      <p>Ha \(1 \in R\) kommutatív gyűrű, akkor \(R\) egyszerű pontosan akkor, ha \(R\) test.</p>
-      <p><strong>Bizonyítás.</strong> Ha \(R\) test, akkor egyszerű is. Fordítva, legyen \(R\) egyszerű és \(r \in R \setminus \{0\}\). Az \((r) = \{ r \cdot s \mid s \in R \}\) ideál \(R\)-ben, és mivel \(R\) egyszerű és \((r) \neq \{0\}\), ezért \((r) = R\). Így \(1 \in (r)\), azaz van \(s \in R\), amelyre \(r \cdot s = 1\).</p>
+      <div class="note-box"><span class="note-box__label">Állítás (pontosítva)</span>
+      <p>Ha \(1 \in R\) kommutatív gyűrű, \(R \neq \{0\}\), akkor \(R\) egyszerű pontosan akkor, ha \(R\) test.</p>
+      <p><strong>Bizonyítás.</strong> \((\Leftarrow)\) Ha \(R\) test, akkor ferdetest, tehát egyszerű. \((\Rightarrow)\) Legyen \(R\) egyszerű és \(0 \neq r \in R\). Az \((r) = \{ r \cdot s \mid s \in R \}\) ideál \(R\)-ben, és nem a \(\{0\}\) (\(r = r \cdot 1 \in (r)\)). Mivel \(R\) egyszerű, \((r) = R\), így \(1 \in (r)\), azaz van \(s \in R\), amelyre \(r \cdot s = 1\). Tehát minden nem nulla elem invertálható, \(R\) kommutatív, \(1 \neq 0\) (mert \(R \neq \{0\}\)), vagyis \(R\) test.</p>
       </div>
 
       <h3>Maximális ideál</h3>
-      <div class="note-box"><span class="note-box__label">Definíció</span>
-      <p>Az \(I \trianglelefteq R\) <strong>maximális ideál</strong>, ha nincs \(I &lt; J &lt; R\) ideál \(R\)-ben.</p>
+      <div class="note-box"><span class="note-box__label">Definíció (pontosítva)</span>
+      <p>Az \(I \trianglelefteq R\) <strong>maximális ideál</strong>, ha \(I \neq R\), és nincs \(I \subsetneq J \subsetneq R\) ideál \(R\)-ben.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
       <p>Legyen \(I \trianglelefteq R\). Ekkor \(R / I\) egyszerű \(\iff\) \(I\) maximális ideál \(R\)-ben.</p>
+      <p><strong>Bizonyítás:</strong> a természetes \(\pi : R \to R / I\) szürjektív homomorfizmus, a magja \(I\). A 16. tétel II. homomorfizmustétele szerint a \(J \mapsto \pi(J)\) bijekció az \(I\)-t tartalmazó ideálok és \(R / I\) ideáljai között, ami \(I\)-nek a \(\{0\} = \pi(I)\)-t, \(R\)-nek az \(R / I = \pi(R)\)-t felelteti meg. Az \(R / I\) pontosan akkor egyszerű, ha nem nulla (\(I \neq R\)), és ideáljai csak a \(\{0\}\) és az \(R / I\), vagyis ha az \(I\)-t tartalmazó ideálok csak az \(I\) és az \(R\), és \(I \neq R\). Ez éppen azt jelenti, hogy \(I\) maximális.</p>
       </div>
-      <div class="note-box"><span class="note-box__label">Következmény</span>
+      <div class="note-box"><span class="note-box__label">Következmény (pontosítva)</span>
       <p>Ha \(1 \in R\) kommutatív és \(I \trianglelefteq R\), akkor \(R / I\) test \(\iff\) \(I\) maximális ideál.</p>
+      <p><strong>Bizonyítás:</strong> az \(R / I\) kommutatív és egységelemes gyűrű (egységeleme \(1 + I\)). Az előző következmény szerint \(R / I\) pontosan akkor egyszerű, ha \(I\) maximális; kommutatív egységelemes gyűrűről lévén szó, az egyszerű gyűrű a fenti állítás szerint pontosan akkor test (az egyszerű gyűrű definíciója \(R / I \neq \{0\}\)-t is tartalmazza, a testben pedig \(1 \neq 0\)). Tehát \(R / I\) test \(\iff\) \(R / I\) egyszerű \(\iff\) \(I\) maximális.</p>
       </div>
 
       </div>

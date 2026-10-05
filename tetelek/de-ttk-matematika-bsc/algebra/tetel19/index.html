@@ -28,6 +28,12 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 </head>
+<!--
+  A forrásjegyzethez képest ezen az oldalon (a tulajdonos kérésére, 2026-10-05):
+  - Pontosítva: a bizonyítás teljesen kifejtve (a norma minimumának létezése, mindkét tartalmazás)
+  - Kiegészítés: példák (ℤ és test feletti polinomgyűrű euklideszi gyűrű) és következményük (ezek főideálgyűrűk)
+  Ami (kiegészítés) vagy (pontosítva) címkét visel, azt nem a forrásból vettük át; matematikus nem nézte át.
+-->
 <body data-nav-key="tetelek" data-tetel="19">
   <div id="site-header"></div>
 
@@ -50,7 +56,7 @@
 
       <h2>A tétel kérdése</h2>
       <blockquote class="tetel-question">
-        <p>Definiálja az euklideszi gyűrűt és a főideálgyűrűt! Bizonyítsa be, hogy minden euklideszi gyűrű főideálgyűrű!</p>
+        <p>Definiálja az euklideszi gyűrűt és a főideálgyűrűt! Bizonyítsa be, hogy minden euklideszi gyűrű főideálgyűrű, és adjon példát euklideszi gyűrűre!</p>
       </blockquote>
 
       <div class="tetel-answer" id="tetel-kidolgozas">
@@ -61,10 +67,13 @@
       <p>Az \(R\) integritási tartomány <strong>euklideszi gyűrű</strong>, ha lehet benne maradékosan osztani, azaz létezik egy \(\varphi : R \setminus \{0\} \to \mathbb{N} \cup \{0\}\) függvény (ez az euklideszi norma), hogy minden \(a, b \in R\), \(b \neq 0\) elemek esetén vannak olyan \(q, r \in R\) elemek, hogy
       \[ a = b \cdot q + r, \quad \text{ahol } r = 0 \text{ vagy } \varphi(r) &lt; \varphi(b). \]</p>
       </div>
+      <div class="note-box"><span class="note-box__label">Példa (kiegészítés)</span>
+      <p>A \(\mathbb{Z}\) euklideszi gyűrű a \(\varphi(n) = |n|\) normával (a szokásos maradékos osztás: \(a = b q + r\), \(0 \le r &lt; |b|\)). Ha \(K\) test, akkor \(K[x]\) euklideszi gyűrű a \(\varphi(f) = \deg f\) normával: a 17. tétel szerint bármely \(g \neq 0\) polinommal lehet maradékosan osztani, a maradék \(0\) vagy kisebb fokú.</p>
+      </div>
 
       <h3>A főideálgyűrű</h3>
       <div class="note-box"><span class="note-box__label">Definíció</span>
-      <p>Az \(R\) integritási tartomány <strong>főideálgyűrű</strong>, ha minden ideálja főideál, azaz generálható egy elemmel.</p>
+      <p>Az \(R\) integritási tartomány <strong>főideálgyűrű</strong>, ha minden ideálja főideál, azaz generálható egy elemmel: \(I = (r) = \{ r \cdot s \mid s \in R \}\).</p>
       </div>
 
       <div class="ad-slot ad-slot--rectangle">
@@ -72,16 +81,19 @@
             </div>
 
       <h3>Az euklideszi gyűrű főideálgyűrű</h3>
-      <div class="note-box"><span class="note-box__label">Tétel</span>
+      <div class="note-box"><span class="note-box__label">Tétel (pontosítva)</span>
       <p>Ha \(R\) euklideszi gyűrű, akkor főideálgyűrű.</p>
       <div class="proof-steps" data-steps><ol>
         <li>Legyen \(I \trianglelefteq R\). Ha \(I = \{0\}\), akkor \(I = (0)\).</li>
-        <li>Ha \(I \neq \{0\}\), akkor az \(\{ \varphi(r) \mid r \in I \setminus \{0\} \} \subseteq \mathbb{N} \cup \{0\}\) halmaznak van legkisebb eleme. Legyen \(r \in I\) egy ilyen euklideszi normájú elem.</li>
-        <li>Megmutatjuk, hogy \(I = (r)\). Nyilván \(r \in I\) miatt \((r) \subseteq I\) is teljesül.</li>
+        <li>Ha \(I \neq \{0\}\), akkor az \(\{ \varphi(r) \mid r \in I \setminus \{0\} \} \subseteq \mathbb{N} \cup \{0\}\) nemüres halmaznak van legkisebb eleme. Legyen \(r \in I \setminus \{0\}\) egy ilyen legkisebb euklideszi normájú elem.</li>
+        <li>Megmutatjuk, hogy \(I = (r)\). Nyilván \(r \in I\) miatt \((r) \subseteq I\) is teljesül (\(I\) ideál).</li>
         <li>Ha \(t \in I\), akkor vannak \(q, m \in R\), hogy \(t = r \cdot q + m\), ahol \(m = 0\) vagy \(\varphi(m) &lt; \varphi(r)\).</li>
-        <li>Mivel \(m = t - r \cdot q \in I\), ezért \(\varphi(m) &lt; \varphi(r)\) nem lehet, hiszen \(\varphi(r)\) a legkisebb nem \(0\) norma. Tehát \(m = 0\), vagyis \(t = r \cdot q \in (r)\).</li>
+        <li>Mivel \(m = t - r \cdot q \in I\) (\(t, r \in I\), és \(I\) ideál), és \(\varphi(r)\) a legkisebb norma \(I\) nem nulla elemei között, \(\varphi(m) &lt; \varphi(r)\) nem teljesülhet. Tehát \(m = 0\), vagyis \(t = r \cdot q \in (r)\).</li>
         <li>Így \(I \subseteq (r)\), tehát \(I = (r)\).</li>
       </ol></div>
+      </div>
+      <div class="note-box"><span class="note-box__label">Következmény (kiegészítés)</span>
+      <p>\(\mathbb{Z}\) és minden \(K[x]\) (\(K\) test) főideálgyűrű. (Ezt használja a 21. és a 22. tétel.)</p>
       </div>
 
       </div>
