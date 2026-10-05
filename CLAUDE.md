@@ -857,20 +857,43 @@ new tétel, mark a proof as stepwise with the `proof-steps` wrapper;
 nothing else needs wiring. Don't put anything that matters only in the
 JS-built controls, and don't add `.js`-gated hiding to other content.
 
-**Text policy for these pages (the owner's choice: "elírások javítása,
-a többit jelzem").** The owner's mathematics is kept as written. Only
-clear typos and broken markup were fixed, and every other problem
-found — wrong or incomplete statements, missing proofs, undefined terms
-— was left in and listed per page in the pull request for the owner to
-decide. So unlike the third to sixth topic series above, **no
-"(kiegészítés)" or "(pontosítva)" content was added here**; don't add
-any silently, and don't present the pages as reviewed by a
-mathematician. The owner has since asked for individual problems to be
-fixed; so far one, 2026-10-05: tétel 8's "if G or H is infinite, G × H
-isn't cyclic" (false: ℤ × {0} ≅ ℤ) was removed and the
-cyclic-product theorem now says "G and H finite", which is what its
-lnko(|G|, |H|) already presupposed. The remaining problems from the
-pull request stay as written until the owner asks. Reordering: the source is page-based and a few parts sit
+**Text policy for these pages — it changed once, on 2026-10-05.** First
+publication (the owner's choice then: "elírások javítása, a többit
+jelzem"): the owner's mathematics was kept as written, only typos and
+broken markup were fixed, and every other problem was listed per page in
+the pull request. The owner then asked for everything to be made
+mathematically precise and consistent, "a bizonyításokban is, és az
+állításokban is", in all 25 tételek. So the pages now follow the third to
+sixth topic series' convention: every box that carries content the owner's
+LaTeX did not have is labelled in its `.note-box__label` — "(kiegészítés)"
+for supplied material (a definition, a proof or a lemma the source lacks),
+"(pontosítva)" for a source box kept but made precise or corrected, and
+"(bizonyítás nélkül)" for a standard theorem that is stated, not proved —
+and each page's head comment lists what on it was changed. Unlabelled
+boxes are the owner's text, unchanged. Of the 198 boxes, 161 carry a
+label (20 "kiegészítés", 137 "pontosítva", 4 "bizonyítás nélkül").
+**Left unproved on purpose** (deep standard theorems, cited as such; the
+last four sit inside a larger "pontosítva" box and say so in its text): the
+fundamental theorem of finite abelian groups (8), existence of primitive
+roots (5), irreducibility of the cyclotomic polynomials (25), the converse
+of Gauss–Wantzel and Galois' theorem (25), that A₅ is simple and the
+smallest non-solvable group (25), Lindemann's theorem (π transcendental,
+24) and the Eisenstein criterion as cited in 23. Some source statements
+were wrong and are corrected, not just completed — e.g. "A, B ≤ R ⟹ A + B
+≤ R" for subrings (16), "if G or H is infinite, G × H isn't cyclic" (8),
+"G ≅ Im φ ⟺ Ker φ trivial" for infinite groups (9), "cos(2π/n)
+constructible ⟸ φ(n) a power of 2" as a consequence of the field-chain
+criterion alone (it needs Galois theory, 25). The supplied proofs were
+written by the assistant, not by the owner or the course; the assistant
+checked that each step cites only earlier tételek and that the formulas
+hold numerically (permutation parity and the cycle lemma for n ≤ 6,
+orders in ℤₙ, counts of elements of each order, subgroup counts, the
+primitive-root criterion for m < 150, the Cauchy-theorem construction in
+S₃, the Gauss–Wantzel arithmetic for n ≤ 100000, the degree of
+cos(2π/n)'s minimal polynomial for n ≤ 60), which catches a wrong
+formula but not a bad proof. They have **not** been reviewed by a
+mathematician; don't present them as the owner's own notes, and don't add
+more supplied material silently. Reordering: the source is page-based and a few parts sit
 out of order; moved to where they belong: the homomorphism-preserves-
 identity/inverse lemmas to tétel 2, the minimal-polynomial theorem (its
 statement and the first part of the proof were three pages apart) to
