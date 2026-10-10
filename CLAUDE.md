@@ -1198,6 +1198,16 @@ mid-content, end-of-content-before-tip-widget) reflect a specific
 placement strategy; preserve them when copying templates rather than
 consolidating or repositioning ad slots.
 
+**Empty slots are hidden (2026-10-10).** AdSense rejected the site for
+"Kis értékű tartalom" (low-value content). One visible sign of an
+unfinished site was that every page showed up to three empty dashed
+"Hirdetés" boxes. `style.css` now hides any `.ad-slot` that has no
+`<ins class="adsbygoogle">` inside (`:has()`), so the markup and positions
+stay and a slot reappears automatically once a real ad unit is pasted into
+it. The six root `*-template.html` files (placeholder text, publicly
+reachable) are disallowed in `robots.txt` — not `noindex`ed, because a
+`noindex` tag would be copied into every new page made from them.
+
 ### CSS naming
 
 `.card-grid` / `.item-card` / `.item-meta` are shared, generic class

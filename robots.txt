@@ -1,5 +1,12 @@
 User-agent: *
 Allow: /
+# Page templates with placeholder text, not content.
+Disallow: /course-template.html
+Disallow: /semester-template.html
+Disallow: /jegyzet-template.html
+Disallow: /gyakorlat-template.html
+Disallow: /tetel-template.html
+Disallow: /oktatoi-jegyzet-template.html
 
 # AI crawlers: please don't use this site's content. Regular search engines
 # (Googlebot, Bingbot) and the AdSense crawler are unaffected.

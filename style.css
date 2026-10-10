@@ -400,6 +400,11 @@ blockquote {
 .ad-slot--rectangle { min-height: 250px; }
 .ad-slot--multiplex { min-height: 300px; }
 
+/* An .ad-slot with no AdSense unit inside is an empty dashed box (up to
+   300px tall), which reads as an unfinished page. Hide it until a real
+   <ins class="adsbygoogle"> is placed in it; filled slots show as normal. */
+.ad-slot:not(:has(ins.adsbygoogle)) { display: none; }
+
 .ad-slot__label {
   font-size: 0.7rem;
   text-transform: uppercase;
