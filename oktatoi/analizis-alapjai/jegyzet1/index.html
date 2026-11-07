@@ -56,6 +56,12 @@
   - 31. feladat: the third displayed line of the step lacked the factor
     (n+1) on the right-hand side.
 
+  Added at the owner's request (2026-11-07): in the step derivations a
+  question mark sits over every relation sign that still states the
+  claim to be shown, up to the last line, the one marked with a check
+  mark. The source had them only on some lines of 29., 31. feladat and
+  the Bernoulli step.
+
   Still as in the source: the double induction names the base pair
   (0,0) or (1,1) while the conclusion is stated for N^2.
 -->
@@ -121,10 +127,10 @@
           <li>\(n = 1\)-re: \(\sqrt{1} \le 1 \quad \checkmark\)</li>
           <li>\(n\)-re feltesszük, hogy igaz (indukciós feltétel)</li>
           <li>\(n+1\)-re:
-            \[ \sqrt{n+1} \le \underbrace{1 + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}}}_{\sqrt{n} \le} + \frac{1}{\sqrt{n+1}} \]
-            \[ \sqrt{n+1} \le \sqrt{n} + \frac{1}{\sqrt{n+1}} \quad / \cdot \sqrt{n+1} &gt; 0 \]
-            \[ n+1 \le \sqrt{n} \cdot \sqrt{n+1} + 1 \]
-            \[ n \le \sqrt{n^2 + n} \]
+            \[ \sqrt{n+1} \stackrel{?}{\le} \underbrace{1 + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}}}_{\sqrt{n} \le} + \frac{1}{\sqrt{n+1}} \]
+            \[ \sqrt{n+1} \stackrel{?}{\le} \sqrt{n} + \frac{1}{\sqrt{n+1}} \quad / \cdot \sqrt{n+1} &gt; 0 \]
+            \[ n+1 \stackrel{?}{\le} \sqrt{n} \cdot \sqrt{n+1} + 1 \]
+            \[ n \stackrel{?}{\le} \sqrt{n^2 + n} \]
             \[ \sqrt{n^2} \le \sqrt{n^2 + n} \quad \checkmark \]
           </li>
         </ul>
@@ -143,9 +149,9 @@
         <ul>
           <li>\(n = 4\)-re: \(2^4 \le 4! \quad \checkmark\)</li>
           <li>\(n\)-re feltesszük, hogy igaz</li>
-          <li>\(n+1\)-re: \(2^{n+1} \le (n+1)!\)
-            \[ 2^n \cdot 2 \le n! \cdot (n+1) \]
-            \[ \underbrace{2^n}_{\le n!} \cdot 2 \le n! \cdot (n+1) \]
+          <li>\(n+1\)-re: \(2^{n+1} \stackrel{?}{\le} (n+1)!\)
+            \[ 2^n \cdot 2 \stackrel{?}{\le} n! \cdot (n+1) \]
+            \[ \underbrace{2^n}_{\le n!} \cdot 2 \stackrel{?}{\le} n! \cdot (n+1) \]
             \[ 2 \le n+1 \quad \checkmark \]
           </li>
         </ul>
@@ -165,9 +171,9 @@
           <li>\(n = 1\)-re: \(1 + 2 \cdot 1 \le 3^1 \quad \checkmark\)</li>
           <li>\(n\)-re feltesszük, hogy igaz</li>
           <li>\(n+1\)-re:
-            \[ 1 + 2(n+1) \le 3^{n+1} \]
-            \[ 1 + 2n + 2 \le 3^n \cdot 3 \]
-            \[ 3 + 2n \le \underbrace{(1+2n)}_{\le 3^n} \cdot 3 = 3 + 6n \]
+            \[ 1 + 2(n+1) \stackrel{?}{\le} 3^{n+1} \]
+            \[ 1 + 2n + 2 \stackrel{?}{\le} 3^n \cdot 3 \]
+            \[ 3 + 2n \stackrel{?}{\le} \underbrace{(1+2n)}_{\le 3^n} \cdot 3 = 3 + 6n \]
             \[ 0 \le 4n \quad \checkmark \]
           </li>
         </ul>
@@ -187,11 +193,11 @@
           <li>\(n = 1\)-re: \(\sqrt{2} &lt; \sqrt[1]{2} = 2 \quad \checkmark\)</li>
           <li>\(n\)-re feltesszük, hogy igaz</li>
           <li>\(n+1\)-re:
-            \[ \sqrt[n+2]{2} &lt; \sqrt[n+1]{2} \quad / ()^{n+2} \]
-            \[ 2 &lt; (\sqrt[n+1]{2})^{n+2} \]
-            \[ 2 &lt; (\sqrt[n+1]{2})^{n+1} \cdot \sqrt[n+1]{2} \]
-            \[ 2 &lt; 2 \cdot \sqrt[n+1]{2} \]
-            \[ 1 &lt; 2^{\frac{1}{n+1}} \]
+            \[ \sqrt[n+2]{2} \stackrel{?}{&lt;} \sqrt[n+1]{2} \quad / ()^{n+2} \]
+            \[ 2 \stackrel{?}{&lt;} (\sqrt[n+1]{2})^{n+2} \]
+            \[ 2 \stackrel{?}{&lt;} (\sqrt[n+1]{2})^{n+1} \cdot \sqrt[n+1]{2} \]
+            \[ 2 \stackrel{?}{&lt;} 2 \cdot \sqrt[n+1]{2} \]
+            \[ 1 \stackrel{?}{&lt;} 2^{\frac{1}{n+1}} \]
             \[ 0 &lt; \frac{1}{n+1} \quad \checkmark \]
           </li>
         </ul>
@@ -219,7 +225,7 @@
             \[ 1^2 + 2^2 + \dots + n^2 + (n+1)^2 \stackrel{?}{=} \frac{(n+1)(n+2)(2(n+1)+1)}{6} \]
             \[ \underbrace{\frac{n(n+1)(2n+1)}{6}}_{\text{ind. feltétel}} + (n+1)^2 \stackrel{?}{=} \frac{(n+1)(n+2)(2n+3)}{6} \quad / \div (n+1), \cdot 6 \]
             \[ n(2n+1) + 6(n+1) \stackrel{?}{=} (n+2)(2n+3) \]
-            \[ 2n^2 + n + 6n + 6 = 2n^2 + 3n + 4n + 6 \]
+            \[ 2n^2 + n + 6n + 6 \stackrel{?}{=} 2n^2 + 3n + 4n + 6 \]
             \[ 0 = 0 \quad \checkmark \]
           </li>
         </ul>
@@ -244,7 +250,7 @@
             \[ \frac{n(n+1)}{2} + (-1)^1 \cdot (n+1)^2 \stackrel{?}{=} (-1)^1 \frac{(n+1)(n+2)}{2} \quad / \div (n+1) \]
             \[ \frac{n}{2} - (n+1) \stackrel{?}{=} -\frac{n+2}{2} \quad / \cdot 2 \]
             \[ n - 2(n+1) \stackrel{?}{=} -(n+2) \]
-            \[ n - 2n - 2 = -n - 2 \]
+            \[ n - 2n - 2 \stackrel{?}{=} -n - 2 \]
             \[ 0 = 0 \quad \checkmark \]
           </li>
         </ul>
@@ -264,14 +270,14 @@
           <li>\(n = 5\)-re: \(\frac{(2 \cdot 5)!}{(5!)^2} = \frac{10!}{(5!)^2} = \frac{6 \cdot 7 \cdot 8 \cdot 9 \cdot 10}{1 \cdot 2 \cdot 3 \cdot 4 \cdot 5} = 252 &lt; 4^4 = 256 \quad \checkmark\)</li>
           <li>\(n\)-re feltesszük, hogy igaz</li>
           <li>\(n+1\)-re:
-            \[ \frac{(2(n+1))!}{((n+1)!)^2} &lt; 4^n \]
-            \[ \frac{(2n+2)!}{((n+1)!)^2} &lt; 4^n \]
-            \[ \frac{(2n)! \cdot (2n+1) \cdot (2n+2)}{[n! \cdot (n+1)]^2} &lt; 4^n \]
-            \[ \frac{(2n)! \cdot (2n+1) \cdot (2n+2)}{(n!)^2 \cdot (n+1)^2} &lt; 4^n \]
-            \[ \underbrace{\frac{(2n)!}{(n!)^2}}_{&lt; 4^{n-1}} \cdot \frac{(2n+1)(2n+2)}{(n+1)^2} &lt; 4^n \quad / \div 4^{n-1} \]
-            \[ \frac{(2n+1)(2n+2)}{(n+1)^2} &lt; 4 \quad / \cdot (n+1)^2 \]
-            \[ 4n^2 + 4n + 2n + 2 &lt; 4n^2 + 8n + 4 \]
-            \[ 0 &lt; 2n + 2 \quad / \div 2 \]
+            \[ \frac{(2(n+1))!}{((n+1)!)^2} \stackrel{?}{&lt;} 4^n \]
+            \[ \frac{(2n+2)!}{((n+1)!)^2} \stackrel{?}{&lt;} 4^n \]
+            \[ \frac{(2n)! \cdot (2n+1) \cdot (2n+2)}{[n! \cdot (n+1)]^2} \stackrel{?}{&lt;} 4^n \]
+            \[ \frac{(2n)! \cdot (2n+1) \cdot (2n+2)}{(n!)^2 \cdot (n+1)^2} \stackrel{?}{&lt;} 4^n \]
+            \[ \underbrace{\frac{(2n)!}{(n!)^2}}_{&lt; 4^{n-1}} \cdot \frac{(2n+1)(2n+2)}{(n+1)^2} \stackrel{?}{&lt;} 4^n \quad / \div 4^{n-1} \]
+            \[ \frac{(2n+1)(2n+2)}{(n+1)^2} \stackrel{?}{&lt;} 4 \quad / \cdot (n+1)^2 \]
+            \[ 4n^2 + 4n + 2n + 2 \stackrel{?}{&lt;} 4n^2 + 8n + 4 \]
+            \[ 0 \stackrel{?}{&lt;} 2n + 2 \quad / \div 2 \]
             \[ 0 &lt; n + 1 \quad \checkmark \]
           </li>
         </ul>
@@ -293,8 +299,8 @@
           <li>feltesszük, hogy \(n\)-re igaz</li>
           <li>\(n+1\)-re bizonyítjuk:
             \[ (1+x)^{n+1} = \underbrace{(1+x)^n}_{\ge 1+nx} \cdot (1+x) \stackrel{?}{\ge} 1 + (n+1)x = 1 + nx + x \]
-            \[ (1+nx)(1+x) \ge 1 + nx + x \]
-            \[ 1 + x + nx + nx^2 \ge 1 + nx + x \]
+            \[ (1+nx)(1+x) \stackrel{?}{\ge} 1 + nx + x \]
+            \[ 1 + x + nx + nx^2 \stackrel{?}{\ge} 1 + nx + x \]
             \[ nx^2 \ge 0 \quad \checkmark \]
           </li>
           <li>ha \(x = 0\): \(nx^2 = 0\)</li>
