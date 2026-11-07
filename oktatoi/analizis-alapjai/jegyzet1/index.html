@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d1117">
+
+  <title>Teljes indukció | Oktatói jegyzetek | Füles Jegyzetek</title>
+  <meta name="description" content="A teljes indukció elve és menete hét gyűjteményi feladat levezetésével, a Bernoulli-egyenlőtlenség, a hatványhalmaz számossága és a kettős matematikai indukció elve — Analízis alapjai, oktatói jegyzet.">
+  <link rel="canonical" href="https://fulesjegyzetek.hu/oktatoi/analizis-alapjai/jegyzet1/">
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9764757420384346"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- MathJax: renders every \(...\) inline and \[...\] display LaTeX
+       formula in this page client-side. See the MathJax section of
+       CLAUDE.md for the setup and the escaping rules. -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<!--
+  Oktatói item in the math-note shape (intro -> "Témák" outline -> one
+  <h2> per LaTeX \section), not the class-session Tematika/Kontextus/
+  Gyakorlat shape: the source is a sheet of worked solutions, not a class
+  agenda. item-meta is the 2-part oktatói default.
+
+  Transcribed from the owner's LaTeX as written, on the owner's explicit
+  instruction (2026-11-07): same order, same derivations, no corrections,
+  no additions, no source note. Only the following differ from the LaTeX:
+  the "[cite: 6]" export markers are dropped, the shorthand "tfh"/"fvh"/
+  "biz." in the bullets is written out, the task wording ("Igazoljuk
+  teljes indukcióval, hogy ...") is composed around the source's bare
+  formulas in the source's own "we" voice, and the pgfplots figure is
+  redrawn as inline SVG.
+
+  Known issues of the source, kept as written (told to the owner):
+  - 3. feladat: the last line says 0 <= 3n; 3 + 2n <= 3 + 6n is
+    equivalent to 0 <= 4n.
+  - 5. feladat: the induction hypothesis is used in the wrong direction
+    (a factor is replaced by a larger one inside a lower-bound chain),
+    and the exponent in the second to last line should be 2/(n+1). The
+    claim is true; the inequality needs no induction hypothesis.
+  - 31. feladat: the third displayed line of the step lacks the factor
+    (n+1) on the right-hand side (the next line is right).
+  - Kettős indukció: the base pair is named (0,0) or (1,1) while the
+    conclusion is stated for N^2.
+-->
+<body data-nav-key="oktatoi">
+  <div id="site-header"></div>
+
+  <div class="page-shell with-toc">
+    <main class="content">
+
+      <p class="breadcrumbs"><a href="/">Kezdőlap</a> / <a href="/oktatoi/">Oktatói jegyzetek</a> / <a href="/oktatoi/analizis-alapjai/">Analízis alapjai</a> / 1. jegyzet</p>
+
+      <h1>Teljes indukció</h1>
+      <p class="item-meta">Analízis alapjai · Frissítve: 2026-11-07</p>
+
+      <p>
+        Ez a jegyzet a teljes indukció elvét és menetét foglalja össze,
+        majd hét feladat levezetésével gyakorolja. Ezután indukcióval
+        igazolja a Bernoulli-egyenlőtlenséget és a hatványhalmaz
+        számosságára vonatkozó tételt, végül bemutatja a kettős
+        indukció elvét.
+      </p>
+
+      <h2>Témák</h2>
+      <ul>
+        <li>Teljes indukció: az induktív halmaz és az eljárás menete</li>
+        <li>Feladatok (1., 2., 3., 5., 29., 31. és 43. feladat)</li>
+        <li>Bernoulli-egyenlőtlenség</li>
+        <li>Hatványhalmaz számossága</li>
+        <li>Kettős matematikai indukció elve</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 1: TOP, POST-INTRO ==================== -->
+      <div class="ad-slot ad-slot--banner">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h2>Teljes indukció</h2>
+
+      <ul>
+        <li>induktív halmazon működik (induktív egy halmaz, ha \(1 \in H\) és \(\forall n \in H: n+1 \in H\))</li>
+        <li>menete:
+          <ul>
+            <li>igazoljuk az állítást \(n = 1\)-re</li>
+            <li>feltesszük, hogy az állítás igaz \(n\)-re</li>
+            <li>\(n+1\)-re bizonyítjuk az állítás helyességét</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2>Feladatok</h2>
+
+      <h3>1. feladat</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Feladat</span>
+        <p>Igazoljuk teljes indukcióval, hogy</p>
+        \[ \sqrt{n} \le 1 + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}} \quad (n \in \mathbb{N}) \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <ul>
+          <li>\(n = 1\)-re: \(\sqrt{1} \le 1 \quad \checkmark\)</li>
+          <li>\(n\)-re feltesszük, hogy igaz (indukciós feltétel)</li>
+          <li>\(n+1\)-re:
+            \[ \sqrt{n+1} \le \underbrace{1 + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}}}_{\sqrt{n} \le} + \frac{1}{\sqrt{n+1}} \]
+            \[ \sqrt{n+1} \le \sqrt{n} + \frac{1}{\sqrt{n+1}} \quad / \cdot \sqrt{n+1} &gt; 0 \]
+            \[ n+1 \le \sqrt{n} \cdot \sqrt{n+1} + 1 \]
+            \[ n \le \sqrt{n^2 + n} \]
+            \[ \sqrt{n^2} \le \sqrt{n^2 + n} \quad \checkmark \]
+          </li>
+        </ul>
+      </div>
+
+      <h3>2. feladat</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Feladat</span>
+        <p>Igazoljuk teljes indukcióval, hogy</p>
+        \[ 2^n \le n! \quad (n \in \mathbb{N}, n \ge 4) \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <ul>
+          <li>\(n = 4\)-re: \(2^4 \le 4! \quad \checkmark\)</li>
+          <li>\(n\)-re feltesszük, hogy igaz</li>
+          <li>\(n+1\)-re: \(2^{n+1} \le (n+1)!\)
+            \[ 2^n \cdot 2 \le n! \cdot (n+1) \]
+            \[ \underbrace{2^n}_{\le n!} \cdot 2 \le n! \cdot (n+1) \]
+            \[ 2 \le n+1 \quad \checkmark \]
+          </li>
+        </ul>
+      </div>
+
+      <h3>3. feladat</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Feladat</span>
+        <p>Igazoljuk teljes indukcióval, hogy</p>
+        \[ 1 + 2n \le 3^n \quad (n \in \mathbb{N}) \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <ul>
+          <li>\(n = 1\)-re: \(1 + 2 \cdot 1 \le 3^1 \quad \checkmark\)</li>
+          <li>\(n\)-re feltesszük, hogy igaz</li>
+          <li>\(n+1\)-re:
+            \[ 1 + 2(n+1) \le 3^{n+1} \]
+            \[ 1 + 2n + 2 \le 3^n \cdot 3 \]
+            \[ 3 + 2n \le \underbrace{(1+2n)}_{\le 3^n} \cdot 3 = 3 + 6n \]
+            \[ 0 \le 3n \quad \checkmark \]
+          </li>
+        </ul>
+      </div>
+
+      <h3>5. feladat</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Feladat</span>
+        <p>Igazoljuk teljes indukcióval, hogy</p>
+        \[ \sqrt[n+1]{2} &lt; \sqrt[n]{2} \quad (n \in \mathbb{N}) \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <ul>
+          <li>\(n = 1\)-re: \(\sqrt{2} &lt; \sqrt[1]{2} = 2 \quad \checkmark\)</li>
+          <li>\(n\)-re feltesszük, hogy igaz</li>
+          <li>\(n+1\)-re:
+            \[ \sqrt[n+2]{2} &lt; \sqrt[n+1]{2} \quad / ()^{n+2} \]
+            \[ 2 &lt; (\sqrt[n+1]{2})^{n+2} \]
+            \[ 2 &lt; (\sqrt[n+1]{2})^n \cdot (\sqrt[n+1]{2})^2 \]
+            \[ 2 &lt; \underbrace{(\sqrt[n+1]{2})^n}_{&lt; \sqrt[n]{2}} \cdot (\sqrt[n+1]{2})^2 \]
+            \[ 2 &lt; (\sqrt[n]{2})^n \cdot (\sqrt[n+1]{2})^2 \]
+            \[ 2 &lt; 2 \cdot (\sqrt[n+1]{2})^2 \]
+            \[ 1 &lt; 2^{\frac{2}{n}} \]
+            \[ 0 &lt; \frac{2}{n} \quad \checkmark \]
+          </li>
+        </ul>
+      </div>
+
+      <!-- ==================== AD SLOT 2: MID-CONTENT (IN-ARTICLE) ==================== -->
+      <div class="ad-slot ad-slot--rectangle">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <h3>29. feladat</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Feladat</span>
+        <p>Igazoljuk teljes indukcióval, hogy</p>
+        \[ 1^2 + 2^2 + \dots + n^2 = \frac{n(n+1)(2n+1)}{6} \quad (n \in \mathbb{N}) \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <ul>
+          <li>\(n = 1\)-re: \(1^2 = \frac{1 \cdot (1+1)(2 \cdot 1 + 1)}{6} = \frac{1 \cdot 2 \cdot 3}{6} = 1 \quad \checkmark\)</li>
+          <li>\(n\)-re feltesszük, hogy igaz</li>
+          <li>\(n+1\)-re:
+            \[ 1^2 + 2^2 + \dots + n^2 + (n+1)^2 \stackrel{?}{=} \frac{(n+1)(n+2)(2(n+1)+1)}{6} \]
+            \[ \underbrace{\frac{n(n+1)(2n+1)}{6}}_{\text{ind. feltétel}} + (n+1)^2 \stackrel{?}{=} \frac{(n+1)(n+2)(2n+3)}{6} \quad / \div (n+1), \cdot 6 \]
+            \[ n(2n+1) + 6(n+1) \stackrel{?}{=} (n+2)(2n+3) \]
+            \[ 2n^2 + n + 6n + 6 = 2n^2 + 3n + 4n + 6 \]
+            \[ 0 = 0 \quad \checkmark \]
+          </li>
+        </ul>
+      </div>
+
+      <h3>31. feladat</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Feladat</span>
+        <p>Igazoljuk teljes indukcióval, hogy</p>
+        \[ 1^2 - 2^2 + 3^2 - \dots + (-1)^{n-1} \cdot n^2 = (-1)^{n-1} \frac{n(n+1)}{2} \quad (n \in \mathbb{N}) \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <ul>
+          <li>\(n = 1\)-re: \(1^2 = (-1)^0 \cdot \frac{1(1+1)}{2} = 1\)</li>
+          <li>\(n\)-re feltesszük, hogy igaz</li>
+          <li>\(n+1\)-re:
+            \[ 1^2 - 2^2 + 3^2 - \dots + (-1)^{n-1} \cdot n^2 + (-1)^n \cdot (n+1)^2 \stackrel{?}{=} (-1)^n \frac{(n+1)(n+2)}{2} \]
+            \[ \underbrace{(-1)^{n-1} \frac{n(n+1)}{2}}_{\text{ind. feltétel}} + (-1)^n \cdot (n+1)^2 \stackrel{?}{=} (-1)^n \frac{(n+1)(n+2)}{2} \quad / \div (-1)^{n-1} \]
+            \[ \frac{n(n+1)}{2} + (-1)^1 \cdot (n+1)^2 \stackrel{?}{=} (-1)^1 \frac{n+2}{2} \quad / \div (n+1) \]
+            \[ \frac{n}{2} - (n+1) \stackrel{?}{=} -\frac{n+2}{2} \quad / \cdot 2 \]
+            \[ n - 2(n+1) \stackrel{?}{=} -(n+2) \]
+            \[ n - 2n - 2 = -n - 2 \]
+            \[ 0 = 0 \quad \checkmark \]
+          </li>
+        </ul>
+      </div>
+
+      <h3>43. feladat</h3>
+
+      <div class="note-box">
+        <span class="note-box__label">Feladat</span>
+        <p>Igazoljuk teljes indukcióval, hogy</p>
+        \[ \frac{(2n)!}{(n!)^2} &lt; 4^{n-1} \quad (n \ge 5) \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <ul>
+          <li>\(n = 5\)-re: \(\frac{(2 \cdot 5)!}{(5!)^2} = \frac{10!}{(5!)^2} = \frac{6 \cdot 7 \cdot 8 \cdot 9 \cdot 10}{1 \cdot 2 \cdot 3 \cdot 4 \cdot 5} = 252 &lt; 4^4 = 256 \quad \checkmark\)</li>
+          <li>\(n\)-re feltesszük, hogy igaz</li>
+          <li>\(n+1\)-re:
+            \[ \frac{(2(n+1))!}{((n+1)!)^2} &lt; 4^n \]
+            \[ \frac{(2n+2)!}{((n+1)!)^2} &lt; 4^n \]
+            \[ \frac{(2n)! \cdot (2n+1) \cdot (2n+2)}{[n! \cdot (n+1)]^2} &lt; 4^n \]
+            \[ \frac{(2n)! \cdot (2n+1) \cdot (2n+2)}{(n!)^2 \cdot (n+1)^2} &lt; 4^n \]
+            \[ \underbrace{\frac{(2n)!}{(n!)^2}}_{&lt; 4^{n-1}} \cdot \frac{(2n+1)(2n+2)}{(n+1)^2} &lt; 4^n \quad / \div 4^{n-1} \]
+            \[ \frac{(2n+1)(2n+2)}{(n+1)^2} &lt; 4 \quad / \cdot (n+1)^2 \]
+            \[ 4n^2 + 4n + 2n + 2 &lt; 4n^2 + 8n + 4 \]
+            \[ 0 &lt; 2n + 2 \quad / \div 2 \]
+            \[ 0 &lt; n + 1 \quad \checkmark \]
+          </li>
+        </ul>
+      </div>
+
+      <h2>Bernoulli-egyenlőtlenség</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        \[ (1+x)^n \ge 1 + nx \quad \text{feltéve, hogy } 1+x \ge 0, \, n \in \mathbb{N} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <ul>
+          <li>\(n = 1\)-re:
+            \[ 1 + x \ge 1 + x \quad \checkmark \]
+          </li>
+          <li>feltesszük, hogy \(n\)-re igaz</li>
+          <li>\(n+1\)-re bizonyítjuk:
+            \[ (1+x)^{n+1} = \underbrace{(1+x)^n}_{\ge 1+nx} \cdot (1+x) \stackrel{?}{\ge} 1 + (n+1)x = 1 + nx + x \]
+            \[ (1+nx)(1+x) \ge 1 + nx + x \]
+            \[ 1 + x + nx + nx^2 \ge 1 + nx + x \]
+            \[ nx^2 \ge 0 \quad \checkmark \]
+          </li>
+          <li>ha \(x = 0\): \(nx^2 = 0\)</li>
+        </ul>
+      </div>
+
+      <h2>Hatványhalmaz számossága</h2>
+
+      <div class="note-box">
+        <span class="note-box__label">Tétel</span>
+        \[ |2^A| = 2^n \quad \text{feltéve, hogy } |A| = n, \, n \in \mathbb{N} \cup \{0\} \]
+      </div>
+
+      <div class="note-box">
+        <span class="note-box__label">Bizonyítás</span>
+        <ul>
+          <li>\(n = 0\): \(A = \emptyset \implies 2^A = \{\emptyset\} \implies 2^0 = 1 \quad (1 \text{ db}) \quad \checkmark\)</li>
+          <li>\(n = 1\): \(A = \{a\} \implies 2^A = \{\emptyset, \{a\}\} \implies 2^1 = 2 \quad (2 \text{ db}) \quad \checkmark\)</li>
+          <li>feltesszük, hogy \(n\)-re igaz</li>
+          <li>\(n+1\)-re: \(A \cup \{x\}\) (\(n\) elem \(+ 1\) elem)
+            \[ \left.
+            \begin{aligned}
+                \{\emptyset, \{\dots\}, \dots\} &amp;\implies 2^A = 2^n \quad (1. \text{ db}) \\
+                \downarrow &amp; \\
+                \{\emptyset \cup \{x\}, \{\dots\} \cup \{x\}\} &amp;\quad (2. \text{ db})
+            \end{aligned}
+            \right\} 2 \cdot 2^n = 2^{n+1} \]
+          </li>
+        </ul>
+      </div>
+
+      <h2>Kettős matematikai indukció elve</h2>
+
+      <p>
+        A kettős indukciót olyan állítások bizonyítására használjuk,
+        amelyek két természetes szám változótól (\(n\) és \(k\))
+        függnek. A folyamat szemléletesen egy kétdimenziós rácson való
+        terjedésként képzelhető el.
+      </p>
+
+      <svg viewBox="0 0 400 380" style="max-width: 400px; width: 100%; display: block; margin: 1.5rem auto;" role="img" aria-label="Kettős matematikai indukció elve: az (n, k) rácspontból az első lépés az n-et növeli, az (n+1, k) pontba vezet, a második lépés a k-t növeli, az (n, k+1) pontba vezet; a bázislépés a (0,0) pont">
+        <defs>
+          <marker id="arrDIg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#3fb950"/>
+          </marker>
+          <marker id="arrDIv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#bc8cff"/>
+          </marker>
+        </defs>
+        <text x="200" y="22" text-anchor="middle" fill="var(--color-text)" font-size="15" font-weight="bold">Kettős matematikai indukció elve</text>
+        <g stroke="var(--color-border)" stroke-width="1" fill="none">
+          <line x1="95" y1="40" x2="95" y2="320"/>
+          <line x1="165" y1="40" x2="165" y2="320"/>
+          <line x1="235" y1="40" x2="235" y2="320"/>
+          <line x1="305" y1="40" x2="305" y2="320"/>
+          <line x1="60" y1="285" x2="340" y2="285"/>
+          <line x1="60" y1="215" x2="340" y2="215"/>
+          <line x1="60" y1="145" x2="340" y2="145"/>
+          <line x1="60" y1="75" x2="340" y2="75"/>
+        </g>
+        <rect x="60" y="40" width="280" height="280" fill="none" stroke="var(--color-text-muted)" stroke-width="1.2"/>
+        <g fill="var(--color-text-muted)" font-size="12" text-anchor="middle">
+          <text x="95" y="338">0</text>
+          <text x="165" y="338">1</text>
+          <text x="235" y="338">2</text>
+          <text x="305" y="338">3</text>
+        </g>
+        <g fill="var(--color-text-muted)" font-size="12" text-anchor="end">
+          <text x="52" y="289">0</text>
+          <text x="52" y="219">1</text>
+          <text x="52" y="149">2</text>
+          <text x="52" y="79">3</text>
+        </g>
+        <text x="200" y="362" text-anchor="middle" fill="var(--color-text)" font-size="13"><tspan font-style="italic">n</tspan> (Első változó)</text>
+        <text transform="translate(16 180) rotate(-90)" text-anchor="middle" fill="var(--color-text)" font-size="13"><tspan font-style="italic">k</tspan> (Második változó)</text>
+
+        <circle cx="95" cy="285" r="6" fill="#f85149"/>
+        <text x="105" y="272" fill="#f85149" font-size="13" paint-order="stroke" stroke="var(--color-bg)" stroke-width="3">Bázislépés (0,0)</text>
+
+        <line x1="200" y1="180" x2="270" y2="180" stroke="#3fb950" stroke-width="2" marker-end="url(#arrDIg)"/>
+        <text x="208" y="198" fill="#3fb950" font-size="12" paint-order="stroke" stroke="var(--color-bg)" stroke-width="3">1. lépés: <tspan font-style="italic">n</tspan> növelése</text>
+        <text x="208" y="213" fill="#3fb950" font-size="12" paint-order="stroke" stroke="var(--color-bg)" stroke-width="3">(<tspan font-style="italic">n</tspan>+1, <tspan font-style="italic">k</tspan>)</text>
+
+        <line x1="200" y1="180" x2="200" y2="110" stroke="#bc8cff" stroke-width="2" marker-end="url(#arrDIv)"/>
+        <text x="192" y="140" text-anchor="end" fill="#bc8cff" font-size="12" paint-order="stroke" stroke="var(--color-bg)" stroke-width="3">2. lépés: <tspan font-style="italic">k</tspan> növelése</text>
+        <text x="192" y="156" text-anchor="end" fill="#bc8cff" font-size="12" paint-order="stroke" stroke="var(--color-bg)" stroke-width="3">(<tspan font-style="italic">n</tspan>, <tspan font-style="italic">k</tspan>+1)</text>
+
+        <circle cx="200" cy="180" r="4.5" fill="#58a6ff"/>
+        <text x="192" y="198" text-anchor="end" fill="#58a6ff" font-size="12" paint-order="stroke" stroke="var(--color-bg)" stroke-width="3">(<tspan font-style="italic">n</tspan>,<tspan font-style="italic">k</tspan>)</text>
+      </svg>
+
+      <h3>A kettős indukció menete vázlatosan</h3>
+
+      <ul>
+        <li><strong>Bázislépés (Alapeset):</strong> Igazoljuk az állítást a legkisebb indexpárra, ami általában a \((0,0)\) vagy \((1,1)\).</li>
+        <li><strong>Első indukciós lépés (\(n\) növelése):</strong> Feltesszük, hogy az állítás igaz egy tetszőleges \((n, k)\) párra, majd rögzített \(k\) mellett bizonyítjuk az igazságát az \((n+1, k)\) párra.</li>
+        <li><strong>Második indukciós lépés (\(k\) növelése):</strong> Feltesszük, hogy az állítás igaz a \((n, k)\) párra, majd bizonyítjuk az igazságát az \((n, k+1)\) párra.</li>
+        <li><strong>Következtetés:</strong> Ezen lépések kombinációjával az állítás a rács összes \((n, k) \in \mathbb{N}^2\) pontjára igaznak bizonyul.</li>
+      </ul>
+
+      <!-- ==================== AD SLOT 3: END OF CONTENT ==================== -->
+      <div class="ad-slot ad-slot--multiplex">
+        <span class="ad-slot__label">Hirdetés</span>
+      </div>
+
+      <div class="support-callout">
+        <h2>Hasznosnak találtad ezt a jegyzetet?</h2>
+        <p>Ezek a jegyzetek minden hallgató számára ingyenesek. Ha időt spóroltál vele, fontold meg egy borravaló hagyását.</p>
+        <a class="support-btn" href="https://ko-fi.com/izayata" target="_blank" rel="noopener">
+          ☕ Hívj meg egy kávéra
+        </a>
+      </div>
+
+    </main>
+
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Az oldalon</h2>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
