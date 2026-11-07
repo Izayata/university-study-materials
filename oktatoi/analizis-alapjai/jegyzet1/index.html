@@ -35,25 +35,29 @@
   agenda. item-meta is the 2-part oktatói default.
 
   Transcribed from the owner's LaTeX as written, on the owner's explicit
-  instruction (2026-11-07): same order, same derivations, no corrections,
-  no additions, no source note. Only the following differ from the LaTeX:
-  the "[cite: 6]" export markers are dropped, the shorthand "tfh"/"fvh"/
+  instruction (2026-11-07): same order, same derivations, no additions,
+  no source note. Only the following differ from the LaTeX: the
+  "[cite: 6]" export markers are dropped, the shorthand "tfh"/"fvh"/
   "biz." in the bullets is written out, the task wording ("Igazoljuk
   teljes indukcióval, hogy ...") is composed around the source's bare
   formulas in the source's own "we" voice, and the pgfplots figure is
   redrawn as inline SVG.
 
-  Known issues of the source, kept as written (told to the owner):
-  - 3. feladat: the last line says 0 <= 3n; 3 + 2n <= 3 + 6n is
+  Corrected at the owner's request (2026-11-07), after first being kept
+  as written:
+  - 3. feladat: the last line said 0 <= 3n; 3 + 2n <= 3 + 6n is
     equivalent to 0 <= 4n.
-  - 5. feladat: the induction hypothesis is used in the wrong direction
-    (a factor is replaced by a larger one inside a lower-bound chain),
-    and the exponent in the second to last line should be 2/(n+1). The
-    claim is true; the inequality needs no induction hypothesis.
-  - 31. feladat: the third displayed line of the step lacks the factor
-    (n+1) on the right-hand side (the next line is right).
-  - Kettős indukció: the base pair is named (0,0) or (1,1) while the
-    conclusion is stated for N^2.
+  - 5. feladat: the source used the induction hypothesis in the wrong
+    direction (a factor was replaced by a larger one inside a
+    lower-bound chain) and had the exponent 2/n instead of 2/(n+1). The
+    step now writes (2^(1/(n+1)))^(n+2) as 2 * 2^(1/(n+1)) and reduces
+    to 1 < 2^(1/(n+1)). The claim is true and needs no induction
+    hypothesis, so the step does not use it.
+  - 31. feladat: the third displayed line of the step lacked the factor
+    (n+1) on the right-hand side.
+
+  Still as in the source: the double induction names the base pair
+  (0,0) or (1,1) while the conclusion is stated for N^2.
 -->
 <body data-nav-key="oktatoi">
   <div id="site-header"></div>
@@ -164,7 +168,7 @@
             \[ 1 + 2(n+1) \le 3^{n+1} \]
             \[ 1 + 2n + 2 \le 3^n \cdot 3 \]
             \[ 3 + 2n \le \underbrace{(1+2n)}_{\le 3^n} \cdot 3 = 3 + 6n \]
-            \[ 0 \le 3n \quad \checkmark \]
+            \[ 0 \le 4n \quad \checkmark \]
           </li>
         </ul>
       </div>
@@ -185,12 +189,10 @@
           <li>\(n+1\)-re:
             \[ \sqrt[n+2]{2} &lt; \sqrt[n+1]{2} \quad / ()^{n+2} \]
             \[ 2 &lt; (\sqrt[n+1]{2})^{n+2} \]
-            \[ 2 &lt; (\sqrt[n+1]{2})^n \cdot (\sqrt[n+1]{2})^2 \]
-            \[ 2 &lt; \underbrace{(\sqrt[n+1]{2})^n}_{&lt; \sqrt[n]{2}} \cdot (\sqrt[n+1]{2})^2 \]
-            \[ 2 &lt; (\sqrt[n]{2})^n \cdot (\sqrt[n+1]{2})^2 \]
-            \[ 2 &lt; 2 \cdot (\sqrt[n+1]{2})^2 \]
-            \[ 1 &lt; 2^{\frac{2}{n}} \]
-            \[ 0 &lt; \frac{2}{n} \quad \checkmark \]
+            \[ 2 &lt; (\sqrt[n+1]{2})^{n+1} \cdot \sqrt[n+1]{2} \]
+            \[ 2 &lt; 2 \cdot \sqrt[n+1]{2} \]
+            \[ 1 &lt; 2^{\frac{1}{n+1}} \]
+            \[ 0 &lt; \frac{1}{n+1} \quad \checkmark \]
           </li>
         </ul>
       </div>
@@ -239,7 +241,7 @@
           <li>\(n+1\)-re:
             \[ 1^2 - 2^2 + 3^2 - \dots + (-1)^{n-1} \cdot n^2 + (-1)^n \cdot (n+1)^2 \stackrel{?}{=} (-1)^n \frac{(n+1)(n+2)}{2} \]
             \[ \underbrace{(-1)^{n-1} \frac{n(n+1)}{2}}_{\text{ind. feltétel}} + (-1)^n \cdot (n+1)^2 \stackrel{?}{=} (-1)^n \frac{(n+1)(n+2)}{2} \quad / \div (-1)^{n-1} \]
-            \[ \frac{n(n+1)}{2} + (-1)^1 \cdot (n+1)^2 \stackrel{?}{=} (-1)^1 \frac{n+2}{2} \quad / \div (n+1) \]
+            \[ \frac{n(n+1)}{2} + (-1)^1 \cdot (n+1)^2 \stackrel{?}{=} (-1)^1 \frac{(n+1)(n+2)}{2} \quad / \div (n+1) \]
             \[ \frac{n}{2} - (n+1) \stackrel{?}{=} -\frac{n+2}{2} \quad / \cdot 2 \]
             \[ n - 2(n+1) \stackrel{?}{=} -(n+2) \]
             \[ n - 2n - 2 = -n - 2 \]

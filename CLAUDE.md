@@ -191,20 +191,25 @@ Tematika/Kontextus/Gyakorlat/Házi feladat shape of `inbpm0315-21`. It has
 no `source-note`: that sentence is for student-written órai jegyzetek.
 
 **Transcribed as written, on the owner's explicit instruction** (same order,
-same derivations, no corrections, no additions): the exercise numbers stay
-the collection's, the derivations keep the board-style "≟ … ✓" chains, and
+same derivations, no additions): the exercise numbers stay the
+collection's, the derivations keep the board-style "≟ … ✓" chains, and
 the voice is the source's "we" ("Igazoljuk teljes indukcióval, hogy …",
 "feltesszük"), which is also the neutral register. What differs from the
 LaTeX: the `[cite: 6]` markers are dropped, "tfh/fvh/biz." are written out,
 the exercise wording is composed around the source's bare formulas, the
-pgfplots figure is redrawn as inline SVG. **The source's known slips were
-kept on purpose and are listed in the page's head comment:** the last line
-of 3. feladat (`0 ≤ 3n`, should follow from `0 ≤ 4n`), 5. feladat (the
-induction hypothesis is used in the wrong direction and the exponent
-`2/n` should be `2/(n+1)`; the claim is true and needs no induction
-hypothesis), a missing `(n+1)` factor in one line of 31. feladat, and the
-double induction's base pair `(0,0)` while ℕ is `{1, 2, …}`. Don't "fix"
-them unasked; if the owner asks, fix them in the HTML.
+pgfplots figure is redrawn as inline SVG.
+
+**Three of the source's slips were first kept as written and then fixed
+at the owner's request (2026-11-07);** the page's head comment lists them:
+the last line of 3. feladat is `0 ≤ 4n` (the source had `0 ≤ 3n`); in 5.
+feladat the source used the induction hypothesis in the wrong direction
+and had `2^{2/n}`, so the step now writes `(2^{1/(n+1)})^{n+2}` as
+`2 · 2^{1/(n+1)}` and reduces to `1 < 2^{1/(n+1)}` — the claim needs no
+induction hypothesis, so the step doesn't use it, and the "feltesszük"
+bullet stays for the shape; 31. feladat has the missing `(n+1)` factor
+back in the third displayed line. **Still as in the source:** the double
+induction's base pair `(0,0)` while ℕ is `{1, 2, …}`; don't change it
+unasked.
 
 There used to be a different, unrelated fourth section ("Labor",
 pre-`oktatoi`) — it was merged into "Órai jegyzetek" and no longer
