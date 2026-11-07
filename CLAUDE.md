@@ -80,7 +80,7 @@ not a bug.
 | Órai jegyzetek (class notes) | `/jegyzetek/` | `jegyzet-template.html` | `/jegyzetek/de-ttk-matematika-bsc/jegyzet1/` (added 2026-09-17, see the math-note exception below) and the `kombinatorika-es-grafelmelet/`, `linearis-algebrai-alapozas/` (10 items each), `algebra-es-szamelmelet-alapok/` (7 items), `linearis-algebra-halado/` (12 items) and `mely-bevezetes-az-analizisbe/` (16 items) topic-landing pages (added 2026-09-17, 2026-09-20 and, the last three, 2026-09-21, see the topic-nesting exception below); see also the DEIK semester course below; `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Gyakorló feladatok (exercises) | `/gyakorlas/` | `gyakorlat-template.html` | none currently — empty since `inbpm0315-21` (then `java-alapok`) moved out on 2026-09-16 (see below) |
 | Kidolgozott tételek (worked exam topics) | `/tetelek/` | `tetel-template.html` | `/tetelek/deik-mernokinformatikus-bsc-2017/tetel1/` (1 of 15 — full series, see below) and `/tetelek/de-ttk-matematika-bsc/algebra/tetel1/` (1 of 25 — the interactive, flashcard-style Algebra series added 2026-10-05, see the "Algebra tételek" exception below) and `/tetelek/de-ttk-matematika-bsc/analizis/tetel1/` (1 of 22 — the Analízis series, same shape, added 2026-10-05, see the "Analízis tételek" subsection below) |
-| Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | `/oktatoi/inbpm0315-21/jegyzet1/` (moved here 2026-09-16, renamed from `java-alapok` the same day) `jegyzet2/` (added 2026-09-16, new content) and every later lesson (`jegyzet3/`, `jegyzet4/`, ... — added one per message since 2026-09-19, new content) — all keep the class-session shape, see below, not the template's default |
+| Oktatói jegyzetek (instructor's/tutoring notes) | `/oktatoi/` | `oktatoi-jegyzet-template.html` | `/oktatoi/inbpm0315-21/jegyzet1/` (moved here 2026-09-16, renamed from `java-alapok` the same day) `jegyzet2/` (added 2026-09-16, new content) and every later lesson (`jegyzet3/`, `jegyzet4/`, ... — added one per message since 2026-09-19, new content) — all keep the class-session shape, see below, not the template's default; and `/oktatoi/analizis-alapjai/jegyzet1/` ("Teljes indukció", added 2026-11-07), the one math-shaped oktatói item, see the "`analizis-alapjai`" subsection below |
 
 `Oktatói jegyzetek` (added 2026-09-16) is the site owner's own
 material from teaching/tutoring — `about.html` already establishes
@@ -173,6 +173,38 @@ Házi feladat) is the current, correct state — the earlier "keep
 Puffer" instruction is superseded. Don't reintroduce a Puffer section
 into these pages, or into any future `inbpm0315-21` lesson, without a
 fresh, explicit request from the site owner.
+
+### Deliberate exception: `oktatoi/analizis-alapjai/` is math-shaped and transcribed as written
+
+Added 2026-11-07. A second `oktatoi/` course next to `inbpm0315-21`:
+"Analízis alapjai" (slug `analizis-alapjai`), course landing plus one item,
+`jegyzet1` "Teljes indukció". The owner chose no course code, and the
+landing doesn't name a university. The source is a LaTeX sheet of worked
+solutions (induction principle, seven exercises numbered 1, 2, 3, 5, 29,
+31, 43 as in the owner's problem collection, the Bernoulli inequality,
+the cardinality of the power set, the principle of double induction), not
+a class agenda, so the item uses the **oktatói frame** (breadcrumb, cards,
+ad slots, 2-part `item-meta` `Analízis alapjai · Frissítve: dátum`) with
+the **Matematika BSc body** (intro → "Témák" → one `<h2>` per LaTeX
+section, `.note-box` Feladat / Tétel / Bizonyítás, MathJax), not the
+Tematika/Kontextus/Gyakorlat/Házi feladat shape of `inbpm0315-21`. It has
+no `source-note`: that sentence is for student-written órai jegyzetek.
+
+**Transcribed as written, on the owner's explicit instruction** (same order,
+same derivations, no corrections, no additions): the exercise numbers stay
+the collection's, the derivations keep the board-style "≟ … ✓" chains, and
+the voice is the source's "we" ("Igazoljuk teljes indukcióval, hogy …",
+"feltesszük"), which is also the neutral register. What differs from the
+LaTeX: the `[cite: 6]` markers are dropped, "tfh/fvh/biz." are written out,
+the exercise wording is composed around the source's bare formulas, the
+pgfplots figure is redrawn as inline SVG. **The source's known slips were
+kept on purpose and are listed in the page's head comment:** the last line
+of 3. feladat (`0 ≤ 3n`, should follow from `0 ≤ 4n`), 5. feladat (the
+induction hypothesis is used in the wrong direction and the exponent
+`2/n` should be `2/(n+1)`; the claim is true and needs no induction
+hypothesis), a missing `(n+1)` factor in one line of 31. feladat, and the
+double induction's base pair `(0,0)` while ℕ is `{1, 2, …}`. Don't "fix"
+them unasked; if the owner asks, fix them in the HTML.
 
 There used to be a different, unrelated fourth section ("Labor",
 pre-`oktatoi`) — it was merged into "Órai jegyzetek" and no longer
