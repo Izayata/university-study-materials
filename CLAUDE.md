@@ -211,6 +211,18 @@ back in the third displayed line. **Still as in the source:** the double
 induction's base pair `(0,0)` while ℕ is `{1, 2, …}`; don't change it
 unasked.
 
+**Question marks (added 2026-11-07 at the owner's request).** In the step
+derivations (the "n+1-re" bullets) every relation sign that still states
+the claim to be shown carries a `\stackrel{?}{…}` over it, from the first
+line down to the line before the last one, the one marked `\checkmark`.
+The source had them only on some lines of 29., 31. feladat and the
+Bernoulli step; they are now on every such line of 1., 2., 3., 5., 43.
+feladat and the Bernoulli proof too, and on the last expanded line of 29.
+and 31. (`… \stackrel{?}{=} …`, before "0 = 0"). Not marked: the base cases
+(computed, ✓), the underbraced facts from the induction hypothesis, and
+the `✓` line itself. Keep the rule for any further derivation added to
+this page.
+
 There used to be a different, unrelated fourth section ("Labor",
 pre-`oktatoi`) — it was merged into "Órai jegyzetek" and no longer
 exists as a separate concept; don't reintroduce
